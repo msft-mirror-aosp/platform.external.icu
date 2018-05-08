@@ -65,33 +65,19 @@ def GenerateZicInputFile(extracted_iana_data_dir):
     sys.exit(1)
   return zic_input_file
 
-# Revert rearguard support before 2018b
-# def WriteSetupFile(zic_input_file):
-#   """Writes the list of zones that ZoneCompactor should process."""
-#   links = []
-#   zones = []
-#   for line in open(zic_input_file):
-#     fields = line.split()
-#     if fields:
-#       if fields[0] == 'Link':
-#         links.append('%s %s %s' % (fields[0], fields[1], fields[2]))
-#         zones.append(fields[2])
-#       elif fields[0] == 'Zone':
-#         zones.append(fields[1])
-def WriteSetupFile(extracted_iana_data_dir):
+
+def WriteSetupFile(zic_input_file):
   """Writes the list of zones that ZoneCompactor should process."""
   links = []
   zones = []
-  for region in regions:
-    for line in open('%s/%s' % (extracted_iana_data_dir, region)):
-      fields = line.split()
-      if fields:
-        if fields[0] == 'Link':
-          links.append('%s %s %s' % (fields[0], fields[1], fields[2]))
-          zones.append(fields[2])
-        elif fields[0] == 'Zone':
-          zones.append(fields[1])
-# End of revert
+  for line in open(zic_input_file):
+    fields = line.split()
+    if fields:
+      if fields[0] == 'Link':
+        links.append('%s %s %s' % (fields[0], fields[1], fields[2]))
+        zones.append(fields[2])
+      elif fields[0] == 'Zone':
+        zones.append(fields[1])
   zones.sort()
 
   zone_compactor_setup_file = '%s/setup' % tmp_dir
@@ -158,39 +144,19 @@ def BuildZic(iana_tools_dir):
     sys.exit(1)
   return zic_binary_file
 
-# Revert rearguard support before 2018b
-regions = ['africa', 'antarctica', 'asia', 'australasia',
-           'etcetera', 'europe', 'northamerica', 'southamerica',
-           # These two deliberately come last so they override what came
-           # before (and each other).
-           'backward', 'backzone' ]
 
 def BuildTzdata(zic_binary_file, extracted_iana_data_dir, iana_data_version):
-# Revert rearguard support before 2018b
-#   print 'Generating zic input file...'
-#   zic_input_file = GenerateZicInputFile(extracted_iana_data_dir)
-#
-#   print 'Calling zic...'
-#   zic_output_dir = '%s/data' % tmp_dir
-#   os.mkdir(zic_output_dir)
-#   zic_cmd = [zic_binary_file, '-d', zic_output_dir, zic_input_file]
-#   subprocess.check_call(zic_cmd)
-#
-#   # ZoneCompactor
-#   zone_compactor_setup_file = WriteSetupFile(zic_input_file)
+  print 'Generating zic input file...'
+  zic_input_file = GenerateZicInputFile(extracted_iana_data_dir)
 
   print 'Calling zic...'
   zic_output_dir = '%s/data' % tmp_dir
   os.mkdir(zic_output_dir)
-  zic_generator_template = '%s/%%s' % extracted_iana_data_dir
-  zic_inputs = [zic_generator_template % x for x in regions]
-  zic_cmd = [zic_binary_file, '-d', zic_output_dir]
-  zic_cmd.extend(zic_inputs)
+  zic_cmd = [zic_binary_file, '-d', zic_output_dir, zic_input_file]
   subprocess.check_call(zic_cmd)
 
   # ZoneCompactor
-  zone_compactor_setup_file = WriteSetupFile(extracted_iana_data_dir)
-# End of revert
+  zone_compactor_setup_file = WriteSetupFile(zic_input_file)
 
   print 'Calling ZoneCompactor to update tzdata to %s...' % iana_data_version
   subprocess.check_call(['make', '-C', android_build_top, '-j30', 'zone_compactor'])
