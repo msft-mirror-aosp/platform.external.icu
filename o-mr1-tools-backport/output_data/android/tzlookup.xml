@@ -851,11 +851,12 @@
     <country code="kz">
       <!-- 6:00 -->
       <id>Asia/Almaty</id>
-      <id>Asia/Qyzylorda</id>
+      <id>Asia/Qostanay</id>
 
       <!-- 5:00 -->
       <id>Asia/Aqtau</id>
       <id>Asia/Oral</id>
+      <id>Asia/Qyzylorda</id>
       <id>Asia/Aqtobe</id>
       <id>Asia/Atyrau</id>
     </country>
@@ -1367,7 +1368,7 @@
       <id>Africa/Juba</id>
     </country>
 
-    <!-- SAO TOME AND PRINCIPE, 1:00 -->
+    <!-- SAO TOME AND PRINCIPE, 0:00 -->
     <country code="st">
       <id>Africa/Sao_Tome</id>
     </country>
