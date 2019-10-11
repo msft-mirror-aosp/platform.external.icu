@@ -15,6 +15,9 @@
 subdirs = [
     "common",
     "i18n",
+    "test",
+    "tools/ctestfw",
+    "tools/toolutil",
 ]
 
 cc_library {
