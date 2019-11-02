@@ -32,13 +32,13 @@ import tzdatautil
 
 # Calculate the paths that are referred to by multiple functions.
 android_build_top = i18nutil.GetAndroidRootOrDie()
-timezone_dir = os.path.realpath('%s/system/timezone' % android_build_top)
-i18nutil.CheckDirExists(timezone_dir, 'system/timezone')
+timezone_dir = os.path.realpath('%s/external/icu/o-mr1-tools-backport' % android_build_top)
+i18nutil.CheckDirExists(timezone_dir, 'external/icu/o-mr1-tools-backport')
 
 android_host_out = i18nutil.GetAndroidHostOutOrDie()
 
-zone_compactor_dir = os.path.realpath('%s/system/timezone/zone_compactor' % android_build_top)
-i18nutil.CheckDirExists(timezone_dir, 'system/timezone/zone_zompactor')
+zone_compactor_dir = os.path.realpath('%s/external/icu/o-mr1-tools-backport/zone_compactor' % android_build_top)
+i18nutil.CheckDirExists(timezone_dir, 'external/icu/o-mr1-tools-backport/zone_compactor')
 
 timezone_input_tools_dir = os.path.realpath('%s/input_tools' % timezone_dir)
 timezone_input_data_dir = os.path.realpath('%s/input_data' % timezone_dir)
@@ -65,19 +65,33 @@ def GenerateZicInputFile(extracted_iana_data_dir):
     sys.exit(1)
   return zic_input_file
 
-
-def WriteSetupFile(zic_input_file):
+# Revert rearguard support before 2018b
+# def WriteSetupFile(zic_input_file):
+#   """Writes the list of zones that ZoneCompactor should process."""
+#   links = []
+#   zones = []
+#   for line in open(zic_input_file):
+#     fields = line.split()
+#     if fields:
+#       if fields[0] == 'Link':
+#         links.append('%s %s %s' % (fields[0], fields[1], fields[2]))
+#         zones.append(fields[2])
+#       elif fields[0] == 'Zone':
+#         zones.append(fields[1])
+def WriteSetupFile(extracted_iana_data_dir):
   """Writes the list of zones that ZoneCompactor should process."""
   links = []
   zones = []
-  for line in open(zic_input_file):
-    fields = line.split()
-    if fields:
-      if fields[0] == 'Link':
-        links.append('%s %s %s' % (fields[0], fields[1], fields[2]))
-        zones.append(fields[2])
-      elif fields[0] == 'Zone':
-        zones.append(fields[1])
+  for region in regions:
+    for line in open('%s/%s' % (extracted_iana_data_dir, region)):
+      fields = line.split()
+      if fields:
+        if fields[0] == 'Link':
+          links.append('%s %s %s' % (fields[0], fields[1], fields[2]))
+          zones.append(fields[2])
+        elif fields[0] == 'Zone':
+          zones.append(fields[1])
+# End of revert
   zones.sort()
 
   zone_compactor_setup_file = '%s/setup' % tmp_dir
@@ -99,9 +113,10 @@ def BuildIcuData(iana_data_tar_file):
   # Create ICU system image files.
   icuutil.MakeAndCopyIcuDataFiles(icu_build_dir)
 
-  # Create the ICU overlay time zone file.
-  icu_overlay_dat_file = '%s/icu_overlay/icu_tzdata.dat' % timezone_output_data_dir
-  icuutil.MakeAndCopyOverlayTzIcuData(icu_build_dir, icu_overlay_dat_file)
+# Not needed for aosp/oreo-dev
+#   # Create the ICU overlay time zone file.
+#   icu_overlay_dat_file = '%s/icu_overlay/icu_tzdata.dat' % timezone_output_data_dir
+#   icuutil.MakeAndCopyOverlayTzIcuData(icu_build_dir, icu_overlay_dat_file)
 
 
 def GetIanaVersion(iana_tar_file):
@@ -143,19 +158,39 @@ def BuildZic(iana_tools_dir):
     sys.exit(1)
   return zic_binary_file
 
+# Revert rearguard support before 2018b
+regions = ['africa', 'antarctica', 'asia', 'australasia',
+           'etcetera', 'europe', 'northamerica', 'southamerica',
+           # These two deliberately come last so they override what came
+           # before (and each other).
+           'backward', 'backzone' ]
 
 def BuildTzdata(zic_binary_file, extracted_iana_data_dir, iana_data_version):
-  print 'Generating zic input file...'
-  zic_input_file = GenerateZicInputFile(extracted_iana_data_dir)
+# Revert rearguard support before 2018b
+#   print 'Generating zic input file...'
+#   zic_input_file = GenerateZicInputFile(extracted_iana_data_dir)
+#
+#   print 'Calling zic...'
+#   zic_output_dir = '%s/data' % tmp_dir
+#   os.mkdir(zic_output_dir)
+#   zic_cmd = [zic_binary_file, '-d', zic_output_dir, zic_input_file]
+#   subprocess.check_call(zic_cmd)
+#
+#   # ZoneCompactor
+#   zone_compactor_setup_file = WriteSetupFile(zic_input_file)
 
   print 'Calling zic...'
   zic_output_dir = '%s/data' % tmp_dir
   os.mkdir(zic_output_dir)
-  zic_cmd = [zic_binary_file, '-d', zic_output_dir, zic_input_file]
+  zic_generator_template = '%s/%%s' % extracted_iana_data_dir
+  zic_inputs = [zic_generator_template % x for x in regions]
+  zic_cmd = [zic_binary_file, '-d', zic_output_dir]
+  zic_cmd.extend(zic_inputs)
   subprocess.check_call(zic_cmd)
 
   # ZoneCompactor
-  zone_compactor_setup_file = WriteSetupFile(zic_input_file)
+  zone_compactor_setup_file = WriteSetupFile(extracted_iana_data_dir)
+# End of revert
 
   print 'Calling ZoneCompactor to update tzdata to %s...' % iana_data_version
   subprocess.check_call(['make', '-C', android_build_top, '-j30', 'zone_compactor'])
@@ -178,36 +213,37 @@ def BuildTzlookup():
   tzlookup_dest_file = '%s/android/tzlookup.xml' % timezone_output_data_dir
   shutil.copyfile(tzlookup_source_file, tzlookup_dest_file)
 
+# Not needed on aosp/oreo-dev
+# def CreateDistroFiles(iana_data_version, output_dir):
+#   create_distro_script = '%s/distro/tools/create-distro.py' % timezone_dir
+#
+#   tzdata_file = '%s/iana/tzdata' % timezone_output_data_dir
+#   icu_file = '%s/icu_overlay/icu_tzdata.dat' % timezone_output_data_dir
+#   tzlookup_file = '%s/android/tzlookup.xml' % timezone_output_data_dir
+#
+#   distro_file_pattern = '%s/*.zip' % output_dir
+#   existing_distro_files = glob.glob(distro_file_pattern)
+#
+#   distro_file_metadata_pattern = '%s/*.txt' % output_dir
+#   existing_distro_metadata_files = glob.glob(distro_file_metadata_pattern)
+#   existing_files = existing_distro_files + existing_distro_metadata_files
+#
+#   print 'Removing %s' % existing_files
+#   for existing_file in existing_files:
+#     os.remove(existing_file)
+#
+#   subprocess.check_call([create_distro_script,
+#       '-iana_version', iana_data_version,
+#       '-tzdata', tzdata_file,
+#       '-icu', icu_file,
+#       '-tzlookup', tzlookup_file,
+#       '-output', output_dir])
 
-def CreateDistroFiles(iana_data_version, output_dir):
-  create_distro_script = '%s/distro/tools/create-distro.py' % timezone_dir
-
-  tzdata_file = '%s/iana/tzdata' % timezone_output_data_dir
-  icu_file = '%s/icu_overlay/icu_tzdata.dat' % timezone_output_data_dir
-  tzlookup_file = '%s/android/tzlookup.xml' % timezone_output_data_dir
-
-  distro_file_pattern = '%s/*.zip' % output_dir
-  existing_distro_files = glob.glob(distro_file_pattern)
-
-  distro_file_metadata_pattern = '%s/*.txt' % output_dir
-  existing_distro_metadata_files = glob.glob(distro_file_metadata_pattern)
-  existing_files = existing_distro_files + existing_distro_metadata_files
-
-  print 'Removing %s' % existing_files
-  for existing_file in existing_files:
-    os.remove(existing_file)
-
-  subprocess.check_call([create_distro_script,
-      '-iana_version', iana_data_version,
-      '-tzdata', tzdata_file,
-      '-icu', icu_file,
-      '-tzlookup', tzlookup_file,
-      '-output', output_dir])
-
-def UpdateTestFiles():
-  testing_data_dir = '%s/testing/data' % timezone_dir
-  update_test_files_script = '%s/create-test-data.sh' % testing_data_dir
-  subprocess.check_call([update_test_files_script], cwd=testing_data_dir)
+# Not needed on aosp/oreo-dev
+# def UpdateTestFiles():
+#   testing_data_dir = '%s/testing/data' % timezone_dir
+#   update_test_files_script = '%s/create-test-data.sh' % testing_data_dir
+#   subprocess.check_call([update_test_files_script], cwd=testing_data_dir)
 
 
 # Run with no arguments from any directory, with no special setup required.
@@ -233,14 +269,17 @@ def main():
   iana_data_dir = '%s/iana_data' % tmp_dir
   ExtractTarFile(iana_data_tar_file, iana_data_dir)
   BuildTzdata(zic_binary_file, iana_data_dir, iana_data_version)
+
   BuildTzlookup()
 
-  # Create a distro file from the output from prior stages.
-  distro_output_dir = '%s/distro' % timezone_output_data_dir
-  CreateDistroFiles(iana_data_version, distro_output_dir)
+# Not needed on aosp/oreo-dev
+#   # Create a distro file from the output from prior stages.
+#   distro_output_dir = '%s/distro' % timezone_output_data_dir
+#   CreateDistroFiles(iana_data_version, distro_output_dir)
 
-  # Update test versions of distro files too.
-  UpdateTestFiles()
+# Not needed on aosp/oreo-dev
+#   # Update test versions of distro files too.
+#   UpdateTestFiles()
 
   print 'Look in %s and %s for new files' % (timezone_output_data_dir, icu_dir)
   sys.exit(0)
