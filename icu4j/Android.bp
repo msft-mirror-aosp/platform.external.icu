@@ -35,7 +35,8 @@ java_library {
         "//external/icu/tools/srcgen",
         "//external/robolectric-shadows/robolectric",
         "//external/robolectric-shadows/shadows/framework",
-        "//system/timezone/tzlookup_generator",
+        "//system/timezone/input_tools/android/telephonylookup_generator",
+        "//system/timezone/input_tools/android/tzlookup_generator",
     ],
     defaults: ["icu4j-defaults"],
 
@@ -59,7 +60,10 @@ java_test {
     name: "icu4j-tests",
     defaults: ["icu4j-defaults"],
 
-    srcs: ["main/tests/**/*.java"],
+    srcs: [
+        "main/tests/**/*.java",
+        "tools/misc/src/com/ibm/icu/dev/tool/locale/*.java",
+    ],
     java_resource_dirs: ["main/tests/*/src"],
 
     exclude_srcs: ["main/tests/localespi/**/*.java"],

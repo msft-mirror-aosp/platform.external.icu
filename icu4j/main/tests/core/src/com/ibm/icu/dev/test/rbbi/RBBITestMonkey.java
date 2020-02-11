@@ -93,6 +93,9 @@ public class RBBITestMonkey extends TestFmwk {
         UnicodeSet                fHangulSet;
         UnicodeSet                fZWJSet;
         UnicodeSet                fExtendedPictSet;
+        UnicodeSet                fViramaSet;
+        UnicodeSet                fLinkingConsonantSet;
+        UnicodeSet                fExtCccZwjSet;
         UnicodeSet                fAnySet;
 
 
@@ -122,6 +125,11 @@ public class RBBITestMonkey extends TestFmwk {
             fHangulSet.addAll(fLVTSet);
 
             fExtendedPictSet  = new UnicodeSet("[:Extended_Pictographic:]");
+            fViramaSet        = new UnicodeSet("[\\p{Gujr}\\p{sc=Telu}\\p{sc=Mlym}\\p{sc=Orya}\\p{sc=Beng}\\p{sc=Deva}&"
+                                               + "\\p{Indic_Syllabic_Category=Virama}]");
+            fLinkingConsonantSet = new UnicodeSet("[\\p{Gujr}\\p{sc=Telu}\\p{sc=Mlym}\\p{sc=Orya}\\p{sc=Beng}\\p{sc=Deva}&"
+                                                  + "\\p{Indic_Syllabic_Category=Consonant}]");
+            fExtCccZwjSet     = new UnicodeSet("[[\\p{gcb=Extend}-\\p{ccc=0}] \\p{gcb=ZWJ}]");
             fAnySet           = new UnicodeSet("[\\u0000-\\U0010ffff]");
 
 
@@ -138,6 +146,9 @@ public class RBBITestMonkey extends TestFmwk {
             fSets.add(fAnySet);
             fSets.add(fZWJSet);
             fSets.add(fExtendedPictSet);
+            fSets.add(fViramaSet);
+            fSets.add(fLinkingConsonantSet);
+            fSets.add(fExtCccZwjSet);
         }
 
 
@@ -251,6 +262,22 @@ public class RBBITestMonkey extends TestFmwk {
                 // Rule (GB9b)   Prepend x
                 if (fPrependSet.contains(c1)) {
                     continue;
+                }
+
+                // Rule (GB9.3)  LinkingConsonant ExtCccZwj* Virama ExtCccZwj* × LinkingConsonant
+                //   Note: Viramas are also included in the ExtCccZwj class.
+                if (fLinkingConsonantSet.contains(c2)) {
+                    int pi = p1;
+                    boolean sawVirama = false;
+                    while (pi > 0 && fExtCccZwjSet.contains(fText.codePointAt(pi))) {
+                        if (fViramaSet.contains(fText.codePointAt(pi))) {
+                            sawVirama = true;
+                        }
+                        pi = fText.offsetByCodePoints(pi, -1);
+                    }
+                    if (sawVirama && fLinkingConsonantSet.contains(fText.codePointAt(pi))) {
+                        continue;
+                    }
                 }
 
                 // Rule (GB11)   Extended_Pictographic ZWJ x Extended_Pictographic
@@ -647,6 +674,8 @@ public class RBBITestMonkey extends TestFmwk {
         UnicodeSet  fEB;
         UnicodeSet  fEM;
         UnicodeSet  fZWJ;
+        UnicodeSet  fOP30;
+        UnicodeSet  fCP30;
 
         StringBuffer  fText;
         int           fOrigPositions;
@@ -716,6 +745,8 @@ public class RBBITestMonkey extends TestFmwk {
             fEB    = new XUnicodeSet("[\\p{Line_break=EB}]");
             fEM    = new XUnicodeSet("[\\p{Line_break=EM}]");
             fZWJ   = new XUnicodeSet("[\\p{Line_break=ZWJ}]");
+            fOP30  = new XUnicodeSet("[\\p{Line_break=OP}-[\\p{ea=F}\\p{ea=W}\\p{ea=H}]]");
+            fCP30  = new XUnicodeSet("[\\p{Line_break=CP}-[\\p{ea=F}\\p{ea=W}\\p{ea=H}]]");
 
             // Remove dictionary characters.
             // The monkey test reference implementation of line break does not replicate the dictionary behavior,
@@ -774,6 +805,9 @@ public class RBBITestMonkey extends TestFmwk {
             fSets.add(fEB);
             fSets.add(fEM);
             fSets.add(fZWJ);
+            // TODO: fOP30 & fCP30 overlap with plain fOP. Probably OK, but fOP/CP chars will be over-represented.
+            fSets.add(fOP30);
+            fSets.add(fCP30);
         }
 
         @Override
@@ -1110,12 +1144,7 @@ public class RBBITestMonkey extends TestFmwk {
                 }
 
                 // LB 22
-                if (fAL.contains(prevChar) && fIN.contains(thisChar) ||
-                        fEX.contains(prevChar) && fIN.contains(thisChar) ||
-                        fHL.contains(prevChar) && fIN.contains(thisChar) ||
-                        (fID.contains(prevChar) || fEB.contains(prevChar) || fEM.contains(prevChar)) && fIN.contains(thisChar) ||
-                        fIN.contains(prevChar) && fIN.contains(thisChar) ||
-                        fNU.contains(prevChar) && fIN.contains(thisChar) )   {
+                if (fIN.contains(thisChar)) {
                     continue;
                 }
 
@@ -1203,10 +1232,12 @@ public class RBBITestMonkey extends TestFmwk {
                 // LB 30    Do not break between letters, numbers, or ordinary symbols and opening or closing punctuation.
                 //          (AL | NU) x OP
                 //          CP x (AL | NU)
-                if ((fAL.contains(prevChar) || fHL.contains(prevChar) || fNU.contains(prevChar)) && fOP.contains(thisChar)) {
+                if ((fAL.contains(prevChar) || fHL.contains(prevChar) || fNU.contains(prevChar)) &&
+                        fOP30.contains(thisChar)) {
                     continue;
                 }
-                if (fCP.contains(prevChar) && (fAL.contains(thisChar) || fHL.contains(thisChar) || fNU.contains(thisChar))) {
+                if (fCP30.contains(prevChar) &&
+                        (fAL.contains(thisChar) || fHL.contains(thisChar) || fNU.contains(thisChar))) {
                     continue;
                 }
 

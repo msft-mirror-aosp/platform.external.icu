@@ -29,6 +29,8 @@ cc_defaults {
         "-Wall",
         "-Werror",
         "-Wno-unused-parameter",
+        "-Wno-unused-const-variable",
+        "-Wno-unneeded-internal-declaration",
     ],
     cppflags: [
         "-std=c++11",
@@ -45,10 +47,6 @@ cc_defaults {
         },
         windows: {
             enabled: true,
-            cflags: [
-                "-Wno-ignored-attributes", // ICU-20356
-                "-Wno-missing-field-initializers", // ICU-20179
-            ],
         },
     },
 }
@@ -76,6 +74,12 @@ cc_library {
     defaults: ["libicui18n_defaults"],
     host_supported: true,
     native_bridge_supported: true,
+    apex_available: [
+        "com.android.art.release",
+        "com.android.art.debug",
+        // b/133140750 Clean this up. This is due to the dependency to from libmedia
+        "//apex_available:platform",
+    ],
     unique_host_soname: true,
     shared_libs: ["libicuuc"],
     header_libs: ["libicui18n_headers"],

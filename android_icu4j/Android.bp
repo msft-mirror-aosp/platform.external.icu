@@ -25,13 +25,12 @@ package {
 // dependencies between ICU and libcore
 //==========================================================
 filegroup {
-    name: "android_icu4j_src_files",
+    name: "android_icu4j_public_api_files",
     visibility: [
         "//libcore:__subpackages__",
     ],
     srcs: [
         ":android_icu4j_repackaged_src_files",
-        ":libcore_icu_bridge_src_files",
     ],
     path: "src/main/java",
 }
@@ -47,8 +46,8 @@ filegroup {
 // expose any public APIs.
 filegroup {
     name: "libcore_icu_bridge_src_files",
-    srcs: ["src/main/java/com/android/icu/**/*.java"],
-    path: "src/main/java",
+    srcs: ["libcore_bridge/src/java/**/*.java"],
+    path: "libcore_bridge/src/java",
 }
 
 // Rule generating resource lib for android_icu4j.
@@ -85,6 +84,7 @@ java_library_static {
     name: "core-repackaged-icu4j",
     installable: false,
     srcs: [":android_icu4j_repackaged_src_files"],
+    libs: ["unsupportedappusage"],
     // The resource files are generated in the downstream branch master-icu-dev.
     java_resource_dirs: ["resources"],
 
@@ -108,6 +108,10 @@ java_library {
         "//art/build/apex",
         "//external/robolectric-shadows",
         "//frameworks/layoutlib",
+    ],
+    apex_available: [
+        "com.android.art.release",
+        "com.android.art.debug",
     ],
     installable: true,
     hostdex: true,
@@ -147,7 +151,7 @@ java_library {
 droidstubs {
     name: "i18n-module-public-api-stubs-gen",
     srcs: [
-        ":android_icu4j_src_files",
+        ":android_icu4j_public_api_files",
     ],
     java_version: "1.9",
     installable: false,
@@ -187,7 +191,8 @@ droidstubs {
         "//libcore:__subpackages__",
     ],
     srcs: [
-        ":android_icu4j_src_files",
+        ":android_icu4j_repackaged_src_files",
+        ":libcore_icu_bridge_src_files",
     ],
     sdk_version: "none",
     system_modules: "art-module-intra-core-api-stubs-system-modules",
@@ -238,7 +243,8 @@ java_library {
 droidstubs {
     name: "i18n-module-platform-api-stubs-source",
     srcs: [
-        ":android_icu4j_src_files",
+        ":android_icu4j_repackaged_src_files",
+        ":libcore_icu_bridge_src_files",
     ],
     sdk_version: "none",
     system_modules: "art-module-platform-api-stubs-system-modules",
