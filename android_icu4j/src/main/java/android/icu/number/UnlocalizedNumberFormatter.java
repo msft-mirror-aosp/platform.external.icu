@@ -14,8 +14,6 @@ import android.icu.util.ULocale;
  * Instances of this class are immutable and thread-safe.
  *
  * @see NumberFormatter
- * @hide Only a subset of ICU is exposed in Android
- * @hide draft / provisional / internal are hidden on Android
  */
 public class UnlocalizedNumberFormatter extends NumberFormatterSettings<UnlocalizedNumberFormatter> {
 
@@ -42,7 +40,6 @@ public class UnlocalizedNumberFormatter extends NumberFormatterSettings<Unlocali
      * @param locale
      *            The locale to use when loading data for number formatting.
      * @return The fluent chain
-     * @hide draft / provisional / internal are hidden on Android
      */
     public LocalizedNumberFormatter locale(Locale locale) {
         return new LocalizedNumberFormatter(this, KEY_LOCALE, ULocale.forLocale(locale));
@@ -55,7 +52,6 @@ public class UnlocalizedNumberFormatter extends NumberFormatterSettings<Unlocali
      *            The locale to use when loading data for number formatting.
      * @return The fluent chain
      * @see #locale(Locale)
-     * @hide draft / provisional / internal are hidden on Android
      */
     public LocalizedNumberFormatter locale(ULocale locale) {
         return new LocalizedNumberFormatter(this, KEY_LOCALE, locale);

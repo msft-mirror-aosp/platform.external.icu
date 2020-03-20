@@ -13,8 +13,6 @@ import android.icu.util.Currency;
  * To create a CurrencyPrecision, use one of the factory methods on Precision.
  *
  * @see NumberFormatter
- * @hide Only a subset of ICU is exposed in Android
- * @hide draft / provisional / internal are hidden on Android
  */
 public abstract class CurrencyPrecision extends Precision {
 
@@ -37,7 +35,6 @@ public abstract class CurrencyPrecision extends Precision {
      *            The currency to associate with this rounding strategy.
      * @return A Precision for chaining or passing to the NumberFormatter rounding() setter.
      * @see NumberFormatter
-     * @hide draft / provisional / internal are hidden on Android
      */
     public Precision withCurrency(Currency currency) {
         if (currency != null) {

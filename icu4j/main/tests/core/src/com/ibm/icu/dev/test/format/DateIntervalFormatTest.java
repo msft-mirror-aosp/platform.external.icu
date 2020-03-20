@@ -30,6 +30,7 @@ import org.junit.runners.JUnit4;
 
 import com.ibm.icu.dev.test.TestFmwk;
 import com.ibm.icu.impl.Utility;
+import com.ibm.icu.text.ConstrainedFieldPosition;
 import com.ibm.icu.text.DateFormat;
 import com.ibm.icu.text.DateIntervalFormat;
 import com.ibm.icu.text.DateIntervalFormat.FormattedDateInterval;
@@ -38,7 +39,6 @@ import com.ibm.icu.text.DateIntervalInfo.PatternInfo;
 import com.ibm.icu.text.SimpleDateFormat;
 import com.ibm.icu.util.Calendar;
 import com.ibm.icu.util.DateInterval;
-import com.ibm.icu.util.JapaneseCalendar;
 import com.ibm.icu.util.Output;
 import com.ibm.icu.util.TimeZone;
 import com.ibm.icu.util.ULocale;
@@ -1960,6 +1960,30 @@ public class DateIntervalFormatTest extends TestFmwk {
                 expectedFieldPositions);
         }
 
+        // Test sample code
+        {
+            Calendar input1 = Calendar.getInstance(ULocale.UK);
+            Calendar input2 = Calendar.getInstance(ULocale.UK);
+            input1.set(2018, 6, 20);
+            input2.set(2018, 7, 3);
+
+            // Let fmt be a DateIntervalFormat for locale en-US and skeleton dMMMMy
+            // Let input1 be July 20, 2018 and input2 be August 3, 2018:
+            FormattedDateInterval result = fmt.formatToValue(input1, input2);
+            assertEquals("Expected output from format",
+                "July 20 \u2013 August 3, 2018", result.toString());
+            ConstrainedFieldPosition cfpos = new ConstrainedFieldPosition();
+            cfpos.constrainFieldAndValue(DateIntervalFormat.SpanField.DATE_INTERVAL_SPAN, 0);
+            if (result.nextPosition(cfpos)) {
+                assertEquals("Expect start index", 0, cfpos.getStart());
+                assertEquals("Expect end index", 7, cfpos.getLimit());
+            } else {
+                // No such span: can happen if input dates are equal.
+            }
+            assertFalse("No more than one occurrence of the field",
+                result.nextPosition(cfpos));
+        }
+
         fmt = DateIntervalFormat.getInstance("dMMMha", ULocale.US);
 
         {
@@ -2013,6 +2037,24 @@ public class DateIntervalFormatTest extends TestFmwk {
                 result,
                 expectedString,
                 expectedFieldPositions);
+        }
+    }
+    @Test
+    public void testCreateInstanceForAllLocales() {
+        boolean quick = (getExhaustiveness() <= 5);
+        int count = 0;
+        for (ULocale locale : ULocale.getAvailableLocalesByType(
+                ULocale.AvailableType.WITH_LEGACY_ALIASES)) {
+            // Only test 1/5 of the locale in quick mode.
+            if (quick && (count++ % 5 > 0)) continue;
+            DateIntervalFormat fmt = DateIntervalFormat.getInstance("dMMMMy", locale);
+            for (String calendar : Calendar.getKeywordValuesForLocale(
+                    "calendar", locale, false)) {
+                // Only test 1/7 of case in quick mode.
+                if (quick && (count++ % 7 > 0)) continue;
+                ULocale l = locale.setKeywordValue("calendar", calendar);
+                fmt = DateIntervalFormat.getInstance("dMMMMy", l);
+            }
         }
     }
 }

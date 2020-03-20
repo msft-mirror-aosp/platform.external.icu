@@ -12,8 +12,6 @@ import android.icu.impl.number.RoundingUtils;
  * To create an IntegerWidth, use one of the factory methods.
  *
  * @see NumberFormatter
- * @hide Only a subset of ICU is exposed in Android
- * @hide draft / provisional / internal are hidden on Android
  */
 public class IntegerWidth {
 
@@ -38,7 +36,6 @@ public class IntegerWidth {
      *            The minimum number of places before the decimal separator.
      * @return An IntegerWidth for chaining or passing to the NumberFormatter integerWidth() setter.
      * @see NumberFormatter
-     * @hide draft / provisional / internal are hidden on Android
      */
     public static IntegerWidth zeroFillTo(int minInt) {
         if (minInt == 1) {
@@ -62,7 +59,6 @@ public class IntegerWidth {
      *            truncation.
      * @return An IntegerWidth for passing to the NumberFormatter integerWidth() setter.
      * @see NumberFormatter
-     * @hide draft / provisional / internal are hidden on Android
      */
     public IntegerWidth truncateAt(int maxInt) {
         if (maxInt == this.maxInt) {
