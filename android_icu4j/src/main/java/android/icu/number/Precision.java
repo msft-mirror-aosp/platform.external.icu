@@ -21,7 +21,7 @@ import android.icu.util.Currency.CurrencyUsage;
  *
  * @see NumberFormatter
  */
-public abstract class Precision implements Cloneable {
+public abstract class Precision {
 
     /* package-private final */ MathContext mathContext;
 
@@ -86,6 +86,7 @@ public abstract class Precision implements Cloneable {
      *            The minimum and maximum number of numerals to display after the decimal separator
      *            (rounding if too long or padding with zeros if too short).
      * @return A FractionPrecision for chaining or passing to the NumberFormatter precision() setter.
+     * @throws IllegalArgumentException if the input number is too big or smaller than 0.
      * @see NumberFormatter
      */
     public static FractionPrecision fixedFraction(int minMaxFractionPlaces) {
@@ -110,6 +111,7 @@ public abstract class Precision implements Cloneable {
      *            The minimum number of numerals to display after the decimal separator (padding with
      *            zeros if necessary).
      * @return A FractionPrecision for chaining or passing to the NumberFormatter precision() setter.
+     * @throws IllegalArgumentException if the input number is too big or smaller than 0.
      * @see NumberFormatter
      */
     public static FractionPrecision minFraction(int minFractionPlaces) {
@@ -131,6 +133,7 @@ public abstract class Precision implements Cloneable {
      *            The maximum number of numerals to display after the decimal mark (rounding if
      *            necessary).
      * @return A FractionPrecision for chaining or passing to the NumberFormatter precision() setter.
+     * @throws IllegalArgumentException if the input number is too big or smaller than 0.
      * @see NumberFormatter
      */
     public static FractionPrecision maxFraction(int maxFractionPlaces) {
@@ -155,6 +158,7 @@ public abstract class Precision implements Cloneable {
      *            The maximum number of numerals to display after the decimal separator (rounding if
      *            necessary).
      * @return A FractionPrecision for chaining or passing to the NumberFormatter precision() setter.
+     * @throws IllegalArgumentException if the input number is too big or smaller than 0.
      * @see NumberFormatter
      */
     public static FractionPrecision minMaxFraction(int minFractionPlaces, int maxFractionPlaces) {
@@ -181,6 +185,7 @@ public abstract class Precision implements Cloneable {
      *            The minimum and maximum number of significant digits to display (rounding if too long
      *            or padding with zeros if too short).
      * @return A Precision for chaining or passing to the NumberFormatter precision() setter.
+     * @throws IllegalArgumentException if the input number is too big or smaller than 1.
      * @see NumberFormatter
      */
     public static Precision fixedSignificantDigits(int minMaxSignificantDigits) {
@@ -204,6 +209,7 @@ public abstract class Precision implements Cloneable {
      * @param minSignificantDigits
      *            The minimum number of significant digits to display (padding with zeros if too short).
      * @return A Precision for chaining or passing to the NumberFormatter precision() setter.
+     * @throws IllegalArgumentException if the input number is too big or smaller than 1.
      * @see NumberFormatter
      */
     public static Precision minSignificantDigits(int minSignificantDigits) {
@@ -222,6 +228,7 @@ public abstract class Precision implements Cloneable {
      * @param maxSignificantDigits
      *            The maximum number of significant digits to display (rounding if too long).
      * @return A Precision for chaining or passing to the NumberFormatter precision() setter.
+     * @throws IllegalArgumentException if the input number is too big or smaller than 1.
      * @see NumberFormatter
      */
     public static Precision maxSignificantDigits(int maxSignificantDigits) {
@@ -243,6 +250,7 @@ public abstract class Precision implements Cloneable {
      * @param maxSignificantDigits
      *            The maximum number of significant digits to display (rounding if necessary).
      * @return A Precision for chaining or passing to the NumberFormatter precision() setter.
+     * @throws IllegalArgumentException if the input number is too big or smaller than 1.
      * @see NumberFormatter
      */
     public static Precision minMaxSignificantDigits(int minSignificantDigits, int maxSignificantDigits) {
@@ -277,6 +285,7 @@ public abstract class Precision implements Cloneable {
      * @param roundingIncrement
      *            The increment to which to round numbers.
      * @return A Precision for chaining or passing to the NumberFormatter precision() setter.
+     * @throws IllegalArgumentException if the rounding increment is null or non-positive.
      * @see NumberFormatter
      */
     public static Precision increment(BigDecimal roundingIncrement) {
@@ -303,6 +312,7 @@ public abstract class Precision implements Cloneable {
      *            Either STANDARD (for digital transactions) or CASH (for transactions where the rounding
      *            increment may be limited by the available denominations of cash or coins).
      * @return A CurrencyPrecision for chaining or passing to the NumberFormatter precision() setter.
+     * @throws IllegalArgumentException if currencyUsage is null.
      * @see NumberFormatter
      */
     public static CurrencyPrecision currency(CurrencyUsage currencyUsage) {
@@ -324,24 +334,13 @@ public abstract class Precision implements Cloneable {
         if (this.mathContext.equals(mathContext)) {
             return this;
         }
-        Precision other = (Precision) this.clone();
+        Precision other = createCopy();
         other.mathContext = mathContext;
         return other;
     }
 
-    /**
-     * {@inheritDoc}
-     * @hide draft / provisional / internal are hidden on Android
-     */
-    @Override
-    public Object clone() {
-        try {
-            return super.clone();
-        } catch (CloneNotSupportedException e) {
-            // Should not happen since parent is Object
-            throw new AssertionError(e);
-        }
-    }
+    /** Package-private clone method */
+    abstract Precision createCopy();
 
     /**
      * @deprecated ICU 60 This API is ICU internal only.
@@ -549,6 +548,13 @@ public abstract class Precision implements Cloneable {
             value.roundToInfinity();
             value.setMinFraction(0);
         }
+
+        @Override
+        InfiniteRounderImpl createCopy() {
+            InfiniteRounderImpl copy = new InfiniteRounderImpl();
+            copy.mathContext = mathContext;
+            return copy;
+        }
     }
 
     static class FractionRounderImpl extends FractionPrecision {
@@ -564,6 +570,13 @@ public abstract class Precision implements Cloneable {
         public void apply(DecimalQuantity value) {
             value.roundToMagnitude(getRoundingMagnitudeFraction(maxFrac), mathContext);
             value.setMinFraction(Math.max(0, -getDisplayMagnitudeFraction(minFrac)));
+        }
+
+        @Override
+        FractionRounderImpl createCopy() {
+            FractionRounderImpl copy = new FractionRounderImpl(minFrac, maxFrac);
+            copy.mathContext = mathContext;
+            return copy;
         }
     }
 
@@ -593,6 +606,13 @@ public abstract class Precision implements Cloneable {
         public void apply(DecimalQuantity quantity, int minInt) {
             assert quantity.isZeroish();
             quantity.setMinFraction(minSig - minInt);
+        }
+
+        @Override
+        SignificantRounderImpl createCopy() {
+            SignificantRounderImpl copy = new SignificantRounderImpl(minSig, maxSig);
+            copy.mathContext = mathContext;
+            return copy;
         }
     }
 
@@ -625,6 +645,13 @@ public abstract class Precision implements Cloneable {
             value.roundToMagnitude(roundingMag, mathContext);
             value.setMinFraction(Math.max(0, -displayMag));
         }
+
+        @Override
+        FracSigRounderImpl createCopy() {
+            FracSigRounderImpl copy = new FracSigRounderImpl(minFrac, maxFrac, minSig, maxSig);
+            copy.mathContext = mathContext;
+            return copy;
+        }
     }
 
     /**
@@ -641,6 +668,13 @@ public abstract class Precision implements Cloneable {
         public void apply(DecimalQuantity value) {
             value.roundToIncrement(increment, mathContext);
             value.setMinFraction(increment.scale());
+        }
+
+        @Override
+        IncrementRounderImpl createCopy() {
+            IncrementRounderImpl copy = new IncrementRounderImpl(increment);
+            copy.mathContext = mathContext;
+            return copy;
         }
     }
 
@@ -664,6 +698,13 @@ public abstract class Precision implements Cloneable {
             value.roundToMagnitude(-maxFrac, mathContext);
             value.setMinFraction(minFrac);
         }
+
+        @Override
+        IncrementOneRounderImpl createCopy() {
+            IncrementOneRounderImpl copy = new IncrementOneRounderImpl(increment, minFrac, maxFrac);
+            copy.mathContext = mathContext;
+            return copy;
+        }
     }
 
     /**
@@ -684,6 +725,13 @@ public abstract class Precision implements Cloneable {
             value.roundToNickel(-maxFrac, mathContext);
             value.setMinFraction(minFrac);
         }
+
+        @Override
+        IncrementFiveRounderImpl createCopy() {
+            IncrementFiveRounderImpl copy = new IncrementFiveRounderImpl(increment, minFrac, maxFrac);
+            copy.mathContext = mathContext;
+            return copy;
+        }
     }
 
     static class CurrencyRounderImpl extends CurrencyPrecision {
@@ -698,11 +746,25 @@ public abstract class Precision implements Cloneable {
             // Call .withCurrency() before .apply()!
             throw new AssertionError();
         }
+
+        @Override
+        CurrencyRounderImpl createCopy() {
+            CurrencyRounderImpl copy = new CurrencyRounderImpl(usage);
+            copy.mathContext = mathContext;
+            return copy;
+        }
     }
 
     static class PassThroughRounderImpl extends Precision {
 
         public PassThroughRounderImpl() {
+        }
+
+        @Override
+        Precision createCopy() {
+            PassThroughRounderImpl copy = new PassThroughRounderImpl();
+            copy.mathContext = mathContext;
+            return copy;
         }
 
         @Override
