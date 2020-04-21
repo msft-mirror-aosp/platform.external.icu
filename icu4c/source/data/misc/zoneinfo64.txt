@@ -3,7 +3,7 @@
 // License & terms of use: http://www.unicode.org/copyright.html#License
 //---------------------------------------------------------
 // Build tool:  tz2icu
-// Build date:  Tue Apr 28 18:18:11 2020
+// Build date:  Fri May  1 11:26:02 2020
 // tz database: ftp://ftp.iana.org/tz/
 // tz version:  2020a
 // ICU version: 58.2
