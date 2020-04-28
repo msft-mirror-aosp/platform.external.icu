@@ -2,7 +2,7 @@
 // License & terms of use: http://www.unicode.org/copyright.html#License
 package com.ibm.icu.impl.number;
 
-import java.text.Format.Field;
+import com.ibm.icu.text.NumberFormat.Field;
 
 /**
  * The canonical implementation of {@link Modifier}, containing a prefix and suffix string.

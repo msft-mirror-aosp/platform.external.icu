@@ -3,8 +3,6 @@
 // License & terms of use: http://www.unicode.org/copyright.html#License
 package android.icu.impl.number;
 
-import java.text.Format.Field;
-
 import android.icu.text.DecimalFormatSymbols;
 import android.icu.text.NumberFormat;
 import android.icu.text.UnicodeSet;
@@ -126,7 +124,7 @@ public class CurrencySpacingEnabledModifier extends ConstantMultiFieldModifier {
         // NOTE: For prefix, output.fieldAt(index-1) gets the last field type in the prefix.
         // This works even if the last code point in the prefix is 2 code units because the
         // field value gets populated to both indices in the field array.
-        Field affixField = (affix == PREFIX) ? output.fieldAt(index - 1)
+        NumberFormat.Field affixField = (affix == PREFIX) ? output.fieldAt(index - 1)
                 : output.fieldAt(index);
         if (affixField != NumberFormat.Field.CURRENCY) {
             return 0;

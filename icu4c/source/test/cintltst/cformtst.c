@@ -39,8 +39,6 @@ void addCurrencyTest(TestNode**);
 void addPluralRulesTest(TestNode**);
 void addURegionTest(TestNode** root);
 void addUListFmtTest(TestNode** root);
-void addUNumberFormatterTest(TestNode** root);
-void addUFormattedValueTest(TestNode** root);
 
 void addFormatTest(TestNode** root);
 
@@ -63,8 +61,6 @@ void addFormatTest(TestNode** root)
     addPluralRulesTest(root);
     addURegionTest(root);
     addUListFmtTest(root);
-    addUNumberFormatterTest(root);
-    addUFormattedValueTest(root);
 }
 /*Internal functions used*/
 

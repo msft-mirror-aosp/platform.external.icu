@@ -777,7 +777,7 @@ public class DecimalFormat extends NumberFormat {
     if (!(obj instanceof Number)) throw new IllegalArgumentException();
     Number number = (Number) obj;
     FormattedNumber output = formatter.format(number);
-    return output.toCharacterIterator();
+    return output.getFieldIterator();
   }
 
   /**
@@ -1055,13 +1055,13 @@ public class DecimalFormat extends NumberFormat {
   /**
    * {@icu} Returns whether the sign is being shown on positive numbers.
    *
-   * @return Whether the sign is shown on positive numbers and zero.
    * @see #setSignAlwaysShown
    * @category Affixes
-   * @draft ICU 64
-   * @provisional This API might change or be removed in a future release.
+   * @internal
+   * @deprecated ICU 59: This API is a technical preview. It may change in an upcoming release.
    */
-  public synchronized boolean isSignAlwaysShown() {
+  @Deprecated
+  public synchronized boolean getSignAlwaysShown() {
     // This is not in the exported properties
     return properties.getSignAlwaysShown();
   }
@@ -1086,11 +1086,12 @@ public class DecimalFormat extends NumberFormat {
    * explicit plus sign, such as "+0;-0". The behavior when combining this method with explicit plus
    * signs in the pattern is undefined.
    *
-   * @param value true to always show a sign; false to hide the sign on positive numbers and zero.
+   * @param value true to always show a sign; false to hide the sign on positive numbers.
    * @category Affixes
-   * @draft ICU 64
-   * @provisional This API might change or be removed in a future release.
+   * @internal
+   * @deprecated ICU 59: This API is technical preview. It may change in an upcoming release.
    */
+  @Deprecated
   public synchronized void setSignAlwaysShown(boolean value) {
     properties.setSignAlwaysShown(value);
     refreshFormatter();
@@ -1958,9 +1959,10 @@ public class DecimalFormat extends NumberFormat {
    *
    * @see #setMinimumGroupingDigits
    * @category Separators
-   * @draft ICU 64
-   * @provisional This API might change or be removed in a future release.
+   * @internal
+   * @deprecated ICU 59: This API is a technical preview. It may change in an upcoming release.
    */
+  @Deprecated
   public synchronized int getMinimumGroupingDigits() {
     if (properties.getMinimumGroupingDigits() > 0) {
       return properties.getMinimumGroupingDigits();
@@ -1975,9 +1977,10 @@ public class DecimalFormat extends NumberFormat {
    *
    * @param number The minimum number of digits before grouping is triggered.
    * @category Separators
-   * @draft ICU 64
-   * @provisional This API might change or be removed in a future release.
+   * @internal
+   * @deprecated ICU 59: This API is a technical preview. It may change in an upcoming release.
    */
+  @Deprecated
   public synchronized void setMinimumGroupingDigits(int number) {
     properties.setMinimumGroupingDigits(number);
     refreshFormatter();
@@ -2194,16 +2197,6 @@ public class DecimalFormat extends NumberFormat {
     refreshFormatter();
   }
 
-  // BEGIN Android-added: Compatibility mode for j.t.DecimalFormat. http://b/112355520
-  /**
-   * @internal
-   */
-  public synchronized void setParseStrictMode(ParseMode parseMode) {
-    properties.setParseMode(parseMode);
-    refreshFormatter();
-  }
-  // END Android-added: Compatibility mode for j.t.DecimalFormat. http://b/112355520
-
   /**
    * {@inheritDoc}
    *
@@ -2289,10 +2282,11 @@ public class DecimalFormat extends NumberFormat {
    *
    * @see #setParseNoExponent
    * @category Parsing
-   * @draft ICU 64
-   * @provisional This API might change or be removed in a future release.
+   * @internal
+   * @deprecated ICU 59: This API is a technical preview. It may change in an upcoming release.
    */
-  public synchronized boolean isParseNoExponent() {
+  @Deprecated
+  public synchronized boolean getParseNoExponent() {
     return properties.getParseNoExponent();
   }
 
@@ -2303,9 +2297,10 @@ public class DecimalFormat extends NumberFormat {
    *
    * @param value true to prevent exponents from being parsed; false to allow them to be parsed.
    * @category Parsing
-   * @draft ICU 64
-   * @provisional This API might change or be removed in a future release.
+   * @internal
+   * @deprecated ICU 59: This API is a technical preview. It may change in an upcoming release.
    */
+  @Deprecated
   public synchronized void setParseNoExponent(boolean value) {
     properties.setParseNoExponent(value);
     refreshFormatter();
@@ -2316,10 +2311,11 @@ public class DecimalFormat extends NumberFormat {
    *
    * @see #setParseNoExponent
    * @category Parsing
-   * @draft ICU 64
-   * @provisional This API might change or be removed in a future release.
+   * @internal
+   * @deprecated ICU 59: This API is a technical preview. It may change in an upcoming release.
    */
-  public synchronized boolean isParseCaseSensitive() {
+  @Deprecated
+  public synchronized boolean getParseCaseSensitive() {
     return properties.getParseCaseSensitive();
   }
 
@@ -2331,9 +2327,10 @@ public class DecimalFormat extends NumberFormat {
    * @param value true to force case (uppercase/lowercase) to match when parsing; false to ignore
    *     case and perform case folding.
    * @category Parsing
-   * @draft ICU 64
-   * @provisional This API might change or be removed in a future release.
+   * @internal
+   * @deprecated ICU 59: This API is a technical preview. It may change in an upcoming release.
    */
+  @Deprecated
   public synchronized void setParseCaseSensitive(boolean value) {
     properties.setParseCaseSensitive(value);
     refreshFormatter();

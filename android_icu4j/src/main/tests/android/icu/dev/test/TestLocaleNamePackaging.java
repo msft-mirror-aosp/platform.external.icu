@@ -71,10 +71,10 @@ public class TestLocaleNamePackaging extends TestFmwk {
             "Deutschland",
             "Thailand",
             "",
-            "US",
-            "ES",
-            "DE",
-            "TH",
+            "United States",
+            "Spain",
+            "Germany",
+            "Thailand",
         };
         String[] expectedWithoutRegionData = {
             "",
@@ -120,35 +120,34 @@ public class TestLocaleNamePackaging extends TestFmwk {
             "en",
             "es",
             "de",
-            "",
+            "und",
             "",
             "English",
             "Spanish",
             "German",
-            "",
+            "Unknown Language",
             "",
             "ingl\u00E9s",
             "espa\u00F1ol",
             "alem\u00E1n",
-            "",
+            "lengua desconocida",
             "",
             "Englisch",
             "Spanisch",
             "Deutsch",
+            "Unbestimmte Sprache",
             "",
-            "",
-            "en",
-            "es",
-            "de",
-            "",
-
+            "English",
+            "Spanish",
+            "German",
+            "Unknown Language",
         };
         String[] expectedWithoutLanguageData = {
             "",
             "en",
             "es",
             "de",
-            ""
+            "und"
         };
         String[] expected = LocaleDisplayNamesImpl.haveData(LANG) ?
             expectedWithLanguageData : expectedWithoutLanguageData;
@@ -170,12 +169,9 @@ public class TestLocaleNamePackaging extends TestFmwk {
         for (Locale displayJavaLocale : javaLocales) {
             LocaleDisplayNames dn = LocaleDisplayNames.getInstance(displayJavaLocale);
             for (Locale targetLocale : javaLocales) {
-                // ICU-20273: ICU and Java handle "und" differently, skip those test cases.
-                if (!"und".equals(targetLocale.getLanguage())) {
-                    String result = dn.languageDisplayName(targetLocale.getLanguage());
-                    assertEquals(targetLocale + " in " + displayJavaLocale, expected[n], result);
-                }
-                if (++n == expected.length) {
+                String result = dn.languageDisplayName(targetLocale.getLanguage());
+                assertEquals(targetLocale + " in " + displayJavaLocale, expected[n++], result);
+                if (n == expected.length) {
                     n = 0;
                 }
             }
@@ -187,14 +183,14 @@ public class TestLocaleNamePackaging extends TestFmwk {
     @Test
     public void testLocaleDisplayNameWithKeywords() {
         String[] expectedWithLanguageData = {
-            "und (collation=phonebook)",
-            "Unknown language (Phonebook Sort Order)",
-            "lengua desconocida (orden de list\u00EDn telef\u00F3nico)",
-            "Unbekannte Sprache (Telefonbuch-Sortierung)",
-            "und (collation=phonebook)",
+            "root (collation=phonebook)",
+            "Root (Phonebook Sort Order)",
+            "ra\u00EDz (orden de list\u00EDn telef\u00F3nico)",
+            "Root (Telefonbuch-Sortierung)",
+            "Root (Phonebook Sort Order)",
         };
         String[] expectedWithoutLanguageData = {
-            "und (collation=phonebook)",
+            "root (collation=phonebook)",
         };
         String[] expected = LocaleDisplayNamesImpl.haveData(LANG) ?
             expectedWithLanguageData : expectedWithoutLanguageData;

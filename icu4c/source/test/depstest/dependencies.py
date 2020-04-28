@@ -71,7 +71,7 @@ def _RemoveComment(line):
 
 def _ReadLine(f):
   while True:
-    line = _RemoveComment(next(f))
+    line = _RemoveComment(f.next())
     if line: return line
 
 def _ReadFiles(deps_file, item, library_name):
@@ -147,7 +147,7 @@ def Load():
     line = None
     current_type = None
     while True:
-      while not line: line = _RemoveComment(next(deps_file))
+      while not line: line = _RemoveComment(deps_file.next())
 
       if line.startswith("library: "):
         current_type = "library"

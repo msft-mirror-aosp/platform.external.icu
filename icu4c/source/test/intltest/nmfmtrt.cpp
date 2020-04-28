@@ -250,12 +250,7 @@ NumberFormatRoundTripTest::test(NumberFormat *fmt, const Formattable& value)
         logln(/*value.getString(temp) +*/ " F> " + escape(s));
 
     fmt->parse(s, n, status);
-    if(U_FAILURE(status)) {
-        UErrorCode infoStatus = U_ZERO_ERROR;
-        const char* localeID = fmt->getLocaleID(ULOC_ACTUAL_LOCALE, infoStatus);
-        localeID = (U_SUCCESS(infoStatus) && localeID)? localeID: "?";
-        errln(UnicodeString("FAIL: fmt->parse failed, locale: ") + localeID + ", error: " + u_errorName(status));
-    }
+    failure(status, "fmt->parse");
     if(DEBUG_VAR) 
         logln(escape(s) + " P> " /*+ n.getString(temp)*/);
 

@@ -3,8 +3,6 @@
 // License & terms of use: http://www.unicode.org/copyright.html#License
 package android.icu.number;
 
-import java.util.MissingResourceException;
-
 import android.icu.impl.ICUData;
 import android.icu.impl.ICUResourceBundle;
 import android.icu.impl.PatternProps;
@@ -68,35 +66,14 @@ class NumberRangeFormatterImpl {
         public void put(UResource.Key key, UResource.Value value, boolean noFallback) {
             UResource.Table miscTable = value.getTable();
             for (int i = 0; miscTable.getKeyAndValue(i, key, value); ++i) {
-                if (key.contentEquals("range") && !hasRangeData()) {
+                if (key.contentEquals("range") && rangePattern == null) {
                     String pattern = value.getString();
                     rangePattern = SimpleFormatterImpl.compileToStringMinMaxArguments(pattern, sb, 2, 2);
                 }
-                if (key.contentEquals("approximately") && !hasApproxData()) {
+                if (key.contentEquals("approximately") && approximatelyPattern == null) {
                     String pattern = value.getString();
                     approximatelyPattern = SimpleFormatterImpl.compileToStringMinMaxArguments(pattern, sb, 1, 1); // 1 arg, as in "~{0}"
                 }
-            }
-        }
-
-        private boolean hasRangeData() {
-            return rangePattern != null;
-        }
-
-        private boolean hasApproxData() {
-            return approximatelyPattern != null;
-        }
-
-        public boolean isComplete() {
-            return hasRangeData() && hasApproxData();
-        }
-
-        public void fillInDefaults() {
-            if (!hasRangeData()) {
-                rangePattern = SimpleFormatterImpl.compileToStringMinMaxArguments("{0}–{1}", sb, 2, 2);
-            }
-            if (!hasApproxData()) {
-                approximatelyPattern = SimpleFormatterImpl.compileToStringMinMaxArguments("~{0}", sb, 1, 1);
             }
         }
     }
@@ -113,18 +90,16 @@ class NumberRangeFormatterImpl {
         sb.append(nsName);
         sb.append("/miscPatterns");
         String key = sb.toString();
-        try {
-            resource.getAllItemsWithFallback(key, sink);
-        } catch (MissingResourceException e) {
-            // ignore; fall back to latn
-        }
+        resource.getAllItemsWithFallback(key, sink);
 
-        // Fall back to latn if necessary
-        if (!sink.isComplete()) {
-            resource.getAllItemsWithFallback("NumberElements/latn/miscPatterns", sink);
-        }
+        // TODO: Is it necessary to manually fall back to latn, or does the data sink take care of that?
 
-        sink.fillInDefaults();
+        if (sink.rangePattern == null) {
+            sink.rangePattern = SimpleFormatterImpl.compileToStringMinMaxArguments("{0}–{1}", sb, 2, 2);
+        }
+        if (sink.approximatelyPattern == null) {
+            sink.approximatelyPattern = SimpleFormatterImpl.compileToStringMinMaxArguments("~{0}", sb, 1, 1);
+        }
 
         out.fRangePattern = sink.rangePattern;
         out.fApproximatelyModifier = new SimpleModifier(sink.approximatelyPattern, null, false);
@@ -142,11 +117,14 @@ class NumberRangeFormatterImpl {
         fIdentityFallback = macros.identityFallback != null ? macros.identityFallback
                 : NumberRangeFormatter.RangeIdentityFallback.APPROXIMATELY;
 
-        String nsName = formatterImpl1.getRawMicroProps().nsName;
-        if (nsName == null || !nsName.equals(formatterImpl2.getRawMicroProps().nsName)) {
-            throw new IllegalArgumentException("Both formatters must have same numbering system");
-        }
-        getNumberRangeData(macros.loc, nsName, this);
+        // TODO: As of this writing (ICU 63), there is no locale that has different number miscPatterns
+        // based on numbering system. Therefore, data is loaded only from latn. If this changes,
+        // this part of the code should be updated to load from the local numbering system.
+        // The numbering system could come from the one specified in the NumberFormatter passed to
+        // numberFormatterBoth() or similar.
+        // See ICU-20144
+
+        getNumberRangeData(macros.loc, "latn", this);
 
         // TODO: Get locale from PluralRules instead?
         fPluralRanges = new StandardPluralRanges(macros.loc);

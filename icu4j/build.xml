@@ -1094,7 +1094,6 @@
                 eol="lf">
             <include name="demos/**/*"/>
             <include name="main/**/*"/>
-            <include name="maven/**/*"/>
             <include name="perf-tests/**/*"/>
             <include name="samples/**/*"/>
             <include name="tools/**/*"/>

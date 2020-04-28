@@ -122,12 +122,13 @@ public abstract class CurrencyDisplayNames {
 
     /**
      * Returns the narrow symbol for the currency with the provided ISO code.
-     * If there is no data for narrow symbol, substitutes the default symbol,
-     * or returns null if noSubstitute was set in the factory method.
+     * If there is no data for narrow symbol, substitutes isoCode, or returns
+     * null if noSubstitute was set in the factory method.
      *
      * @param isoCode the three-letter ISO code.
      * @return the narrow symbol.
-     * @stable ICU 61
+     * @draft ICU 61
+     * @provisional This API might change or be removed in a future release.
      */
     public abstract String getNarrowSymbol(String isoCode);
 

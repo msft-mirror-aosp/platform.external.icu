@@ -2141,16 +2141,6 @@ public class MessageFormat extends UFormat {
         DATE_MODIFIER_LONG = 3,
         DATE_MODIFIER_FULL = 4;
 
-    Format dateTimeFormatForPatternOrSkeleton(String style) {
-        // Ignore leading whitespace when looking for "::", the skeleton signal sequence
-        int i = PatternProps.skipWhiteSpace(style, 0);
-        if (style.regionMatches(i, "::", 0, 2)) { // Skeleton
-            return DateFormat.getInstanceForSkeleton(style.substring(i + 2), ulocale);
-        } else { // Pattern
-            return new SimpleDateFormat(style, ulocale);
-        }
-    }
-
     // Creates an appropriate Format object for the type and style passed.
     // Both arguments cannot be null.
     private Format createAppropriateFormat(String type, String style) {
@@ -2173,7 +2163,8 @@ public class MessageFormat extends UFormat {
                 break;
             default: // pattern or skeleton
                 // Ignore leading whitespace when looking for "::", the skeleton signal sequence
-                int i = PatternProps.skipWhiteSpace(style, 0);
+                int i = 0;
+                for (; PatternProps.isWhiteSpace(style.charAt(i)); i++);
                 if (style.regionMatches(i, "::", 0, 2)) {
                     // Skeleton
                     newFormat = NumberFormatter.forSkeleton(style.substring(i + 2)).locale(ulocale).toFormat();
@@ -2201,8 +2192,8 @@ public class MessageFormat extends UFormat {
             case DATE_MODIFIER_FULL:
                 newFormat = DateFormat.getDateInstance(DateFormat.FULL, ulocale);
                 break;
-            default: // pattern or skeleton
-                newFormat = dateTimeFormatForPatternOrSkeleton(style);
+            default:
+                newFormat = new SimpleDateFormat(style, ulocale);
                 break;
             }
             break;
@@ -2223,8 +2214,8 @@ public class MessageFormat extends UFormat {
             case DATE_MODIFIER_FULL:
                 newFormat = DateFormat.getTimeInstance(DateFormat.FULL, ulocale);
                 break;
-            default: // pattern or skeleton
-                newFormat = dateTimeFormatForPatternOrSkeleton(style);
+            default:
+                newFormat = new SimpleDateFormat(style, ulocale);
                 break;
             }
             break;

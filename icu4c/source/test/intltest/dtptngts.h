@@ -32,7 +32,6 @@ private:
     void testC();
     void testSkeletonsWithDayPeriods();
     void testGetFieldDisplayNames();
-    void testJjMapping();
 };
 
 #endif /* #if !UCONFIG_NO_FORMATTING */

@@ -214,7 +214,6 @@ public class NumberingSystem {
      * @param name The name of the desired numbering system.  Numbering system
      * names often correspond with the name of the script they are associated
      * with.  For example, "thai" for Thai digits, "hebr" for Hebrew numerals.
-     * @return The NumberingSystem instance, or null if not available.
      */
     public static NumberingSystem getInstanceByName(String name) {
         // Get the numbering system from the cache.
@@ -248,8 +247,6 @@ public class NumberingSystem {
     /**
      * Returns a string array containing a list of the names of numbering systems
      * currently known to ICU.
-     *
-     * @return An array of strings in alphabetical (invariant) order.
      */
     public static String [] getAvailableNames() {
 
@@ -258,7 +255,7 @@ public class NumberingSystem {
             UResourceBundle temp;
 
             String nsName;
-            ArrayList<String> output = new ArrayList<>();
+            ArrayList<String> output = new ArrayList<String>();
             UResourceBundleIterator it = nsCurrent.getIterator();
             while (it.hasNext()) {
                 temp = it.next();

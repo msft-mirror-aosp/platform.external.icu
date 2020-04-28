@@ -12,7 +12,6 @@ public class MicroProps implements Cloneable, MicroPropsGenerator {
     // Populated globally:
     public SignDisplay sign;
     public DecimalFormatSymbols symbols;
-    public String nsName;
     public Padder padding;
     public DecimalSeparatorDisplay decimal;
     public IntegerWidth integerWidth;

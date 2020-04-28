@@ -55,7 +55,6 @@ public class ValidIdentifiers {
         special,
         unknown,
         macroregion,
-        reserved,
     }
 
     /**

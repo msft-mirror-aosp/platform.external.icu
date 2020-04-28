@@ -38,8 +38,6 @@ public:
 
     void TestGetByFallback(void);
 
-    void TestFilter(void);
-
 private:
     /**
      * The assignment operator has no real implementation.

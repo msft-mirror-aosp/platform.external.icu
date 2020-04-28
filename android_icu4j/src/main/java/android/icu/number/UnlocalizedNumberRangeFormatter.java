@@ -10,8 +10,6 @@ import android.icu.util.ULocale;
 /**
  * A NumberRangeFormatter that does not yet have a locale. In order to format, a locale must be specified.
  *
- * Instances of this class are immutable and thread-safe.
- *
  * @author sffc
  * @see NumberRangeFormatter
  * @hide Only a subset of ICU is exposed in Android

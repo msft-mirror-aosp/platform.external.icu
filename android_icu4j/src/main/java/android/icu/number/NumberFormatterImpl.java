@@ -21,7 +21,6 @@ import android.icu.impl.number.NumberStringBuilder;
 import android.icu.impl.number.Padder;
 import android.icu.impl.number.PatternStringParser;
 import android.icu.impl.number.PatternStringParser.ParsedPatternInfo;
-import android.icu.impl.number.RoundingUtils;
 import android.icu.number.NumberFormatter.DecimalSeparatorDisplay;
 import android.icu.number.NumberFormatter.GroupingStrategy;
 import android.icu.number.NumberFormatter.SignDisplay;
@@ -45,8 +44,7 @@ class NumberFormatterImpl {
 
     /** Builds a "safe" MicroPropsGenerator, which is thread-safe and can be used repeatedly. */
     public NumberFormatterImpl(MacroProps macros) {
-        micros = new MicroProps(true);
-        microPropsGenerator = macrosToMicroGenerator(macros, micros, true);
+        this(macrosToMicroGenerator(macros, true));
     }
 
     /**
@@ -73,15 +71,17 @@ class NumberFormatterImpl {
             byte signum,
             StandardPlural plural,
             NumberStringBuilder output) {
-        MicroProps micros = new MicroProps(false);
-        MicroPropsGenerator microPropsGenerator = macrosToMicroGenerator(macros, micros, false);
+        MicroPropsGenerator microPropsGenerator = macrosToMicroGenerator(macros, false);
         return getPrefixSuffixImpl(microPropsGenerator, signum, output);
     }
 
     private static final Currency DEFAULT_CURRENCY = Currency.getInstance("XXX");
 
-    final MicroProps micros;
     final MicroPropsGenerator microPropsGenerator;
+
+    private NumberFormatterImpl(MicroPropsGenerator microPropsGenerator) {
+        this.microPropsGenerator = microPropsGenerator;
+    }
 
     /**
      * Evaluates the "safe" MicroPropsGenerator created by "fromMacros".
@@ -100,24 +100,21 @@ class NumberFormatterImpl {
         MicroProps micros = microPropsGenerator.processQuantity(inValue);
         micros.rounder.apply(inValue);
         if (micros.integerWidth.maxInt == -1) {
-            inValue.setMinInteger(micros.integerWidth.minInt);
+            inValue.setIntegerLength(micros.integerWidth.minInt, Integer.MAX_VALUE);
         } else {
-            inValue.setMinInteger(micros.integerWidth.minInt);
-            inValue.applyMaxInteger(micros.integerWidth.maxInt);
+            inValue.setIntegerLength(micros.integerWidth.minInt, micros.integerWidth.maxInt);
         }
         return micros;
     }
 
     private static MicroProps preProcessUnsafe(MacroProps macros, DecimalQuantity inValue) {
-        MicroProps micros = new MicroProps(false);
-        MicroPropsGenerator microPropsGenerator = macrosToMicroGenerator(macros, micros, false);
-        micros = microPropsGenerator.processQuantity(inValue);
+        MicroPropsGenerator microPropsGenerator = macrosToMicroGenerator(macros, false);
+        MicroProps micros = microPropsGenerator.processQuantity(inValue);
         micros.rounder.apply(inValue);
         if (micros.integerWidth.maxInt == -1) {
-            inValue.setMinInteger(micros.integerWidth.minInt);
+            inValue.setIntegerLength(micros.integerWidth.minInt, Integer.MAX_VALUE);
         } else {
-            inValue.setMinInteger(micros.integerWidth.minInt);
-            inValue.applyMaxInteger(micros.integerWidth.maxInt);
+            inValue.setIntegerLength(micros.integerWidth.minInt, micros.integerWidth.maxInt);
         }
         return micros;
     }
@@ -137,10 +134,6 @@ class NumberFormatterImpl {
         MicroProps micros = generator.processQuantity(quantity);
         micros.modMiddle.apply(output, 0, 0);
         return micros.modMiddle.getPrefixLength();
-    }
-
-    public MicroProps getRawMicroProps() {
-        return micros;
     }
 
     //////////
@@ -177,7 +170,8 @@ class NumberFormatterImpl {
      *            value will <em>not</em> be thread-safe, intended for a single "one-shot" use only.
      *            Building the thread-safe object is more expensive.
      */
-    private static MicroPropsGenerator macrosToMicroGenerator(MacroProps macros, MicroProps micros, boolean safe) {
+    private static MicroPropsGenerator macrosToMicroGenerator(MacroProps macros, boolean safe) {
+        MicroProps micros = new MicroProps(safe);
         MicroPropsGenerator chain = micros;
 
         // TODO: Normalize the currency (accept symbols from DecimalFormatSymbols)?
@@ -186,8 +180,9 @@ class NumberFormatterImpl {
         // Pre-compute a few values for efficiency.
         boolean isCurrency = unitIsCurrency(macros.unit);
         boolean isNoUnit = unitIsNoUnit(macros.unit);
-        boolean isPercent = unitIsPercent(macros.unit);
-        boolean isPermille = unitIsPermille(macros.unit);
+        boolean isPercent = isNoUnit && unitIsPercent(macros.unit);
+        boolean isPermille = isNoUnit && unitIsPermille(macros.unit);
+        boolean isCldrUnit = !isCurrency && !isNoUnit;
         boolean isAccounting = macros.sign == SignDisplay.ACCOUNTING
                 || macros.sign == SignDisplay.ACCOUNTING_ALWAYS
                 || macros.sign == SignDisplay.ACCOUNTING_EXCEPT_ZERO;
@@ -196,8 +191,6 @@ class NumberFormatterImpl {
         if (macros.unitWidth != null) {
             unitWidth = macros.unitWidth;
         }
-        boolean isCldrUnit = !isCurrency && !isNoUnit &&
-            (unitWidth == UnitWidth.FULL_NAME || !(isPercent || isPermille));
         PluralRules rules = macros.rules;
 
         // Select the numbering system.
@@ -208,7 +201,7 @@ class NumberFormatterImpl {
             // TODO: Is there a way to avoid creating the NumberingSystem object?
             ns = NumberingSystem.getInstance(macros.loc);
         }
-        micros.nsName = ns.getName();
+        String nsName = ns.getName();
 
         // Resolve the symbols. Do this here because currency may need to customize them.
         if (macros.symbols instanceof DecimalFormatSymbols) {
@@ -233,9 +226,7 @@ class NumberFormatterImpl {
         }
         if (pattern == null) {
             int patternStyle;
-            if (isCldrUnit) {
-                patternStyle = NumberFormat.NUMBERSTYLE;
-            } else if (isPercent || isPermille) {
+            if (isPercent || isPermille) {
                 patternStyle = NumberFormat.PERCENTSTYLE;
             } else if (!isCurrency || unitWidth == UnitWidth.FULL_NAME) {
                 patternStyle = NumberFormat.NUMBERSTYLE;
@@ -247,7 +238,7 @@ class NumberFormatterImpl {
                 patternStyle = NumberFormat.CURRENCYSTYLE;
             }
             pattern = NumberFormat
-                    .getPatternForStyleAndNumberingSystem(macros.loc, micros.nsName, patternStyle);
+                    .getPatternForStyleAndNumberingSystem(macros.loc, nsName, patternStyle);
         }
         ParsedPatternInfo patternInfo = PatternStringParser.parseToPatternInfo(pattern);
 
@@ -271,8 +262,7 @@ class NumberFormatterImpl {
             micros.rounder = Precision.DEFAULT_MAX_FRAC_6;
         }
         if (macros.roundingMode != null) {
-            micros.rounder = micros.rounder.withMode(
-                    RoundingUtils.mathContextUnlimited(macros.roundingMode));
+            micros.rounder = micros.rounder.withMode(macros.roundingMode);
         }
         micros.rounder = micros.rounder.withLocaleData(currency);
 
@@ -331,7 +321,7 @@ class NumberFormatterImpl {
         // Middle modifier (patterns, positive/negative, currency symbols, percent)
         // The default middle modifier is weak (thus the false argument).
         MutablePatternModifier patternMod = new MutablePatternModifier(false);
-        patternMod.setPatternInfo((macros.affixProvider != null) ? macros.affixProvider : patternInfo, null);
+        patternMod.setPatternInfo((macros.affixProvider != null) ? macros.affixProvider : patternInfo);
         patternMod.setPatternAttributes(micros.sign, isPermille);
         if (patternMod.needsPlurals()) {
             if (rules == null) {
@@ -379,7 +369,7 @@ class NumberFormatterImpl {
                     && macros.unitWidth != UnitWidth.FULL_NAME) ? CompactType.CURRENCY
                             : CompactType.DECIMAL;
             chain = ((CompactNotation) macros.notation).withLocaleData(macros.loc,
-                    micros.nsName,
+                    nsName,
                     compactType,
                     rules,
                     safe ? patternMod : null,

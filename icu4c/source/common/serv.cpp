@@ -333,7 +333,7 @@ U_CDECL_END
 ******************************************************************
 */
 
-static UMutex lock;
+static UMutex lock = U_MUTEX_INITIALIZER;
 
 ICUService::ICUService()
 : name()

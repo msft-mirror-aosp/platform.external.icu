@@ -13,7 +13,6 @@ import com.ibm.icu.impl.number.Grouper;
 import com.ibm.icu.impl.number.MacroProps;
 import com.ibm.icu.impl.number.Padder;
 import com.ibm.icu.impl.number.PatternStringParser;
-import com.ibm.icu.impl.number.PatternStringUtils;
 import com.ibm.icu.impl.number.PropertiesAffixPatternProvider;
 import com.ibm.icu.impl.number.RoundingUtils;
 import com.ibm.icu.number.NumberFormatter.DecimalSeparatorDisplay;
@@ -180,11 +179,7 @@ final class NumberPropertyMapper {
         if (explicitCurrencyUsage) {
             rounding = Precision.constructCurrency(currencyUsage).withCurrency(currency);
         } else if (roundingIncrement != null) {
-            if (PatternStringUtils.ignoreRoundingIncrement(roundingIncrement, maxFrac)) {
-                rounding = Precision.constructFraction(minFrac, maxFrac);
-            } else {
-                rounding = Precision.constructIncrement(roundingIncrement);
-            }
+            rounding = Precision.constructIncrement(roundingIncrement);
         } else if (explicitMinMaxSig) {
             minSig = minSig < 1 ? 1
                     : minSig > RoundingUtils.MAX_INT_FRAC_SIG ? RoundingUtils.MAX_INT_FRAC_SIG : minSig;
@@ -219,7 +214,7 @@ final class NumberPropertyMapper {
         // PADDING //
         /////////////
 
-        if (properties.getFormatWidth() > 0) {
+        if (properties.getFormatWidth() != -1) {
             macros.padder = Padder.forProperties(properties);
         }
 

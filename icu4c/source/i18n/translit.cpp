@@ -91,7 +91,7 @@ static const char RB_RULE_BASED_IDS[] = "RuleBasedTransliteratorIDs";
 /**
  * The mutex controlling access to registry object.
  */
-static icu::UMutex registryMutex;
+static UMutex registryMutex = U_MUTEX_INITIALIZER;
 
 /**
  * System transliterator registry; non-null when initialized.

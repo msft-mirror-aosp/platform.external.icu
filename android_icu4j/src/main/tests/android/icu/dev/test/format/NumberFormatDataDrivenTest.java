@@ -10,7 +10,6 @@ import java.text.ParsePosition;
 import org.junit.Test;
 
 import android.icu.dev.test.TestUtil;
-import android.icu.dev.text.DecimalFormat_ICU58;
 import android.icu.impl.number.DecimalFormatProperties;
 import android.icu.impl.number.DecimalFormatProperties.ParseMode;
 import android.icu.impl.number.Padder.PadPosition;
@@ -296,6 +295,13 @@ public class NumberFormatDataDrivenTest {
     /**
      * Backwards-compatibility test: snapshot of DecimalFormat from ICU 58.
      */
+    // Android patch: Android can't access DecimalFormat_ICU58 for testing (b/33448125).
+    // That class lived in a package under test and relied on package access, but
+    // 1.) Android Compatibility Test Suite (CTS) run tests with a different ClassLoader,
+    //     preventing package access, and
+    // 2.) By default, the OpenJDK 9 toolchain won't compile non-libcore code that in
+    //     libcore packages (see http://b/68224249).
+    /*
     private DataDrivenNumberFormatTestUtility.CodeUnderTest ICU58 = new DataDrivenNumberFormatTestUtility.CodeUnderTest() {
         @Override
         public Character Id() {
@@ -353,7 +359,7 @@ public class NumberFormatDataDrivenTest {
         /**
          * @param tuple
          * @return
-         */
+         *
         private DecimalFormat_ICU58 createDecimalFormat(DataDrivenNumberFormatTestData tuple) {
 
             DecimalFormat_ICU58 fmt = new DecimalFormat_ICU58(
@@ -366,7 +372,7 @@ public class NumberFormatDataDrivenTest {
         /**
          * @param tuple
          * @param fmt
-         */
+         *
         private void adjustDecimalFormat(DataDrivenNumberFormatTestData tuple, DecimalFormat_ICU58 fmt) {
             if (tuple.minIntegerDigits != null) {
                 fmt.setMinimumIntegerDigits(tuple.minIntegerDigits);
@@ -471,6 +477,8 @@ public class NumberFormatDataDrivenTest {
             }
         }
     };
+    */
+    // Android patch end.
 
     /**
      * Test of available JDK APIs.
@@ -896,6 +904,8 @@ public class NumberFormatDataDrivenTest {
                 .runFormatSuiteIncludingKnownFailures("numberformattestspecification.txt", ICU4J);
     }
 
+    // Android patch: Android can't access DecimalFormat_ICU58 for testing (b/33448125).
+    /*
     @Test
     public void TestDataDrivenICU58() {
         // Android can't access DecimalFormat_ICU58 for testing (ticket #13283).
@@ -905,6 +915,8 @@ public class NumberFormatDataDrivenTest {
         DataDrivenNumberFormatTestUtility
                 .runFormatSuiteIncludingKnownFailures("numberformattestspecification.txt", ICU58);
     }
+    */
+    // Android patch end.
 
     @Test
     public void TestDataDrivenJDK() {

@@ -12,22 +12,18 @@ import java.util.Arrays;
 import android.icu.impl.number.DecimalQuantity;
 import android.icu.impl.number.NumberStringBuilder;
 import android.icu.number.NumberRangeFormatter.RangeIdentityResult;
-import android.icu.text.ConstrainedFieldPosition;
-import android.icu.text.FormattedValue;
 import android.icu.util.ICUUncheckedIOException;
 
 /**
  * The result of a number range formatting operation. This class allows the result to be exported in several data types,
  * including a String, an AttributedCharacterIterator, and a BigDecimal.
  *
- * Instances of this class are immutable and thread-safe.
- *
  * @author sffc
  * @see NumberRangeFormatter
  * @hide Only a subset of ICU is exposed in Android
  * @hide draft / provisional / internal are hidden on Android
  */
-public class FormattedNumberRange implements FormattedValue {
+public class FormattedNumberRange {
     final NumberStringBuilder string;
     final DecimalQuantity quantity1;
     final DecimalQuantity quantity2;
@@ -42,8 +38,10 @@ public class FormattedNumberRange implements FormattedValue {
     }
 
     /**
-     * {@inheritDoc}
+     * Creates a String representation of the the formatted number range.
      *
+     * @return a String containing the localized number range.
+     * @see NumberRangeFormatter
      * @hide draft / provisional / internal are hidden on Android
      */
     @Override
@@ -52,11 +50,20 @@ public class FormattedNumberRange implements FormattedValue {
     }
 
     /**
-     * {@inheritDoc}
+     * Append the formatted number range to an Appendable, such as a StringBuilder. This may be slightly more efficient
+     * than creating a String.
      *
+     * <p>
+     * If an IOException occurs when appending to the Appendable, an unchecked {@link ICUUncheckedIOException} is thrown
+     * instead.
+     *
+     * @param appendable
+     *            The Appendable to which to append the formatted number range string.
+     * @return The same Appendable, for chaining.
+     * @see Appendable
+     * @see NumberRangeFormatter
      * @hide draft / provisional / internal are hidden on Android
      */
-    @Override
     public <A extends Appendable> A appendTo(A appendable) {
         try {
             appendable.append(string);
@@ -65,46 +72,6 @@ public class FormattedNumberRange implements FormattedValue {
             throw new ICUUncheckedIOException(e);
         }
         return appendable;
-    }
-
-    /**
-     * {@inheritDoc}
-     *
-     * @hide draft / provisional / internal are hidden on Android
-     */
-    @Override
-    public char charAt(int index) {
-        return string.charAt(index);
-    }
-
-    /**
-     * {@inheritDoc}
-     *
-     * @hide draft / provisional / internal are hidden on Android
-     */
-    @Override
-    public int length() {
-        return string.length();
-    }
-
-    /**
-     * {@inheritDoc}
-     *
-     * @hide draft / provisional / internal are hidden on Android
-     */
-    @Override
-    public CharSequence subSequence(int start, int end) {
-        return string.subString(start, end);
-    }
-
-    /**
-     * {@inheritDoc}
-     *
-     * @hide draft / provisional / internal are hidden on Android
-     */
-    @Override
-    public boolean nextPosition(ConstrainedFieldPosition cfpos) {
-        return string.nextPosition(cfpos, null);
     }
 
     /**
@@ -140,13 +107,21 @@ public class FormattedNumberRange implements FormattedValue {
     }
 
     /**
-     * {@inheritDoc}
+     * Export the formatted number range as an AttributedCharacterIterator. This allows you to determine which
+     * characters in the output string correspond to which <em>fields</em>, such as the integer part, fraction part, and
+     * sign.
+     * <p>
+     * If information on only one field is needed, use {@link #nextFieldPosition(FieldPosition)} instead.
      *
+     * @return An AttributedCharacterIterator, containing information on the field attributes of the number range
+     *         string.
+     * @see android.icu.text.NumberFormat.Field
+     * @see AttributedCharacterIterator
+     * @see NumberRangeFormatter
      * @hide draft / provisional / internal are hidden on Android
      */
-    @Override
     public AttributedCharacterIterator toCharacterIterator() {
-        return string.toCharacterIterator(null);
+        return string.toCharacterIterator();
     }
 
     /**

@@ -38,7 +38,6 @@ public class MutablePatternModifier implements Modifier, SymbolProvider, MicroPr
 
     // Pattern details
     AffixPatternProvider patternInfo;
-    Field field;
     SignDisplay signDisplay;
     boolean perMilleReplacesPercent;
 
@@ -72,13 +71,9 @@ public class MutablePatternModifier implements Modifier, SymbolProvider, MicroPr
      * Sets a reference to the parsed decimal format pattern, usually obtained from
      * {@link PatternStringParser#parseToPatternInfo(String)}, but any implementation of
      * {@link AffixPatternProvider} is accepted.
-     *
-     * @param field
-     *            Which field to use for literal characters in the pattern.
      */
-    public void setPatternInfo(AffixPatternProvider patternInfo, Field field) {
+    public void setPatternInfo(AffixPatternProvider patternInfo) {
         this.patternInfo = patternInfo;
-        this.field = field;
     }
 
     /**
@@ -243,8 +238,11 @@ public class MutablePatternModifier implements Modifier, SymbolProvider, MicroPr
             if (rules == null) {
                 micros.modMiddle = pm.getModifierWithoutPlural(quantity.signum());
             } else {
-                StandardPlural pluralForm = RoundingUtils.getPluralSafe(micros.rounder, rules, quantity);
-                micros.modMiddle = pm.getModifier(quantity.signum(), pluralForm);
+                // TODO: Fix this. Avoid the copy.
+                DecimalQuantity copy = quantity.createCopy();
+                copy.roundToInfinity();
+                StandardPlural plural = copy.getStandardPlural(rules);
+                micros.modMiddle = pm.getModifier(quantity.signum(), plural);
             }
         }
 
@@ -270,8 +268,10 @@ public class MutablePatternModifier implements Modifier, SymbolProvider, MicroPr
     public MicroProps processQuantity(DecimalQuantity fq) {
         MicroProps micros = parent.processQuantity(fq);
         if (needsPlurals()) {
-            StandardPlural pluralForm = RoundingUtils.getPluralSafe(micros.rounder, rules, fq);
-            setNumberProperties(fq.signum(), pluralForm);
+            // TODO: Fix this. Avoid the copy.
+            DecimalQuantity copy = fq.createCopy();
+            micros.rounder.apply(copy);
+            setNumberProperties(fq.signum(), copy.getStandardPlural(rules));
         } else {
             setNumberProperties(fq.signum(), null);
         }
@@ -321,7 +321,7 @@ public class MutablePatternModifier implements Modifier, SymbolProvider, MicroPr
     }
 
     @Override
-    public boolean containsField(java.text.Format.Field field) {
+    public boolean containsField(Field field) {
         // This method is not currently used. (unsafe path not used in range formatting)
         assert false;
         return false;
@@ -343,13 +343,13 @@ public class MutablePatternModifier implements Modifier, SymbolProvider, MicroPr
 
     private int insertPrefix(NumberStringBuilder sb, int position) {
         prepareAffix(true);
-        int length = AffixUtils.unescape(currentAffix, sb, position, this, field);
+        int length = AffixUtils.unescape(currentAffix, sb, position, this);
         return length;
     }
 
     private int insertSuffix(NumberStringBuilder sb, int position) {
         prepareAffix(false);
-        int length = AffixUtils.unescape(currentAffix, sb, position, this, field);
+        int length = AffixUtils.unescape(currentAffix, sb, position, this);
         return length;
     }
 

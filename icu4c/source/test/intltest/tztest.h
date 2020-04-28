@@ -99,7 +99,6 @@ public:
 
     void TestGetRegion(void);
     void TestGetUnknown();
-    void TestGetGMT();
 
     void TestGetWindowsID(void);
     void TestGetIDForWindowsID(void);

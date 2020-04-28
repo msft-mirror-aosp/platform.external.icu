@@ -21,8 +21,6 @@ import com.ibm.icu.util.MeasureUnit;
 /**
  * A NumberFormatter that has a locale associated with it; this means .format() methods are available.
  *
- * Instances of this class are immutable and thread-safe.
- *
  * @see NumberFormatter
  * @draft ICU 60
  * @provisional This API might change or be removed in a future release.
@@ -135,13 +133,6 @@ public class LocalizedNumberFormatter extends NumberFormatterSettings<LocalizedN
         return new LocalizedNumberFormatterAsFormat(this, resolve().loc);
     }
 
-    /** Helper method that creates a NumberStringBuilder and formats. */
-    private FormattedNumber format(DecimalQuantity fq) {
-        NumberStringBuilder string = new NumberStringBuilder();
-        formatImpl(fq, string);
-        return new FormattedNumber(string, fq);
-    }
-
     /**
      * This is the core entrypoint to the number formatting pipeline. It performs self-regulation: a
      * static code path for the first few calls, and compiling a more efficient data structure if called
@@ -152,25 +143,26 @@ public class LocalizedNumberFormatter extends NumberFormatterSettings<LocalizedN
      *
      * @param fq
      *            The quantity to be formatted.
-     * @param string
-     *            The string builder into which to insert the result.
+     * @return The formatted number result.
      *
      * @internal
      * @deprecated ICU 60 This API is ICU internal only.
      */
     @Deprecated
-    public void formatImpl(DecimalQuantity fq, NumberStringBuilder string) {
+    public FormattedNumber format(DecimalQuantity fq) {
+        NumberStringBuilder string = new NumberStringBuilder();
         if (computeCompiled()) {
             compiled.format(fq, string);
         } else {
             NumberFormatterImpl.formatStatic(resolve(), fq, string);
         }
+        return new FormattedNumber(string, fq);
     }
 
     /**
      * @internal
-     * @deprecated This API is ICU internal only. Use {@link FormattedNumber#nextPosition}
-     *             for related functionality.
+     * @deprecated This API is ICU internal only. Use {@link FormattedNumber#populateFieldPosition} or
+     *             {@link FormattedNumber#getFieldIterator} for similar functionality.
      */
     @Deprecated
     public String getAffixImpl(boolean isPrefix, boolean isNegative) {

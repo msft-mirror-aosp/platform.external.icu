@@ -576,11 +576,8 @@ public abstract class BreakIterator implements Cloneable
     public static final int KIND_SENTENCE = 3;
     /**
      * {@icu}
-     * @see #getTitleInstance
-     * @see #getWordInstance
-     * @deprecated ICU 64 Use {@link #getWordInstance} instead.
+     * @stable ICU 2.4
      */
-    @Deprecated
     public static final int KIND_TITLE = 4;
 
     /**
@@ -753,9 +750,8 @@ public abstract class BreakIterator implements Cloneable
      * Unicode 3.2 only. For Unicode 4.0 and above title boundary iteration,
      * please use a word boundary iterator. {@link #getWordInstance}
      * @return A new instance of BreakIterator that locates title boundaries.
-     * @deprecated ICU 64 Use {@link #getWordInstance} instead.
+     * @stable ICU 2.0
      */
-    @Deprecated
     public static BreakIterator getTitleInstance()
     {
         return getTitleInstance(ULocale.getDefault());
@@ -769,9 +765,8 @@ public abstract class BreakIterator implements Cloneable
      * @param where A Locale specifying the language of the text being analyzed.
      * @return A new instance of BreakIterator that locates title boundaries.
      * @throws NullPointerException if <code>where</code> is null.
-     * @deprecated ICU 64 Use {@link #getWordInstance} instead.
+     * @stable ICU 2.0
      */
-    @Deprecated
     public static BreakIterator getTitleInstance(Locale where)
     {
         return getBreakInstance(ULocale.forLocale(where), KIND_TITLE);
@@ -785,9 +780,8 @@ public abstract class BreakIterator implements Cloneable
      * @param where A Locale specifying the language of the text being analyzed.
      * @return A new instance of BreakIterator that locates title boundaries.
      * @throws NullPointerException if <code>where</code> is null.
-     * @deprecated ICU 64 Use {@link #getWordInstance} instead.
-     */
-    @Deprecated
+     * @stable ICU 3.2
+s     */
     public static BreakIterator getTitleInstance(ULocale where)
     {
         return getBreakInstance(where, KIND_TITLE);

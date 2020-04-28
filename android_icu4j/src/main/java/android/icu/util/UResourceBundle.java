@@ -93,7 +93,6 @@ import android.icu.impl.ResourceBundleWrapper;
  * @author ram
  * @hide Only a subset of ICU is exposed in Android
  */
-@libcore.api.IntraCoreApi
 public abstract class UResourceBundle extends ResourceBundle {
 
 
@@ -153,7 +152,6 @@ public abstract class UResourceBundle extends ResourceBundle {
      * implicit.)  This is public for compatibility with Java, whose compiler
      * will generate public default constructors for an abstract class.
      */
-    @libcore.api.IntraCoreApi
     public UResourceBundle() {
     }
 
@@ -198,7 +196,6 @@ public abstract class UResourceBundle extends ResourceBundle {
      * @return a resource bundle for the given base name and locale
      */
 
-    @libcore.api.IntraCoreApi
     public static UResourceBundle getBundleInstance(String baseName, Locale locale) {
         if (baseName == null) {
             baseName = ICUData.ICU_BASE_NAME;
@@ -219,7 +216,6 @@ public abstract class UResourceBundle extends ResourceBundle {
      * @return a resource bundle for the given base name and locale
      */
     @dalvik.annotation.compat.UnsupportedAppUsage
-    @libcore.api.IntraCoreApi
     public static UResourceBundle getBundleInstance(String baseName, ULocale locale) {
         if (baseName == null) {
             baseName = ICUData.ICU_BASE_NAME;
@@ -422,7 +418,6 @@ public abstract class UResourceBundle extends ResourceBundle {
      * @throws MissingResourceException If resource bundle is missing.
      * @throws UResourceTypeMismatchException If resource bundle has a type mismatch.
      */
-    @libcore.api.IntraCoreApi
     public String[] getStringArray() {
         throw new UResourceTypeMismatchException("");
     }

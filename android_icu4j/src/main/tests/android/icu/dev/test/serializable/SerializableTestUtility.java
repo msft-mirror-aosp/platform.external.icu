@@ -821,8 +821,6 @@ public class SerializableTestUtility {
         map.put("android.icu.text.DateFormat$Field", new FormatHandler.DateFormatFieldHandler());
         map.put("android.icu.text.ChineseDateFormat$Field", new FormatHandler.ChineseDateFormatFieldHandler());
         map.put("android.icu.text.MessageFormat$Field", new FormatHandler.MessageFormatFieldHandler());
-        map.put("android.icu.text.RelativeDateTimeFormatter$Field", new FormatHandler.RelativeDateTimeFormatterFieldHandler());
-        map.put("android.icu.text.DateIntervalFormat$SpanField", new FormatHandler.DateIntervalSpanFieldHandler());
 
         map.put("android.icu.impl.duration.BasicDurationFormat", new FormatHandler.BasicDurationFormatHandler());
         map.put("android.icu.impl.RelativeDateFormat", new FormatHandler.RelativeDateFormatHandler());
@@ -942,6 +940,13 @@ public class SerializableTestUtility {
                 // Do not test the legacy DecimalFormat class in ICU 59
                 return;
             }
+
+            // Android patch (b/68143370) begin.
+            if (className.equals("android.icu.text.DecimalFormat_ICU58_Android")) {
+                // Do not test the legacy DecimalFormat class in ICU 59
+                return;
+            }
+            // Android patch (b/68143370) end.
 
             if (c.isEnum() || !serializable.isAssignableFrom(c)) {
                 //System.out.println("@@@ Skipping: " + className);

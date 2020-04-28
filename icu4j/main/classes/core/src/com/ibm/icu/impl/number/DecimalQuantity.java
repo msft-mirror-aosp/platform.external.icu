@@ -27,31 +27,26 @@ import com.ibm.icu.text.UFieldPosition;
  */
 public interface DecimalQuantity extends PluralRules.IFixedDecimal {
     /**
-     * Sets the minimum integer digits that this {@link DecimalQuantity} should generate.
+     * Sets the minimum and maximum integer digits that this {@link DecimalQuantity} should generate.
      * This method does not perform rounding.
      *
      * @param minInt
      *            The minimum number of integer digits.
+     * @param maxInt
+     *            The maximum number of integer digits.
      */
-    public void setMinInteger(int minInt);
+    public void setIntegerLength(int minInt, int maxInt);
 
     /**
-     * Sets the minimum fraction digits that this {@link DecimalQuantity} should generate.
+     * Sets the minimum and maximum fraction digits that this {@link DecimalQuantity} should generate.
      * This method does not perform rounding.
      *
      * @param minFrac
      *            The minimum number of fraction digits.
+     * @param maxFrac
+     *            The maximum number of fraction digits.
      */
-    public void setMinFraction(int minFrac);
-
-    /**
-     * Truncates digits from the upper magnitude of the number in order to satisfy the
-     * specified maximum number of integer digits.
-     *
-     * @param maxInt
-     *            The maximum number of integer digits.
-     */
-    public void applyMaxInteger(int maxInt);
+    public void setFractionLength(int minFrac, int maxFrac);
 
     /**
      * Rounds the number to a specified interval, such as 0.05.
@@ -65,17 +60,6 @@ public interface DecimalQuantity extends PluralRules.IFixedDecimal {
      *            The {@link MathContext} to use if rounding is necessary. Undefined behavior if null.
      */
     public void roundToIncrement(BigDecimal roundingInterval, MathContext mathContext);
-
-    /**
-     * Rounds the number to the nearest multiple of 5 at the specified magnitude.
-     * For example, when magnitude == -2, this performs rounding to the nearest 0.05.
-     *
-     * @param magnitude
-     *            The magnitude at which the digit should become either 0 or 5.
-     * @param mathContext
-     *            Rounding strategy.
-     */
-    public void roundToNickel(int magnitude, MathContext mathContext);
 
     /**
      * Rounds the number to a specified magnitude (power of ten).

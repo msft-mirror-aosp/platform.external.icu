@@ -15,12 +15,11 @@
 #if !UCONFIG_NO_FORMATTING
 
 #include "intltest.h"
-#include "itformat.h"
 
 /**
  * Test basic functionality of various API functions
  **/
-class DateIntervalFormatTest: public IntlTestWithFieldPosition {
+class DateIntervalFormatTest: public IntlTest {
     void runIndexedTest( int32_t index, UBool exec, const char* &name, char* par = NULL );
 
 public:
@@ -63,8 +62,6 @@ public:
     void threadFunc11669(int32_t threadNum);
 
     void testTicket12065();
-
-    void testFormattedDateInterval();
 
 private:
     /**

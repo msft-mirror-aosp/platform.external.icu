@@ -40,8 +40,6 @@ import com.ibm.icu.text.MessagePattern;
 import com.ibm.icu.text.NumberFormat;
 import com.ibm.icu.text.SimpleDateFormat;
 import com.ibm.icu.text.UFormat;
-import com.ibm.icu.util.Calendar;
-import com.ibm.icu.util.GregorianCalendar;
 import com.ibm.icu.util.TimeZone;
 import com.ibm.icu.util.ULocale;
 
@@ -113,7 +111,7 @@ public class TestMessageFormat extends TestFmwk {
                 errln("Number format creation failed for " + locale[i].getDisplayName());
                 continue;
             }
-            FieldPosition pos = new FieldPosition(FieldPosition_DONT_CARE);
+            FieldPosition pos = new FieldPosition(0);
             buffer.setLength(0);
             form.format(myNumber, buffer, pos);
             parsePos.setIndex(0);
@@ -217,7 +215,7 @@ public class TestMessageFormat extends TestFmwk {
 
             //it_out << "Pat out: " << form.toPattern(buffer));
             StringBuffer result = new StringBuffer();
-            FieldPosition fieldpos = new FieldPosition(FieldPosition_DONT_CARE);
+            FieldPosition fieldpos = new FieldPosition(0);
             form.format(testArgs, result, fieldpos);
             assertEquals("format", testResultStrings[i], result.toString());
 
@@ -262,7 +260,7 @@ public class TestMessageFormat extends TestFmwk {
             return;
         }
         Object testArgs1[] = { "abc", "def" };
-        FieldPosition fieldpos = new FieldPosition(FieldPosition_DONT_CARE);
+        FieldPosition fieldpos = new FieldPosition(0);
         assertEquals("format",
                      "There are abc files on def",
                      form.format(testArgs1, buffer2, fieldpos).toString());
@@ -460,7 +458,7 @@ public class TestMessageFormat extends TestFmwk {
 
         MessageFormat msg = new MessageFormat(formatStr, Locale.ENGLISH);
         result.setLength(0);
-        FieldPosition pos = new FieldPosition(FieldPosition_DONT_CARE);
+        FieldPosition pos = new FieldPosition(0);
         result = msg.format(
             arguments,
             result,
@@ -514,7 +512,7 @@ public class TestMessageFormat extends TestFmwk {
         String compareStr = "On Aug 8, 1997, it began.";
 
         MessageFormat msg = new MessageFormat(formatStr);
-        FieldPosition fp = new FieldPosition(FieldPosition_DONT_CARE);
+        FieldPosition fp = new FieldPosition(0);
 
         try {
             msg.format(new Date(871068000000L),
@@ -925,7 +923,7 @@ public class TestMessageFormat extends TestFmwk {
 
         MessageFormat msg = new MessageFormat(formatStr, ULocale.US);
         result.setLength(0);
-        FieldPosition pos = new FieldPosition(FieldPosition_DONT_CARE);
+        FieldPosition pos = new FieldPosition(0);
         result = msg.format(
             arguments,
             result,
@@ -942,7 +940,7 @@ public class TestMessageFormat extends TestFmwk {
 
         msg.setFormatsByArgumentIndex(fmts);
         result.setLength(0);
-        pos = new FieldPosition(FieldPosition_DONT_CARE);
+        pos = new FieldPosition(0);
         result = msg.format(
             arguments,
             result,
@@ -954,7 +952,7 @@ public class TestMessageFormat extends TestFmwk {
         Format newFmt = NumberFormat.getCurrencyInstance(ULocale.GERMAN);
         msg.setFormatByArgumentIndex(0, newFmt);
         result.setLength(0);
-        pos = new FieldPosition(FieldPosition_DONT_CARE);
+        pos = new FieldPosition(0);
         result = msg.format(
             arguments,
             result,
@@ -1010,7 +1008,7 @@ public class TestMessageFormat extends TestFmwk {
         String compareStr = "On Aug 8, 1997, it began.";
 
         MessageFormat msg = new MessageFormat(formatStr);
-        FieldPosition fp = new FieldPosition(FieldPosition_DONT_CARE);
+        FieldPosition fp = new FieldPosition(0);
 
         try {
             msg.format(arguments.get("startDate"), result, fp);
@@ -1120,7 +1118,7 @@ public class TestMessageFormat extends TestFmwk {
         gotException = false;
         try {
             Object args[] = {new Long(42)};
-            msg.format(args, new StringBuffer(), new FieldPosition(FieldPosition_DONT_CARE));
+            msg.format(args, new StringBuffer(), new FieldPosition(0));
         } catch (IllegalArgumentException e) {
             gotException = true;
         }
@@ -1133,7 +1131,7 @@ public class TestMessageFormat extends TestFmwk {
         gotException = false;
         try {
             Object args[] = {new Long(42)};
-            msg.format((Object) args, new StringBuffer(), new FieldPosition(FieldPosition_DONT_CARE));
+            msg.format((Object) args, new StringBuffer(), new FieldPosition(0));
         } catch (IllegalArgumentException e) {
             gotException = true;
         }
@@ -1880,7 +1878,7 @@ public class TestMessageFormat extends TestFmwk {
         map.put("_oOo_", new Integer(3));
         StringBuffer result = new StringBuffer();
         assertEquals("trim-named-arg format() failed", "x 3 y",
-                     m.format(map, result, new FieldPosition(FieldPosition_DONT_CARE)).toString());
+                     m.format(map, result, new FieldPosition(0)).toString());
     }
 
     @Test
@@ -2118,44 +2116,10 @@ public class TestMessageFormat extends TestFmwk {
 
             MessageFormat msgf = new MessageFormat(messagePattern, locale);
             StringBuffer sb = new StringBuffer();
-            FieldPosition fpos = new FieldPosition(FieldPosition_DONT_CARE);
+            FieldPosition fpos = new FieldPosition(0);
             msgf.format(new Object[] { arg }, sb, fpos);
 
             assertEquals(messagePattern, expected, sb.toString());
         }
-    }
-
-    private static void doTheRealDateTimeSkeletonTesting(Date date, String messagePattern, ULocale locale, String expected) {
-
-        MessageFormat msgf = new MessageFormat(messagePattern, locale);
-        StringBuffer sb = new StringBuffer();
-        FieldPosition fpos = new FieldPosition(FieldPosition_DONT_CARE);
-        msgf.format(new Object[] { date }, sb, fpos);
-
-        assertEquals(messagePattern, expected, sb.toString());
-    }
-
-    @Test
-    public void TestMessageFormatDateSkeleton() {
-        Date date = new GregorianCalendar(2021, Calendar.NOVEMBER, 23, 16, 42, 55).getTime();
-
-        doTheRealDateTimeSkeletonTesting(date, "{0,date,::MMMMd}", ULocale.ENGLISH, "November 23");
-        doTheRealDateTimeSkeletonTesting(date, "{0,date,::yMMMMdjm}", ULocale.ENGLISH, "November 23, 2021, 4:42 PM");
-        doTheRealDateTimeSkeletonTesting(date, "{0,date,   ::   yMMMMd   }", ULocale.ENGLISH, "November 23, 2021");
-        doTheRealDateTimeSkeletonTesting(date, "{0,date,::yMMMMd}", ULocale.FRENCH, "23 novembre 2021");
-        doTheRealDateTimeSkeletonTesting(date, "Expiration: {0,date,::yMMM}!", ULocale.ENGLISH, "Expiration: Nov 2021!");
-        doTheRealDateTimeSkeletonTesting(date, "{0,date,'::'yMMMMd}", ULocale.ENGLISH, "::2021November23"); // pattern literal
-    }
-
-    @Test
-    public void TestMessageFormatTimeSkeleton() {
-        Date date = new GregorianCalendar(2021, Calendar.NOVEMBER, 23, 16, 42, 55).getTime();
-
-        doTheRealDateTimeSkeletonTesting(date, "{0,time,::MMMMd}", ULocale.ENGLISH, "November 23");
-        doTheRealDateTimeSkeletonTesting(date, "{0,time,::yMMMMdjm}", ULocale.ENGLISH, "November 23, 2021, 4:42 PM");
-        doTheRealDateTimeSkeletonTesting(date, "{0,time,   ::   yMMMMd   }", ULocale.ENGLISH, "November 23, 2021");
-        doTheRealDateTimeSkeletonTesting(date, "{0,time,::yMMMMd}", ULocale.FRENCH, "23 novembre 2021");
-        doTheRealDateTimeSkeletonTesting(date, "Expiration: {0,time,::yMMM}!", ULocale.ENGLISH, "Expiration: Nov 2021!");
-        doTheRealDateTimeSkeletonTesting(date, "{0,time,'::'yMMMMd}", ULocale.ENGLISH, "::2021November23"); // pattern literal
     }
 }

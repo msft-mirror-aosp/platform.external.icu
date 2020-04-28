@@ -309,9 +309,10 @@ public class LocaleDisplayNamesImpl extends LocaleDisplayNames {
         String lang = locale.getLanguage();
 
         // Empty basename indicates root locale (keywords are ignored for this).
-        // For the display name, we treat this as unknown language (ICU-20273).
-        if (lang.isEmpty()) {
-            lang = "und";
+        // Our data uses 'root' to access display names for the root locale in the
+        // "Languages" table.
+        if (locale.getBaseName().length() == 0) {
+            lang = "root";
         }
         String script = locale.getScript();
         String country = locale.getCountry();

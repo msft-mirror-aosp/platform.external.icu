@@ -248,7 +248,7 @@ public  class ICUResourceBundle extends UResourceBundle {
      * @internal ICU 3.0
      */
     public static final String[] getKeywordValues(String baseName, String keyword) {
-        Set<String> keywords = new HashSet<>();
+        Set<String> keywords = new HashSet<String>();
         ULocale locales[] = getAvailEntry(baseName, ICU_DATA_CLASS_LOADER).getULocaleList();
         int i;
 
@@ -362,26 +362,6 @@ public  class ICUResourceBundle extends UResourceBundle {
             throw new MissingResourceException("Encountered NO_INHERITANCE_MARKER", path, getKey());
         }
         return result;
-    }
-
-    public UResource.Value getValueWithFallback(String path) throws MissingResourceException {
-        ICUResourceBundle rb;
-        if (path.isEmpty()) {
-            rb = this;
-        } else {
-            rb = findResourceWithFallback(path, this, null);
-            if (rb == null) {
-                throw new MissingResourceException(
-                    "Can't find resource for bundle "
-                    + this.getClass().getName() + ", key " + getType(),
-                    path, getKey());
-            }
-        }
-        ReaderValue readerValue = new ReaderValue();
-        ICUResourceBundleImpl impl = (ICUResourceBundleImpl)rb;
-        readerValue.reader = impl.wholeBundle.reader;
-        readerValue.res = impl.getResource();
-        return readerValue;
     }
 
     public void getAllItemsWithFallbackNoFail(String path, UResource.Sink sink) {
@@ -532,8 +512,8 @@ public  class ICUResourceBundle extends UResourceBundle {
      * @return the list of converted ULocales
      */
     public static final Locale[] getLocaleList(ULocale[] ulocales) {
-        ArrayList<Locale> list = new ArrayList<>(ulocales.length);
-        HashSet<Locale> uniqueSet = new HashSet<>();
+        ArrayList<Locale> list = new ArrayList<Locale>(ulocales.length);
+        HashSet<Locale> uniqueSet = new HashSet<Locale>();
         for (int i = 0; i < ulocales.length; i++) {
             Locale loc = ulocales[i].toLocale();
             if (!uniqueSet.contains(loc)) {
@@ -682,7 +662,7 @@ public  class ICUResourceBundle extends UResourceBundle {
 
     private static Set<String> createFullLocaleNameSet(String baseName, ClassLoader loader) {
         String bn = baseName.endsWith("/") ? baseName : baseName + "/";
-        Set<String> set = new HashSet<>();
+        Set<String> set = new HashSet<String>();
         String skipScan = ICUConfig.get("com.ibm.icu.impl.ICUResourceBundle.skipRuntimeLocaleResourceScan", "false");
         if (!skipScan.equalsIgnoreCase("true")) {
             // scan available locale resources under the base url first
@@ -727,7 +707,7 @@ public  class ICUResourceBundle extends UResourceBundle {
     }
 
     private static Set<String> createLocaleNameSet(String baseName, ClassLoader loader) {
-        HashSet<String> set = new HashSet<>();
+        HashSet<String> set = new HashSet<String>();
         addLocaleIDsFromIndexBundle(baseName, loader, set);
         return Collections.unmodifiableSet(set);
     }
@@ -1428,7 +1408,7 @@ public  class ICUResourceBundle extends UResourceBundle {
         String bundleName;
         String rpath = wholeBundle.reader.getAlias(_resource);
         if (aliasesVisited == null) {
-            aliasesVisited = new HashMap<>();
+            aliasesVisited = new HashMap<String, String>();
         }
         if (aliasesVisited.get(rpath) != null) {
             throw new IllegalArgumentException(

@@ -9,19 +9,10 @@
 
 package com.ibm.icu.dev.test.perf;
 
-import java.io.BufferedReader;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.util.ArrayList;
-import java.util.Comparator;
-
+import com.ibm.icu.text.*;
+import java.util.*;
+import java.io.*;
 import com.ibm.icu.impl.LocaleUtility;
-import com.ibm.icu.text.CollationElementIterator;
-import com.ibm.icu.text.CollationKey;
-import com.ibm.icu.text.Normalizer;
-import com.ibm.icu.text.NumberFormat;
-import com.ibm.icu.text.RuleBasedCollator;
 
 public class CollationPerformanceTest {
     static final String usageString = 

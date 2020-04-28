@@ -36,6 +36,10 @@ public:
      **/
     void TestArabicShapingThreads(void);
 	
+    /**
+     * test that mutexes work 
+     **/
+    void TestMutex(void);
 #if !UCONFIG_NO_FORMATTING
     /**
      * test that intl functions work in a multithreaded context
@@ -45,6 +49,7 @@ public:
     void TestCollators(void);
     void TestString();
     void TestAnyTranslit();
+    void TestConditionVariables();
     void TestUnifiedCache();
     void TestBreakTranslit();
     void TestIncDec();

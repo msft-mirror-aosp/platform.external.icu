@@ -43,8 +43,7 @@ import com.ibm.icu.util.ULocale;
  * users of ICU.
  *
  * <p>
- * NumberFormatter instances (i.e., LocalizedNumberFormatter and UnlocalizedNumberFormatter)
- * are immutable and thread safe. This means that invoking a configuration
+ * NumberFormatter instances are immutable and thread safe. This means that invoking a configuration
  * method has no effect on the receiving instance; you must store and use the new number formatter
  * instance it returns instead.
  *

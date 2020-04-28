@@ -33,7 +33,6 @@
 #include "cmemory.h"
 #include "transrt.h"
 #include "testutil.h"
-#include "uassert.h"
 #include <string.h>
 #include <stdio.h>
 
@@ -1048,7 +1047,6 @@ static void writeStringInU8(FILE *out, const UnicodeString &s) {
         UBool    isError = FALSE;
         int32_t  destIdx = 0;
         U8_APPEND(bufForOneChar, destIdx, (int32_t)sizeof(bufForOneChar), c, isError);
-        U_ASSERT(!isError);
         fwrite(bufForOneChar, 1, destIdx, out);
     }
 }

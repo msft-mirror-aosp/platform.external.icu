@@ -309,8 +309,7 @@ public class AffixUtils {
             CharSequence affixPattern,
             NumberStringBuilder output,
             int position,
-            SymbolProvider provider,
-            NumberFormat.Field field) {
+            SymbolProvider provider) {
         assert affixPattern != null;
         int length = 0;
         long tag = 0L;
@@ -325,7 +324,7 @@ public class AffixUtils {
                         provider.getSymbol(typeOrCp),
                         getFieldForType(typeOrCp));
             } else {
-                length += output.insertCodePoint(position + length, typeOrCp, field);
+                length += output.insertCodePoint(position + length, typeOrCp, null);
             }
         }
         return length;

@@ -42,7 +42,8 @@ class DefaultSymbolProvider : public SymbolProvider {
             case TYPE_CURRENCY_OVERFLOW:
                 return u"\uFFFD";
             default:
-                UPRV_UNREACHABLE;
+                U_ASSERT(false);
+                return {}; // silence compiler warnings
         }
     }
 };
@@ -222,7 +223,7 @@ void AffixUtilsTest::testUnescapeWithSymbolProvider() {
         UnicodeString input(cas[0]);
         UnicodeString expected(cas[1]);
         sb.clear();
-        AffixUtils::unescape(input, sb, 0, provider, UNUM_FIELD_COUNT, status);
+        AffixUtils::unescape(input, sb, 0, provider, status);
         assertSuccess("Spot 1", status);
         assertEquals(input, expected, sb.toUnicodeString());
         assertEquals(input, expected, sb.toTempUnicodeString());
@@ -232,7 +233,7 @@ void AffixUtilsTest::testUnescapeWithSymbolProvider() {
     sb.clear();
     sb.append(u"abcdefg", UNUM_FIELD_COUNT, status);
     assertSuccess("Spot 2", status);
-    AffixUtils::unescape(u"-+%", sb, 4, provider, UNUM_FIELD_COUNT, status);
+    AffixUtils::unescape(u"-+%", sb, 4, provider, status);
     assertSuccess("Spot 3", status);
     assertEquals(u"Symbol provider into middle", u"abcd123efg", sb.toUnicodeString());
 }
@@ -240,7 +241,7 @@ void AffixUtilsTest::testUnescapeWithSymbolProvider() {
 UnicodeString AffixUtilsTest::unescapeWithDefaults(const SymbolProvider &defaultProvider,
                                                           UnicodeString input, UErrorCode &status) {
     NumberStringBuilder nsb;
-    int32_t length = AffixUtils::unescape(input, nsb, 0, defaultProvider, UNUM_FIELD_COUNT, status);
+    int32_t length = AffixUtils::unescape(input, nsb, 0, defaultProvider, status);
     assertEquals("Return value of unescape", nsb.length(), length);
     return nsb.toUnicodeString();
 }

@@ -329,21 +329,10 @@ void SimpleFormatterTest::TestBadArguments() {
 }
 
 void SimpleFormatterTest::TestTextWithNoArguments() {
-    IcuTestErrorCode status(*this, "TestTextWithNoArguments");
+    UErrorCode status = U_ZERO_ERROR;
     SimpleFormatter fmt("{0} has no {1} arguments.", status);
-    assertEquals("String output 1",
-        " has no  arguments.", fmt.getTextWithNoArguments());
-
-    // Test offset positions
-    int32_t offsets[3];
-    assertEquals("String output 2",
-        u" has no  arguments.", fmt.getTextWithNoArguments(offsets, 3));
-    assertEquals("Offset at 0",
-        0, offsets[0]);
-    assertEquals("Offset at 1",
-        8, offsets[1]);
-    assertEquals("Offset at 2",
-        -1, offsets[2]);
+    assertEquals(
+            "", " has no  arguments.", fmt.getTextWithNoArguments());
 }
 
 void SimpleFormatterTest::TestFormatReplaceNoOptimization() {

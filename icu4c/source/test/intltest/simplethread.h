@@ -9,29 +9,20 @@
 #ifndef SIMPLETHREAD_H
 #define SIMPLETHREAD_H
 
-#include <thread>
-#include "unicode/utypes.h"
+#include "mutex.h"
 
-/*
- * Simple class for creating threads in ICU tests.
- * Originally created to provide a portable abstraction over platform
- * (POSIX or Win32) threading interfaces.
- *
- * New threaded tests should consider skipping this class and directly using C++ std library
- * threading functions. SimpleThread is retained primarily to support existing use.
- */
-class SimpleThread
+class U_EXPORT SimpleThread
 {
   public:
     SimpleThread();
     virtual  ~SimpleThread();
-    int32_t   start();            // start the thread. Return 0 if successfull.
+    int32_t   start(void);        // start the thread. Return 0 if successfull.
     void      join();             // A thread must be joined before deleting its SimpleThread.
 
-    virtual void run() = 0;       // Override this to provide the code to run
+    virtual void run(void) = 0;   // Override this to provide the code to run
                                   //   in the thread.
   private:
-    std::thread fThread = {};
+    void *fImplementation;
 };
 
 
@@ -85,3 +76,4 @@ class ThreadPool : public ThreadPoolBase {
     }
 };
 #endif
+

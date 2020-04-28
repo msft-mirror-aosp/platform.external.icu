@@ -1350,12 +1350,6 @@ public final class UCharacterName
                     int startIndex = name.lastIndexOf('-');
                     if (startIndex >= 0) { // We've got a category.
                         startIndex ++;
-
-                        // There should be 1 to 8 hex digits.
-                        int hexLength = endIndex - startIndex;
-                        if (hexLength < 1 || 8 < hexLength) {
-                            return -1;
-                        }
                         int result = -1;
                         try {
                             result = Integer.parseInt(
@@ -1365,17 +1359,13 @@ public final class UCharacterName
                         catch (NumberFormatException e) {
                             return -1;
                         }
-                        if (result < 0 || 0x10ffff < result) {
-                            return -1;
-                        }
                         // Now validate the category name. We could use a
                         // binary search, or a trie, if we really wanted to.
-                        int charType = getType(result);
                         String type = name.substring(1, startIndex - 1);
                         int length = TYPE_NAMES_.length;
                         for (int i = 0; i < length; ++ i) {
                             if (type.compareTo(TYPE_NAMES_[i]) == 0) {
-                                if (charType == i) {
+                                if (getType(result) == i) {
                                     return result;
                                 }
                                 break;

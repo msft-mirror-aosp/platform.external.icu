@@ -183,7 +183,7 @@ is{
         MF{"St. Martin"}
         MG{"Madagaskar"}
         MH{"Marshalleyjar"}
-        MK{"Norður-Makedónía"}
+        MK{"Makedónía (Fyrrverandi lýðveldi Júgóslavíu)"}
         ML{"Malí"}
         MM{"Mjanmar (Búrma)"}
         MN{"Mongólía"}
@@ -305,5 +305,5 @@ is{
         CG{"Kongó (Lýðveldið)"}
         TL{"Austur-Tímor"}
     }
-    Version{"2.1.49.82"}
+    Version{"2.1.44.91"}
 }

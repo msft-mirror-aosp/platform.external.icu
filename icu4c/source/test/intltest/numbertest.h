@@ -8,7 +8,6 @@
 
 #include "number_stringbuilder.h"
 #include "intltest.h"
-#include "itformat.h"
 #include "number_affixutils.h"
 #include "numparse_stringsegment.h"
 #include "numrange_impl.h"
@@ -44,7 +43,7 @@ class AffixUtilsTest : public IntlTest {
                                        UErrorCode &status);
 };
 
-class NumberFormatterApiTest : public IntlTestWithFieldPosition {
+class NumberFormatterApiTest : public IntlTest {
   public:
     NumberFormatterApiTest();
     NumberFormatterApiTest(UErrorCode &status);
@@ -56,7 +55,6 @@ class NumberFormatterApiTest : public IntlTestWithFieldPosition {
     void unitCompoundMeasure();
     void unitCurrency();
     void unitPercent();
-    void percentParity();
     void roundingFraction();
     void roundingFigures();
     void roundingFractionFigures();
@@ -72,14 +70,12 @@ class NumberFormatterApiTest : public IntlTestWithFieldPosition {
     void scale();
     void locale();
     void formatTypes();
-    void fieldPositionLogic();
-    void fieldPositionCoverage();
+    void fieldPosition();
     void toFormat();
     void errors();
     void validRanges();
     void copyMove();
     void localPointerCAPI();
-    void toObject();
 
     void runIndexedTest(int32_t index, UBool exec, const char *&name, char *par = 0);
 
@@ -90,7 +86,6 @@ class NumberFormatterApiTest : public IntlTestWithFieldPosition {
     CurrencyUnit CAD;
     CurrencyUnit ESP;
     CurrencyUnit PTE;
-    CurrencyUnit RON;
 
     MeasureUnit METER;
     MeasureUnit DAY;
@@ -116,18 +111,11 @@ class NumberFormatterApiTest : public IntlTestWithFieldPosition {
     void assertFormatDescendingBig(const char16_t* message, const char16_t* skeleton,
                                    const UnlocalizedNumberFormatter& f, Locale locale, ...);
 
-    FormattedNumber
-    assertFormatSingle(const char16_t* message, const char16_t* skeleton,
-                       const UnlocalizedNumberFormatter& f, Locale locale, double input,
-                       const UnicodeString& expected);
+    void assertFormatSingle(const char16_t* message, const char16_t* skeleton,
+                            const UnlocalizedNumberFormatter& f, Locale locale, double input,
+                            const UnicodeString& expected);
 
     void assertUndefinedSkeleton(const UnlocalizedNumberFormatter& f);
-
-    void assertNumberFieldPositions(
-      const char16_t* message,
-      const FormattedNumber& formattedNumber,
-      const UFieldPosition* expectedFieldPositions,
-      int32_t length);
 };
 
 class DecimalQuantityTest : public IntlTest {
@@ -141,7 +129,6 @@ class DecimalQuantityTest : public IntlTest {
     void testHardDoubleConversion();
     void testToDouble();
     void testMaxDigits();
-    void testNickelRounding();
 
     void runIndexedTest(int32_t index, UBool exec, const char *&name, char *par = 0);
 
@@ -239,8 +226,6 @@ class NumberParserTest : public IntlTest {
     void testAffixPatternMatcher();
     void testGroupingDisabled();
     void testCaseFolding();
-    void test20360_BidiOverflow();
-    void testInfiniteRecursion();
 
     void runIndexedTest(int32_t index, UBool exec, const char *&name, char *par = 0);
 };
@@ -262,7 +247,7 @@ class NumberSkeletonTest : public IntlTest {
     void expectedErrorSkeleton(const char16_t** cases, int32_t casesLen);
 };
 
-class NumberRangeFormatterTest : public IntlTestWithFieldPosition {
+class NumberRangeFormatterTest : public IntlTest {
   public:
     NumberRangeFormatterTest();
     NumberRangeFormatterTest(UErrorCode &status);
@@ -273,9 +258,7 @@ class NumberRangeFormatterTest : public IntlTestWithFieldPosition {
     void testIdentity();
     void testDifferentFormatters();
     void testPlurals();
-    void testFieldPositions();
     void testCopyMove();
-    void toObject();
 
     void runIndexedTest(int32_t index, UBool exec, const char *&name, char *par = 0);
 
@@ -304,7 +287,7 @@ class NumberRangeFormatterTest : public IntlTestWithFieldPosition {
       const char16_t* expected_50K_50K,
       const char16_t* expected_50K_50M);
     
-    FormattedNumberRange assertFormattedRangeEquals(
+    void assertFormattedRangeEquals(
       const char16_t* message,
       const LocalizedNumberRangeFormatter& l,
       double first,

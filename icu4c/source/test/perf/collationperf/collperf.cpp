@@ -374,6 +374,7 @@ void doKeyGen()
     int  line;
     int  loops = 0;
     int  iLoop;
+    int  t;
     int  len=-1;
 
     // Adjust loop count to compensate for file size.   Should be order n
@@ -391,9 +392,9 @@ void doKeyGen()
                     len = gFileLines[line].len;
                 }
                 for (iLoop=0; iLoop < opt_iLoopCount; iLoop++) {
-                    LCMapStringW(gWinLCID, LCMAP_SORTKEY,
+                    t=LCMapStringW(gWinLCID, LCMAP_SORTKEY,
                         gFileLines[line].name, len,
-                        (UChar *)gFileLines[line].winSortKey, 5000);    // TODO  something with length.
+                        (unsigned short *)gFileLines[line].winSortKey, 5000);    // TODO  something with length.
                 }
             }
         }
@@ -406,7 +407,7 @@ void doKeyGen()
                     len = gFileLines[line].len;
                 }
                 for (iLoop=0; iLoop < opt_iLoopCount; iLoop++) {
-                    ucol_getSortKey(gCol, gFileLines[line].name, len, (unsigned char *)gFileLines[line].icuSortKey, 5000);
+                    t = ucol_getSortKey(gCol, gFileLines[line].name, len, (unsigned char *)gFileLines[line].icuSortKey, 5000);
                 }
             }
         }
@@ -416,7 +417,7 @@ void doKeyGen()
         for (loops=0; loops<adj_loopCount; loops++) {
             for (line=0; line < gNumFileLines; line++) {
                 for (iLoop=0; iLoop < opt_iLoopCount; iLoop++) {
-                    strxfrm(gFileLines[line].unixSortKey, gFileLines[line].unixName, 5000);
+                t = strxfrm(gFileLines[line].unixSortKey, gFileLines[line].unixName, 5000);
                 }
             }
         }
@@ -1636,7 +1637,7 @@ int main(int argc, const char** argv) {
          t=LCMapStringW(gWinLCID, LCMAP_SORTKEY, gFileLines[line].name, -1, buf, sizeof(buf));
          gFileLines[line].winSortKey  = new char[t];
          if (t > (int32_t)sizeof(buf)) {
-             t = LCMapStringW(gWinLCID, LCMAP_SORTKEY, gFileLines[line].name, -1, (UChar *)(gFileLines[line].winSortKey), t);
+             t = LCMapStringW(gWinLCID, LCMAP_SORTKEY, gFileLines[line].name, -1, (unsigned short *)(gFileLines[line].winSortKey), t);
          }
          else
          {

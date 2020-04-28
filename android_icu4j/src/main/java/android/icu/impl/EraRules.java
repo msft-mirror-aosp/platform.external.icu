@@ -6,7 +6,6 @@ package android.icu.impl;
 import java.util.Arrays;
 
 import android.icu.util.ICUException;
-import android.icu.util.TimeZone;
 import android.icu.util.UResourceBundle;
 import android.icu.util.UResourceBundleIterator;
 
@@ -204,8 +203,7 @@ public class EraRules {
 
     /**
      * Gets the current era index. This is calculated only once for an instance of
-     * EraRules. The current era calculation is based on the default time zone at
-     * the time of instantiation.
+     * EraRules.
      *
      * @return era index of current era (or 0, when current date is before the first era)
      */
@@ -214,11 +212,7 @@ public class EraRules {
     }
 
     private void initCurrentEra() {
-        long localMillis = System.currentTimeMillis();
-        TimeZone zone = TimeZone.getDefault();
-        localMillis += zone.getOffset(localMillis);
-
-        int[] fields = Grego.timeToFields(localMillis, null);
+        int[] fields = Grego.timeToFields(System.currentTimeMillis(), null);
         int currentEncodedDate = encodeDate(fields[0], fields[1] + 1 /* changes to 1-base */, fields[2]);
         int eraIdx = numEras - 1;
         while (eraIdx > 0) {

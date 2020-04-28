@@ -752,7 +752,7 @@ public class DecimalFormat extends NumberFormat {
     if (!(obj instanceof Number)) throw new IllegalArgumentException();
     Number number = (Number) obj;
     FormattedNumber output = formatter.format(number);
-    return output.toCharacterIterator();
+    return output.getFieldIterator();
   }
 
   /**
@@ -1006,11 +1006,12 @@ public class DecimalFormat extends NumberFormat {
   /**
    * <strong>[icu]</strong> Returns whether the sign is being shown on positive numbers.
    *
-   * @return Whether the sign is shown on positive numbers and zero.
    * @see #setSignAlwaysShown
-   * @hide draft / provisional / internal are hidden on Android
+   * @deprecated ICU 59: This API is a technical preview. It may change in an upcoming release.
+ * @hide draft / provisional / internal are hidden on Android
    */
-  public synchronized boolean isSignAlwaysShown() {
+  @Deprecated
+  public synchronized boolean getSignAlwaysShown() {
     // This is not in the exported properties
     return properties.getSignAlwaysShown();
   }
@@ -1035,9 +1036,11 @@ public class DecimalFormat extends NumberFormat {
    * explicit plus sign, such as "+0;-0". The behavior when combining this method with explicit plus
    * signs in the pattern is undefined.
    *
-   * @param value true to always show a sign; false to hide the sign on positive numbers and zero.
-   * @hide draft / provisional / internal are hidden on Android
+   * @param value true to always show a sign; false to hide the sign on positive numbers.
+   * @deprecated ICU 59: This API is technical preview. It may change in an upcoming release.
+ * @hide draft / provisional / internal are hidden on Android
    */
+  @Deprecated
   public synchronized void setSignAlwaysShown(boolean value) {
     properties.setSignAlwaysShown(value);
     refreshFormatter();
@@ -1816,8 +1819,10 @@ public class DecimalFormat extends NumberFormat {
    * <strong>[icu]</strong> Returns the minimum number of digits before grouping is triggered.
    *
    * @see #setMinimumGroupingDigits
-   * @hide draft / provisional / internal are hidden on Android
+   * @deprecated ICU 59: This API is a technical preview. It may change in an upcoming release.
+ * @hide draft / provisional / internal are hidden on Android
    */
+  @Deprecated
   public synchronized int getMinimumGroupingDigits() {
     if (properties.getMinimumGroupingDigits() > 0) {
       return properties.getMinimumGroupingDigits();
@@ -1831,8 +1836,10 @@ public class DecimalFormat extends NumberFormat {
    * to 2, in <em>en-US</em>, 1234 will be printed as "1234" and 12345 will be printed as "12,345".
    *
    * @param number The minimum number of digits before grouping is triggered.
-   * @hide draft / provisional / internal are hidden on Android
+   * @deprecated ICU 59: This API is a technical preview. It may change in an upcoming release.
+ * @hide draft / provisional / internal are hidden on Android
    */
+  @Deprecated
   public synchronized void setMinimumGroupingDigits(int number) {
     properties.setMinimumGroupingDigits(number);
     refreshFormatter();
@@ -2021,17 +2028,6 @@ public class DecimalFormat extends NumberFormat {
     refreshFormatter();
   }
 
-  // BEGIN Android-added: Compatibility mode for j.t.DecimalFormat. http://b/112355520
-  /**
-   * @hide draft / provisional / internal are hidden on Android
-   */
-  @libcore.api.IntraCoreApi
-public synchronized void setParseStrictMode(ParseMode parseMode) {
-    properties.setParseMode(parseMode);
-    refreshFormatter();
-  }
-  // END Android-added: Compatibility mode for j.t.DecimalFormat. http://b/112355520
-
   /**
    * {@inheritDoc}
    *
@@ -2108,9 +2104,11 @@ public synchronized void setParseStrictMode(ParseMode parseMode) {
    * <strong>[icu]</strong> Returns whether to ignore exponents when parsing.
    *
    * @see #setParseNoExponent
-   * @hide draft / provisional / internal are hidden on Android
+   * @deprecated ICU 59: This API is a technical preview. It may change in an upcoming release.
+ * @hide draft / provisional / internal are hidden on Android
    */
-  public synchronized boolean isParseNoExponent() {
+  @Deprecated
+  public synchronized boolean getParseNoExponent() {
     return properties.getParseNoExponent();
   }
 
@@ -2120,8 +2118,10 @@ public synchronized void setParseStrictMode(ParseMode parseMode) {
    * 5).
    *
    * @param value true to prevent exponents from being parsed; false to allow them to be parsed.
-   * @hide draft / provisional / internal are hidden on Android
+   * @deprecated ICU 59: This API is a technical preview. It may change in an upcoming release.
+ * @hide draft / provisional / internal are hidden on Android
    */
+  @Deprecated
   public synchronized void setParseNoExponent(boolean value) {
     properties.setParseNoExponent(value);
     refreshFormatter();
@@ -2131,9 +2131,11 @@ public synchronized void setParseStrictMode(ParseMode parseMode) {
    * <strong>[icu]</strong> Returns whether to force case (uppercase/lowercase) to match when parsing.
    *
    * @see #setParseNoExponent
-   * @hide draft / provisional / internal are hidden on Android
+   * @deprecated ICU 59: This API is a technical preview. It may change in an upcoming release.
+ * @hide draft / provisional / internal are hidden on Android
    */
-  public synchronized boolean isParseCaseSensitive() {
+  @Deprecated
+  public synchronized boolean getParseCaseSensitive() {
     return properties.getParseCaseSensitive();
   }
 
@@ -2144,8 +2146,10 @@ public synchronized void setParseStrictMode(ParseMode parseMode) {
    *
    * @param value true to force case (uppercase/lowercase) to match when parsing; false to ignore
    *     case and perform case folding.
-   * @hide draft / provisional / internal are hidden on Android
+   * @deprecated ICU 59: This API is a technical preview. It may change in an upcoming release.
+ * @hide draft / provisional / internal are hidden on Android
    */
+  @Deprecated
   public synchronized void setParseCaseSensitive(boolean value) {
     properties.setParseCaseSensitive(value);
     refreshFormatter();

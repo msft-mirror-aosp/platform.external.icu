@@ -99,7 +99,7 @@ public class ICUCurrencyDisplayInfoProvider implements CurrencyDisplayInfoProvid
         /**
          * Cache for symbolMap() and nameMap().
          */
-        private volatile SoftReference<ParsingData> parsingDataCache = new SoftReference<>(null);
+        private volatile SoftReference<ParsingData> parsingDataCache = new SoftReference<ParsingData>(null);
 
         /**
          * Cache for getUnitPatterns().
@@ -128,8 +128,8 @@ public class ICUCurrencyDisplayInfoProvider implements CurrencyDisplayInfoProvid
         }
 
         static class ParsingData {
-            Map<String, String> symbolToIsoCode = new HashMap<>();
-            Map<String, String> nameToIsoCode = new HashMap<>();
+            Map<String, String> symbolToIsoCode = new HashMap<String, String>();
+            Map<String, String> nameToIsoCode = new HashMap<String, String>();
         }
 
         ////////////////////////
@@ -174,8 +174,9 @@ public class ICUCurrencyDisplayInfoProvider implements CurrencyDisplayInfoProvid
             NarrowSymbol narrowSymbol = fetchNarrowSymbol(isoCode);
 
             // Fall back to ISO Code
+            // TODO: Should this fall back to the regular symbol instead of the ISO code?
             if (narrowSymbol.narrowSymbol == null && fallback) {
-                return getSymbol(isoCode);
+                return isoCode;
             }
             return narrowSymbol.narrowSymbol;
         }
@@ -292,7 +293,7 @@ public class ICUCurrencyDisplayInfoProvider implements CurrencyDisplayInfoProvid
                 CurrencySink sink = new CurrencySink(!fallback, CurrencySink.EntrypointTable.TOP);
                 sink.parsingData = result;
                 rb.getAllItemsWithFallback("", sink);
-                parsingDataCache = new SoftReference<>(result);
+                parsingDataCache = new SoftReference<ParsingData>(result);
             }
             return result;
         }
@@ -300,7 +301,7 @@ public class ICUCurrencyDisplayInfoProvider implements CurrencyDisplayInfoProvid
         Map<String, String> fetchUnitPatterns() {
             Map<String, String> result = unitPatternsCache;
             if (result == null) {
-                result = new HashMap<>();
+                result = new HashMap<String, String>();
                 CurrencySink sink = new CurrencySink(!fallback, CurrencySink.EntrypointTable.CURRENCY_UNIT_PATTERNS);
                 sink.unitPatterns = result;
                 rb.getAllItemsWithFallback("CurrencyUnitPatterns", sink);

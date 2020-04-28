@@ -121,12 +121,11 @@ static void TestOrientation(void);
 static void TestLikelySubtags(void);
 
 /**
- * language tag
+ * lanuage tag
  */
 static void TestForLanguageTag(void);
 static void TestInvalidLanguageTag(void);
 static void TestToLanguageTag(void);
-static void TestBug20132(void);
 static void TestLangAndRegionCanonicalize(void);
 
 static void TestToUnicodeLocaleKey(void);

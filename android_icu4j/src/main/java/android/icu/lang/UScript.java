@@ -846,15 +846,6 @@ public final class UScript {
     /***/
     public static final int OLD_SOGDIAN = 184; /* Sogo */
 
-    /***/
-    public static final int ELYMAIC = 185; /* Elym */
-    /***/
-    public static final int NYIAKENG_PUACHUE_HMONG = 186; /* Hmnp */
-    /***/
-    public static final int NANDINAGARI = 187; /* Nand */
-    /***/
-    public static final int WANCHO = 188; /* Wcho */
-
     /**
      * One more than the highest normal UScript code.
      * The highest value is available via UCharacter.getIntPropertyMaxValue(UProperty.SCRIPT).
@@ -863,7 +854,7 @@ public final class UScript {
      * @hide unsupported on Android
      */
     @Deprecated
-    public static final int CODE_LIMIT   = 189;
+    public static final int CODE_LIMIT   = 185;
 
     private static int[] getCodesFromLocale(ULocale locale) {
         // Multi-script languages, equivalent to the LocaleScript data
@@ -1318,10 +1309,6 @@ public final class UScript {
             0x10D12 | LIMITED_USE | RTL,  // Rohg
             0x10F42 | EXCLUSION | RTL,  // Sogd
             0x10F19 | EXCLUSION | RTL,  // Sogo
-            0x10FF1 | EXCLUSION | RTL,  // Elym
-            0x1E108 | LIMITED_USE,  // Hmnp
-            0x119CE | EXCLUSION,  // Nand
-            0x1E2E1 | LIMITED_USE,  // Wcho
             // End copy-paste from parsescriptmetadata.py
         };
 

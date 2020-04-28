@@ -19,3 +19,4 @@ prebuilt_etc {
     sub_dir: "icu",
     installable: false,
 }
+
