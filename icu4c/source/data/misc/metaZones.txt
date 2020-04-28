@@ -212,7 +212,6 @@ metaZones:table(nofallback){
         }
         Chile{
             001{"America/Santiago"}
-            AQ{"Antarctica/Palmer"}
         }
         China{
             001{"Asia/Shanghai"}
@@ -2575,7 +2574,7 @@ metaZones:table(nofallback){
             {
                 "Casey",
                 "2016-10-21 16:00",
-                "2016-03-10 17:00",
+                "2018-03-10 17:00",
             }
             {
                 "Australia_Western",
@@ -3517,6 +3516,11 @@ metaZones:table(nofallback){
         "EST5EDT"{
             {
                 "America_Eastern",
+            }
+        }
+        "Etc:GMT"{
+            {
+                "GMT",
             }
         }
         "Europe:Amsterdam"{
