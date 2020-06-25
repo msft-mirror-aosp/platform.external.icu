@@ -25,6 +25,7 @@ func init() {
 		"external/skia",
 		"frameworks/base/libs/hwui",
 		"libcore/",
+		"packages/modules/RuntimeI18n/apex/",
 	}
 
 	device_whitelist := []string{
@@ -33,6 +34,7 @@ func init() {
 		"external/icu/",
 		"external/v8/",
 		"libcore/",
+		"packages/modules/RuntimeI18n/",
 		// TODO(b/155921753): Restrict this when prebuilts are in their proper
 		// locations.
 		"prebuilts/",
