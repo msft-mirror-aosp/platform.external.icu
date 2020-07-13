@@ -29,9 +29,6 @@ cc_library_static {
         "-Werror",
     ],
     export_include_dirs: ["include"],
-    export_shared_lib_headers: [
-        "libbase",
-    ],
     target: {
         android: {
             cflags: [
@@ -42,9 +39,11 @@ cc_library_static {
             ],
         },
     },
+    apex_available: [
+        "com.android.i18n",
+    ],
     visibility: [
         "//external/icu/libandroidicu",
         "//external/icu/icu4c/source/test:__subpackages__",
-        "//libcore",
     ],
 }
