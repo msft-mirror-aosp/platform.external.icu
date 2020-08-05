@@ -795,7 +795,7 @@ public class Icu4jTransform {
   /**
    * Usage: See {@link Icu4jRules#COMMAND_USAGE}
    *
-   * The option --hide-non-allowlisted-api can be used to explicitly describe the API surface to be
+   * The option --hide-non-whitelisted-api can be used to explicitly describe the API surface to be
    * exposed; anything not in the list will be hidden in additional to other rules. This is useful
    * when upgrading ICU when we haven't yet added new classes/methods to various hard-coded lists
    * described below.
@@ -809,8 +809,8 @@ public class Icu4jTransform {
    * 3) Types / fields / methods that we explicitly want to hide, listed in DECLARATIONS_TO_HIDE
    * 4) Types / fields / methods that are flagged with ICU javadoc as draft / provisional or
    *    internal.
-   * 5) If the --hide-non-allowlisted-api option is provided, types / fields / methods that are not
-   *    in the allowlisted-api-file.
+   * 5) If the --hide-non-whitelisted-api option is provided, types / fields / methods that are not
+   *    in the whitelisted-api-file.
    */
   public static void main(String[] args) throws Exception {
     Map<String, String> options = JavaCore.getOptions();
@@ -829,7 +829,7 @@ public class Icu4jTransform {
 
     private static final String SOURCE_CODE_HEADER = "/* GENERATED SOURCE. DO NOT MODIFY. */\n";
     private static final String COMMAND_USAGE = "Usage: " + Icu4jTransform.class.getCanonicalName()
-            + " [--hide-non-allowlisted-api <allowlisted-api-file>]"
+            + " [--hide-non-whitelisted-api <whitelisted-api-file>]"
             + " <source-dir>+ <target-dir> <core-platform-api-file> <intra-core-api-file>"
             + " <unsupported-app-usage-file>";
 
@@ -841,9 +841,9 @@ public class Icu4jTransform {
       if (args.length < 3) {
         throw new IllegalArgumentException(COMMAND_USAGE);
       }
-      Path allowlistedApiPath = null;
-      if ("--hide-non-allowlisted-api".equals(args[0])) {
-        allowlistedApiPath = Paths.get(args[1]);
+      Path whitelistedApiPath = null;
+      if ("--hide-non-whitelisted-api".equals(args[0])) {
+        whitelistedApiPath = Paths.get(args[1]);
         if (args.length < 6) {
           throw new IllegalArgumentException(COMMAND_USAGE);
         }
@@ -870,7 +870,7 @@ public class Icu4jTransform {
       }
 
       rules = createTransformRules(corePlatformApiFile, intraCoreApiFile,
-          unsupportedAppUsageFile, allowlistedApiPath);
+          unsupportedAppUsageFile, whitelistedApiPath);
       outputSourceFileGenerator = Icu4jTransformRules.createOutputFileGenerator(targetDir);
     }
 
@@ -909,7 +909,7 @@ public class Icu4jTransform {
     private static List<Rule> createTransformRules(Path corePlatformApiFile,
             Path intraCoreApiFile,
             Path unsupportedAppUsagePath,
-            Path allowlistedApiPath) {
+            Path whitelistedApiPath) {
       // The rules needed to repackage source code that declares or references com.ibm.icu code
       // so it references android.icu instead.
       Rule[] repackageRules = getRepackagingRules();
@@ -925,23 +925,23 @@ public class Icu4jTransform {
               new ReplaceTextCommentScanner(ORIGINAL_ICU_PACKAGE, ANDROID_ICU_PACKAGE)),
 
           // AST change: Hide all ICU public classes except those in the PUBLIC_API_CLASSES
-          // allowlist.
+          // whitelist.
           createHidePublicClassesRule(),
 
           // AST change: Hide ICU methods that are in INITIAL_DEPRECATED_SET and Android does not
           // want to make public.
           createHideOriginalDeprecatedClassesRule(),
-          // AST change: Explicitly hide blocklisted methods in DECLARATIONS_TO_HIDE such as those
+          // AST change: Explicitly hide blacklisted methods in DECLARATIONS_TO_HIDE such as those
           // that get/set static default values that might lead to confusion or strange interactions
           // between Android's ICU4J and java.text / java.util classes.
-          createHideBlocklistedDeclarationsRule(),
+          createHideBlacklistedDeclarationsRule(),
           // AST change: Explicitly hide any elements that are marked as
           // @draft / @provisional / @internal
           createOptionalRule(new HideDraftProvisionalInternal()),
 
-          // AST change: Hide new non-allowlisted API in Android temporarily
+          // AST change: Hide new non-whitelisted API in Android temporarily
           // Usually used for avoiding the new API introduced by upstream to show up in Android.
-          createHideNonAllowlistedRule(allowlistedApiPath),
+          createHideNonWhitelistedRule(whitelistedApiPath),
 
           // AST change: Add @Deprecated annotation and @deprecated doc to deprecated API in Android
           createMarkElementsWithDeprecatedAnnotationRule(),
@@ -986,18 +986,18 @@ public class Icu4jTransform {
     }
 
     private static Rule createTranslateJciteInclusionRule() {
-      List<BodyDeclarationLocator> allowlist =
+      List<BodyDeclarationLocator> whitelist =
           BodyDeclarationLocators.createLocatorsFromStrings(JCITE_TRANSFORM_SET);
       TranslateJcite.InclusionHandler transformer =
-          new TranslateJcite.InclusionHandler(ANDROID_ICU4J_SAMPLE_DIR, allowlist);
+          new TranslateJcite.InclusionHandler(ANDROID_ICU4J_SAMPLE_DIR, whitelist);
       return createOptionalRule(transformer);
     }
 
     private static Rule createHideOriginalDeprecatedClassesRule() {
-      List<BodyDeclarationLocator> blocklist =
+      List<BodyDeclarationLocator> blacklist =
           BodyDeclarationLocators.createLocatorsFromStrings(INITIAL_DEPRECATED_SET);
       return createOptionalRule(
-          new TagMatchingDeclarations(blocklist, "@hide original deprecated declaration"));
+          new TagMatchingDeclarations(blacklist, "@hide original deprecated declaration"));
     }
 
     private static Rule createMarkElementsWithDeprecatedAnnotationRule() {
@@ -1021,27 +1021,27 @@ public class Icu4jTransform {
           "@removed on Android but @stable in ICU"));
     }
 
-    private static Rule createHideBlocklistedDeclarationsRule() {
-      List<BodyDeclarationLocator> blocklist =
+    private static Rule createHideBlacklistedDeclarationsRule() {
+      List<BodyDeclarationLocator> blacklist =
           BodyDeclarationLocators.createLocatorsFromStrings(DECLARATIONS_TO_HIDE);
       return createOptionalRule(
-          new TagMatchingDeclarations(blocklist, "@hide unsupported on Android"));
+          new TagMatchingDeclarations(blacklist, "@hide unsupported on Android"));
     }
 
     private static Rule createHidePublicClassesRule() {
-      List<TypeLocator> allowlist = TypeLocator.createLocatorsFromStrings(PUBLIC_API_CLASSES);
+      List<TypeLocator> whitelist = TypeLocator.createLocatorsFromStrings(PUBLIC_API_CLASSES);
       return createOptionalRule(
-          new HidePublicClasses(allowlist, "Only a subset of ICU is exposed in Android"));
+          new HidePublicClasses(whitelist, "Only a subset of ICU is exposed in Android"));
     }
   }
 
-  private static Rule createHideNonAllowlistedRule(Path allowlistedApiPath) {
+  private static Rule createHideNonWhitelistedRule(Path whitelistedApiPath) {
     List<BodyDeclarationLocator> bodyDeclarationLocators = null;
-    if (allowlistedApiPath != null) {
+    if (whitelistedApiPath != null) {
       bodyDeclarationLocators = BodyDeclarationLocators.readBodyDeclarationLocators(
-              allowlistedApiPath);
+              whitelistedApiPath);
     }
-    return createOptionalRule(new HideNonAllowlistedDeclarations(bodyDeclarationLocators,
+    return createOptionalRule(new HideNonWhitelistedDeclarations(bodyDeclarationLocators,
             "@hide Hide new API in Android temporarily"));
   }
 }
