@@ -128,15 +128,12 @@ public class ZoneInfoDbTest extends junit.framework.TestCase {
     checkInvalidDataDetected(data);
   }
 
-  public void testLoadTzData_zoneTabOutsideFile() throws Exception {
+  public void testLoadTzData_finalOffsetOutsideFile() throws Exception {
     ZoneInfoTestHelper.TzDataBuilder builder =
             new ZoneInfoTestHelper.TzDataBuilder()
                     .initializeToValid();
 
-    // Sections must be in the correct order: section sizing is calculated using them.
-    builder.setIndexOffsetOverride(10);
-    builder.setDataOffsetOverride(10 + SIZEOF_INDEX_ENTRY);
-    builder.setZoneTabOffsetOverride(3000); // This is invalid if it is outside of the file.
+    builder.setFinalOffsetOverride(3000); // This is invalid if it is outside of the file.
 
     byte[] data = builder.build();
     // The zoneTab offset must be outside of the file for this test to be valid.
@@ -153,7 +150,7 @@ public class ZoneInfoDbTest extends junit.framework.TestCase {
     builder.setIndexOffsetOverride(indexOffset);
     int dataOffset = indexOffset + ZoneInfoDb.SIZEOF_INDEX_ENTRY - 1;
     builder.setDataOffsetOverride(dataOffset);
-    builder.setZoneTabOffsetOverride(dataOffset + 40);
+    builder.setFinalOffsetOverride(dataOffset + 40);
 
     byte[] data = builder.build();
     // The zoneTab offset must be outside of the file for this test to be valid.
