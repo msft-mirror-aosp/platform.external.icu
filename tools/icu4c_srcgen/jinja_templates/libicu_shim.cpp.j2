@@ -20,19 +20,24 @@ You may obtain a copy of the License at
 
   See http://jinja.pocoo.org/ for more information
 #}
-{{ '/* GENERATED SOURCE. DO NOT MODIFY. */' }}
-{{ '/* Run external/icu/tools/icu4c_srcgen/generate_libandroidicu.py to regenerate */' }}
-{{ '// © 2018 and later: Unicode, Inc. and others.' }}
-{{ '// License & terms of use: http://www.unicode.org/copyright.html' }}
+/* GENERATED SOURCE. DO NOT MODIFY. */
+/* Run external/icu/tools/icu4c_srcgen/generate_ndk.py to regenerate */
+// © 2018 and later: Unicode, Inc. and others.'
+// License & terms of use: http://www.unicode.org/copyright.html
 
 {% for header in icu_headers|sort %}
 #include <{{ header }}>
 {% endfor %}
 
+/* Disable the macros in urename.h renaming the below C function definitions. */
+{% for func in functions %}
+#undef {{ func.name }}
+{% endfor %}
+
 extern "C" {
 {# Generates a wrapper function for each exposed ICU function. #}
 {% for func in functions %}
-{{ func.result_type }} {{ func.name }}_android({{ func.param_str }}) {
+{{ func.result_type }} {{ func.name }}{{ suffix }}({{ func.param_str }}) {
   {% if func.is_variadic and func.return_void %}
   va_list args;
   va_start(args, {{ func.last_param }});
@@ -40,15 +45,15 @@ extern "C" {
   va_end(args);
   return;
   {% elif func.is_variadic %}
-  va_list args;
+  va_list args;q
   va_start(args, {{ func.last_param }});
   {{ func.result_type }} ret = {{ func.callee }}({{ func.arg_str }});
   va_end(args);
   return ret;
   {% elif func.return_void %}
-  {{ func.callee }}({{ func.arg_str }});
+  U_ICU_ENTRY_POINT_RENAME({{ func.callee }})({{ func.arg_str }});
   {% else %}
-  return {{ func.callee }}({{ func.arg_str }});
+  return U_ICU_ENTRY_POINT_RENAME({{ func.callee }})({{ func.arg_str }});
   {% endif %}
 }
 {% endfor %}
