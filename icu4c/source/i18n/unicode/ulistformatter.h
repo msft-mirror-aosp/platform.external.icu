@@ -14,11 +14,8 @@
 
 #if !UCONFIG_NO_FORMATTING
 
-#include "unicode/uformattedvalue.h"
-
-#if U_SHOW_CPLUSPLUS_API
 #include "unicode/localpointer.h"
-#endif   // U_SHOW_CPLUSPLUS_API
+#include "unicode/uformattedvalue.h"
 
 /**
  * \file

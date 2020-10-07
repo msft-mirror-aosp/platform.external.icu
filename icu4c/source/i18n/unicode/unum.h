@@ -18,6 +18,7 @@
 
 #if !UCONFIG_NO_FORMATTING
 
+#include "unicode/localpointer.h"
 #include "unicode/uloc.h"
 #include "unicode/ucurr.h"
 #include "unicode/umisc.h"
@@ -25,10 +26,6 @@
 #include "unicode/uformattable.h"
 #include "unicode/udisplaycontext.h"
 #include "unicode/ufieldpositer.h"
-
-#if U_SHOW_CPLUSPLUS_API
-#include "unicode/localpointer.h"
-#endif   // U_SHOW_CPLUSPLUS_API
 
 /**
  * \file

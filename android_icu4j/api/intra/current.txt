@@ -271,7 +271,6 @@ package com.android.icu.util {
     method public static String getDisplayLanguage(java.util.Locale, java.util.Locale);
     method public static String getDisplayScript(java.util.Locale, java.util.Locale);
     method public static String getDisplayVariant(java.util.Locale, java.util.Locale);
-    method public static void setDefault(String);
   }
 
 }

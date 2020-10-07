@@ -23,6 +23,7 @@
 #include <sys/mman.h>
 
 #include <nativehelper/JNIHelp.h>
+#include <nativehelper/ScopedBytes.h>
 #include <nativehelper/ScopedPrimitiveArray.h>
 #include <nativehelper/jni_macros.h>
 
