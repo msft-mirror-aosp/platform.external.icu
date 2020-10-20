@@ -58,6 +58,7 @@ package android.icu.text {
   }
 
   public class DecimalFormat extends android.icu.text.NumberFormat {
+    method public void setParseJavaCompatible(boolean);
     method @Deprecated public void setParseStrictMode(android.icu.impl.number.DecimalFormatProperties.ParseMode);
   }
 
@@ -189,6 +190,15 @@ package android.icu.util {
     method public int getType();
     field public static final int ARRAY = 8; // 0x8
     field public static final int STRING = 0; // 0x0
+  }
+
+}
+
+package com.android.i18n.system {
+
+  public final class ZygoteHooks {
+    method public static void onBeginPreload();
+    method public static void onEndPreload();
   }
 
 }
