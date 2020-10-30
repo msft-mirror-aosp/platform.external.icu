@@ -5,6 +5,7 @@
 
 #include <unicode/uchar.h>
 #include <unicode/uloc.h>
+#include <unicode/ulocdata.h>
 #include <unicode/ustring.h>
 #include <unicode/utypes.h>
 #include <unicode/uversion.h>
@@ -127,6 +128,7 @@
 #undef uloc_getBaseName
 #undef uloc_getCharacterOrientation
 #undef uloc_getCountry
+#undef uloc_getDefault
 #undef uloc_getDisplayCountry
 #undef uloc_getDisplayKeyword
 #undef uloc_getDisplayKeywordValue
@@ -153,6 +155,7 @@
 #undef uloc_toLegacyType
 #undef uloc_toUnicodeLocaleKey
 #undef uloc_toUnicodeLocaleType
+#undef ulocdata_getCLDRVersion
 
 extern "C" {
 void u_charAge(UChar32 c, UVersionInfo versionArray) {
@@ -506,6 +509,9 @@ ULayoutType uloc_getCharacterOrientation(const char * localeId, UErrorCode * sta
 int32_t uloc_getCountry(const char * localeID, char * country, int32_t countryCapacity, UErrorCode * err) {
   return U_ICU_ENTRY_POINT_RENAME(uloc_getCountry)(localeID, country, countryCapacity, err);
 }
+const char * uloc_getDefault() {
+  return U_ICU_ENTRY_POINT_RENAME(uloc_getDefault)();
+}
 int32_t uloc_getDisplayCountry(const char * locale, const char * displayLocale, UChar * country, int32_t countryCapacity, UErrorCode * status) {
   return U_ICU_ENTRY_POINT_RENAME(uloc_getDisplayCountry)(locale, displayLocale, country, countryCapacity, status);
 }
@@ -583,5 +589,8 @@ const char * uloc_toUnicodeLocaleKey(const char * keyword) {
 }
 const char * uloc_toUnicodeLocaleType(const char * keyword, const char * value) {
   return U_ICU_ENTRY_POINT_RENAME(uloc_toUnicodeLocaleType)(keyword, value);
+}
+void ulocdata_getCLDRVersion(UVersionInfo versionArray, UErrorCode * status) {
+  U_ICU_ENTRY_POINT_RENAME(ulocdata_getCLDRVersion)(versionArray, status);
 }
 }

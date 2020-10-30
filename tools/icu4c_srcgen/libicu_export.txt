@@ -125,6 +125,7 @@ u_tolower
 u_totitle
 u_toupper
 u_versionToString
+ulocdata_getCLDRVersion
 uloc_acceptLanguage
 uloc_addLikelySubtags
 uloc_canonicalize
@@ -134,6 +135,7 @@ uloc_getAvailable
 uloc_getBaseName
 uloc_getCharacterOrientation
 uloc_getCountry
+uloc_getDefault
 uloc_getDisplayCountry
 uloc_getDisplayKeyword
 uloc_getDisplayKeywordValue

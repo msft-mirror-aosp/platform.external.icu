@@ -19,7 +19,10 @@
 #pragma once
 
 // Include API-level tagging facility provided by NDK.
+#include <android/log.h>
+#ifdef __ANDROID__
 #include <android/versioning.h>
+#endif
 
 #define U_DISABLE_RENAMING 1
 #define U_HIDE_DRAFT_API 1
@@ -27,9 +30,6 @@
 #define U_SHOW_CPLUSPLUS_API 0
 #define U_HIDE_INTERNAL_API 1
 #define U_HIDE_OBSOLETE_UTF_OLD_H 1
-
-// Hide system API until we need to expose system apis, e.g. uloc_getDefault
-#define U_HIDE_SYSTEM_API 1
 
 // Set this flag to allow header-only C++ usages when using a C++ compiler
 #ifdef __cplusplus

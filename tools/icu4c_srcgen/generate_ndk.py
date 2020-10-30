@@ -69,9 +69,9 @@ def get_allowlisted_regex_string(decl_names):
 def get_replacement_adding_api_level_macro(api_level):
     """Return the replacement string adding the NDK C macro
     guarding C function declaration by the api_level"""
-    return r"#if __ANDROID_API__ >= {0}\n\n" \
+    return r"#if !defined(__ANDROID__) || __ANDROID_API__ >= {0}\n\n" \
            r"\1 __INTRODUCED_IN({0});\n\n" \
-           r"#endif // __ANDROID_API__ >= {0}".format(api_level)
+           r"#endif // !defined(__ANDROID__) || __ANDROID_API__ >= {0}".format(api_level)
 
 def modify_func_declarations(src_path, dst_path, decl_names):
     """Process the source file,
@@ -120,6 +120,60 @@ def copy_header_only_files():
         with open(dest_path, "w") as destfile:
             subprocess.check_call(cmd, stdout=destfile)
 
+def copy_cts_headers():
+    """Copy headers from common/ and i18n/ to cts_headers/ for compiling cintltst as CTS."""
+    dst_folder = android_path('external/icu/libicu/cts_headers')
+    if os.path.exists(dst_folder):
+        shutil.rmtree(dst_folder)
+    os.mkdir(dst_folder)
+    os.mkdir(os.path.join(dst_folder, 'unicode'))
+
+    shutil.copyfile(android_path('external/icu/android_icu4c/include/uconfig_local.h'),
+                    android_path('external/icu/libicu/cts_headers/uconfig_local.h'))
+
+    header_subfolders = (
+        'common',
+        'common/unicode',
+        'i18n',
+        'i18n/unicode',
+    )
+    for subfolder in header_subfolders:
+        path = android_path('external/icu/icu4c/source', subfolder)
+        files = [os.path.join(path, f) for f in os.listdir(path) if f.endswith('.h')]
+
+        for src_path in files:
+            base_header_name = os.path.basename(src_path)
+            dst_path = dst_folder
+            if subfolder.endswith('unicode'):
+                dst_path = os.path.join(dst_path, 'unicode')
+            dst_path = os.path.join(dst_path, base_header_name)
+
+            shutil.copyfile(src_path, dst_path)
+
+def get_rename_macro_regex(decl_names):
+    """Return a regex in string to capture the C macro defining the name in the decl_names list"""
+    tag = "|".join(decl_names)
+    return re.compile(r"^(#define (?:" + tag + r") .*)$", re.MULTILINE)
+
+def generate_cts_headers(decl_names):
+    """Generate headers for compiling cintltst as CTS."""
+    copy_cts_headers()
+
+    # Disable all C macro renaming the NDK functions in order to test the functions in the CTS
+    urename_path = android_path('external/icu/libicu/cts_headers/unicode/urename.h')
+    with open(urename_path, "r") as file:
+        src = file.read()
+
+    regex = get_rename_macro_regex(decl_names)
+    modified = regex.sub(r"// \1", src)
+
+    with open(urename_path, "w") as out:
+        out.write(modified)
+
+IGNORED_INCLUDE_DEPENDENCY = {
+    "ulocdata.h" : [ "ures.h", "uset.h", ],
+}
+
 def main():
     """Parse the ICU4C headers and generate the shim libicu."""
     logging.basicConfig(level=logging.DEBUG)
@@ -128,6 +182,7 @@ def main():
     decl_filters = [StableDeclarationFilter()]
     decl_filters.append(AllowlistedDeclarationFilter(allowlisted_apis))
     parser = DeclaredFunctionsParser(decl_filters, [])
+    parser.set_ignored_include_dependency(IGNORED_INCLUDE_DEPENDENCY)
 
     parser.parse()
 
@@ -159,6 +214,12 @@ def main():
         modify_func_declarations(src_path, dst_path, header_to_function_names[basename])
 
     copy_header_only_files()
+
+    generate_cts_headers(allowlisted_apis)
+
+    # Apply documentation patches by the following shell script
+    subprocess.check_call(
+        [android_path('external/icu/tools/icu4c_srcgen/doc_patches/apply_patches.sh')])
 
 if __name__ == '__main__':
     main()
