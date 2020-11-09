@@ -125,6 +125,7 @@ package com.android.i18n.timezone {
     method public static String getDataTimeZoneFile(String);
     method public static String getDataTimeZoneRootDir();
     method public static String getTimeZoneModuleTzVersionFile();
+    method public static com.android.i18n.timezone.TzDataSetVersion readTimeZoneModuleVersion() throws java.io.IOException, com.android.i18n.timezone.TzDataSetVersion.TzDataSetException;
   }
 
   public final class TimeZoneFinder {
@@ -146,7 +147,6 @@ package com.android.i18n.timezone {
     method public String getRulesVersion();
     method public static boolean isCompatibleWithThisDevice(com.android.i18n.timezone.TzDataSetVersion);
     method public static com.android.i18n.timezone.TzDataSetVersion readFromFile(java.io.File) throws java.io.IOException, com.android.i18n.timezone.TzDataSetVersion.TzDataSetException;
-    method public static com.android.i18n.timezone.TzDataSetVersion readTimeZoneModuleVersion() throws java.io.IOException, com.android.i18n.timezone.TzDataSetVersion.TzDataSetException;
     method public byte[] toBytes();
     field public static final String DEFAULT_FILE_NAME = "tz_version";
   }
@@ -156,12 +156,8 @@ package com.android.i18n.timezone {
     ctor public TzDataSetVersion.TzDataSetException(String, Throwable);
   }
 
-  public final class ZoneInfoData implements java.lang.Cloneable {
-    method public String getID();
-  }
-
-  public static class ZoneInfoData.WallTime {
-    ctor public ZoneInfoData.WallTime();
+  public class WallTime {
+    ctor public WallTime();
     method public int getGmtOffset();
     method public int getHour();
     method public int getIsDst();
@@ -184,6 +180,10 @@ package com.android.i18n.timezone {
     method public void setWeekDay(int);
     method public void setYear(int);
     method public void setYearDay(int);
+  }
+
+  public final class ZoneInfoData {
+    method public String getID();
   }
 
   public final class ZoneInfoDb implements java.lang.AutoCloseable {

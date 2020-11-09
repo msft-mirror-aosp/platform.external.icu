@@ -112,7 +112,6 @@ public class DateTimePatternGenerator implements Freezable<DateTimePatternGenera
      * @hide original deprecated declaration
      * @hide draft / provisional / internal are hidden on Android
      */
-    @libcore.api.IntraCoreApi
     @Deprecated
     public static DateTimePatternGenerator getFrozenInstance(ULocale uLocale) {
         String localeKey = uLocale.toString();
@@ -2730,7 +2729,7 @@ public class DateTimePatternGenerator implements Freezable<DateTimePatternGenera
     private static class DistanceInfo {
         int missingFieldMask;
         int extraFieldMask;
-        @android.compat.annotation.UnsupportedAppUsage
+        @android.compat.annotation.UnsupportedAppUsage(maxTargetSdk = 30, trackingBug = 170729553)
         private DistanceInfo() {
         }
         void clear() {
