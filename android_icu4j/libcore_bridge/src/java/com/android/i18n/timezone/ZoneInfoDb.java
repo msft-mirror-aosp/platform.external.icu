@@ -38,7 +38,7 @@ import java.util.List;
  */
 @libcore.api.CorePlatformApi
 @libcore.api.IntraCoreApi
-public final class ZoneInfoDb implements AutoCloseable {
+public final class ZoneInfoDb {
 
   // VisibleForTesting
   public static final String TZDATA_FILE_NAME = "tzdata";
@@ -135,7 +135,7 @@ public final class ZoneInfoDb implements AutoCloseable {
    * Loads the data at the specified path and returns the {@link ZoneInfoDb} object if it is valid,
    * otherwise {@code null}.
    */
-  @libcore.api.CorePlatformApi
+  // VisibleForTesting
   public static ZoneInfoDb loadTzData(String path) {
     ZoneInfoDb tzData = new ZoneInfoDb();
     if (tzData.loadData(path)) {
@@ -285,8 +285,24 @@ public final class ZoneInfoDb implements AutoCloseable {
     }
   }
 
+
+  /**
+   * Validate the data at the specified path. Throws {@link IOException} if it's not valid.
+   */
   @libcore.api.CorePlatformApi
-  public void validate() throws IOException {
+  public static void validateTzData(String path) throws IOException {
+    ZoneInfoDb tzData = ZoneInfoDb.loadTzData(path);
+    if (tzData == null) {
+      throw new IOException("failed to read tzData at " + path);
+    }
+    try {
+      tzData.validate();
+    } finally {
+      tzData.close();
+    }
+  }
+
+  private void validate() throws IOException {
     checkNotClosed();
     // Validate the data in the tzdata file by loading each and every zone.
     for (String id : getAvailableIDs()) {
@@ -297,7 +313,6 @@ public final class ZoneInfoDb implements AutoCloseable {
     }
   }
 
-  @libcore.api.IntraCoreApi
   ZoneInfoData makeZoneInfoDataUncached(String id) throws IOException {
     BufferIterator it = getBufferIterator(id);
     if (it == null) {
@@ -307,12 +322,19 @@ public final class ZoneInfoDb implements AutoCloseable {
     return ZoneInfoData.readTimeZone(id, it, System.currentTimeMillis());
   }
 
+  /**
+   * Returns an array containing all time zone ids sorted in lexicographical order for
+   * binary searching.
+   */
   @libcore.api.IntraCoreApi
   public String[] getAvailableIDs() {
     checkNotClosed();
     return ids.clone();
   }
 
+  /**
+   * Returns ids of all time zones with the given raw UTC offset.
+   */
   @libcore.api.IntraCoreApi
   public String[] getAvailableIDs(int rawUtcOffset) {
     checkNotClosed();
@@ -352,13 +374,17 @@ public final class ZoneInfoDb implements AutoCloseable {
     return version;
   }
 
+  /**
+   * Creates {@link ZoneInfoData} object from the time zone {@code id}. Returns null if the id
+   * is not found.
+   */
   @libcore.api.CorePlatformApi
   @libcore.api.IntraCoreApi
   public ZoneInfoData makeZoneInfoData(String id) {
     checkNotClosed();
     ZoneInfoData zoneInfoData = cache.get(id);
     // The object from the cache is cloned because TimeZone / ZoneInfo are mutable.
-    return zoneInfoData == null ? null : new ZoneInfoData(zoneInfoData);
+    return zoneInfoData == null ? null : zoneInfoData.createCopy();
   }
 
   @libcore.api.CorePlatformApi
@@ -367,6 +393,7 @@ public final class ZoneInfoDb implements AutoCloseable {
     return cache.get(id) != null;
   }
 
+  // VisibleForTesting
   public void close() {
     if (!closed) {
       closed = true;
@@ -394,7 +421,8 @@ public final class ZoneInfoDb implements AutoCloseable {
     }
   }
 
-  @Override protected void finalize() throws Throwable {
+  @Override
+  protected void finalize() throws Throwable {
     try {
       close();
     } finally {
