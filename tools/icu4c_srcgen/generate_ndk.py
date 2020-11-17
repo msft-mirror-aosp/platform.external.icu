@@ -170,6 +170,9 @@ def generate_cts_headers(decl_names):
     with open(urename_path, "w") as out:
         out.write(modified)
 
+IGNORED_INCLUDE_DEPENDENCY = {
+    "ulocdata.h" : [ "ures.h", "uset.h", ],
+}
 
 def main():
     """Parse the ICU4C headers and generate the shim libicu."""
@@ -179,6 +182,7 @@ def main():
     decl_filters = [StableDeclarationFilter()]
     decl_filters.append(AllowlistedDeclarationFilter(allowlisted_apis))
     parser = DeclaredFunctionsParser(decl_filters, [])
+    parser.set_ignored_include_dependency(IGNORED_INCLUDE_DEPENDENCY)
 
     parser.parse()
 
