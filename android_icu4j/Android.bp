@@ -61,15 +61,21 @@ java_defaults {
     ],
 }
 
-// timezone-related source that is also used in host tests / tools and its
-// dependencies.
-filegroup {
-    name: "timezone_host_files",
+// A host library containing time zone related classes. Used for
+// host-side tools and tests that have to deal with Android
+// time zone data.
+java_library_host {
+    name: "timezone-host",
+    visibility: [
+        "//packages/modules/RuntimeI18n/apex",
+        "//system/timezone/distro/core",
+    ],
     srcs: [
         "libcore_bridge/src/java/com/android/i18n/timezone/TzDataSetVersion.java",
     ],
-    path: "libcore_bridge/src/java",
-    visibility: ["//libcore"],
+    libs: [
+        "art.module.api.annotations",
+    ],
 }
 
 // core-repackaged-icu4j contains only the repackaged ICU4J that does not
@@ -160,6 +166,9 @@ java_sdk_library {
     api_only: true,
     sdk_version: "none",
     system_modules: "art-module-public-api-stubs-system-modules",
+
+    // Don't copy any output files to the dist.
+    no_dist: true,
 }
 
 // Referenced implicitly from i18n.module.intra.api.
@@ -210,6 +219,9 @@ java_sdk_library {
         "--show-single-annotation libcore.api.IntraCoreApi ",
         "--skip-annotation-instance-methods=false ",
     ],
+
+    // Don't copy any output files to the dist.
+    no_dist: true,
 }
 
 // Referenced implicitly from legacy.i18n.module.platform.api.
@@ -280,6 +292,9 @@ java_sdk_library {
         "--show-single-annotation libcore.api.CorePlatformApi ",
         "--skip-annotation-instance-methods=false ",
     ],
+
+    // Don't copy any output files to the dist.
+    no_dist: true,
 }
 
 java_sdk_library {
@@ -308,6 +323,9 @@ java_sdk_library {
         "--show-single-annotation libcore.api.CorePlatformApi\\(status=libcore.api.CorePlatformApi.Status.STABLE\\)",
         "--skip-annotation-instance-methods=false ",
     ],
+
+    // Don't copy any output files to the dist.
+    no_dist: true,
 }
 
 //==========================================================
