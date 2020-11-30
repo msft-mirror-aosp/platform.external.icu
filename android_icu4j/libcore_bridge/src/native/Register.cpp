@@ -20,6 +20,8 @@
 #include <nativehelper/ScopedLocalFrame.h>
 #include <log/log.h>
 
+#include <unicode/uclean.h>
+
 #include "JniConstants.h"
 
 // ART calls this on startup, so we can statically register all our native methods.
@@ -32,6 +34,17 @@ jint JNI_OnLoad(JavaVM* vm, void*) {
     }
 
     ScopedLocalFrame localFrame(env);
+
+    // Failures to find the ICU data tend to be somewhat obscure because ICU loads
+    // its data on first use, which can be anywhere. Force loading of a portion of
+    // ICU's data up front so we can report a nice clear error and bail.
+    UErrorCode status = U_ZERO_ERROR;
+    u_init(&status);
+    if (status != U_ZERO_ERROR) {
+      ALOGE("Couldn't initialize ICU (u_init): %s", u_errorName(status));
+      abort();
+    }
+
 
 #define REGISTER(FN) extern void FN(JNIEnv*); FN(env)
     REGISTER(register_com_android_icu_text_TimeZoneNamesNative);
@@ -56,4 +69,7 @@ void JNI_OnUnload(JavaVM*, void*) {
     // unregistered.
     ALOGV("libicu_jni JNI_OnUnload");
     JniConstants::Invalidate();
+
+    // De-init ICU. Do the opposite of the above u_init() function.
+    u_cleanup();
 }
