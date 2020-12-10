@@ -266,7 +266,7 @@ public final class ZoneInfoDb {
 
       // Calculate the true length of the ID.
       int len = 0;
-      while (idBytes[len] != 0 && len < idBytes.length) {
+      while (len < idBytes.length && idBytes[len] != 0) {
         len++;
       }
       if (len == 0) {
@@ -390,7 +390,7 @@ public final class ZoneInfoDb {
   @libcore.api.CorePlatformApi
   public boolean hasTimeZone(String id) {
     checkNotClosed();
-    return cache.get(id) != null;
+    return Arrays.binarySearch(ids, id) >= 0;
   }
 
   // VisibleForTesting

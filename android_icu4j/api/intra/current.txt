@@ -2,7 +2,6 @@
 package android.icu.text {
 
   public class DateFormatSymbols implements java.lang.Cloneable java.io.Serializable {
-    ctor @Deprecated public DateFormatSymbols(android.icu.util.ULocale, String);
     method public String[] getNarrowEras();
   }
 
@@ -78,10 +77,6 @@ package android.icu.util {
     method public android.icu.util.TimeZoneRule getFrom();
     method public long getTime();
     method public android.icu.util.TimeZoneRule getTo();
-  }
-
-  public final class ULocale implements java.lang.Comparable<android.icu.util.ULocale> java.io.Serializable {
-    method @Deprecated public static String getRegionForSupplementalData(android.icu.util.ULocale, boolean);
   }
 
 }
