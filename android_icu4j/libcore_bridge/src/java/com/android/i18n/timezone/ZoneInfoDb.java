@@ -266,7 +266,7 @@ public final class ZoneInfoDb {
 
       // Calculate the true length of the ID.
       int len = 0;
-      while (idBytes[len] != 0 && len < idBytes.length) {
+      while (len < idBytes.length && idBytes[len] != 0) {
         len++;
       }
       if (len == 0) {
@@ -319,7 +319,7 @@ public final class ZoneInfoDb {
       return null;
     }
 
-    return ZoneInfoData.readTimeZone(id, it, System.currentTimeMillis());
+    return ZoneInfoData.readTimeZone(id, it);
   }
 
   /**
@@ -368,7 +368,6 @@ public final class ZoneInfoDb {
    * Returns the tzdb version in use.
    */
   @libcore.api.CorePlatformApi
-  @libcore.api.IntraCoreApi
   public String getVersion() {
     checkNotClosed();
     return version;
@@ -383,14 +382,15 @@ public final class ZoneInfoDb {
   public ZoneInfoData makeZoneInfoData(String id) {
     checkNotClosed();
     ZoneInfoData zoneInfoData = cache.get(id);
-    // The object from the cache is cloned because TimeZone / ZoneInfo are mutable.
-    return zoneInfoData == null ? null : zoneInfoData.createCopy();
+    // The object from the cache is not cloned because ZoneInfoData is immutable.
+    // Note that zoneInfoData can be null here.
+    return zoneInfoData;
   }
 
   @libcore.api.CorePlatformApi
   public boolean hasTimeZone(String id) {
     checkNotClosed();
-    return cache.get(id) != null;
+    return Arrays.binarySearch(ids, id) >= 0;
   }
 
   // VisibleForTesting
