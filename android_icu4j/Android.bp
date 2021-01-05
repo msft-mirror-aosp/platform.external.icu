@@ -157,6 +157,9 @@ java_sdk_library {
     srcs: [
         ":android_icu4j_public_api_files",
     ],
+    droiddoc_options: [
+        "--force-convert-to-warning-nullability-annotations +*:-android.*:+android.icu.*:-dalvik.* ",
+    ],
     errorprone: {
         javacflags: [
             "-Xep:MissingOverride:OFF",
@@ -210,6 +213,22 @@ java_sdk_library {
 
     // Don't copy any output files to the dist.
     no_dist: true,
+}
+
+// Referenced implicitly from i18n.module.intra.core.api.
+filegroup {
+    name: "i18n.module.intra.core.api.api.public.latest",
+    srcs: [
+        "api/intra/last-api.txt",
+    ],
+}
+
+// Referenced implicitly from i18n.module.intra.core.api.
+filegroup {
+    name: "i18n.module.intra.core.api-removed.api.public.latest",
+    srcs: [
+        "api/intra/last-removed.txt",
+    ],
 }
 
 // Referenced implicitly from legacy.i18n.module.platform.api.
