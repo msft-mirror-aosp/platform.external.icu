@@ -335,9 +335,11 @@ public class IBMCalendarTest extends CalendarTestFmwk {
         // Thai locale
         Calendar cal = Calendar.getInstance(new ULocale("th_TH"));
         String type = cal.getType();
-        if (!type.equals("buddhist")) {
-            errln("FAIL: Buddhist calendar is not returned for locale " + cal.toString());
+        // Android patch: Force default Gregorian calendar.
+        if (!type.equals("gregorian")) {
+            errln("FAIL: Gregorian calendar is not returned for locale " + cal.toString());
         }
+        // Android patch end.
     }
 
     /**
@@ -1107,6 +1109,7 @@ public class IBMCalendarTest extends CalendarTestFmwk {
                 "th@rg=SA",		// ignore malformed rg tag, use buddhist
         };
 
+        // Android patch: Force default Gregorian calendar regardless of region.
         String[] types = {
                 "gregorian",
                 "japanese",
@@ -1114,23 +1117,24 @@ public class IBMCalendarTest extends CalendarTestFmwk {
                 "japanese",
                 "buddhist",
                 "gregorian",
-                "buddhist",
                 "gregorian",
                 "gregorian",
-                "buddhist",
-                "buddhist",
-                "buddhist",
+                "gregorian",
+                "gregorian",
+                "gregorian",
+                "gregorian",
                 "gregorian",    // iso8601 is a gregorian sub type
                 "gregorian",
-                "islamic-umalqura",
-                "islamic-umalqura",
-                "islamic-umalqura",
+                "gregorian",
+                "gregorian",
+                "gregorian",
                 "japanese",
                 "gregorian",
                 "gregorian",
-                "buddhist",
-                "buddhist",
+                "gregorian",
+                "gregorian",
         };
+        // Android patch end.
 
         for (int i = 0; i < locs.length; i++) {
             Calendar cal = Calendar.getInstance(new ULocale(locs[i]));
