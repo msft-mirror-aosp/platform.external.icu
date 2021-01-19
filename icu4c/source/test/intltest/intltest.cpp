@@ -423,72 +423,7 @@ IntlTest::prettify(const UnicodeString &source, UBool parseBackslash)
  *                       tests dynamically load some data.
  */
 void IntlTest::setICU_DATA() {
-    const char *original_ICU_DATA = getenv("ICU_DATA");
-
-    if (original_ICU_DATA != nullptr && *original_ICU_DATA != 0) {
-        /*  If the user set ICU_DATA, don't second-guess the person. */
-        return;
-    }
-
-    // U_TOPBUILDDIR is set by the makefiles on UNIXes when building cintltst and intltst
-    //              to point to the top of the build hierarchy, which may or
-    //              may not be the same as the source directory, depending on
-    //              the configure options used.  At any rate,
-    //              set the data path to the built data from this directory.
-    //              The value is complete with quotes, so it can be used
-    //              as-is as a string constant.
-
-#if defined (U_TOPBUILDDIR)
-    {
-        static char env_string[] = U_TOPBUILDDIR
-                "data" U_FILE_SEP_STRING
-                "out" U_FILE_SEP_STRING
-                "build" U_FILE_SEP_STRING;
-        u_setDataDirectory(env_string);
-        return;
-    }
-
-#else
-    // Use #else so we don't get compiler warnings due to the return above.
-
-    /* On Windows, the file name obtained from __FILE__ includes a full path.
-     *             This file is "wherever\icu\source\test\cintltst\cintltst.c"
-     *             Change to    "wherever\icu\source\data"
-     */
-    {
-        char p[sizeof(__FILE__) + 10];
-        char *pBackSlash;
-        int i;
-
-        strcpy(p, __FILE__);
-        /* We want to back over three '\' chars.                            */
-        /*   Only Windows should end up here, so looking for '\' is safe.   */
-        for (i=1; i<=3; i++) {
-            pBackSlash = strrchr(p, U_FILE_SEP_CHAR);
-            if (pBackSlash != nullptr) {
-                *pBackSlash = 0;        /* Truncate the string at the '\'   */
-            }
-        }
-
-        if (pBackSlash != nullptr) {
-            /* We found and truncated three names from the path.
-             *  Now append "source\data" and set the environment
-             */
-            strcpy(pBackSlash, U_FILE_SEP_STRING "data" U_FILE_SEP_STRING "out" U_FILE_SEP_STRING);
-            u_setDataDirectory(p);     /*  p is "ICU_DATA=wherever\icu\source\data"    */
-            return;
-        }
-        else {
-            /* __FILE__ on MSVC7 does not contain the directory */
-            u_setDataDirectory(".." U_FILE_SEP_STRING ".." U_FILE_SEP_STRING "data" U_FILE_SEP_STRING "out" U_FILE_SEP_STRING);
-            return;
-        }
-    }
-#endif
-
-    /* No location for the data dir was identifiable.
-     *   Add other fallbacks for the test data location here if the need arises
-     */
+    u_setDataDirectory(ctest_dataOutDir());
 }
 
 
@@ -1534,9 +1469,6 @@ main(int argc, char* argv[])
     CalendarTimeZoneTest::cleanup();
 #endif
 
-    free(_testDataPath);
-    _testDataPath = nullptr;
-
     Locale lastDefaultLocale;
     if (originalLocale != lastDefaultLocale) {
         major.errln("FAILURE: A test changed the default locale without resetting it.");
@@ -1608,47 +1540,7 @@ main(int argc, char* argv[])
 }
 
 const char* IntlTest::loadTestData(UErrorCode& err){
-    if ( _testDataPath == nullptr){
-        const char*      directory=nullptr;
-        UResourceBundle* test =nullptr;
-        char* tdpath=nullptr;
-        const char* tdrelativepath;
-
-#if defined (U_TOPBUILDDIR)
-        tdrelativepath = "test" U_FILE_SEP_STRING "testdata" U_FILE_SEP_STRING "out" U_FILE_SEP_STRING;
-        directory = U_TOPBUILDDIR;
-#else
-        tdrelativepath = ".." U_FILE_SEP_STRING "test" U_FILE_SEP_STRING "testdata" U_FILE_SEP_STRING "out" U_FILE_SEP_STRING;
-        directory = pathToDataDirectory();
-#endif
-
-        tdpath = (char*) malloc(sizeof(char) *(( strlen(directory) * strlen(tdrelativepath)) + 100));
-
-        if (tdpath == nullptr) {
-            err = U_MEMORY_ALLOCATION_ERROR;
-            it_dataerrln((UnicodeString) "Could not allocate memory for _testDataPath " + u_errorName(err));
-            return "";
-        }
-
-        /* u_getDataDirectory shoul return \source\data ... set the
-         * directory to ..\source\data\..\test\testdata\out\testdata
-         */
-        strcpy(tdpath, directory);
-        strcat(tdpath, tdrelativepath);
-        strcat(tdpath,"testdata");
-
-        test=ures_open(tdpath, "testtypes", &err);
-
-        if (U_FAILURE(err)) {
-            err = U_FILE_ACCESS_ERROR;
-            it_dataerrln((UnicodeString)"Could not load testtypes.res in testdata bundle with path " + tdpath + (UnicodeString)" - " + u_errorName(err));
-            return "";
-        }
-        ures_close(test);
-        _testDataPath = tdpath;
-        return _testDataPath;
-    }
-    return _testDataPath;
+    return ctest_loadTestData(&err);
 }
 
 const char* IntlTest::getTestDataPath(UErrorCode& err) {
@@ -1660,23 +1552,7 @@ const char* IntlTest::getTestDataPath(UErrorCode& err) {
  * Note: this function is parallel with C loadSourceTestData in cintltst.c
  */
 const char *IntlTest::getSourceTestData(UErrorCode& /*err*/) {
-    const char *srcDataDir = nullptr;
-#ifdef U_TOPSRCDIR
-    srcDataDir = U_TOPSRCDIR U_FILE_SEP_STRING"test" U_FILE_SEP_STRING "testdata" U_FILE_SEP_STRING;
-#else
-    srcDataDir = ".." U_FILE_SEP_STRING ".." U_FILE_SEP_STRING "test" U_FILE_SEP_STRING "testdata" U_FILE_SEP_STRING;
-    FILE *f = fopen(".." U_FILE_SEP_STRING ".." U_FILE_SEP_STRING "test" U_FILE_SEP_STRING "testdata" U_FILE_SEP_STRING "rbbitst.txt", "r");
-    if (f) {
-        /* We're in icu/source/test/intltest/ */
-        fclose(f);
-    }
-    else {
-        /* We're in icu/source/test/intltest/Platform/(Debug|Release) */
-        srcDataDir = ".." U_FILE_SEP_STRING ".." U_FILE_SEP_STRING ".." U_FILE_SEP_STRING ".." U_FILE_SEP_STRING
-                     "test" U_FILE_SEP_STRING "testdata" U_FILE_SEP_STRING;
-    }
-#endif
-    return srcDataDir;
+    return ctest_testDataDir();
 }
 
 char *IntlTest::getUnidataPath(char path[]) {
@@ -1721,72 +1597,10 @@ char *IntlTest::getUnidataPath(char path[]) {
     return nullptr;
 }
 
-const char* IntlTest::fgDataDir = nullptr;
-
 /* returns the path to icu/source/data */
 const char *  IntlTest::pathToDataDirectory()
 {
-
-    if(fgDataDir != nullptr) {
-        return fgDataDir;
-    }
-
-    /* U_TOPSRCDIR is set by the makefiles on UNIXes when building cintltst and intltst
-    //              to point to the top of the build hierarchy, which may or
-    //              may not be the same as the source directory, depending on
-    //              the configure options used.  At any rate,
-    //              set the data path to the built data from this directory.
-    //              The value is complete with quotes, so it can be used
-    //              as-is as a string constant.
-    */
-#if defined (U_TOPSRCDIR)
-    {
-        fgDataDir = U_TOPSRCDIR  U_FILE_SEP_STRING "data" U_FILE_SEP_STRING;
-    }
-#else
-
-    /* On Windows, the file name obtained from __FILE__ includes a full path.
-     *             This file is "wherever\icu\source\test\cintltst\cintltst.c"
-     *             Change to    "wherever\icu\source\data"
-     */
-    {
-        static char p[sizeof(__FILE__) + 10];
-        char *pBackSlash;
-        int i;
-
-        strcpy(p, __FILE__);
-        /* We want to back over three '\' chars.                            */
-        /*   Only Windows should end up here, so looking for '\' is safe.   */
-        for (i=1; i<=3; i++) {
-            pBackSlash = strrchr(p, U_FILE_SEP_CHAR);
-            if (pBackSlash != nullptr) {
-                *pBackSlash = 0;        /* Truncate the string at the '\'   */
-            }
-        }
-
-        if (pBackSlash != nullptr) {
-            /* We found and truncated three names from the path.
-            *  Now append "source\data" and set the environment
-            */
-            strcpy(pBackSlash, U_FILE_SEP_STRING "data" U_FILE_SEP_STRING );
-            fgDataDir = p;
-        }
-        else {
-            /* __FILE__ on MSVC7 does not contain the directory */
-            FILE *file = fopen(".." U_FILE_SEP_STRING ".." U_FILE_SEP_STRING "data" U_FILE_SEP_STRING "Makefile.in", "r");
-            if (file) {
-                fclose(file);
-                fgDataDir = ".." U_FILE_SEP_STRING ".." U_FILE_SEP_STRING "data" U_FILE_SEP_STRING;
-            }
-            else {
-                fgDataDir = ".." U_FILE_SEP_STRING ".." U_FILE_SEP_STRING ".." U_FILE_SEP_STRING ".." U_FILE_SEP_STRING "data" U_FILE_SEP_STRING;
-            }
-        }
-    }
-#endif
-
-    return fgDataDir;
-
+    return ctest_dataSrcDir();
 }
 
 /*
