@@ -1985,7 +1985,9 @@ public class CollationMiscTest extends TestFmwk {
             }
             coll = new RuleBasedCollator(rule);
         } catch (Exception e) {
-            warnln(e.getMessage());
+            // Android patch: Add --omitCollationRules to genrb.
+            logln(e.getMessage());
+            // Android patch end.
         }
     }
 
@@ -3080,7 +3082,9 @@ public class CollationMiscTest extends TestFmwk {
             }
 
         }catch(Exception e){
-            warnln("ERROR: in creation of rule based collator");
+            // Android patch: Add --omitCollationRules to genrb.
+            logln("ERROR: in creation of rule based collator");
+            // Android patch end.
         }
     }
 
@@ -3109,7 +3113,9 @@ public class CollationMiscTest extends TestFmwk {
             }
 
         }catch(Exception e){
-            warnln("ERROR: in creation of rule based collator");
+            // Android patch: Add --omitCollationRules to genrb.
+            logln("ERROR: in creation of rule based collator");
+            // Android patch end.
         }
     }
 
