@@ -20,6 +20,7 @@
 #include <string.h>
 #include <cmath>
 #include <math.h>
+#include <iostream>
 
 #include "unicode/ctest.h" // for str_timeDelta
 #include "unicode/curramt.h"
@@ -423,7 +424,10 @@ IntlTest::prettify(const UnicodeString &source, UBool parseBackslash)
  *                       tests dynamically load some data.
  */
 void IntlTest::setICU_DATA() {
+    // Android-changed: Do not u_setDataDirectory because libicuuc.so initializes itself.
+    #if !defined(ANDROID_USE_ICU_REG)
     u_setDataDirectory(ctest_dataOutDir());
+    #endif
 }
 
 
@@ -542,13 +546,15 @@ void IntlTest::setCaller( IntlTest* callingTest )
     }
 }
 
-UBool IntlTest::callTest( IntlTest& testToBeCalled, char* par )
+UBool IntlTest::callTest( IntlTest& testToBeCalled, char* par, const char* basename)
 {
     execCount--; // correct a previously assumed test-exec, as this only calls a subtest
     testToBeCalled.setCaller( this );
-    strcpy(testToBeCalled.basePath, this->basePath );
-    UBool result = testToBeCalled.runTest( testPath, par, testToBeCalled.basePath );
-    strcpy(testToBeCalled.basePath, this->basePath ); // reset it.
+    strcpy(testToBeCalled.basePath, basename);
+    strcat(testToBeCalled.basePath, this->basePath);
+    UBool result = testToBeCalled.runTest( testPath, par, testToBeCalled.basePath);
+    strcpy(testToBeCalled.basePath, basename); // reset it.
+    strcat(testToBeCalled.basePath, this->basePath);
     return result;
 }
 
@@ -679,6 +685,27 @@ void IntlTest::runIndexedTest( int32_t /*index*/, UBool /*exec*/, const char* & 
 }
 
 
+static std::string string_replace_all(std::string str, const std::string& from, const std::string& to) {
+    size_t start = 0;
+    while((start = str.find(from, start)) != std::string::npos) {
+        str.replace(start, from.length(), to);
+        start += to.length();
+    }
+    return str;
+}
+
+/**
+ * Escape some known characters, but the list is not perfect.
+ */
+static std::string escape_xml_attribute(std::string str) {
+    str = string_replace_all(str, "&", "&amp;");
+    str = string_replace_all(str, "\"", "&quot;");
+    str = string_replace_all(str, "'", "&apos;");
+    str = string_replace_all(str, "<", "&lt;");
+    str = string_replace_all(str, ">", "&gt;");
+    return str;
+}
+
 UBool IntlTest::runTestLoop( char* testname, char* par, char *baseName )
 {
     int32_t    index = 0;
@@ -724,6 +751,7 @@ UBool IntlTest::runTestLoop( char* testname, char* par, char *baseName )
             strcpy(saveBaseLoc,name);
             strcat(saveBaseLoc,"/");
 
+            currErr = ""; // Reset the current error message
             strcpy(currName, name); // set
             this->runIndexedTest( index, true, name, par );
             currName[0]=0; // reset
@@ -741,7 +769,9 @@ UBool IntlTest::runTestLoop( char* testname, char* par, char *baseName )
             strcpy(saveBaseLoc,name);
 
 
-            ctest_xml_testcase(baseName, name, secs, (lastErrorCount!=errorCount)?"err":nullptr);
+            std::string err = currErr;
+            err = escape_xml_attribute(err);
+            ctest_xml_testcase(name, baseName, secs, (lastErrorCount!=errorCount)?err.c_str():nullptr);
             
 
             saveBaseLoc[0]=0; /* reset path */
@@ -853,13 +883,13 @@ void IntlTest::err()
 void IntlTest::err( const UnicodeString &message )
 {
     IncErrorCount();
-    if (!no_err_msg) LL_message( message, false );
+    if (!no_err_msg) LL_err_message( message, false );
 }
 
 void IntlTest::errln( const UnicodeString &message )
 {
     IncErrorCount();
-    if (!no_err_msg) LL_message( message, true );
+    if (!no_err_msg) LL_err_message( message, true );
 }
 
 void IntlTest::dataerr( const UnicodeString &message )
@@ -870,7 +900,7 @@ void IntlTest::dataerr( const UnicodeString &message )
         IncErrorCount();
     }
 
-    if (!no_err_msg) LL_message( message, false );
+    if (!no_err_msg) LL_err_message( message, false );
 }
 
 void IntlTest::dataerrln( const UnicodeString &message )
@@ -886,9 +916,9 @@ void IntlTest::dataerrln( const UnicodeString &message )
 
     if (!no_err_msg) {
       if ( errCount == 1) {
-          LL_message( msg + " - (Are you missing data?)", true ); // only show this message the first time
+          LL_err_message( msg + " - (Are you missing data?)", true ); // only show this message the first time
       } else {
-          LL_message( msg , true );
+          LL_err_message( msg , true );
       }
     }
 }
@@ -1043,7 +1073,7 @@ void IntlTest::errcheckln(UErrorCode status, const char *fmt, ...)
 
 void IntlTest::printErrors()
 {
-     IntlTest::LL_message(errorList, true);
+     IntlTest::LL_err_message(errorList, true);
 }
 
 UBool IntlTest::printKnownIssues()
@@ -1057,8 +1087,12 @@ UBool IntlTest::printKnownIssues()
   }
 }
 
+void IntlTest::LL_err_message( const UnicodeString& message, UBool newline ) {
+    this->LL_message(message, newline, true);
+}
 
-void IntlTest::LL_message( UnicodeString message, UBool newline )
+
+void IntlTest::LL_message( UnicodeString message, UBool newline, UBool isErr )
 {
     // Synchronize this function.
     // All error messages generated by tests funnel through here.
@@ -1092,6 +1126,7 @@ void IntlTest::LL_message( UnicodeString message, UBool newline )
     length = indent.extract(1, indent.length(), buffer, sizeof(buffer));
     if (length > 0) {
         fwrite(buffer, sizeof(*buffer), length, (FILE *)testoutfp);
+        if (isErr) currErr.append(buffer, length);
     }
 
     // replace each LineFeed by the indentation string
@@ -1102,11 +1137,13 @@ void IntlTest::LL_message( UnicodeString message, UBool newline )
     if (length > 0) {
         length = length > 30000 ? 30000 : length;
         fwrite(buffer, sizeof(*buffer), length, (FILE *)testoutfp);
+        if (isErr) currErr.append(buffer, length);
     }
 
     if (newline) {
         char newLine = '\n';
         fwrite(&newLine, sizeof(newLine), 1, (FILE *)testoutfp);
+        if (isErr) currErr += newLine;
     }
 
     // A newline usually flushes the buffer, but
@@ -1442,8 +1479,7 @@ main(int argc, char* argv[])
                 char* name = argv[i];
                 fprintf(stdout, "\n=== Handling test: %s: ===\n", name);
 
-                char baseName[1024];
-                snprintf(baseName, sizeof(baseName), "/%s/", name);
+                char baseName[1024] = "/";
 
                 char* parameter = strchr( name, '@' );
                 if (parameter) {
@@ -1536,7 +1572,12 @@ main(int argc, char* argv[])
     if(ctest_xml_fini())
       return 1;
 
+#ifdef ZERO_EXIT_CODE_FOR_FAILURES
+    // Exit code 0 to indicate the test completed.
+    return 0;
+#else
     return major.getErrors();
+#endif
 }
 
 const char* IntlTest::loadTestData(UErrorCode& err){
