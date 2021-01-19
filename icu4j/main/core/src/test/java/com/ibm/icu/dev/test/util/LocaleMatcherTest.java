@@ -261,7 +261,7 @@ public class LocaleMatcherTest extends CoreTestFmwk {
         final LocaleMatcher matcher = newLocaleMatcher("en, fil, ro, nn");
         assertEquals(new ULocale("fil"), matcher.getBestMatch("tl"));
         assertEquals(new ULocale("ro"), matcher.getBestMatch("mo"));
-        assertEquals(new ULocale("nn"), matcher.getBestMatch("nb"));
+        assertEquals(new ULocale("nn"), matcher.getBestMatch("no"));  // Google patch
         // make sure default works
         assertEquals(new ULocale("en"), matcher.getBestMatch("ja"));
     }

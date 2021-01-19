@@ -3194,8 +3194,8 @@ public class ULocaleTest extends CoreTestFmwk {
                     "nl"
                 }, {
                     "und_NO",
-                    "nb_Latn_NO",
-                    "nb"
+                    "no_Latn_NO",  // Android patch: Replace nb with no.
+                    "no"
                 }, {
                     "und_NP",
                     "ne_Deva_NP",
@@ -3306,8 +3306,8 @@ public class ULocaleTest extends CoreTestFmwk {
                     "sl"
                 }, {
                     "und_SJ",
-                    "nb_Latn_SJ",
-                    "nb_SJ"
+                    "no_Latn_SJ",  // Android patch: Replace nb with no.
+                    "no_SJ"
                 }, {
                     "und_SK",
                     "sk_Latn_SK",
