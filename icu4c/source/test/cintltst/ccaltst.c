@@ -11,6 +11,9 @@
  *        Name                     Description            
  *     Madhu Katragadda               Creation
  ********************************************************************
+
+
+
  */
 
 /* C API AND FUNCTIONALITY TEST FOR CALENDAR (ucol.h)*/
@@ -97,7 +100,7 @@ static const UCalGetTypeTest ucalGetTypeTests[] = {
     { "en_US",                   UCAL_GREGORIAN, "gregorian" },
     { "ja_JP@calendar=japanese", UCAL_DEFAULT,   "japanese"  },
     { "th_TH",                   UCAL_GREGORIAN, "gregorian" },
-    { "th_TH",                   UCAL_DEFAULT,   "buddhist"  },
+    { "th_TH",                   UCAL_DEFAULT,   "gregorian"  },  // android-changed
     { "th-TH-u-ca-gregory",      UCAL_DEFAULT,   "gregorian" },
     { "ja_JP@calendar=japanese", UCAL_GREGORIAN, "gregorian" },
     { "fr_CH",                   UCAL_DEFAULT,   "gregorian" },
@@ -107,8 +110,8 @@ static const UCalGetTypeTest ucalGetTypeTests[] = {
     { "fr_CH@calendar=japanese;rg=sazzzz", UCAL_DEFAULT, "japanese" },
     { "fr_CH@rg=twcyi",          UCAL_DEFAULT,   "gregorian" }, // test for ICU-22364
     { "fr_CH@rg=ugw",            UCAL_DEFAULT,   "gregorian" }, // test for ICU-22364
-    { "fr_TH@rg=SA",             UCAL_DEFAULT,   "buddhist"  }, /* ignore malformed rg tag */
-    { "th@rg=SA",                UCAL_DEFAULT,   "buddhist"  }, /* ignore malformed rg tag */
+    { "fr_TH@rg=SA",             UCAL_DEFAULT,   "gregorian"  }, /* ignore malformed rg tag */  // android-changed
+    { "th@rg=SA",                UCAL_DEFAULT,   "gregorian"  }, /* ignore malformed rg tag */  // android-changed
     { "",                        UCAL_GREGORIAN, "gregorian" },
     { NULL,                      UCAL_GREGORIAN, "gregorian" },
     { NULL, 0, NULL } /* terminator */
@@ -1625,17 +1628,17 @@ static void TestGetKeywordValuesForLocale(void) {
             { "und",         "gregorian", NULL, NULL, NULL, NULL },
             { "en_US",       "gregorian", NULL, NULL, NULL, NULL },
             { "en_029",      "gregorian", NULL, NULL, NULL, NULL },
-            { "th_TH",       "buddhist", "gregorian", NULL, NULL, NULL },
-            { "und_TH",      "buddhist", "gregorian", NULL, NULL, NULL },
-            { "en_TH",       "buddhist", "gregorian", NULL, NULL, NULL },
+            { "th_TH",       "gregorian", "buddhist", NULL, NULL, NULL },  // android-changed
+            { "und_TH",      "gregorian", "buddhist", NULL, NULL, NULL },  // android-changed
+            { "en_TH",       "gregorian", "buddhist", NULL, NULL, NULL },  // android-changed
             { "he_IL",       "gregorian", "hebrew", "islamic", "islamic-civil", "islamic-tbla" },
             { "ar_EG",       "gregorian", "coptic", "islamic", "islamic-civil", "islamic-tbla" },
             { "ja",          "gregorian", "japanese", NULL, NULL, NULL },
             { "ps_Guru_IN",  "gregorian", "indian", NULL, NULL, NULL },
-            { "th@calendar=gregorian", "buddhist", "gregorian", NULL, NULL, NULL },
+            { "th@calendar=gregorian", "gregorian", "buddhist", NULL, NULL, NULL },  // android-changed
             { "en@calendar=islamic",   "gregorian", NULL, NULL, NULL, NULL },
             { "zh_TW",       "gregorian", "roc", "chinese", NULL, NULL },
-            { "ar_IR",       "persian", "gregorian", "islamic", "islamic-civil", "islamic-tbla" },
+            { "ar_IR",       "gregorian", "persian", "islamic", "islamic-civil", "islamic-tbla" },  // android-changed
             { "th@rg=SAZZZZ", "gregorian", "islamic-umalqura", "islamic", "islamic-rgsa", NULL },
 
             // tests for ICU-22364
