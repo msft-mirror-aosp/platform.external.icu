@@ -1795,12 +1795,10 @@ public abstract class NumberFormat extends UFormat {
         public static final Field CURRENCY = new Field("currency");
 
         /**
-         * @hide draft / provisional / internal are hidden on Android
          */
         public static final Field MEASURE_UNIT = new Field("measure unit");
 
         /**
-         * @hide draft / provisional / internal are hidden on Android
          */
         public static final Field COMPACT = new Field("compact");
 
