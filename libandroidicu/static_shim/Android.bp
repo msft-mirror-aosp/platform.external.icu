@@ -11,6 +11,10 @@
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
+package {
+    default_visibility: ["//external/icu:__subpackages__"],
+}
+
 cc_library_static {
     name: "libandroidicu_static",
     host_supported: true,
@@ -34,6 +38,20 @@ cc_library_static {
         android: {
             cflags: [
                 "-DANDROID_LINK_SHARED_ICU4C",
+            ],
+        },
+        native_bridge: {
+            exclude_shared_libs: [
+                "libicuuc",
+                "libicui18n",
+            ],
+            header_libs: [
+                "libicuuc_headers",
+                "libicui18n_headers",
+            ],
+            shared_libs: [
+                "libnative_bridge_guest_libicuuc",
+                "libnative_bridge_guest_libicui18n",
             ],
         },
         windows: {

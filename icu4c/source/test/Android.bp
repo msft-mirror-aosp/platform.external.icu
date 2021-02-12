@@ -31,8 +31,9 @@ cc_defaults {
     c_std: "c11",
     cpp_std: "c++11",
     shared_libs: [
-        "libicuuc",
-        "libicui18n",
+        "libicu_cts_stub",
+        "libicuuc_cts_stub",
+        "libicui18n_cts_stub",
         "libbase",
         "liblog",
     ],
@@ -40,8 +41,17 @@ cc_defaults {
     static_libs: [
         "libicuctest",
         "libicutoolutil",
-        "libandroidicuinit",
     ],
+    target: {
+        android: {
+            cflags: [
+                // Required to link libicuuc_cts_stub
+                "-DANDROID_LINK_SHARED_ICU4C",
+                // Do not set the data directory explicitly on Android because libicuuc has set it.
+                "-DANDROID_USE_ICU_REG",
+            ],
+        },
+    },
 }
 
 genrule {

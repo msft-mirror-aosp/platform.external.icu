@@ -61,7 +61,7 @@ public final class TzDataSetVersion {
      * version to 1 when doing so.
      */
     // @VisibleForTesting : Keep this inline-able: it is used from CTS tests.
-    public static final int CURRENT_FORMAT_MAJOR_VERSION = 4; // Android R
+    public static final int CURRENT_FORMAT_MAJOR_VERSION = 5; // Android S
 
     /**
      * Returns the major tz data format version supported by this device.
@@ -165,17 +165,6 @@ public final class TzDataSetVersion {
     public static TzDataSetVersion readFromFile(File file) throws IOException, TzDataSetException {
         byte[] versionBytes = readBytes(file, TzDataSetVersion.TZ_DATA_VERSION_FILE_LENGTH);
         return fromBytes(versionBytes);
-    }
-
-    /**
-     * Reads the version of time zone data supplied by the time zone data module.
-     */
-    @libcore.api.CorePlatformApi
-    public static TzDataSetVersion readTimeZoneModuleVersion()
-            throws IOException, TzDataSetException {
-        String tzVersionFileName =
-                TimeZoneDataFiles.getTimeZoneModuleTzFile(TzDataSetVersion.DEFAULT_FILE_NAME);
-        return readFromFile(new File(tzVersionFileName));
     }
 
     /** Returns the major version number. See {@link TzDataSetVersion}. */

@@ -22,6 +22,10 @@ import com.android.i18n.timezone.internal.BufferIterator;
 import com.android.i18n.timezone.internal.MemoryMappedFile;
 
 import dalvik.annotation.optimization.ReachabilitySensitive;
+
+import libcore.util.NonNull;
+import libcore.util.Nullable;
+
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
@@ -38,7 +42,7 @@ import java.util.List;
  */
 @libcore.api.CorePlatformApi
 @libcore.api.IntraCoreApi
-public final class ZoneInfoDb implements AutoCloseable {
+public final class ZoneInfoDb {
 
   // VisibleForTesting
   public static final String TZDATA_FILE_NAME = "tzdata";
@@ -75,7 +79,6 @@ public final class ZoneInfoDb implements AutoCloseable {
   private MemoryMappedFile mappedFile;
 
   private String version;
-  private String zoneTab;
 
   /**
    * The 'ids' array contains time zone ids sorted alphabetically, for binary searching.
@@ -105,10 +108,12 @@ public final class ZoneInfoDb implements AutoCloseable {
 
   /**
    * Obtains the singleton instance.
+   *
+   * @hide
    */
   @libcore.api.CorePlatformApi
   @libcore.api.IntraCoreApi
-  public static ZoneInfoDb getInstance() {
+  public static @NonNull ZoneInfoDb getInstance() {
     return DATA;
   }
 
@@ -136,7 +141,7 @@ public final class ZoneInfoDb implements AutoCloseable {
    * Loads the data at the specified path and returns the {@link ZoneInfoDb} object if it is valid,
    * otherwise {@code null}.
    */
-  @libcore.api.CorePlatformApi
+  // VisibleForTesting
   public static ZoneInfoDb loadTzData(String path) {
     ZoneInfoDb tzData = new ZoneInfoDb();
     if (tzData.loadData(path)) {
@@ -174,7 +179,6 @@ public final class ZoneInfoDb implements AutoCloseable {
 
   private void populateFallback() {
     version = "missing";
-    zoneTab = "# Emergency fallback data.\n";
     ids = new String[] { "GMT" };
     byteOffsets = rawUtcOffsetsCache = new int[1];
   }
@@ -207,7 +211,7 @@ public final class ZoneInfoDb implements AutoCloseable {
     // byte[12] tzdata_version  -- "tzdata2012f\0"
     // int index_offset
     // int data_offset
-    // int zonetab_offset
+    // int final_offset
     BufferIterator it = mappedFile.bigEndianIterator();
 
     try {
@@ -221,36 +225,21 @@ public final class ZoneInfoDb implements AutoCloseable {
 
       final int fileSize = mappedFile.size();
       int index_offset = it.readInt();
-      validateOffset(index_offset, fileSize);
       int data_offset = it.readInt();
-      validateOffset(data_offset, fileSize);
-      int zonetab_offset = it.readInt();
-      validateOffset(zonetab_offset, fileSize);
+      int final_offset = it.readInt();
 
-      if (index_offset >= data_offset || data_offset >= zonetab_offset) {
+      if (index_offset >= data_offset
+              || data_offset >= final_offset
+              || final_offset > fileSize) {
         throw new IOException("Invalid offset: index_offset=" + index_offset
-                + ", data_offset=" + data_offset + ", zonetab_offset=" + zonetab_offset
+                + ", data_offset=" + data_offset + ", final_offset=" + final_offset
                 + ", fileSize=" + fileSize);
       }
 
       readIndex(it, index_offset, data_offset);
-      readZoneTab(it, zonetab_offset, fileSize - zonetab_offset);
     } catch (IndexOutOfBoundsException e) {
       throw new IOException("Invalid read from data file", e);
     }
-  }
-
-  private static void validateOffset(int offset, int size) throws IOException {
-    if (offset < 0 || offset >= size) {
-      throw new IOException("Invalid offset=" + offset + ", size=" + size);
-    }
-  }
-
-  private void readZoneTab(BufferIterator it, int zoneTabOffset, int zoneTabSize) {
-    byte[] bytes = new byte[zoneTabSize];
-    it.seek(zoneTabOffset);
-    it.readByteArray(bytes, 0, bytes.length);
-    zoneTab = new String(bytes, 0, bytes.length, StandardCharsets.US_ASCII);
   }
 
   private void readIndex(BufferIterator it, int indexOffset, int dataOffset) throws IOException {
@@ -283,13 +272,16 @@ public final class ZoneInfoDb implements AutoCloseable {
 
       // Calculate the true length of the ID.
       int len = 0;
-      while (idBytes[len] != 0 && len < idBytes.length) {
+      while (len < idBytes.length && idBytes[len] != 0) {
         len++;
       }
       if (len == 0) {
         throw new IOException("Invalid ID at index=" + i);
       }
-      ids[i] = new String(idBytes, 0, len, StandardCharsets.US_ASCII);
+      String zoneId = new String(idBytes, 0, len, StandardCharsets.US_ASCII);
+      // intern() zone Ids because they are a fixed set of well-known strings that are used in
+      // other low-level library calls.
+      ids[i] = zoneId.intern();
       if (i > 0) {
         if (ids[i].compareTo(ids[i - 1]) <= 0) {
           throw new IOException("Index not sorted or contains multiple entries with the same ID"
@@ -299,8 +291,24 @@ public final class ZoneInfoDb implements AutoCloseable {
     }
   }
 
+
+  /**
+   * Validate the data at the specified path. Throws {@link IOException} if it's not valid.
+   */
   @libcore.api.CorePlatformApi
-  public void validate() throws IOException {
+  public static void validateTzData(@NonNull String path) throws IOException {
+    ZoneInfoDb tzData = ZoneInfoDb.loadTzData(path);
+    if (tzData == null) {
+      throw new IOException("failed to read tzData at " + path);
+    }
+    try {
+      tzData.validate();
+    } finally {
+      tzData.close();
+    }
+  }
+
+  private void validate() throws IOException {
     checkNotClosed();
     // Validate the data in the tzdata file by loading each and every zone.
     for (String id : getAvailableIDs()) {
@@ -311,24 +319,34 @@ public final class ZoneInfoDb implements AutoCloseable {
     }
   }
 
-  @libcore.api.IntraCoreApi
   ZoneInfoData makeZoneInfoDataUncached(String id) throws IOException {
     BufferIterator it = getBufferIterator(id);
     if (it == null) {
       return null;
     }
 
-    return ZoneInfoData.readTimeZone(id, it, System.currentTimeMillis());
+    return ZoneInfoData.readTimeZone(id, it);
   }
 
+  /**
+   * Returns an array containing all time zone ids sorted in lexicographical order for
+   * binary searching.
+   *
+   * @hide
+   */
   @libcore.api.IntraCoreApi
-  public String[] getAvailableIDs() {
+  public @NonNull String @NonNull[] getAvailableIDs() {
     checkNotClosed();
     return ids.clone();
   }
 
+  /**
+   * Returns ids of all time zones with the given raw UTC offset.
+   *
+   * @hide
+   */
   @libcore.api.IntraCoreApi
-  public String[] getAvailableIDs(int rawUtcOffset) {
+  public @NonNull String @NonNull[] getAvailableIDs(int rawUtcOffset) {
     checkNotClosed();
     List<String> matches = new ArrayList<String>();
     int[] rawUtcOffsets = getRawUtcOffsets();
@@ -360,32 +378,34 @@ public final class ZoneInfoDb implements AutoCloseable {
    * Returns the tzdb version in use.
    */
   @libcore.api.CorePlatformApi
-  @libcore.api.IntraCoreApi
-  public String getVersion() {
+  public @NonNull String getVersion() {
     checkNotClosed();
     return version;
   }
 
-  public String getZoneTab() {
-    checkNotClosed();
-    return zoneTab;
-  }
-
+  /**
+   * Creates {@link ZoneInfoData} object from the time zone {@code id}. Returns null if the id
+   * is not found.
+   *
+   * @hide
+   */
   @libcore.api.CorePlatformApi
   @libcore.api.IntraCoreApi
-  public ZoneInfoData makeZoneInfoData(String id) {
+  public @Nullable ZoneInfoData makeZoneInfoData(@NonNull String id) {
     checkNotClosed();
     ZoneInfoData zoneInfoData = cache.get(id);
-    // The object from the cache is cloned because TimeZone / ZoneInfo are mutable.
-    return zoneInfoData == null ? null : new ZoneInfoData(zoneInfoData);
+    // The object from the cache is not cloned because ZoneInfoData is immutable.
+    // Note that zoneInfoData can be null here.
+    return zoneInfoData;
   }
 
   @libcore.api.CorePlatformApi
-  public boolean hasTimeZone(String id) {
+  public boolean hasTimeZone(@NonNull String id) {
     checkNotClosed();
-    return cache.get(id) != null;
+    return Arrays.binarySearch(ids, id) >= 0;
   }
 
+  // VisibleForTesting
   public void close() {
     if (!closed) {
       closed = true;
@@ -413,7 +433,8 @@ public final class ZoneInfoDb implements AutoCloseable {
     }
   }
 
-  @Override protected void finalize() throws Throwable {
+  @Override
+  protected void finalize() throws Throwable {
     try {
       close();
     } finally {
