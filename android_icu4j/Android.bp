@@ -16,6 +16,17 @@
 
 package {
     default_visibility: ["//visibility:private"],
+    // See: http://go/android-license-faq
+    // A large-scale-change added 'default_applicable_licenses' to import
+    // all of the 'license_kinds' from "external_icu_license"
+    // to get the below license kinds:
+    //   SPDX-license-identifier-Apache-2.0
+    //   SPDX-license-identifier-BSD
+    //   SPDX-license-identifier-ICU
+    //   SPDX-license-identifier-MIT
+    //   SPDX-license-identifier-Unicode-DFS
+    //   legacy_unencumbered
+    default_applicable_licenses: ["external_icu_license"],
 }
 
 //==========================================================
@@ -26,9 +37,6 @@ package {
 //==========================================================
 filegroup {
     name: "android_icu4j_public_api_files",
-    visibility: [
-        "//frameworks/base",
-    ],
     srcs: [
         ":android_icu4j_repackaged_src_files",
     ],
@@ -50,16 +58,33 @@ filegroup {
     path: "libcore_bridge/src/java",
 }
 
-// timezone-related source that is also used in host tests / tools and its
-// dependencies.
-filegroup {
-    name: "timezone_host_files",
+java_defaults {
+    name: "libcore_icu_bridge_defaults",
     srcs: [
-        "libcore_bridge/src/java/com/android/i18n/timezone/TimeZoneDataFiles.java",
+        "libcore_bridge/src/java/**/*.java",
+        ":app-compat-annotations-source",
+    ],
+    jarjar_rules: "jarjar-rules.txt",
+    plugins: [
+        "compat-changeid-annotation-processor",
+    ],
+}
+
+// A host library containing time zone related classes. Used for
+// host-side tools and tests that have to deal with Android
+// time zone data.
+java_library_host {
+    name: "timezone-host",
+    visibility: [
+        "//packages/modules/RuntimeI18n/apex",
+        "//system/timezone/distro/core",
+    ],
+    srcs: [
         "libcore_bridge/src/java/com/android/i18n/timezone/TzDataSetVersion.java",
     ],
-    path: "libcore_bridge/src/java",
-    visibility: ["//libcore"],
+    libs: [
+        "art.module.api.annotations",
+    ],
 }
 
 // core-repackaged-icu4j contains only the repackaged ICU4J that does not
@@ -94,6 +119,7 @@ java_library_static {
 // not in ART module.
 java_library {
     name: "core-icu4j",
+    defaults: ["libcore_icu_bridge_defaults"],
     visibility: [
         "//packages/modules/RuntimeI18n/apex",
         "//external/robolectric-shadows",
@@ -111,7 +137,6 @@ java_library {
     installable: true,
     hostdex: false,
 
-    srcs: [":libcore_icu_bridge_src_files"],
     static_libs: ["core-repackaged-icu4j"],
 
     // It is important that core-icu4j is restricted to only use stable APIs from the ART module
@@ -122,9 +147,16 @@ java_library {
     dxflags: ["--core-library"],
 }
 
+platform_compat_config {
+    name: "icu4j-platform-compat-config",
+    src: ":core-icu4j",
+}
+
 java_sdk_library {
     name: "i18n.module.public.api",
     visibility: [
+        "//frameworks/base",
+        "//frameworks/base/api",
         "//libcore",
         "//packages/modules/RuntimeI18n/apex",
         // Visibility for prebuilt i18n-module-sdk from the prebuilt of
@@ -136,6 +168,9 @@ java_sdk_library {
     srcs: [
         ":android_icu4j_public_api_files",
     ],
+    droiddoc_options: [
+        "--force-convert-to-warning-nullability-annotations +*:-android.*:+android.icu.*:-dalvik.* ",
+    ],
     errorprone: {
         javacflags: [
             "-Xep:MissingOverride:OFF",
@@ -145,22 +180,13 @@ java_sdk_library {
     api_only: true,
     sdk_version: "none",
     system_modules: "art-module-public-api-stubs-system-modules",
-}
 
-// Referenced implicitly from i18n.module.intra.api.
-filegroup {
-    name: "i18n.module.intra.api.api.public.latest",
-    srcs: [
-        "api/intra/last-api.txt",
-    ],
-}
-
-// Referenced implicitly from i18n.module.intra.api.
-filegroup {
-    name: "i18n.module.intra.api-removed.api.public.latest",
-    srcs: [
-        "api/intra/last-removed.txt",
-    ],
+    // The base name for the artifacts that are automatically published to the
+    // dist and which end up in one of the sub-directories of prebuilts/sdk.
+    // As long as this matches the name of the artifacts in prebuilts/sdk then
+    // the API will be checked for compatibility against the latest released
+    // version of the API.
+    dist_stem: "runtime-i18n",
 }
 
 // Generates stub source files for the intra-core API of the I18N module.
@@ -172,9 +198,9 @@ filegroup {
 // API.
 java_sdk_library {
     name: "i18n.module.intra.core.api",
+    defaults: ["libcore_icu_bridge_defaults"],
     srcs: [
         ":android_icu4j_repackaged_src_files",
-        ":libcore_icu_bridge_src_files",
     ],
     visibility: [
         "//libcore:__subpackages__",
@@ -194,6 +220,25 @@ java_sdk_library {
         "--hide-annotation libcore.api.Hide ",
         "--show-single-annotation libcore.api.IntraCoreApi ",
         "--skip-annotation-instance-methods=false ",
+    ],
+
+    // Don't copy any output files to the dist.
+    no_dist: true,
+}
+
+// Referenced implicitly from i18n.module.intra.core.api.
+filegroup {
+    name: "i18n.module.intra.core.api.api.public.latest",
+    srcs: [
+        "api/intra/last-api.txt",
+    ],
+}
+
+// Referenced implicitly from i18n.module.intra.core.api.
+filegroup {
+    name: "i18n.module.intra.core.api-removed.api.public.latest",
+    srcs: [
+        "api/intra/last-removed.txt",
     ],
 }
 
@@ -241,9 +286,9 @@ filegroup {
 
 java_sdk_library {
     name: "legacy.i18n.module.platform.api",
+    defaults: ["libcore_icu_bridge_defaults"],
     srcs: [
         ":android_icu4j_repackaged_src_files",
-        ":libcore_icu_bridge_src_files",
     ],
     visibility: [
         "//libcore:__subpackages__",
@@ -265,13 +310,16 @@ java_sdk_library {
         "--show-single-annotation libcore.api.CorePlatformApi ",
         "--skip-annotation-instance-methods=false ",
     ],
+
+    // Don't copy any output files to the dist.
+    no_dist: true,
 }
 
 java_sdk_library {
     name: "stable.i18n.module.platform.api",
+    defaults: ["libcore_icu_bridge_defaults"],
     srcs: [
         ":android_icu4j_repackaged_src_files",
-        ":libcore_icu_bridge_src_files",
     ],
     visibility: [
         "//libcore:__subpackages__",
@@ -293,6 +341,9 @@ java_sdk_library {
         "--show-single-annotation libcore.api.CorePlatformApi\\(status=libcore.api.CorePlatformApi.Status.STABLE\\)",
         "--skip-annotation-instance-methods=false ",
     ],
+
+    // Don't copy any output files to the dist.
+    no_dist: true,
 }
 
 //==========================================================
