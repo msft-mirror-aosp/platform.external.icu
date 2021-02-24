@@ -13,6 +13,15 @@
 // limitations under the License.
 package {
     default_visibility: ["//external/icu:__subpackages__"],
+    // See: http://go/android-license-faq
+    // A large-scale-change added 'default_applicable_licenses' to import
+    // all of the 'license_kinds' from "external_icu_license"
+    // to get the below license kinds:
+    //   SPDX-license-identifier-BSD
+    //   SPDX-license-identifier-ICU
+    //   SPDX-license-identifier-MIT
+    //   SPDX-license-identifier-Unicode-DFS
+    default_applicable_licenses: ["external_icu_license"],
 }
 
 // Android repo only headers for icu4c
@@ -31,4 +40,16 @@ cc_library_headers {
             enabled: true,
         },
     },
+}
+
+// TODO(b/180394055): Remove this module when the libicu NDK headers are available for mainline
+//  modules / apps.
+// Temporary module to expose header-only functions / macros that do not depend on the
+// on-device implementation of icu4c_extra_headers.
+cc_library_headers {
+    name: "icu4c_extra_headers_for_app",
+    export_include_dirs: ["include"],
+    apex_available: [
+        "com.android.extservices",
+    ],
 }
