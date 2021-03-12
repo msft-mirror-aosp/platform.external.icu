@@ -1,6 +1,6 @@
 /* GENERATED SOURCE. DO NOT MODIFY. */
 // © 2016 and later: Unicode, Inc. and others.
-// License & terms of use: http://www.unicode.org/copyright.html#License
+// License & terms of use: http://www.unicode.org/copyright.html
 /**
  *******************************************************************************
  * Copyright (C) 1996-2016, International Business Machines Corporation and
@@ -5194,7 +5194,6 @@ public final class UCharacter implements ECharacterCategory, ECharacterDirection
      *         Unicode version does not have data for the property at all, or
      *         not for this code point.
      * @see android.icu.lang.UProperty
-     * @see CharacterProperties#getBinaryPropertySet(int)
      */
     public static boolean hasBinaryProperty(int ch, int property)
     {
@@ -5283,7 +5282,6 @@ public final class UCharacter implements ECharacterCategory, ECharacterDirection
      * @see #hasBinaryProperty
      * @see #getIntPropertyMinValue
      * @see #getIntPropertyMaxValue
-     * @see CharacterProperties#getIntPropertyMap(int)
      * @see #getUnicodeVersion
      */
     public static int getIntPropertyValue(int ch, int type)
