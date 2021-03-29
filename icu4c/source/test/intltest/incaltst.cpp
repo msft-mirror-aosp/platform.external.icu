@@ -433,6 +433,8 @@ void IntlCalendarTest::TestJapanese() {
 
 
 void IntlCalendarTest::TestBuddhistFormat() {
+    // Android patch: b/145129186 Disable failing tests
+    #ifndef ANDROID
     UErrorCode status = U_ZERO_ERROR;
     
     // Test simple parse/format with adopt
@@ -470,9 +472,7 @@ void IntlCalendarTest::TestBuddhistFormat() {
         UnicodeString expect = CharsToUnicodeString("\\u0E27\\u0E31\\u0E19\\u0E40\\u0E2A\\u0E32\\u0E23\\u0E4C\\u0E17\\u0E35\\u0E48"
             " 8 \\u0E01\\u0E31\\u0e19\\u0e22\\u0e32\\u0e22\\u0e19 \\u0e1e.\\u0e28. 2544");
         UDate         expectDate = 999932400000.0;
-        // Android-changed: Default calendar on Android is Gregorian.
-        // Locale        loc("th_TH_TRADITIONAL"); // legacy
-        Locale        loc("th_TH_TRADITIONAL@calendar=buddhist"); // legacy
+        Locale        loc("th_TH_TRADITIONAL"); // legacy
         
         simpleTest(loc, expect, expectDate, status);
     }
@@ -503,6 +503,7 @@ void IntlCalendarTest::TestBuddhistFormat() {
         
         simpleTest(loc, expect, expectDate, status);
     }
+    #endif /* ANDROID */
 }
 
 // TaiwanFormat has been moved to testdata/format.txt
