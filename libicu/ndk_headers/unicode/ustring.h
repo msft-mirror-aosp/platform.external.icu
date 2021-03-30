@@ -81,8 +81,6 @@
  * \ingroup ustring_strlen
  */
 /*@{*/
-#if !defined(__ANDROID__) || __ANDROID_API__ >= 31
-
 /**
  * Determine the length of an array of UChar.
  *
@@ -90,13 +88,11 @@
  * @return The number of UChars in <code>chars</code>, minus the terminator.
  * @stable ICU 2.0
  */
-U_STABLE int32_t U_EXPORT2
+U_CAPI int32_t U_EXPORT2
 u_strlen(const UChar *s) __INTRODUCED_IN(31);
 
-#endif // !defined(__ANDROID__) || __ANDROID_API__ >= 31
-/*@}*/
 
-#if !defined(__ANDROID__) || __ANDROID_API__ >= 31
+/*@}*/
 
 /**
  * Count Unicode code points in the length UChar code units of the string.
@@ -111,12 +107,10 @@ u_strlen(const UChar *s) __INTRODUCED_IN(31);
  * @return The number of code points in the specified code units.
  * @stable ICU 2.0
  */
-U_STABLE int32_t U_EXPORT2
+U_CAPI int32_t U_EXPORT2
 u_countChar32(const UChar *s, int32_t length) __INTRODUCED_IN(31);
 
-#endif // !defined(__ANDROID__) || __ANDROID_API__ >= 31
 
-#if !defined(__ANDROID__) || __ANDROID_API__ >= 31
 
 /**
  * Check if the string contains more Unicode code points than a certain number.
@@ -136,12 +130,10 @@ u_countChar32(const UChar *s, int32_t length) __INTRODUCED_IN(31);
  *         than 'number'. Same as (u_countChar32(s, length)>number).
  * @stable ICU 2.4
  */
-U_STABLE UBool U_EXPORT2
+U_CAPI UBool U_EXPORT2
 u_strHasMoreChar32Than(const UChar *s, int32_t length, int32_t number) __INTRODUCED_IN(31);
 
-#endif // !defined(__ANDROID__) || __ANDROID_API__ >= 31
 
-#if !defined(__ANDROID__) || __ANDROID_API__ >= 31
 
 /**
  * Concatenate two ustrings.  Appends a copy of <code>src</code>,
@@ -153,13 +145,11 @@ u_strHasMoreChar32Than(const UChar *s, int32_t length, int32_t number) __INTRODU
  * @return A pointer to <code>dst</code>.
  * @stable ICU 2.0
  */
-U_STABLE UChar* U_EXPORT2
+U_CAPI UChar* U_EXPORT2
 u_strcat(UChar     *dst, 
     const UChar     *src) __INTRODUCED_IN(31);
 
-#endif // !defined(__ANDROID__) || __ANDROID_API__ >= 31
 
-#if !defined(__ANDROID__) || __ANDROID_API__ >= 31
 
 /**
  * Concatenate two ustrings.  
@@ -175,14 +165,12 @@ u_strcat(UChar     *dst,
  * @return A pointer to <code>dst</code>.
  * @stable ICU 2.0
  */
-U_STABLE UChar* U_EXPORT2
+U_CAPI UChar* U_EXPORT2
 u_strncat(UChar     *dst, 
      const UChar     *src, 
      int32_t     n) __INTRODUCED_IN(31);
 
-#endif // !defined(__ANDROID__) || __ANDROID_API__ >= 31
 
-#if !defined(__ANDROID__) || __ANDROID_API__ >= 31
 
 /**
  * Find the first occurrence of a substring in a string.
@@ -204,12 +192,10 @@ u_strncat(UChar     *dst,
  * @see u_strFindFirst
  * @see u_strFindLast
  */
-U_STABLE UChar * U_EXPORT2
+U_CAPI UChar * U_EXPORT2
 u_strstr(const UChar *s, const UChar *substring) __INTRODUCED_IN(31);
 
-#endif // !defined(__ANDROID__) || __ANDROID_API__ >= 31
 
-#if !defined(__ANDROID__) || __ANDROID_API__ >= 31
 
 /**
  * Find the first occurrence of a substring in a string.
@@ -232,12 +218,10 @@ u_strstr(const UChar *s, const UChar *substring) __INTRODUCED_IN(31);
  * @see u_strstr
  * @see u_strFindLast
  */
-U_STABLE UChar * U_EXPORT2
+U_CAPI UChar * U_EXPORT2
 u_strFindFirst(const UChar *s, int32_t length, const UChar *substring, int32_t subLength) __INTRODUCED_IN(31);
 
-#endif // !defined(__ANDROID__) || __ANDROID_API__ >= 31
 
-#if !defined(__ANDROID__) || __ANDROID_API__ >= 31
 
 /**
  * Find the first occurrence of a BMP code point in a string.
@@ -256,12 +240,10 @@ u_strFindFirst(const UChar *s, int32_t length, const UChar *substring, int32_t s
  * @see u_strstr
  * @see u_strFindFirst
  */
-U_STABLE UChar * U_EXPORT2
+U_CAPI UChar * U_EXPORT2
 u_strchr(const UChar *s, UChar c) __INTRODUCED_IN(31);
 
-#endif // !defined(__ANDROID__) || __ANDROID_API__ >= 31
 
-#if !defined(__ANDROID__) || __ANDROID_API__ >= 31
 
 /**
  * Find the first occurrence of a code point in a string.
@@ -280,12 +262,10 @@ u_strchr(const UChar *s, UChar c) __INTRODUCED_IN(31);
  * @see u_strstr
  * @see u_strFindFirst
  */
-U_STABLE UChar * U_EXPORT2
+U_CAPI UChar * U_EXPORT2
 u_strchr32(const UChar *s, UChar32 c) __INTRODUCED_IN(31);
 
-#endif // !defined(__ANDROID__) || __ANDROID_API__ >= 31
 
-#if !defined(__ANDROID__) || __ANDROID_API__ >= 31
 
 /**
  * Find the last occurrence of a substring in a string.
@@ -307,12 +287,10 @@ u_strchr32(const UChar *s, UChar32 c) __INTRODUCED_IN(31);
  * @see u_strFindFirst
  * @see u_strFindLast
  */
-U_STABLE UChar * U_EXPORT2
+U_CAPI UChar * U_EXPORT2
 u_strrstr(const UChar *s, const UChar *substring) __INTRODUCED_IN(31);
 
-#endif // !defined(__ANDROID__) || __ANDROID_API__ >= 31
 
-#if !defined(__ANDROID__) || __ANDROID_API__ >= 31
 
 /**
  * Find the last occurrence of a substring in a string.
@@ -335,12 +313,10 @@ u_strrstr(const UChar *s, const UChar *substring) __INTRODUCED_IN(31);
  * @see u_strstr
  * @see u_strFindLast
  */
-U_STABLE UChar * U_EXPORT2
+U_CAPI UChar * U_EXPORT2
 u_strFindLast(const UChar *s, int32_t length, const UChar *substring, int32_t subLength) __INTRODUCED_IN(31);
 
-#endif // !defined(__ANDROID__) || __ANDROID_API__ >= 31
 
-#if !defined(__ANDROID__) || __ANDROID_API__ >= 31
 
 /**
  * Find the last occurrence of a BMP code point in a string.
@@ -359,12 +335,10 @@ u_strFindLast(const UChar *s, int32_t length, const UChar *substring, int32_t su
  * @see u_strrstr
  * @see u_strFindLast
  */
-U_STABLE UChar * U_EXPORT2
+U_CAPI UChar * U_EXPORT2
 u_strrchr(const UChar *s, UChar c) __INTRODUCED_IN(31);
 
-#endif // !defined(__ANDROID__) || __ANDROID_API__ >= 31
 
-#if !defined(__ANDROID__) || __ANDROID_API__ >= 31
 
 /**
  * Find the last occurrence of a code point in a string.
@@ -383,12 +357,10 @@ u_strrchr(const UChar *s, UChar c) __INTRODUCED_IN(31);
  * @see u_strrstr
  * @see u_strFindLast
  */
-U_STABLE UChar * U_EXPORT2
+U_CAPI UChar * U_EXPORT2
 u_strrchr32(const UChar *s, UChar32 c) __INTRODUCED_IN(31);
 
-#endif // !defined(__ANDROID__) || __ANDROID_API__ >= 31
 
-#if !defined(__ANDROID__) || __ANDROID_API__ >= 31
 
 /**
  * Locates the first occurrence in the string <code>string</code> of any of the characters
@@ -402,12 +374,10 @@ u_strrchr32(const UChar *s, UChar32 c) __INTRODUCED_IN(31);
  *         characters in <code>matchSet</code>, or NULL if no such character is found.
  * @stable ICU 2.0
  */
-U_STABLE UChar * U_EXPORT2
+U_CAPI UChar * U_EXPORT2
 u_strpbrk(const UChar *string, const UChar *matchSet) __INTRODUCED_IN(31);
 
-#endif // !defined(__ANDROID__) || __ANDROID_API__ >= 31
 
-#if !defined(__ANDROID__) || __ANDROID_API__ >= 31
 
 /**
  * Returns the number of consecutive characters in <code>string</code>,
@@ -422,12 +392,10 @@ u_strpbrk(const UChar *string, const UChar *matchSet) __INTRODUCED_IN(31);
  * @see u_strspn
  * @stable ICU 2.0
  */
-U_STABLE int32_t U_EXPORT2
+U_CAPI int32_t U_EXPORT2
 u_strcspn(const UChar *string, const UChar *matchSet) __INTRODUCED_IN(31);
 
-#endif // !defined(__ANDROID__) || __ANDROID_API__ >= 31
 
-#if !defined(__ANDROID__) || __ANDROID_API__ >= 31
 
 /**
  * Returns the number of consecutive characters in <code>string</code>,
@@ -442,12 +410,10 @@ u_strcspn(const UChar *string, const UChar *matchSet) __INTRODUCED_IN(31);
  * @see u_strcspn
  * @stable ICU 2.0
  */
-U_STABLE int32_t U_EXPORT2
+U_CAPI int32_t U_EXPORT2
 u_strspn(const UChar *string, const UChar *matchSet) __INTRODUCED_IN(31);
 
-#endif // !defined(__ANDROID__) || __ANDROID_API__ >= 31
 
-#if !defined(__ANDROID__) || __ANDROID_API__ >= 31
 
 /**
  * The string tokenizer API allows an application to break a string into
@@ -474,14 +440,12 @@ u_strspn(const UChar *string, const UChar *matchSet) __INTRODUCED_IN(31);
  *         when there are no more tokens.
  * @stable ICU 2.0
  */
-U_STABLE UChar * U_EXPORT2
+U_CAPI UChar * U_EXPORT2
 u_strtok_r(UChar    *src, 
      const UChar    *delim,
            UChar   **saveState) __INTRODUCED_IN(31);
 
-#endif // !defined(__ANDROID__) || __ANDROID_API__ >= 31
 
-#if !defined(__ANDROID__) || __ANDROID_API__ >= 31
 
 /**
  * Compare two Unicode strings for bitwise equality (code unit order).
@@ -493,13 +457,11 @@ u_strtok_r(UChar    *src,
  * value if <code>s1</code> is bitwise greater than <code>s2</code>.
  * @stable ICU 2.0
  */
-U_STABLE int32_t  U_EXPORT2
+U_CAPI int32_t  U_EXPORT2
 u_strcmp(const UChar     *s1, 
          const UChar     *s2) __INTRODUCED_IN(31);
 
-#endif // !defined(__ANDROID__) || __ANDROID_API__ >= 31
 
-#if !defined(__ANDROID__) || __ANDROID_API__ >= 31
 
 /**
  * Compare two Unicode strings in code point order.
@@ -512,12 +474,10 @@ u_strcmp(const UChar     *s1,
  * in code point order
  * @stable ICU 2.0
  */
-U_STABLE int32_t U_EXPORT2
+U_CAPI int32_t U_EXPORT2
 u_strcmpCodePointOrder(const UChar *s1, const UChar *s2) __INTRODUCED_IN(31);
 
-#endif // !defined(__ANDROID__) || __ANDROID_API__ >= 31
 
-#if !defined(__ANDROID__) || __ANDROID_API__ >= 31
 
 /**
  * Compare two Unicode strings (binary order).
@@ -539,23 +499,21 @@ u_strcmpCodePointOrder(const UChar *s1, const UChar *s2) __INTRODUCED_IN(31);
  * @param s2 Second source string.
  * @param length2 Length of second source string, or -1 if NUL-terminated.
  *
- * @param codePointOrder Choose between code unit order (FALSE)
- *                       and code point order (TRUE).
+ * @param codePointOrder Choose between code unit order (false)
+ *                       and code point order (true).
  *
  * @return <0 or 0 or >0 as usual for string comparisons
  *
  * @stable ICU 2.2
  */
-U_STABLE int32_t U_EXPORT2
+U_CAPI int32_t U_EXPORT2
 u_strCompare(const UChar *s1, int32_t length1,
              const UChar *s2, int32_t length2,
              UBool codePointOrder) __INTRODUCED_IN(31);
 
-#endif // !defined(__ANDROID__) || __ANDROID_API__ >= 31
 
 
 
-#if !defined(__ANDROID__) || __ANDROID_API__ >= 31
 
 /**
  * Compare two strings case-insensitively using full case folding.
@@ -597,15 +555,13 @@ u_strCompare(const UChar *s1, int32_t length1,
  *
  * @stable ICU 2.2
  */
-U_STABLE int32_t U_EXPORT2
+U_CAPI int32_t U_EXPORT2
 u_strCaseCompare(const UChar *s1, int32_t length1,
                  const UChar *s2, int32_t length2,
                  uint32_t options,
                  UErrorCode *pErrorCode) __INTRODUCED_IN(31);
 
-#endif // !defined(__ANDROID__) || __ANDROID_API__ >= 31
 
-#if !defined(__ANDROID__) || __ANDROID_API__ >= 31
 
 /**
  * Compare two ustrings for bitwise equality. 
@@ -619,14 +575,12 @@ u_strCaseCompare(const UChar *s1, int32_t length1,
  * value if <code>s1</code> is bitwise greater than <code>s2</code>.
  * @stable ICU 2.0
  */
-U_STABLE int32_t U_EXPORT2
+U_CAPI int32_t U_EXPORT2
 u_strncmp(const UChar     *ucs1, 
      const UChar     *ucs2, 
      int32_t     n) __INTRODUCED_IN(31);
 
-#endif // !defined(__ANDROID__) || __ANDROID_API__ >= 31
 
-#if !defined(__ANDROID__) || __ANDROID_API__ >= 31
 
 /**
  * Compare two Unicode strings in code point order.
@@ -641,12 +595,10 @@ u_strncmp(const UChar     *ucs1,
  * in code point order
  * @stable ICU 2.0
  */
-U_STABLE int32_t U_EXPORT2
+U_CAPI int32_t U_EXPORT2
 u_strncmpCodePointOrder(const UChar *s1, const UChar *s2, int32_t n) __INTRODUCED_IN(31);
 
-#endif // !defined(__ANDROID__) || __ANDROID_API__ >= 31
 
-#if !defined(__ANDROID__) || __ANDROID_API__ >= 31
 
 /**
  * Compare two strings case-insensitively using full case folding.
@@ -667,12 +619,10 @@ u_strncmpCodePointOrder(const UChar *s1, const UChar *s2, int32_t n) __INTRODUCE
  * @return A negative, zero, or positive integer indicating the comparison result.
  * @stable ICU 2.0
  */
-U_STABLE int32_t U_EXPORT2
+U_CAPI int32_t U_EXPORT2
 u_strcasecmp(const UChar *s1, const UChar *s2, uint32_t options) __INTRODUCED_IN(31);
 
-#endif // !defined(__ANDROID__) || __ANDROID_API__ >= 31
 
-#if !defined(__ANDROID__) || __ANDROID_API__ >= 31
 
 /**
  * Compare two strings case-insensitively using full case folding.
@@ -695,12 +645,10 @@ u_strcasecmp(const UChar *s1, const UChar *s2, uint32_t options) __INTRODUCED_IN
  * @return A negative, zero, or positive integer indicating the comparison result.
  * @stable ICU 2.0
  */
-U_STABLE int32_t U_EXPORT2
+U_CAPI int32_t U_EXPORT2
 u_strncasecmp(const UChar *s1, const UChar *s2, int32_t n, uint32_t options) __INTRODUCED_IN(31);
 
-#endif // !defined(__ANDROID__) || __ANDROID_API__ >= 31
 
-#if !defined(__ANDROID__) || __ANDROID_API__ >= 31
 
 /**
  * Compare two strings case-insensitively using full case folding.
@@ -723,12 +671,10 @@ u_strncasecmp(const UChar *s1, const UChar *s2, int32_t n, uint32_t options) __I
  * @return A negative, zero, or positive integer indicating the comparison result.
  * @stable ICU 2.0
  */
-U_STABLE int32_t U_EXPORT2
+U_CAPI int32_t U_EXPORT2
 u_memcasecmp(const UChar *s1, const UChar *s2, int32_t length, uint32_t options) __INTRODUCED_IN(31);
 
-#endif // !defined(__ANDROID__) || __ANDROID_API__ >= 31
 
-#if !defined(__ANDROID__) || __ANDROID_API__ >= 31
 
 /**
  * Copy a ustring. Adds a null terminator.
@@ -738,13 +684,11 @@ u_memcasecmp(const UChar *s1, const UChar *s2, int32_t length, uint32_t options)
  * @return A pointer to <code>dst</code>.
  * @stable ICU 2.0
  */
-U_STABLE UChar* U_EXPORT2
+U_CAPI UChar* U_EXPORT2
 u_strcpy(UChar     *dst, 
     const UChar     *src) __INTRODUCED_IN(31);
 
-#endif // !defined(__ANDROID__) || __ANDROID_API__ >= 31
 
-#if !defined(__ANDROID__) || __ANDROID_API__ >= 31
 
 /**
  * Copy a ustring.
@@ -757,12 +701,12 @@ u_strcpy(UChar     *dst,
  * @return A pointer to <code>dst</code>.
  * @stable ICU 2.0
  */
-U_STABLE UChar* U_EXPORT2
+U_CAPI UChar* U_EXPORT2
 u_strncpy(UChar     *dst, 
      const UChar     *src, 
      int32_t     n) __INTRODUCED_IN(31);
 
-#endif // !defined(__ANDROID__) || __ANDROID_API__ >= 31
+
 
 #if !UCONFIG_NO_CONVERSION
 
@@ -776,8 +720,6 @@ u_strncpy(UChar     *dst,
 
 #endif
 
-#if !defined(__ANDROID__) || __ANDROID_API__ >= 31
-
 /**
  * Synonym for memcpy(), but with UChars only.
  * @param dest The destination string
@@ -786,12 +728,10 @@ u_strncpy(UChar     *dst,
  * @return A pointer to <code>dest</code>
  * @stable ICU 2.0
  */
-U_STABLE UChar* U_EXPORT2
+U_CAPI UChar* U_EXPORT2
 u_memcpy(UChar *dest, const UChar *src, int32_t count) __INTRODUCED_IN(31);
 
-#endif // !defined(__ANDROID__) || __ANDROID_API__ >= 31
 
-#if !defined(__ANDROID__) || __ANDROID_API__ >= 31
 
 /**
  * Synonym for memmove(), but with UChars only.
@@ -801,12 +741,10 @@ u_memcpy(UChar *dest, const UChar *src, int32_t count) __INTRODUCED_IN(31);
  * @return A pointer to <code>dest</code>
  * @stable ICU 2.0
  */
-U_STABLE UChar* U_EXPORT2
+U_CAPI UChar* U_EXPORT2
 u_memmove(UChar *dest, const UChar *src, int32_t count) __INTRODUCED_IN(31);
 
-#endif // !defined(__ANDROID__) || __ANDROID_API__ >= 31
 
-#if !defined(__ANDROID__) || __ANDROID_API__ >= 31
 
 /**
  * Initialize <code>count</code> characters of <code>dest</code> to <code>c</code>.
@@ -817,12 +755,10 @@ u_memmove(UChar *dest, const UChar *src, int32_t count) __INTRODUCED_IN(31);
  * @return A pointer to <code>dest</code>.
  * @stable ICU 2.0
  */
-U_STABLE UChar* U_EXPORT2
+U_CAPI UChar* U_EXPORT2
 u_memset(UChar *dest, UChar c, int32_t count) __INTRODUCED_IN(31);
 
-#endif // !defined(__ANDROID__) || __ANDROID_API__ >= 31
 
-#if !defined(__ANDROID__) || __ANDROID_API__ >= 31
 
 /**
  * Compare the first <code>count</code> UChars of each buffer.
@@ -835,12 +771,10 @@ u_memset(UChar *dest, UChar c, int32_t count) __INTRODUCED_IN(31);
  *      When buf1 > buf2, a positive number is returned.
  * @stable ICU 2.0
  */
-U_STABLE int32_t U_EXPORT2
+U_CAPI int32_t U_EXPORT2
 u_memcmp(const UChar *buf1, const UChar *buf2, int32_t count) __INTRODUCED_IN(31);
 
-#endif // !defined(__ANDROID__) || __ANDROID_API__ >= 31
 
-#if !defined(__ANDROID__) || __ANDROID_API__ >= 31
 
 /**
  * Compare two Unicode strings in code point order.
@@ -855,12 +789,10 @@ u_memcmp(const UChar *buf1, const UChar *buf2, int32_t count) __INTRODUCED_IN(31
  * in code point order
  * @stable ICU 2.0
  */
-U_STABLE int32_t U_EXPORT2
+U_CAPI int32_t U_EXPORT2
 u_memcmpCodePointOrder(const UChar *s1, const UChar *s2, int32_t count) __INTRODUCED_IN(31);
 
-#endif // !defined(__ANDROID__) || __ANDROID_API__ >= 31
 
-#if !defined(__ANDROID__) || __ANDROID_API__ >= 31
 
 /**
  * Find the first occurrence of a BMP code point in a string.
@@ -879,12 +811,10 @@ u_memcmpCodePointOrder(const UChar *s1, const UChar *s2, int32_t count) __INTROD
  * @see u_memchr32
  * @see u_strFindFirst
  */
-U_STABLE UChar* U_EXPORT2
+U_CAPI UChar* U_EXPORT2
 u_memchr(const UChar *s, UChar c, int32_t count) __INTRODUCED_IN(31);
 
-#endif // !defined(__ANDROID__) || __ANDROID_API__ >= 31
 
-#if !defined(__ANDROID__) || __ANDROID_API__ >= 31
 
 /**
  * Find the first occurrence of a code point in a string.
@@ -903,12 +833,10 @@ u_memchr(const UChar *s, UChar c, int32_t count) __INTRODUCED_IN(31);
  * @see u_memchr
  * @see u_strFindFirst
  */
-U_STABLE UChar* U_EXPORT2
+U_CAPI UChar* U_EXPORT2
 u_memchr32(const UChar *s, UChar32 c, int32_t count) __INTRODUCED_IN(31);
 
-#endif // !defined(__ANDROID__) || __ANDROID_API__ >= 31
 
-#if !defined(__ANDROID__) || __ANDROID_API__ >= 31
 
 /**
  * Find the last occurrence of a BMP code point in a string.
@@ -927,12 +855,10 @@ u_memchr32(const UChar *s, UChar32 c, int32_t count) __INTRODUCED_IN(31);
  * @see u_memrchr32
  * @see u_strFindLast
  */
-U_STABLE UChar* U_EXPORT2
+U_CAPI UChar* U_EXPORT2
 u_memrchr(const UChar *s, UChar c, int32_t count) __INTRODUCED_IN(31);
 
-#endif // !defined(__ANDROID__) || __ANDROID_API__ >= 31
 
-#if !defined(__ANDROID__) || __ANDROID_API__ >= 31
 
 /**
  * Find the last occurrence of a code point in a string.
@@ -951,10 +877,10 @@ u_memrchr(const UChar *s, UChar c, int32_t count) __INTRODUCED_IN(31);
  * @see u_memrchr
  * @see u_strFindLast
  */
-U_STABLE UChar* U_EXPORT2
+U_CAPI UChar* U_EXPORT2
 u_memrchr32(const UChar *s, UChar32 c, int32_t count) __INTRODUCED_IN(31);
 
-#endif // !defined(__ANDROID__) || __ANDROID_API__ >= 31
+
 
 /**
  * Unicode String literals in C.
@@ -979,13 +905,13 @@ u_memrchr32(const UChar *s, UChar32 c, int32_t count) __INTRODUCED_IN(31);
  *
  *     U_STRING_DECL(ustringVar1, "Quick-Fox 2", 11);
  *     U_STRING_DECL(ustringVar2, "jumps 5%", 8);
- *     static UBool didInit=FALSE;
+ *     static UBool didInit=false;
  *
  *     int32_t function() {
  *         if(!didInit) {
  *             U_STRING_INIT(ustringVar1, "Quick-Fox 2", 11);
  *             U_STRING_INIT(ustringVar2, "jumps 5%", 8);
- *             didInit=TRUE;
+ *             didInit=true;
  *         }
  *         return u_strcmp(ustringVar1, ustringVar2);
  *     }
@@ -1041,8 +967,6 @@ U_CDECL_END
 
 
 
-#if !defined(__ANDROID__) || __ANDROID_API__ >= 31
-
 /**
  * Uppercase the characters in a string.
  * Casing is locale-dependent and context-sensitive.
@@ -1063,15 +987,13 @@ U_CDECL_END
  *         only some of the result was written to the destination buffer.
  * @stable ICU 2.0
  */
-U_STABLE int32_t U_EXPORT2
+U_CAPI int32_t U_EXPORT2
 u_strToUpper(UChar *dest, int32_t destCapacity,
              const UChar *src, int32_t srcLength,
              const char *locale,
              UErrorCode *pErrorCode) __INTRODUCED_IN(31);
 
-#endif // !defined(__ANDROID__) || __ANDROID_API__ >= 31
 
-#if !defined(__ANDROID__) || __ANDROID_API__ >= 31
 
 /**
  * Lowercase the characters in a string.
@@ -1093,17 +1015,15 @@ u_strToUpper(UChar *dest, int32_t destCapacity,
  *         only some of the result was written to the destination buffer.
  * @stable ICU 2.0
  */
-U_STABLE int32_t U_EXPORT2
+U_CAPI int32_t U_EXPORT2
 u_strToLower(UChar *dest, int32_t destCapacity,
              const UChar *src, int32_t srcLength,
              const char *locale,
              UErrorCode *pErrorCode) __INTRODUCED_IN(31);
 
-#endif // !defined(__ANDROID__) || __ANDROID_API__ >= 31
+
 
 #if !UCONFIG_NO_BREAK_ITERATION
-
-#if !defined(__ANDROID__) || __ANDROID_API__ >= 31
 
 /**
  * Titlecase a string.
@@ -1143,18 +1063,16 @@ u_strToLower(UChar *dest, int32_t destCapacity,
  *         only some of the result was written to the destination buffer.
  * @stable ICU 2.1
  */
-U_STABLE int32_t U_EXPORT2
+U_CAPI int32_t U_EXPORT2
 u_strToTitle(UChar *dest, int32_t destCapacity,
              const UChar *src, int32_t srcLength,
              UBreakIterator *titleIter,
              const char *locale,
              UErrorCode *pErrorCode) __INTRODUCED_IN(31);
 
-#endif // !defined(__ANDROID__) || __ANDROID_API__ >= 31
+
 
 #endif
-
-#if !defined(__ANDROID__) || __ANDROID_API__ >= 31
 
 /**
  * Case-folds the characters in a string.
@@ -1180,20 +1098,18 @@ u_strToTitle(UChar *dest, int32_t destCapacity,
  *         only some of the result was written to the destination buffer.
  * @stable ICU 2.0
  */
-U_STABLE int32_t U_EXPORT2
+U_CAPI int32_t U_EXPORT2
 u_strFoldCase(UChar *dest, int32_t destCapacity,
               const UChar *src, int32_t srcLength,
               uint32_t options,
               UErrorCode *pErrorCode) __INTRODUCED_IN(31);
 
-#endif // !defined(__ANDROID__) || __ANDROID_API__ >= 31
+
 
 #if defined(U_WCHAR_IS_UTF16) || defined(U_WCHAR_IS_UTF32) || !UCONFIG_NO_CONVERSION
 
 
 #endif /* defined(U_WCHAR_IS_UTF16) || defined(U_WCHAR_IS_UTF32) || !UCONFIG_NO_CONVERSION */
-
-#if !defined(__ANDROID__) || __ANDROID_API__ >= 31
 
 /**
  * Convert a UTF-16 string to UTF-8.
@@ -1217,7 +1133,7 @@ u_strFoldCase(UChar *dest, int32_t destCapacity,
  * @see u_strToUTF8WithSub
  * @see u_strFromUTF8
  */
-U_STABLE char* U_EXPORT2 
+U_CAPI char* U_EXPORT2 
 u_strToUTF8(char *dest,           
             int32_t destCapacity,
             int32_t *pDestLength,
@@ -1225,9 +1141,7 @@ u_strToUTF8(char *dest,
             int32_t srcLength,
             UErrorCode *pErrorCode) __INTRODUCED_IN(31);
 
-#endif // !defined(__ANDROID__) || __ANDROID_API__ >= 31
 
-#if !defined(__ANDROID__) || __ANDROID_API__ >= 31
 
 /**
  * Convert a UTF-8 string to UTF-16.
@@ -1251,7 +1165,7 @@ u_strToUTF8(char *dest,
  * @see u_strFromUTF8WithSub
  * @see u_strFromUTF8Lenient
  */
-U_STABLE UChar* U_EXPORT2
+U_CAPI UChar* U_EXPORT2
 u_strFromUTF8(UChar *dest,             
               int32_t destCapacity,
               int32_t *pDestLength,
@@ -1259,9 +1173,7 @@ u_strFromUTF8(UChar *dest,
               int32_t srcLength,
               UErrorCode *pErrorCode) __INTRODUCED_IN(31);
 
-#endif // !defined(__ANDROID__) || __ANDROID_API__ >= 31
 
-#if !defined(__ANDROID__) || __ANDROID_API__ >= 31
 
 /**
  * Convert a UTF-16 string to UTF-8.
@@ -1298,7 +1210,7 @@ u_strFromUTF8(UChar *dest,
  * @see u_strFromUTF8WithSub
  * @stable ICU 3.6
  */
-U_STABLE char* U_EXPORT2
+U_CAPI char* U_EXPORT2
 u_strToUTF8WithSub(char *dest,
             int32_t destCapacity,
             int32_t *pDestLength,
@@ -1307,9 +1219,7 @@ u_strToUTF8WithSub(char *dest,
             UChar32 subchar, int32_t *pNumSubstitutions,
             UErrorCode *pErrorCode) __INTRODUCED_IN(31);
 
-#endif // !defined(__ANDROID__) || __ANDROID_API__ >= 31
 
-#if !defined(__ANDROID__) || __ANDROID_API__ >= 31
 
 /**
  * Convert a UTF-8 string to UTF-16.
@@ -1347,7 +1257,7 @@ u_strToUTF8WithSub(char *dest,
  * @see u_strToUTF8WithSub
  * @stable ICU 3.6
  */
-U_STABLE UChar* U_EXPORT2
+U_CAPI UChar* U_EXPORT2
 u_strFromUTF8WithSub(UChar *dest,
               int32_t destCapacity,
               int32_t *pDestLength,
@@ -1356,9 +1266,7 @@ u_strFromUTF8WithSub(UChar *dest,
               UChar32 subchar, int32_t *pNumSubstitutions,
               UErrorCode *pErrorCode) __INTRODUCED_IN(31);
 
-#endif // !defined(__ANDROID__) || __ANDROID_API__ >= 31
 
-#if !defined(__ANDROID__) || __ANDROID_API__ >= 31
 
 /**
  * Convert a UTF-8 string to UTF-16.
@@ -1411,7 +1319,7 @@ u_strFromUTF8WithSub(UChar *dest,
  * @see u_strToUTF8WithSub
  * @stable ICU 3.6
  */
-U_STABLE UChar * U_EXPORT2
+U_CAPI UChar * U_EXPORT2
 u_strFromUTF8Lenient(UChar *dest,
                      int32_t destCapacity,
                      int32_t *pDestLength,
@@ -1419,9 +1327,7 @@ u_strFromUTF8Lenient(UChar *dest,
                      int32_t srcLength,
                      UErrorCode *pErrorCode) __INTRODUCED_IN(31);
 
-#endif // !defined(__ANDROID__) || __ANDROID_API__ >= 31
 
-#if !defined(__ANDROID__) || __ANDROID_API__ >= 31
 
 /**
  * Convert a UTF-16 string to UTF-32.
@@ -1445,7 +1351,7 @@ u_strFromUTF8Lenient(UChar *dest,
  * @see u_strFromUTF32
  * @stable ICU 2.0
  */
-U_STABLE UChar32* U_EXPORT2 
+U_CAPI UChar32* U_EXPORT2 
 u_strToUTF32(UChar32 *dest, 
              int32_t  destCapacity,
              int32_t  *pDestLength,
@@ -1453,9 +1359,7 @@ u_strToUTF32(UChar32 *dest,
              int32_t  srcLength,
              UErrorCode *pErrorCode) __INTRODUCED_IN(31);
 
-#endif // !defined(__ANDROID__) || __ANDROID_API__ >= 31
 
-#if !defined(__ANDROID__) || __ANDROID_API__ >= 31
 
 /**
  * Convert a UTF-32 string to UTF-16.
@@ -1479,7 +1383,7 @@ u_strToUTF32(UChar32 *dest,
  * @see u_strToUTF32
  * @stable ICU 2.0
  */
-U_STABLE UChar* U_EXPORT2 
+U_CAPI UChar* U_EXPORT2 
 u_strFromUTF32(UChar   *dest,
                int32_t destCapacity, 
                int32_t *pDestLength,
@@ -1487,9 +1391,7 @@ u_strFromUTF32(UChar   *dest,
                int32_t srcLength,
                UErrorCode *pErrorCode) __INTRODUCED_IN(31);
 
-#endif // !defined(__ANDROID__) || __ANDROID_API__ >= 31
 
-#if !defined(__ANDROID__) || __ANDROID_API__ >= 31
 
 /**
  * Convert a UTF-16 string to UTF-32.
@@ -1526,7 +1428,7 @@ u_strFromUTF32(UChar   *dest,
  * @see u_strFromUTF32WithSub
  * @stable ICU 4.2
  */
-U_STABLE UChar32* U_EXPORT2
+U_CAPI UChar32* U_EXPORT2
 u_strToUTF32WithSub(UChar32 *dest,
              int32_t destCapacity,
              int32_t *pDestLength,
@@ -1535,9 +1437,7 @@ u_strToUTF32WithSub(UChar32 *dest,
              UChar32 subchar, int32_t *pNumSubstitutions,
              UErrorCode *pErrorCode) __INTRODUCED_IN(31);
 
-#endif // !defined(__ANDROID__) || __ANDROID_API__ >= 31
 
-#if !defined(__ANDROID__) || __ANDROID_API__ >= 31
 
 /**
  * Convert a UTF-32 string to UTF-16.
@@ -1574,7 +1474,7 @@ u_strToUTF32WithSub(UChar32 *dest,
  * @see u_strToUTF32WithSub
  * @stable ICU 4.2
  */
-U_STABLE UChar* U_EXPORT2
+U_CAPI UChar* U_EXPORT2
 u_strFromUTF32WithSub(UChar *dest,
                int32_t destCapacity,
                int32_t *pDestLength,
@@ -1583,7 +1483,7 @@ u_strFromUTF32WithSub(UChar *dest,
                UChar32 subchar, int32_t *pNumSubstitutions,
                UErrorCode *pErrorCode) __INTRODUCED_IN(31);
 
-#endif // !defined(__ANDROID__) || __ANDROID_API__ >= 31
+
 
 
 
