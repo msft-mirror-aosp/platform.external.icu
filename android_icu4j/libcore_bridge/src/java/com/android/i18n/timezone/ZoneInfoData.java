@@ -682,7 +682,7 @@ public final class ZoneInfoData {
      * @hide
      */
     @libcore.api.IntraCoreApi
-    public @Nullable Integer getLatestDstSavings(long when) {
+    public @Nullable Integer getLatestDstSavingsMillis(long when) {
         // Find the latest daylight and standard offsets (if any).
         int lastStdTransitionIndex = -1;
         int lastDstTransitionIndex = -1;
