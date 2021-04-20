@@ -147,6 +147,21 @@ java_library {
     dxflags: ["--core-library"],
 }
 
+// Java library for use on host, e.g. by robolectric.
+java_library {
+    name: "core-icu4j-for-host",
+    visibility: [
+        "//art/build",
+        "//external/robolectric-shadows",
+        "//packages/modules/RuntimeI18n/apex",
+    ],
+    static_libs: [
+        "core-icu4j",
+    ],
+    sdk_version: "none",
+    system_modules: "none",
+}
+
 platform_compat_config {
     name: "icu4j-platform-compat-config",
     src: ":core-icu4j",
@@ -242,6 +257,14 @@ filegroup {
     ],
 }
 
+// Referenced implicitly from i18n.module.intra.core.api.
+filegroup {
+    name: "i18n.module.intra.core.api-incompatibilities.api.public.latest",
+    srcs: [
+        "api/intra/last-incompatibilities.txt",
+    ],
+}
+
 // Referenced implicitly from legacy.i18n.module.platform.api.
 filegroup {
     name: "legacy.i18n.module.platform.api.api.public.latest",
@@ -258,6 +281,14 @@ filegroup {
     ],
 }
 
+// Referenced implicitly from legacy.i18n.module.platform.api.
+filegroup {
+    name: "legacy.i18n.module.platform.api-incompatibilities.api.public.latest",
+    srcs: [
+        "api/legacy_platform/last-incompatibilities.txt",
+    ],
+}
+
 // Referenced implicitly from stable.i18n.module.platform.api.
 filegroup {
     name: "stable.i18n.module.platform.api.api.public.latest",
@@ -271,6 +302,14 @@ filegroup {
     name: "stable.i18n.module.platform.api-removed.api.public.latest",
     srcs: [
         "api/stable_platform/last-removed.txt",
+    ],
+}
+
+// Referenced implicitly from stable.i18n.module.platform.api.
+filegroup {
+    name: "stable.i18n.module.platform.api-incompatibilities.api.public.latest",
+    srcs: [
+        "api/stable_platform/last-incompatibilities.txt",
     ],
 }
 
