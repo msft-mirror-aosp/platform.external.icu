@@ -1,5 +1,5 @@
---- libicu/ndk_headers/unicode/ulocdata.h	2020-11-20 20:54:36.910731058 +0000
-+++ libicu/ndk_headers/unicode/ulocdata.h	2020-11-20 20:54:37.042732009 +0000
+--- libicu/ndk_headers/unicode/ulocdata.h	2021-02-10 23:39:51.609654012 +0000
++++ libicu/ndk_headers/unicode/ulocdata.h	2021-02-10 23:39:51.837655519 +0000
 @@ -21,87 +21,11 @@
  
  #include "unicode/uloc.h"

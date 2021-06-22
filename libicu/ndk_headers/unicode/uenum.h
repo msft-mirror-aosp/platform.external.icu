@@ -43,8 +43,6 @@ struct UEnumeration;
 /** structure representing an enumeration object instance @stable ICU 2.2 */
 typedef struct UEnumeration UEnumeration;
 
-#if !defined(__ANDROID__) || __ANDROID_API__ >= 31
-
 /**
  * Disposes of resources in use by the iterator.  If en is NULL,
  * does nothing.  After this call, any char* or UChar* pointer
@@ -52,10 +50,10 @@ typedef struct UEnumeration UEnumeration;
  * @param en UEnumeration structure pointer
  * @stable ICU 2.2
  */
-U_STABLE void U_EXPORT2
+U_CAPI void U_EXPORT2
 uenum_close(UEnumeration* en) __INTRODUCED_IN(31);
 
-#endif // !defined(__ANDROID__) || __ANDROID_API__ >= 31
+
 
 #if U_SHOW_CPLUSPLUS_API
 
@@ -76,8 +74,6 @@ U_NAMESPACE_END
 
 #endif
 
-#if !defined(__ANDROID__) || __ANDROID_API__ >= 31
-
 /**
  * Returns the number of elements that the iterator traverses.  If
  * the iterator is out-of-sync with its service, status is set to
@@ -92,12 +88,10 @@ U_NAMESPACE_END
  * @return number of elements in the iterator
  * @stable ICU 2.2
  */
-U_STABLE int32_t U_EXPORT2
+U_CAPI int32_t U_EXPORT2
 uenum_count(UEnumeration* en, UErrorCode* status) __INTRODUCED_IN(31);
 
-#endif // !defined(__ANDROID__) || __ANDROID_API__ >= 31
 
-#if !defined(__ANDROID__) || __ANDROID_API__ >= 31
 
 /**
  * Returns the next element in the iterator's list.  If there are
@@ -120,14 +114,12 @@ uenum_count(UEnumeration* en, UErrorCode* status) __INTRODUCED_IN(31);
  *         traversed, returns NULL.
  * @stable ICU 2.2
  */
-U_STABLE const UChar* U_EXPORT2
+U_CAPI const UChar* U_EXPORT2
 uenum_unext(UEnumeration* en,
             int32_t* resultLength,
             UErrorCode* status) __INTRODUCED_IN(31);
 
-#endif // !defined(__ANDROID__) || __ANDROID_API__ >= 31
 
-#if !defined(__ANDROID__) || __ANDROID_API__ >= 31
 
 /**
  * Returns the next element in the iterator's list.  If there are
@@ -157,14 +149,12 @@ uenum_unext(UEnumeration* en,
  *         traversed, returns NULL.
  * @stable ICU 2.2
  */
-U_STABLE const char* U_EXPORT2
+U_CAPI const char* U_EXPORT2
 uenum_next(UEnumeration* en,
            int32_t* resultLength,
            UErrorCode* status) __INTRODUCED_IN(31);
 
-#endif // !defined(__ANDROID__) || __ANDROID_API__ >= 31
 
-#if !defined(__ANDROID__) || __ANDROID_API__ >= 31
 
 /**
  * Resets the iterator to the current list of service IDs.  This
@@ -175,18 +165,16 @@ uenum_next(UEnumeration* en,
  *               the iterator is out of sync with its service.  
  * @stable ICU 2.2
  */
-U_STABLE void U_EXPORT2
+U_CAPI void U_EXPORT2
 uenum_reset(UEnumeration* en, UErrorCode* status) __INTRODUCED_IN(31);
 
-#endif // !defined(__ANDROID__) || __ANDROID_API__ >= 31
+
 
 #if U_SHOW_CPLUSPLUS_API
 
 
 
 #endif
-
-#if !defined(__ANDROID__) || __ANDROID_API__ >= 31
 
 /**
  * Given an array of const UChar* strings, return a UEnumeration.  String pointers from 0..count-1 must not be null.
@@ -199,13 +187,11 @@ uenum_reset(UEnumeration* en, UErrorCode* status) __INTRODUCED_IN(31);
  * @see uenum_close
  * @stable ICU 50
  */
-U_STABLE UEnumeration* U_EXPORT2
+U_CAPI UEnumeration* U_EXPORT2
 uenum_openUCharStringsEnumeration(const UChar* const strings[], int32_t count,
                                  UErrorCode* ec) __INTRODUCED_IN(31);
 
-#endif // !defined(__ANDROID__) || __ANDROID_API__ >= 31
 
-#if !defined(__ANDROID__) || __ANDROID_API__ >= 31
 
 /**
  * Given an array of const char* strings (invariant chars only), return a UEnumeration.  String pointers from 0..count-1 must not be null.
@@ -218,10 +204,10 @@ uenum_openUCharStringsEnumeration(const UChar* const strings[], int32_t count,
  * @see uenum_close
  * @stable ICU 50
  */
-U_STABLE UEnumeration* U_EXPORT2
+U_CAPI UEnumeration* U_EXPORT2
 uenum_openCharStringsEnumeration(const char* const strings[], int32_t count,
                                  UErrorCode* ec) __INTRODUCED_IN(31);
 
-#endif // !defined(__ANDROID__) || __ANDROID_API__ >= 31
+
 
 #endif
