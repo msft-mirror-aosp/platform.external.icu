@@ -122,9 +122,6 @@ java_library {
     defaults: ["libcore_icu_bridge_defaults"],
     visibility: [
         "//packages/modules/RuntimeI18n/apex",
-        "//external/robolectric-shadows",
-        "//frameworks/layoutlib",
-        "//art/build",
     ],
     apex_available: [
         "com.android.i18n",
@@ -145,6 +142,22 @@ java_library {
     system_modules: "art-module-intra-core-api-stubs-system-modules",
 
     dxflags: ["--core-library"],
+}
+
+// Java library for use on host, e.g. by robolectric.
+java_library {
+    name: "core-icu4j-for-host",
+    visibility: [
+        "//art/build",
+        "//external/robolectric-shadows",
+        "//frameworks/layoutlib",
+        "//packages/modules/RuntimeI18n/apex",
+    ],
+    static_libs: [
+        "core-icu4j",
+    ],
+    sdk_version: "none",
+    system_modules: "none",
 }
 
 platform_compat_config {
@@ -187,6 +200,7 @@ java_sdk_library {
     // the API will be checked for compatibility against the latest released
     // version of the API.
     dist_stem: "runtime-i18n",
+    dist_group: "android",
 }
 
 // Generates stub source files for the intra-core API of the I18N module.
@@ -219,7 +233,6 @@ java_sdk_library {
     droiddoc_options: [
         "--hide-annotation libcore.api.Hide ",
         "--show-single-annotation libcore.api.IntraCoreApi ",
-        "--skip-annotation-instance-methods=false ",
     ],
 
     // Don't copy any output files to the dist.
@@ -332,7 +345,6 @@ java_sdk_library {
     droiddoc_options: [
         "--hide-annotation libcore.api.Hide ",
         "--show-single-annotation libcore.api.CorePlatformApi ",
-        "--skip-annotation-instance-methods=false ",
     ],
 
     // Don't copy any output files to the dist.
@@ -363,7 +375,6 @@ java_sdk_library {
     droiddoc_options: [
         "--hide-annotation libcore.api.Hide ",
         "--show-single-annotation libcore.api.CorePlatformApi\\(status=libcore.api.CorePlatformApi.Status.STABLE\\)",
-        "--skip-annotation-instance-methods=false ",
     ],
 
     // Don't copy any output files to the dist.
