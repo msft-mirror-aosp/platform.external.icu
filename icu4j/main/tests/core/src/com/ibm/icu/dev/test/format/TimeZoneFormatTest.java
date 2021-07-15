@@ -1,5 +1,5 @@
 // © 2016 and later: Unicode, Inc. and others.
-// License & terms of use: http://www.unicode.org/copyright.html#License
+// License & terms of use: http://www.unicode.org/copyright.html
 /*
  ********************************************************************************
  * Copyright (C) 2007-2016, Google, International Business Machines Corporation
@@ -1313,6 +1313,44 @@ public class TimeZoneFormatTest extends TestFmwk {
             assertTrue("MatchInfo doesn't throw IllegalArgumentException", false);
         } catch (IllegalArgumentException e) {
             assertEquals("MatchInfo constructor exception", "matchLength must be positive value", e.getMessage());
+        }
+    }
+
+    // Test for checking parse results are same for a same input string
+    // using SimpleDateFormat initialized with different regional locales - US and Belize.
+    // Belize did not observe DST from 1968 to 1973, 1975 to 1982, and 1985 and later.
+    @Test
+    public void TestCentralTime() throws ParseException {
+        final String pattern = "y-MM-dd HH:mm:ss zzzz";
+        final String[] testInputs = {
+            // 1970-01-01 - Chicago:STD/Belize:STD
+            "1970-01-01 12:00:00 Central Standard Time",
+            "1970-01-01 12:00:00 Central Daylight Time",
+
+            // 1970-07-01 - Chicago:STD/Belize:STD
+            "1970-07-01 12:00:00 Central Standard Time",
+            "1970-07-01 12:00:00 Central Daylight Time",
+
+            // 1974-01-01 - Chicago:STD/Belize:DST
+            "1974-01-01 12:00:00 Central Standard Time",
+            "1974-01-01 12:00:00 Central Daylight Time",
+
+            // 2020-01-01 - Chicago:STD/Belize:STD
+            "2020-01-01 12:00:00 Central Standard Time",
+            "2020-01-01 12:00:00 Central Daylight Time",
+
+            // 2020-01-01 - Chicago:DST/Belize:STD
+            "2020-07-01 12:00:00 Central Standard Time",
+            "2020-07-01 12:00:00 Central Daylight Time",
+        };
+
+        SimpleDateFormat sdfUS = new SimpleDateFormat(pattern, new ULocale("en_US"));
+        SimpleDateFormat sdfBZ = new SimpleDateFormat(pattern, new ULocale("en_BZ"));
+
+        for (String testInput : testInputs) {
+            Date dUS = sdfUS.parse(testInput);
+            Date dBZ = sdfBZ.parse(testInput);
+            assertEquals("Parse results should be same for input: " + testInput, dUS, dBZ);
         }
     }
 }
