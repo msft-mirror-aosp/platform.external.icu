@@ -13,6 +13,12 @@
 // limitations under the License.
 package {
     default_visibility: ["//external/icu:__subpackages__"],
+    // See: http://go/android-license-faq
+    // A large-scale-change added 'default_applicable_licenses' to import
+    // all of the 'license_kinds' from "external_icu_license"
+    // to get the below license kinds:
+    //   SPDX-license-identifier-Unicode-DFS
+    default_applicable_licenses: ["external_icu_license"],
 }
 
 cc_library_static {
@@ -33,4 +39,20 @@ cc_library_static {
     apex_available: [
         "com.android.i18n",
     ],
+    target: {
+        native_bridge: {
+            exclude_shared_libs: [
+                "libicuuc",
+                "libicui18n",
+            ],
+            header_libs: [
+                "libicuuc_headers",
+                "libicui18n_headers",
+            ],
+            shared_libs: [
+                "libnative_bridge_guest_libicuuc",
+                "libnative_bridge_guest_libicui18n",
+            ],
+        },
+    },
 }
