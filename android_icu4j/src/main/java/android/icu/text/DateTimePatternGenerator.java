@@ -1344,7 +1344,6 @@ public class DateTimePatternGenerator implements Freezable<DateTimePatternGenera
 
     /**
      * Return the default hour cycle.
-     * @hide draft / provisional / internal are hidden on Android
      */
     public DateFormat.HourCycle getDefaultHourCycle() {
       switch(getDefaultHourFormatChar()) {
