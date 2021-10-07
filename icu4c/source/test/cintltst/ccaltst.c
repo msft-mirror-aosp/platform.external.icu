@@ -118,7 +118,6 @@ static void TestCalendar()
     char tempMsgBuf2[256];  // u_austrcpy() of some formatted dates & times.
     UChar zone1[64], zone2[64];
     const char *tzver = 0;
-    int32_t tzverLen = 0;
     UChar canonicalID[64];
     UBool isSystemID = FALSE;
     const UCalGetTypeTest * ucalGetTypeTestPtr;
@@ -273,13 +272,10 @@ static void TestCalendar()
     tzver = ucal_getTZDataVersion(&status);
     if (U_FAILURE(status)) {
         log_err_status(status, "FAIL: ucal_getTZDataVersion() => %s\n", u_errorName(status));
+    } else if (uprv_strlen(tzver) != 5 /*4 digits + 1 letter*/) {
+        log_err("FAIL: Bad version string was returned by ucal_getTZDataVersion\n");
     } else {
-        tzverLen = uprv_strlen(tzver);
-        if (tzverLen == 5 || tzverLen == 6 /* 4 digits + 1 or 2 letters */) {
-            log_verbose("PASS: ucal_getTZDataVersion returned %s\n", tzver);
-        } else {
-            log_err("FAIL: Bad version string was returned by ucal_getTZDataVersion\n");
-        }
+        log_verbose("PASS: ucal_getTZDataVersion returned %s\n", tzver);
     }
     
     /*Testing ucal_getCanonicalTimeZoneID*/

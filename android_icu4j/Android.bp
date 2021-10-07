@@ -129,7 +129,9 @@ java_library {
     permitted_packages: [
         "android.icu",
         "com.android.icu",
+        "com.android.i18n.system",
         "com.android.i18n.timezone",
+        "com.android.i18n.util",
     ],
     installable: true,
     hostdex: false,
@@ -341,7 +343,7 @@ java_sdk_library {
     api_dir: "api/legacy_platform",
     api_only: true,
     sdk_version: "none",
-    system_modules: "legacy-art-module-platform-api-stubs-system-modules",
+    system_modules: "art-module-lib-api-stubs-system-modules",
 
     droiddoc_options: [
         "--hide-annotation libcore.api.Hide ",
@@ -372,7 +374,7 @@ java_sdk_library {
     api_dir: "api/stable_platform",
     api_only: true,
     sdk_version: "none",
-    system_modules: "stable-art-module-platform-api-stubs-system-modules",
+    system_modules: "art-module-lib-api-stubs-system-modules",
 
     droiddoc_options: [
         "--hide-annotation libcore.api.Hide ",
