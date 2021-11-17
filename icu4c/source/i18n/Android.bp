@@ -16,8 +16,19 @@
 // Common definitions.
 //
 
+package {
+    // See: http://go/android-license-faq
+    // A large-scale-change added 'default_applicable_licenses' to import
+    // all of the 'license_kinds' from "external_icu_icu4c_license"
+    // to get the below license kinds:
+    //   SPDX-license-identifier-BSD
+    //   SPDX-license-identifier-Unicode-DFS
+    default_applicable_licenses: ["external_icu_icu4c_license"],
+}
+
 cc_defaults {
     name: "libicui18n_defaults",
+    defaults: ["icu4c_defaults"],
     srcs: [
         "*.cpp",
     ],
@@ -26,28 +37,16 @@ cc_defaults {
         "-DU_I18N_IMPLEMENTATION",
         "-O3",
         "-fvisibility=hidden",
-        "-Wall",
-        "-Werror",
-        "-Wno-unused-parameter",
-        "-Wno-unused-const-variable",
-        "-Wno-unneeded-internal-declaration",
+
         "-Wno-unreachable-code-loop-increment",
     ],
-    cppflags: [
-        "-std=c++11",
-    ],
     rtti: true,
-
     target: {
         android: {
             cflags: [
-                "-DANDROID_LINK_SHARED_ICU4C",
                 "-DPIC",
                 "-fPIC",
             ],
-        },
-        windows: {
-            enabled: true,
         },
     },
 }
@@ -77,7 +76,6 @@ cc_library {
     name: "libicui18n",
     defaults: ["libicui18n_defaults"],
     host_supported: true,
-    native_bridge_supported: true,
     apex_available: [
         "com.android.i18n",
         // b/133140750 Clean this up. This is due to the dependency to from libmedia
@@ -94,4 +92,15 @@ cc_library {
             },
         },
     },
+}
+
+cc_library_shared {
+    name: "libicui18n_cts_stub",
+    defaults: ["libicui18n_defaults"],
+    host_supported: false,
+    installable: false,
+    stem: "libicui18n",
+    shared_libs: ["libicuuc"],
+    header_libs: ["libicui18n_headers"],
+    visibility: ["//external/icu:__subpackages__"],
 }
