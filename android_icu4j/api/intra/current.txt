@@ -19,7 +19,6 @@ package com.android.i18n.timezone {
     method @NonNull public static com.android.i18n.timezone.ZoneInfoData createFromSerializationFields(@NonNull String, @NonNull java.io.ObjectInputStream.GetField) throws java.io.IOException;
     method @NonNull public static com.android.i18n.timezone.ZoneInfoData createInstance(@NonNull String, @NonNull long[], @NonNull byte[], @NonNull int[], @NonNull boolean[]);
     method @NonNull public String getID();
-    method @Nullable public Integer getLatestDstSavings(long);
     method @Nullable public Integer getLatestDstSavingsMillis(long);
     method public int getOffset(long);
     method public int getOffsetsByUtcTime(long, @NonNull int[]);
@@ -74,10 +73,10 @@ package com.android.icu.text {
   public class ExtendedTimeZoneNames {
     method @NonNull public static com.android.icu.text.ExtendedTimeZoneNames getInstance(@NonNull android.icu.util.ULocale);
     method @NonNull public android.icu.text.TimeZoneNames getTimeZoneNames();
-    method @Nullable public com.android.icu.text.ExtendedTimeZoneNames.MatchedTimeZone matchName(@NonNull CharSequence, int, @NonNull String);
+    method @Nullable public com.android.icu.text.ExtendedTimeZoneNames.Match matchName(@NonNull CharSequence, int, @NonNull String);
   }
 
-  public static class ExtendedTimeZoneNames.MatchedTimeZone {
+  public static final class ExtendedTimeZoneNames.Match {
     method public int getMatchLength();
     method @NonNull public String getTzId();
     method public boolean isDst();
