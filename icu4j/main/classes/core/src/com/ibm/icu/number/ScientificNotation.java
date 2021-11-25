@@ -1,5 +1,5 @@
 // © 2017 and later: Unicode, Inc. and others.
-// License & terms of use: http://www.unicode.org/copyright.html#License
+// License & terms of use: http://www.unicode.org/copyright.html
 package com.ibm.icu.number;
 
 import java.text.Format.Field;
@@ -56,6 +56,7 @@ public class ScientificNotation extends Notation {
      * @param minExponentDigits
      *            The minimum number of digits to show in the exponent.
      * @return A ScientificNotation, for chaining.
+     * @throws IllegalArgumentException if minExponentDigits is too big or smaller than 1
      * @stable ICU 60
      * @see NumberFormatter
      */
@@ -191,8 +192,13 @@ public class ScientificNotation extends Notation {
                 micros.modInner = this;
             }
 
+            // Change the exponent only after we select appropriate plural form
+            // for formatting purposes so that we preserve expected formatted
+            // string behavior.
+            quantity.adjustExponent(exponent);
+
             // We already performed rounding. Do not perform it again.
-            micros.rounder = Precision.constructPassThrough();
+            micros.rounder = null;
 
             return micros;
         }

@@ -1,6 +1,6 @@
 /* GENERATED SOURCE. DO NOT MODIFY. */
 // © 2018 and later: Unicode, Inc. and others.
-// License & terms of use: http://www.unicode.org/copyright.html#License
+// License & terms of use: http://www.unicode.org/copyright.html
 package android.icu.number;
 
 import android.icu.impl.number.DecimalQuantity;
@@ -67,6 +67,7 @@ public class LocalizedNumberRangeFormatter extends NumberRangeFormatterSettings<
      * @param second
      *            The second number in the range, usually to the right in LTR locales.
      * @return A FormattedNumberRange object; call .toString() to get the string.
+     * @throws IllegalArgumentException if first or second is null
      * @see NumberRangeFormatter
      */
     public FormattedNumberRange formatRange(Number first, Number second) {
