@@ -195,7 +195,7 @@ public:
     GNameSearchHandler(uint32_t types);
     virtual ~GNameSearchHandler();
 
-    UBool handleMatch(int32_t matchLength, const CharacterNode *node, UErrorCode &status) override;
+    UBool handleMatch(int32_t matchLength, const CharacterNode *node, UErrorCode &status);
     UVector* getMatches(int32_t& maxMatchLen);
 
 private:
@@ -244,7 +244,7 @@ GNameSearchHandler::handleMatch(int32_t matchLength, const CharacterNode *node, 
                         gmatch->gnameInfo = nameinfo;
                         gmatch->matchLength = matchLength;
                         gmatch->timeType = UTZFMT_TIME_TYPE_UNKNOWN;
-                        fResults->addElementX(gmatch, status);
+                        fResults->addElement(gmatch, status);
                         if (U_FAILURE(status)) {
                             uprv_free(gmatch);
                         } else {
@@ -328,7 +328,7 @@ private:
 
 
 // ---------------------------------------------------
-// TZGNCore - core implementation of TimeZoneGenericNames
+// TZGNCore - core implmentation of TimeZoneGenericNames
 //
 // TimeZoneGenericNames is parallel to TimeZoneNames,
 // but handles run-time generated time zone names.
@@ -554,7 +554,7 @@ TZGNCore::getGenericLocationName(const UnicodeString& tzCanonicalID) {
             // If this is not the primary zone in the country,
             // use the exemplar city name.
 
-            // getExemplarLocationName should return non-empty string
+            // getExemplarLocationName should retur non-empty string
             // if the time zone is associated with a region
 
             UnicodeString city;
@@ -1287,7 +1287,7 @@ TimeZoneGenericNames::createInstance(const Locale& locale, UErrorCode& status) {
     return instance;
 }
 
-bool
+UBool
 TimeZoneGenericNames::operator==(const TimeZoneGenericNames& other) const {
     // Just compare if the other object also use the same
     // ref entry

@@ -14,9 +14,10 @@ import java.util.Date;
 /**
  * <b>Note:</b> The Holiday framework is a technology preview.
  * Despite its age, is still draft API, and clients should treat it as such.
- *
+ * 
  * Simple implementation of DateRule.
  * @draft ICU 2.8 (retainAll)
+ * @provisional This API might change or be removed in a future release.
  */
 public class SimpleDateRule implements DateRule
 {
@@ -26,6 +27,7 @@ public class SimpleDateRule implements DateRule
      * @param month         The month in which this rule occurs (0-based).
      * @param dayOfMonth    The date in that month (1-based).
      * @draft ICU 2.8
+     * @provisional This API might change or be removed in a future release.
      */
     public SimpleDateRule(int month, int dayOfMonth)
     {
@@ -53,6 +55,7 @@ public class SimpleDateRule implements DateRule
      *                      on or after dayOfMonth.  If false, the rule selects
      *                      the first dayOfWeek on or before dayOfMonth.
      * @draft ICU 2.8
+     * @provisional This API might change or be removed in a future release.
      */
     public SimpleDateRule(int month, int dayOfMonth, int dayOfWeek, boolean after)
     {
@@ -72,8 +75,8 @@ public class SimpleDateRule implements DateRule
      *
      * @see #firstBetween
      * @draft ICU 2.8
+     * @provisional This API might change or be removed in a future release.
      */
-    @Override
     public Date firstAfter(Date start)
     {
         return doFirstBetween(start, null);
@@ -92,8 +95,8 @@ public class SimpleDateRule implements DateRule
      *
      * @see #firstAfter
      * @draft ICU 2.8
+     * @provisional This API might change or be removed in a future release.
      */
-    @Override
     public Date firstBetween(Date start, Date end)
     {
         // Pin to the min/max dates for this rule
@@ -110,8 +113,8 @@ public class SimpleDateRule implements DateRule
      * @param date  The date to check.
      * @return      true if this event occurs on the given date.
      * @draft ICU 2.8
+     * @provisional This API might change or be removed in a future release.
      */
-    @Override
     public boolean isOn(Date date)
     {
         Calendar c = calendar;
@@ -134,8 +137,8 @@ public class SimpleDateRule implements DateRule
      * Check whether this event occurs at least once between the two
      * dates given.
      * @draft ICU 2.8
+     * @provisional This API might change or be removed in a future release.
      */
-    @Override
     public boolean isBetween(Date start, Date end)
     {
         return firstBetween(start, end) != null; // TODO: optimize?
@@ -210,6 +213,10 @@ public class SimpleDateRule implements DateRule
         }
     }
 
+    /**
+     * @draft ICU 2.8
+     * @provisional This API might change or be removed in a future release.
+     */
 //    public void setCalendar(Calendar c) {
 //        calendar = c;
 //    }

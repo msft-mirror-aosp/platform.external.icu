@@ -129,21 +129,15 @@ void TimeZoneRegressionTest:: Test4073215()
 {
     UErrorCode status = U_ZERO_ERROR;
     UnicodeString str, str2;
-    LocalPointer<SimpleTimeZone> z(new SimpleTimeZone(0, "GMT"), status);
-    if (U_FAILURE(status)) {
-        errln("Fail: Failed to create SimpleTimeZone %s", u_errorName(status));
-        return;
-    }
-    if (z->useDaylightTime()) {
+    SimpleTimeZone *z = new SimpleTimeZone(0, "GMT");
+    if (z->useDaylightTime())
         errln("Fail: Fix test to start with non-DST zone");
-    }
     z->setStartRule(UCAL_FEBRUARY, 1, UCAL_SUNDAY, 0, status);
     failure(status, "z->setStartRule()");
     z->setEndRule(UCAL_MARCH, -1, UCAL_SUNDAY, 0, status);
     failure(status, "z->setStartRule()");
-    if (!z->useDaylightTime()) {
+    if (!z->useDaylightTime())
         errln("Fail: DST not active");
-    }
 
     GregorianCalendar cal(1997, UCAL_JANUARY, 31, status);
     if(U_FAILURE(status)) {
@@ -151,7 +145,7 @@ void TimeZoneRegressionTest:: Test4073215()
       return;
     }
     failure(status, "new GregorianCalendar");
-    cal.adoptTimeZone(z.orphan());
+    cal.adoptTimeZone(z);
 
     SimpleDateFormat sdf((UnicodeString)"E d MMM yyyy G HH:mm", status); 
     if(U_FAILURE(status)) {
@@ -162,14 +156,14 @@ void TimeZoneRegressionTest:: Test4073215()
     failure(status, "new SimpleDateFormat");
 
     UDate jan31, mar1, mar31;
-    
-    UBool indt = cal.getTimeZone().inDaylightTime(jan31 = cal.getTime(status), status);
+
+    UBool indt = z->inDaylightTime(jan31=cal.getTime(status), status);
     failure(status, "inDaylightTime or getTime call on Jan 31");
     if (indt) {
         errln("Fail: Jan 31 inDaylightTime=TRUE, exp FALSE");
     }
     cal.set(1997, UCAL_MARCH, 1);
-    indt = cal.getTimeZone().inDaylightTime(mar1 = cal.getTime(status), status);
+    indt = z->inDaylightTime(mar1=cal.getTime(status), status);
     failure(status, "inDaylightTime or getTime call on Mar 1");
     if (!indt) {
         UnicodeString str;
@@ -178,7 +172,7 @@ void TimeZoneRegressionTest:: Test4073215()
         errln((UnicodeString)"Fail: " + str + " inDaylightTime=FALSE, exp TRUE");
     }
     cal.set(1997, UCAL_MARCH, 31);
-    indt = cal.getTimeZone().inDaylightTime(mar31 = cal.getTime(status), status);
+    indt = z->inDaylightTime(mar31=cal.getTime(status), status);
     failure(status, "inDaylightTime or getTime call on Mar 31");
     if (indt) {
         errln("Fail: Mar 31 inDaylightTime=TRUE, exp FALSE");
@@ -403,12 +397,7 @@ TimeZoneRegressionTest::checkCalendar314(GregorianCalendar *testCal, TimeZone *t
     UDate testDate = testCal->getTime(status); 
 
     UBool inDaylightTime = testTZ->inDaylightTime(testDate, status); 
-    LocalPointer<SimpleDateFormat> sdf(new SimpleDateFormat((UnicodeString) "MM/dd/yyyy HH:mm", status),
-                                       status);
-    if (U_FAILURE(status)) {
-        errln("Error creating SimpleDateFormat %s", u_errorName(status));
-        return false;
-    }
+    SimpleDateFormat *sdf = new SimpleDateFormat((UnicodeString)"MM/dd/yyyy HH:mm", status); 
     sdf->setCalendar(*testCal); 
     UnicodeString inDaylightTimeString; 
 
@@ -443,6 +432,7 @@ TimeZoneRegressionTest::checkCalendar314(GregorianCalendar *testCal, TimeZone *t
     else 
         errln(output);
 
+    delete sdf;
     return passed;
 } 
 
@@ -517,8 +507,8 @@ void TimeZoneRegressionTest:: Test4151406() {
         //try {
             UErrorCode ec = U_ZERO_ERROR;
             int32_t count;
-            StringEnumeration* ids = TimeZone::createEnumerationForRawOffset(rawoffset, ec);
-            if (U_FAILURE(ec)) {
+            StringEnumeration* ids = TimeZone::createEnumeration(rawoffset);
+            if (ids == NULL) {
                 dataerrln("Fail: TimeZone::createEnumeration(rawoffset)");
                 continue;
             }
@@ -563,18 +553,16 @@ void TimeZoneRegressionTest:: Test4151429() {
 void TimeZoneRegressionTest:: Test4154537() {
     UErrorCode status = U_ZERO_ERROR;
     // tz1 and tz2 have no DST and different rule parameters
-    LocalPointer<SimpleTimeZone> tz1(new SimpleTimeZone(0, "1", 0, 0, 0, 0, 2, 0, 0, 0, status), status);
-    LocalPointer<SimpleTimeZone> tz2(new SimpleTimeZone(0, "2", 1, 0, 0, 0, 3, 0, 0, 0, status), status);
+    SimpleTimeZone *tz1 = new SimpleTimeZone(0, "1", 0, 0, 0, 0, 2, 0, 0, 0, status);
+    SimpleTimeZone *tz2 = new SimpleTimeZone(0, "2", 1, 0, 0, 0, 3, 0, 0, 0, status);
     // tza and tzA have the same rule params
-    LocalPointer<SimpleTimeZone> tza(new SimpleTimeZone(0, "a", 0, 1, 0, 0, 3, 2, 0, 0, status), status);
-    LocalPointer<SimpleTimeZone> tzA(new SimpleTimeZone(0, "A", 0, 1, 0, 0, 3, 2, 0, 0, status), status);
+    SimpleTimeZone *tza = new SimpleTimeZone(0, "a", 0, 1, 0, 0, 3, 2, 0, 0, status);
+    SimpleTimeZone *tzA = new SimpleTimeZone(0, "A", 0, 1, 0, 0, 3, 2, 0, 0, status);
     // tzb differs from tza
-    LocalPointer<SimpleTimeZone> tzb(new SimpleTimeZone(0, "b", 0, 1, 0, 0, 3, 1, 0, 0, status), status);
+    SimpleTimeZone *tzb = new SimpleTimeZone(0, "b", 0, 1, 0, 0, 3, 1, 0, 0, status);
     
-    if (U_FAILURE(status)) {
-        errln("Couldn't create TimeZones %s", u_errorName(status));
-        return;
-    }
+    if(U_FAILURE(status))
+        errln("Couldn't create TimeZones");
 
     if (tz1->useDaylightTime() || tz2->useDaylightTime() ||
         !tza->useDaylightTime() || !tzA->useDaylightTime() ||
@@ -589,6 +577,12 @@ void TimeZoneRegressionTest:: Test4154537() {
         //errln("zone 1 = " + tz1);
         //errln("zone 2 = " + tz2);
     }
+
+    delete tz1;
+    delete tz2;
+    delete tza;
+    delete tzA;
+    delete tzb;
 }
 
 /**
@@ -626,13 +620,7 @@ void TimeZoneRegressionTest:: Test4154542()
         BAD,  UCAL_DECEMBER,  -32, -UCAL_SATURDAY,   0,
         BAD,  UCAL_DECEMBER,   31, -UCAL_SATURDAY-1, 0,
     };
-    UErrorCode status = U_ZERO_ERROR;
-    LocalPointer<SimpleTimeZone> zone(new SimpleTimeZone(0, "Z"), status);
-    if (U_FAILURE(status)) {
-        errln("Fail: failed to create SimpleTimeZone %s", u_errorName(status));
-        return;
-    }
-
+    SimpleTimeZone *zone = new SimpleTimeZone(0, "Z");
     for (int32_t i=0; i < 18*5; i+=5) {
         UBool shouldBeGood = (DATA[i] == GOOD);
         int32_t month     = DATA[i+1];
@@ -640,7 +628,7 @@ void TimeZoneRegressionTest:: Test4154542()
         int32_t dayOfWeek = DATA[i+3];
         int32_t time      = DATA[i+4];
 
-        status = U_ZERO_ERROR;
+        UErrorCode status = U_ZERO_ERROR;
 
         //Exception ex = null;
         //try {
@@ -677,10 +665,6 @@ void TimeZoneRegressionTest:: Test4154542()
                     (int8_t)month, (int8_t)day, (int8_t)dayOfWeek, time,
                     (int8_t)GOOD_MONTH, (int8_t)GOOD_DAY, (int8_t)GOOD_DAY_OF_WEEK, 
                     GOOD_TIME,status);
-        if (temp == nullptr) {
-            errln("Fail: failed to create SimpleTimeZone %s", u_errorName(status));
-            return;
-        }
         //} catch (IllegalArgumentException e) {
         //    ex = e;
         //}
@@ -699,10 +683,6 @@ void TimeZoneRegressionTest:: Test4154542()
                     (int8_t)GOOD_MONTH, (int8_t)GOOD_DAY, (int8_t)GOOD_DAY_OF_WEEK, 
                     GOOD_TIME,
                     (int8_t)month, (int8_t)day, (int8_t)dayOfWeek, time,status);
-        if (temp == nullptr) {
-            errln("Fail: failed to create SimpleTimeZone %s", u_errorName(status));
-            return;
-        }
         //} catch (IllegalArgumentException e) {
         //    ex = e;
         //}
@@ -714,6 +694,7 @@ void TimeZoneRegressionTest:: Test4154542()
         }            
         delete temp;
     }
+    delete zone;
 }
 
 
@@ -742,21 +723,19 @@ TimeZoneRegressionTest::Test4154525()
         UBool valid = DATA[i+1] == GOOD;
         UnicodeString method;
         for(int32_t j=0; j < 2; ++j) {
-            LocalPointer<SimpleTimeZone> z;
+            SimpleTimeZone *z=NULL;
             switch (j) {
                 case 0:
                     method = "constructor";
-                    z.adoptInsteadAndCheckErrorCode(new SimpleTimeZone(0, "id",
+                    z = new SimpleTimeZone(0, "id",
                         UCAL_JANUARY, 1, 0, 0,
                         UCAL_MARCH, 1, 0, 0,
-                        savings, status), status); // <- what we're interested in
+                        savings, status); // <- what we're interested in
                     break;
                 case 1:
                     method = "setDSTSavings()";
-                    z.adoptInsteadAndCheckErrorCode(new SimpleTimeZone(0, "GMT"), status);
-                    if (z.isValid()) {
-                        z->setDSTSavings(savings, status);
-                    }
+                    z = new SimpleTimeZone(0, "GMT");
+                    z->setDSTSavings(savings, status);
                     break;
             }
 
@@ -777,6 +756,7 @@ TimeZoneRegressionTest::Test4154525()
                 }
             }
             status = U_ZERO_ERROR;
+            delete z;
         }
     }
 }
@@ -862,21 +842,17 @@ void
 TimeZoneRegressionTest::Test4162593() 
 {
     UErrorCode status = U_ZERO_ERROR;
-    LocalPointer<SimpleDateFormat> fmt(new SimpleDateFormat("z", Locale::getUS(), status), status);
-    if (U_FAILURE(status)) {
-      dataerrln("Error creating SimpleDateFormat %s", u_errorName(status));
+    SimpleDateFormat *fmt = new SimpleDateFormat("z", Locale::getUS(), status);
+    if(U_FAILURE(status)) {
+      dataerrln("Error creating calendar %s", u_errorName(status));
+      delete fmt;
       return;
     }
     const int32_t ONE_HOUR = 60*60*1000;
 
-    LocalPointer<SimpleTimeZone> asuncion(new SimpleTimeZone(-4*ONE_HOUR, "America/Asuncion" /*PY%sT*/,
+    SimpleTimeZone *asuncion = new SimpleTimeZone(-4*ONE_HOUR, "America/Asuncion" /*PY%sT*/,
         UCAL_OCTOBER, 1, 0 /*DOM*/, 0*ONE_HOUR,
-        UCAL_MARCH, 1, 0 /*DOM*/, 0*ONE_HOUR, 1*ONE_HOUR, status), status);
-
-    if (U_FAILURE(status)) {
-        dataerrln("Error creating SimpleTimeZone %s", u_errorName(status));
-        return;
-    }
+        UCAL_MARCH, 1, 0 /*DOM*/, 0*ONE_HOUR, 1*ONE_HOUR, status);
 
     /* Zone
      * Starting time
@@ -892,10 +868,10 @@ TimeZoneRegressionTest::Test4162593()
         {2000, UCAL_FEBRUARY, 29, 22, 0},
      };
 
-    bool DATA_BOOL [] = {
-        true,
-        false,
-        true,
+    UBool DATA_BOOL [] = {
+        TRUE,
+        FALSE,
+        TRUE,
     };
     
     UnicodeString zone [4];// = new String[4];
@@ -903,12 +879,7 @@ TimeZoneRegressionTest::Test4162593()
         new SimpleTimeZone(2*ONE_HOUR, "Asia/Damascus" /*EE%sT*/,
             UCAL_APRIL, 1, 0 /*DOM*/, 0*ONE_HOUR,
             UCAL_OCTOBER, 1, 0 /*DOM*/, 0*ONE_HOUR, 1*ONE_HOUR, status);
-    DATA_TZ[1] = asuncion.getAlias();  DATA_TZ[2] = asuncion.getAlias();
-
-    if (DATA_TZ[0] == nullptr || U_FAILURE(status)) {
-        errln("Error creating DATA_TZ[0] %s", u_errorName(status));
-        return;
-    }
+    DATA_TZ[1] = asuncion;  DATA_TZ[2] = asuncion;  
 
     for(int32_t j = 0; j < 3; j++) {
         TimeZone *tz = (TimeZone*)DATA_TZ[j];
@@ -918,7 +889,7 @@ TimeZoneRegressionTest::Test4162593()
         // Must construct the Date object AFTER setting the default zone
         int32_t *p = (int32_t*)DATA_INT[j];
         UDate d = CalendarRegressionTest::makeDate(p[0], p[1], p[2], p[3], p[4]);
-        bool transitionExpected = DATA_BOOL[j];
+       UBool transitionExpected = DATA_BOOL[j];
 
         UnicodeString temp;
         logln(tz->getID(temp) + ":");
@@ -938,6 +909,8 @@ TimeZoneRegressionTest::Test4162593()
             errln("Fail: boundary transition incorrect");
         }
     }
+    delete fmt;
+    delete asuncion;
     delete DATA_TZ[0];
 }
 
@@ -1101,27 +1074,27 @@ TimeZoneRegressionTest::TestJDK12API()
     // TimeZone *cst1 = TimeZone::createTimeZone("CST");
     UErrorCode ec = U_ZERO_ERROR;
     //d,-28800,3,1,-1,120,w,9,-1,1,120,w,60
-    LocalPointer<TimeZone> pst(new SimpleTimeZone(-28800*U_MILLIS_PER_SECOND,
+    TimeZone *pst = new SimpleTimeZone(-28800*U_MILLIS_PER_SECOND,
                                        "PST",
                                        3,1,-1,120*U_MILLIS_PER_MINUTE,
                                        SimpleTimeZone::WALL_TIME,
                                        9,-1,1,120*U_MILLIS_PER_MINUTE,
                                        SimpleTimeZone::WALL_TIME,
-                                       60*U_MILLIS_PER_MINUTE,ec), ec);
+                                       60*U_MILLIS_PER_MINUTE,ec);
     //d,-21600,3,1,-1,120,w,9,-1,1,120,w,60
-    LocalPointer<TimeZone> cst1(new SimpleTimeZone(-21600*U_MILLIS_PER_SECOND,
+    TimeZone *cst1 = new SimpleTimeZone(-21600*U_MILLIS_PER_SECOND,
                                        "CST",
                                        3,1,-1,120*U_MILLIS_PER_MINUTE,
                                        SimpleTimeZone::WALL_TIME,
                                        9,-1,1,120*U_MILLIS_PER_MINUTE,
                                        SimpleTimeZone::WALL_TIME,
-                                       60*U_MILLIS_PER_MINUTE,ec), ec);
+                                       60*U_MILLIS_PER_MINUTE,ec);
     if (U_FAILURE(ec)) {
         errln("FAIL: SimpleTimeZone constructor");
         return;
     }
 
-    SimpleTimeZone *cst = dynamic_cast<SimpleTimeZone *>(cst1.getAlias());
+    SimpleTimeZone *cst = dynamic_cast<SimpleTimeZone *>(cst1);
 
     if(pst->hasSameRules(*cst)) {
         errln("FAILURE: PST and CST have same rules");
@@ -1154,6 +1127,9 @@ TimeZoneRegressionTest::TestJDK12API()
     if(savings != 60*60*1000) {
         errln("setDSTSavings() failed");
     }
+
+    delete pst;
+    delete cst;
 }
 /**
  * SimpleTimeZone allows invalid DOM values.

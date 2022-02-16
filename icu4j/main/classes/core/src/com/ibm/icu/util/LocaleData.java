@@ -385,7 +385,7 @@ public final class LocaleData {
             width = w;
         }
         /**
-         * Returns the height of the paper
+         * Retruns the height of the paper
          * @return the height
          * @stable ICU 2.8
          */

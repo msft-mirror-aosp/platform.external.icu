@@ -207,12 +207,6 @@ fi{
             }
         }
         minimalPairs{
-            case{
-                elative{"{0} päivästä"}
-                illative{"{0} päivään"}
-                nominative{"{0} päivä"}
-                partitive{"{0} päivää"}
-            }
             ordinal{
                 other{"Käänny {0}. risteyksestä oikealle."}
             }
@@ -240,16 +234,6 @@ fi{
                 "{1} 'klo' {0}",
                 "{1} 'klo' {0}",
                 "{1} {0}",
-            }
-            DateTimeSkeletons{
-                "Hmmsszzzz",
-                "Hmmssz",
-                "Hmmss",
-                "Hmm",
-                "GyMMMMccccd",
-                "GyMMMMd",
-                "GyMd",
-                "GGGGGyMd",
             }
             availableFormats{
                 Ed{"E d."}
@@ -297,16 +281,6 @@ fi{
                 "{1} {0}",
                 "{1} {0}",
                 "{1} {0}",
-            }
-            DateTimeSkeletons{
-                "Hmmsszzzz",
-                "Hmmssz",
-                "Hmmss",
-                "Hmm",
-                "yMccccd",
-                "yMd",
-                "yMd",
-                "yMd",
             }
             availableFormats{
                 H{"H"}
@@ -479,16 +453,6 @@ fi{
                 "{1} 'klo' {0}",
                 "{1} {0}",
             }
-            DateTimeSkeletons{
-                "Hmmsszzzz",
-                "Hmmssz",
-                "Hmmss",
-                "Hmm",
-                "GyMMMMccccd",
-                "GyMMMMd",
-                "GyMd",
-                "GGGGGyMd",
-            }
             availableFormats{
                 Bh{"h B"}
                 Bhm{"h.mm B"}
@@ -505,7 +469,6 @@ fi{
                 GyMMM{"LLL y G"}
                 GyMMMEd{"E d. MMM y G"}
                 GyMMMd{"d. MMM y G"}
-                GyMd{"d.M.y G"}
                 H{"H"}
                 Hm{"H.mm"}
                 Hms{"H.mm.ss"}
@@ -722,16 +685,6 @@ fi{
                 "{1} 'klo' {0}",
                 "{1} {0}",
             }
-            DateTimeSkeletons{
-                "Hmmsszzzz",
-                "Hmmssz",
-                "Hmmss",
-                "Hmm",
-                "yMMMMccccd",
-                "yMMMMd",
-                "yMd",
-                "yMd",
-            }
             appendItems{
                 Timezone{"{0} {1}"}
             }
@@ -753,7 +706,6 @@ fi{
                 GyMMMMEd{"E d. MMMM y G"}
                 GyMMMMd{"d. MMMM y G"}
                 GyMMMd{"d. MMM y G"}
-                GyMd{"M.d.y G"}
                 H{"H"}
                 Hm{"H.mm"}
                 Hms{"H.mm.ss"}
@@ -1494,16 +1446,6 @@ fi{
                 "{1} 'klo' {0}",
                 "{1} 'klo' {0}",
                 "{1} {0}",
-            }
-            DateTimeSkeletons{
-                "Hmmsszzzz",
-                "Hmmssz",
-                "Hmmss",
-                "Hmm",
-                "GyMMMMccccd",
-                "GyMMMMd",
-                "GyMd",
-                "GGGGGyMd",
             }
         }
         persian{

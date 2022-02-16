@@ -273,9 +273,6 @@ double DecimalQuantity::getPluralOperand(PluralOperand operand) const {
             return fractionCountWithoutTrailingZeros();
         case PLURAL_OPERAND_E:
             return static_cast<double>(getExponent());
-        case PLURAL_OPERAND_C:
-            // Plural operand `c` is currently an alias for `e`.
-            return static_cast<double>(getExponent());
         default:
             return std::abs(toDouble());
     }
@@ -287,11 +284,6 @@ int32_t DecimalQuantity::getExponent() const {
 
 void DecimalQuantity::adjustExponent(int delta) {
     exponent = exponent + delta;
-}
-
-void DecimalQuantity::resetExponent() {
-    adjustMagnitude(exponent);
-    exponent = 0;
 }
 
 bool DecimalQuantity::hasIntegerValue() const {
@@ -539,11 +531,7 @@ void DecimalQuantity::_setToDecNum(const DecNum& decnum, UErrorCode& status) {
     if (decnum.isNegative()) {
         flags |= NEGATIVE_FLAG;
     }
-    if (decnum.isNaN()) {
-        flags |= NAN_FLAG;
-    } else if (decnum.isInfinity()) {
-        flags |= INFINITY_FLAG;
-    } else if (!decnum.isZero()) {
+    if (!decnum.isZero()) {
         readDecNumberToBcd(decnum);
         compact();
     }
@@ -643,7 +631,6 @@ DecNum& DecimalQuantity::toDecNum(DecNum& output, UErrorCode& status) const {
     // Special handling for zero
     if (precision == 0) {
         output.setTo("0", status);
-        return output;
     }
 
     // Use the BCD constructor. We need to do a little bit of work to convert, though.
@@ -832,7 +819,6 @@ void DecimalQuantity::roundToMagnitude(int32_t magnitude, RoundingMode roundingM
 
         // Perform truncation
         if (position >= precision) {
-            U_ASSERT(trailingDigit == 0);
             setBcdToZero();
             scale = magnitude;
         } else {
@@ -850,10 +836,6 @@ void DecimalQuantity::roundToMagnitude(int32_t magnitude, RoundingMode roundingM
                 // do not return: use the bubbling logic below
             } else {
                 setDigitPos(0, 5);
-                // If the quantity was set to 0, we may need to restore a digit.
-                if (precision == 0) {
-                    precision = 1;
-                }
                 // compact not necessary: digit at position 0 is nonzero
                 return;
             }
