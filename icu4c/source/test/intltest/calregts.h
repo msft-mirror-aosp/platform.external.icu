@@ -23,7 +23,7 @@
 class CalendarRegressionTest: public IntlTest {
 
     // IntlTest override
-    void runIndexedTest( int32_t index, UBool exec, const char* &name, char* par ) override;
+    void runIndexedTest( int32_t index, UBool exec, const char* &name, char* par );
 public:
     void test4100311(void);
     void test4074758(void);

@@ -141,7 +141,7 @@ void InputText::MungeInput(UBool fStripTags) {
     }
 
     //
-    // Tally up the byte occurrence statistics.
+    // Tally up the byte occurence statistics.
     // These are available for use by the various detectors.
     //
 
