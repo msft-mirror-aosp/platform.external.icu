@@ -155,12 +155,12 @@ CharacterNode::addValue(void *value, UObjectDeleter *valueDeleter, UErrorCode &s
                 }
                 return;
             }
-            values->addElementX(fValues, status);
+            values->addElement(fValues, status);
             fValues = values;
             fHasValuesVector = TRUE;
         }
         // Add the new value.
-        ((UVector *)fValues)->addElementX(value, status);
+        ((UVector *)fValues)->addElement(value, status);
     }
 }
 
@@ -233,7 +233,7 @@ TextTrieMap::put(const UChar *key, void *value, UErrorCode &status) {
     U_ASSERT(fLazyContents != NULL);
 
     UChar *s = const_cast<UChar *>(key);
-    fLazyContents->addElementX(s, status);
+    fLazyContents->addElement(s, status);
     if (U_FAILURE(status)) {
         if (fValueDeleter) {
             fValueDeleter((void*) key);
@@ -241,7 +241,7 @@ TextTrieMap::put(const UChar *key, void *value, UErrorCode &status) {
         return;
     }
 
-    fLazyContents->addElementX(value, status);
+    fLazyContents->addElement(value, status);
 }
 
 void
@@ -533,7 +533,7 @@ const UChar *ZNStringPool::get(const UChar *s, UErrorCode &status) {
 //
 //  ZNStringPool::adopt()    Put a string into the hash, but do not copy the string data
 //                           into the pool's storage.  Used for strings from resource bundles,
-//                           which will persist for the life of the zone string formatter, and
+//                           which will perisist for the life of the zone string formatter, and
 //                           therefore can be used directly without copying.
 const UChar *ZNStringPool::adopt(const UChar * s, UErrorCode &status) {
     const UChar *pooledString;
@@ -776,7 +776,7 @@ struct ZNames::ZNamesLoader : public ResourceSink {
         clear();
         ures_getAllItemsWithFallback(zoneStrings, key, *this, localStatus);
 
-        // Ignore errors, but propagate possible warnings.
+        // Ignore errors, but propogate possible warnings.
         if (U_SUCCESS(localStatus)) {
             errorCode = localStatus;
         }
@@ -794,7 +794,7 @@ struct ZNames::ZNamesLoader : public ResourceSink {
     }
 
     virtual void put(const char* key, ResourceValue& value, UBool /*noFallback*/,
-            UErrorCode &errorCode) override {
+            UErrorCode &errorCode) {
         ResourceTable namesTable = value.getTable(errorCode);
         if (U_FAILURE(errorCode)) { return; }
         for (int32_t i = 0; namesTable.getKeyAndValue(i, key, value); ++i) {
@@ -857,10 +857,10 @@ public:
     MetaZoneIDsEnumeration(UVector* mzIDs);
     virtual ~MetaZoneIDsEnumeration();
     static UClassID U_EXPORT2 getStaticClassID(void);
-    virtual UClassID getDynamicClassID(void) const override;
-    virtual const UnicodeString* snext(UErrorCode& status) override;
-    virtual void reset(UErrorCode& status) override;
-    virtual int32_t count(UErrorCode& status) const override;
+    virtual UClassID getDynamicClassID(void) const;
+    virtual const UnicodeString* snext(UErrorCode& status);
+    virtual void reset(UErrorCode& status);
+    virtual int32_t count(UErrorCode& status) const;
 private:
     int32_t fLen;
     int32_t fPos;
@@ -920,7 +920,7 @@ public:
     ZNameSearchHandler(uint32_t types);
     virtual ~ZNameSearchHandler();
 
-    UBool handleMatch(int32_t matchLength, const CharacterNode *node, UErrorCode &status) override;
+    UBool handleMatch(int32_t matchLength, const CharacterNode *node, UErrorCode &status);
     TimeZoneNames::MatchInfoCollection* getMatches(int32_t& maxMatchLen);
 
 private:
@@ -1104,13 +1104,13 @@ TimeZoneNamesImpl::cleanup() {
     }
 }
 
-bool
+UBool
 TimeZoneNamesImpl::operator==(const TimeZoneNames& other) const {
     if (this == &other) {
-        return true;
+        return TRUE;
     }
     // No implementation for now
-    return false;
+    return FALSE;
 }
 
 TimeZoneNamesImpl*
@@ -1165,7 +1165,7 @@ TimeZoneNamesImpl::_getAvailableMetaZoneIDs(const UnicodeString& tzID, UErrorCod
             OlsonToMetaMappingEntry *map = (OlsonToMetaMappingEntry *)mappings->elementAt(i);
             const UChar *mzID = map->mzid;
             if (!mzIDs->contains((void *)mzID)) {
-                mzIDs->addElementX((void *)mzID, status);
+                mzIDs->addElement((void *)mzID, status);
             }
         }
         if (U_SUCCESS(status)) {
@@ -1194,7 +1194,7 @@ TimeZoneNamesImpl::getReferenceZoneID(const UnicodeString& mzID, const char* reg
     return TimeZoneNamesImpl::_getReferenceZoneID(mzID, region, tzID);
 }
 
-// static implementation of getReferenceZoneID
+// static implementaion of getReferenceZoneID
 UnicodeString&
 TimeZoneNamesImpl::_getReferenceZoneID(const UnicodeString& mzID, const char* region, UnicodeString& tzID) {
     ZoneMeta::getZoneIdByMetazone(mzID, UnicodeString(region, -1, US_INV), tzID);
@@ -1560,7 +1560,7 @@ struct TimeZoneNamesImpl::ZoneStringsLoader : public ResourceSink {
     }
 
     virtual void put(const char *key, ResourceValue &value, UBool noFallback,
-            UErrorCode &status) override {
+            UErrorCode &status) {
         ResourceTable timeZonesTable = value.getTable(status);
         if (U_FAILURE(status)) { return; }
         for (int32_t i = 0; timeZonesTable.getKeyAndValue(i, key, value); ++i) {
@@ -1891,7 +1891,7 @@ public:
     TZDBNameSearchHandler(uint32_t types, const char* region);
     virtual ~TZDBNameSearchHandler();
 
-    UBool handleMatch(int32_t matchLength, const CharacterNode *node, UErrorCode &status) override;
+    UBool handleMatch(int32_t matchLength, const CharacterNode *node, UErrorCode &status);
     TimeZoneNames::MatchInfoCollection* getMatches(int32_t& maxMatchLen);
 
 private:
@@ -2156,13 +2156,13 @@ TZDBTimeZoneNames::TZDBTimeZoneNames(const Locale& locale)
 TZDBTimeZoneNames::~TZDBTimeZoneNames() {
 }
 
-bool
+UBool
 TZDBTimeZoneNames::operator==(const TimeZoneNames& other) const {
     if (this == &other) {
-        return true;
+        return TRUE;
     }
     // No implementation for now
-    return false;
+    return FALSE;
 }
 
 TZDBTimeZoneNames*

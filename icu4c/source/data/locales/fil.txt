@@ -200,9 +200,6 @@ fil{
             }
         }
         minimalPairs{
-            ordinal{
-                other{"Kunin ang ika-{0} (na) kanan."}
-            }
             plural{
                 one{"{0} mansanas"}
                 other{"{0} na mansanas"}
@@ -227,16 +224,6 @@ fil{
                 "{1} 'nang' {0}",
                 "{1}, {0}",
                 "{1}, {0}",
-            }
-            DateTimeSkeletons{
-                "ahmmsszzzz",
-                "ahmmssz",
-                "ahmmss",
-                "ahmm",
-                "GyMMMMEEEEd",
-                "GyMMMMd",
-                "GyMMMd",
-                "GGGGGyMd",
             }
             availableFormats{
                 E{"ccc"}
@@ -389,16 +376,6 @@ fil{
                 "{1} 'nang' {0}",
                 "{1}, {0}",
                 "{1}, {0}",
-            }
-            DateTimeSkeletons{
-                "ahmmsszzzz",
-                "ahmmssz",
-                "ahmmss",
-                "ahmm",
-                "GyMMMMEEEEd",
-                "GyMMMMd",
-                "GyMMMd",
-                "GGGGGyMd",
             }
             availableFormats{
                 E{"ccc"}
@@ -651,16 +628,6 @@ fil{
                 "{1}, {0}",
                 "{1}, {0}",
             }
-            DateTimeSkeletons{
-                "ahmmsszzzz",
-                "ahmmssz",
-                "ahmmss",
-                "ahmm",
-                "GyMMMMEEEEd",
-                "GyMMMMd",
-                "GyMMMd",
-                "GGGGGyMd",
-            }
             availableFormats{
                 E{"ccc"}
                 Ed{"d E"}
@@ -912,16 +879,6 @@ fil{
                 "{1}, {0}",
                 "{1}, {0}",
             }
-            DateTimeSkeletons{
-                "ahmmsszzzz",
-                "ahmmssz",
-                "ahmmss",
-                "ahmm",
-                "GyMMMMEEEEd",
-                "GyMMMMd",
-                "GyMMMd",
-                "GGGGGyMd",
-            }
             availableFormats{
                 Bh{"h B"}
                 Bhm{"h:mm B"}
@@ -938,7 +895,6 @@ fil{
                 GyMMM{"MMM y G"}
                 GyMMMEd{"E, MMM d, y G"}
                 GyMMMd{"MMM d, y G"}
-                GyMd{"M/d/y GGGGG"}
                 H{"HH"}
                 Hm{"HH:mm"}
                 Hms{"HH:mm:ss"}
@@ -1137,16 +1093,6 @@ fil{
                 "{1}, {0}",
                 "{1}, {0}",
             }
-            DateTimeSkeletons{
-                "ahmmsszzzz",
-                "ahmmssz",
-                "ahmmss",
-                "ahmm",
-                "yMMMMEEEEd",
-                "yMMMMd",
-                "yMMMd",
-                "yyMd",
-            }
             appendItems{
                 Timezone{"{0} {1}"}
             }
@@ -1166,7 +1112,6 @@ fil{
                 GyMMM{"MMM y G"}
                 GyMMMEd{"E, MMM d, y G"}
                 GyMMMd{"MMM d, y G"}
-                GyMd{"M/d/y GGGGG"}
                 H{"HH"}
                 Hm{"HH:mm"}
                 Hms{"HH:mm:ss"}
@@ -1658,16 +1603,6 @@ fil{
                 "{1}, {0}",
                 "{1}, {0}",
             }
-            DateTimeSkeletons{
-                "ahmmsszzzz",
-                "ahmmssz",
-                "ahmmss",
-                "ahmm",
-                "yMMMMEEEEd",
-                "yMMMMd",
-                "yMMMd",
-                "yMMMd",
-            }
             availableFormats{
                 E{"ccc"}
                 Ed{"d E"}
@@ -1922,16 +1857,6 @@ fil{
                 "{1}, {0}",
                 "{1}, {0}",
             }
-            DateTimeSkeletons{
-                "ahmmsszzzz",
-                "ahmmssz",
-                "ahmmss",
-                "ahmm",
-                "GyMMMMEEEEd",
-                "GyMMMMd",
-                "GyMMMd",
-                "GGGGGyMd",
-            }
             availableFormats{
                 E{"ccc"}
                 Ed{"d E"}
@@ -2173,16 +2098,6 @@ fil{
                 "{1} 'nang' {0}",
                 "{1}, {0}",
                 "{1}, {0}",
-            }
-            DateTimeSkeletons{
-                "ahmmsszzzz",
-                "ahmmssz",
-                "ahmmss",
-                "ahmm",
-                "GyMMMMEEEEd",
-                "GyMMMMd",
-                "GyMMMd",
-                "GGGGGyMd",
             }
             availableFormats{
                 E{"ccc"}
@@ -2426,16 +2341,6 @@ fil{
                 "{1}, {0}",
                 "{1}, {0}",
             }
-            DateTimeSkeletons{
-                "ahmmsszzzz",
-                "ahmmssz",
-                "ahmmss",
-                "ahmm",
-                "GyMMMMEEEEd",
-                "GyMMMMd",
-                "GyMMMd",
-                "GGGGGyMd",
-            }
             availableFormats{
                 E{"ccc"}
                 Ed{"d E"}
@@ -2677,16 +2582,6 @@ fil{
                 "{1} 'nang' {0}",
                 "{1}, {0}",
                 "{1}, {0}",
-            }
-            DateTimeSkeletons{
-                "ahmmsszzzz",
-                "ahmmssz",
-                "ahmmss",
-                "ahmm",
-                "GyMMMMEEEEd",
-                "GyMMMMd",
-                "GyMMMd",
-                "GGGGGyMd",
             }
             availableFormats{
                 E{"ccc"}
@@ -3034,11 +2929,11 @@ fil{
             }
             relativeTime{
                 future{
-                    one{"sa {0} Biy."}
+                    one{"sa {0} Biyernes"}
                     other{"sa {0} (na) Biyernes"}
                 }
                 past{
-                    one{"{0} Biy. ang nakalipas"}
+                    one{"{0} Biyernes ang nakalipas"}
                     other{"{0} (na) Biyernes ang nakalipas"}
                 }
             }
@@ -3055,7 +2950,7 @@ fil{
                     other{"sa {0} (na) Biyernes"}
                 }
                 past{
-                    one{"{0} Biy. ang nakalipas"}
+                    one{"{0} Biyernes ang nakalipas"}
                     other{"{0} (na) Biyernes ang nakalipas"}
                 }
             }
@@ -3084,7 +2979,7 @@ fil{
                     other{"sa {0} (na) oras"}
                 }
                 past{
-                    one{"{0} oras ang nakalipas"}
+                    one{"{0} oras nakalipas"}
                     other{"{0} (na) oras nakalipas"}
                 }
             }
@@ -3173,7 +3068,7 @@ fil{
                     other{"sa {0} Lunes"}
                 }
                 past{
-                    one{"{0} Lun. ang nakalipas"}
+                    one{"{0} Lunes ang nakalipas"}
                     other{"{0} (na) Lunes ang nakalipas"}
                 }
             }
@@ -3186,11 +3081,11 @@ fil{
             }
             relativeTime{
                 future{
-                    one{"sa {0} Lun."}
+                    one{"sa {0} Lunes"}
                     other{"sa {0} (na) Lunes"}
                 }
                 past{
-                    one{"{0} Lun. ang nakalipas"}
+                    one{"{0} Lunes ang nakalipas"}
                     other{"{0} (na) Lunes ang nakalipas"}
                 }
             }
@@ -3328,11 +3223,11 @@ fil{
             }
             relativeTime{
                 future{
-                    one{"sa {0} Sab."}
+                    one{"sa {0} Sabado"}
                     other{"sa {0} (na) Sabado ang nakalipas"}
                 }
                 past{
-                    one{"{0} Sab. ang nakalipas"}
+                    one{"{0} Sabado ang nakalipas"}
                     other{"{0} (na) Sabado ang nakalipas"}
                 }
             }
@@ -3345,11 +3240,11 @@ fil{
             }
             relativeTime{
                 future{
-                    one{"sa {0} Sab."}
+                    one{"sa {0} Sabado"}
                     other{"sa {0} (na) Sabado"}
                 }
                 past{
-                    one{"{0} Sab. ang nakalipas"}
+                    one{"{0} Sabado ang nakalipas"}
                     other{"{0} (na) Sabado ang nakalipas"}
                 }
             }
@@ -3378,7 +3273,7 @@ fil{
                     other{"sa {0} (na) seg."}
                 }
                 past{
-                    one{"{0} seg. ang nakalipas"}
+                    one{"{0} seg. nakalipas"}
                     other{"{0} (na) seg. nakalipas"}
                 }
             }
@@ -3421,11 +3316,11 @@ fil{
             }
             relativeTime{
                 future{
-                    one{"sa {0} Lin."}
+                    one{"sa {0} linggo"}
                     other{"sa {0} (na) Linggo"}
                 }
                 past{
-                    one{"{0} Lin. ang nakalipas"}
+                    one{"{0} Linggo ang nakalipas"}
                     other{"{0} (na) Linggo ang nakalipas"}
                 }
             }
@@ -3438,11 +3333,11 @@ fil{
             }
             relativeTime{
                 future{
-                    one{"sa {0} Lin."}
+                    one{"sa {0} Linggo"}
                     other{"sa {0} (na) Linggo"}
                 }
                 past{
-                    one{"{0} Lin. ang nakalipas"}
+                    one{"{0} Linggo ang nakalipas"}
                     other{"{0} (na) Linggo ang nakalipas"}
                 }
             }
@@ -3472,11 +3367,11 @@ fil{
             }
             relativeTime{
                 future{
-                    one{"sa {0} Huw."}
+                    one{"sa {0} Huwebes"}
                     other{"sa {0} (na) Huwebes"}
                 }
                 past{
-                    one{"{0} Huw. ang nakalipas"}
+                    one{"{0} Huwebes ang nakalipas"}
                     other{"{0} (na) Huwebes ang nakalipas"}
                 }
             }
@@ -3489,11 +3384,11 @@ fil{
             }
             relativeTime{
                 future{
-                    one{"sa {0} Huw."}
+                    one{"sa {0} Huwebes"}
                     other{"sa {0} (na) Huwebes"}
                 }
                 past{
-                    one{"{0} Huw. ang nakalipas"}
+                    one{"{0} Huwebes ang nakalipas"}
                     other{"{0} (na) Huwebes ang nakalipas"}
                 }
             }
@@ -3574,11 +3469,11 @@ fil{
             }
             relativeTime{
                 future{
-                    one{"sa {0} Miy."}
+                    one{"sa {0} Miyerkules"}
                     other{"sa {0} (na) Miyerkules"}
                 }
                 past{
-                    one{"{0} Miy. ang nakalipas"}
+                    one{"{0} Miyerkules ang nakalipas"}
                     other{"{0} (na) Miyerkules ang nakalipas"}
                 }
             }
@@ -3591,11 +3486,11 @@ fil{
             }
             relativeTime{
                 future{
-                    one{"sa {0} Miy."}
+                    one{"sa {0} Miyerkules"}
                     other{"sa {0} (na) Miyerkules"}
                 }
                 past{
-                    one{"{0} Miy. ang nakalipas"}
+                    one{"{0} Miyerkules ang nakalipas"}
                     other{"{0} (na) Miyerkules ang nakalipas"}
                 }
             }

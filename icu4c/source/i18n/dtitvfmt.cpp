@@ -232,37 +232,37 @@ DateIntervalFormat::clone() const {
 }
 
 
-bool
+UBool
 DateIntervalFormat::operator==(const Format& other) const {
-    if (typeid(*this) != typeid(other)) {return false;}
+    if (typeid(*this) != typeid(other)) {return FALSE;}
     const DateIntervalFormat* fmt = (DateIntervalFormat*)&other;
-    if (this == fmt) {return true;}
-    if (!Format::operator==(other)) {return false;}
-    if ((fInfo != fmt->fInfo) && (fInfo == nullptr || fmt->fInfo == nullptr)) {return false;}
-    if (fInfo && fmt->fInfo && (*fInfo != *fmt->fInfo )) {return false;}
+    if (this == fmt) {return TRUE;}
+    if (!Format::operator==(other)) {return FALSE;}
+    if ((fInfo != fmt->fInfo) && (fInfo == nullptr || fmt->fInfo == nullptr)) {return FALSE;}
+    if (fInfo && fmt->fInfo && (*fInfo != *fmt->fInfo )) {return FALSE;}
     {
         Mutex lock(&gFormatterMutex);
-        if (fDateFormat != fmt->fDateFormat && (fDateFormat == nullptr || fmt->fDateFormat == nullptr)) {return false;}
-        if (fDateFormat && fmt->fDateFormat && (*fDateFormat != *fmt->fDateFormat)) {return false;}
+        if (fDateFormat != fmt->fDateFormat && (fDateFormat == nullptr || fmt->fDateFormat == nullptr)) {return FALSE;}
+        if (fDateFormat && fmt->fDateFormat && (*fDateFormat != *fmt->fDateFormat)) {return FALSE;}
     }
     // note: fFromCalendar and fToCalendar hold no persistent state, and therefore do not participate in operator ==.
     //       fDateFormat has the primary calendar for the DateIntervalFormat.
-    if (fSkeleton != fmt->fSkeleton) {return false;}
-    if (fDatePattern != fmt->fDatePattern && (fDatePattern == nullptr || fmt->fDatePattern == nullptr)) {return false;}
-    if (fDatePattern && fmt->fDatePattern && (*fDatePattern != *fmt->fDatePattern)) {return false;}
-    if (fTimePattern != fmt->fTimePattern && (fTimePattern == nullptr || fmt->fTimePattern == nullptr)) {return false;}
-    if (fTimePattern && fmt->fTimePattern && (*fTimePattern != *fmt->fTimePattern)) {return false;}
-    if (fDateTimeFormat != fmt->fDateTimeFormat && (fDateTimeFormat == nullptr || fmt->fDateTimeFormat == nullptr)) {return false;}
-    if (fDateTimeFormat && fmt->fDateTimeFormat && (*fDateTimeFormat != *fmt->fDateTimeFormat)) {return false;}
-    if (fLocale != fmt->fLocale) {return false;}
+    if (fSkeleton != fmt->fSkeleton) {return FALSE;}
+    if (fDatePattern != fmt->fDatePattern && (fDatePattern == nullptr || fmt->fDatePattern == nullptr)) {return FALSE;}
+    if (fDatePattern && fmt->fDatePattern && (*fDatePattern != *fmt->fDatePattern)) {return FALSE;}
+    if (fTimePattern != fmt->fTimePattern && (fTimePattern == nullptr || fmt->fTimePattern == nullptr)) {return FALSE;}
+    if (fTimePattern && fmt->fTimePattern && (*fTimePattern != *fmt->fTimePattern)) {return FALSE;}
+    if (fDateTimeFormat != fmt->fDateTimeFormat && (fDateTimeFormat == nullptr || fmt->fDateTimeFormat == nullptr)) {return FALSE;}
+    if (fDateTimeFormat && fmt->fDateTimeFormat && (*fDateTimeFormat != *fmt->fDateTimeFormat)) {return FALSE;}
+    if (fLocale != fmt->fLocale) {return FALSE;}
 
     for (int32_t i = 0; i< DateIntervalInfo::kIPI_MAX_INDEX; ++i ) {
-        if (fIntervalPatterns[i].firstPart != fmt->fIntervalPatterns[i].firstPart) {return false;}
-        if (fIntervalPatterns[i].secondPart != fmt->fIntervalPatterns[i].secondPart ) {return false;}
-        if (fIntervalPatterns[i].laterDateFirst != fmt->fIntervalPatterns[i].laterDateFirst) {return false;}
+        if (fIntervalPatterns[i].firstPart != fmt->fIntervalPatterns[i].firstPart) {return FALSE;}
+        if (fIntervalPatterns[i].secondPart != fmt->fIntervalPatterns[i].secondPart ) {return FALSE;}
+        if (fIntervalPatterns[i].laterDateFirst != fmt->fIntervalPatterns[i].laterDateFirst) {return FALSE;}
     }
-    if (fCapitalizationContext != fmt->fCapitalizationContext) {return false;}
-    return true;
+    if (fCapitalizationContext != fmt->fCapitalizationContext) {return FALSE;}
+    return TRUE;
 }
 
 
@@ -707,7 +707,7 @@ DateIntervalFormat::create(const Locale& locale,
         status = U_MEMORY_ALLOCATION_ERROR;
         delete dtitvinf;
     } else if ( U_FAILURE(status) ) {
-        // safe to delete f, although nothing actually is saved
+        // safe to delete f, although nothing acutally is saved
         delete f;
         f = 0;
     }
@@ -866,14 +866,6 @@ DateIntervalFormat::initializePattern(UErrorCode& status) {
                 setPatternInfo(UCAL_DATE, nullptr, &pattern, fInfo->getDefaultOrder());
                 setPatternInfo(UCAL_MONTH, nullptr, &pattern, fInfo->getDefaultOrder());
                 setPatternInfo(UCAL_YEAR, nullptr, &pattern, fInfo->getDefaultOrder());
-
-                timeSkeleton.insert(0, CAP_G);
-                pattern = DateFormat::getBestPattern(
-                        locale, timeSkeleton, status);
-                if ( U_FAILURE(status) ) {
-                    return;
-                }
-                setPatternInfo(UCAL_ERA, nullptr, &pattern, fInfo->getDefaultOrder());
             } else {
                 // TODO: fall back
             }
@@ -900,23 +892,15 @@ DateIntervalFormat::initializePattern(UErrorCode& status) {
         setPatternInfo(UCAL_DATE, nullptr, &pattern, fInfo->getDefaultOrder());
         setPatternInfo(UCAL_MONTH, nullptr, &pattern, fInfo->getDefaultOrder());
         setPatternInfo(UCAL_YEAR, nullptr, &pattern, fInfo->getDefaultOrder());
-
-        timeSkeleton.insert(0, CAP_G);
-        pattern = DateFormat::getBestPattern(
-                locale, timeSkeleton, status);
-        if ( U_FAILURE(status) ) {
-            return;
-        }
-        setPatternInfo(UCAL_ERA, nullptr, &pattern, fInfo->getDefaultOrder());
     } else {
         /* if both present,
-         * 1) when the era, year, month, or day differs,
+         * 1) when the year, month, or day differs,
          * concatenate the two original expressions with a separator between,
          * 2) otherwise, present the date followed by the
          * range expression for the time.
          */
         /*
-         * 1) when the era, year, month, or day differs,
+         * 1) when the year, month, or day differs,
          * concatenate the two original expressions with a separator between,
          */
         // if field exists, use fall back
@@ -935,11 +919,6 @@ DateIntervalFormat::initializePattern(UErrorCode& status) {
             // then prefix skeleton with 'y'
             skeleton.insert(0, LOW_Y);
             setFallbackPattern(UCAL_YEAR, skeleton, status);
-        }
-        if ( !fieldExistsInSkeleton(UCAL_ERA, dateSkeleton) ) {
-            // then prefix skeleton with 'G'
-            skeleton.insert(0, CAP_G);
-            setFallbackPattern(UCAL_ERA, skeleton, status);
         }
 
         /*

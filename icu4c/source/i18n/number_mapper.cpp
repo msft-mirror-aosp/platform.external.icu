@@ -381,10 +381,7 @@ void PropertiesAffixPatternProvider::setTo(const DecimalFormatProperties& proper
         AffixUtils::hasCurrencySymbols(ppp, status) ||
         AffixUtils::hasCurrencySymbols(psp, status) ||
         AffixUtils::hasCurrencySymbols(npp, status) ||
-        AffixUtils::hasCurrencySymbols(nsp, status) ||
-        properties.currencyAsDecimal);
-
-    fCurrencyAsDecimal = properties.currencyAsDecimal;
+        AffixUtils::hasCurrencySymbols(nsp, status));
 }
 
 char16_t PropertiesAffixPatternProvider::charAt(int flags, int i) const {
@@ -449,10 +446,6 @@ bool PropertiesAffixPatternProvider::hasBody() const {
     return true;
 }
 
-bool PropertiesAffixPatternProvider::currencyAsDecimal() const {
-    return fCurrencyAsDecimal;
-}
-
 
 void CurrencyPluralInfoAffixProvider::setTo(const CurrencyPluralInfo& cpi,
                                             const DecimalFormatProperties& properties,
@@ -511,10 +504,6 @@ bool CurrencyPluralInfoAffixProvider::containsSymbolType(AffixPatternType type, 
 
 bool CurrencyPluralInfoAffixProvider::hasBody() const {
     return affixesByPlural[StandardPlural::OTHER].hasBody();
-}
-
-bool CurrencyPluralInfoAffixProvider::currencyAsDecimal() const {
-    return affixesByPlural[StandardPlural::OTHER].currencyAsDecimal();
 }
 
 
