@@ -16,8 +16,8 @@
 #   <char>    any following data is for char break testing
 #   <title>   any following data is for title break testing
 #   <rules> rules ... </rules>  following data is tested against these rules.
-#                               Applies until a following occurrence of <word>, <sent>, etc. or another <rules>
-#   <locale locale_name>  Switch to the named locale at the next occurrence of <word>, <sent>, etc.
+#                               Applies until a following occurence of <word>, <sent>, etc. or another <rules>
+#   <locale locale_name>  Switch to the named locale at the next occurence of <word>, <sent>, etc.
 #   <data> ... </data>   test data.  May span multiple lines.
 #      <>        Break position, status == 0
 #      •         Break position, status == 0   (Bullet, \u2022)
@@ -61,11 +61,6 @@
 <sent>
 <data>\
 •Doctor with a D. •As in, Ph.D., you know.•</data>
-
-# ICU-21459 logic error.
-<locale en@ss=standard>
-<sent>
-<data>•on. •But after a day in the arena sun, the metal feels hot enough to blister my hands.•</data>
 
 # same as root (unless some exceptions are added!)
 <locale tfg@ss=standard>
@@ -796,9 +791,6 @@
 <word>
 <data>•ジョージア<400> •</data>
 
-<word>
-<data>•［<0>携帯<400>電話<400>］<0>お金<400>が<400>かかる<400>ん<400>です<400>。<0></data>
-
 # Test for #11723
 <word>
 <data>•アレルギー性<400>結膜炎<400></data>
@@ -1166,7 +1158,7 @@ Calls to xxx will return an implementor of this interface.  \u2029•</data>
 <data>•Parlez-•vous •français ?•</data>
 
 #
-#  Old Line Break Test data.  Originally located in RBBITest::TestDefaultRuleBasedLineIteration()
+#  Old Line Break Test data.  Orginally located in RBBITest::TestDefaultRuleBasedLineIteration()
 #
 
 <line>
@@ -1329,8 +1321,7 @@ part •of •the •Luang •Prabang •Range •(ทิว•เขา•ห�
 \u0E14\u0E49\u0E27\u0E22<200>\u0e2b\u0e25\u0e32\u0e22<200>\
 \u0e1e\u0e22\u0e32\u0e07\u0e04\u0e4c<200></data>
 
-# Test data originally from
-# ICU-8576 svn r30327 = git commit 62d26cc5fe8cc66696143c44a43d664c2d7be100
+# Test data originally from http://bugs.icu-project.org/trac/search?q=r30327
 <data>•กู<200> •กิน<200>กุ้ง<200> •ปิ้่<200>งอ<200>ยู่<200>ใน<200>ถ้ำ<200></data>
 
 <data>•\u0E01\u0E39<200>\u0020•\u0E01\u0E34\u0E19<200>\u0E01\u0E38\u0E49\u0E07<200>\
@@ -1349,7 +1340,7 @@ part •of •the •Luang •Prabang •Range •(ทิว•เขา•ห�
 #  the end of the word and not treated as an independent punctuation mark.
 #
 #  the one time where the paiyannoi occurs somewhere other than at the end
-#  of a word is in the Thai abbreviation for "etc.", which both begins and
+#  of a word is in the Thai abbrevation for "etc.", which both begins and
 #  ends with a paiyannoi
 #
 <line>
@@ -1442,12 +1433,6 @@ Bangkok)•</data>
 <data>•ດີ•ຂອບໃຈ•</data>
 <data>•ເຈົ້າ•ເວົ້າ•ພາສາ•ອັງກິດ•ໄດ້•ບໍ່•</data>
 <data>•ກະລຸນາ•ເວົ້າ•ຊ້າ•ໆ•</data>
-# More checks for ICU-21413 (check both moved and added entries)
-<line>
-<data>•ກໍ•ກໍ່•ກໍ້•</data>
-<data>•ກວາກຊວາກ•ກະເຈາະກະຈອກ•</data>
-<data>•ກະຊວງປ້ອງກັນຄວາມສະຫງົບ•</data>
-<data>•ໄຮ•ໄຮ່•ໄຮ້•</data>
 
 ##########################################################################################
 #
@@ -1468,8 +1453,7 @@ Bangkok)•</data>
 #
 ##########################################################################################
 
-# Test data originally from
-# ICU-8576 svn r30327 = git commit 62d26cc5fe8cc66696143c44a43d664c2d7be100
+# Test data originally from http://bugs.icu-project.org/trac/search?q=r30327
 #  from the file testdata/wordsegments.txt
 <locale en>
 <word>
@@ -1883,21 +1867,6 @@ Bangkok)•</data>
 <data>•\U0001F468\u200D\u2695\uFE0F•\U0001F468\u200D\u2695•\U0001F468\U0001F3FD\u200D\u2695\uFE0F•\U0001F468\U0001F3FD\u200D\u2695\u0020•</data>
 # woman astronaut, woman astronaut / fitz4
 <data>•\U0001F469\u200D\U0001F680•\U0001F469\U0001F3FD\u200D\U0001F680\u0020•</data>
-
-<locale ja@lw=phrase>
-<line>
-#[京都観光］時雨殿に行った。-> [京都•観光］•時雨•殿に•行った。•
-<data>•\uff3b\u4eac\u90fd•\u89b3\u5149\uff3d•\u6642\u96e8•\u6bbf\u306b•\u884c\u3063\u305f\u3002•</data>
-#９月に東京から友達が遊びに来た -> ９月に•東京から•友達が•遊びに•来た•
-<data>•\uff19\u6708\u306b•\u6771\u4eac\u304b\u3089•\u53cb\u9054\u304c•\u904a\u3073\u306b•\u6765\u305f•</data>
-#る文字「そうだ、京都」-> る•文字•「そうだ、•京都」•
-<data>•\u308b•\u6587\u5b57•\u300c\u305d\u3046\u3060\u3001•\u4eac\u90fd\u300d•</data>
-#乗車率９０％程度だろうか。 -> 乗車•率•９０％•程度だ•ろうか。•
-<data>•\u4e57\u8eca•\u7387•\uff19\uff10\uff05•\u7a0b\u5ea6\u3060•\u308d\u3046\u304b\u3002•</data>
-#［携帯電話］正しい選択 -> ［携帯•電話］•正しい•選択•
-<data>•\uff3b\u643a\u5e2f•\u96fb\u8a71\uff3d•\u6b63\u3057\u3044•\u9078\u629e•</data>
-#純金製百人一首にサッカーボール -> 純金•製•百人一首に•サッカーボール
-<data>•\u7D14\u91D1•\u88FD•\u767E\u4EBA\u4E00\u9996\u306B•\u30B5\u30C3\u30AB\u30FC\u30DC\u30FC\u30EB•</data>
 
 
 ####################################################################################

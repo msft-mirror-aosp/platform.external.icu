@@ -266,7 +266,7 @@ class CalendarFrame extends Frame
                         monthFormat[i] = f;
                     }
                 } catch (ClassCastException e) {
-                    //hey {lw} - there's something wrong in this routine that causes exceptions.
+                    //hey {lw} - there's something wrong in this routine that cuases exceptions.
                     System.out.println(e);
                 }
 

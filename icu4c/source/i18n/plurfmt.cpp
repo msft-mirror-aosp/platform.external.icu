@@ -381,13 +381,13 @@ PluralFormat::operator=(const PluralFormat& other) {
     return *this;
 }
 
-bool
+UBool
 PluralFormat::operator==(const Format& other) const {
     if (this == &other) {
-        return true;
+        return TRUE;
     }
     if (!Format::operator==(other)) {
-        return false;
+        return FALSE;
     }
     const PluralFormat& o = (const PluralFormat&)other;
     return
@@ -400,7 +400,7 @@ PluralFormat::operator==(const Format& other) const {
             *pluralRulesWrapper.pluralRules == *o.pluralRulesWrapper.pluralRules);
 }
 
-bool
+UBool
 PluralFormat::operator!=(const Format& other) const {
     return  !operator==(other);
 }
