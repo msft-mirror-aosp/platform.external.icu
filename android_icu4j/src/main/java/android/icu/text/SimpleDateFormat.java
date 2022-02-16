@@ -38,7 +38,6 @@ import android.icu.lang.UCharacter;
 import android.icu.text.TimeZoneFormat.Style;
 import android.icu.text.TimeZoneFormat.TimeType;
 import android.icu.util.BasicTimeZone;
-import android.icu.util.BasicTimeZone.LocalOption;
 import android.icu.util.Calendar;
 import android.icu.util.HebrewCalendar;
 import android.icu.util.Output;
@@ -1887,9 +1886,7 @@ public class SimpleDateFormat extends DateFormat {
             }
             break;
         case 27: // 'Q' - QUARTER
-            if (count >= 5) {
-                safeAppend(formatData.narrowQuarters, value/3, buf);
-            } else if (count == 4) {
+            if (count >= 4) {
                 safeAppend(formatData.quarters, value/3, buf);
             } else if (count == 3) {
                 safeAppend(formatData.shortQuarters, value/3, buf);
@@ -1898,9 +1895,7 @@ public class SimpleDateFormat extends DateFormat {
             }
             break;
         case 28: // 'q' - STANDALONE QUARTER
-            if (count >= 5) {
-                safeAppend(formatData.standaloneNarrowQuarters, value/3, buf);
-            } else if (count == 4) {
+            if (count >= 4) {
                 safeAppend(formatData.standaloneQuarters, value/3, buf);
             } else if (count == 3) {
                 safeAppend(formatData.standaloneShortQuarters, value/3, buf);
@@ -2357,13 +2352,13 @@ public class SimpleDateFormat extends DateFormat {
     private static final String NUMERIC_FORMAT_CHARS = "ADdFgHhKkmrSsuWwYy";
 
     /**
-     * Format characters that indicate numeric fields when pattern length
+     * Format characters that indicate numeric fields when pattern lengh
      * is up to 2.
      */
     private static final String NUMERIC_FORMAT_CHARS2 = "ceLMQq";
 
     /**
-     * Return true if the given format character, occurring count
+     * Return true if the given format character, occuring count
      * times, represents a numeric field.
      */
     private static final boolean isNumeric(char formatChar, int count) {
@@ -2700,10 +2695,10 @@ public class SimpleDateFormat extends DateFormat {
                     if (btz != null) {
                         if (tztype == TimeType.STANDARD) {
                             btz.getOffsetFromLocal(localMillis,
-                                    LocalOption.STANDARD_FORMER, LocalOption.STANDARD_LATTER, offsets);
+                                    BasicTimeZone.LOCAL_STD, BasicTimeZone.LOCAL_STD, offsets);
                         } else {
                             btz.getOffsetFromLocal(localMillis,
-                                    LocalOption.DAYLIGHT_FORMER, LocalOption.DAYLIGHT_LATTER, offsets);
+                                    BasicTimeZone.LOCAL_DST, BasicTimeZone.LOCAL_DST, offsets);
                         }
                     } else {
                         // No good way to resolve ambiguous time at transition,
@@ -3591,8 +3586,8 @@ public class SimpleDateFormat extends DateFormat {
                 return ~start;
             }
             case 27: // 'Q' - QUARTER
-                if (count <= 2 && number != null) {
-                    // i.e., Q or QQ.
+                if (count <= 2 || (number != null && getBooleanAttribute(DateFormat.BooleanAttribute.PARSE_ALLOW_NUMERIC))) {
+                    // i.e., Q or QQ. or lenient & have number
                     // Don't want to parse the quarter if it is a string
                     // while pattern uses numeric style: Q or QQ.
                     // [We computed 'value' above.]
@@ -3600,7 +3595,7 @@ public class SimpleDateFormat extends DateFormat {
                     return pos.getIndex();
                 } else {
                     // count >= 3 // i.e., QQQ or QQQQ
-                    // Want to be able to parse short, long, and narrow forms.
+                    // Want to be able to parse both short and long forms.
                     // Try count == 4 first:
                     int newStart = 0;
                     if(getBooleanAttribute(DateFormat.BooleanAttribute.PARSE_MULTIPLE_PATTERNS_FOR_MATCH) || count == 4) {
@@ -3610,27 +3605,15 @@ public class SimpleDateFormat extends DateFormat {
                     }
                     // count == 4 failed, now try count == 3
                     if(getBooleanAttribute(DateFormat.BooleanAttribute.PARSE_MULTIPLE_PATTERNS_FOR_MATCH) || count == 3) {
-                        if((newStart = matchQuarterString(text, start, Calendar.MONTH, formatData.shortQuarters, cal)) > 0) {
-                            return newStart;
-                        }
-                    }
-                    // count == 3 failed, now try count == 5
-                    if(getBooleanAttribute(DateFormat.BooleanAttribute.PARSE_MULTIPLE_PATTERNS_FOR_MATCH) || count == 5) {
-                        if ((newStart = matchQuarterString(text, start, Calendar.MONTH, formatData.narrowQuarters, cal)) > 0) {
-                            return newStart;
-                        }
-                    }
-                    // if numeric parsing is on and we got the numeric value already, return it
-                    if (getBooleanAttribute(DateFormat.BooleanAttribute.PARSE_ALLOW_NUMERIC) && number != null) {
-                        cal.set(Calendar.MONTH, (value - 1) * 3);
-                        return pos.getIndex();
+                        return matchQuarterString(text, start, Calendar.MONTH,
+                                           formatData.shortQuarters, cal);
                     }
                     return newStart;
                 }
 
             case 28: // 'q' - STANDALONE QUARTER
-                if (count <= 2 && number != null) {
-                    // i.e., q or qq.
+                if (count <= 2 || (number != null && getBooleanAttribute(DateFormat.BooleanAttribute.PARSE_ALLOW_NUMERIC))) {
+                    // i.e., q or qq. or lenient & have number
                     // Don't want to parse the quarter if it is a string
                     // while pattern uses numeric style: q or qq.
                     // [We computed 'value' above.]
@@ -3638,7 +3621,7 @@ public class SimpleDateFormat extends DateFormat {
                     return pos.getIndex();
                 } else {
                     // count >= 3 // i.e., qqq or qqqq
-                    // Want to be able to parse short, long, and narrow forms.
+                    // Want to be able to parse both short and long forms.
                     // Try count == 4 first:
                     int newStart = 0;
                     if(getBooleanAttribute(DateFormat.BooleanAttribute.PARSE_MULTIPLE_PATTERNS_FOR_MATCH) || count == 4) {
@@ -3648,20 +3631,8 @@ public class SimpleDateFormat extends DateFormat {
                     }
                     // count == 4 failed, now try count == 3
                     if(getBooleanAttribute(DateFormat.BooleanAttribute.PARSE_MULTIPLE_PATTERNS_FOR_MATCH) || count == 3) {
-                        if((newStart = matchQuarterString(text, start, Calendar.MONTH, formatData.standaloneShortQuarters, cal)) > 0) {
-                            return newStart;
-                        }
-                    }
-                    // count == 3 failed, now try count == 5
-                    if(getBooleanAttribute(DateFormat.BooleanAttribute.PARSE_MULTIPLE_PATTERNS_FOR_MATCH) || count == 5) {
-                        if ((newStart = matchQuarterString(text, start, Calendar.MONTH, formatData.standaloneNarrowQuarters, cal)) > 0) {
-                            return newStart;
-                        }
-                    }
-                    // if numeric parsing is on and we got the numeric value already, return it
-                    if (getBooleanAttribute(DateFormat.BooleanAttribute.PARSE_ALLOW_NUMERIC) && number != null) {
-                        cal.set(Calendar.MONTH, (value - 1) * 3);
-                        return pos.getIndex();
+                        return matchQuarterString(text, start, Calendar.MONTH,
+                                           formatData.standaloneShortQuarters, cal);
                     }
                     return newStart;
                 }
@@ -4250,9 +4221,9 @@ public class SimpleDateFormat extends DateFormat {
      * It is supposed to be used only by CLDR survey tool.
      *
      * @param fromCalendar      calendar set to the from date in date interval
-     *                          to be formatted into date interval string
+     *                          to be formatted into date interval stirng
      * @param toCalendar        calendar set to the to date in date interval
-     *                          to be formatted into date interval string
+     *                          to be formatted into date interval stirng
      * @param appendTo          Output parameter to receive result.
      *                          Result is appended to existing contents.
      * @param pos               On input: an alignment field, if desired.

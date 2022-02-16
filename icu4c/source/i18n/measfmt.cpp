@@ -427,12 +427,12 @@ MeasureFormat::~MeasureFormat() {
     delete listFormatter;
 }
 
-bool MeasureFormat::operator==(const Format &other) const {
+UBool MeasureFormat::operator==(const Format &other) const {
     if (this == &other) { // Same object, equal
-        return true;
+        return TRUE;
     }
     if (!Format::operator==(other)) {
-        return false;
+        return FALSE;
     }
     const MeasureFormat &rhs = static_cast<const MeasureFormat &>(other);
 
@@ -441,7 +441,7 @@ bool MeasureFormat::operator==(const Format &other) const {
 
     // differing widths aren't equivalent
     if (fWidth != rhs.fWidth) {
-        return false;
+        return FALSE;
     }
     // Width the same check locales.
     // We don't need to check locales if both objects have same cache.
@@ -451,10 +451,10 @@ bool MeasureFormat::operator==(const Format &other) const {
         const char *rhsLocaleId = rhs.getLocaleID(status);
         if (U_FAILURE(status)) {
             // On failure, assume not equal
-            return false;
+            return FALSE;
         }
         if (uprv_strcmp(localeId, rhsLocaleId) != 0) {
-            return false;
+            return FALSE;
         }
     }
     // Locales same, check NumberFormat if shared data differs.
@@ -581,10 +581,7 @@ void MeasureFormat::initMeasureFormat(
         UMeasureFormatWidth w,
         NumberFormat *nfToAdopt,
         UErrorCode &status) {
-    static const UListFormatterWidth listWidths[] = {
-        ULISTFMT_WIDTH_WIDE,
-        ULISTFMT_WIDTH_SHORT,
-        ULISTFMT_WIDTH_NARROW};
+    static const char *listStyles[] = {"unit", "unit-short", "unit-narrow"};
     LocalPointer<NumberFormat> nf(nfToAdopt);
     if (U_FAILURE(status)) {
         return;
@@ -623,8 +620,7 @@ void MeasureFormat::initMeasureFormat(
     delete listFormatter;
     listFormatter = ListFormatter::createInstance(
             locale,
-            ULISTFMT_TYPE_UNITS,
-            listWidths[getRegularWidth(fWidth)],
+            listStyles[getRegularWidth(fWidth)],
             status);
 }
 
