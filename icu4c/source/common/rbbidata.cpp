@@ -170,17 +170,17 @@ RBBIDataWrapper::~RBBIDataWrapper() {
 //                  should still be ==.
 //
 //-----------------------------------------------------------------------------
-bool RBBIDataWrapper::operator ==(const RBBIDataWrapper &other) const {
+UBool RBBIDataWrapper::operator ==(const RBBIDataWrapper &other) const {
     if (fHeader == other.fHeader) {
-        return true;
+        return TRUE;
     }
     if (fHeader->fLength != other.fHeader->fLength) {
-        return false;
+        return FALSE;
     }
     if (uprv_memcmp(fHeader, other.fHeader, fHeader->fLength) == 0) {
-        return true;
+        return TRUE;
     }
-    return false;
+    return FALSE;
 }
 
 int32_t  RBBIDataWrapper::hashCode() {
@@ -283,7 +283,7 @@ void  RBBIDataWrapper::printData() {
     printTable("Forward State Transition Table", fForwardTable);
     printTable("Reverse State Transition Table", fReverseTable);
 
-    RBBIDebugPrintf("\nOriginal Rules source:\n");
+    RBBIDebugPrintf("\nOrignal Rules source:\n");
     for (int32_t c=0; fRuleSource[c] != 0; c++) {
         RBBIDebugPrintf("%c", fRuleSource[c]);
     }

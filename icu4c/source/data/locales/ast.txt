@@ -254,16 +254,6 @@ ast{
                 "{1}, {0}",
                 "{1}, {0}",
             }
-            DateTimeSkeletons{
-                "HHmmsszzzz",
-                "HHmmssz",
-                "HHmmss",
-                "HHmm",
-                "GyMMMMEEEEdd",
-                "GyMMMMd",
-                "GyMMMd",
-                "GGGGGyyMd",
-            }
             availableFormats{
                 E{"ccc"}
                 Ed{"E d"}
@@ -953,16 +943,6 @@ ast{
                 "{1}, {0}",
                 "{1} {0}",
             }
-            DateTimeSkeletons{
-                "HHmmsszzzz",
-                "HHmmssz",
-                "HHmmss",
-                "HHmm",
-                "GyMMMMEEEEdd",
-                "GyMMMMd",
-                "GyMMMd",
-                "GGGGGyyMd",
-            }
             availableFormats{
                 E{"ccc"}
                 EHm{"E HH:mm"}
@@ -1125,16 +1105,6 @@ ast{
                 "{1} 'a' 'les' {0}",
                 "{1}, {0}",
                 "{1} {0}",
-            }
-            DateTimeSkeletons{
-                "HHmmsszzzz",
-                "HHmmssz",
-                "HHmmss",
-                "HHmm",
-                "yMMMMEEEEd",
-                "yMMMMd",
-                "yMMMd",
-                "yyMd",
             }
             appendItems{
                 Timezone{"{0} {1}"}
@@ -1584,16 +1554,6 @@ ast{
                 "{1}, {0}",
                 "{1} {0}",
             }
-            DateTimeSkeletons{
-                "HHmmsszzzz",
-                "HHmmssz",
-                "HHmmss",
-                "HHmm",
-                "GyMMMMEEEEdd",
-                "GyMMMMd",
-                "GyMMMd",
-                "GGGGGyyMd",
-            }
             availableFormats{
                 E{"ccc"}
                 Ed{"E d"}
@@ -1841,16 +1801,6 @@ ast{
                 "{1} 'a' 'les' {0}",
                 "{1}, {0}",
                 "{1} {0}",
-            }
-            DateTimeSkeletons{
-                "HHmmsszzzz",
-                "HHmmssz",
-                "HHmmss",
-                "HHmm",
-                "GyMMMMEEEEdd",
-                "GyMMMMd",
-                "GyMMMd",
-                "GGGGGyyMd",
             }
             availableFormats{
                 E{"ccc"}
@@ -2909,16 +2859,6 @@ ast{
                 "{1} 'a' 'les' {0}",
                 "{1}, {0}",
                 "{1} {0}",
-            }
-            DateTimeSkeletons{
-                "HHmmsszzzz",
-                "HHmmssz",
-                "HHmmss",
-                "HHmm",
-                "GyMMMMEEEEdd",
-                "GyMMMMd",
-                "GyMMMd",
-                "GGGGGyyMd",
             }
             availableFormats{
                 E{"ccc"}

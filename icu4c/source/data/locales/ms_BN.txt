@@ -30,16 +30,6 @@ ms_BN{
                 "{1} {0}",
                 "{1} {0}",
             }
-            DateTimeSkeletons{
-                "ahmmsszzzz",
-                "ahmmssz",
-                "ahmmss",
-                "ahmm",
-                "GyMMMMdd",
-                "GyMMMMd",
-                "GyMMdd",
-                "GGGGGyMMd",
-            }
         }
         gregorian{
             DateTimePatterns{
@@ -56,16 +46,6 @@ ms_BN{
                 "{1} {0}",
                 "{1}, {0}",
                 "{1}, {0}",
-            }
-            DateTimeSkeletons{
-                "ahmmsszzzz",
-                "ahmmssz",
-                "ahmmss",
-                "ahmm",
-                "yMMMMdd",
-                "yMMMMd",
-                "yMMMd",
-                "yyMMd",
             }
         }
     }
