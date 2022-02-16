@@ -21,14 +21,7 @@
 #include <string>
 #include <cstdio>
 
-
-/**
- * def NO_ANDROID_LOGGING
- *   This flag turns off the usage of liblog, and logs into stderr instead.
- *   This is not expected to be used in Android platform build, but is useful
- *   when building this ICU4C for unbundled library or app.
- */
-#if defined(__ANDROID__) && !defined(NO_ANDROID_LIBLOG)
+#ifdef __ANDROID__
   #include <android-base/logging.h>
   #include <android-base/unique_fd.h>
   #include <log/log.h>

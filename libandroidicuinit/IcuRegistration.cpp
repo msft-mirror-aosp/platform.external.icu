@@ -27,7 +27,7 @@
 #include <unicode/udata.h>
 #include <unicode/utypes.h>
 
-#if !defined(__ANDROID__) || defined(NO_ANDROID_LIBLOG)
+#ifndef __ANDROID__
 static int PriorityToLevel(char priority) {
   // Priority is just the array index of priority in kPriorities.
   static const char* kPriorities = "VDIWEF";
@@ -57,12 +57,12 @@ bool AIcuHostShouldLog(char priority) {
   static int g_LogLevel = GetHostLogLevel();
   return PriorityToLevel(priority) >= g_LogLevel;
 }
-#endif  // !defined(__ANDROID__) || defined(NO_ANDROID_LIBLOG)
+#endif  // __ANDROID__
 
 namespace androidicuinit {
 namespace impl {
 
-#if !defined(__ANDROID__) || defined(NO_ANDROID_LIBLOG)
+#ifndef __ANDROID__
 // http://b/171371690 Avoid dependency on liblog and libbase on host
 // Simplified version of android::base::unique_fd for host.
 class simple_unique_fd final {
@@ -103,10 +103,10 @@ class simple_unique_fd final {
         _rc;                                   \
       })
   #endif
-#endif // !defined(__ANDROID__) || defined(NO_ANDROID_LIBLOG)
+#endif // #ifndef __ANDROID__
 
 // http://b/171371690 Avoid dependency on liblog and libbase on host
-#if defined(__ANDROID__) && !defined(NO_ANDROID_LIBLOG)
+#ifdef __ANDROID__
   typedef android::base::unique_fd aicu_unique_fd;
 #else
   typedef simple_unique_fd aicu_unique_fd;

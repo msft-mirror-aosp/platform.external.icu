@@ -893,7 +893,7 @@ public class IslamicCalendar extends Calendar {
      */
     public enum CalculationType {
         /**
-         * Religious calendar (astronomical simulation)
+         * Religious calendar (atronomical simulation)
          */
         ISLAMIC             ("islamic"),
         /**

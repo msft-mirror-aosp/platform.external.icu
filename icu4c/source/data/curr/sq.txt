@@ -335,10 +335,6 @@ sq{
             "LRD",
             "Dollari liberian",
         }
-        LSL{
-            "LSL",
-            "Lota lesotiane",
-        }
         LTL{
             "LTL",
             "Lita lituaneze",
@@ -632,7 +628,7 @@ sq{
             "Dollari i Karaibeve Lindore",
         }
         XOF{
-            "F CFA",
+            "CFA",
             "Franga e Bregut të Fildishtë",
         }
         XPF{
@@ -672,6 +668,7 @@ sq{
         BRL{"BRL"}
         BSD{"BSD"}
         BWP{"BWP"}
+        BYN{"BYN"}
         BZD{"BZD"}
         CAD{"CAD"}
         CLP{"CLP"}
@@ -1088,10 +1085,6 @@ sq{
         LRD{
             one{"dollar liberian"}
             other{"dollarë liberian"}
-        }
-        LSL{
-            one{"lotë lesotiane"}
-            other{"lota lesotiane"}
         }
         LTL{
             one{"litë lituaneze"}

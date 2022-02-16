@@ -158,15 +158,20 @@ public final class LocaleMatcher {
      *
      * @see LocaleMatcher.Builder#setDirection(LocaleMatcher.Direction)
      * @hide Only a subset of ICU is exposed in Android
+     * @hide draft / provisional / internal are hidden on Android
      */
     public enum Direction {
         /**
          * Locale matching includes one-way matches such as Breton→French. (default)
+         *
+         * @hide draft / provisional / internal are hidden on Android
          */
         WITH_ONE_WAY,
         /**
          * Locale matching limited to two-way matches including e.g. Danish↔Norwegian
          * but ignoring one-way matches.
+         *
+         * @hide draft / provisional / internal are hidden on Android
          */
         ONLY_TWO_WAY
     }
@@ -424,6 +429,8 @@ public final class LocaleMatcher {
          * There will be no explicit or implicit default locale.
          * If there is no good match, then the matcher will return null for the
          * best supported locale.
+         *
+         * @hide draft / provisional / internal are hidden on Android
          */
         public Builder setNoDefaultLocale() {
             this.defaultLocale = null;
@@ -492,6 +499,7 @@ public final class LocaleMatcher {
          *
          * @param direction the match direction to set.
          * @return this Builder object
+         * @hide draft / provisional / internal are hidden on Android
          */
         public Builder setDirection(Direction direction) {
             this.direction = direction;
@@ -517,6 +525,7 @@ public final class LocaleMatcher {
          * @param desired the desired locale for distance comparison.
          * @param supported the supported locale for distance comparison.
          * @return this Builder object
+         * @hide draft / provisional / internal are hidden on Android
          */
         public Builder setMaxDistance(Locale desired, Locale supported) {
             if (desired == null || supported == null) {
@@ -544,6 +553,7 @@ public final class LocaleMatcher {
          * @param desired the desired locale for distance comparison.
          * @param supported the supported locale for distance comparison.
          * @return this Builder object
+         * @hide draft / provisional / internal are hidden on Android
          */
         public Builder setMaxDistance(ULocale desired, ULocale supported) {
             if (desired == null || supported == null) {
@@ -1047,6 +1057,7 @@ public final class LocaleMatcher {
      * @param desired The desired locale.
      * @param supported The supported locale.
      * @return true if the pair of locales matches acceptably.
+     * @hide draft / provisional / internal are hidden on Android
      */
     public boolean isMatch(Locale desired, Locale supported) {
         int indexAndDistance = LocaleDistance.INSTANCE.getBestIndexAndDistance(
@@ -1064,6 +1075,7 @@ public final class LocaleMatcher {
      * @param desired The desired locale.
      * @param supported The supported locale.
      * @return true if the pair of locales matches acceptably.
+     * @hide draft / provisional / internal are hidden on Android
      */
     public boolean isMatch(ULocale desired, ULocale supported) {
         int indexAndDistance = LocaleDistance.INSTANCE.getBestIndexAndDistance(
