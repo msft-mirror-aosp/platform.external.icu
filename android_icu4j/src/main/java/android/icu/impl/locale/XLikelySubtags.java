@@ -196,9 +196,8 @@ public final class XLikelySubtags {
         String name = locale.getName();  // Faster than .toLanguageTag().
         if (name.startsWith("@x=")) {
             String tag = locale.toLanguageTag();
-            assert tag.startsWith("und-x-");
-            // Private use language tag x-subtag-subtag... which CLDR changes to
-            // und-x-subtag-subtag...
+            assert tag.startsWith("x-");
+            // Private use language tag x-subtag-subtag...
             return new LSR(tag, "", "", LSR.EXPLICIT_LSR);
         }
         return makeMaximizedLsr(locale.getLanguage(), locale.getScript(), locale.getCountry(),
@@ -207,9 +206,8 @@ public final class XLikelySubtags {
 
     public LSR makeMaximizedLsrFrom(Locale locale) {
         String tag = locale.toLanguageTag();
-        if (tag.startsWith("x-") || tag.startsWith("und-x-")) {
-            // Private use language tag x-subtag-subtag... which CLDR changes to
-            // und-x-subtag-subtag...
+        if (tag.startsWith("x-")) {
+            // Private use language tag x-subtag-subtag...
             return new LSR(tag, "", "", LSR.EXPLICIT_LSR);
         }
         return makeMaximizedLsr(locale.getLanguage(), locale.getScript(), locale.getCountry(),

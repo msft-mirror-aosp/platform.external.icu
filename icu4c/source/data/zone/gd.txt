@@ -1977,9 +1977,6 @@ gd{
             lg{"Àm Yekaterinburg"}
             ls{"Bun-àm Yekaterinburg"}
         }
-        "meta:Yukon"{
-            ls{"Àm Yukon"}
-        }
         fallbackFormat{"{1} ({0})"}
         gmtFormat{"GMT{0}"}
         gmtZeroFormat{"GMT"}
