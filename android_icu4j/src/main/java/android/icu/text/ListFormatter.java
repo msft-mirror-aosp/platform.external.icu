@@ -51,42 +51,121 @@ final public class ListFormatter {
     private final PatternHandler patternHandler;
 
     /**
+     * Indicates the style of Listformatter
+     * TODO(ICU-20888): Remove this in ICU 68.
+     * @deprecated This API is ICU internal only.
+     * @hide Only a subset of ICU is exposed in Android
+     * @hide draft / provisional / internal are hidden on Android
+     */
+    @Deprecated
+    public enum Style {
+        /**
+         * Standard, conjunction style.
+         * @deprecated This API is ICU internal only.
+         * @hide draft / provisional / internal are hidden on Android
+         */
+        @Deprecated
+        STANDARD("standard"),
+        /**
+         * Disjunction style.
+         * @deprecated This API is ICU internal only.
+         * @hide draft / provisional / internal are hidden on Android
+         */
+        @Deprecated
+        OR("or"),
+        /**
+         * Style for full units
+         * @deprecated This API is ICU internal only.
+         * @hide draft / provisional / internal are hidden on Android
+         */
+        @Deprecated
+        UNIT("unit"),
+        /**
+         * Style for units in abbrevated form
+         * @deprecated This API is ICU internal only.
+         * @hide draft / provisional / internal are hidden on Android
+         */
+        @Deprecated
+        UNIT_SHORT("unit-short"),
+        /**
+         * Style for units in narrow form
+         * @deprecated This API is ICU internal only.
+         * @hide draft / provisional / internal are hidden on Android
+         */
+        @Deprecated
+        UNIT_NARROW("unit-narrow");
+
+        private final String name;
+
+        Style(String name) {
+            this.name = name;
+        }
+        /**
+         * @deprecated This API is ICU internal only.
+         * @hide draft / provisional / internal are hidden on Android
+         */
+        @Deprecated
+        public String getName() {
+            return name;
+        }
+
+    }
+
+    /**
      * Type of meaning expressed by the list.
+     *
+     * @hide Only a subset of ICU is exposed in Android
+     * @hide draft / provisional / internal are hidden on Android
      */
     public enum Type {
         /**
          * Conjunction formatting, e.g. "Alice, Bob, Charlie, and Delta".
+         *
+         * @hide draft / provisional / internal are hidden on Android
          */
         AND,
 
         /**
          * Disjunction (or alternative, or simply one of) formatting, e.g.
          * "Alice, Bob, Charlie, or Delta".
+         *
+         * @hide draft / provisional / internal are hidden on Android
          */
         OR,
 
         /**
          * Formatting of a list of values with units, e.g. "5 pounds, 12 ounces".
+         *
+         * @hide draft / provisional / internal are hidden on Android
          */
         UNITS
     };
 
     /**
      * Verbosity level of the list patterns.
+     *
+     * @hide Only a subset of ICU is exposed in Android
+     * @hide draft / provisional / internal are hidden on Android
      */
     public enum Width {
         /**
          * Use list formatting with full words (no abbreviations) when possible.
+         *
+         * @hide draft / provisional / internal are hidden on Android
          */
         WIDE,
 
         /**
          * Use list formatting of typical length.
+         *
+         * @hide draft / provisional / internal are hidden on Android
          */
         SHORT,
 
         /**
          * Use list formatting of the shortest possible length.
+         *
+         * @hide draft / provisional / internal are hidden on Android
          */
         NARROW,
     };
@@ -95,6 +174,7 @@ final public class ListFormatter {
      * Class for span fields in FormattedList.
      *
      * @hide Only a subset of ICU is exposed in Android
+     * @hide draft / provisional / internal are hidden on Android
      */
     public static final class SpanField extends UFormat.SpanField {
         private static final long serialVersionUID = 3563544214705634403L;
@@ -104,6 +184,8 @@ final public class ListFormatter {
          *
          * Instances of LIST_SPAN should have an associated value, the index
          * within the input list that is represented by the span.
+         *
+         * @hide draft / provisional / internal are hidden on Android
          */
         public static final SpanField LIST_SPAN = new SpanField("list-span");
 
@@ -130,17 +212,20 @@ final public class ListFormatter {
     /**
      * Field selectors for format fields defined by ListFormatter.
      * @hide Only a subset of ICU is exposed in Android
+     * @hide draft / provisional / internal are hidden on Android
      */
     public static final class Field extends Format.Field {
         private static final long serialVersionUID = -8071145668708265437L;
 
         /**
          * The literal text in the result which came from the resources.
+         * @hide draft / provisional / internal are hidden on Android
          */
         public static Field LITERAL = new Field("literal");
 
         /**
          * The element text in the result which came from the input strings.
+         * @hide draft / provisional / internal are hidden on Android
          */
         public static Field ELEMENT = new Field("element");
 
@@ -149,12 +234,10 @@ final public class ListFormatter {
         }
 
         /**
-         * Serialization method resolve instances to the constant Field values
+         * Serizalization method resolve instances to the constant Field values
          *
-         * @deprecated This API is ICU internal only.
          * @hide draft / provisional / internal are hidden on Android
          */
-        @Deprecated
         @Override
         protected Object readResolve() throws InvalidObjectException {
             if (this.getName().equals(LITERAL.getName()))
@@ -172,6 +255,9 @@ final public class ListFormatter {
      * Instances of this class are immutable and thread-safe.
      *
      * Not intended for public subclassing.
+     *
+     * @hide Only a subset of ICU is exposed in Android
+     * @hide draft / provisional / internal are hidden on Android
      */
     public static final class FormattedList implements FormattedValue {
         private final FormattedStringBuilder string;
@@ -182,6 +268,7 @@ final public class ListFormatter {
 
         /**
          * {@inheritDoc}
+         * @hide draft / provisional / internal are hidden on Android
          */
         @Override
         public String toString() {
@@ -190,6 +277,7 @@ final public class ListFormatter {
 
         /**
          * {@inheritDoc}
+         * @hide draft / provisional / internal are hidden on Android
          */
         @Override
         public int length() {
@@ -198,6 +286,7 @@ final public class ListFormatter {
 
         /**
          * {@inheritDoc}
+         * @hide draft / provisional / internal are hidden on Android
          */
         @Override
         public char charAt(int index) {
@@ -206,6 +295,7 @@ final public class ListFormatter {
 
         /**
          * {@inheritDoc}
+         * @hide draft / provisional / internal are hidden on Android
          */
         @Override
         public CharSequence subSequence(int start, int end) {
@@ -214,6 +304,7 @@ final public class ListFormatter {
 
         /**
          * {@inheritDoc}
+         * @hide draft / provisional / internal are hidden on Android
          */
         @Override
         public <A extends Appendable> A appendTo(A appendable) {
@@ -222,6 +313,7 @@ final public class ListFormatter {
 
         /**
          * {@inheritDoc}
+         * @hide draft / provisional / internal are hidden on Android
          */
         @Override
         public boolean nextPosition(ConstrainedFieldPosition cfpos) {
@@ -230,6 +322,7 @@ final public class ListFormatter {
 
         /**
          * {@inheritDoc}
+         * @hide draft / provisional / internal are hidden on Android
          */
         @Override
         public AttributedCharacterIterator toCharacterIterator() {
@@ -283,6 +376,7 @@ final public class ListFormatter {
      * @param locale
      *            the locale in question.
      * @return ListFormatter
+     * @hide draft / provisional / internal are hidden on Android
      */
     public static ListFormatter getInstance(ULocale locale, Type type, Width width) {
         String styleName = typeWidthToStyleString(type, width);
@@ -298,9 +392,24 @@ final public class ListFormatter {
      * @param locale
      *            the locale in question.
      * @return ListFormatter
+     * @hide draft / provisional / internal are hidden on Android
      */
     public static ListFormatter getInstance(Locale locale, Type type, Width width) {
         return getInstance(ULocale.forLocale(locale), type, width);
+    }
+
+    /**
+     * Create a list formatter that is appropriate for a locale and style.
+     *
+     * @param locale the locale in question.
+     * @param style the style
+     * @return ListFormatter
+     * @deprecated This API is ICU internal only.
+     * @hide draft / provisional / internal are hidden on Android
+     */
+    @Deprecated
+    public static ListFormatter getInstance(ULocale locale, Style style) {
+        return cache.get(locale, style.getName());
     }
 
     /**
@@ -311,7 +420,7 @@ final public class ListFormatter {
      * @return ListFormatter
      */
     public static ListFormatter getInstance(ULocale locale) {
-      return getInstance(locale, Type.AND, Width.WIDE);
+      return getInstance(locale, Style.STANDARD);
     }
 
     /**
@@ -322,7 +431,7 @@ final public class ListFormatter {
      * @return ListFormatter
      */
     public static ListFormatter getInstance(Locale locale) {
-        return getInstance(ULocale.forLocale(locale), Type.AND, Width.WIDE);
+        return getInstance(ULocale.forLocale(locale), Style.STANDARD);
     }
 
     /**
@@ -363,6 +472,7 @@ final public class ListFormatter {
      * @param items
      *            items to format. The toString() method is called on each.
      * @return items formatted into a FormattedList
+     * @hide draft / provisional / internal are hidden on Android
      */
     public FormattedList formatToValue(Object... items) {
         return formatToValue(Arrays.asList(items));
@@ -376,6 +486,7 @@ final public class ListFormatter {
      * @param items
      *            items to format. The toString() method is called on each.
      * @return items formatted into a FormattedList
+     * @hide draft / provisional / internal are hidden on Android
      */
     public FormattedList formatToValue(Collection<?> items) {
         return formatImpl(items, true).toValue();
@@ -587,17 +698,14 @@ final public class ListFormatter {
         }
 
         private void appendElement(Object element, int position) {
-            String elementString = element.toString();
             if (needsFields) {
                 SpanFieldPlaceholder field = new SpanFieldPlaceholder();
                 field.spanField = SpanField.LIST_SPAN;
                 field.normalField = Field.ELEMENT;
                 field.value = position;
-                field.start = -1;
-                field.length = elementString.length();
-                string.append(elementString, field);
+                string.append(element.toString(), field);
             } else {
-                string.append(elementString, null);
+                string.append(element.toString(), null);
             }
         }
 

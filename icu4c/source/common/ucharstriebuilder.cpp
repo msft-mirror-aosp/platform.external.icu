@@ -290,13 +290,13 @@ UCharsTrieBuilder::UCTLinearMatchNode::UCTLinearMatchNode(const UChar *units, in
     hash=hash*37u+ustr_hashUCharsN(units, len);
 }
 
-bool
+UBool
 UCharsTrieBuilder::UCTLinearMatchNode::operator==(const Node &other) const {
     if(this==&other) {
-        return true;
+        return TRUE;
     }
     if(!LinearMatchNode::operator==(other)) {
-        return false;
+        return FALSE;
     }
     const UCTLinearMatchNode &o=(const UCTLinearMatchNode &)other;
     return 0==u_memcmp(s, o.s, length);

@@ -31,7 +31,6 @@ cc_test_library {
     sdk_version: "current",
     stl: "c++_static",
     srcs: ["src/*.cpp"],
-    header_libs: ["jni_headers"],
     shared_libs: [
         "libicu",
         "liblog",

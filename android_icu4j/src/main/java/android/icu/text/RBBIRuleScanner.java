@@ -210,7 +210,7 @@ class RBBIRuleScanner {
             break;
 
         case RBBIRuleParseTable.doEndAssign: {
-            // We have reached the end of an assignment statement.
+            // We have reached the end of an assignement statement.
             //   Current scan char is the ';' that terminates the assignment.
 
             // Terminate expression, leaves expression parse tree rooted in TOS
@@ -724,9 +724,6 @@ class RBBIRuleScanner {
             return -1;
         }
         ch = UTF16.charAt(fRB.fRules, fNextIndex);
-        if (Character.isBmpCodePoint(ch) && Character.isSurrogate((char)ch)) {
-            error(RBBIRuleBuilder.U_ILLEGAL_CHAR_FOUND);
-        }
         fNextIndex = UTF16.moveCodePointOffset(fRB.fRules, fNextIndex, 1);
 
         if (ch == '\r' ||
@@ -824,18 +821,19 @@ class RBBIRuleScanner {
 
             //
             //  check for backslash escaped characters.
+            //  Use String.unescapeAt() to handle them.
             //
             if (c.fChar == '\\') {
                 c.fEscaped = true;
-                int cpAndLength = Utility.unescapeAndLengthAt(fRB.fRules, fNextIndex);
-                if (cpAndLength < 0) {
+                int[] unescapeIndex = new int[1];
+                unescapeIndex[0] = fNextIndex;
+                c.fChar = Utility.unescapeAt(fRB.fRules, unescapeIndex);
+                if (unescapeIndex[0] == fNextIndex) {
                     error(RBBIRuleBuilder.U_BRK_HEX_DIGITS_EXPECTED);
                 }
-                c.fChar = Utility.cpFromCodePointAndLength(cpAndLength);
-                int length = Utility.lengthFromCodePointAndLength(cpAndLength);
 
-                fCharNum += length;
-                fNextIndex += length;
+                fCharNum += unescapeIndex[0] - fNextIndex;
+                fNextIndex = unescapeIndex[0];
             }
         }
         // putc(c.fChar, stdout);

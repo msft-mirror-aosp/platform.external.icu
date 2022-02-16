@@ -1938,9 +1938,6 @@ mr{
             lg{"येकतरिनबर्ग वेळ"}
             ls{"येकतरिनबर्ग प्रमाण वेळ"}
         }
-        "meta:Yukon"{
-            ls{"युकोन वेळ"}
-        }
         fallbackFormat{"{1} ({0})"}
         gmtFormat{"[GMT]{0}"}
         gmtZeroFormat{"[GMT]"}

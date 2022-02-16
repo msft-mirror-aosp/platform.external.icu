@@ -17,8 +17,6 @@
 */
 
 /**
- * @addtogroup ICU4C
- * @{
  * \file
  * \brief C API: 16-bit Unicode handling macros
  * 
@@ -48,7 +46,7 @@
  * Does this code unit alone encode a code point (BMP, not a surrogate)?
  * @param c 16-bit code unit
  * @return true or false
- * \xrefitem stable "Stable" "Stable List" ICU 2.4
+ * @stable ICU 2.4
  */
 #define U16_IS_SINGLE(c) !U_IS_SURROGATE(c)
 
@@ -56,7 +54,7 @@
  * Is this code unit a lead surrogate (U+d800..U+dbff)?
  * @param c 16-bit code unit
  * @return true or false
- * \xrefitem stable "Stable" "Stable List" ICU 2.4
+ * @stable ICU 2.4
  */
 #define U16_IS_LEAD(c) (((c)&0xfffffc00)==0xd800)
 
@@ -64,7 +62,7 @@
  * Is this code unit a trail surrogate (U+dc00..U+dfff)?
  * @param c 16-bit code unit
  * @return true or false
- * \xrefitem stable "Stable" "Stable List" ICU 2.4
+ * @stable ICU 2.4
  */
 #define U16_IS_TRAIL(c) (((c)&0xfffffc00)==0xdc00)
 
@@ -72,7 +70,7 @@
  * Is this code unit a surrogate (U+d800..U+dfff)?
  * @param c 16-bit code unit
  * @return true or false
- * \xrefitem stable "Stable" "Stable List" ICU 2.4
+ * @stable ICU 2.4
  */
 #define U16_IS_SURROGATE(c) U_IS_SURROGATE(c)
 
@@ -81,7 +79,7 @@
  * is it a lead surrogate?
  * @param c 16-bit code unit
  * @return true or false
- * \xrefitem stable "Stable" "Stable List" ICU 2.4
+ * @stable ICU 2.4
  */
 #define U16_IS_SURROGATE_LEAD(c) (((c)&0x400)==0)
 
@@ -90,13 +88,13 @@
  * is it a trail surrogate?
  * @param c 16-bit code unit
  * @return true or false
- * \xrefitem stable "Stable" "Stable List" ICU 4.2
+ * @stable ICU 4.2
  */
 #define U16_IS_SURROGATE_TRAIL(c) (((c)&0x400)!=0)
 
 /**
  * Helper constant for U16_GET_SUPPLEMENTARY.
- * \xrefitem internal "Internal"  "Internal List"  Do not use. This API is for internal use only.
+ * @internal
  */
 #define U16_SURROGATE_OFFSET ((0xd800<<10UL)+0xdc00-0x10000)
 
@@ -109,7 +107,7 @@
  * @param lead lead surrogate (U+d800..U+dbff)
  * @param trail trail surrogate (U+dc00..U+dfff)
  * @return supplementary code point (U+10000..U+10ffff)
- * \xrefitem stable "Stable" "Stable List" ICU 2.4
+ * @stable ICU 2.4
  */
 #define U16_GET_SUPPLEMENTARY(lead, trail) \
     (((UChar32)(lead)<<10UL)+(UChar32)(trail)-U16_SURROGATE_OFFSET)
@@ -120,7 +118,7 @@
  * supplementary code point (0x10000..0x10ffff).
  * @param supplementary 32-bit code point (U+10000..U+10ffff)
  * @return lead surrogate (U+d800..U+dbff) for supplementary
- * \xrefitem stable "Stable" "Stable List" ICU 2.4
+ * @stable ICU 2.4
  */
 #define U16_LEAD(supplementary) (UChar)(((supplementary)>>10)+0xd7c0)
 
@@ -129,7 +127,7 @@
  * supplementary code point (0x10000..0x10ffff).
  * @param supplementary 32-bit code point (U+10000..U+10ffff)
  * @return trail surrogate (U+dc00..U+dfff) for supplementary
- * \xrefitem stable "Stable" "Stable List" ICU 2.4
+ * @stable ICU 2.4
  */
 #define U16_TRAIL(supplementary) (UChar)(((supplementary)&0x3ff)|0xdc00)
 
@@ -138,14 +136,14 @@
  * The result is not defined if c is not a Unicode code point (U+0000..U+10ffff).
  * @param c 32-bit code point
  * @return 1 or 2
- * \xrefitem stable "Stable" "Stable List" ICU 2.4
+ * @stable ICU 2.4
  */
 #define U16_LENGTH(c) ((uint32_t)(c)<=0xffff ? 1 : 2)
 
 /**
  * The maximum number of 16-bit code units per Unicode code point (U+0000..U+10ffff).
  * @return 2
- * \xrefitem stable "Stable" "Stable List" ICU 2.4
+ * @stable ICU 2.4
  */
 #define U16_MAX_LENGTH 2
 
@@ -164,7 +162,7 @@
  * @param i string offset
  * @param c output UChar32 variable
  * @see U16_GET
- * \xrefitem stable "Stable" "Stable List" ICU 2.4
+ * @stable ICU 2.4
  */
 #define U16_GET_UNSAFE(s, i, c) UPRV_BLOCK_MACRO_BEGIN { \
     (c)=(s)[i]; \
@@ -198,7 +196,7 @@
  * @param length string length
  * @param c output UChar32 variable
  * @see U16_GET_UNSAFE
- * \xrefitem stable "Stable" "Stable List" ICU 2.4
+ * @stable ICU 2.4
  */
 #define U16_GET(s, start, i, length, c) UPRV_BLOCK_MACRO_BEGIN { \
     (c)=(s)[i]; \
@@ -237,7 +235,7 @@
  * @param length string length
  * @param c output UChar32 variable
  * @see U16_GET_UNSAFE
- * \xrefitem stable "Stable" "Stable List" ICU 60
+ * @stable ICU 60
  */
 #define U16_GET_OR_FFFD(s, start, i, length, c) UPRV_BLOCK_MACRO_BEGIN { \
     (c)=(s)[i]; \
@@ -278,7 +276,7 @@
  * @param i string offset
  * @param c output UChar32 variable
  * @see U16_NEXT
- * \xrefitem stable "Stable" "Stable List" ICU 2.4
+ * @stable ICU 2.4
  */
 #define U16_NEXT_UNSAFE(s, i, c) UPRV_BLOCK_MACRO_BEGIN { \
     (c)=(s)[(i)++]; \
@@ -306,7 +304,7 @@
  * @param length string length
  * @param c output UChar32 variable
  * @see U16_NEXT_UNSAFE
- * \xrefitem stable "Stable" "Stable List" ICU 2.4
+ * @stable ICU 2.4
  */
 #define U16_NEXT(s, i, length, c) UPRV_BLOCK_MACRO_BEGIN { \
     (c)=(s)[(i)++]; \
@@ -338,7 +336,7 @@
  * @param length string length
  * @param c output UChar32 variable
  * @see U16_NEXT_UNSAFE
- * \xrefitem stable "Stable" "Stable List" ICU 60
+ * @stable ICU 60
  */
 #define U16_NEXT_OR_FFFD(s, i, length, c) UPRV_BLOCK_MACRO_BEGIN { \
     (c)=(s)[(i)++]; \
@@ -364,7 +362,7 @@
  * @param i string offset
  * @param c code point to append
  * @see U16_APPEND
- * \xrefitem stable "Stable" "Stable List" ICU 2.4
+ * @stable ICU 2.4
  */
 #define U16_APPEND_UNSAFE(s, i, c) UPRV_BLOCK_MACRO_BEGIN { \
     if((uint32_t)(c)<=0xffff) { \
@@ -390,7 +388,7 @@
  * @param c code point to append
  * @param isError output UBool set to true if an error occurs, otherwise not modified
  * @see U16_APPEND_UNSAFE
- * \xrefitem stable "Stable" "Stable List" ICU 2.4
+ * @stable ICU 2.4
  */
 #define U16_APPEND(s, i, capacity, c, isError) UPRV_BLOCK_MACRO_BEGIN { \
     if((uint32_t)(c)<=0xffff) { \
@@ -411,7 +409,7 @@
  * @param s const UChar * string
  * @param i string offset
  * @see U16_FWD_1
- * \xrefitem stable "Stable" "Stable List" ICU 2.4
+ * @stable ICU 2.4
  */
 #define U16_FWD_1_UNSAFE(s, i) UPRV_BLOCK_MACRO_BEGIN { \
     if(U16_IS_LEAD((s)[(i)++])) { \
@@ -430,7 +428,7 @@
  * @param i string offset, must be i<length
  * @param length string length
  * @see U16_FWD_1_UNSAFE
- * \xrefitem stable "Stable" "Stable List" ICU 2.4
+ * @stable ICU 2.4
  */
 #define U16_FWD_1(s, i, length) UPRV_BLOCK_MACRO_BEGIN { \
     if(U16_IS_LEAD((s)[(i)++]) && (i)!=(length) && U16_IS_TRAIL((s)[i])) { \
@@ -448,7 +446,7 @@
  * @param i string offset
  * @param n number of code points to skip
  * @see U16_FWD_N
- * \xrefitem stable "Stable" "Stable List" ICU 2.4
+ * @stable ICU 2.4
  */
 #define U16_FWD_N_UNSAFE(s, i, n) UPRV_BLOCK_MACRO_BEGIN { \
     int32_t __N=(n); \
@@ -471,7 +469,7 @@
  * @param length int32_t string length
  * @param n number of code points to skip
  * @see U16_FWD_N_UNSAFE
- * \xrefitem stable "Stable" "Stable List" ICU 2.4
+ * @stable ICU 2.4
  */
 #define U16_FWD_N(s, i, length, n) UPRV_BLOCK_MACRO_BEGIN { \
     int32_t __N=(n); \
@@ -492,7 +490,7 @@
  * @param s const UChar * string
  * @param i string offset
  * @see U16_SET_CP_START
- * \xrefitem stable "Stable" "Stable List" ICU 2.4
+ * @stable ICU 2.4
  */
 #define U16_SET_CP_START_UNSAFE(s, i) UPRV_BLOCK_MACRO_BEGIN { \
     if(U16_IS_TRAIL((s)[i])) { \
@@ -512,7 +510,7 @@
  * @param start starting string offset (usually 0)
  * @param i string offset, must be start<=i
  * @see U16_SET_CP_START_UNSAFE
- * \xrefitem stable "Stable" "Stable List" ICU 2.4
+ * @stable ICU 2.4
  */
 #define U16_SET_CP_START(s, start, i) UPRV_BLOCK_MACRO_BEGIN { \
     if(U16_IS_TRAIL((s)[i]) && (i)>(start) && U16_IS_LEAD((s)[(i)-1])) { \
@@ -540,7 +538,7 @@
  * @param i string offset
  * @param c output UChar32 variable
  * @see U16_PREV
- * \xrefitem stable "Stable" "Stable List" ICU 2.4
+ * @stable ICU 2.4
  */
 #define U16_PREV_UNSAFE(s, i, c) UPRV_BLOCK_MACRO_BEGIN { \
     (c)=(s)[--(i)]; \
@@ -567,7 +565,7 @@
  * @param i string offset, must be start<i
  * @param c output UChar32 variable
  * @see U16_PREV_UNSAFE
- * \xrefitem stable "Stable" "Stable List" ICU 2.4
+ * @stable ICU 2.4
  */
 #define U16_PREV(s, start, i, c) UPRV_BLOCK_MACRO_BEGIN { \
     (c)=(s)[--(i)]; \
@@ -598,7 +596,7 @@
  * @param i string offset, must be start<i
  * @param c output UChar32 variable
  * @see U16_PREV_UNSAFE
- * \xrefitem stable "Stable" "Stable List" ICU 60
+ * @stable ICU 60
  */
 #define U16_PREV_OR_FFFD(s, start, i, c) UPRV_BLOCK_MACRO_BEGIN { \
     (c)=(s)[--(i)]; \
@@ -622,7 +620,7 @@
  * @param s const UChar * string
  * @param i string offset
  * @see U16_BACK_1
- * \xrefitem stable "Stable" "Stable List" ICU 2.4
+ * @stable ICU 2.4
  */
 #define U16_BACK_1_UNSAFE(s, i) UPRV_BLOCK_MACRO_BEGIN { \
     if(U16_IS_TRAIL((s)[--(i)])) { \
@@ -640,7 +638,7 @@
  * @param start starting string offset (usually 0)
  * @param i string offset, must be start<i
  * @see U16_BACK_1_UNSAFE
- * \xrefitem stable "Stable" "Stable List" ICU 2.4
+ * @stable ICU 2.4
  */
 #define U16_BACK_1(s, start, i) UPRV_BLOCK_MACRO_BEGIN { \
     if(U16_IS_TRAIL((s)[--(i)]) && (i)>(start) && U16_IS_LEAD((s)[(i)-1])) { \
@@ -659,7 +657,7 @@
  * @param i string offset
  * @param n number of code points to skip
  * @see U16_BACK_N
- * \xrefitem stable "Stable" "Stable List" ICU 2.4
+ * @stable ICU 2.4
  */
 #define U16_BACK_N_UNSAFE(s, i, n) UPRV_BLOCK_MACRO_BEGIN { \
     int32_t __N=(n); \
@@ -681,7 +679,7 @@
  * @param i string offset, must be start<i
  * @param n number of code points to skip
  * @see U16_BACK_N_UNSAFE
- * \xrefitem stable "Stable" "Stable List" ICU 2.4
+ * @stable ICU 2.4
  */
 #define U16_BACK_N(s, start, i, n) UPRV_BLOCK_MACRO_BEGIN { \
     int32_t __N=(n); \
@@ -702,7 +700,7 @@
  * @param s const UChar * string
  * @param i string offset
  * @see U16_SET_CP_LIMIT
- * \xrefitem stable "Stable" "Stable List" ICU 2.4
+ * @stable ICU 2.4
  */
 #define U16_SET_CP_LIMIT_UNSAFE(s, i) UPRV_BLOCK_MACRO_BEGIN { \
     if(U16_IS_LEAD((s)[(i)-1])) { \
@@ -725,7 +723,7 @@
  * @param i int32_t string offset, start<=i<=length
  * @param length int32_t string length
  * @see U16_SET_CP_LIMIT_UNSAFE
- * \xrefitem stable "Stable" "Stable List" ICU 2.4
+ * @stable ICU 2.4
  */
 #define U16_SET_CP_LIMIT(s, start, i, length) UPRV_BLOCK_MACRO_BEGIN { \
     if((start)<(i) && ((i)<(length) || (length)<0) && U16_IS_LEAD((s)[(i)-1]) && U16_IS_TRAIL((s)[i])) { \
@@ -734,5 +732,3 @@
 } UPRV_BLOCK_MACRO_END
 
 #endif
-
-/** @} */ // addtogroup

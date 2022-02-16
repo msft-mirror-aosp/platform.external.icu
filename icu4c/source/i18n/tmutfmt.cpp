@@ -327,7 +327,7 @@ TimeUnitFormat::setup(UErrorCode& err) {
     }
     UnicodeString* pluralCount;
     while ((pluralCount = const_cast<UnicodeString*>(keywords->snext(err))) != NULL) {
-      pluralCounts.addElementX(pluralCount, err);
+      pluralCounts.addElement(pluralCount, err);
     }
     readFromCurrentLocale(UTMUTFMT_FULL_STYLE, gUnitsTag, pluralCounts, err);
     checkConsistency(UTMUTFMT_FULL_STYLE, gUnitsTag, err);
@@ -362,7 +362,7 @@ struct TimeUnitFormatReadSink : public ResourceSink {
 
     virtual ~TimeUnitFormatReadSink();
 
-    virtual void put(const char *key, ResourceValue &value, UBool, UErrorCode &errorCode) override {
+    virtual void put(const char *key, ResourceValue &value, UBool, UErrorCode &errorCode) {
         // Skip all put() calls except the first one -- discard all fallback data.
         if (beenHere) {
             return;

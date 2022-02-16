@@ -1904,9 +1904,6 @@ af{
             lg{"Jekaterinburg-tyd"}
             ls{"Jekaterinburg-standaardtyd"}
         }
-        "meta:Yukon"{
-            ls{"Yukontyd"}
-        }
         fallbackFormat{"{1} ({0})"}
         gmtFormat{"GMT{0}"}
         gmtZeroFormat{"GMT"}
