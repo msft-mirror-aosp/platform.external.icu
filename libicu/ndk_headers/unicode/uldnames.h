@@ -11,8 +11,6 @@
 #define __ULDNAMES_H__
 
 /**
- * @addtogroup ICU4C
- * @{
  * \file
  * \brief C API: Provides display names of Locale ids and their components.
  */
@@ -27,32 +25,32 @@
 
 /**
  * Enum used in LocaleDisplayNames::createInstance.
- * \xrefitem stable "Stable" "Stable List" ICU 4.4
+ * @stable ICU 4.4
  */
 typedef enum {
     /**
      * Use standard names when generating a locale name,
      * e.g. en_GB displays as 'English (United Kingdom)'.
-     * \xrefitem stable "Stable" "Stable List" ICU 4.4
+     * @stable ICU 4.4
      */
     ULDN_STANDARD_NAMES = 0,
     /**
      * Use dialect names, when generating a locale name,
      * e.g. en_GB displays as 'British English'.
-     * \xrefitem stable "Stable" "Stable List" ICU 4.4
+     * @stable ICU 4.4
      */
     ULDN_DIALECT_NAMES
 } UDialectHandling;
 
 /**
  * Opaque C service object type for the locale display names API
- * \xrefitem stable "Stable" "Stable List" ICU 4.4
+ * @stable ICU 4.4
  */
 struct ULocaleDisplayNames;
 
 /** 
  * C typedef for struct ULocaleDisplayNames. 
- * \xrefitem stable "Stable" "Stable List" ICU 4.4 
+ * @stable ICU 4.4 
  */
 typedef struct ULocaleDisplayNames ULocaleDisplayNames;  
 
@@ -68,7 +66,7 @@ typedef struct ULocaleDisplayNames ULocaleDisplayNames;
  * @param dialectHandling how to select names for locales 
  * @return a ULocaleDisplayNames instance 
  * @param pErrorCode the status code
- * \xrefitem stable "Stable" "Stable List" ICU 4.4
+ * @stable ICU 4.4
  */
 U_CAPI ULocaleDisplayNames * U_EXPORT2
 uldn_open(const char * locale,
@@ -80,7 +78,7 @@ uldn_open(const char * locale,
 /**
  * Closes a ULocaleDisplayNames instance obtained from uldn_open().
  * @param ldn the ULocaleDisplayNames instance to be closed
- * \xrefitem stable "Stable" "Stable List" ICU 4.4
+ * @stable ICU 4.4
  */
 U_CAPI void U_EXPORT2
 uldn_close(ULocaleDisplayNames *ldn) __INTRODUCED_IN(31);
@@ -98,7 +96,7 @@ U_NAMESPACE_BEGIN
  *
  * @see LocalPointerBase
  * @see LocalPointer
- * \xrefitem stable "Stable" "Stable List" ICU 4.4
+ * @stable ICU 4.4
  */
 U_DEFINE_LOCAL_OPEN_POINTER(LocalULocaleDisplayNamesPointer, ULocaleDisplayNames, uldn_close);
 
@@ -113,7 +111,7 @@ U_NAMESPACE_END
  * not necessarily the same locale passed to {@link #uldn_open}.
  * @param ldn the LocaleDisplayNames instance
  * @return the display locale 
- * \xrefitem stable "Stable" "Stable List" ICU 4.4
+ * @stable ICU 4.4
  */
 U_CAPI const char * U_EXPORT2
 uldn_getLocale(const ULocaleDisplayNames *ldn) __INTRODUCED_IN(31);
@@ -124,7 +122,7 @@ uldn_getLocale(const ULocaleDisplayNames *ldn) __INTRODUCED_IN(31);
  * Returns the dialect handling used in the display names.
  * @param ldn the LocaleDisplayNames instance
  * @return the dialect handling enum
- * \xrefitem stable "Stable" "Stable List" ICU 4.4
+ * @stable ICU 4.4
  */
 U_CAPI UDialectHandling U_EXPORT2
 uldn_getDialectHandling(const ULocaleDisplayNames *ldn) __INTRODUCED_IN(31);
@@ -142,7 +140,7 @@ uldn_getDialectHandling(const ULocaleDisplayNames *ldn) __INTRODUCED_IN(31);
  * @param pErrorCode the status code
  * @return the actual buffer size needed for the display name.  If it's
  * greater than maxResultSize, the returned name will be truncated.
- * \xrefitem stable "Stable" "Stable List" ICU 4.4
+ * @stable ICU 4.4
  */
 U_CAPI int32_t U_EXPORT2
 uldn_localeDisplayName(const ULocaleDisplayNames *ldn,
@@ -164,7 +162,7 @@ uldn_localeDisplayName(const ULocaleDisplayNames *ldn,
  * @param pErrorCode the status code
  * @return the actual buffer size needed for the display name.  If it's
  * greater than maxResultSize, the returned name will be truncated.
- * \xrefitem stable "Stable" "Stable List" ICU 4.4
+ * @stable ICU 4.4
  */
 U_CAPI int32_t U_EXPORT2
 uldn_languageDisplayName(const ULocaleDisplayNames *ldn,
@@ -184,7 +182,7 @@ uldn_languageDisplayName(const ULocaleDisplayNames *ldn,
  * @param pErrorCode the status code
  * @return the actual buffer size needed for the display name.  If it's
  * greater than maxResultSize, the returned name will be truncated.
- * \xrefitem stable "Stable" "Stable List" ICU 4.4
+ * @stable ICU 4.4
  */
 U_CAPI int32_t U_EXPORT2
 uldn_scriptDisplayName(const ULocaleDisplayNames *ldn,
@@ -204,7 +202,7 @@ uldn_scriptDisplayName(const ULocaleDisplayNames *ldn,
  * @param pErrorCode the status code
  * @return the actual buffer size needed for the display name.  If it's
  * greater than maxResultSize, the returned name will be truncated.
- * \xrefitem stable "Stable" "Stable List" ICU 4.4
+ * @stable ICU 4.4
  */
 U_CAPI int32_t U_EXPORT2
 uldn_scriptCodeDisplayName(const ULocaleDisplayNames *ldn,
@@ -224,7 +222,7 @@ uldn_scriptCodeDisplayName(const ULocaleDisplayNames *ldn,
  * @param pErrorCode the status code
  * @return the actual buffer size needed for the display name.  If it's
  * greater than maxResultSize, the returned name will be truncated.
- * \xrefitem stable "Stable" "Stable List" ICU 4.4
+ * @stable ICU 4.4
  */
 U_CAPI int32_t U_EXPORT2
 uldn_regionDisplayName(const ULocaleDisplayNames *ldn,
@@ -244,7 +242,7 @@ uldn_regionDisplayName(const ULocaleDisplayNames *ldn,
  * @param pErrorCode the status code
  * @return the actual buffer size needed for the display name.  If it's
  * greater than maxResultSize, the returned name will be truncated.
- * \xrefitem stable "Stable" "Stable List" ICU 4.4
+ * @stable ICU 4.4
  */
 U_CAPI int32_t U_EXPORT2
 uldn_variantDisplayName(const ULocaleDisplayNames *ldn,
@@ -264,7 +262,7 @@ uldn_variantDisplayName(const ULocaleDisplayNames *ldn,
  * @param pErrorCode the status code
  * @return the actual buffer size needed for the display name.  If it's
  * greater than maxResultSize, the returned name will be truncated.
- * \xrefitem stable "Stable" "Stable List" ICU 4.4
+ * @stable ICU 4.4
  */
 U_CAPI int32_t U_EXPORT2
 uldn_keyDisplayName(const ULocaleDisplayNames *ldn,
@@ -285,7 +283,7 @@ uldn_keyDisplayName(const ULocaleDisplayNames *ldn,
  * @param pErrorCode the status code
  * @return the actual buffer size needed for the display name.  If it's
  * greater than maxResultSize, the returned name will be truncated.
- * \xrefitem stable "Stable" "Stable List" ICU 4.4
+ * @stable ICU 4.4
  */
 U_CAPI int32_t U_EXPORT2
 uldn_keyValueDisplayName(const ULocaleDisplayNames *ldn,
@@ -309,7 +307,7 @@ uldn_keyValueDisplayName(const ULocaleDisplayNames *ldn,
 *               a failure status, the function will do nothing; otherwise this will be
 *               updated with any new status from the function. 
 * @return a ULocaleDisplayNames instance 
-* \xrefitem stable "Stable" "Stable List" ICU 51
+* @stable ICU 51
 */
 U_CAPI ULocaleDisplayNames * U_EXPORT2
 uldn_openForContext(const char * locale, UDisplayContext *contexts,
@@ -325,7 +323,7 @@ uldn_openForContext(const char * locale, UDisplayContext *contexts,
 *               a failure status, the function will do nothing; otherwise this will be
 *               updated with any new status from the function. 
 * @return the UDisplayContextValue for the specified type.
-* \xrefitem stable "Stable" "Stable List" ICU 51
+* @stable ICU 51
 */
 U_CAPI UDisplayContext U_EXPORT2
 uldn_getContext(const ULocaleDisplayNames *ldn, UDisplayContextType type,
@@ -335,5 +333,3 @@ uldn_getContext(const ULocaleDisplayNames *ldn, UDisplayContextType type,
 
 #endif  /* !UCONFIG_NO_FORMATTING */
 #endif  /* __ULDNAMES_H__ */
-
-/** @} */ // addtogroup

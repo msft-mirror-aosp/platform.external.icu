@@ -371,10 +371,6 @@ ar{
             }
         }
         minimalPairs{
-            gender{
-                feminine{"{0} واحدة"}
-                masculine{"{0} واحد"}
-            }
             ordinal{
                 other{"اتجه إلى المنعطف الـ {0} يمينًا."}
             }
@@ -539,16 +535,6 @@ ar{
                 "{1} في {0}",
                 "{1} في {0}",
             }
-            DateTimeSkeletons{
-                "ahmmsszzzz",
-                "ahmmssz",
-                "ahmmss",
-                "ahmm",
-                "GyMMMMEEEEd",
-                "GyMMMMd",
-                "GyMMdd",
-                "GGGGGyMd",
-            }
             availableFormats{
                 Bh{"h B"}
                 Bhm{"h:mm B"}
@@ -565,7 +551,6 @@ ar{
                 GyMMM{"MMM y G"}
                 GyMMMEd{"E، d MMM y G"}
                 GyMMMd{"d MMM y G"}
-                GyMd{"d‏/M‏/y G"}
                 H{"HH"}
                 Hm{"HH:mm"}
                 Hms{"HH:mm:ss"}
@@ -758,16 +743,6 @@ ar{
                 "{1}, {0}",
                 "{1}, {0}",
             }
-            DateTimeSkeletons{
-                "ahmmsszzzz",
-                "ahmmssz",
-                "ahmmss",
-                "ahmm",
-                "yMMMMEEEEd",
-                "yMMMMd",
-                "yMMdd",
-                "yMd",
-            }
             appendItems{
                 Timezone{"{0} {1}"}
             }
@@ -787,7 +762,6 @@ ar{
                 GyMMM{"MMM y G"}
                 GyMMMEd{"E، d MMM y G"}
                 GyMMMd{"d MMM y G"}
-                GyMd{"dd-MM-y GGGGG"}
                 H{"HH"}
                 Hm{"HH:mm"}
                 Hms{"HH:mm:ss"}
@@ -1284,16 +1258,6 @@ ar{
                 "{1} في {0}",
                 "{1} في {0}",
             }
-            DateTimeSkeletons{
-                "ahmmsszzzz",
-                "ahmmssz",
-                "ahmmss",
-                "ahmm",
-                "GyMMMMEEEEd",
-                "GyMMMMd",
-                "GyMMdd",
-                "GGGGGyMd",
-            }
             eras{
                 abbreviated{
                     "ص",
@@ -1386,16 +1350,6 @@ ar{
                 "{1} في {0}",
                 "{1} في {0}",
             }
-            DateTimeSkeletons{
-                "ahmmsszzzz",
-                "ahmmssz",
-                "ahmmss",
-                "ahmm",
-                "GyMMMMEEEEd",
-                "GyMMMMd",
-                "GyMMMd",
-                "GGGGGyMd",
-            }
             availableFormats{
                 Bh{"h B"}
                 Bhm{"h:mm B"}
@@ -1412,7 +1366,6 @@ ar{
                 GyMMM{"MMM y G"}
                 GyMMMEd{"E، d MMM y G"}
                 GyMMMd{"d MMM y G"}
-                GyMd{"d‏/M‏/y G"}
                 H{"HH"}
                 Hm{"HH:mm"}
                 Hms{"HH:mm:ss"}

@@ -27,8 +27,6 @@
 
 
 /**
- * @addtogroup ICU4C
- * @{
  * \file
  * \brief Basic types and constants for UTF
  *
@@ -63,19 +61,19 @@
 /**
  * \def U_CFUNC
  * This is used in a declaration of a library private ICU C function.
- * \xrefitem stable "Stable" "Stable List" ICU 2.4
+ * @stable ICU 2.4
  */
 
 /**
  * \def U_CDECL_BEGIN
  * This is used to begin a declaration of a library private ICU C API.
- * \xrefitem stable "Stable" "Stable List" ICU 2.4
+ * @stable ICU 2.4
  */
 
 /**
  * \def U_CDECL_END
  * This is used to end a declaration of a library private ICU C API
- * \xrefitem stable "Stable" "Stable List" ICU 2.4
+ * @stable ICU 2.4
  */
 
 #ifdef __cplusplus
@@ -92,14 +90,14 @@
 /**
  * \def U_ATTRIBUTE_DEPRECATED
  *  This is used for GCC specific attributes
- * \xrefitem internal "Internal"  "Internal List"  Do not use. This API is for internal use only.
+ * @internal
  */
 #if U_GCC_MAJOR_MINOR >= 302
 #    define U_ATTRIBUTE_DEPRECATED __attribute__ ((deprecated))
 /**
  * \def U_ATTRIBUTE_DEPRECATED
  * This is used for Visual C++ specific attributes 
- * \xrefitem internal "Internal"  "Internal List"  Do not use. This API is for internal use only.
+ * @internal
  */
 #elif defined(_MSC_VER) && (_MSC_VER >= 1400)
 #    define U_ATTRIBUTE_DEPRECATED __declspec(deprecated)
@@ -108,7 +106,7 @@
 #endif
 #endif
 
-/** This is used to declare a function as a public ICU C API \xrefitem stable "Stable" "Stable List" ICU 2.0*/
+/** This is used to declare a function as a public ICU C API @stable ICU 2.0*/
 #define U_CAPI U_CFUNC U_EXPORT
 /** Obsolete/same as U_CAPI; was used to declare a function as a stable public ICU C API*/
 #define U_STABLE U_CAPI
@@ -126,7 +124,7 @@
  * Defined to the C++11 "override" keyword if available.
  * Denotes a class or member which is an override of the base class.
  * May result in an error if it applied to something not an override.
- * \xrefitem internal "Internal"  "Internal List"  Do not use. This API is for internal use only.
+ * @internal
  */
 #ifndef U_OVERRIDE
 #define U_OVERRIDE override
@@ -137,7 +135,7 @@
  * Defined to the C++11 "final" keyword if available.
  * Denotes a class or member which may not be overridden in subclasses.
  * May result in an error if subclasses attempt to override.
- * \xrefitem internal "Internal"  "Internal List"  Do not use. This API is for internal use only.
+ * @internal
  */
 #if !defined(U_FINAL) || defined(U_IN_DOXYGEN)
 #define U_FINAL final
@@ -165,7 +163,7 @@
 /**
  * \def UPRV_BLOCK_MACRO_BEGIN
  * Defined as the "do" keyword by default.
- * \xrefitem internal "Internal"  "Internal List"  Do not use. This API is for internal use only.
+ * @internal
  */
 #ifndef UPRV_BLOCK_MACRO_BEGIN
 #define UPRV_BLOCK_MACRO_BEGIN do
@@ -174,7 +172,7 @@
 /**
  * \def UPRV_BLOCK_MACRO_END
  * Defined as "while (false)" by default.
- * \xrefitem internal "Internal"  "Internal List"  Do not use. This API is for internal use only.
+ * @internal
  */
 #ifndef UPRV_BLOCK_MACRO_END
 #define UPRV_BLOCK_MACRO_END while (false)
@@ -185,41 +183,41 @@
 /*==========================================================================*/
 
 #ifndef INT8_MIN
-/** The smallest value an 8 bit signed integer can hold \xrefitem stable "Stable" "Stable List" ICU 2.0 */
+/** The smallest value an 8 bit signed integer can hold @stable ICU 2.0 */
 #   define INT8_MIN        ((int8_t)(-128))
 #endif
 #ifndef INT16_MIN
-/** The smallest value a 16 bit signed integer can hold \xrefitem stable "Stable" "Stable List" ICU 2.0 */
+/** The smallest value a 16 bit signed integer can hold @stable ICU 2.0 */
 #   define INT16_MIN       ((int16_t)(-32767-1))
 #endif
 #ifndef INT32_MIN
-/** The smallest value a 32 bit signed integer can hold \xrefitem stable "Stable" "Stable List" ICU 2.0 */
+/** The smallest value a 32 bit signed integer can hold @stable ICU 2.0 */
 #   define INT32_MIN       ((int32_t)(-2147483647-1))
 #endif
 
 #ifndef INT8_MAX
-/** The largest value an 8 bit signed integer can hold \xrefitem stable "Stable" "Stable List" ICU 2.0 */
+/** The largest value an 8 bit signed integer can hold @stable ICU 2.0 */
 #   define INT8_MAX        ((int8_t)(127))
 #endif
 #ifndef INT16_MAX
-/** The largest value a 16 bit signed integer can hold \xrefitem stable "Stable" "Stable List" ICU 2.0 */
+/** The largest value a 16 bit signed integer can hold @stable ICU 2.0 */
 #   define INT16_MAX       ((int16_t)(32767))
 #endif
 #ifndef INT32_MAX
-/** The largest value a 32 bit signed integer can hold \xrefitem stable "Stable" "Stable List" ICU 2.0 */
+/** The largest value a 32 bit signed integer can hold @stable ICU 2.0 */
 #   define INT32_MAX       ((int32_t)(2147483647))
 #endif
 
 #ifndef UINT8_MAX
-/** The largest value an 8 bit unsigned integer can hold \xrefitem stable "Stable" "Stable List" ICU 2.0 */
+/** The largest value an 8 bit unsigned integer can hold @stable ICU 2.0 */
 #   define UINT8_MAX       ((uint8_t)(255U))
 #endif
 #ifndef UINT16_MAX
-/** The largest value a 16 bit unsigned integer can hold \xrefitem stable "Stable" "Stable List" ICU 2.0 */
+/** The largest value a 16 bit unsigned integer can hold @stable ICU 2.0 */
 #   define UINT16_MAX      ((uint16_t)(65535U))
 #endif
 #ifndef UINT32_MAX
-/** The largest value a 32 bit unsigned integer can hold \xrefitem stable "Stable" "Stable List" ICU 2.0 */
+/** The largest value a 32 bit unsigned integer can hold @stable ICU 2.0 */
 #   define UINT32_MAX      ((uint32_t)(4294967295U))
 #endif
 
@@ -230,7 +228,7 @@
 /**
  * Provides a platform independent way to specify a signed 64-bit integer constant.
  * note: may be wrong for some 64 bit platforms - ensure your compiler provides INT64_C
- * \xrefitem stable "Stable" "Stable List" ICU 2.8
+ * @stable ICU 2.8
  */
 #   define INT64_C(c) c ## LL
 # endif
@@ -238,20 +236,20 @@
 /**
  * Provides a platform independent way to specify an unsigned 64-bit integer constant.
  * note: may be wrong for some 64 bit platforms - ensure your compiler provides UINT64_C
- * \xrefitem stable "Stable" "Stable List" ICU 2.8
+ * @stable ICU 2.8
  */
 #   define UINT64_C(c) c ## ULL
 # endif
 # ifndef U_INT64_MIN
-/** The smallest value a 64 bit signed integer can hold \xrefitem stable "Stable" "Stable List" ICU 2.8 */
+/** The smallest value a 64 bit signed integer can hold @stable ICU 2.8 */
 #     define U_INT64_MIN       ((int64_t)(INT64_C(-9223372036854775807)-1))
 # endif
 # ifndef U_INT64_MAX
-/** The largest value a 64 bit signed integer can hold \xrefitem stable "Stable" "Stable List" ICU 2.8 */
+/** The largest value a 64 bit signed integer can hold @stable ICU 2.8 */
 #     define U_INT64_MAX       ((int64_t)(INT64_C(9223372036854775807)))
 # endif
 # ifndef U_UINT64_MAX
-/** The largest value a 64 bit unsigned integer can hold \xrefitem stable "Stable" "Stable List" ICU 2.8 */
+/** The largest value a 64 bit unsigned integer can hold @stable ICU 2.8 */
 #     define U_UINT64_MAX      ((uint64_t)(UINT64_C(18446744073709551615)))
 # endif
 #endif
@@ -266,7 +264,7 @@
  * Also provides a fixed type definition, as opposed to
  * type bool whose details (e.g., sizeof) may vary by compiler and between C and C++.
  *
- * \xrefitem stable "Stable" "Stable List" ICU 2.0
+ * @stable ICU 2.0
  */
 typedef int8_t UBool;
 
@@ -280,7 +278,7 @@ typedef int8_t UBool;
  *
  * You may transitionally define U_DEFINE_FALSE_AND_TRUE=1 if you need time to migrate code.
  *
- * \xrefitem internal "Internal"  "Internal List"  Do not use. This API is for internal use only. ICU 68
+ * @internal ICU 68
  */
 #ifdef U_DEFINE_FALSE_AND_TRUE
     // Use the predefined value.
@@ -300,7 +298,7 @@ typedef int8_t UBool;
 /**
  * The TRUE value of a UBool.
  *
- * \xrefitem deprecated "Deprecated" "Deprecated List" ICU 68 Use standard "true" instead.
+ * @deprecated ICU 68 Use standard "true" instead.
  */
 #   define TRUE  1
 #endif
@@ -308,7 +306,7 @@ typedef int8_t UBool;
 /**
  * The FALSE value of a UBool.
  *
- * \xrefitem deprecated "Deprecated" "Deprecated List" ICU 68 Use standard "false" instead.
+ * @deprecated ICU 68 Use standard "false" instead.
  */
 #   define FALSE 0
 #endif
@@ -324,13 +322,13 @@ typedef int8_t UBool;
  * \def U_WCHAR_IS_UTF16
  * Defined if wchar_t uses UTF-16.
  *
- * \xrefitem stable "Stable" "Stable List" ICU 2.0
+ * @stable ICU 2.0
  */
 /*
  * \def U_WCHAR_IS_UTF32
  * Defined if wchar_t uses UTF-32.
  *
- * \xrefitem stable "Stable" "Stable List" ICU 2.0
+ * @stable ICU 2.0
  */
 #if !defined(U_WCHAR_IS_UTF16) && !defined(U_WCHAR_IS_UTF32)
 #   ifdef __STDC_ISO_10646__
@@ -356,13 +354,13 @@ typedef int8_t UBool;
 
 /* UChar and UChar32 definitions -------------------------------------------- */
 
-/** Number of bytes in a UChar. \xrefitem stable "Stable" "Stable List" ICU 2.0 */
+/** Number of bytes in a UChar. @stable ICU 2.0 */
 #define U_SIZEOF_UCHAR 2
 
 /**
  * \def U_CHAR16_IS_TYPEDEF
  * If 1, then char16_t is a typedef and not a real type (yet)
- * \xrefitem internal "Internal"  "Internal List"  Do not use. This API is for internal use only.
+ * @internal
  */
 #if (U_PLATFORM == U_PF_AIX) && defined(__cplusplus) &&(U_CPLUSPLUS_VERSION < 11)
 // for AIX, uchar.h needs to be included
@@ -398,7 +396,7 @@ typedef int8_t UBool;
  * ICU requires uint_least16_t=uint16_t for data memory mapping.
  * On macOS, char16_t is not available because the uchar.h standard header is missing.
  *
- * \xrefitem stable "Stable" "Stable List" ICU 4.4
+ * @stable ICU 4.4
  */
 
 #if 1
@@ -439,7 +437,7 @@ typedef int8_t UBool;
  * Exception: ICU 58 UChar was defined to UCHAR_TYPE if that macro was defined.
  * The current UChar responds to UCHAR_TYPE but OldUChar does not.
  *
- * \xrefitem stable "Stable" "Stable List" ICU 59
+ * @stable ICU 59
  */
 #if U_SIZEOF_WCHAR_T==2
     typedef wchar_t OldUChar;
@@ -464,7 +462,7 @@ typedef int8_t UBool;
  * That is, the definition of UChar32 was platform-dependent.
  *
  * @see U_SENTINEL
- * \xrefitem stable "Stable" "Stable List" ICU 2.4
+ * @stable ICU 2.4
  */
 typedef int32_t UChar32;
 
@@ -484,12 +482,10 @@ typedef int32_t UChar32;
  *
  * @return -1
  * @see UChar32
- * \xrefitem stable "Stable" "Stable List" ICU 2.4
+ * @stable ICU 2.4
  */
 #define U_SENTINEL (-1)
 
 #include "unicode/urename.h"
 
 #endif
-
-/** @} */ // addtogroup

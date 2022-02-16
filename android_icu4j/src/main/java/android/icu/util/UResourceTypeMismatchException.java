@@ -21,7 +21,7 @@ public class UResourceTypeMismatchException extends RuntimeException {
     static final long serialVersionUID = 1286569061095434541L;
     
     /**
-     * Construct the exception with the given message
+     * Constuct the exception with the given message
      * @param msg the error message for this exception
      */
     public UResourceTypeMismatchException(String msg){

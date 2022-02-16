@@ -201,16 +201,6 @@ th{
                 "{1} {0}",
                 "{1} {0}",
             }
-            DateTimeSkeletons{
-                "Hmmsszzzz",
-                "Hmmssz",
-                "HHmmss",
-                "HHmm",
-                "GyMMMMEEEEd",
-                "yMMMMd",
-                "yMMMd",
-                "yyMd",
-            }
             availableFormats{
                 E{"ccc"}
                 Ed{"E d"}
@@ -219,7 +209,6 @@ th{
                 GyMMMEEEEd{"EEEEที่ d MMM G y"}
                 GyMMMEd{"E d MMM G y"}
                 GyMMMd{"d MMM G y"}
-                GyMd{"d/M/y"}
                 H{"HH"}
                 Hm{"HH:mm"}
                 Hms{"HH:mm:ss"}
@@ -379,16 +368,6 @@ th{
                 "{1} {0}",
                 "{1} {0}",
                 "{1} {0}",
-            }
-            DateTimeSkeletons{
-                "Hmmsszzzz",
-                "Hmmssz",
-                "HHmmss",
-                "HHmm",
-                "UMMMMEEEEd",
-                "UMMMMd",
-                "UMMMd",
-                "yMd",
             }
             cyclicNameSets{
                 dayParts{
@@ -729,16 +708,6 @@ th{
                 "{1} {0}",
                 "{1} {0}",
             }
-            DateTimeSkeletons{
-                "Hmmsszzzz",
-                "Hmmssz",
-                "HHmmss",
-                "HHmm",
-                "UMMMMEEEEd",
-                "UMMMMd",
-                "UMMMd",
-                "yMd",
-            }
             cyclicNameSets{
                 dayParts{
                     format{
@@ -1048,16 +1017,6 @@ th{
                 "{1} {0}",
                 "{1} {0}",
             }
-            DateTimeSkeletons{
-                "Hmmsszzzz",
-                "Hmmssz",
-                "HHmmss",
-                "HHmm",
-                "GyMMMMEEEEd",
-                "GyMMMMd",
-                "GyMMMd",
-                "GyMd",
-            }
             availableFormats{
                 Bh{"h B"}
                 Bhm{"h:mm B"}
@@ -1075,7 +1034,6 @@ th{
                 GyMMMEEEEd{"EEEEที่ d MMM G y"}
                 GyMMMEd{"E d MMM G y"}
                 GyMMMd{"d MMM G y"}
-                GyMd{"d/M/y GGGGG"}
                 H{"HH"}
                 Hm{"HH:mm"}
                 Hms{"HH:mm:ss"}
@@ -1279,16 +1237,6 @@ th{
                 "{1} {0}",
                 "{1} {0}",
             }
-            DateTimeSkeletons{
-                "Hmmsszzzz",
-                "Hmmssz",
-                "HHmmss",
-                "HHmm",
-                "GyMMMMEEEEd",
-                "GyMMMMd",
-                "yMMMd",
-                "yyMd",
-            }
             appendItems{
                 Timezone{"{0} {1}"}
             }
@@ -1309,7 +1257,6 @@ th{
                 GyMMMEEEEd{"EEEEที่ d MMM G y"}
                 GyMMMEd{"E d MMM G y"}
                 GyMMMd{"d MMM G y"}
-                GyMd{"d/M/GGGGG y"}
                 H{"HH"}
                 Hm{"HH:mm น."}
                 Hms{"HH:mm:ss"}
@@ -1672,12 +1619,12 @@ th{
                 yMMMMEd{
                     M{"E d MMMM – E d MMMM G y"}
                     d{"E d – E d MMMM G y"}
-                    y{"E d MMMM G y – E d MMMM G y"}
+                    y{"E d MMMM G y – E d MMMM y"}
                 }
                 yMMMMd{
                     M{"d MMMM – d MMMM G y"}
                     d{"d–d MMMM G y"}
-                    y{"d MMMM G y – d MMMM G y"}
+                    y{"d MMMM G y – d MMMM y"}
                 }
                 yMMMd{
                     M{"d MMM – d MMM y"}
@@ -1838,16 +1785,6 @@ th{
                 "{1} {0}",
                 "{1} {0}",
                 "{1} {0}",
-            }
-            DateTimeSkeletons{
-                "Hmmsszzzz",
-                "Hmmssz",
-                "HHmmss",
-                "HHmm",
-                "GyMMMMEEEEd",
-                "GyMMMMd",
-                "GyMMMd",
-                "GyMd",
             }
             eras{
                 abbreviated{
@@ -2070,16 +2007,6 @@ th{
                 "{1} {0}",
                 "{1} {0}",
             }
-            DateTimeSkeletons{
-                "Hmmsszzzz",
-                "Hmmssz",
-                "HHmmss",
-                "HHmm",
-                "GyMMMMEEEEd",
-                "GyMMMMd",
-                "GyMMMd",
-                "GyMd",
-            }
             availableFormats{
                 Ed{"E d"}
                 Gy{"G y"}
@@ -2218,16 +2145,6 @@ th{
                 "{1} {0}",
                 "{1} {0}",
                 "{1} {0}",
-            }
-            DateTimeSkeletons{
-                "Hmmsszzzz",
-                "Hmmssz",
-                "HHmmss",
-                "HHmm",
-                "GyMMMMEEEEd",
-                "GyMMMMd",
-                "GyMMMd",
-                "GyyMd",
             }
             availableFormats{
                 Ed{"E d"}
@@ -2614,16 +2531,6 @@ th{
                 "{1} {0}",
                 "{1} {0}",
                 "{1} {0}",
-            }
-            DateTimeSkeletons{
-                "Hmmsszzzz",
-                "Hmmssz",
-                "HHmmss",
-                "HHmm",
-                "GyMMMMEEEEd",
-                "GyMMMMd",
-                "GyMMMd",
-                "GyMd",
             }
             availableFormats{
                 Ed{"E d"}

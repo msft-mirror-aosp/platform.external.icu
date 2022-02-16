@@ -92,7 +92,6 @@ static const char *gNumberElementKeys[DecimalFormatSymbols::kFormatSymbolCount] 
     NULL, /* eight digit - get it from the numbering system */
     NULL, /* nine digit - get it from the numbering system */
     "superscriptingExponent", /* Multiplication (x) symbol for exponents */
-    "approximatelySign" /* Approximately sign symbol */
 };
 
 // -------------------------------------
@@ -175,29 +174,29 @@ DecimalFormatSymbols::operator=(const DecimalFormatSymbols& rhs)
 
 // -------------------------------------
 
-bool
+UBool
 DecimalFormatSymbols::operator==(const DecimalFormatSymbols& that) const
 {
     if (this == &that) {
-        return true;
+        return TRUE;
     }
     if (fIsCustomCurrencySymbol != that.fIsCustomCurrencySymbol) { 
-        return false;
+        return FALSE; 
     } 
     if (fIsCustomIntlCurrencySymbol != that.fIsCustomIntlCurrencySymbol) { 
-        return false;
+        return FALSE; 
     } 
     for(int32_t i = 0; i < (int32_t)kFormatSymbolCount; ++i) {
         if(fSymbols[(ENumberFormatSymbol)i] != that.fSymbols[(ENumberFormatSymbol)i]) {
-            return false;
+            return FALSE;
         }
     }
     for(int32_t i = 0; i < (int32_t)UNUM_CURRENCY_SPACING_COUNT; ++i) {
         if(currencySpcBeforeSym[i] != that.currencySpcBeforeSym[i]) {
-            return false;
+            return FALSE;
         }
         if(currencySpcAfterSym[i] != that.currencySpcAfterSym[i]) {
-            return false;
+            return FALSE;
         }
     }
     // No need to check fCodePointZero since it is based on fSymbols
@@ -222,7 +221,7 @@ struct DecFmtSymDataSink : public ResourceSink {
     // Destination for data, modified via setters.
     DecimalFormatSymbols& dfs;
     // Boolean array of whether or not we have seen a particular symbol yet.
-    // Can't simply check fSymbols because it is pre-populated with defaults.
+    // Can't simpy check fSymbols because it is pre-populated with defaults.
     UBool seenSymbol[DecimalFormatSymbols::kFormatSymbolCount];
 
     // Constructor/Destructor
@@ -232,7 +231,7 @@ struct DecFmtSymDataSink : public ResourceSink {
     virtual ~DecFmtSymDataSink();
 
     virtual void put(const char *key, ResourceValue &value, UBool /*noFallback*/,
-            UErrorCode &errorCode) override {
+            UErrorCode &errorCode) {
         ResourceTable symbolsTable = value.getTable(errorCode);
         if (U_FAILURE(errorCode)) { return; }
         for (int32_t j = 0; symbolsTable.getKeyAndValue(j, key, value); ++j) {
@@ -287,7 +286,7 @@ struct CurrencySpacingSink : public ResourceSink {
     virtual ~CurrencySpacingSink();
 
     virtual void put(const char *key, ResourceValue &value, UBool /*noFallback*/,
-            UErrorCode &errorCode) override {
+            UErrorCode &errorCode) {
         ResourceTable spacingTypesTable = value.getTable(errorCode);
         for (int32_t i = 0; spacingTypesTable.getKeyAndValue(i, key, value); ++i) {
             UBool beforeCurrency;
@@ -509,7 +508,6 @@ DecimalFormatSymbols::initialize() {
     fSymbols[kSignificantDigitSymbol] = (UChar)0x0040;  // '@' significant digit
     fSymbols[kMonetaryGroupingSeparatorSymbol].remove(); // 
     fSymbols[kExponentMultiplicationSymbol] = (UChar)0xd7; // 'x' multiplication symbol for exponents
-    fSymbols[kApproximatelySignSymbol] = u'~';          // '~' approximately sign
     fIsCustomCurrencySymbol = FALSE; 
     fIsCustomIntlCurrencySymbol = FALSE;
     fCodePointZero = 0x30;
