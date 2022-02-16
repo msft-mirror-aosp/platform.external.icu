@@ -225,7 +225,7 @@ void BreakRules::addRule(const UnicodeString &name, const UnicodeString &definit
     }
 
     // Put this new rule into the vector of all Rules.
-    fBreakRules.adoptElement(thisRule.orphan(), status);
+    fBreakRules.addElement(thisRule.orphan(), status);
 }
 
 

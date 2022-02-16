@@ -21,7 +21,7 @@
  * Test basic functionality of various API functions
  **/
 class PluralRulesTest : public IntlTest {
-    void runIndexedTest( int32_t index, UBool exec, const char* &name, char* par = NULL ) override;
+    void runIndexedTest( int32_t index, UBool exec, const char* &name, char* par = NULL );
 
 private:
     /**
@@ -32,17 +32,13 @@ private:
     void testGetSamples();
     void testGetFixedDecimalSamples();
     void testSamplesWithExponent();
-    void testSamplesWithCompactNotation();
     void testWithin();
     void testGetAllKeywordValues();
     void testCompactDecimalPluralKeyword();
-    void testDoubleValue();
-    void testLongValue();
-    void testScientificPluralKeyword();
     void testOrdinal();
     void testSelect();
     void testSelectRange();
-    void testAvailableLocales();
+    void testAvailbleLocales();
     void testParseErrors();
     void testFixedDecimal();
     void testSelectTrailingZeros();

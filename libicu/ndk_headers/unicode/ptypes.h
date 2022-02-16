@@ -20,8 +20,6 @@
 */
 
 /**
- * @addtogroup ICU4C
- * @{
  * \file
  * \brief C API: Definitions of integer types of various widths
  */
@@ -35,7 +33,7 @@
  * macros like INT32_MIN and UINTPTR_MAX should only be defined if explicitly requested.
  * We need to define __STDC_LIMIT_MACROS before including stdint.h in C++ code
  * that uses such limit macros.
- * \xrefitem internal "Internal"  "Internal List"  Do not use. This API is for internal use only.
+ * @internal
  */
 #ifndef __STDC_LIMIT_MACROS
 #define __STDC_LIMIT_MACROS
@@ -130,5 +128,3 @@ typedef unsigned int uint32_t;
 #endif /* U_HAVE_STDINT_H / U_HAVE_INTTYPES_H */
 
 #endif /* _PTYPES_H */
-
-/** @} */ // addtogroup

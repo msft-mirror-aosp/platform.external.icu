@@ -99,8 +99,8 @@ public:
         return NULL;
     }
     
-    virtual bool operator==(const LocalizationInfo* rhs) const;
-    inline  bool operator!=(const LocalizationInfo* rhs) const { return !operator==(rhs); }
+    virtual UBool operator==(const LocalizationInfo* rhs) const;
+    inline  UBool operator!=(const LocalizationInfo* rhs) const { return !operator==(rhs); }
     
     virtual int32_t getNumberOfRuleSets(void) const = 0;
     virtual const UChar* getRuleSetName(int32_t index) const = 0;
@@ -131,18 +131,18 @@ streq(const UChar* lhs, const UChar* rhs) {
     return FALSE;
 }
 
-bool
+UBool
 LocalizationInfo::operator==(const LocalizationInfo* rhs) const {
     if (rhs) {
         if (this == rhs) {
-            return true;
+            return TRUE;
         }
         
         int32_t rsc = getNumberOfRuleSets();
         if (rsc == rhs->getNumberOfRuleSets()) {
             for (int i = 0; i < rsc; ++i) {
                 if (!streq(getRuleSetName(i), rhs->getRuleSetName(i))) {
-                    return false;
+                    return FALSE;
                 }
             }
             int32_t dlc = getNumberOfDisplayLocales();
@@ -152,19 +152,19 @@ LocalizationInfo::operator==(const LocalizationInfo* rhs) const {
                     int32_t ix = rhs->indexForLocale(locale);
                     // if no locale, ix is -1, getLocaleName returns null, so streq returns false
                     if (!streq(locale, rhs->getLocaleName(ix))) {
-                        return false;
+                        return FALSE;
                     }
                     for (int j = 0; j < rsc; ++j) {
                         if (!streq(getDisplayName(i, j), rhs->getDisplayName(ix, j))) {
-                            return false;
+                            return FALSE;
                         }
                     }
                 }
-                return true;
+                return TRUE;
             }
         }
     }
-    return false;
+    return FALSE;
 }
 
 int32_t
@@ -271,11 +271,11 @@ public:
     static StringLocalizationInfo* create(const UnicodeString& info, UParseError& perror, UErrorCode& status);
     
     virtual ~StringLocalizationInfo();
-    virtual int32_t getNumberOfRuleSets(void) const override { return numRuleSets; }
-    virtual const UChar* getRuleSetName(int32_t index) const override;
-    virtual int32_t getNumberOfDisplayLocales(void) const override { return numLocales; }
-    virtual const UChar* getLocaleName(int32_t index) const override;
-    virtual const UChar* getDisplayName(int32_t localeIndex, int32_t ruleIndex) const override;
+    virtual int32_t getNumberOfRuleSets(void) const { return numRuleSets; }
+    virtual const UChar* getRuleSetName(int32_t index) const;
+    virtual int32_t getNumberOfDisplayLocales(void) const { return numLocales; }
+    virtual const UChar* getLocaleName(int32_t index) const;
+    virtual const UChar* getDisplayName(int32_t localeIndex, int32_t ruleIndex) const;
     
 //    virtual UClassID getDynamicClassID() const;
 //    static UClassID getStaticClassID(void);
@@ -936,11 +936,11 @@ RuleBasedNumberFormat::clone() const
     return new RuleBasedNumberFormat(*this);
 }
 
-bool
+UBool
 RuleBasedNumberFormat::operator==(const Format& other) const
 {
     if (this == &other) {
-        return true;
+        return TRUE;
     }
 
     if (typeid(*this) == typeid(other)) {
@@ -953,7 +953,7 @@ RuleBasedNumberFormat::operator==(const Format& other) const
             (localizations == NULL 
                 ? rhs.localizations == NULL 
                 : (rhs.localizations == NULL 
-                    ? false
+                    ? FALSE
                     : *localizations == rhs.localizations))) {
 
             NFRuleSet** p = fRuleSets;
@@ -961,7 +961,7 @@ RuleBasedNumberFormat::operator==(const Format& other) const
             if (p == NULL) {
                 return q == NULL;
             } else if (q == NULL) {
-                return false;
+                return FALSE;
             }
             while (*p && *q && (**p == **q)) {
                 ++p;
@@ -971,7 +971,7 @@ RuleBasedNumberFormat::operator==(const Format& other) const
         }
     }
 
-    return false;
+    return FALSE;
 }
 
 UnicodeString
@@ -1077,7 +1077,7 @@ RuleBasedNumberFormat::getRuleSetDisplayName(int32_t index, const Locale& locale
                 return name;
             }
             
-            // trim trailing portion, skipping over omitted sections
+            // trim trailing portion, skipping over ommitted sections
             do { --len;} while (len > 0 && localeStr[len] != 0x005f); // underscore
             while (len > 0 && localeStr[len-1] == 0x005F) --len;
         }
@@ -1501,7 +1501,7 @@ RuleBasedNumberFormat::init(const UnicodeString& rules, LocalizationInfo* locali
     }
 
     // start by stripping the trailing whitespace from all the rules
-    // (this is all the whitespace following each semicolon in the
+    // (this is all the whitespace follwing each semicolon in the
     // description).  This allows us to look for rule-set boundaries
     // by searching for ";%" without having to worry about whitespace
     // between the ; and the %

@@ -5,7 +5,6 @@ package com.ibm.icu.number;
 import java.util.MissingResourceException;
 
 import com.ibm.icu.impl.FormattedStringBuilder;
-import com.ibm.icu.impl.FormattedValueStringBuilderImpl;
 import com.ibm.icu.impl.ICUData;
 import com.ibm.icu.impl.ICUResourceBundle;
 import com.ibm.icu.impl.PatternProps;
@@ -13,7 +12,6 @@ import com.ibm.icu.impl.SimpleFormatterImpl;
 import com.ibm.icu.impl.StandardPlural;
 import com.ibm.icu.impl.UResource;
 import com.ibm.icu.impl.number.DecimalQuantity;
-import com.ibm.icu.impl.number.MacroProps;
 import com.ibm.icu.impl.number.MicroProps;
 import com.ibm.icu.impl.number.Modifier;
 import com.ibm.icu.impl.number.SimpleModifier;
@@ -39,10 +37,10 @@ class NumberRangeFormatterImpl {
     final NumberRangeFormatter.RangeCollapse fCollapse;
     final NumberRangeFormatter.RangeIdentityFallback fIdentityFallback;
 
-    // Should be final, but it is set in a helper function, not the constructor proper.
-    // TODO: Clean up to make this field actually final.
+    // Should be final, but they are set in a helper function, not the constructor proper.
+    // TODO: Clean up to make these fields actually final.
     /* final */ String fRangePattern;
-    final NumberFormatterImpl fApproximatelyFormatter;
+    /* final */ SimpleModifier fApproximatelyModifier;
 
     final StandardPluralRanges fPluralRanges;
 
@@ -56,8 +54,7 @@ class NumberRangeFormatterImpl {
     private static final class NumberRangeDataSink extends UResource.Sink {
 
         String rangePattern;
-        // Note: approximatelyPattern is unused since ICU 69.
-        // String approximatelyPattern;
+        String approximatelyPattern;
 
         // For use with SimpleFormatterImpl
         StringBuilder sb;
@@ -74,13 +71,10 @@ class NumberRangeFormatterImpl {
                     String pattern = value.getString();
                     rangePattern = SimpleFormatterImpl.compileToStringMinMaxArguments(pattern, sb, 2, 2);
                 }
-                /*
-                // Note: approximatelyPattern is unused since ICU 69.
                 if (key.contentEquals("approximately") && !hasApproxData()) {
                     String pattern = value.getString();
                     approximatelyPattern = SimpleFormatterImpl.compileToStringMinMaxArguments(pattern, sb, 1, 1); // 1 arg, as in "~{0}"
                 }
-                */
             }
         }
 
@@ -88,26 +82,21 @@ class NumberRangeFormatterImpl {
             return rangePattern != null;
         }
 
-        /*
-        // Note: approximatelyPattern is unused since ICU 69.
         private boolean hasApproxData() {
             return approximatelyPattern != null;
         }
-        */
 
         public boolean isComplete() {
-            return hasRangeData() /* && hasApproxData() */;
+            return hasRangeData() && hasApproxData();
         }
 
         public void fillInDefaults() {
             if (!hasRangeData()) {
                 rangePattern = SimpleFormatterImpl.compileToStringMinMaxArguments("{0}–{1}", sb, 2, 2);
             }
-            /*
             if (!hasApproxData()) {
                 approximatelyPattern = SimpleFormatterImpl.compileToStringMinMaxArguments("~{0}", sb, 1, 1);
             }
-            */
         }
     }
 
@@ -137,20 +126,16 @@ class NumberRangeFormatterImpl {
         sink.fillInDefaults();
 
         out.fRangePattern = sink.rangePattern;
-        // out.fApproximatelyModifier = new SimpleModifier(sink.approximatelyPattern, null, false);
+        out.fApproximatelyModifier = new SimpleModifier(sink.approximatelyPattern, null, false);
     }
 
     ////////////////////
 
     public NumberRangeFormatterImpl(RangeMacroProps macros) {
-        LocalizedNumberFormatter formatter1 = macros.formatter1 != null
-            ? macros.formatter1.locale(macros.loc)
-            : NumberFormatter.withLocale(macros.loc);
-        LocalizedNumberFormatter formatter2 = macros.formatter2 != null
-            ? macros.formatter2.locale(macros.loc)
-            : NumberFormatter.withLocale(macros.loc);
-        formatterImpl1 = new NumberFormatterImpl(formatter1.resolve());
-        formatterImpl2 = new NumberFormatterImpl(formatter2.resolve());
+        formatterImpl1 = new NumberFormatterImpl(macros.formatter1 != null ? macros.formatter1.resolve()
+                : NumberFormatter.withLocale(macros.loc).resolve());
+        formatterImpl2 = new NumberFormatterImpl(macros.formatter2 != null ? macros.formatter2.resolve()
+                : NumberFormatter.withLocale(macros.loc).resolve());
         fSameFormatters = macros.sameFormatters != 0;
         fCollapse = macros.collapse != null ? macros.collapse : NumberRangeFormatter.RangeCollapse.AUTO;
         fIdentityFallback = macros.identityFallback != null ? macros.identityFallback
@@ -161,17 +146,6 @@ class NumberRangeFormatterImpl {
             throw new IllegalArgumentException("Both formatters must have same numbering system");
         }
         getNumberRangeData(macros.loc, nsName, this);
-
-        if (fSameFormatters && (
-                fIdentityFallback == RangeIdentityFallback.APPROXIMATELY ||
-                fIdentityFallback == RangeIdentityFallback.APPROXIMATELY_OR_SINGLE_VALUE)) {
-            MacroProps approximatelyMacros = new MacroProps();
-            approximatelyMacros.approximately = true;
-            fApproximatelyFormatter = new NumberFormatterImpl(
-                formatter1.macros(approximatelyMacros).resolve());
-        } else {
-            fApproximatelyFormatter = null;
-        }
 
         // TODO: Get locale from PluralRules instead?
         fPluralRanges = StandardPluralRanges.forLocale(macros.loc);
@@ -255,14 +229,12 @@ class NumberRangeFormatterImpl {
     private void formatApproximately(DecimalQuantity quantity1, DecimalQuantity quantity2, FormattedStringBuilder string,
             MicroProps micros1, MicroProps micros2) {
         if (fSameFormatters) {
-            // Re-format using the approximately formatter:
-            quantity1.resetExponent();
-            MicroProps microsAppx = fApproximatelyFormatter.preProcess(quantity1);
-            int length = NumberFormatterImpl.writeNumber(microsAppx, quantity1, string, 0);
+            int length = NumberFormatterImpl.writeNumber(micros1, quantity1, string, 0);
             // HEURISTIC: Desired modifier order: inner, middle, approximately, outer.
-            length += microsAppx.modInner.apply(string, 0, length);
-            length += microsAppx.modMiddle.apply(string, 0, length);
-            microsAppx.modOuter.apply(string, 0, length);
+            length += micros1.modInner.apply(string, 0, length);
+            length += micros1.modMiddle.apply(string, 0, length);
+            length += fApproximatelyModifier.apply(string, 0, length);
+            micros1.modOuter.apply(string, 0, length);
         } else {
             formatRange(quantity1, quantity2, string, micros1, micros2);
         }
@@ -325,7 +297,7 @@ class NumberRangeFormatterImpl {
                 // INNER MODIFIER
                 collapseInner = micros1.modInner.semanticallyEquivalent(micros2.modInner);
 
-                // All done checking for collapsibility.
+                // All done checking for collapsability.
                 break;
             }
 
@@ -364,56 +336,36 @@ class NumberRangeFormatterImpl {
         }
 
         h.length1 += NumberFormatterImpl.writeNumber(micros1, quantity1, string, h.index0());
-        // ICU-21684: Write the second number to a temp string to avoid repeated insert operations
-        FormattedStringBuilder tempString = new FormattedStringBuilder();
-        NumberFormatterImpl.writeNumber(micros2, quantity2, tempString, 0);
-        h.length2 += string.insert(h.index2(), tempString);
+        h.length2 += NumberFormatterImpl.writeNumber(micros2, quantity2, string, h.index2());
 
         // TODO: Support padding?
 
         if (collapseInner) {
+            // Note: this is actually a mix of prefix and suffix, but adding to infix length works
             Modifier mod = resolveModifierPlurals(micros1.modInner, micros2.modInner);
-            h.lengthSuffix += mod.apply(string, h.index0(), h.index4());
-            h.lengthPrefix += mod.getPrefixLength();
-            h.lengthSuffix -= mod.getPrefixLength();
+            h.lengthInfix += mod.apply(string, h.index0(), h.index3());
         } else {
             h.length1 += micros1.modInner.apply(string, h.index0(), h.index1());
-            h.length2 += micros2.modInner.apply(string, h.index2(), h.index4());
+            h.length2 += micros2.modInner.apply(string, h.index2(), h.index3());
         }
 
         if (collapseMiddle) {
+            // Note: this is actually a mix of prefix and suffix, but adding to infix length works
             Modifier mod = resolveModifierPlurals(micros1.modMiddle, micros2.modMiddle);
-            h.lengthSuffix += mod.apply(string, h.index0(), h.index4());
-            h.lengthPrefix += mod.getPrefixLength();
-            h.lengthSuffix -= mod.getPrefixLength();
+            h.lengthInfix += mod.apply(string, h.index0(), h.index3());
         } else {
             h.length1 += micros1.modMiddle.apply(string, h.index0(), h.index1());
-            h.length2 += micros2.modMiddle.apply(string, h.index2(), h.index4());
+            h.length2 += micros2.modMiddle.apply(string, h.index2(), h.index3());
         }
 
         if (collapseOuter) {
+            // Note: this is actually a mix of prefix and suffix, but adding to infix length works
             Modifier mod = resolveModifierPlurals(micros1.modOuter, micros2.modOuter);
-            h.lengthSuffix += mod.apply(string, h.index0(), h.index4());
-            h.lengthPrefix += mod.getPrefixLength();
-            h.lengthSuffix -= mod.getPrefixLength();
+            h.lengthInfix += mod.apply(string, h.index0(), h.index3());
         } else {
             h.length1 += micros1.modOuter.apply(string, h.index0(), h.index1());
-            h.length2 += micros2.modOuter.apply(string, h.index2(), h.index4());
+            h.length2 += micros2.modOuter.apply(string, h.index2(), h.index3());
         }
-
-        // Now that all pieces are added, save the span info.
-        FormattedValueStringBuilderImpl.applySpanRange(
-            string,
-            NumberRangeFormatter.SpanField.NUMBER_RANGE_SPAN,
-            0,
-            h.index0(),
-            h.index1());
-        FormattedValueStringBuilderImpl.applySpanRange(
-            string,
-            NumberRangeFormatter.SpanField.NUMBER_RANGE_SPAN,
-            1,
-            h.index2(),
-            h.index3());
     }
 
     Modifier resolveModifierPlurals(Modifier first, Modifier second) {

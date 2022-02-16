@@ -27,25 +27,6 @@ import android.icu.text.NumberFormat;
  */
 public class FormattedStringBuilder implements CharSequence, Appendable {
 
-    /**
-     * @hide Only a subset of ICU is exposed in Android
-     */
-    public static interface FieldWrapper {
-        java.text.Format.Field unwrap();
-    }
-
-    public static java.text.Format.Field unwrapField(Object field) {
-        if (field == null) {
-            return null;
-        } else if (field instanceof FieldWrapper) {
-            return ((FieldWrapper) field).unwrap();
-        } else if (field instanceof java.text.Format.Field) {
-            return (java.text.Format.Field) field;
-        } else {
-            throw new AssertionError("Not a field: " + field);
-        }
-    }
-
     /** A constant, empty FormattedStringBuilder. Do NOT call mutative operations on this. */
     public static final FormattedStringBuilder EMPTY = new FormattedStringBuilder();
 
@@ -555,12 +536,10 @@ public class FormattedStringBuilder implements CharSequence, Appendable {
         if (fields.length != length)
             return false;
         for (int i = 0; i < length; i++) {
-            if (this.chars[zero + i] != chars[i]) {
+            if (this.chars[zero + i] != chars[i])
                 return false;
-            }
-            if (unwrapField(this.fields[zero + i]) != unwrapField(fields[i])) {
+            if (this.fields[zero + i] != fields[i])
                 return false;
-            }
         }
         return true;
     }
@@ -574,10 +553,7 @@ public class FormattedStringBuilder implements CharSequence, Appendable {
         if (length != other.length)
             return false;
         for (int i = 0; i < length; i++) {
-            if (charAt(i) != other.charAt(i)) {
-                return false;
-            }
-            if (unwrapField(fieldAt(i)) != unwrapField(other.fieldAt(i))) {
+            if (charAt(i) != other.charAt(i) || fieldAt(i) != other.fieldAt(i)) {
                 return false;
             }
         }
