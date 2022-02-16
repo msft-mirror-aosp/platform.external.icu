@@ -202,13 +202,23 @@ public class StringSegment implements CharSequence {
     }
 
     /**
-     * Returns true if this segment contains the same characters as the other CharSequence.
+     * Equals any CharSequence with the same chars as this segment.
      *
-     * <p>This method does not perform case folding; if you want case-insensitive equality, use
+     * <p>
+     * This method does not perform case folding; if you want case-insensitive equality, use
      * {@link #getCommonPrefixLength}.
      */
-    public boolean contentEquals(CharSequence other) {
-        return Utility.charSequenceEquals(this, other);
+    @Override
+    public boolean equals(Object other) {
+        if (!(other instanceof CharSequence))
+            return false;
+        return Utility.charSequenceEquals(this, (CharSequence) other);
+    }
+
+    /** Returns a hash code equivalent to calling .toString().hashCode() */
+    @Override
+    public int hashCode() {
+        return Utility.charSequenceHashCode(this);
     }
 
     /** Returns a string representation useful for debugging. */

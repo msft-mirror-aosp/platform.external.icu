@@ -1093,8 +1093,6 @@ Transliterator::createFromRules(const UnicodeString& ID,
     }
     else {
         UVector transliterators(status);
-        // TODO ICU-21701 missing U_FAILURE check here.
-        //      Error and nullptr checking through this whole block looks suspect.
         int32_t passNumber = 1;
 
         int32_t limit = parser.idBlockVector.size();
@@ -1110,15 +1108,10 @@ Transliterator::createFromRules(const UnicodeString& ID,
                         delete temp;
                         return nullptr;
                     }
-                    if (temp != NULL && typeid(*temp) != typeid(NullTransliterator)) {
+                    if (temp != NULL && typeid(*temp) != typeid(NullTransliterator))
                         transliterators.addElement(temp, status);
-                        if (U_FAILURE(status)) {
-                            delete temp;
-                            return nullptr;
-                        }
-                    } else {
+                    else
                         delete temp;
-                    }
                 }
             }
             if (!parser.dataVector.isEmpty()) {
@@ -1134,13 +1127,6 @@ Transliterator::createFromRules(const UnicodeString& ID,
                     return t;
                 }
                 transliterators.addElement(temprbt, status);
-                if (U_FAILURE(status)) {
-                    delete temprbt;
-                    return t;
-                }
-                // TODO: ICU-21701 the transliterators vector will leak its contents if anything goes wrong.
-                //       Under normal operation, the CompoundTransliterator constructor adopts the
-                //       the contents of the vector.
             }
         }
 

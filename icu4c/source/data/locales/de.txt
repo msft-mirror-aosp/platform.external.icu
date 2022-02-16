@@ -209,17 +209,6 @@ de{
             }
         }
         minimalPairs{
-            case{
-                accusative{"… für {0} …"}
-                dative{"… mit {0} …"}
-                genitive{"Anstatt {0} …"}
-                nominative{"{0} kostet (kosten) € 3,50."}
-            }
-            gender{
-                feminine{"Die {0} ist …"}
-                masculine{"Der {0} ist …"}
-                neuter{"Das {0} ist …"}
-            }
             ordinal{
                 other{"{0}. Abzweigung nach rechts nehmen"}
             }
@@ -261,23 +250,11 @@ de{
                 "{1} {0}",
                 "{1} {0}",
             }
-            DateTimeSkeletons{
-                "HHmmsszzzz",
-                "HHmmssz",
-                "HHmmss",
-                "HHmm",
-                "UMMMMEEEEd",
-                "UMMMMd",
-                "UMMdd",
-                "yyMMdd",
-            }
             availableFormats{
                 Ed{"E, d."}
                 Gy{"U"}
                 GyMMM{"MMM U"}
                 GyMMMEd{"E, d. MMM U"}
-                GyMMMMEd{"E, d. MMMM U"}
-                GyMMMMd{"d. MMMM U"}
                 GyMMMd{"d. MMM U"}
                 H{"HH 'Uhr'"}
                 Hm{"HH:mm"}
@@ -301,8 +278,6 @@ de{
                 yyyyMMM{"MMM U"}
                 yyyyMMMEd{"E, d. MMM U"}
                 yyyyMMMM{"MMMM U"}
-                yyyyMMMMEd{"E, d. MMMM U"}
-                yyyyMMMMd{"d. MMMM U"}
                 yyyyMMMd{"d. MMM U"}
                 yyyyMd{"d.M.y"}
                 yyyyQQQ{"QQQ U"}
@@ -509,16 +484,6 @@ de{
                 "{1}, {0}",
                 "{1}, {0}",
             }
-            DateTimeSkeletons{
-                "HHmmsszzzz",
-                "HHmmssz",
-                "HHmmss",
-                "HHmm",
-                "GyMMMMEEEEd",
-                "GyMMMMd",
-                "GyMMdd",
-                "GGGGGyyMMdd",
-            }
             availableFormats{
                 Bh{"h B"}
                 Bhm{"h:mm B"}
@@ -535,7 +500,6 @@ de{
                 GyMMM{"MMM y G"}
                 GyMMMEd{"E, d. MMM y G"}
                 GyMMMd{"d. MMM y G"}
-                GyMd{"d.M.y GGGGG"}
                 H{"HH 'Uhr'"}
                 Hm{"HH:mm"}
                 Hms{"HH:mm:ss"}
@@ -686,16 +650,6 @@ de{
                 "{1}, {0}",
                 "{1}, {0}",
             }
-            DateTimeSkeletons{
-                "HHmmsszzzz",
-                "HHmmssz",
-                "HHmmss",
-                "HHmm",
-                "yMMMMEEEEd",
-                "yMMMMd",
-                "yMMdd",
-                "yyMMdd",
-            }
             appendItems{
                 Timezone{"{0} {1}"}
             }
@@ -715,7 +669,6 @@ de{
                 GyMMM{"MMM y G"}
                 GyMMMEd{"E, d. MMM y G"}
                 GyMMMd{"d. MMM y G"}
-                GyMd{"dd.MM.y GGGGG"}
                 H{"HH 'Uhr'"}
                 Hm{"HH:mm"}
                 Hms{"HH:mm:ss"}
@@ -1454,16 +1407,6 @@ de{
                 "{1}, {0}",
                 "{1}, {0}",
             }
-            DateTimeSkeletons{
-                "HHmmsszzzz",
-                "HHmmssz",
-                "HHmmss",
-                "HHmm",
-                "GyMMMMEEEEd",
-                "GyMMMMd",
-                "GyMMdd",
-                "GGGGGyyMMdd",
-            }
             eras{
                 abbreviated{
                     "Taika (645–650)",
@@ -1855,7 +1798,7 @@ de{
         musical_symbols{"Musikalische Zeichen"}
         nature{"Natur"}
         nonspacing{"Geschützte Zeichen"}
-        numbers{"Zahlen"}
+        numbers{"Ziffern"}
         objects{"Objekte"}
         other{"Andere"}
         paired{"Paarig"}
@@ -2754,6 +2697,8 @@ de{
         }
     }
     measurementSystemNames{
+        UK{"Englisches"}
+        US{"Angloamerikanisches"}
         metric{"Internationales (SI)"}
     }
     parse{

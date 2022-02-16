@@ -29,17 +29,10 @@ es_VE{
                 "{1}, {0}",
                 "{1}, {0}",
                 "{1} {0}",
-                "{1}, {0}",
+                "{1} {0}",
             }
-            DateTimeSkeletons{
-                "ahmmsszzzz",
-                "ahmmssz",
-                "ahmmss",
-                "ahmm",
-                "yMMMMEEEEd",
-                "yMMMMd",
-                "yMMMd",
-                "yyMd",
+            availableFormats{
+                yMMMd{"d MMM y"}
             }
             dayNames{
                 format{

@@ -187,7 +187,7 @@ public class TextTrieMap<V> {
          */
         @Override
         public void remove() {
-            throw new UnsupportedOperationException("remove() not supported");
+            throw new UnsupportedOperationException("remove() not supproted");
         }
 
         public int nextIndex() {

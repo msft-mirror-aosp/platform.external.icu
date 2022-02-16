@@ -364,8 +364,6 @@ UBool TransliteratorIDParser::parseCompoundID(const UnicodeString& id, int32_t d
     int32_t pos = 0;
     int32_t withParens = 1;
     list.removeAllElements();
-    UObjectDeleter *save = list.setDeleter(_deleteSingleID);
-
     UnicodeSet* filter;
     globalFilter = NULL;
     canonID.truncate(0);
@@ -394,7 +392,7 @@ UBool TransliteratorIDParser::parseCompoundID(const UnicodeString& id, int32_t d
             break;
         }
         if (dir == FORWARD) {
-            list.adoptElement(single, ec);
+            list.addElement(single, ec);
         } else {
             list.insertElementAt(single, 0, ec);
         }
@@ -444,10 +442,10 @@ UBool TransliteratorIDParser::parseCompoundID(const UnicodeString& id, int32_t d
         goto FAIL;
     }
 
-    list.setDeleter(save);
     return TRUE;
 
  FAIL:
+    UObjectDeleter *save = list.setDeleter(_deleteSingleID);
     list.removeAllElements();
     list.setDeleter(save);
     delete globalFilter;
@@ -496,8 +494,9 @@ void TransliteratorIDParser::instantiateList(UVector& list,
                 ec = U_INVALID_ID;
                 goto RETURN;
             }
-            tlist.adoptElement(t, ec);
+            tlist.addElement(t, ec);
             if (U_FAILURE(ec)) {
+                delete t;
                 goto RETURN;
             }
         }
@@ -510,7 +509,10 @@ void TransliteratorIDParser::instantiateList(UVector& list,
             // Should never happen
             ec = U_INTERNAL_TRANSLITERATOR_ERROR;
         }
-        tlist.adoptElement(t, ec);
+        tlist.addElement(t, ec);
+        if (U_FAILURE(ec)) {
+            delete t;
+        }
     }
 
  RETURN:
@@ -523,8 +525,9 @@ void TransliteratorIDParser::instantiateList(UVector& list,
 
         while (tlist.size() > 0) {
             t = (Transliterator*) tlist.orphanElementAt(0);
-            list.adoptElement(t, ec);
+            list.addElement(t, ec);
             if (U_FAILURE(ec)) {
+                delete t;
                 list.removeAllElements();
                 break;
             }
