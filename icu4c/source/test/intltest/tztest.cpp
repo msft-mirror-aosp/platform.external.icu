@@ -1171,10 +1171,8 @@ void TimeZoneTest::TestCustomParse()
         TimeZone *zone = TimeZone::createTimeZone(id);
         UnicodeString   itsID, temp;
 
-        OlsonTimeZone *ozone = dynamic_cast<OlsonTimeZone *>(zone);
-        if (ozone != nullptr) {
+        if (dynamic_cast<OlsonTimeZone *>(zone) != NULL) {
             logln(id + " -> Olson time zone");
-            ozone->operator=(*ozone);  // self-assignment should be a no-op
         } else {
             zone->getID(itsID);
             int32_t ioffset = zone->getRawOffset()/1000;
