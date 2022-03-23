@@ -379,6 +379,7 @@ mt{
         ro_MD{"Moldovan"}
         rof{"Rombo"}
         rom{"Romanesk"}
+        root{"Root"}
         ru{"Russu"}
         rup{"Aromanjan"}
         rw{"Kinjarwanda"}
@@ -440,7 +441,7 @@ mt{
         teo{"Teso"}
         ter{"Tereno"}
         tet{"Tetum"}
-        tg{"Taġik"}
+        tg{"Tajik"}
         th{"Tajlandiż"}
         ti{"Tigrinya"}
         tig{"Tigre"}

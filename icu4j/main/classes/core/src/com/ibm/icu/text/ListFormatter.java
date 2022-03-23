@@ -51,15 +51,77 @@ final public class ListFormatter {
     private final PatternHandler patternHandler;
 
     /**
+     * Indicates the style of Listformatter
+     * TODO(ICU-20888): Remove this in ICU 68.
+     * @internal
+     * @deprecated This API is ICU internal only.
+     */
+    @Deprecated
+    public enum Style {
+        /**
+         * Standard, conjunction style.
+         * @internal
+         * @deprecated This API is ICU internal only.
+         */
+        @Deprecated
+        STANDARD("standard"),
+        /**
+         * Disjunction style.
+         * @internal
+         * @deprecated This API is ICU internal only.
+         */
+        @Deprecated
+        OR("or"),
+        /**
+         * Style for full units
+         * @internal
+         * @deprecated This API is ICU internal only.
+         */
+        @Deprecated
+        UNIT("unit"),
+        /**
+         * Style for units in abbrevated form
+         * @internal
+         * @deprecated This API is ICU internal only.
+         */
+        @Deprecated
+        UNIT_SHORT("unit-short"),
+        /**
+         * Style for units in narrow form
+         * @internal
+         * @deprecated This API is ICU internal only.
+         */
+        @Deprecated
+        UNIT_NARROW("unit-narrow");
+
+        private final String name;
+
+        Style(String name) {
+            this.name = name;
+        }
+        /**
+         * @internal
+         * @deprecated This API is ICU internal only.
+         */
+        @Deprecated
+        public String getName() {
+            return name;
+        }
+
+    }
+
+    /**
      * Type of meaning expressed by the list.
      *
-     * @stable ICU 67
+     * @draft ICU 67
+     * @provisional This API might change or be removed in a future release.
      */
     public enum Type {
         /**
          * Conjunction formatting, e.g. "Alice, Bob, Charlie, and Delta".
          *
-         * @stable ICU 67
+         * @draft ICU 67
+         * @provisional This API might change or be removed in a future release.
          */
         AND,
 
@@ -67,14 +129,16 @@ final public class ListFormatter {
          * Disjunction (or alternative, or simply one of) formatting, e.g.
          * "Alice, Bob, Charlie, or Delta".
          *
-         * @stable ICU 67
+         * @draft ICU 67
+         * @provisional This API might change or be removed in a future release.
          */
         OR,
 
         /**
          * Formatting of a list of values with units, e.g. "5 pounds, 12 ounces".
          *
-         * @stable ICU 67
+         * @draft ICU 67
+         * @provisional This API might change or be removed in a future release.
          */
         UNITS
     };
@@ -82,27 +146,31 @@ final public class ListFormatter {
     /**
      * Verbosity level of the list patterns.
      *
-     * @stable ICU 67
+     * @draft ICU 67
+     * @provisional This API might change or be removed in a future release.
      */
     public enum Width {
         /**
          * Use list formatting with full words (no abbreviations) when possible.
          *
-         * @stable ICU 67
+         * @draft ICU 67
+         * @provisional This API might change or be removed in a future release.
          */
         WIDE,
 
         /**
          * Use list formatting of typical length.
          *
-         * @stable ICU 67
+         * @draft ICU 67
+         * @provisional This API might change or be removed in a future release.
          */
         SHORT,
 
         /**
          * Use list formatting of the shortest possible length.
          *
-         * @stable ICU 67
+         * @draft ICU 67
+         * @provisional This API might change or be removed in a future release.
          */
         NARROW,
     };
@@ -110,7 +178,8 @@ final public class ListFormatter {
     /**
      * Class for span fields in FormattedList.
      *
-     * @stable ICU 67
+     * @draft ICU 67
+     * @provisional This API might change or be removed in a future release.
      */
     public static final class SpanField extends UFormat.SpanField {
         private static final long serialVersionUID = 3563544214705634403L;
@@ -121,7 +190,8 @@ final public class ListFormatter {
          * Instances of LIST_SPAN should have an associated value, the index
          * within the input list that is represented by the span.
          *
-         * @stable ICU 67
+         * @draft ICU 67
+         * @provisional This API might change or be removed in a future release.
          */
         public static final SpanField LIST_SPAN = new SpanField("list-span");
 
@@ -147,20 +217,23 @@ final public class ListFormatter {
 
     /**
      * Field selectors for format fields defined by ListFormatter.
-     * @stable ICU 67
+     * @draft ICU 67
+     * @provisional This API might change or be removed in a future release.
      */
     public static final class Field extends Format.Field {
         private static final long serialVersionUID = -8071145668708265437L;
 
         /**
          * The literal text in the result which came from the resources.
-         * @stable ICU 67
+         * @draft ICU 67
+         * @provisional This API might change or be removed in a future release.
          */
         public static Field LITERAL = new Field("literal");
 
         /**
          * The element text in the result which came from the input strings.
-         * @stable ICU 67
+         * @draft ICU 67
+         * @provisional This API might change or be removed in a future release.
          */
         public static Field ELEMENT = new Field("element");
 
@@ -169,12 +242,11 @@ final public class ListFormatter {
         }
 
         /**
-         * Serialization method resolve instances to the constant Field values
+         * Serizalization method resolve instances to the constant Field values
          *
-         * @internal
-         * @deprecated This API is ICU internal only.
+         * @draft ICU 64
+         * @provisional This API might change or be removed in a future release.
          */
-        @Deprecated
         @Override
         protected Object readResolve() throws InvalidObjectException {
             if (this.getName().equals(LITERAL.getName()))
@@ -193,7 +265,8 @@ final public class ListFormatter {
      *
      * Not intended for public subclassing.
      *
-     * @stable ICU 67
+     * @draft ICU 67
+     * @provisional This API might change or be removed in a future release.
      */
     public static final class FormattedList implements FormattedValue {
         private final FormattedStringBuilder string;
@@ -204,7 +277,8 @@ final public class ListFormatter {
 
         /**
          * {@inheritDoc}
-         * @stable ICU 67
+         * @draft ICU 67
+         * @provisional This API might change or be removed in a future release.
          */
         @Override
         public String toString() {
@@ -213,7 +287,8 @@ final public class ListFormatter {
 
         /**
          * {@inheritDoc}
-         * @stable ICU 67
+         * @draft ICU 67
+         * @provisional This API might change or be removed in a future release.
          */
         @Override
         public int length() {
@@ -222,7 +297,8 @@ final public class ListFormatter {
 
         /**
          * {@inheritDoc}
-         * @stable ICU 67
+         * @draft ICU 67
+         * @provisional This API might change or be removed in a future release.
          */
         @Override
         public char charAt(int index) {
@@ -231,7 +307,8 @@ final public class ListFormatter {
 
         /**
          * {@inheritDoc}
-         * @stable ICU 67
+         * @draft ICU 67
+         * @provisional This API might change or be removed in a future release.
          */
         @Override
         public CharSequence subSequence(int start, int end) {
@@ -240,7 +317,8 @@ final public class ListFormatter {
 
         /**
          * {@inheritDoc}
-         * @stable ICU 67
+         * @draft ICU 67
+         * @provisional This API might change or be removed in a future release.
          */
         @Override
         public <A extends Appendable> A appendTo(A appendable) {
@@ -249,7 +327,8 @@ final public class ListFormatter {
 
         /**
          * {@inheritDoc}
-         * @stable ICU 67
+         * @draft ICU 67
+         * @provisional This API might change or be removed in a future release.
          */
         @Override
         public boolean nextPosition(ConstrainedFieldPosition cfpos) {
@@ -258,7 +337,8 @@ final public class ListFormatter {
 
         /**
          * {@inheritDoc}
-         * @stable ICU 67
+         * @draft ICU 67
+         * @provisional This API might change or be removed in a future release.
          */
         @Override
         public AttributedCharacterIterator toCharacterIterator() {
@@ -312,7 +392,8 @@ final public class ListFormatter {
      * @param locale
      *            the locale in question.
      * @return ListFormatter
-     * @stable ICU 67
+     * @draft ICU 67
+     * @provisional This API might change or be removed in a future release.
      */
     public static ListFormatter getInstance(ULocale locale, Type type, Width width) {
         String styleName = typeWidthToStyleString(type, width);
@@ -328,10 +409,25 @@ final public class ListFormatter {
      * @param locale
      *            the locale in question.
      * @return ListFormatter
-     * @stable ICU 67
+     * @draft ICU 67
+     * @provisional This API might change or be removed in a future release.
      */
     public static ListFormatter getInstance(Locale locale, Type type, Width width) {
         return getInstance(ULocale.forLocale(locale), type, width);
+    }
+
+    /**
+     * Create a list formatter that is appropriate for a locale and style.
+     *
+     * @param locale the locale in question.
+     * @param style the style
+     * @return ListFormatter
+     * @internal
+     * @deprecated This API is ICU internal only.
+     */
+    @Deprecated
+    public static ListFormatter getInstance(ULocale locale, Style style) {
+        return cache.get(locale, style.getName());
     }
 
     /**
@@ -343,7 +439,7 @@ final public class ListFormatter {
      * @stable ICU 50
      */
     public static ListFormatter getInstance(ULocale locale) {
-      return getInstance(locale, Type.AND, Width.WIDE);
+      return getInstance(locale, Style.STANDARD);
     }
 
     /**
@@ -355,7 +451,7 @@ final public class ListFormatter {
      * @stable ICU 50
      */
     public static ListFormatter getInstance(Locale locale) {
-        return getInstance(ULocale.forLocale(locale), Type.AND, Width.WIDE);
+        return getInstance(ULocale.forLocale(locale), Style.STANDARD);
     }
 
     /**
@@ -399,7 +495,8 @@ final public class ListFormatter {
      * @param items
      *            items to format. The toString() method is called on each.
      * @return items formatted into a FormattedList
-     * @stable ICU 67
+     * @draft ICU 67
+     * @provisional This API might change or be removed in a future release.
      */
     public FormattedList formatToValue(Object... items) {
         return formatToValue(Arrays.asList(items));
@@ -413,7 +510,8 @@ final public class ListFormatter {
      * @param items
      *            items to format. The toString() method is called on each.
      * @return items formatted into a FormattedList
-     * @stable ICU 67
+     * @draft ICU 67
+     * @provisional This API might change or be removed in a future release.
      */
     public FormattedList formatToValue(Collection<?> items) {
         return formatImpl(items, true).toValue();
@@ -626,17 +724,14 @@ final public class ListFormatter {
         }
 
         private void appendElement(Object element, int position) {
-            String elementString = element.toString();
             if (needsFields) {
                 SpanFieldPlaceholder field = new SpanFieldPlaceholder();
                 field.spanField = SpanField.LIST_SPAN;
                 field.normalField = Field.ELEMENT;
                 field.value = position;
-                field.start = -1;
-                field.length = elementString.length();
-                string.append(elementString, field);
+                string.append(element.toString(), field);
             } else {
-                string.append(elementString, null);
+                string.append(element.toString(), null);
             }
         }
 

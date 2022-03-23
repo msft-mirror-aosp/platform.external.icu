@@ -347,7 +347,7 @@ public class SimpleTimeZone extends BasicTimeZone {
      *       month, regardless of what day of the week it is (e.g., (-2, 0) is the
      *       next-to-last day of the month).
      *   <li>If dayOfWeek is negative and dayOfWeekInMonth is positive, they specify the
-     *       first specified day of the week on or after the specified day of the month.
+     *       first specified day of the week on or after the specfied day of the month.
      *       (e.g., (15, -SUNDAY) is the first Sunday after the 15th of the month
      *       [or the 15th itself if the 15th is a Sunday].)
      *   <li>If dayOfWeek and DayOfWeekInMonth are both negative, they specify the
@@ -627,7 +627,7 @@ public class SimpleTimeZone extends BasicTimeZone {
     }
 
     //  Use only for decodeStartRule() and decodeEndRule() where the year is not
-    //  available. Set February to 29 days to accommodate rules with that date
+    //  available. Set February to 29 days to accomodate rules with that date
     //  and day-of-week-on-or-before-that-date mode (DOW_LE_DOM_MODE).
     //  The compareToRule() method adjusts to February 28 in non-leap years.
     //
@@ -790,14 +790,13 @@ public class SimpleTimeZone extends BasicTimeZone {
 
     /**
      * {@inheritDoc}
-     * @draft ICU 69
+     * @internal
+     * @deprecated This API is ICU internal only.
      */
     @Override
+    @Deprecated
     public void getOffsetFromLocal(long date,
-            LocalOption nonExistingTimeOpt, LocalOption duplicatedTimeOpt, int[] offsets) {
-        int nonExistingTimeOptVal = getLocalOptionValue(nonExistingTimeOpt);
-        int duplicatedTimeOptVal = getLocalOptionValue(duplicatedTimeOpt);
-
+            int nonExistingTimeOpt, int duplicatedTimeOpt, int[] offsets) {
         offsets[0] = getRawOffset();
         int fields[] = new int[6];
         Grego.timeToFields(date, fields);
@@ -809,16 +808,16 @@ public class SimpleTimeZone extends BasicTimeZone {
 
         // Now, we need some adjustment
         if (offsets[1] > 0) {
-            if ((nonExistingTimeOptVal & STD_DST_MASK) == LOCAL_STD
-                || (nonExistingTimeOptVal & STD_DST_MASK) != LOCAL_DST
-                && (nonExistingTimeOptVal & FORMER_LATTER_MASK) != LOCAL_LATTER) {
+            if ((nonExistingTimeOpt & STD_DST_MASK) == LOCAL_STD
+                || (nonExistingTimeOpt & STD_DST_MASK) != LOCAL_DST
+                && (nonExistingTimeOpt & FORMER_LATTER_MASK) != LOCAL_LATTER) {
                 date -= getDSTSavings();
                 recalc = true;
             }
         } else {
-            if ((duplicatedTimeOptVal & STD_DST_MASK) == LOCAL_DST
-                || (duplicatedTimeOptVal & STD_DST_MASK) != LOCAL_STD
-                && (duplicatedTimeOptVal & FORMER_LATTER_MASK) == LOCAL_FORMER) {
+            if ((duplicatedTimeOpt & STD_DST_MASK) == LOCAL_DST
+                || (duplicatedTimeOpt & STD_DST_MASK) != LOCAL_STD
+                && (duplicatedTimeOpt & FORMER_LATTER_MASK) == LOCAL_FORMER) {
                 date -= getDSTSavings();
                 recalc = true;
             }

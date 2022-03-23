@@ -106,7 +106,8 @@ public class Currency extends MeasureUnit {
      * but it always takes the form used in formal settings such as banking;
      * for example, "NT$" instead of "$" for TWD in zh-TW.
      *
-     * @stable ICU 67
+     * @draft ICU 67
+     * @provisional This API might change or be removed in a future release.
      */
     public static final int FORMAL_SYMBOL_NAME = 4;
 
@@ -116,7 +117,8 @@ public class Currency extends MeasureUnit {
      * The variant symbol for a currency is an alternative symbol that is not
      * necessarily as widely used as the regular symbol.
      *
-     * @stable ICU 67
+     * @draft ICU 67
+     * @provisional This API might change or be removed in a future release.
      */
     public static final int VARIANT_SYMBOL_NAME = 5;
 
