@@ -143,6 +143,7 @@ public abstract class CurrencyDisplayNames {
      *
      * @param isoCode the three-letter ISO code.
      * @return the formal symbol.
+     * @hide draft / provisional / internal are hidden on Android
      */
     public abstract String getFormalSymbol(String isoCode);
 
@@ -157,6 +158,7 @@ public abstract class CurrencyDisplayNames {
      *
      * @param isoCode the three-letter ISO code.
      * @return the variant symbol.
+     * @hide draft / provisional / internal are hidden on Android
      */
     public abstract String getVariantSymbol(String isoCode);
 

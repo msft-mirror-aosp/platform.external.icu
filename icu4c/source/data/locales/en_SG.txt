@@ -20,16 +20,6 @@ en_SG{
                 "{1}, {0}",
                 "{1}, {0}",
             }
-            DateTimeSkeletons{
-                "ahmmsszzzz",
-                "ahmmssz",
-                "ahmmss",
-                "ahmm",
-                "GyMMMMEEEEd",
-                "GyMMMMd",
-                "GyMMMd",
-                "GGGGGyyMd",
-            }
             availableFormats{
                 yyyyMEd{"E, d/M/y GGGGG"}
             }
@@ -72,16 +62,6 @@ en_SG{
                 "{1} 'at' {0}",
                 "{1}, {0}",
                 "{1}, {0}",
-            }
-            DateTimeSkeletons{
-                "ahmmsszzzz",
-                "ahmmssz",
-                "ahmmss",
-                "ahmm",
-                "yMMMMEEEEd",
-                "yMMMMd",
-                "yMMMd",
-                "yyMd",
             }
             intervalFormats{
                 MEd{

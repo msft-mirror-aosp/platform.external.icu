@@ -286,7 +286,7 @@ public:
     delete[] ids;
   }
 
-  virtual Collator* createCollator(const Locale& loc) override {
+  virtual Collator* createCollator(const Locale& loc) {
     const CollatorInfo* ci = getInfo(loc);
     if (ci) {
       return ci->collator->clone();
@@ -296,7 +296,7 @@ public:
 
   virtual UnicodeString& getDisplayName(const Locale& objectLocale,
                                         const Locale& displayLocale,
-                                        UnicodeString& result) override
+                                        UnicodeString& result)
   {
     const CollatorInfo* ci = getInfo(objectLocale);
     if (ci) {
@@ -307,7 +307,7 @@ public:
     return result;
   }
 
-  const UnicodeString* getSupportedIDs(int32_t& _count, UErrorCode& status) override {
+  const UnicodeString* getSupportedIDs(int32_t& _count, UErrorCode& status) {
     if (U_SUCCESS(status)) {
       if (!ids) {
         ids = new UnicodeString[count];
@@ -328,7 +328,7 @@ public:
     return NULL;
   }
 
-  virtual inline UClassID getDynamicClassID() const override {
+  virtual inline UClassID getDynamicClassID() const {
     return (UClassID)&gClassID;
   }
 
@@ -560,9 +560,7 @@ static const int32_t KW_COUNT = UPRV_LENGTHOF(KW);
 
 static const char* KWVAL[] = {
     "phonebook",
-    "stroke",
-    "emoji",
-    "eor"
+    "stroke"
 };
 static const int32_t KWVAL_COUNT = UPRV_LENGTHOF(KWVAL);
 

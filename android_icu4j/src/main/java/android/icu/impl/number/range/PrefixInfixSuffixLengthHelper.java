@@ -29,8 +29,4 @@ public class PrefixInfixSuffixLengthHelper {
     public int index3() {
         return lengthPrefix + length1 + lengthInfix + length2;
     }
-
-    public int index4() {
-        return lengthPrefix + length1 + lengthInfix + length2 + lengthSuffix;
-    }
 }

@@ -344,9 +344,7 @@ public class CollationServiceTest extends TestFmwk {
 
     private static final String KWVAL[] = {
         "phonebook",
-        "stroke",
-        "emoji",
-        "eor",
+        "stroke"
     };
 
     @Test

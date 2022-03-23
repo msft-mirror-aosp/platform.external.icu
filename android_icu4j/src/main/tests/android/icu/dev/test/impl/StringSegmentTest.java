@@ -4,8 +4,6 @@
 package android.icu.dev.test.impl;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
@@ -52,15 +50,10 @@ public class StringSegmentTest {
     public void testCharAt() {
         StringSegment segment = new StringSegment(SAMPLE_STRING, false);
         assertCharSequenceEquals(SAMPLE_STRING, segment);
-        assertTrue(segment.contentEquals(SAMPLE_STRING));
         segment.adjustOffset(3);
         assertCharSequenceEquals("radio 📻", segment);
-        assertTrue(segment.contentEquals("radio 📻"));
-        assertFalse(segment.contentEquals(SAMPLE_STRING));
         segment.setLength(5);
         assertCharSequenceEquals("radio", segment);
-        assertTrue(segment.contentEquals("radio"));
-        assertFalse(segment.contentEquals(SAMPLE_STRING));
     }
 
     @Test

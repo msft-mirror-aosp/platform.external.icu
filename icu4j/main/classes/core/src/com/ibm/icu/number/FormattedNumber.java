@@ -28,14 +28,10 @@ public class FormattedNumber implements FormattedValue {
     final DecimalQuantity fq;
     final MeasureUnit outputUnit;
 
-    // Grammatical gender of the formatted result.
-    final String gender;
-
-    FormattedNumber(FormattedStringBuilder nsb, DecimalQuantity fq, MeasureUnit outputUnit, String gender) {
+    FormattedNumber(FormattedStringBuilder nsb, DecimalQuantity fq, MeasureUnit outputUnit) {
         this.string = nsb;
         this.fq = fq;
         this.outputUnit = outputUnit;
-        this.gender = gender;
     }
 
     /**
@@ -130,24 +126,11 @@ public class FormattedNumber implements FormattedValue {
      * as "foot-and-inch" or "hour-and-minute-and-second".
      *
      * @return `MeasureUnit`.
-     * @stable ICU 68
+     * @draft ICU 68
+     * @provisional This API might change or be removed in a future release.
      */
     public MeasureUnit getOutputUnit() {
         return this.outputUnit;
-    }
-
-    /**
-     * The gender of the formatted output.
-     *
-     * @internal ICU 69 technology preview
-     * @deprecated This API is for technology preview only.
-     */
-    @Deprecated
-    public String getGender() {
-        if (this.gender == null) {
-            return "";
-        }
-        return this.gender;
     }
 
     /**
