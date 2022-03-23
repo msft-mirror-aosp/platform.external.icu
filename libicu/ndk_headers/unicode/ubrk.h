@@ -26,7 +26,7 @@
 #   define UBRK_TYPEDEF_UBREAK_ITERATOR
     /**
      *  Opaque type representing an ICU Break iterator object.
-     *  \xrefitem stable "Stable" "Stable List" ICU 2.0
+     *  @stable ICU 2.0
      */
     typedef struct UBreakIterator UBreakIterator;
 #endif
@@ -35,8 +35,6 @@
 
 
 /**
- * @addtogroup ICU4C
- * @{
  * \file
  * \brief C API: BreakIterator
  *
@@ -95,19 +93,19 @@
  * <p>
  * Code snippets illustrating the use of the Break Iterator APIs
  * are available in the ICU User Guide,
- * https://unicode-org.github.io/icu/userguide/boundaryanalysis/
+ * http://icu-project.org/userguide/boundaryAnalysis.html
  * and in the sample program icu/source/samples/break/break.cpp
  */
 
-/** The possible types of text boundaries.  \xrefitem stable "Stable" "Stable List" ICU 2.0 */
+/** The possible types of text boundaries.  @stable ICU 2.0 */
 typedef enum UBreakIteratorType {
-  /** Character breaks  \xrefitem stable "Stable" "Stable List" ICU 2.0 */
+  /** Character breaks  @stable ICU 2.0 */
   UBRK_CHARACTER = 0,
-  /** Word breaks \xrefitem stable "Stable" "Stable List" ICU 2.0 */
+  /** Word breaks @stable ICU 2.0 */
   UBRK_WORD = 1,
-  /** Line breaks \xrefitem stable "Stable" "Stable List" ICU 2.0 */
+  /** Line breaks @stable ICU 2.0 */
   UBRK_LINE = 2,
-  /** Sentence breaks \xrefitem stable "Stable" "Stable List" ICU 2.0 */
+  /** Sentence breaks @stable ICU 2.0 */
   UBRK_SENTENCE = 3,
 
 #ifndef U_HIDE_DEPRECATED_API
@@ -117,19 +115,19 @@ typedef enum UBreakIteratorType {
    * Unicode 3.2 only. For Unicode 4.0 and above title boundary iteration,
    * please use Word Boundary iterator.
    *
-   * \xrefitem deprecated "Deprecated" "Deprecated List" ICU 2.8 Use the word break iterator for titlecasing for Unicode 4 and later.
+   * @deprecated ICU 2.8 Use the word break iterator for titlecasing for Unicode 4 and later.
    */
   UBRK_TITLE = 4,
     /**
      * One more than the highest normal UBreakIteratorType value.
-     * \xrefitem deprecated "Deprecated" "Deprecated List" ICU 58 The numeric value may change over time, see ICU ticket #12420.
+     * @deprecated ICU 58 The numeric value may change over time, see ICU ticket #12420.
      */
     UBRK_COUNT = 5
 #endif  // U_HIDE_DEPRECATED_API
 } UBreakIteratorType;
 
 /** Value indicating all text boundaries have been returned.
- *  \xrefitem stable "Stable" "Stable List" ICU 2.0
+ *  @stable ICU 2.0
  */
 #define UBRK_DONE ((int32_t) -1)
 
@@ -143,7 +141,7 @@ typedef enum UBreakIteratorType {
  *
  * The numeric values of all of these constants are stable (will not change).
  *
- * \xrefitem stable "Stable" "Stable List" ICU 2.2
+ * @stable ICU 2.2
 */
 typedef enum UWordBreak {
     /** Tag value for "words" that do not fit into any of other categories.
@@ -179,7 +177,7 @@ typedef enum UWordBreak {
  *
  * The numeric values of all of these constants are stable (will not change).
  *
- * \xrefitem stable "Stable" "Stable List" ICU 2.8
+ * @stable ICU 2.8
 */
 typedef enum ULineBreakTag {
     /** Tag value for soft line breaks, positions at which a line break
@@ -204,7 +202,7 @@ typedef enum ULineBreakTag {
  *
  * The numeric values of all of these constants are stable (will not change).
  *
- * \xrefitem stable "Stable" "Stable List" ICU 2.8
+ * @stable ICU 2.8
 */
 typedef enum USentenceBreakTag {
     /** Tag value for for sentences  ending with a sentence terminator
@@ -240,7 +238,7 @@ typedef enum USentenceBreakTag {
  * @param status A UErrorCode to receive any errors.
  * @return A UBreakIterator for the specified locale.
  * @see ubrk_openRules
- * \xrefitem stable "Stable" "Stable List" ICU 2.0
+ * @stable ICU 2.0
  */
 U_CAPI UBreakIterator* U_EXPORT2
 ubrk_open(UBreakIteratorType type,
@@ -267,7 +265,7 @@ ubrk_open(UBreakIteratorType type,
  * @param bi iterator to be cloned
  * @param status to indicate whether the operation went on smoothly or there were errors
  * @return pointer to the new clone
- * \xrefitem stable "Stable" "Stable List" ICU 69
+ * @stable ICU 69
  */
 U_CAPI UBreakIterator * U_EXPORT2
 ubrk_clone(const UBreakIterator *bi,
@@ -280,7 +278,7 @@ ubrk_clone(const UBreakIterator *bi,
 
 /**
   * A recommended size (in bytes) for the memory buffer to be passed to ubrk_saveClone().
-  * \xrefitem deprecated "Deprecated" "Deprecated List" ICU 52. Do not rely on ubrk_safeClone() cloning into any provided buffer.
+  * @deprecated ICU 52. Do not rely on ubrk_safeClone() cloning into any provided buffer.
   */
 #define U_BRK_SAFECLONE_BUFFERSIZE 1
 
@@ -290,7 +288,7 @@ ubrk_clone(const UBreakIterator *bi,
 * Close a UBreakIterator.
 * Once closed, a UBreakIterator may no longer be used.
 * @param bi The break iterator to close.
- * \xrefitem stable "Stable" "Stable List" ICU 2.0
+ * @stable ICU 2.0
 */
 U_CAPI void U_EXPORT2
 ubrk_close(UBreakIterator *bi) __INTRODUCED_IN(31);
@@ -308,7 +306,7 @@ U_NAMESPACE_BEGIN
  *
  * @see LocalPointerBase
  * @see LocalPointer
- * \xrefitem stable "Stable" "Stable List" ICU 4.4
+ * @stable ICU 4.4
  */
 U_DEFINE_LOCAL_OPEN_POINTER(LocalUBreakIteratorPointer, UBreakIterator, ubrk_close);
 
@@ -326,7 +324,7 @@ U_NAMESPACE_END
  * @param text The text to be set
  * @param textLength The length of the text
  * @param status The error code
- * \xrefitem stable "Stable" "Stable List" ICU 2.0
+ * @stable ICU 2.0
  */
 U_CAPI void U_EXPORT2
 ubrk_setText(UBreakIterator* bi,
@@ -352,7 +350,7 @@ ubrk_setText(UBreakIterator* bi,
  *             UText that was passed as a parameter, but that the underlying text itself
  *             must not be altered while being referenced by the break iterator.
  * @param status The error code
- * \xrefitem stable "Stable" "Stable List" ICU 3.4
+ * @stable ICU 3.4
  */
 U_CAPI void U_EXPORT2
 ubrk_setUText(UBreakIterator* bi,
@@ -369,7 +367,7 @@ ubrk_setUText(UBreakIterator* bi,
  * @param bi The break iterator to use.
  * @return The character index most recently returned by \ref ubrk_next, \ref ubrk_previous,
  * \ref ubrk_first, or \ref ubrk_last.
- * \xrefitem stable "Stable" "Stable List" ICU 2.0
+ * @stable ICU 2.0
  */
 U_CAPI int32_t U_EXPORT2
 ubrk_current(const UBreakIterator *bi) __INTRODUCED_IN(31);
@@ -383,7 +381,7 @@ ubrk_current(const UBreakIterator *bi) __INTRODUCED_IN(31);
  * @return The character index of the next text boundary, or UBRK_DONE
  * if all text boundaries have been returned.
  * @see ubrk_previous
- * \xrefitem stable "Stable" "Stable List" ICU 2.0
+ * @stable ICU 2.0
  */
 U_CAPI int32_t U_EXPORT2
 ubrk_next(UBreakIterator *bi) __INTRODUCED_IN(31);
@@ -397,7 +395,7 @@ ubrk_next(UBreakIterator *bi) __INTRODUCED_IN(31);
  * @return The character index of the preceding text boundary, or UBRK_DONE
  * if all text boundaries have been returned.
  * @see ubrk_next
- * \xrefitem stable "Stable" "Stable List" ICU 2.0
+ * @stable ICU 2.0
  */
 U_CAPI int32_t U_EXPORT2
 ubrk_previous(UBreakIterator *bi) __INTRODUCED_IN(31);
@@ -409,7 +407,7 @@ ubrk_previous(UBreakIterator *bi) __INTRODUCED_IN(31);
  * @param bi The break iterator to use.
  * @return The new iterator position (zero).
  * @see ubrk_last
- * \xrefitem stable "Stable" "Stable List" ICU 2.0
+ * @stable ICU 2.0
  */
 U_CAPI int32_t U_EXPORT2
 ubrk_first(UBreakIterator *bi) __INTRODUCED_IN(31);
@@ -423,7 +421,7 @@ ubrk_first(UBreakIterator *bi) __INTRODUCED_IN(31);
  * @return The character offset immediately <EM>beyond</EM> the last character in the
  * text being scanned.
  * @see ubrk_first
- * \xrefitem stable "Stable" "Stable List" ICU 2.0
+ * @stable ICU 2.0
  */
 U_CAPI int32_t U_EXPORT2
 ubrk_last(UBreakIterator *bi) __INTRODUCED_IN(31);
@@ -437,7 +435,7 @@ ubrk_last(UBreakIterator *bi) __INTRODUCED_IN(31);
  * @param offset The offset to begin scanning.
  * @return The text boundary preceding offset, or UBRK_DONE.
  * @see ubrk_following
- * \xrefitem stable "Stable" "Stable List" ICU 2.0
+ * @stable ICU 2.0
  */
 U_CAPI int32_t U_EXPORT2
 ubrk_preceding(UBreakIterator *bi,
@@ -452,7 +450,7 @@ ubrk_preceding(UBreakIterator *bi,
  * @param offset The offset to begin scanning.
  * @return The text boundary following offset, or UBRK_DONE.
  * @see ubrk_preceding
- * \xrefitem stable "Stable" "Stable List" ICU 2.0
+ * @stable ICU 2.0
  */
 U_CAPI int32_t U_EXPORT2
 ubrk_following(UBreakIterator *bi,
@@ -467,7 +465,7 @@ ubrk_following(UBreakIterator *bi,
 * @param index The index of the desired locale.
 * @return A locale for which number text breaking information is available, or 0 if none.
 * @see ubrk_countAvailable
-* \xrefitem stable "Stable" "Stable List" ICU 2.0
+* @stable ICU 2.0
 */
 U_CAPI const char* U_EXPORT2
 ubrk_getAvailable(int32_t index) __INTRODUCED_IN(31);
@@ -480,7 +478,7 @@ ubrk_getAvailable(int32_t index) __INTRODUCED_IN(31);
 * calls to \ref ubrk_getAvailable.
 * @return The number of locales for which text breaking information is available.
 * @see ubrk_getAvailable
-* \xrefitem stable "Stable" "Stable List" ICU 2.0
+* @stable ICU 2.0
 */
 U_CAPI int32_t U_EXPORT2
 ubrk_countAvailable(void) __INTRODUCED_IN(31);
@@ -495,7 +493,7 @@ ubrk_countAvailable(void) __INTRODUCED_IN(31);
 * @param bi The break iterator to use.
 * @param offset the offset to check.
 * @return True if "offset" is a boundary position.
-* \xrefitem stable "Stable" "Stable List" ICU 2.0
+* @stable ICU 2.0
 */
 U_CAPI  UBool U_EXPORT2
 ubrk_isBoundary(UBreakIterator *bi, int32_t offset) __INTRODUCED_IN(31);
@@ -509,7 +507,7 @@ ubrk_isBoundary(UBreakIterator *bi, int32_t offset) __INTRODUCED_IN(31);
  * status, a default value of 0 is returned.
  * <p>
  * For word break iterators, the possible values are defined in enum UWordBreak.
- * \xrefitem stable "Stable" "Stable List" ICU 2.2
+ * @stable ICU 2.2
  */
 U_CAPI  int32_t U_EXPORT2
 ubrk_getRuleStatus(UBreakIterator *bi) __INTRODUCED_IN(31);
@@ -531,7 +529,7 @@ ubrk_getRuleStatus(UBreakIterator *bi) __INTRODUCED_IN(31);
  * @param status    receives error codes.
  * @return          The number of rule status values from rules that determined
  *                  the most recent boundary returned by the break iterator.
- * \xrefitem stable "Stable" "Stable List" ICU 3.0
+ * @stable ICU 3.0
  */
 U_CAPI  int32_t U_EXPORT2
 ubrk_getRuleStatusVec(UBreakIterator *bi, int32_t *fillInVec, int32_t capacity, UErrorCode *status) __INTRODUCED_IN(31);
@@ -548,5 +546,3 @@ ubrk_getRuleStatusVec(UBreakIterator *bi, int32_t *fillInVec, int32_t capacity, 
 #endif /* #if !UCONFIG_NO_BREAK_ITERATION */
 
 #endif
-
-/** @} */ // addtogroup

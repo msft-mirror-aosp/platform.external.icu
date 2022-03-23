@@ -477,11 +477,11 @@ ZoneMeta::getCanonicalCountry(const UnicodeString &tzid, UnicodeString &country,
                 UErrorCode ec = U_ZERO_ERROR;
                 if (singleZone) {
                     if (!gSingleZoneCountries->contains((void*)region)) {
-                        gSingleZoneCountries->addElementX((void*)region, ec);
+                        gSingleZoneCountries->addElement((void*)region, ec);
                     }
                 } else {
                     if (!gMultiZonesCountries->contains((void*)region)) {
-                        gMultiZonesCountries->addElementX((void*)region, ec);
+                        gMultiZonesCountries->addElement((void*)region, ec);
                     }
                 }
             }
@@ -696,7 +696,7 @@ ZoneMeta::createMetazoneMappings(const UnicodeString &tzid) {
                     }
                 }
 
-                mzMappings->addElementX(entry, status);
+                mzMappings->addElement(entry, status);
                 if (U_FAILURE(status)) {
                     break;
                 }
@@ -801,7 +801,7 @@ static void U_CALLCONV initAvailableMetaZoneIDs () {
         uMzID[len] = 0;
         UnicodeString *usMzID = new UnicodeString(uMzID);
         if (uhash_get(gMetaZoneIDTable, usMzID) == NULL) {
-            gMetaZoneIDs->addElementX((void *)uMzID, status);
+            gMetaZoneIDs->addElement((void *)uMzID, status);
             uhash_put(gMetaZoneIDTable, (void *)usMzID, (void *)uMzID, &status);
         } else {
             uprv_free(uMzID);

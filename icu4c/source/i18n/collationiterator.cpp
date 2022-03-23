@@ -168,7 +168,7 @@ CollationIterator::~CollationIterator() {
     delete skipped;
 }
 
-bool
+UBool
 CollationIterator::operator==(const CollationIterator &other) const {
     // Subclasses: Call this method and then add more specific checks.
     // Compare the iterator state but not the collation data (trie & data fields):
@@ -180,12 +180,12 @@ CollationIterator::operator==(const CollationIterator &other) const {
             cesIndex == other.cesIndex &&
             numCpFwd == other.numCpFwd &&
             isNumeric == other.isNumeric)) {
-        return false;
+        return FALSE;
     }
     for(int32_t i = 0; i < ceBuffer.length; ++i) {
-        if(ceBuffer.get(i) != other.ceBuffer.get(i)) { return false; }
+        if(ceBuffer.get(i) != other.ceBuffer.get(i)) { return FALSE; }
     }
-    return true;
+    return TRUE;
 }
 
 void

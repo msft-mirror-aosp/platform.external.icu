@@ -721,7 +721,7 @@ it{
             "kina papuana",
         }
         PHP{
-            "₱",
+            "PHP",
             "peso filippino",
         }
         PKR{
@@ -1025,7 +1025,7 @@ it{
             "franco UIC francese",
         }
         XOF{
-            "F CFA",
+            "CFA",
             "franco CFA BCEAO",
         }
         XPD{
@@ -1201,6 +1201,7 @@ it{
         ZMW{"ZK"}
     }
     Currencies%variant{
+        GEL{"ლ"}
         TRY{"TL"}
     }
     CurrencyPlurals{
@@ -1543,10 +1544,6 @@ it{
         LRD{
             one{"dollaro liberiano"}
             other{"dollari liberiani"}
-        }
-        LSL{
-            one{"loti del Lesotho"}
-            other{"maloti del Lesotho"}
         }
         LTL{
             one{"litas lituano"}

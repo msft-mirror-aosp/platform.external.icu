@@ -7,7 +7,8 @@ package com.ibm.icu.util;
  * It is rejected because it may lead to problems such as excessive
  * processing time, stack depth, or heap memory requirements.
  *
- * @stable ICU 68
+ * @draft ICU 68
+ * @provisional This API might change or be removed in a future release.
  */
 public class ICUInputTooLongException extends ICUException {
     private static final long serialVersionUID = -2602876786689338226L;
@@ -15,7 +16,8 @@ public class ICUInputTooLongException extends ICUException {
     /**
      * Default constructor.
      *
-     * @stable ICU 68
+     * @draft ICU 68
+     * @provisional This API might change or be removed in a future release.
      */
     public ICUInputTooLongException() {
     }
@@ -24,7 +26,8 @@ public class ICUInputTooLongException extends ICUException {
      * Constructor.
      *
      * @param message exception message string
-     * @stable ICU 68
+     * @draft ICU 68
+     * @provisional This API might change or be removed in a future release.
      */
     public ICUInputTooLongException(String message) {
         super(message);
@@ -34,7 +37,8 @@ public class ICUInputTooLongException extends ICUException {
      * Constructor.
      *
      * @param cause original exception
-     * @stable ICU 68
+     * @draft ICU 68
+     * @provisional This API might change or be removed in a future release.
      */
     public ICUInputTooLongException(Throwable cause) {
         super(cause);
@@ -45,7 +49,8 @@ public class ICUInputTooLongException extends ICUException {
      *
      * @param message exception message string
      * @param cause original exception
-     * @stable ICU 68
+     * @draft ICU 68
+     * @provisional This API might change or be removed in a future release.
      */
     public ICUInputTooLongException(String message, Throwable cause) {
         super(message, cause);

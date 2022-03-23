@@ -288,6 +288,7 @@ ga{
                 }
             }
             symbols{
+                approximatelySign{"≈"}
                 exponential{"E"}
                 group{","}
                 infinity{"∞"}
@@ -330,16 +331,6 @@ ga{
                 "{1} {0}",
                 "{1} {0}",
                 "{1} {0}",
-            }
-            DateTimeSkeletons{
-                "HHmmsszzzz",
-                "HHmmssz",
-                "HHmmss",
-                "HHmm",
-                "GyMMMMEEEEd",
-                "GyMMMMd",
-                "GyMMMd",
-                "GGGGGyMMdd",
             }
             availableFormats{
                 E{"ccc"}
@@ -490,16 +481,6 @@ ga{
                 "{1} {0}",
                 "{1} {0}",
                 "{1} {0}",
-            }
-            DateTimeSkeletons{
-                "HHmmsszzzz",
-                "HHmmssz",
-                "HHmmss",
-                "HHmm",
-                "GyMMMMEEEEd",
-                "GyMMMMd",
-                "GyMMMd",
-                "GGGGGyMMdd",
             }
             availableFormats{
                 Bh{"h B"}
@@ -685,16 +666,6 @@ ga{
                 "{1} {0}",
                 "{1} {0}",
             }
-            DateTimeSkeletons{
-                "HHmmsszzzz",
-                "HHmmssz",
-                "HHmmss",
-                "HHmm",
-                "yMMMMEEEEd",
-                "yMMMMd",
-                "yMMMd",
-                "yMMdd",
-            }
             appendItems{
                 Timezone{"{0} {1}"}
             }
@@ -714,7 +685,6 @@ ga{
                 GyMMM{"MMM y G"}
                 GyMMMEd{"E d MMM y G"}
                 GyMMMd{"d MMM y G"}
-                GyMd{"dd/MM/y GGGGG"}
                 H{"HH"}
                 Hm{"HH:mm"}
                 Hms{"HH:mm:ss"}
@@ -1114,92 +1084,92 @@ ga{
         }
     }
     characterLabel{
-        activities{"gníomhaíocht"}
-        african_scripts{"script na hAfraice"}
-        american_scripts{"script Mheiriceánach"}
+        activities{"Gníomhaíocht"}
+        african_scripts{"Scripteanna na hAfraice"}
+        american_scripts{"Scripteanna Meiriceánacha"}
         animal{"ainmhí"}
-        animals_nature{"ainmhí nó an nádúr"}
+        animals_nature{"Ainmhithe nó an Nádúr"}
         arrows{"saighead"}
         body{"corp"}
         box_drawing{"Líníocht Boscaí"}
         braille{"Braille"}
         building{"foirgneamh"}
-        bullets_stars{"urchar nó réalta"}
-        consonantal_jamo{"seamó consanta"}
-        currency_symbols{"siombail airgeadra"}
-        dash_connector{"dais nó nascóir"}
-        digits{"digit"}
-        dingbats{"smísteog"}
-        divination_symbols{"siombail na fáistine"}
+        bullets_stars{"Urchair/Réaltaí"}
+        consonantal_jamo{"Seamó Consanta"}
+        currency_symbols{"Siombailí Airgeadra"}
+        dash_connector{"Dais/Nascóir"}
+        digits{"Digití"}
+        dingbats{"Smísteoga"}
+        divination_symbols{"Siombailí na Fáistine"}
         downwards_arrows{"saighead síos"}
         downwards_upwards_arrows{"saighead síos suas"}
-        east_asian_scripts{"script na hÁise Thoir"}
-        emoji{"emoji"}
-        european_scripts{"script na hEorpa"}
+        east_asian_scripts{"Scripteanna na hÁise Thoir"}
+        emoji{"Emoji"}
+        european_scripts{"Scripteanna na hEorpa"}
         female{"baineann"}
         flag{"bratach"}
-        flags{"bratacha"}
-        food_drink{"bia agus deoch"}
-        format{"formáid"}
-        format_whitespace{"formáid agus spás bán"}
+        flags{"Bratacha"}
+        food_drink{"Bia agus Deoch"}
+        format{"Formáid"}
+        format_whitespace{"Formáid agus Spás Bán"}
         full_width_form_variant{"leagan lánleithid"}
-        geometric_shapes{"cruth geoiméadrach"}
+        geometric_shapes{"Cruthanna Geoiméadracha"}
         half_width_form_variant{"leagan leathleithid"}
-        han_characters{"carachtar Han"}
-        han_radicals{"fréamh Han"}
+        han_characters{"Carachtair Han"}
+        han_radicals{"Fréamhacha Han"}
         hanja{"Hanaí"}
         hanzi_simplified{"Hansaí (Simplithe)"}
         hanzi_traditional{"Hansaí (Traidisiúnta)"}
         heart{"croí"}
-        historic_scripts{"script stairiúil"}
-        ideographic_desc_characters{"carachtar tuairiscithe idéagrafach"}
+        historic_scripts{"Scripteanna Stairiúla"}
+        ideographic_desc_characters{"Carachtair Thuairiscithe Idéagrafacha"}
         japanese_kana{"Kana Seapánach"}
         kanbun{"Kanbun"}
         kanji{"Ceansaí"}
         keycap{"caipín eochrach"}
-        leftwards_arrows{"saighead chlé"}
-        leftwards_rightwards_arrows{"saighead chlé dheas"}
-        letterlike_symbols{"siombail cosúil le litir"}
-        limited_use{"neamhfhorleathan"}
+        leftwards_arrows{"Saighead Chlé"}
+        leftwards_rightwards_arrows{"Saighead Chlé-Dheas"}
+        letterlike_symbols{"Siombailí Cosúil le Litreacha"}
+        limited_use{"Neamhfhorleathan"}
         male{"fireann"}
-        math_symbols{"siombail mhata"}
-        middle_eastern_scripts{"script an Mheánoirthir"}
-        miscellaneous{"éagsúil"}
-        modern_scripts{"script nua-aimseartha"}
-        modifier{"mionathraitheoir"}
-        musical_symbols{"siombail cheoil"}
+        math_symbols{"Siombailí Matamaiticiúla"}
+        middle_eastern_scripts{"Scripteanna an Mheánoirthir"}
+        miscellaneous{"Éagsúil"}
+        modern_scripts{"Scripteanna Nua-Aimseartha"}
+        modifier{"Mionathraitheoir"}
+        musical_symbols{"Siombailí Ceoil"}
         nature{"nádúr"}
-        nonspacing{"neamhspásáil"}
-        numbers{"uimhreacha"}
+        nonspacing{"Neamhspásáil"}
+        numbers{"Uimhreacha"}
         objects{"Nithe"}
-        other{"eile"}
-        paired{"péireáilte"}
+        other{"Eile"}
+        paired{"Péireáilte"}
         person{"duine"}
-        phonetic_alphabet{"aibítir foghraíochta"}
+        phonetic_alphabet{"Aibítir Foghraíochta"}
         pictographs{"Picteagraif"}
         place{"áit"}
         plant{"planda"}
-        punctuation{"poncaíocht"}
-        rightwards_arrows{"saighead dheas"}
-        sign_standard_symbols{"comhartha nó siombail"}
+        punctuation{"Poncaíocht"}
+        rightwards_arrows{"Saighead Dheas"}
+        sign_standard_symbols{"Comharthaí/Siombailí Coitianta"}
         small_form_variant{"leaganacha beaga"}
         smiley{"straoiseog"}
-        smileys_people{"straoiseog nó duine"}
-        south_asian_scripts{"script na hÁise Theas"}
-        southeast_asian_scripts{"script na hÁise Thoir Theas"}
-        spacing{"spásáil"}
+        smileys_people{"Straoiseoga nó Daoine"}
+        south_asian_scripts{"Scripteanna na hÁise Theas"}
+        southeast_asian_scripts{"Scripteanna na hÁise Thoir Theas"}
+        spacing{"Spásáil"}
         sport{"spórt"}
-        symbols{"siombail"}
-        technical_symbols{"siombail theicniúil"}
+        symbols{"Siombailí"}
+        technical_symbols{"Siombailí Teicniúla"}
         tone_marks{"Comharthaí Toin"}
         travel{"taisteal"}
-        travel_places{"taisteal nó áit"}
+        travel_places{"Taisteal nó Áiteanna"}
         upwards_arrows{"saigheada suas"}
         variant_forms{"Foirmeacha Malartacha"}
-        vocalic_jamo{"seamó guthach"}
+        vocalic_jamo{"Seamó Guthach"}
         weather{"aimsir"}
-        western_asian_scripts{"script na hÁise Thiar"}
-        whitespace{"spás bán"}
+        western_asian_scripts{"Scripteanna na hÁise Thiar"}
+        whitespace{"Spás Bán"}
     }
     fields{
         day{
@@ -1299,7 +1269,7 @@ ga{
             dn{"a.m./p.m."}
         }
         era{
-            dn{"ré"}
+            dn{"Ré"}
         }
         era-narrow{
             dn{"ré"}
@@ -1578,7 +1548,7 @@ ga{
             }
         }
         month{
-            dn{"mí"}
+            dn{"Mí"}
             relative{
                 "-1"{"an mhí seo caite"}
                 "0"{"an mhí seo"}
@@ -1650,7 +1620,7 @@ ga{
             }
         }
         quarter{
-            dn{"ráithe"}
+            dn{"Ráithe"}
             relative{
                 "-1"{"an ráithe seo caite"}
                 "0"{"an ráithe seo"}
@@ -2133,7 +2103,7 @@ ga{
             }
         }
         week{
-            dn{"seachtain"}
+            dn{"Seachtain"}
             relative{
                 "-1"{"an tseachtain seo caite"}
                 "0"{"an tseachtain seo"}
@@ -2235,7 +2205,7 @@ ga{
             dn{"lá oib. den mhí"}
         }
         year{
-            dn{"bliain"}
+            dn{"Bliain"}
             relative{
                 "-1"{"anuraidh"}
                 "0"{"i mbliana"}

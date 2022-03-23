@@ -1910,9 +1910,6 @@ ca{
             lg{"Hora d’Ekaterinburg"}
             ls{"Hora estàndard d’Ekaterinburg"}
         }
-        "meta:Yukon"{
-            ls{"Hora de Yukon"}
-        }
         fallbackFormat{"{1} ({0})"}
         gmtFormat{"GMT{0}"}
         gmtZeroFormat{"GMT"}

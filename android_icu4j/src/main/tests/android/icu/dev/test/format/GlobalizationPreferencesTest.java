@@ -390,7 +390,7 @@ public class GlobalizationPreferencesTest extends TestFmwk {
 //        gp.setLocale(new ULocale("ko_KR"));
 //        boolean bException = false;
 //        try {
-//            logln("Set invalid accept-language - ko=100");
+//            logln("Set invlaid accept-language - ko=100");
 //            gp.setLocales("ko=100");
 //        } catch (IllegalArgumentException iae) {
 //            logln("IllegalArgumentException was thrown");
@@ -424,7 +424,7 @@ public class GlobalizationPreferencesTest extends TestFmwk {
                 errln("FAIL: from_en_US is not from en_US bundle");
             }
         } catch (MissingResourceException mre) {
-            errln("FAIL: Missing resources");
+            errln("FAIL: Missing resouces");
         }
 
         gp.reset();
@@ -444,7 +444,7 @@ public class GlobalizationPreferencesTest extends TestFmwk {
                 errln("FAIL: from_en_US is not from en_US bundle");
             }
         } catch (MissingResourceException mre) {
-            errln("FAIL: Missing resources");
+            errln("FAIL: Missing resouces");
         }
 
         logln("Get a resource bundle which does not exist");
@@ -481,7 +481,7 @@ public class GlobalizationPreferencesTest extends TestFmwk {
         }
 
 
-        // Set explicit territory
+        // Set explicity territory
         logln("Set explicit territory - CA");
         gp.setTerritory("CA");
         territory = gp.getTerritory();
@@ -615,7 +615,7 @@ public class GlobalizationPreferencesTest extends TestFmwk {
             errln("FAIL: Currency is " + code + " - Expected: BRL");
         }
 
-        // Set explicit currency
+        // Set ecplicit currency
         gp1.setCurrency(ecur2);
         cur = gp1.getCurrency();
         code = cur.getCurrencyCode();
@@ -651,7 +651,7 @@ public class GlobalizationPreferencesTest extends TestFmwk {
             errln("FAIL: Calendar locale is " + calLocale.toString() + " - Expected: en_GB");
         }
 
-        // Set explicit calendar
+        // Set ecplicit calendar
         logln("Set Japanese calendar to this object");
         JapaneseCalendar jcal = new JapaneseCalendar();
         gp.setCalendar(jcal);

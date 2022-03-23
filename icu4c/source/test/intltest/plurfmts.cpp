@@ -196,7 +196,7 @@ void PluralFormatTest::pluralFormatUnitTest(/*char *par*/)
     UnicodeString oddAndEvenRule = UNICODE_STRING_SIMPLE("odd: n mod 2 is 1");
     LocalPointer<PluralRules>plRules(PluralRules::createRules(oddAndEvenRule, status));
     if (U_FAILURE(status)) {
-        dataerrln("ERROR:  create PluralRules instance failed in unit tests.- exiting");
+        dataerrln("ERROR:  create PluralRules instance failed in unit tests.- exitting");
         return;
     }
     
@@ -207,7 +207,7 @@ void PluralFormatTest::pluralFormatUnitTest(/*char *par*/)
         
         PluralFormat plFmt=PluralFormat(*plRules, status);
         if (U_FAILURE(status)) {
-            dataerrln("ERROR:  PluralFormat constructor failed in unit tests.- exiting");
+            dataerrln("ERROR:  PluralFormat constructor failed in unit tests.- exitting");
             return;
         }
         plFmt.applyPattern(checkSyntaxtData[i], status);
@@ -232,7 +232,7 @@ void PluralFormatTest::pluralFormatUnitTest(/*char *par*/)
         status = U_ZERO_ERROR;
         PluralFormat plFmt=PluralFormat(*plRules, status);
         if (U_FAILURE(status)) {
-            dataerrln("ERROR:  PluralFormat constructor failed in unit tests.- exiting");
+            dataerrln("ERROR:  PluralFormat constructor failed in unit tests.- exitting");
             return;
         }
         plFmt.applyPattern(patternTestData[i], status);
@@ -249,7 +249,7 @@ void PluralFormatTest::pluralFormatUnitTest(/*char *par*/)
     plRules.adoptInstead(PluralRules::createRules(UNICODE_STRING_SIMPLE("odd: n mod 2 is 1"), status));  
     PluralFormat pluralFmt = PluralFormat(*plRules, status);
     if (U_FAILURE(status)) {
-        dataerrln("ERROR: Could not create PluralFormat instance in setLocale() test - exiting. ");
+        dataerrln("ERROR: Could not create PluralFormat instance in setLocale() test - exitting. ");
         return;
     }
     pluralFmt.applyPattern(UNICODE_STRING_SIMPLE("odd{odd} other{even}"), status);
@@ -690,7 +690,7 @@ PluralFormatTest::numberFormatTest(PluralFormat* plFmt,
     UErrorCode status = U_ZERO_ERROR;
     
     if ( (plFmt==NULL) || (numFmt==NULL) ) {
-        dataerrln("ERROR: Could not create PluralFormat or NumberFormat - exiting");
+        dataerrln("ERROR: Could not create PluralFormat or NumberFormat - exitting");
         return;
     }
     UnicodeString plResult, numResult ;
