@@ -142,7 +142,7 @@ public:
     IntlTest();
     // TestLog has a virtual destructor.
 
-    virtual UBool runTest( char* name = NULL, char* par = NULL, char *baseName = NULL); // not to be overridden
+    virtual UBool runTest( char* name = NULL, char* par = NULL, char *baseName = NULL); // not to be overidden
 
     virtual UBool setVerbose( UBool verbose = TRUE );
     virtual UBool setNoErrMsg( UBool no_err_msg = TRUE );
@@ -161,7 +161,7 @@ public:
 
     virtual void log( const UnicodeString &message );
 
-    virtual void logln( const UnicodeString &message ) override;
+    virtual void logln( const UnicodeString &message );
 
     virtual void logln( void );
 
@@ -192,11 +192,6 @@ public:
      */
     UBool logKnownIssue( const char *ticket, const char *fmt, ...);
 
-#if !UCONFIG_NO_BREAK_ITERATION
-    UBool skipDictionaryTest();
-    UBool skipLSTMTest();
-#endif /* #if !UCONFIG_NO_BREAK_ITERATION */
-
     virtual void info( const UnicodeString &message );
 
     virtual void infoln( const UnicodeString &message );
@@ -207,11 +202,11 @@ public:
 
     virtual void err( const UnicodeString &message );
 
-    virtual void errln( const UnicodeString &message ) override;
+    virtual void errln( const UnicodeString &message );
 
     virtual void dataerr( const UnicodeString &message );
 
-    virtual void dataerrln( const UnicodeString &message ) override;
+    virtual void dataerrln( const UnicodeString &message );
 
     void errcheckln(UErrorCode status, const UnicodeString &message );
 
@@ -357,7 +352,7 @@ public:
         const std::vector<std::string>& expected, const std::vector<std::string>& actual);
     UBool assertNotEquals(const UnicodeString& message, int32_t expectedNot, int32_t actual);
 
-    virtual void runIndexedTest( int32_t index, UBool exec, const char* &name, char* par = NULL ); // override !
+    virtual void runIndexedTest( int32_t index, UBool exec, const char* &name, char* par = NULL ); // overide !
 
     virtual UBool runTestLoop( char* testname, char* par, char *baseName );
 
@@ -420,11 +415,9 @@ public:
 public:
     UBool run_phase2( char* name, char* par ); // internally, supports reporting memory leaks
     static const char* loadTestData(UErrorCode& err);
-    virtual const char* getTestDataPath(UErrorCode& err) override;
+    virtual const char* getTestDataPath(UErrorCode& err);
     static const char* getSourceTestData(UErrorCode& err);
     static char *getUnidataPath(char path[]);
-    UChar *ReadAndConvertFile(const char *fileName, int &ulen, const char *encoding, UErrorCode &status);
-
 
 // static members
 public:

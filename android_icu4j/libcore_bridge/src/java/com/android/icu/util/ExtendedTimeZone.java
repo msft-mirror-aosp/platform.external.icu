@@ -217,7 +217,7 @@ public class ExtendedTimeZone {
             AnnualTimeZoneRule firstAnnualRule =
                     (AnnualTimeZoneRule) firstTransitionToAnnualRule.getTo();
             AnnualTimeZoneRule currentTimeZoneRule = firstAnnualRule;
-            long currentUnixEpochTime = firstTransitionToAnnualRule.getTime();
+            long currentUtcTime = firstTransitionToAnnualRule.getTime();
 
             do {
                 annualTimeZoneRules.add(currentTimeZoneRule);
@@ -231,7 +231,7 @@ public class ExtendedTimeZone {
                 if (!lastStandardOffset.equals(ruleStandardOffset)) {
                     standardOffsetTransitionList.add(
                             ZoneOffsetTransition.of(
-                                    localDateTime(currentUnixEpochTime, lastStandardOffset),
+                                    localDateTime(currentUtcTime, lastStandardOffset),
                                     lastStandardOffset,
                                     ruleStandardOffset
                             ));
@@ -239,7 +239,7 @@ public class ExtendedTimeZone {
                 }
 
                 int currentYear =
-                        Instant.ofEpochMilli(currentUnixEpochTime).atOffset(lastWallOffset).getYear();
+                        Instant.ofEpochMilli(currentUtcTime).atOffset(lastWallOffset).getYear();
                 ZoneOffsetTransition recurringRuleTransition =
                         createZoneOffsetTransitionRule(
                                 currentTimeZoneRule,
@@ -250,20 +250,20 @@ public class ExtendedTimeZone {
                 // After introduction of first annual rule wall offset may not change.
                 if (!lastWallOffset.equals(recurringRuleTransition.getOffsetAfter())) {
                     transitionList.add(ZoneOffsetTransition.of(
-                            localDateTime(currentUnixEpochTime, lastWallOffset),
+                            localDateTime(currentUtcTime, lastWallOffset),
                             lastWallOffset,
                             recurringRuleTransition.getOffsetAfter()));
                     lastWallOffset = recurringRuleTransition.getOffsetAfter();
                 }
 
                 TimeZoneTransition nextTransition =
-                        basicTimeZone.getNextTransition(currentUnixEpochTime, false /* inclusive */);
-                currentUnixEpochTime = nextTransition.getTime();
+                        basicTimeZone.getNextTransition(currentUtcTime, false /* inclusive */);
+                currentUtcTime = nextTransition.getTime();
                 currentTimeZoneRule = (AnnualTimeZoneRule) nextTransition.getTo();
 
                 if (currentTimeZoneRule == null) {
                     throw zoneRulesException("No transitions after "
-                            + currentUnixEpochTime + " for a timezone with recurring rules");
+                            + currentUtcTime + " for a timezone with recurring rules");
                 }
             } while (!currentTimeZoneRule.isEquivalentTo(firstAnnualRule));
 

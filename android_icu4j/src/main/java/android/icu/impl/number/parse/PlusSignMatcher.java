@@ -3,6 +3,8 @@
 // License & terms of use: http://www.unicode.org/copyright.html
 package android.icu.impl.number.parse;
 
+import static android.icu.impl.number.parse.ParsingUtils.safeContains;
+
 import android.icu.impl.StaticUnicodeSets;
 import android.icu.impl.StringSegment;
 import android.icu.text.DecimalFormatSymbols;
@@ -19,7 +21,7 @@ public class PlusSignMatcher extends SymbolMatcher {
 
     public static PlusSignMatcher getInstance(DecimalFormatSymbols symbols, boolean allowTrailing) {
         String symbolString = symbols.getPlusSignString();
-        if (DEFAULT.uniSet.contains(symbolString)) {
+        if (safeContains(DEFAULT.uniSet, symbolString)) {
             return allowTrailing ? DEFAULT_ALLOW_TRAILING : DEFAULT;
         } else {
             return new PlusSignMatcher(symbolString, allowTrailing);

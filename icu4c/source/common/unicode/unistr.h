@@ -44,10 +44,9 @@ struct UConverter;          // unicode/ucnv.h
 #ifndef USTRING_H
 /**
  * \ingroup ustring_ustrlen
- * @param s Pointer to sequence of UChars.
- * @return Length of sequence.
  */
-U_CAPI int32_t U_EXPORT2 u_strlen(const UChar *s);
+U_CAPI int32_t U_EXPORT2
+u_strlen(const UChar *s);
 #endif
 
 U_NAMESPACE_BEGIN
@@ -325,7 +324,7 @@ public:
    * false otherwise.
    * @stable ICU 2.0
    */
-  inline bool operator== (const UnicodeString& text) const;
+  inline UBool operator== (const UnicodeString& text) const;
 
   /**
    * Inequality operator. Performs only bitwise comparison.
@@ -334,7 +333,7 @@ public:
    * true otherwise.
    * @stable ICU 2.0
    */
-  inline bool operator!= (const UnicodeString& text) const;
+  inline UBool operator!= (const UnicodeString& text) const;
 
   /**
    * Greater than operator. Performs only bitwise comparison.
@@ -1526,7 +1525,7 @@ public:
    */
   virtual void extractBetween(int32_t start,
               int32_t limit,
-              UnicodeString& target) const override;
+              UnicodeString& target) const;
 
   /**
    * Copy the characters in the range
@@ -1545,7 +1544,7 @@ public:
    * @param target the target buffer for extraction, can be NULL
    *               if targetLength is 0
    * @param targetCapacity the length of the target buffer
-   * @param inv Signature-distinguishing parameter, use US_INV.
+   * @param inv Signature-distinguishing paramater, use US_INV.
    * @return the output string length, not including the terminating NUL
    * @stable ICU 3.2
    */
@@ -2456,14 +2455,14 @@ public:
    */
   virtual void handleReplaceBetween(int32_t start,
                                     int32_t limit,
-                                    const UnicodeString& text) override;
+                                    const UnicodeString& text);
 
   /**
    * Replaceable API
    * @return true if it has MetaData
    * @stable ICU 2.4
    */
-  virtual UBool hasMetaData() const override;
+  virtual UBool hasMetaData() const;
 
   /**
    * Copy a substring of this object, retaining attribute (out-of-band)
@@ -2478,7 +2477,7 @@ public:
    * dest >= limit`.
    * @stable ICU 2.0
    */
-  virtual void copy(int32_t start, int32_t limit, int32_t dest) override;
+  virtual void copy(int32_t start, int32_t limit, int32_t dest);
 
   /* Search and replace operations */
 
@@ -2767,6 +2766,7 @@ public:
    * @param options   Options bit set, usually 0. See U_TITLECASE_NO_LOWERCASE,
    *                  U_TITLECASE_NO_BREAK_ADJUSTMENT, U_TITLECASE_ADJUST_TO_CASED,
    *                  U_TITLECASE_WHOLE_STRING, U_TITLECASE_SENTENCES.
+   * @param options Options bit set, see ucasemap_open().
    * @return A reference to this.
    * @stable ICU 3.8
    */
@@ -3274,7 +3274,7 @@ public:
    * \endcode
    * @param src String using only invariant characters.
    * @param textLength Length of src, or -1 if NUL-terminated.
-   * @param inv Signature-distinguishing parameter, use US_INV.
+   * @param inv Signature-distinguishing paramater, use US_INV.
    *
    * @see US_INV
    * @stable ICU 3.2
@@ -3338,7 +3338,7 @@ public:
    * @see getDynamicClassID
    * @stable ICU 2.6
    */
-  virtual UnicodeString *clone() const override;
+  virtual UnicodeString *clone() const;
 
   /** Destructor.
    * @stable ICU 2.0
@@ -3444,7 +3444,7 @@ public:
    *
    * @stable ICU 2.2
    */
-  virtual UClassID getDynamicClassID() const override;
+  virtual UClassID getDynamicClassID() const;
 
   //========================================
   // Implementation methods
@@ -3455,21 +3455,21 @@ protected:
    * Implement Replaceable::getLength() (see jitterbug 1027).
    * @stable ICU 2.4
    */
-  virtual int32_t getLength() const override;
+  virtual int32_t getLength() const;
 
   /**
    * The change in Replaceable to use virtual getCharAt() allows
    * UnicodeString::charAt() to be inline again (see jitterbug 709).
    * @stable ICU 2.4
    */
-  virtual char16_t getCharAt(int32_t offset) const override;
+  virtual char16_t getCharAt(int32_t offset) const;
 
   /**
    * The change in Replaceable to use virtual getChar32At() allows
    * UnicodeString::char32At() to be inline again (see jitterbug 709).
    * @stable ICU 2.4
    */
-  virtual UChar32 getChar32At(int32_t offset) const override;
+  virtual UChar32 getChar32At(int32_t offset) const;
 
 private:
   // For char* constructors. Could be made public.
@@ -3614,7 +3614,7 @@ private:
   // turn a bogus string into an empty one
   void unBogus();
 
-  // implements assignment operator, copy constructor, and fastCopyFrom()
+  // implements assigment operator, copy constructor, and fastCopyFrom()
   UnicodeString &copyFrom(const UnicodeString &src, UBool fastCopy=false);
 
   // Copies just the fields without memory management.
@@ -3946,7 +3946,7 @@ UnicodeString::doCompare(int32_t start,
   }
 }
 
-inline bool
+inline UBool
 UnicodeString::operator== (const UnicodeString& text) const
 {
   if(isBogus()) {
@@ -3957,7 +3957,7 @@ UnicodeString::operator== (const UnicodeString& text) const
   }
 }
 
-inline bool
+inline UBool
 UnicodeString::operator!= (const UnicodeString& text) const
 { return (! operator==(text)); }
 

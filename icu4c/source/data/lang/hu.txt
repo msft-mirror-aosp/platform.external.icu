@@ -210,7 +210,7 @@ hu{
         he{"héber"}
         hi{"hindi"}
         hil{"ilokano"}
-        hit{"hettita"}
+        hit{"hittite"}
         hmn{"hmong"}
         ho{"hiri motu"}
         hr{"horvát"}
@@ -296,7 +296,6 @@ hu{
         lez{"lezg"}
         lg{"ganda"}
         li{"limburgi"}
-        lij{"ligur"}
         lkt{"lakota"}
         ln{"lingala"}
         lo{"lao"}
@@ -415,13 +414,13 @@ hu{
         raj{"radzsasztáni"}
         rap{"rapanui"}
         rar{"rarotongai"}
-        rhg{"rohingja"}
         rm{"rétoromán"}
         rn{"kirundi"}
         ro{"román"}
         ro_MD{"moldvai"}
         rof{"rombo"}
         rom{"roma"}
+        root{"ősi"}
         ru{"orosz"}
         rup{"aromán"}
         rw{"kinyarvanda"}
