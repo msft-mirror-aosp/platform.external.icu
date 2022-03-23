@@ -18,7 +18,6 @@ ga{
         ady{"Adaigéis"}
         ae{"Aivéistis"}
         af{"Afracáinis"}
-        agq{"Aigeimis"}
         ain{"Aidhniúis"}
         ak{"Acáinis"}
         akk{"Acáidis"}
@@ -30,7 +29,6 @@ ga{
         arc{"Aramais"}
         arn{"Mapúitsis"}
         as{"Asaimis"}
-        asa{"Asúis"}
         ast{"Astúiris"}
         av{"Aváiris"}
         ay{"Aidhmiris"}
@@ -41,7 +39,7 @@ ga{
         bas{"Basáis"}
         be{"Bealarúisis"}
         bem{"Beimbis"}
-        bez{"Beinis"}
+        bez{"Béinis"}
         bg{"Bulgáiris"}
         bi{"Bioslaimis"}
         bm{"Bambairis"}
@@ -53,10 +51,10 @@ ga{
         bua{"Buiriáitis"}
         bug{"Buiginis"}
         ca{"Catalóinis"}
-        ccp{"Seácmais"}
+        ccp{"Chakma"}
         ce{"Seisnis"}
         ceb{"Seabúáinis"}
-        cgg{"Chiga"}
+        cgg{"Cígis"}
         ch{"Seamóiris"}
         chm{"Mairis"}
         chr{"Seiricis"}
@@ -76,14 +74,13 @@ ga{
         de_AT{"Gearmáinis Ostarach"}
         de_CH{"Ard-Ghearmáinis Eilvéiseach"}
         dje{"Zarmais"}
-        doi{"Dóigris"}
         dsb{"Sorbais Íochtarach"}
         dua{"Duailis"}
         dum{"Meán-Ollainnis"}
         dv{"Divéihis"}
-        dyo{"Jóla-Fainis"}
+        dyo{"Ióla-Fainís"}
         dz{"Seoinicis"}
-        ebu{"Ciambúis"}
+        ebu{"Eambúis"}
         ee{"Éabhais"}
         egy{"Sean-Éigiptis"}
         el{"Gréigis"}
@@ -130,7 +127,7 @@ ga{
         gsw{"Gearmáinis Eilvéiseach"}
         gu{"Gúisearáitis"}
         guc{"Uaúis"}
-        guz{"Gúsaís"}
+        guz{"Gúisis"}
         gv{"Manainnis"}
         ha{"Hásais"}
         hak{"Haicéis"}
@@ -140,7 +137,7 @@ ga{
         hif{"Hiondúis Fhidsí"}
         hil{"Hilgeanóinis"}
         hit{"Hitis"}
-        hmn{"Hmongais"}
+        hmn{"Mongais"}
         ho{"Motúis Hírí"}
         hr{"Cróitis"}
         hsb{"Sorbais Uachtarach"}
@@ -199,7 +196,7 @@ ga{
         ky{"Cirgisis"}
         la{"Laidin"}
         lad{"Laidínis"}
-        lag{"Ciolaingis"}
+        lag{"Láingis"}
         lah{"Puinseáibis Iartharach"}
         lb{"Lucsambuirgis"}
         lg{"Lugandais"}
@@ -210,7 +207,7 @@ ga{
         lmo{"Lombairdis"}
         ln{"Liongáilis"}
         lo{"Laoisis"}
-        lrc{"Lúiris an Tuaiscirt"}
+        lrc{"Luri Thuaidh"}
         lt{"Liotuáinis"}
         lu{"Lúba-Cataingis"}
         luo{"Lúóis"}
@@ -223,7 +220,7 @@ ga{
         mfe{"Morisyen"}
         mg{"Malagáisis"}
         mga{"Meán-Ghaeilge"}
-        mgh{"Meiteo-Macuais"}
+        mgh{"Makhuwa-Meetto"}
         mgo{"Metaʼ"}
         mh{"Mairsillis"}
         mi{"Maorais"}
@@ -246,8 +243,8 @@ ga{
         nan{"Sínis Min Nan"}
         nap{"Napóilis"}
         naq{"Nama"}
-        nb{"Bocmál"}
-        nd{"N-deibéilis an Tuaiscirt"}
+        nb{"Ioruais Bokmål"}
+        nd{"Ndeibéilis an Tuaiscirt"}
         nds{"Gearmáinis Íochtarach"}
         nds_NL{"Sacsainis Íochtarach"}
         ne{"Neipeailis"}
@@ -269,7 +266,7 @@ ga{
         oc{"Ocsatáinis"}
         oj{"Óisibis"}
         om{"Oraimis"}
-        or{"Odia"}
+        or{"Oirísis"}
         os{"Oiséitis"}
         pa{"Puinseáibis"}
         pcm{"pidsean na Nigéire"}
@@ -283,13 +280,13 @@ ga{
         pt_PT{"Portaingéilis Ibéarach"}
         qu{"Ceatsuais"}
         quc{"Cuitséis"}
-        rhg{"Róihinis"}
         rm{"Rómainis"}
         rn{"Rúindis"}
         ro{"Rómáinis"}
         ro_MD{"Moldáivis"}
         rof{"Rombo"}
         rom{"Romainis"}
+        root{"Root"}
         ru{"Rúisis"}
         rup{"Arómáinis"}
         rw{"Ciniaruaindis"}
@@ -304,7 +301,7 @@ ga{
         scn{"Sicilis"}
         sco{"Albainis"}
         sd{"Sindis"}
-        se{"Sáimis an Tuaiscirt"}
+        se{"Sáimis Thuaidh"}
         seh{"Sena"}
         ses{"Songais Oirthearach"}
         sg{"Sangóis"}
@@ -325,7 +322,7 @@ ga{
         sq{"Albáinis"}
         sr{"Seirbis"}
         ss{"Suaisis"}
-        st{"Sútúis an Deiscirt"}
+        st{"Seasóitis"}
         su{"Sundais"}
         sux{"Suiméiris"}
         sv{"Sualainnis"}
@@ -337,7 +334,7 @@ ga{
         ta{"Tamailis"}
         te{"Teileagúis"}
         teo{"Teso"}
-        tg{"Taidsícis"}
+        tg{"Táidsícis"}
         th{"Téalainnis"}
         ti{"Tigrinis"}
         tk{"Tuircméinis"}
@@ -352,14 +349,14 @@ ga{
         tw{"Tíbhis"}
         twq{"Tasawaq"}
         ty{"Taihítis"}
-        tzm{"Tamaisis Atlais Láir"}
+        tzm{"Tamazight Atlais Láir"}
         udm{"Udmairtis"}
         ug{"Uigiúiris"}
         uk{"Úcráinis"}
-        und{"Teanga anaithnid"}
+        und{"Teanga Anaithnid"}
         ur{"Urdúis"}
         uz{"Úisbéiceastáinis"}
-        vai{"Vadhais"}
+        vai{"vai"}
         ve{"Veindis"}
         vec{"Veinéisis"}
         vi{"Vítneaimis"}
@@ -388,7 +385,6 @@ ga{
     }
     Languages%long{
         zh_Hans{"Mandairínis Shimplithe"}
-        zh_Hant{"Mandairínis Thraidisiúnta"}
     }
     Languages%menu{
         yue{"Sínis, Cantainis"}
@@ -427,7 +423,7 @@ ga{
         Egyd{"Éigipteach coiteann"}
         Egyh{"Éigipteach cliarúil"}
         Egyp{"Iairiglifí Éigipteacha"}
-        Ethi{"Aetóipic"}
+        Ethi{"Aetópach"}
         Geor{"Seoirseach"}
         Glag{"Glagalach"}
         Goth{"Gotach"}
@@ -506,7 +502,7 @@ ga{
         Zmth{"Nodaireacht Mhatamaiticiúil"}
         Zsye{"Emoji"}
         Zsym{"Siombailí"}
-        Zxxx{"Neamhscríofa"}
+        Zxxx{"Gan Scríobh"}
         Zyyy{"Coitianta"}
         Zzzz{"Script Anaithnid"}
     }
@@ -739,21 +735,21 @@ ga{
         XSISTEMO{"Xsistemo"}
     }
     characterLabelPattern{
-        all{"{0} — uile"}
+        all{"{0} — Uile"}
         category-list{"{0}: {1}"}
-        compatibility{"{0} — comhoiriúnacht"}
-        enclosed{"{0} — iniata"}
-        extended{"{0} — breisithe"}
-        historic{"{0} — stairiúil"}
-        miscellaneous{"{0} — ilghnéitheach"}
-        other{"{0} — eile"}
-        scripts{"scripteanna — {0}"}
+        compatibility{"{0} — Comhoiriúnacht"}
+        enclosed{"{0} — Iniata"}
+        extended{"{0} — Breisithe"}
+        historic{"{0} — Stairiúil"}
+        miscellaneous{"{0} — Ilghnéitheach"}
+        other{"{0} — Eile"}
+        scripts{"Scripteanna — {0}"}
         strokes{
-            few{"{0} stríoc"}
-            many{"{0} stríoc"}
-            one{"{0} stríoc"}
-            other{"{0} stríoc"}
-            two{"{0} stríoc"}
+            few{"{0} Stríoc"}
+            many{"{0} Stríoc"}
+            one{"{0} Stríoc"}
+            other{"{0} Stríoc"}
+            two{"{0} Stríoc"}
         }
         subscript{"foscript {0}"}
         superscript{"forscript {0}"}

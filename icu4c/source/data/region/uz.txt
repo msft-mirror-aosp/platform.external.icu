@@ -108,7 +108,7 @@ uz{
         ES{"Ispaniya"}
         ET{"Efiopiya"}
         EU{"Yevropa Ittifoqi"}
-        EZ{"Yevrozona"}
+        EZ{"yevrozona"}
         FI{"Finlandiya"}
         FJ{"Fiji"}
         FK{"Folklend (Malvin) orollari"}

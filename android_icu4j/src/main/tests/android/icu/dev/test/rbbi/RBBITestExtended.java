@@ -20,7 +20,6 @@ import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 
 import android.icu.dev.test.TestFmwk;
-import android.icu.dev.test.TestUtil;
 import android.icu.impl.Utility;
 import android.icu.lang.UCharacter;
 import android.icu.text.BreakIterator;
@@ -56,9 +55,6 @@ static class TestParams {
 
 @Test
 public void TestExtended() {
-    // The expectations in this test heavily depends on the Thai dictionary.
-    // Therefore, we skip this test under the LSTM configuration.
-    org.junit.Assume.assumeTrue(!TestUtil.skipDictionaryTest());
     TestParams     tp = new TestParams();
 
 
@@ -347,12 +343,14 @@ public void TestExtended() {
                 }
 
                 // Let unescape handle the back slash.
-                int cpAndLength = Utility.unescapeAndLengthAt(testString, charIdx);
-                if (cpAndLength >= 0) {
+                int  charIdxAr[] = new int[1];
+                charIdxAr[0] = charIdx;
+                cp = Utility.unescapeAt(testString, charIdxAr);
+                if (cp != -1) {
                     // Escape sequence was recognized.  Insert the char
                     //   into the test data.
-                    charIdx += Utility.lengthFromCodePointAndLength(cpAndLength);
-                    tp.dataToBreak.appendCodePoint(Utility.cpFromCodePointAndLength(cpAndLength));
+                    charIdx = charIdxAr[0];
+                    tp.dataToBreak.appendCodePoint(cp);
                     for (i=tp.dataToBreak.length()-1; i>=0 && tp.srcLine[i]==0; i--) {
                         tp.srcLine[i] = lineNum;
                         tp.srcCol[i]  = column;

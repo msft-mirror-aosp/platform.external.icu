@@ -464,7 +464,6 @@ cs{
         rap{"rapanujština"}
         rar{"rarotongánština"}
         rgn{"romaňolština"}
-        rhg{"rohingština"}
         rif{"rífština"}
         rm{"rétorománština"}
         rn{"kirundština"}
@@ -472,6 +471,7 @@ cs{
         ro_MD{"moldavština"}
         rof{"rombo"}
         rom{"romština"}
+        root{"kořen"}
         rtm{"rotumanština"}
         ru{"ruština"}
         rue{"rusínština"}

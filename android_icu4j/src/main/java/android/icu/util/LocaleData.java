@@ -373,7 +373,7 @@ public final class LocaleData {
             width = w;
         }
         /**
-         * Returns the height of the paper
+         * Retruns the height of the paper
          * @return the height
          */
         public int getHeight(){

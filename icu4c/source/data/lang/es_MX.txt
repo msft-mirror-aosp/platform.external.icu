@@ -62,6 +62,7 @@ es_MX{
         ug{"uyghur"}
     }
     Scripts{
+        Hanb{"hanb"}
         Mlym{"malayálam"}
     }
     Types{

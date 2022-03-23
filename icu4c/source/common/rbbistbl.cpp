@@ -63,7 +63,7 @@ RBBISymbolTable::~RBBISymbolTable()
 
 
 //
-//  RBBISymbolTable::lookup       This function from the abstract symbol table interface
+//  RBBISymbolTable::lookup       This function from the abstract symbol table inteface
 //                                looks up a variable name and returns a UnicodeString
 //                                containing the substitution text.
 //
