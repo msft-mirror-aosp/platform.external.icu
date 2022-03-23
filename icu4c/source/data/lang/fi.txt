@@ -472,7 +472,6 @@ fi{
         rap{"rapanui"}
         rar{"rarotonga"}
         rgn{"romagnoli"}
-        rhg{"rohinga"}
         rif{"tarifit"}
         rm{"retoromaani"}
         rn{"rundi"}
@@ -480,6 +479,7 @@ fi{
         ro_MD{"moldova"}
         rof{"rombo"}
         rom{"romani"}
+        root{"juuri"}
         rtm{"rotuma"}
         ru{"venäjä"}
         rue{"ruteeni"}
@@ -684,7 +684,6 @@ fi{
         Chrs{"horemzi"}
         Cirt{"cirth"}
         Copt{"koptilainen"}
-        Cpmn{"kypro-minolainen"}
         Cprt{"muinaiskyproslainen"}
         Cyrl{"kyrillinen"}
         Cyrs{"kyrillinen muinaiskirkkoslaavimuunnelma"}
@@ -783,7 +782,6 @@ fi{
         Orya{"orijalainen"}
         Osge{"osagen aakkosto"}
         Osma{"osmanjalainen"}
-        Ougr{"vanha uiguurilainen"}
         Palm{"palmyralainen"}
         Pauc{"zotuallai"}
         Perm{"muinaispermiläinen"}
@@ -796,7 +794,7 @@ fi{
         Prti{"piirtokirjoitusparthialainen"}
         Qaag{"burmalainen zawgyi-toteutus"}
         Rjng{"rejang"}
-        Rohg{"rohingalainen hanifi"}
+        Rohg{"rohinjalainen hanifi"}
         Roro{"rongorongo"}
         Runr{"riimukirjoitus"}
         Samr{"samarianaramealainen"}
@@ -834,12 +832,9 @@ fi{
         Thai{"thailainen"}
         Tibt{"tiibetiläinen"}
         Tirh{"tirhuta"}
-        Tnsa{"tangsa"}
-        Toto{"toto"}
         Ugar{"ugaritilainen"}
         Vaii{"vailainen"}
         Visp{"näkyvä puhe"}
-        Vith{"vithkuqi"}
         Wara{"varang kshiti"}
         Wcho{"wancholainen"}
         Wole{"woleai"}

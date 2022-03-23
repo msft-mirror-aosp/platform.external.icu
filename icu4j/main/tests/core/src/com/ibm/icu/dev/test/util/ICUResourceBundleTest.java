@@ -1035,7 +1035,7 @@ public final class ICUResourceBundleTest extends TestFmwk {
     }
 
     /*
-     * UResourceBundle should be able to load a resource bundle even if
+     * UResouceBundle should be able to load a resource bundle even if
      * a similarly named class (only case differences) exists in the
      * same package.  See Ticket#6844
      */

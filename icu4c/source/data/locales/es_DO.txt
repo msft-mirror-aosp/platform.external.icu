@@ -20,22 +20,12 @@ es_DO{
                 "EEEE, d 'de' MMMM 'de' y G",
                 "d 'de' MMMM 'de' y G",
                 "dd/MM/y G",
-                "d/M/y GGGGG",
+                "dd/MM/yy GGGGG",
                 "{1} {0}",
                 "{1}, {0}",
                 "{1}, {0}",
                 "{1} {0}",
                 "{1} {0}",
-            }
-            DateTimeSkeletons{
-                "ahmmsszzzz",
-                "ahmmssz",
-                "ahmmss",
-                "ahmm",
-                "GyMMMMEEEEd",
-                "GyMMMMd",
-                "GyMMdd",
-                "GGGGGyyMMdd",
             }
         }
         gregorian{
@@ -52,17 +42,7 @@ es_DO{
                 "{1}, {0}",
                 "{1}, {0}",
                 "{1} {0}",
-                "{1}, {0}",
-            }
-            DateTimeSkeletons{
-                "ahmmsszzzz",
-                "ahmmssz",
-                "ahmmss",
-                "ahmm",
-                "yMMMMEEEEd",
-                "yMMMMd",
-                "yMMMd",
-                "yyMd",
+                "{1} {0}",
             }
             availableFormats{
                 yMMMd{"d MMM 'de' y"}

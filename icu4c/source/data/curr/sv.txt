@@ -33,7 +33,7 @@ sv{
         }
         ANG{
             "ANG",
-            "antillergulden",
+            "Antillergulden",
         }
         AOA{
             "AOA",
@@ -1120,7 +1120,7 @@ sv{
             "internationella järnvägsunionens franc",
         }
         XOF{
-            "F CFA",
+            "CFA",
             "västafrikansk franc",
         }
         XPD{
@@ -1346,8 +1346,8 @@ sv{
             other{"armeniska dram"}
         }
         ANG{
-            one{"antillergulden"}
-            other{"antillergulden"}
+            one{"Antillergulden"}
+            other{"Antillergulden"}
         }
         AOA{
             one{"angolansk kwanza"}

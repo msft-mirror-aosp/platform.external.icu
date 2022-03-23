@@ -394,7 +394,7 @@ public final class StringTokenizerTest extends TestFmwk
 
         tokenizer = new StringTokenizer(str, "q", true);
         if (!tokenizer.nextElement().equals(str)) {
-            errln("Should have received the same string when there are no delimiters");
+            errln("Should have recieved the same string when there are no delimiters");
         }
     }
 
@@ -565,12 +565,12 @@ public final class StringTokenizerTest extends TestFmwk
             us._generatePattern(sb.append(1.0), true);
             us._generatePattern(sb.reverse(), true);
         } catch(Exception e){
-            errln("UnicodeSet._generatePattern is not supposed to return an exception.");
+            errln("UnicodeSet._generatePattern is not suppose to return an exception.");
         }
 
         try{
             us._generatePattern(null, true);
-            errln("UnicodeSet._generatePattern is supposed to return an exception.");
+            errln("UnicodeSet._generatePattern is suppose to return an exception.");
         } catch(Exception e){}
     }
 
@@ -588,12 +588,12 @@ public final class StringTokenizerTest extends TestFmwk
         int limit = 0;
 
         if(us.matches(null, offset, limit, true) != UnicodeSet.U_PARTIAL_MATCH){
-            errln("UnicodeSet.matches is supposed to return " + UnicodeSet.U_PARTIAL_MATCH +
+            errln("UnicodeSet.matches is suppose to return " + UnicodeSet.U_PARTIAL_MATCH +
                     " but got " + us.matches(null, offset, limit, true));
         }
 
         if(us.matches(null, offset, limit, false) != UnicodeSet.U_MATCH){
-            errln("UnicodeSet.matches is supposed to return " + UnicodeSet.U_MATCH +
+            errln("UnicodeSet.matches is suppose to return " + UnicodeSet.U_MATCH +
                     " but got " + us.matches(null, offset, limit, false));
         }
 
@@ -604,7 +604,7 @@ public final class StringTokenizerTest extends TestFmwk
             offset[0] = 4; // Takes the letter "y"
             us.matches(rs, offset, 1, true);
         } catch(Exception e) {
-            errln("UnicodeSet.matches is not supposed to return an exception");
+            errln("UnicodeSet.matches is not suppose to return an exception");
         }
 
         // TODO: Tests when "if (forward && length < highWaterLength)" is true
@@ -653,7 +653,7 @@ public final class StringTokenizerTest extends TestFmwk
         for(int i=0; i < invalid.length; i++){
             try{
                 us.indexOf(invalid[i]);
-                errln("UnicodeSet.indexOf is supposed to return an exception " +
+                errln("UnicodeSet.indexOf is suppose to return an exception " +
                         "for a value of " + invalid[i]);
             } catch(Exception e){}
         }
@@ -662,7 +662,7 @@ public final class StringTokenizerTest extends TestFmwk
             try{
                 us.indexOf(valid[i]);
             } catch(Exception e){
-                errln("UnicodeSet.indexOf is not supposed to return an exception " +
+                errln("UnicodeSet.indexOf is not suppose to return an exception " +
                         "for a value of " + valid[i]);
             }
         }
@@ -679,7 +679,7 @@ public final class StringTokenizerTest extends TestFmwk
         int[] invalid = {-100,-10,-5,-2,-1};
         for(int i=0; i < invalid.length; i++){
             if(us.charAt(invalid[i]) != -1){
-                errln("UnicodeSet.charAt(int index) was supposed to return -1 "
+                errln("UnicodeSet.charAt(int index) was suppose to return -1 "
                         + "for an invalid input of " + invalid[i]);
             }
         }
@@ -699,7 +699,7 @@ public final class StringTokenizerTest extends TestFmwk
          for(int i=0; i < invalid.length; i++){
              try{
                  us.add(invalid[i], UnicodeSet.MAX_VALUE);
-                 errln("UnicodeSet.add(int start, int end) was supposed to give "
+                 errln("UnicodeSet.add(int start, int end) was suppose to give "
                          + "an exception for an start invalid input of "
                          + invalid[i]);
              } catch (Exception e){}
@@ -709,7 +709,7 @@ public final class StringTokenizerTest extends TestFmwk
          for(int i=0; i < invalid.length; i++){
              try{
                  us.add(UnicodeSet.MIN_VALUE, invalid[i]);
-                 errln("UnicodeSet.add(int start, int end) was supposed to give "
+                 errln("UnicodeSet.add(int start, int end) was suppose to give "
                          + "an exception for an end invalid input of "
                          + invalid[i]);
              } catch (Exception e){}
@@ -717,12 +717,12 @@ public final class StringTokenizerTest extends TestFmwk
 
          // Tests when "else if (start == end)" is false
          if(!(us.add(UnicodeSet.MIN_VALUE+1, UnicodeSet.MIN_VALUE).equals(us)))
-             errln("UnicodeSet.add(int start, int end) was supposed to return "
+             errln("UnicodeSet.add(int start, int end) was suppose to return "
                      + "the same object because start of value " + (UnicodeSet.MIN_VALUE+1)
                      + " is greater than end of value " + UnicodeSet.MIN_VALUE);
 
          if(!(us.add(UnicodeSet.MAX_VALUE, UnicodeSet.MAX_VALUE-1).equals(us)))
-             errln("UnicodeSet.add(int start, int end) was supposed to return "
+             errln("UnicodeSet.add(int start, int end) was suppose to return "
                      + "the same object because start of value " + UnicodeSet.MAX_VALUE
                      + " is greater than end of value " + (UnicodeSet.MAX_VALUE-1));
      }
@@ -741,7 +741,7 @@ public final class StringTokenizerTest extends TestFmwk
          for(int i=0; i < invalid.length; i++){
              try{
                  us.add(invalid[i]);
-                 errln("UnicodeSet.add(int c) was supposed to give "
+                 errln("UnicodeSet.add(int c) was suppose to give "
                          + "an exception for an start invalid input of "
                          + invalid[i]);
              } catch (Exception e){}
@@ -761,15 +761,14 @@ public final class StringTokenizerTest extends TestFmwk
          // Tests when "if (s.length() < 1)" is true
          try{
              us.contains("");
-         } catch (Exception e) {
-             errln("UnicodeSet.getSingleCP is not supposed to give an exception for " +
+             errln("UnicodeSet.getSingleCP is suppose to give an exception for " +
                      "an empty string.");
-         }
+         } catch (Exception e){}
 
          try{
              us.contains((String)null);
-             errln("UnicodeSet.getSingleCP is supposed to give an exception for " +
-                     "a null string.");
+             errln("UnicodeSet.getSingleCP is suppose to give an exception for " +
+             "a null string.");
          } catch (Exception e){}
 
          // Tests when "if (cp > 0xFFFF)" is true
@@ -778,8 +777,8 @@ public final class StringTokenizerTest extends TestFmwk
              try{
                  us.contains(cases[i]);
              } catch (Exception e){
-                 errln("UnicodeSet.getSingleCP is not supposed to give an exception for " +
-                     "a surrogate pair.");
+                 errln("UnicodeSet.getSingleCP is not suppose to give an exception for " +
+                     "a null string.");
              }
          }
      }
@@ -794,7 +793,7 @@ public final class StringTokenizerTest extends TestFmwk
          try{
              us.removeAllStrings();
          } catch(Exception e){
-             errln("UnicodeSet.removeAllString() was not supposed to given an " +
+             errln("UnicodeSet.removeAllString() was not suppose to given an " +
                      "exception for a strings size of 0");
          }
      }
@@ -812,7 +811,7 @@ public final class StringTokenizerTest extends TestFmwk
           for(int i=0; i < invalid.length; i++){
               try{
                   us.retain(invalid[i], UnicodeSet.MAX_VALUE);
-                  errln("UnicodeSet.retain(int start, int end) was supposed to give "
+                  errln("UnicodeSet.retain(int start, int end) was suppose to give "
                           + "an exception for an start invalid input of "
                           + invalid[i]);
               } catch (Exception e){}
@@ -822,7 +821,7 @@ public final class StringTokenizerTest extends TestFmwk
           for(int i=0; i < invalid.length; i++){
               try{
                   us.retain(UnicodeSet.MIN_VALUE, invalid[i]);
-                  errln("UnicodeSet.retain(int start, int end) was supposed to give "
+                  errln("UnicodeSet.retain(int start, int end) was suppose to give "
                           + "an exception for an end invalid input of "
                           + invalid[i]);
               } catch (Exception e){}
@@ -832,14 +831,14 @@ public final class StringTokenizerTest extends TestFmwk
           try{
               us.retain(UnicodeSet.MIN_VALUE+1, UnicodeSet.MIN_VALUE);
           } catch(Exception e){
-              errln("UnicodeSet.retain(int start, int end) was not supposed to give "
+              errln("UnicodeSet.retain(int start, int end) was not suppose to give "
                       + "an exception.");
           }
 
           try{
               us.retain(UnicodeSet.MAX_VALUE, UnicodeSet.MAX_VALUE-1);
           } catch(Exception e){
-              errln("UnicodeSet.retain(int start, int end) was not supposed to give "
+              errln("UnicodeSet.retain(int start, int end) was not suppose to give "
                       + "an exception.");
           }
       }
@@ -853,7 +852,7 @@ public final class StringTokenizerTest extends TestFmwk
           UnicodeSet us = new UnicodeSet();
           us.add("dummy");
           if(!(us.retain("dummy").equals(us))){
-              errln("UnicodeSet.retain(String s) was supposed to return the " +
+              errln("UnicodeSet.retain(String s) was suppose to return the " +
                       "same UnicodeSet since the string was found in the original.");
           }
       }
@@ -871,7 +870,7 @@ public final class StringTokenizerTest extends TestFmwk
            for(int i=0; i < invalid.length; i++){
                try{
                    us.remove(invalid[i], UnicodeSet.MAX_VALUE);
-                   errln("UnicodeSet.remove(int start, int end) was supposed to give "
+                   errln("UnicodeSet.remove(int start, int end) was suppose to give "
                            + "an exception for an start invalid input of "
                            + invalid[i]);
                } catch (Exception e){}
@@ -881,7 +880,7 @@ public final class StringTokenizerTest extends TestFmwk
            for(int i=0; i < invalid.length; i++){
                try{
                    us.remove(UnicodeSet.MIN_VALUE, invalid[i]);
-                   errln("UnicodeSet.remove(int start, int end) was supposed to give "
+                   errln("UnicodeSet.remove(int start, int end) was suppose to give "
                            + "an exception for an end invalid input of "
                            + invalid[i]);
                } catch (Exception e){}
@@ -891,14 +890,14 @@ public final class StringTokenizerTest extends TestFmwk
            try{
                us.remove(UnicodeSet.MIN_VALUE+1, UnicodeSet.MIN_VALUE);
            } catch(Exception e){
-               errln("UnicodeSet.remove(int start, int end) was not supposed to give "
+               errln("UnicodeSet.remove(int start, int end) was not suppose to give "
                        + "an exception.");
            }
 
            try{
                us.remove(UnicodeSet.MAX_VALUE, UnicodeSet.MAX_VALUE-1);
            } catch(Exception e){
-               errln("UnicodeSet.remove(int start, int end) was not supposed to give "
+               errln("UnicodeSet.remove(int start, int end) was not suppose to give "
                        + "an exception.");
            }
        }
@@ -916,7 +915,7 @@ public final class StringTokenizerTest extends TestFmwk
             for(int i=0; i < invalid.length; i++){
                 try{
                     us.complement(invalid[i], UnicodeSet.MAX_VALUE);
-                    errln("UnicodeSet.complement(int start, int end) was supposed to give "
+                    errln("UnicodeSet.complement(int start, int end) was suppose to give "
                             + "an exception for an start invalid input of "
                             + invalid[i]);
                 } catch (Exception e){}
@@ -926,7 +925,7 @@ public final class StringTokenizerTest extends TestFmwk
             for(int i=0; i < invalid.length; i++){
                 try{
                     us.complement(UnicodeSet.MIN_VALUE, invalid[i]);
-                    errln("UnicodeSet.complement(int start, int end) was supposed to give "
+                    errln("UnicodeSet.complement(int start, int end) was suppose to give "
                             + "an exception for an end invalid input of "
                             + invalid[i]);
                 } catch (Exception e){}
@@ -936,14 +935,14 @@ public final class StringTokenizerTest extends TestFmwk
             try{
                 us.complement(UnicodeSet.MIN_VALUE+1, UnicodeSet.MIN_VALUE);
             } catch(Exception e){
-                errln("UnicodeSet.complement(int start, int end) was not supposed to give "
+                errln("UnicodeSet.complement(int start, int end) was not suppose to give "
                         + "an exception.");
             }
 
             try{
                 us.complement(UnicodeSet.MAX_VALUE, UnicodeSet.MAX_VALUE-1);
             } catch(Exception e){
-                errln("UnicodeSet.complement(int start, int end) was not supposed to give "
+                errln("UnicodeSet.complement(int start, int end) was not suppose to give "
                         + "an exception.");
             }
         }
@@ -959,7 +958,7 @@ public final class StringTokenizerTest extends TestFmwk
             try{
                 us.complement("dummy");
             } catch (Exception e){
-                errln("UnicodeSet.complement(String s) was not supposed to give "
+                errln("UnicodeSet.complement(String s) was not suppose to give "
                         + "an exception for 'dummy'.");
             }
 
@@ -969,7 +968,7 @@ public final class StringTokenizerTest extends TestFmwk
             try{
                 us.complement("\uDC11");
             } catch (Exception e){
-                errln("UnicodeSet.complement(String s) was not supposed to give "
+                errln("UnicodeSet.complement(String s) was not suppose to give "
                         + "an exception for '\uDC11'.");
             }
         }
@@ -987,7 +986,7 @@ public final class StringTokenizerTest extends TestFmwk
             for(int i=0; i < invalid.length; i++){
                 try{
                     us.contains(invalid[i]);
-                    errln("UnicodeSet.contains(int c) was supposed to give "
+                    errln("UnicodeSet.contains(int c) was suppose to give "
                             + "an exception for an start invalid input of "
                             + invalid[i]);
                 } catch (Exception e){}
@@ -1007,7 +1006,7 @@ public final class StringTokenizerTest extends TestFmwk
              for(int i=0; i < invalid.length; i++){
                  try{
                      us.contains(invalid[i], UnicodeSet.MAX_VALUE);
-                     errln("UnicodeSet.contains(int start, int end) was supposed to give "
+                     errln("UnicodeSet.contains(int start, int end) was suppose to give "
                              + "an exception for an start invalid input of "
                              + invalid[i]);
                  } catch (Exception e){}
@@ -1017,7 +1016,7 @@ public final class StringTokenizerTest extends TestFmwk
              for(int i=0; i < invalid.length; i++){
                  try{
                      us.contains(UnicodeSet.MIN_VALUE, invalid[i]);
-                     errln("UnicodeSet.contains(int start, int end) was supposed to give "
+                     errln("UnicodeSet.contains(int start, int end) was suppose to give "
                              + "an exception for an end invalid input of "
                              + invalid[i]);
                  } catch (Exception e){}
@@ -1032,7 +1031,7 @@ public final class StringTokenizerTest extends TestFmwk
              UnicodeSet us = new UnicodeSet();
              String res = us.getRegexEquivalent();
              if(!(res.equals("[]")))
-                 errln("UnicodeSet.getRegexEquivalent is supposed to return '[]' " +
+                 errln("UnicodeSet.getRegexEquivalent is suppose to return '[]' " +
                          "but got " + res);
          }
 
@@ -1049,7 +1048,7 @@ public final class StringTokenizerTest extends TestFmwk
               for(int i=0; i < invalid.length; i++){
                   try{
                       us.containsNone(invalid[i], UnicodeSet.MAX_VALUE);
-                      errln("UnicodeSet.containsNoneint start, int end) was supposed to give "
+                      errln("UnicodeSet.containsNoneint start, int end) was suppose to give "
                               + "an exception for an start invalid input of "
                               + invalid[i]);
                   } catch (Exception e){}
@@ -1059,7 +1058,7 @@ public final class StringTokenizerTest extends TestFmwk
               for(int i=0; i < invalid.length; i++){
                   try{
                       us.containsNone(UnicodeSet.MIN_VALUE, invalid[i]);
-                      errln("UnicodeSet.containsNone(int start, int end) was supposed to give "
+                      errln("UnicodeSet.containsNone(int start, int end) was suppose to give "
                               + "an exception for an end invalid input of "
                               + invalid[i]);
                   } catch (Exception e){}
@@ -1070,7 +1069,7 @@ public final class StringTokenizerTest extends TestFmwk
                   us.add(0);
                   us.containsNone(1, 2); // 1 > 0
               } catch (Exception e){
-                  errln("UnicodeSet.containsNone(int start, int end) was not supposed to give " +
+                  errln("UnicodeSet.containsNone(int start, int end) was not suppose to give " +
                           "an exception.");
               }
           }

@@ -17,8 +17,6 @@
 */
 
 /**
- * @addtogroup ICU4C
- * @{
  * \file
  * \brief C API: 8-bit Unicode handling macros
  * 
@@ -53,7 +51,7 @@
  * however it is called by public macros in this file and thus must remain stable.
  *
  * @param leadByte The first byte of a UTF-8 sequence. Must be 0..0xff.
- * \xrefitem internal "Internal"  "Internal List"  Do not use. This API is for internal use only.
+ * @internal
  */
 #define U8_COUNT_TRAIL_BYTES(leadByte) \
     (U8_IS_LEAD(leadByte) ? \
@@ -68,7 +66,7 @@
  * however it is called by public macros in this file and thus must remain stable.
  *
  * @param leadByte The first byte of a UTF-8 sequence. Must be 0..0xff.
- * \xrefitem internal "Internal"  "Internal List"  Do not use. This API is for internal use only.
+ * @internal
  */
 #define U8_COUNT_TRAIL_BYTES_UNSAFE(leadByte) \
     (((uint8_t)(leadByte)>=0xc2)+((uint8_t)(leadByte)>=0xe0)+((uint8_t)(leadByte)>=0xf0))
@@ -78,7 +76,7 @@
  *
  * This is internal since it is not meant to be called directly by external clients;
  * however it is called by public macros in this file and thus must remain stable.
- * \xrefitem internal "Internal"  "Internal List"  Do not use. This API is for internal use only.
+ * @internal
  */
 #define U8_MASK_LEAD_BYTE(leadByte, countTrailBytes) ((leadByte)&=(1<<(6-(countTrailBytes)))-1)
 
@@ -88,14 +86,14 @@
  * Lead byte E0..EF bits 3..0 are used as byte index,
  * first trail byte bits 7..5 are used as bit index into that byte.
  * @see U8_IS_VALID_LEAD3_AND_T1
- * \xrefitem internal "Internal"  "Internal List"  Do not use. This API is for internal use only.
+ * @internal
  */
 #define U8_LEAD3_T1_BITS "\x20\x30\x30\x30\x30\x30\x30\x30\x30\x30\x30\x30\x30\x10\x30\x30"
 
 /**
  * Internal 3-byte UTF-8 validity check.
  * Non-zero if lead byte E0..EF and first trail byte 00..FF start a valid sequence.
- * \xrefitem internal "Internal"  "Internal List"  Do not use. This API is for internal use only.
+ * @internal
  */
 #define U8_IS_VALID_LEAD3_AND_T1(lead, t1) (U8_LEAD3_T1_BITS[(lead)&0xf]&(1<<((uint8_t)(t1)>>5)))
 
@@ -105,14 +103,14 @@
  * First trail byte bits 7..4 are used as byte index,
  * lead byte F0..F4 bits 2..0 are used as bit index into that byte.
  * @see U8_IS_VALID_LEAD4_AND_T1
- * \xrefitem internal "Internal"  "Internal List"  Do not use. This API is for internal use only.
+ * @internal
  */
 #define U8_LEAD4_T1_BITS "\x00\x00\x00\x00\x00\x00\x00\x00\x1E\x0F\x0F\x0F\x00\x00\x00\x00"
 
 /**
  * Internal 4-byte UTF-8 validity check.
  * Non-zero if lead byte F0..F4 and first trail byte 00..FF start a valid sequence.
- * \xrefitem internal "Internal"  "Internal List"  Do not use. This API is for internal use only.
+ * @internal
  */
 #define U8_IS_VALID_LEAD4_AND_T1(lead, t1) (U8_LEAD4_T1_BITS[(uint8_t)(t1)>>4]&(1<<((lead)&7)))
 
@@ -130,7 +128,7 @@
  * Does this code unit (byte) encode a code point by itself (US-ASCII 0..0x7f)?
  * @param c 8-bit code unit (byte)
  * @return true or false
- * \xrefitem stable "Stable" "Stable List" ICU 2.4
+ * @stable ICU 2.4
  */
 #define U8_IS_SINGLE(c) (((c)&0x80)==0)
 
@@ -138,7 +136,7 @@
  * Is this code unit (byte) a UTF-8 lead byte? (0xC2..0xF4)
  * @param c 8-bit code unit (byte)
  * @return true or false
- * \xrefitem stable "Stable" "Stable List" ICU 2.4
+ * @stable ICU 2.4
  */
 #define U8_IS_LEAD(c) ((uint8_t)((c)-0xc2)<=0x32)
 // 0x32=0xf4-0xc2
@@ -147,7 +145,7 @@
  * Is this code unit (byte) a UTF-8 trail byte? (0x80..0xBF)
  * @param c 8-bit code unit (byte)
  * @return true or false
- * \xrefitem stable "Stable" "Stable List" ICU 2.4
+ * @stable ICU 2.4
  */
 #define U8_IS_TRAIL(c) ((int8_t)(c)<-0x40)
 
@@ -156,7 +154,7 @@
  * of this Unicode code point?
  * @param c 32-bit code point
  * @return 1..4, or 0 if c is a surrogate or not a Unicode code point
- * \xrefitem stable "Stable" "Stable List" ICU 2.4
+ * @stable ICU 2.4
  */
 #define U8_LENGTH(c) \
     ((uint32_t)(c)<=0x7f ? 1 : \
@@ -172,7 +170,7 @@
 /**
  * The maximum number of UTF-8 code units (bytes) per Unicode code point (U+0000..U+10ffff).
  * @return 4
- * \xrefitem stable "Stable" "Stable List" ICU 2.4
+ * @stable ICU 2.4
  */
 #define U8_MAX_LENGTH 4
 
@@ -190,7 +188,7 @@
  * @param i string offset
  * @param c output UChar32 variable
  * @see U8_GET
- * \xrefitem stable "Stable" "Stable List" ICU 2.4
+ * @stable ICU 2.4
  */
 #define U8_GET_UNSAFE(s, i, c) UPRV_BLOCK_MACRO_BEGIN { \
     int32_t _u8_get_unsafe_index=(int32_t)(i); \
@@ -217,7 +215,7 @@
  * @param length int32_t string length
  * @param c output UChar32 variable, set to <0 in case of an error
  * @see U8_GET_UNSAFE
- * \xrefitem stable "Stable" "Stable List" ICU 2.4
+ * @stable ICU 2.4
  */
 #define U8_GET(s, start, i, length, c) UPRV_BLOCK_MACRO_BEGIN { \
     int32_t _u8_get_index=(i); \
@@ -248,7 +246,7 @@
  * @param length int32_t string length
  * @param c output UChar32 variable, set to U+FFFD in case of an error
  * @see U8_GET
- * \xrefitem stable "Stable" "Stable List" ICU 51
+ * @stable ICU 51
  */
 #define U8_GET_OR_FFFD(s, start, i, length, c) UPRV_BLOCK_MACRO_BEGIN { \
     int32_t _u8_get_index=(i); \
@@ -273,7 +271,7 @@
  * @param i string offset
  * @param c output UChar32 variable
  * @see U8_NEXT
- * \xrefitem stable "Stable" "Stable List" ICU 2.4
+ * @stable ICU 2.4
  */
 #define U8_NEXT_UNSAFE(s, i, c) UPRV_BLOCK_MACRO_BEGIN { \
     (c)=(uint8_t)(s)[(i)++]; \
@@ -309,7 +307,7 @@
  * @param length int32_t string length
  * @param c output UChar32 variable, set to <0 in case of an error
  * @see U8_NEXT_UNSAFE
- * \xrefitem stable "Stable" "Stable List" ICU 2.4
+ * @stable ICU 2.4
  */
 #define U8_NEXT(s, i, length, c) U8_INTERNAL_NEXT_OR_SUB(s, i, length, c, U_SENTINEL)
 
@@ -335,11 +333,11 @@
  * @param length int32_t string length
  * @param c output UChar32 variable, set to U+FFFD in case of an error
  * @see U8_NEXT
- * \xrefitem stable "Stable" "Stable List" ICU 51
+ * @stable ICU 51
  */
 #define U8_NEXT_OR_FFFD(s, i, length, c) U8_INTERNAL_NEXT_OR_SUB(s, i, length, c, 0xfffd)
 
-/** \xrefitem internal "Internal"  "Internal List"  Do not use. This API is for internal use only. */
+/** @internal */
 #define U8_INTERNAL_NEXT_OR_SUB(s, i, length, c, sub) UPRV_BLOCK_MACRO_BEGIN { \
     (c)=(uint8_t)(s)[(i)++]; \
     if(!U8_IS_SINGLE(c)) { \
@@ -379,7 +377,7 @@
  * @param i string offset
  * @param c code point to append
  * @see U8_APPEND
- * \xrefitem stable "Stable" "Stable List" ICU 2.4
+ * @stable ICU 2.4
  */
 #define U8_APPEND_UNSAFE(s, i, c) UPRV_BLOCK_MACRO_BEGIN { \
     uint32_t __uc=(c); \
@@ -416,7 +414,7 @@
  * @param c UChar32 code point to append
  * @param isError output UBool set to true if an error occurs, otherwise not modified
  * @see U8_APPEND_UNSAFE
- * \xrefitem stable "Stable" "Stable List" ICU 2.4
+ * @stable ICU 2.4
  */
 #define U8_APPEND(s, i, capacity, c, isError) UPRV_BLOCK_MACRO_BEGIN { \
     uint32_t __uc=(c); \
@@ -447,7 +445,7 @@
  * @param s const uint8_t * string
  * @param i string offset
  * @see U8_FWD_1
- * \xrefitem stable "Stable" "Stable List" ICU 2.4
+ * @stable ICU 2.4
  */
 #define U8_FWD_1_UNSAFE(s, i) UPRV_BLOCK_MACRO_BEGIN { \
     (i)+=1+U8_COUNT_TRAIL_BYTES_UNSAFE((s)[i]); \
@@ -464,7 +462,7 @@
  * @param i int32_t string offset, must be i<length
  * @param length int32_t string length
  * @see U8_FWD_1_UNSAFE
- * \xrefitem stable "Stable" "Stable List" ICU 2.4
+ * @stable ICU 2.4
  */
 #define U8_FWD_1(s, i, length) UPRV_BLOCK_MACRO_BEGIN { \
     uint8_t __b=(s)[(i)++]; \
@@ -499,7 +497,7 @@
  * @param i string offset
  * @param n number of code points to skip
  * @see U8_FWD_N
- * \xrefitem stable "Stable" "Stable List" ICU 2.4
+ * @stable ICU 2.4
  */
 #define U8_FWD_N_UNSAFE(s, i, n) UPRV_BLOCK_MACRO_BEGIN { \
     int32_t __N=(n); \
@@ -522,7 +520,7 @@
  * @param length int32_t string length
  * @param n number of code points to skip
  * @see U8_FWD_N_UNSAFE
- * \xrefitem stable "Stable" "Stable List" ICU 2.4
+ * @stable ICU 2.4
  */
 #define U8_FWD_N(s, i, length, n) UPRV_BLOCK_MACRO_BEGIN { \
     int32_t __N=(n); \
@@ -543,7 +541,7 @@
  * @param s const uint8_t * string
  * @param i string offset
  * @see U8_SET_CP_START
- * \xrefitem stable "Stable" "Stable List" ICU 2.4
+ * @stable ICU 2.4
  */
 #define U8_SET_CP_START_UNSAFE(s, i) UPRV_BLOCK_MACRO_BEGIN { \
     while(U8_IS_TRAIL((s)[i])) { --(i); } \
@@ -564,7 +562,7 @@
  * @param i int32_t string offset, must be start<=i
  * @see U8_SET_CP_START_UNSAFE
  * @see U8_TRUNCATE_IF_INCOMPLETE
- * \xrefitem stable "Stable" "Stable List" ICU 2.4
+ * @stable ICU 2.4
  */
 #define U8_SET_CP_START(s, start, i) UPRV_BLOCK_MACRO_BEGIN { \
     if(U8_IS_TRAIL((s)[(i)])) { \
@@ -596,7 +594,7 @@
  * @param start int32_t starting string offset (usually 0)
  * @param length int32_t string length (usually start<=length)
  * @see U8_SET_CP_START
- * \xrefitem stable "Stable" "Stable List" ICU 61
+ * @stable ICU 61
  */
 #define U8_TRUNCATE_IF_INCOMPLETE(s, start, length) UPRV_BLOCK_MACRO_BEGIN { \
     if((length)>(start)) { \
@@ -641,7 +639,7 @@
  * @param i string offset
  * @param c output UChar32 variable
  * @see U8_PREV
- * \xrefitem stable "Stable" "Stable List" ICU 2.4
+ * @stable ICU 2.4
  */
 #define U8_PREV_UNSAFE(s, i, c) UPRV_BLOCK_MACRO_BEGIN { \
     (c)=(uint8_t)(s)[--(i)]; \
@@ -683,7 +681,7 @@
  * @param i int32_t string offset, must be start<i
  * @param c output UChar32 variable, set to <0 in case of an error
  * @see U8_PREV_UNSAFE
- * \xrefitem stable "Stable" "Stable List" ICU 2.4
+ * @stable ICU 2.4
  */
 #define U8_PREV(s, start, i, c) UPRV_BLOCK_MACRO_BEGIN { \
     (c)=(uint8_t)(s)[--(i)]; \
@@ -714,7 +712,7 @@
  * @param i int32_t string offset, must be start<i
  * @param c output UChar32 variable, set to U+FFFD in case of an error
  * @see U8_PREV
- * \xrefitem stable "Stable" "Stable List" ICU 51
+ * @stable ICU 51
  */
 #define U8_PREV_OR_FFFD(s, start, i, c) UPRV_BLOCK_MACRO_BEGIN { \
     (c)=(uint8_t)(s)[--(i)]; \
@@ -732,7 +730,7 @@
  * @param s const uint8_t * string
  * @param i string offset
  * @see U8_BACK_1
- * \xrefitem stable "Stable" "Stable List" ICU 2.4
+ * @stable ICU 2.4
  */
 #define U8_BACK_1_UNSAFE(s, i) UPRV_BLOCK_MACRO_BEGIN { \
     while(U8_IS_TRAIL((s)[--(i)])) {} \
@@ -748,7 +746,7 @@
  * @param start int32_t starting string offset (usually 0)
  * @param i int32_t string offset, must be start<i
  * @see U8_BACK_1_UNSAFE
- * \xrefitem stable "Stable" "Stable List" ICU 2.4
+ * @stable ICU 2.4
  */
 #define U8_BACK_1(s, start, i) UPRV_BLOCK_MACRO_BEGIN { \
     if(U8_IS_TRAIL((s)[--(i)])) { \
@@ -767,7 +765,7 @@
  * @param i string offset
  * @param n number of code points to skip
  * @see U8_BACK_N
- * \xrefitem stable "Stable" "Stable List" ICU 2.4
+ * @stable ICU 2.4
  */
 #define U8_BACK_N_UNSAFE(s, i, n) UPRV_BLOCK_MACRO_BEGIN { \
     int32_t __N=(n); \
@@ -789,7 +787,7 @@
  * @param i int32_t string offset, must be start<i
  * @param n number of code points to skip
  * @see U8_BACK_N_UNSAFE
- * \xrefitem stable "Stable" "Stable List" ICU 2.4
+ * @stable ICU 2.4
  */
 #define U8_BACK_N(s, start, i, n) UPRV_BLOCK_MACRO_BEGIN { \
     int32_t __N=(n); \
@@ -810,7 +808,7 @@
  * @param s const uint8_t * string
  * @param i string offset
  * @see U8_SET_CP_LIMIT
- * \xrefitem stable "Stable" "Stable List" ICU 2.4
+ * @stable ICU 2.4
  */
 #define U8_SET_CP_LIMIT_UNSAFE(s, i) UPRV_BLOCK_MACRO_BEGIN { \
     U8_BACK_1_UNSAFE(s, i); \
@@ -832,7 +830,7 @@
  * @param i int32_t string offset, must be start<=i<=length
  * @param length int32_t string length
  * @see U8_SET_CP_LIMIT_UNSAFE
- * \xrefitem stable "Stable" "Stable List" ICU 2.4
+ * @stable ICU 2.4
  */
 #define U8_SET_CP_LIMIT(s, start, i, length) UPRV_BLOCK_MACRO_BEGIN { \
     if((start)<(i) && ((i)<(length) || (length)<0)) { \
@@ -842,5 +840,3 @@
 } UPRV_BLOCK_MACRO_END
 
 #endif
-
-/** @} */ // addtogroup
