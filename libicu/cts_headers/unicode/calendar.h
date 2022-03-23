@@ -47,8 +47,6 @@ U_NAMESPACE_BEGIN
 
 class ICUServiceFactory;
 
-// Do not conditionalize the following with #ifndef U_HIDE_INTERNAL_API,
-// it is a return type for a virtual method (@internal)
 /**
  * @internal
  */
@@ -449,21 +447,21 @@ public:
      * represented time, use equals() instead.
      *
      * @param that  The Calendar object to be compared with.
-     * @return      true if the given Calendar is the same as this Calendar; false
+     * @return      True if the given Calendar is the same as this Calendar; false
      *              otherwise.
      * @stable ICU 2.0
      */
-    virtual bool operator==(const Calendar& that) const;
+    virtual UBool operator==(const Calendar& that) const;
 
     /**
      * Compares the inequality of two Calendar objects.
      *
      * @param that  The Calendar object to be compared with.
-     * @return      true if the given Calendar is not the same as this Calendar; false
+     * @return      True if the given Calendar is not the same as this Calendar; false
      *              otherwise.
      * @stable ICU 2.0
      */
-    bool operator!=(const Calendar& that) const {return !operator==(that);}
+    UBool operator!=(const Calendar& that) const {return !operator==(that);}
 
     /**
      * Returns true if the given Calendar object is equivalent to this
@@ -1341,7 +1339,7 @@ public:
      *           same class ID. Objects of other classes have different class IDs.
      * @stable ICU 2.0
      */
-    virtual UClassID getDynamicClassID(void) const override = 0;
+    virtual UClassID getDynamicClassID(void) const = 0;
 
     /**
      * Returns the calendar type name string for this Calendar object.
@@ -1851,7 +1849,7 @@ private:
      * @param startValue starting (least max) value of field
      * @param endValue ending (greatest max) value of field
      * @param status return type
-     * @internal (private)
+     * @internal
      */
     int32_t getActualHelper(UCalendarDateFields field, int32_t startValue, int32_t endValue, UErrorCode &status) const;
 

@@ -367,7 +367,7 @@ de{
         mgh{"Makhuwa-Meetto"}
         mgo{"Meta’"}
         mh{"Marschallesisch"}
-        mi{"Māori"}
+        mi{"Maori"}
         mic{"Micmac"}
         min{"Minangkabau"}
         mk{"Mazedonisch"}
@@ -461,7 +461,6 @@ de{
         rap{"Rapanui"}
         rar{"Rarotonganisch"}
         rgn{"Romagnol"}
-        rhg{"Rohingyalisch"}
         rif{"Tarifit"}
         rm{"Rätoromanisch"}
         rn{"Rundi"}
@@ -469,6 +468,7 @@ de{
         ro_MD{"Moldauisch"}
         rof{"Rombo"}
         rom{"Romani"}
+        root{"Root"}
         rtm{"Rotumanisch"}
         ru{"Russisch"}
         rue{"Russinisch"}

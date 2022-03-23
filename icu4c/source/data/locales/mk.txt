@@ -87,16 +87,16 @@ mk{
             patternsShort{
                 currencyFormat{
                     1000{
-                        one{"0 илј'.' ¤"}
-                        other{"0 илј'.' ¤"}
+                        one{"0 илј'.' ¤ "}
+                        other{"0 илј'.' ¤ "}
                     }
                     10000{
-                        one{"00 илј'.' ¤"}
-                        other{"00 илј'.' ¤"}
+                        one{"00 илј'.' ¤ "}
+                        other{"00 илј'.' ¤ "}
                     }
                     100000{
-                        one{"000 илј'.' ¤"}
-                        other{"000 илј'.' ¤"}
+                        one{"000 илј'.' ¤ "}
+                        other{"000 илј'.' ¤ "}
                     }
                     1000000{
                         one{"0 мил'.' ¤"}
@@ -233,16 +233,6 @@ mk{
                 "{1} {0}",
                 "{1} {0}",
             }
-            DateTimeSkeletons{
-                "HHmmsszzzz",
-                "HHmmssz",
-                "HHmmss",
-                "HHmm",
-                "GyMMMMEEEEdd",
-                "GyMMMMdd",
-                "GyMdd",
-                "GGGGGyMdd",
-            }
             availableFormats{
                 E{"E"}
                 Ed{"d E"}
@@ -347,16 +337,6 @@ mk{
                 "{1} {0}",
                 "{1} {0}",
                 "{1} {0}",
-            }
-            DateTimeSkeletons{
-                "HHmmsszzzz",
-                "HHmmssz",
-                "HHmmss",
-                "HHmm",
-                "GyMMMMEEEEdd",
-                "GyMMMMdd",
-                "GyMdd",
-                "GGGGGyMdd",
             }
             eras{
                 abbreviated{
@@ -537,16 +517,6 @@ mk{
                 "{1} {0}",
                 "{1} {0}",
             }
-            DateTimeSkeletons{
-                "HHmmsszzzz",
-                "HHmmssz",
-                "HHmmss",
-                "HHmm",
-                "GyMMMMEEEEdd",
-                "GyMMMMdd",
-                "GyMdd",
-                "GGGGGyMdd",
-            }
             availableFormats{
                 Bh{"h B"}
                 Bhm{"h:mm B"}
@@ -563,7 +533,6 @@ mk{
                 GyMMM{"MMM y 'г'. G"}
                 GyMMMEd{"E, dd MMM y 'г'. G"}
                 GyMMMd{"dd MMM y 'г'. G"}
-                GyMd{"d.M.y GGGGG"}
                 H{"HH"}
                 Hm{"HH:mm"}
                 Hms{"HH:mm:ss"}
@@ -766,16 +735,6 @@ mk{
                 "{1}, 'во' {0}",
                 "{1}, 'во' {0}",
             }
-            DateTimeSkeletons{
-                "HHmmsszzzz",
-                "HHmmssz",
-                "HHmmss",
-                "HHmm",
-                "yMMMMEEEEd",
-                "yMMMMd",
-                "yMd",
-                "yyMd",
-            }
             appendItems{
                 Timezone{"{0} {1}"}
             }
@@ -795,7 +754,6 @@ mk{
                 GyMMM{"MMM y G"}
                 GyMMMEd{"E, d MMM y G"}
                 GyMMMd{"d MMM y G"}
-                GyMd{"d.M.y GGGGG"}
                 H{"HH"}
                 Hm{"HH:mm"}
                 Hms{"HH:mm:ss"}
@@ -841,7 +799,7 @@ mk{
                     abbreviated{
                         "нед.",
                         "пон.",
-                        "вто.",
+                        "вт.",
                         "сре.",
                         "чет.",
                         "пет.",
@@ -1008,13 +966,13 @@ mk{
                     m{"h:mm – h:mm B"}
                 }
                 Gy{
-                    G{"y G – y G"}
-                    y{"y – y G"}
+                    G{"G y – G y"}
+                    y{"G y – y"}
                 }
                 GyM{
-                    G{"M.y GGGGG – M.y GGGGG"}
-                    M{"M.y – M.y GGGGG"}
-                    y{"M.y – M.y GGGGG"}
+                    G{"GGGGG y-MM – GGGGG y-MM"}
+                    M{"GGGGG y-MM – y-MM"}
+                    y{"GGGGG y-MM – y-MM"}
                 }
                 GyMEd{
                     G{"GGGGG y-MM-dd, E – GGGGG y-MM-dd, E"}
@@ -1291,16 +1249,6 @@ mk{
                 "{1} {0}",
                 "{1} {0}",
             }
-            DateTimeSkeletons{
-                "HHmmsszzzz",
-                "HHmmssz",
-                "HHmmss",
-                "HHmm",
-                "GyMMMMEEEEdd",
-                "GyMMMMdd",
-                "GyMdd",
-                "GGGGGyMdd",
-            }
             availableFormats{
                 E{"E"}
                 Ed{"d E"}
@@ -1550,16 +1498,6 @@ mk{
                 "{1} {0}",
                 "{1} {0}",
                 "{1} {0}",
-            }
-            DateTimeSkeletons{
-                "HHmmsszzzz",
-                "HHmmssz",
-                "HHmmss",
-                "HHmm",
-                "GyMMMMEEEEdd",
-                "GyMMMMdd",
-                "GyMdd",
-                "GGGGGyMdd",
             }
             availableFormats{
                 E{"E"}

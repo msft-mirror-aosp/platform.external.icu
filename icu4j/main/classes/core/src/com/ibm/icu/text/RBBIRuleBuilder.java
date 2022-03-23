@@ -85,9 +85,6 @@ class RBBIRuleBuilder {
     //    using these simplified the porting, and consolidated the
     //    creation of Java exceptions
     //
-    static final int U_ILLEGAL_CHAR_FOUND = 12;
-    /**< Character conversion: Illegal input sequence/combination of input units. */
-
     static final int U_BRK_ERROR_START = 0x10200;
     /**< Start of codes indicating Break Iterator failures */
 
@@ -289,7 +286,7 @@ class RBBIRuleBuilder {
     }
 
     /**
-     * Compile rules to the binary form, write that to an output stream.
+     * Compile rules to the binary form, write that to an ouput stream.
      *
      */
     void build(OutputStream os) throws IOException {

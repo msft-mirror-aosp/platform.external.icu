@@ -398,7 +398,7 @@ public final class MessagePatternUtil {
 
     /**
      * A Node representing a nested message (nested inside an argument)
-     * with its selection criterion.
+     * with its selection criterium.
      * @stable ICU 49
      */
     public static class VariantNode extends Node {

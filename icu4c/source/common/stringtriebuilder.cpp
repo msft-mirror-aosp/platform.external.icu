@@ -383,7 +383,7 @@ StringTrieBuilder::equalNodes(const void *left, const void *right) {
     return *(const Node *)left==*(const Node *)right;
 }
 
-bool
+UBool
 StringTrieBuilder::Node::operator==(const Node &other) const {
     return this==&other || (typeid(*this)==typeid(other) && hash==other.hash);
 }
@@ -396,13 +396,13 @@ StringTrieBuilder::Node::markRightEdgesFirst(int32_t edgeNumber) {
     return edgeNumber;
 }
 
-bool
+UBool
 StringTrieBuilder::FinalValueNode::operator==(const Node &other) const {
     if(this==&other) {
-        return true;
+        return TRUE;
     }
     if(!Node::operator==(other)) {
-        return false;
+        return FALSE;
     }
     const FinalValueNode &o=(const FinalValueNode &)other;
     return value==o.value;
@@ -413,25 +413,25 @@ StringTrieBuilder::FinalValueNode::write(StringTrieBuilder &builder) {
     offset=builder.writeValueAndFinal(value, TRUE);
 }
 
-bool
+UBool
 StringTrieBuilder::ValueNode::operator==(const Node &other) const {
     if(this==&other) {
-        return true;
+        return TRUE;
     }
     if(!Node::operator==(other)) {
-        return false;
+        return FALSE;
     }
     const ValueNode &o=(const ValueNode &)other;
     return hasValue==o.hasValue && (!hasValue || value==o.value);
 }
 
-bool
+UBool
 StringTrieBuilder::IntermediateValueNode::operator==(const Node &other) const {
     if(this==&other) {
-        return true;
+        return TRUE;
     }
     if(!ValueNode::operator==(other)) {
-        return false;
+        return FALSE;
     }
     const IntermediateValueNode &o=(const IntermediateValueNode &)other;
     return next==o.next;
@@ -451,13 +451,13 @@ StringTrieBuilder::IntermediateValueNode::write(StringTrieBuilder &builder) {
     offset=builder.writeValueAndFinal(value, FALSE);
 }
 
-bool
+UBool
 StringTrieBuilder::LinearMatchNode::operator==(const Node &other) const {
     if(this==&other) {
-        return true;
+        return TRUE;
     }
     if(!ValueNode::operator==(other)) {
-        return false;
+        return FALSE;
     }
     const LinearMatchNode &o=(const LinearMatchNode &)other;
     return length==o.length && next==o.next;
@@ -471,21 +471,21 @@ StringTrieBuilder::LinearMatchNode::markRightEdgesFirst(int32_t edgeNumber) {
     return edgeNumber;
 }
 
-bool
+UBool
 StringTrieBuilder::ListBranchNode::operator==(const Node &other) const {
     if(this==&other) {
-        return true;
+        return TRUE;
     }
     if(!Node::operator==(other)) {
-        return false;
+        return FALSE;
     }
     const ListBranchNode &o=(const ListBranchNode &)other;
     for(int32_t i=0; i<length; ++i) {
         if(units[i]!=o.units[i] || values[i]!=o.values[i] || equal[i]!=o.equal[i]) {
-            return false;
+            return FALSE;
         }
     }
-    return true;
+    return TRUE;
 }
 
 int32_t
@@ -550,13 +550,13 @@ StringTrieBuilder::ListBranchNode::write(StringTrieBuilder &builder) {
     }
 }
 
-bool
+UBool
 StringTrieBuilder::SplitBranchNode::operator==(const Node &other) const {
     if(this==&other) {
-        return true;
+        return TRUE;
     }
     if(!Node::operator==(other)) {
-        return false;
+        return FALSE;
     }
     const SplitBranchNode &o=(const SplitBranchNode &)other;
     return unit==o.unit && lessThan==o.lessThan && greaterOrEqual==o.greaterOrEqual;
@@ -584,13 +584,13 @@ StringTrieBuilder::SplitBranchNode::write(StringTrieBuilder &builder) {
     offset=builder.write(unit);
 }
 
-bool
+UBool
 StringTrieBuilder::BranchHeadNode::operator==(const Node &other) const {
     if(this==&other) {
-        return true;
+        return TRUE;
     }
     if(!ValueNode::operator==(other)) {
-        return false;
+        return FALSE;
     }
     const BranchHeadNode &o=(const BranchHeadNode &)other;
     return length==o.length && next==o.next;

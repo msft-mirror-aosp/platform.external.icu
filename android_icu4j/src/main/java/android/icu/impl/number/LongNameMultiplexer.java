@@ -9,6 +9,7 @@ import java.util.List;
 import android.icu.number.NumberFormatter;
 import android.icu.text.PluralRules;
 import android.icu.util.MeasureUnit;
+import android.icu.util.NoUnit;
 import android.icu.util.ULocale;
 
 /**
@@ -48,7 +49,6 @@ public class LongNameMultiplexer implements MicroPropsGenerator {
     public static LongNameMultiplexer forMeasureUnits(ULocale locale,
                                                       List<MeasureUnit> units,
                                                       NumberFormatter.UnitWidth width,
-                                                      String unitDisplayCase,
                                                       PluralRules rules,
                                                       MicroPropsGenerator parent) {
         LongNameMultiplexer result = new LongNameMultiplexer(parent);
@@ -64,10 +64,11 @@ public class LongNameMultiplexer implements MicroPropsGenerator {
             result.fMeasureUnits.add(unit);
             if (unit.getComplexity() == MeasureUnit.Complexity.MIXED) {
                 MixedUnitLongNameHandler mlnh = MixedUnitLongNameHandler
-                        .forMeasureUnit(locale, unit, width, unitDisplayCase, rules, null);
+                        .forMeasureUnit(locale, unit, width, rules, null);
                 result.fHandlers.add(mlnh);
             } else {
-                LongNameHandler lnh = LongNameHandler.forMeasureUnit(locale, unit, width, unitDisplayCase, rules, null);
+                LongNameHandler lnh = LongNameHandler
+                        .forMeasureUnit(locale, unit, NoUnit.BASE, width, rules, null);
                 result.fHandlers.add(lnh);
             }
         }
@@ -79,7 +80,7 @@ public class LongNameMultiplexer implements MicroPropsGenerator {
     // one of the units provided to the factory function.
     @Override
     public MicroProps processQuantity(DecimalQuantity quantity) {
-        // We call parent.processQuantity() from the Multiplexer, instead of
+        // We call parent->processQuantity() from the Multiplexer, instead of
         // letting LongNameHandler handle it: we don't know which LongNameHandler to
         // call until we've called the parent!
         MicroProps micros = this.fParent.processQuantity(quantity);

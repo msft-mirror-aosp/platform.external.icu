@@ -111,7 +111,6 @@ en_IN{
                     }
                     100000000000000{
                         one{"000LCr"}
-                        other{"000LCr"}
                     }
                 }
             }
@@ -133,16 +132,6 @@ en_IN{
                 "{1} 'at' {0}",
                 "{1}, {0}",
                 "{1}, {0}",
-            }
-            DateTimeSkeletons{
-                "ahmmsszzzz",
-                "ahmmssz",
-                "ahmmss",
-                "ahmm",
-                "GyMMMMEEEEd",
-                "GyMMMMd",
-                "GyMMMd",
-                "GGGGGyMd",
             }
             availableFormats{
                 GyMMM{"MMM, y G"}
@@ -220,16 +209,6 @@ en_IN{
                 "{1}, {0}",
                 "{1}, {0}",
             }
-            DateTimeSkeletons{
-                "ahmmsszzzz",
-                "ahmmssz",
-                "ahmmss",
-                "ahmm",
-                "yMMMMEEEEd",
-                "yMMMMd",
-                "yMMMdd",
-                "yyMMdd",
-            }
             availableFormats{
                 EHm{"E, HH:mm"}
                 EHms{"E, HH:mm:ss"}
@@ -265,16 +244,6 @@ en_IN{
                 "{1} 'at' {0}",
                 "{1}, {0}",
                 "{1}, {0}",
-            }
-            DateTimeSkeletons{
-                "ahmmsszzzz",
-                "ahmmssz",
-                "ahmmss",
-                "ahmm",
-                "GyMMMMEEEEd",
-                "GyMMMMd",
-                "GyMMMdd",
-                "GGGGGyMd",
             }
             availableFormats{
                 GyMMM{"MMM, y G"}

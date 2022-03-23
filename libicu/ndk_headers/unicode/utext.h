@@ -20,8 +20,6 @@
 #define __UTEXT_H__
 
 /**
- * @addtogroup ICU4C
- * @{
  * \file
  * \brief C API: Abstract Unicode Text API
  *
@@ -152,7 +150,7 @@
 U_CDECL_BEGIN
 
 struct UText;
-typedef struct UText UText; /**< C typedef for struct UText. \xrefitem stable "Stable" "Stable List" ICU 3.6 */
+typedef struct UText UText; /**< C typedef for struct UText. @stable ICU 3.6 */
 
 
 /***************************************************************************************
@@ -180,7 +178,7 @@ typedef struct UText UText; /**< C typedef for struct UText. \xrefitem stable "S
   *            returned by this function, and may be safely used again in
   *            a subsequent utext_open.
   *
-  * \xrefitem stable "Stable" "Stable List" ICU 3.4
+  * @stable ICU 3.4
   */
 U_CAPI UText * U_EXPORT2
 utext_close(UText *ut) __INTRODUCED_IN(31);
@@ -206,7 +204,7 @@ utext_close(UText *ut) __INTRODUCED_IN(31);
  * @param status Errors are returned here.
  * @return       A pointer to the UText.  If a pre-allocated UText was provided, it
  *               will always be used and returned.
- * \xrefitem stable "Stable" "Stable List" ICU 3.4
+ * @stable ICU 3.4
  */
 U_CAPI UText * U_EXPORT2
 utext_openUTF8(UText *ut, const char *s, int64_t length, UErrorCode *status) __INTRODUCED_IN(31);
@@ -226,7 +224,7 @@ utext_openUTF8(UText *ut, const char *s, int64_t length, UErrorCode *status) __I
  * @param status Errors are returned here.
  * @return       A pointer to the UText.  If a pre-allocated UText was provided, it
  *               will always be used and returned.
- * \xrefitem stable "Stable" "Stable List" ICU 3.4
+ * @stable ICU 3.4
  */
 U_CAPI UText * U_EXPORT2
 utext_openUChars(UText *ut, const UChar *s, int64_t length, UErrorCode *status) __INTRODUCED_IN(31);
@@ -303,7 +301,7 @@ utext_openUChars(UText *ut, const UChar *s, int64_t length, UErrorCode *status) 
   *                will be returned if the text provider is unable to clone the
   *                original text.
   *  @return       The newly created clone, or NULL if the clone operation failed.
-  *  \xrefitem stable "Stable" "Stable List" ICU 3.4
+  *  @stable ICU 3.4
   */
 U_CAPI UText * U_EXPORT2
 utext_clone(UText *dest, const UText *src, UBool deep, UBool readOnly, UErrorCode *status) __INTRODUCED_IN(31);
@@ -320,7 +318,7 @@ utext_clone(UText *dest, const UText *src, UBool deep, UBool readOnly, UErrorCod
   *  @param a   The first of the two UTexts to compare.
   *  @param b   The other UText to be compared.
   *  @return    true if the two UTexts are equal.
-  *  \xrefitem stable "Stable" "Stable List" ICU 3.6
+  *  @stable ICU 3.6
   */
 U_CAPI UBool U_EXPORT2
 utext_equals(const UText *a, const UText *b) __INTRODUCED_IN(31);
@@ -343,7 +341,7 @@ utext_equals(const UText *a, const UText *b) __INTRODUCED_IN(31);
   * @param ut  the text to be accessed.
   * @return the length of the text, expressed in native units.
   *
-  * \xrefitem stable "Stable" "Stable List" ICU 3.4
+  * @stable ICU 3.4
   */
 U_CAPI int64_t U_EXPORT2
 utext_nativeLength(UText *ut) __INTRODUCED_IN(31);
@@ -375,7 +373,7 @@ utext_nativeLength(UText *ut) __INTRODUCED_IN(31);
  *        to other than the first unit of a multi-unit character, it will be adjusted
  *        to the start of the character.
  * @return the code point at the specified index.
- * \xrefitem stable "Stable" "Stable List" ICU 3.4
+ * @stable ICU 3.4
  */
 U_CAPI UChar32 U_EXPORT2
 utext_char32At(UText *ut, int64_t nativeIndex) __INTRODUCED_IN(31);
@@ -391,7 +389,7 @@ utext_char32At(UText *ut, int64_t nativeIndex) __INTRODUCED_IN(31);
  *
  * @param ut the text to be accessed.
  * @return the Unicode code point at the current iterator position.
- * \xrefitem stable "Stable" "Stable List" ICU 3.4
+ * @stable ICU 3.4
  */
 U_CAPI UChar32 U_EXPORT2
 utext_current32(UText *ut) __INTRODUCED_IN(31);
@@ -415,7 +413,7 @@ utext_current32(UText *ut) __INTRODUCED_IN(31);
  * @param ut the text to be accessed.
  * @return the Unicode code point at the iteration position.
  * @see UTEXT_NEXT32
- * \xrefitem stable "Stable" "Stable List" ICU 3.4
+ * @stable ICU 3.4
  */
 U_CAPI UChar32 U_EXPORT2
 utext_next32(UText *ut) __INTRODUCED_IN(31);
@@ -438,7 +436,7 @@ utext_next32(UText *ut) __INTRODUCED_IN(31);
  *  @return the previous UChar32 code point, or U_SENTINEL (-1) 
  *          if the iteration has reached the start of the text.
  *  @see UTEXT_PREVIOUS32
- *  \xrefitem stable "Stable" "Stable List" ICU 3.4
+ *  @stable ICU 3.4
  */
 U_CAPI UChar32 U_EXPORT2
 utext_previous32(UText *ut) __INTRODUCED_IN(31);
@@ -462,7 +460,7 @@ utext_previous32(UText *ut) __INTRODUCED_IN(31);
   *  @param nativeIndex Iteration index, in the native units of the text provider.
   *  @return Code point which starts at or before index,
   *         or U_SENTINEL (-1) if it is out of bounds.
-  * \xrefitem stable "Stable" "Stable List" ICU 3.4
+  * @stable ICU 3.4
   */
 U_CAPI UChar32 U_EXPORT2
 utext_next32From(UText *ut, int64_t nativeIndex) __INTRODUCED_IN(31);
@@ -484,7 +482,7 @@ utext_next32From(UText *ut, int64_t nativeIndex) __INTRODUCED_IN(31);
   * @return Code point preceding the one at the initial index,
   *         or U_SENTINEL (-1) if it is out of bounds.
   *
-  * \xrefitem stable "Stable" "Stable List" ICU 3.4
+  * @stable ICU 3.4
   */
 U_CAPI UChar32 U_EXPORT2
 utext_previous32From(UText *ut, int64_t nativeIndex) __INTRODUCED_IN(31);
@@ -501,7 +499,7 @@ utext_previous32From(UText *ut, int64_t nativeIndex) __INTRODUCED_IN(31);
   *
   * @param ut the text to be accessed.
   * @return the current index position, in the native units of the text provider.
-  * \xrefitem stable "Stable" "Stable List" ICU 3.4
+  * @stable ICU 3.4
   */
 U_CAPI int64_t U_EXPORT2
 utext_getNativeIndex(const UText *ut) __INTRODUCED_IN(31);
@@ -529,7 +527,7 @@ utext_getNativeIndex(const UText *ut) __INTRODUCED_IN(31);
  *
  * @param ut the text to be accessed.
  * @param nativeIndex the native unit index of the new iteration position.
- * \xrefitem stable "Stable" "Stable List" ICU 3.4
+ * @stable ICU 3.4
  */
 U_CAPI void U_EXPORT2
 utext_setNativeIndex(UText *ut, int64_t nativeIndex) __INTRODUCED_IN(31);
@@ -550,7 +548,7 @@ utext_setNativeIndex(UText *ut, int64_t nativeIndex) __INTRODUCED_IN(31);
  * @param delta the signed number of code points to move the iteration position.
  * @return true if the position could be moved the requested number of positions while
  *              staying within the range [0 - text length].
- * \xrefitem stable "Stable" "Stable List" ICU 3.4
+ * @stable ICU 3.4
  */
 U_CAPI UBool U_EXPORT2
 utext_moveIndex32(UText *ut, int32_t delta) __INTRODUCED_IN(31);
@@ -577,7 +575,7 @@ utext_moveIndex32(UText *ut, int32_t delta) __INTRODUCED_IN(31);
  * @param ut the text to be accessed
  * @return the native index of the character preceding the current index position,
  *         or zero if the current position is at the start of the text.
- * \xrefitem stable "Stable" "Stable List" ICU 3.6
+ * @stable ICU 3.6
  */
 U_CAPI int64_t U_EXPORT2
 utext_getPreviousNativeIndex(UText *ut); 
@@ -615,7 +613,7 @@ utext_getPreviousNativeIndex(UText *ut);
  *         buffer was too small.  Returns number of UChars for preflighting.
  * @return Number of UChars in the data to be extracted.  Does not include a trailing NUL.
  *
- * \xrefitem stable "Stable" "Stable List" ICU 3.4
+ * @stable ICU 3.4
  */
 U_CAPI int32_t U_EXPORT2
 utext_extract(UText *ut,
@@ -643,7 +641,7 @@ U_NAMESPACE_BEGIN
  *
  * @see LocalPointerBase
  * @see LocalPointer
- * \xrefitem stable "Stable" "Stable List" ICU 4.4
+ * @stable ICU 4.4
  */
 U_DEFINE_LOCAL_OPEN_POINTER(LocalUTextPointer, UText, utext_close);
 
@@ -653,5 +651,3 @@ U_NAMESPACE_END
 
 
 #endif
-
-/** @} */ // addtogroup

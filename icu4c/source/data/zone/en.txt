@@ -721,9 +721,6 @@ en{
             lg{"Yekaterinburg Time"}
             ls{"Yekaterinburg Standard Time"}
         }
-        "meta:Yukon"{
-            ls{"Yukon Time"}
-        }
         fallbackFormat{"{1} ({0})"}
         gmtFormat{"GMT{0}"}
         hourFormat{"+HH:mm;-HH:mm"}
