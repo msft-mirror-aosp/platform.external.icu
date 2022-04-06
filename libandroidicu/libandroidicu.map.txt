@@ -80,6 +80,7 @@ LIBANDROIDICU_EXTERNAL_1 {
     ubrk_preceding_android;
     ubrk_setUText_android;
     ucnv_close_android;
+    ucnv_convert_android;
     ucnv_convertEx_android;
     ucnv_getNextUChar_android;
     ucnv_open_android;
@@ -137,9 +138,6 @@ LIBANDROIDICU_EXTERNAL_1 {
     utrans_close_android;
     utrans_openU_android;
     utrans_transUChars_android;
-    AIcu_initializeIcuOrDie;
-    AIcu_register;
-    AIcu_deregister;
   local:
     *;
 };

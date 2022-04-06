@@ -16,6 +16,15 @@
 // Common definitions.
 //
 
+package {
+    // See: http://go/android-license-faq
+    // A large-scale-change added 'default_applicable_licenses' to import
+    // all of the 'license_kinds' from "external_icu_icu4c_license"
+    // to get the below license kinds:
+    //   SPDX-license-identifier-Unicode-DFS
+    default_applicable_licenses: ["external_icu_icu4c_license"],
+}
+
 cc_defaults {
     name: "libicuuc_defaults",
     defaults: ["icu4c_defaults"],
@@ -41,10 +50,25 @@ cc_defaults {
                 "-DPIC",
                 "-fPIC",
             ],
-            static_libs: ["libicuuc_stubdata"],
+            static_libs: [
+                "libandroidicuinit", // Required to set the data files in libicuuc.
+                "libicuuc_stubdata",
+            ],
+            shared_libs: [
+                "libbase", // required by libandroidicuinit
+                "liblog", // required by libandroidicuinit
+            ],
         },
         not_windows: {
-            static_libs: ["libicuuc_stubdata"],
+            static_libs: [
+                "libicuuc_stubdata",
+            ],
+            // linkerconfig links libicuuc statically on host, but we need to avoid exposing
+            // libandroidicuinit independently to other modules. Thus, we links the entire
+            // libandroidicuinit into libicuuc on host.
+            whole_static_libs: [
+                "libandroidicuinit", // Required to set the data files in libicuuc in ART testing.
+            ],
             required: ["icu-data_host_i18n_apex"],
         },
         windows: {
@@ -79,7 +103,6 @@ cc_library_headers {
 cc_library {
     name: "libicuuc",
     host_supported: true,
-    native_bridge_supported: true,
     unique_host_soname: true,
     defaults: ["libicuuc_defaults"],
     apex_available: [
@@ -106,7 +129,6 @@ cc_library_shared {
     name: "libicuuc_cts_stub",
     defaults: ["libicuuc_defaults"],
     host_supported: false,
-    native_bridge_supported: false,
     installable: false,
     stem: "libicuuc",
     header_libs: ["libicuuc_headers"],
