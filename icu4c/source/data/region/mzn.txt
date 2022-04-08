@@ -1,6 +1,5 @@
 ﻿// © 2016 and later: Unicode, Inc. and others.
-// License & terms of use: http://www.unicode.org/copyright.html
-// Generated using tools/cldr/cldr-to-icu/build-icu-data.xml
+// License & terms of use: http://www.unicode.org/copyright.html#License
 mzn{
     Countries{
         001{"جهون"}
@@ -293,6 +292,7 @@ mzn{
         ZZ{"نامَیِّن منطقه"}
     }
     Countries%short{
+        GB{"بریتانیا"}
         US{"آمریکا متحده ایالات"}
     }
     Countries%variant{
@@ -301,4 +301,5 @@ mzn{
         CI{"عاج ساحل"}
         TL{"شرقی تیمور"}
     }
+    Version{"36.1"}
 }

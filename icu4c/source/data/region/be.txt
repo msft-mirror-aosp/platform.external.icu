@@ -1,6 +1,5 @@
 ﻿// © 2016 and later: Unicode, Inc. and others.
-// License & terms of use: http://www.unicode.org/copyright.html
-// Generated using tools/cldr/cldr-to-icu/build-icu-data.xml
+// License & terms of use: http://www.unicode.org/copyright.html#License
 be{
     Countries{
         001{"Свет"}
@@ -289,7 +288,7 @@ be{
         WF{"Уоліс і Футуна"}
         WS{"Самоа"}
         XA{"Псеўдаакцэнты"}
-        XB{"псеўдадвухнапрамкавы"}
+        XB{"Псеўда-Bidi"}
         XK{"Косава"}
         YE{"Емен"}
         YT{"Маёта"}
@@ -299,6 +298,7 @@ be{
         ZZ{"Невядомы рэгіён"}
     }
     Countries%short{
+        GB{"Вялікабрытанія"}
         US{"ЗША"}
     }
     Countries%variant{
@@ -309,4 +309,5 @@ be{
         SZ{"Свазіленд"}
         TL{"Усходні Тымор"}
     }
+    Version{"36.1"}
 }

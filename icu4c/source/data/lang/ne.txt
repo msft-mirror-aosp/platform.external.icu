@@ -1,14 +1,13 @@
 ﻿// © 2016 and later: Unicode, Inc. and others.
-// License & terms of use: http://www.unicode.org/copyright.html
-// Generated using tools/cldr/cldr-to-icu/build-icu-data.xml
+// License & terms of use: http://www.unicode.org/copyright.html#License
 ne{
     Keys{
         calendar{"पात्रो"}
-        cf{"मुद्राको ढाँचा"}
+        cf{"cf"}
         collation{"क्रमबद्ध सुची"}
         currency{"मुद्रा"}
-        hc{"समय चक्र (12 तथा 24)"}
-        lb{"पङ्क्ति विच्छेदको शैली"}
+        hc{"hc"}
+        lb{"lb"}
         ms{"मापन प्रणाली"}
         numbers{"अङ्कहरू"}
     }
@@ -170,7 +169,6 @@ ne{
         ewo{"इवोन्डो"}
         ext{"एक्सट्रेमादुराली"}
         fa{"फारसी"}
-        fa_AF{"दारी"}
         fan{"फाङ"}
         fat{"फान्टी"}
         ff{"फुलाह"}
@@ -420,7 +418,7 @@ ne{
         oj{"ओजिब्वा"}
         om{"ओरोमो"}
         or{"उडिया"}
-        os{"ओस्सेटिक"}
+        os{"अोस्सेटिक"}
         osa{"ओसागे"}
         ota{"अटोमन तुर्की"}
         pa{"पंजाबी"}
@@ -709,15 +707,16 @@ ne{
         Xpeo{"पुरानो पर्सियन"}
         Yiii{"यी"}
         Zinh{"इन्हेरिटेड"}
-        Zmth{"गणितीय चिन्ह"}
-        Zsye{"इमोजी"}
+        Zmth{"Zmth"}
+        Zsye{"Zsye"}
         Zsym{"प्रतीकहरू"}
         Zxxx{"नलेखिएको"}
         Zyyy{"साझा"}
         Zzzz{"अज्ञात लिपि"}
     }
     Scripts%stand-alone{
-        Hans{"सरलीकृत चिनियाँ"}
+        Hans{"सरलिकृत चिनियाँ"}
+        Hant{"परम्परागत चिनियाँ"}
     }
     Types{
         calendar{
@@ -730,7 +729,7 @@ ne{
             indian{"भारतीय राष्ट्रिय पात्रो"}
             islamic{"इस्लामी पात्रो"}
             islamic-civil{"इस्लामी नागरिक पात्रो"}
-            iso8601{"ISO-8601 पात्रो"}
+            iso8601{"ISO-8601 Calendar"}
             japanese{"जापानी पात्रो"}
             persian{"फारसी पात्रो"}
             roc{"चिनियाँ गणतन्त्रको पात्रो"}
@@ -757,9 +756,9 @@ ne{
             h24{"hc-h24"}
         }
         lb{
-            loose{"पङ्क्ति विच्छेदको खुला शैली"}
-            normal{"पङ्क्ति विच्छेदको सामान्य शैली"}
-            strict{"पङ्क्ति विच्छेदको कडा शैली"}
+            loose{"loose"}
+            normal{"normal"}
+            strict{"strict"}
         }
         ms{
             metric{"मेट्रिक प्रणाली"}
@@ -808,6 +807,7 @@ ne{
         AREVELA{"पूर्वी आर्मेनियाली"}
         POSIX{"कम्प्युटर"}
     }
+    Version{"36.1"}
     characterLabelPattern{
         all{"{0}-सबै"}
         category-list{"{0}: {1}"}
@@ -822,8 +822,6 @@ ne{
             one{"{0}स्ट्रोक"}
             other{"{0}स्ट्रोक"}
         }
-        subscript{"{0} को तल रेखा कोर्नुहोस्"}
-        superscript{"{0} को तल धर्का कोर्नुहोस्"}
     }
     codePatterns{
         language{"भाषा: {0}"}

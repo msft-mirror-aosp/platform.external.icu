@@ -1,6 +1,5 @@
 ﻿// © 2016 and later: Unicode, Inc. and others.
-// License & terms of use: http://www.unicode.org/copyright.html
-// Generated using tools/cldr/cldr-to-icu/build-icu-data.xml
+// License & terms of use: http://www.unicode.org/copyright.html#License
 ceb{
     Currencies{
         AED{
@@ -125,7 +124,7 @@ ceb{
         }
         CNY{
             "CN¥",
-            "Chinese Yuan",
+            "Intsik nga Yuan",
         }
         COP{
             "COP",
@@ -193,7 +192,7 @@ ceb{
         }
         GBP{
             "£",
-            "British Pound",
+            "Inglatera nga Libra",
         }
         GEL{
             "GEL",
@@ -253,7 +252,7 @@ ceb{
         }
         INR{
             "₹",
-            "Indian Rupee",
+            "Rupee sa India",
         }
         IQD{
             "IQD",
@@ -277,7 +276,7 @@ ceb{
         }
         JPY{
             "JP¥",
-            "Japanese Yen",
+            "Hapon nga Yen",
         }
         KES{
             "KES",
@@ -461,7 +460,7 @@ ceb{
         }
         RUB{
             "RUB",
-            "Russian Ruble",
+            "Rusong ruble",
         }
         RWF{
             "RWF",
@@ -569,7 +568,7 @@ ceb{
         }
         USD{
             "US $",
-            "US Dollar",
+            "Dolyar sa US",
         }
         UYU{
             "UYU",
@@ -613,7 +612,7 @@ ceb{
         }
         XXX{
             "¤",
-            "Wala Nailhi nga Kwarta",
+            "Wala Nahibaluan nga Currency",
         }
         YER{
             "YER",
@@ -707,7 +706,7 @@ ceb{
         }
         BRL{
             one{"Brazilian real"}
-            other{"Mga Brazilian real"}
+            other{"Brazilian reals"}
         }
         BSD{
             one{"Bahamian dollar"}
@@ -739,7 +738,7 @@ ceb{
         }
         CHF{
             one{"Swiss franc"}
-            other{"Mga Swiss franc"}
+            other{"Swiss francs"}
         }
         CLP{
             one{"Chilean peso"}
@@ -750,8 +749,8 @@ ceb{
             other{"Chinese yuan (layo sa baybayon)"}
         }
         CNY{
-            one{"Chinese yuan"}
-            other{"Chinese yuan"}
+            one{"Intsik ng yuan"}
+            other{"Intsik ng yuan"}
         }
         COP{
             one{"Colombian peso"}
@@ -818,8 +817,8 @@ ceb{
             other{"Mga Falkland Islands pound"}
         }
         GBP{
-            one{"British pound"}
-            other{"Mga British pound"}
+            one{"Inglatera nga libra"}
+            other{"Inglatera nga libra"}
         }
         GEL{
             one{"Georgian lari"}
@@ -878,8 +877,8 @@ ceb{
             other{"Mga Israeli new shekel"}
         }
         INR{
-            one{"Indian rupee"}
-            other{"Mga Indian rupee"}
+            one{"rupee sa India"}
+            other{"Mga rupee sa India"}
         }
         IQD{
             one{"Iraqi dinar"}
@@ -902,8 +901,8 @@ ceb{
             other{"Mga Jordanian dinar"}
         }
         JPY{
-            one{"Japanese yen"}
-            other{"Japanese yen"}
+            one{"Hapon nga yen"}
+            other{"Hapon nga yen"}
         }
         KES{
             one{"Kenyan shilling"}
@@ -1086,8 +1085,8 @@ ceb{
             other{"Mga Serbian dinar"}
         }
         RUB{
-            one{"Russian ruble"}
-            other{"Mga Russian ruble"}
+            one{"Rusong ruble"}
+            other{"Rusong ruble"}
         }
         RWF{
             one{"Rwandan franc"}
@@ -1194,8 +1193,8 @@ ceb{
             other{"Mga Ugandan shilling"}
         }
         USD{
-            one{"US dollar"}
-            other{"Mga US dollar"}
+            one{"dolyar sa US"}
+            other{"dolyares sa US"}
         }
         UYU{
             one{"Uruguayan peso"}
@@ -1238,8 +1237,8 @@ ceb{
             other{"Mga CFP franc"}
         }
         XXX{
-            one{"(wala mailhi nga yunit sa kwarta)"}
-            other{"(wala mailhi nga kwarta)"}
+            one{"(wala nahibaluan nga yunit sa currency)"}
+            other{"(wala nahibaluan nga currency)"}
         }
         YER{
             one{"Yemeni rial"}
@@ -1258,4 +1257,5 @@ ceb{
         one{"{1} {0}"}
         other{"{1} {0}"}
     }
+    Version{"36.1"}
 }

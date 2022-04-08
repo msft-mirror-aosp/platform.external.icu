@@ -686,10 +686,10 @@ UnicodeString PatternStringUtils::propertiesToPatternString(const DecimalFormatP
     int32_t exponentDigits = uprv_min(properties.minimumExponentDigits, dosMax);
     bool exponentShowPlusSign = properties.exponentSignAlwaysShown;
 
-    AutoAffixPatternProvider affixProvider(properties, status);
+    PropertiesAffixPatternProvider affixes(properties, status);
 
     // Prefixes
-    sb.append(affixProvider.get().getString(AffixPatternProvider::AFFIX_POS_PREFIX));
+    sb.append(affixes.getString(AffixPatternProvider::AFFIX_POS_PREFIX));
     int32_t afterPrefixPos = sb.length();
 
     // Figure out the grouping sizes.
@@ -778,7 +778,7 @@ UnicodeString PatternStringUtils::propertiesToPatternString(const DecimalFormatP
 
     // Suffixes
     int32_t beforeSuffixPos = sb.length();
-    sb.append(affixProvider.get().getString(AffixPatternProvider::AFFIX_POS_SUFFIX));
+    sb.append(affixes.getString(AffixPatternProvider::AFFIX_POS_SUFFIX));
 
     // Resolve Padding
     if (paddingWidth > 0 && !paddingLocation.isNull()) {
@@ -814,16 +814,16 @@ UnicodeString PatternStringUtils::propertiesToPatternString(const DecimalFormatP
 
     // Negative affixes
     // Ignore if the negative prefix pattern is "-" and the negative suffix is empty
-    if (affixProvider.get().hasNegativeSubpattern()) {
+    if (affixes.hasNegativeSubpattern()) {
         sb.append(u';');
-        sb.append(affixProvider.get().getString(AffixPatternProvider::AFFIX_NEG_PREFIX));
+        sb.append(affixes.getString(AffixPatternProvider::AFFIX_NEG_PREFIX));
         // Copy the positive digit format into the negative.
         // This is optional; the pattern is the same as if '#' were appended here instead.
         // NOTE: It is not safe to append the UnicodeString to itself, so we need to copy.
         // See http://bugs.icu-project.org/trac/ticket/13707
         UnicodeString copy(sb);
         sb.append(copy, afterPrefixPos, beforeSuffixPos - afterPrefixPos);
-        sb.append(affixProvider.get().getString(AffixPatternProvider::AFFIX_NEG_SUFFIX));
+        sb.append(affixes.getString(AffixPatternProvider::AFFIX_NEG_SUFFIX));
     }
 
     return sb;
@@ -1000,19 +1000,23 @@ PatternStringUtils::convertLocalized(const UnicodeString& input, const DecimalFo
 }
 
 void PatternStringUtils::patternInfoToStringBuilder(const AffixPatternProvider& patternInfo, bool isPrefix,
-                                                    PatternSignType patternSignType,
+                                                    Signum signum, UNumberSignDisplay signDisplay,
                                                     StandardPlural::Form plural,
                                                     bool perMilleReplacesPercent, UnicodeString& output) {
 
     // Should the output render '+' where '-' would normally appear in the pattern?
-    bool plusReplacesMinusSign = (patternSignType == PATTERN_SIGN_TYPE_POS_SIGN)
-        && !patternInfo.positiveHasPlusSign();
+    bool plusReplacesMinusSign = signum != -1 && (
+            signDisplay == UNUM_SIGN_ALWAYS || signDisplay == UNUM_SIGN_ACCOUNTING_ALWAYS || (
+                    signum == 1 && (
+                            signDisplay == UNUM_SIGN_EXCEPT_ZERO ||
+                            signDisplay == UNUM_SIGN_ACCOUNTING_EXCEPT_ZERO))) &&
+                                 patternInfo.positiveHasPlusSign() == false;
 
-    // Should we use the affix from the negative subpattern?
-    // (If not, we will use the positive subpattern.)
-    bool useNegativeAffixPattern = patternInfo.hasNegativeSubpattern()
-        && (patternSignType == PATTERN_SIGN_TYPE_NEG
-            || (patternInfo.negativeHasMinusSign() && plusReplacesMinusSign));
+    // Should we use the affix from the negative subpattern? (If not, we will use the positive
+    // subpattern.)
+    // TODO: Deal with signum
+    bool useNegativeAffixPattern = patternInfo.hasNegativeSubpattern() && (
+            signum == -1 || (patternInfo.negativeHasMinusSign() && plusReplacesMinusSign));
 
     // Resolve the flags for the affix pattern.
     int flags = 0;
@@ -1031,8 +1035,8 @@ void PatternStringUtils::patternInfoToStringBuilder(const AffixPatternProvider& 
     bool prependSign;
     if (!isPrefix || useNegativeAffixPattern) {
         prependSign = false;
-    } else if (patternSignType == PATTERN_SIGN_TYPE_NEG) {
-        prependSign = true;
+    } else if (signum == -1) {
+        prependSign = signDisplay != UNUM_SIGN_NEVER;
     } else {
         prependSign = plusReplacesMinusSign;
     }
@@ -1059,62 +1063,6 @@ void PatternStringUtils::patternInfoToStringBuilder(const AffixPatternProvider& 
         }
         output.append(candidate);
     }
-}
-
-PatternSignType PatternStringUtils::resolveSignDisplay(UNumberSignDisplay signDisplay, Signum signum) {
-    switch (signDisplay) {
-        case UNUM_SIGN_AUTO:
-        case UNUM_SIGN_ACCOUNTING:
-            switch (signum) {
-                case SIGNUM_NEG:
-                case SIGNUM_NEG_ZERO:
-                    return PATTERN_SIGN_TYPE_NEG;
-                case SIGNUM_POS_ZERO:
-                case SIGNUM_POS:
-                    return PATTERN_SIGN_TYPE_POS;
-                default:
-                    break;
-            }
-            break;
-
-        case UNUM_SIGN_ALWAYS:
-        case UNUM_SIGN_ACCOUNTING_ALWAYS:
-            switch (signum) {
-                case SIGNUM_NEG:
-                case SIGNUM_NEG_ZERO:
-                    return PATTERN_SIGN_TYPE_NEG;
-                case SIGNUM_POS_ZERO:
-                case SIGNUM_POS:
-                    return PATTERN_SIGN_TYPE_POS_SIGN;
-                default:
-                    break;
-            }
-            break;
-
-        case UNUM_SIGN_EXCEPT_ZERO:
-        case UNUM_SIGN_ACCOUNTING_EXCEPT_ZERO:
-            switch (signum) {
-                case SIGNUM_NEG:
-                    return PATTERN_SIGN_TYPE_NEG;
-                case SIGNUM_NEG_ZERO:
-                case SIGNUM_POS_ZERO:
-                    return PATTERN_SIGN_TYPE_POS;
-                case SIGNUM_POS:
-                    return PATTERN_SIGN_TYPE_POS_SIGN;
-                default:
-                    break;
-            }
-            break;
-
-        case UNUM_SIGN_NEVER:
-            return PATTERN_SIGN_TYPE_POS;
-
-        default:
-            break;
-    }
-
-    UPRV_UNREACHABLE;
-    return PATTERN_SIGN_TYPE_POS;
 }
 
 #endif /* #if !UCONFIG_NO_FORMATTING */

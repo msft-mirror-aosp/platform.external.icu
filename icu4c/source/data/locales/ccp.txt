@@ -1,6 +1,5 @@
 ﻿// © 2016 and later: Unicode, Inc. and others.
-// License & terms of use: http://www.unicode.org/copyright.html
-// Generated using tools/cldr/cldr-to-icu/build-icu-data.xml
+// License & terms of use: http://www.unicode.org/copyright.html#License
 ccp{
     AuxExemplarCharacters{"[]"}
     ExemplarCharacters{
@@ -84,6 +83,7 @@ ccp{
         minimumGroupingDigits{"1"}
         native{"cakm"}
     }
+    Version{"36.1"}
     calendar{
         generic{
             DateTimePatterns{
@@ -444,7 +444,7 @@ ccp{
                 }
                 abbreviated%variant{
                     "𑄈𑄳𑄢𑄨𑄌𑄴𑄑𑄧𑄛𑄫𑄢𑄴𑄝𑄛𑄴𑄘𑄧",
-                    "𑄈𑄳𑄢𑄨𑄌𑄴𑄑𑄛𑄴𑄘𑄧",
+                    "CE",
                 }
                 wide{
                     "𑄈𑄳𑄢𑄨𑄌𑄴𑄑𑄴𑄛𑄫𑄢𑄴𑄝𑄧",
@@ -452,7 +452,7 @@ ccp{
                 }
                 wide%variant{
                     "𑄈𑄳𑄢𑄨𑄌𑄴𑄑𑄴𑄛𑄫𑄢𑄴𑄝𑄛𑄴𑄘𑄧",
-                    "𑄈𑄳𑄢𑄨𑄌𑄴𑄑𑄛𑄴𑄘𑄧",
+                    "CE",
                 }
             }
             intervalFormats{

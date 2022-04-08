@@ -1,6 +1,5 @@
 ﻿// © 2016 and later: Unicode, Inc. and others.
-// License & terms of use: http://www.unicode.org/copyright.html
-// Generated using tools/cldr/cldr-to-icu/build-icu-data.xml
+// License & terms of use: http://www.unicode.org/copyright.html#License
 dz{
     Countries{
         001{"འཛམ་གླིང༌"}
@@ -297,4 +296,5 @@ dz{
         CI{"ཨི་ཝོ་རི་ཀོསཊ"}
         TL{"ཤར་ཕྱོགས་ཏི་་མོར"}
     }
+    Version{"36.1"}
 }

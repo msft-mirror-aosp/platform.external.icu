@@ -1,7 +1,7 @@
 ﻿// © 2016 and later: Unicode, Inc. and others.
-// License & terms of use: http://www.unicode.org/copyright.html
-// Generated using tools/cldr/cldr-to-icu/build-icu-data.xml
+// License & terms of use: http://www.unicode.org/copyright.html#License
 en{
+    Version{"36.1"}
     zoneStrings{
         "Africa:Sao_Tome"{
             ec{"São Tomé"}
@@ -535,9 +535,7 @@ en{
             ls{"Niue Time"}
         }
         "meta:Norfolk"{
-            ld{"Norfolk Island Daylight Time"}
-            lg{"Norfolk Island Time"}
-            ls{"Norfolk Island Standard Time"}
+            ls{"Norfolk Island Time"}
         }
         "meta:Noronha"{
             ld{"Fernando de Noronha Summer Time"}

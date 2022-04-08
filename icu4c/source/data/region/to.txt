@@ -1,6 +1,5 @@
 ﻿// © 2016 and later: Unicode, Inc. and others.
-// License & terms of use: http://www.unicode.org/copyright.html
-// Generated using tools/cldr/cldr-to-icu/build-icu-data.xml
+// License & terms of use: http://www.unicode.org/copyright.html#License
 to{
     Countries{
         001{"Māmani"}
@@ -299,12 +298,16 @@ to{
         ZZ{"Potu fonua taʻeʻiloa pe hala"}
     }
     Countries%short{
+        GB{"Pilitānia"}
         US{"ʻAmelika"}
     }
     Countries%variant{
         CD{"Kongo (LTK)"}
         CG{"Kongo (Lepupelika)"}
+        CI{"Matafonua ʻAivolī"}
         CZ{"Lepupelika Seki"}
         SZ{"Suasilani"}
+        TL{"Timoa fakahahake"}
     }
+    Version{"36.1"}
 }

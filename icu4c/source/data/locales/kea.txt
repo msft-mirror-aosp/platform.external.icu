@@ -1,6 +1,5 @@
 ﻿// © 2016 and later: Unicode, Inc. and others.
-// License & terms of use: http://www.unicode.org/copyright.html
-// Generated using tools/cldr/cldr-to-icu/build-icu-data.xml
+// License & terms of use: http://www.unicode.org/copyright.html#License
 kea{
     AuxExemplarCharacters{
         "[ª á à ă â å ä ã ā æ c ç é è ĕ ê ë ẽ ē í ì ĭ î ï ĩ ī {n\u0308} º ó ò ŏ ô ö õ"
@@ -142,6 +141,7 @@ kea{
         minimumGroupingDigits{"1"}
         native{"latn"}
     }
+    Version{"36.1"}
     calendar{
         generic{
             DateTimePatterns{
@@ -459,7 +459,7 @@ kea{
                         "kuarta-fera",
                         "kinta-fera",
                         "sesta-fera",
-                        "sábadu",
+                        "sabadu",
                     }
                 }
                 stand-alone{

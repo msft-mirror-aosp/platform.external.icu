@@ -1,5 +1,5 @@
 // © 2016 and later: Unicode, Inc. and others.
-// License & terms of use: http://www.unicode.org/copyright.html
+// License & terms of use: http://www.unicode.org/copyright.html#License
 /*
  *******************************************************************************
  * Copyright (C) 1996-2016, International Business Machines Corporation and
@@ -1961,12 +1961,12 @@ public abstract class NumberFormat extends UFormat {
         public static final Field CURRENCY = new Field("currency");
 
         /**
-         * @stable ICU 64
+         * @draft ICU 64
          */
         public static final Field MEASURE_UNIT = new Field("measure unit");
 
         /**
-         * @stable ICU 64
+         * @draft ICU 64
          */
         public static final Field COMPACT = new Field("compact");
 

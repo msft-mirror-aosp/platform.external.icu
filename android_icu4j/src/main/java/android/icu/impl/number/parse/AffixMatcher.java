@@ -1,6 +1,6 @@
 /* GENERATED SOURCE. DO NOT MODIFY. */
 // © 2017 and later: Unicode, Inc. and others.
-// License & terms of use: http://www.unicode.org/copyright.html
+// License & terms of use: http://www.unicode.org/copyright.html#License
 package android.icu.impl.number.parse;
 
 import java.util.ArrayList;
@@ -13,7 +13,7 @@ import android.icu.impl.StringSegment;
 import android.icu.impl.number.AffixPatternProvider;
 import android.icu.impl.number.AffixUtils;
 import android.icu.impl.number.PatternStringUtils;
-import android.icu.impl.number.PatternStringUtils.PatternSignType;
+import android.icu.number.NumberFormatter.SignDisplay;
 
 /**
  * @author sffc
@@ -92,27 +92,20 @@ public class AffixMatcher implements NumberParseMatcher {
         StringBuilder sb = new StringBuilder();
         ArrayList<AffixMatcher> matchers = new ArrayList<>(6);
         boolean includeUnpaired = 0 != (parseFlags & ParsingUtils.PARSE_FLAG_INCLUDE_UNPAIRED_AFFIXES);
+        SignDisplay signDisplay = (0 != (parseFlags & ParsingUtils.PARSE_FLAG_PLUS_SIGN_ALLOWED))
+                ? SignDisplay.ALWAYS
+                : SignDisplay.AUTO;
 
         AffixPatternMatcher posPrefix = null;
         AffixPatternMatcher posSuffix = null;
 
         // Pre-process the affix strings to resolve LDML rules like sign display.
-        for (PatternSignType type : PatternSignType.VALUES) {
-
-            // Skip affixes in some cases
-            if (type == PatternSignType.POS
-                    && 0 != (parseFlags & ParsingUtils.PARSE_FLAG_PLUS_SIGN_ALLOWED)) {
-                continue;
-            }
-            if (type == PatternSignType.POS_SIGN
-                    && 0 == (parseFlags & ParsingUtils.PARSE_FLAG_PLUS_SIGN_ALLOWED)) {
-                continue;
-            }
-
+        for (int signum = 1; signum >= -1; signum--) {
             // Generate Prefix
             PatternStringUtils.patternInfoToStringBuilder(patternInfo,
                     true,
-                    type,
+                    signum,
+                    signDisplay,
                     StandardPlural.OTHER,
                     false,
                     sb);
@@ -122,14 +115,15 @@ public class AffixMatcher implements NumberParseMatcher {
             // Generate Suffix
             PatternStringUtils.patternInfoToStringBuilder(patternInfo,
                     false,
-                    type,
+                    signum,
+                    signDisplay,
                     StandardPlural.OTHER,
                     false,
                     sb);
             AffixPatternMatcher suffix = AffixPatternMatcher
                     .fromAffixPattern(sb.toString(), factory, parseFlags);
 
-            if (type == PatternSignType.POS) {
+            if (signum == 1) {
                 posPrefix = prefix;
                 posSuffix = suffix;
             } else if (Objects.equals(prefix, posPrefix) && Objects.equals(suffix, posSuffix)) {
@@ -138,17 +132,17 @@ public class AffixMatcher implements NumberParseMatcher {
             }
 
             // Flags for setting in the ParsedNumber; the token matchers may add more.
-            int flags = (type == PatternSignType.NEG) ? ParsedNumber.FLAG_NEGATIVE : 0;
+            int flags = (signum == -1) ? ParsedNumber.FLAG_NEGATIVE : 0;
 
             // Note: it is indeed possible for posPrefix and posSuffix to both be null.
             // We still need to add that matcher for strict mode to work.
             matchers.add(getInstance(prefix, suffix, flags));
             if (includeUnpaired && prefix != null && suffix != null) {
                 // The following if statements are designed to prevent adding two identical matchers.
-                if (type == PatternSignType.POS || !Objects.equals(prefix, posPrefix)) {
+                if (signum == 1 || !Objects.equals(prefix, posPrefix)) {
                     matchers.add(getInstance(prefix, null, flags));
                 }
-                if (type == PatternSignType.POS || !Objects.equals(suffix, posSuffix)) {
+                if (signum == 1 || !Objects.equals(suffix, posSuffix)) {
                     matchers.add(getInstance(null, suffix, flags));
                 }
             }

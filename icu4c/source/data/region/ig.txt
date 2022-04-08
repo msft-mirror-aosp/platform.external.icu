@@ -1,6 +1,5 @@
 ﻿// © 2016 and later: Unicode, Inc. and others.
-// License & terms of use: http://www.unicode.org/copyright.html
-// Generated using tools/cldr/cldr-to-icu/build-icu-data.xml
+// License & terms of use: http://www.unicode.org/copyright.html#License
 ig{
     Countries{
         001{"Uwa"}
@@ -36,12 +35,9 @@ ig{
         419{"Latin America"}
         AC{"Ascension Island"}
         AD{"Andorra"}
-        AE{"United Arab Emirates"}
-        AF{"Afghanistan"}
-        AG{"Antigua na Barbuda"}
+        AG{"Antigua & Barbuda"}
         AI{"Anguilla"}
         AL{"Albania"}
-        AM{"Armenia"}
         AO{"Angola"}
         AQ{"Antarctica"}
         AR{"Argentina"}
@@ -50,24 +46,19 @@ ig{
         AU{"Australia"}
         AW{"Aruba"}
         AX{"Agwaetiti Aland"}
-        AZ{"Azerbaijan"}
         BA{"Bosnia & Herzegovina"}
         BB{"Barbados"}
-        BD{"Bangladesh"}
         BE{"Belgium"}
         BF{"Burkina Faso"}
         BG{"Bulgaria"}
-        BH{"Bahrain"}
         BI{"Burundi"}
         BJ{"Binin"}
-        BL{"Barthélemy Dị nsọ"}
+        BL{"St. Barthélemy"}
         BM{"Bemuda"}
-        BN{"Brunei"}
         BO{"Bolivia"}
         BQ{"Caribbean Netherlands"}
-        BR{"Brazil"}
+        BR{"Mba Brazil"}
         BS{"Bahamas"}
-        BT{"Bhutan"}
         BV{"Agwaetiti Bouvet"}
         BW{"Botswana"}
         BY{"Belarus"}
@@ -82,7 +73,7 @@ ig{
         CK{"Agwaetiti Cook"}
         CL{"Chile"}
         CM{"Cameroon"}
-        CN{"China"}
+        CN{"Mba China"}
         CO{"Colombia"}
         CP{"Agwaetiti Clipperton"}
         CR{"Kosta Rika"}
@@ -90,9 +81,8 @@ ig{
         CV{"Cape Verde"}
         CW{"Kurakao"}
         CX{"Agwaetiti Christmas"}
-        CY{"Cyprus"}
         CZ{"Czechia"}
-        DE{"Jamanị"}
+        DE{"Mba Germany"}
         DG{"Diego Garcia"}
         DJ{"Djibouti"}
         DK{"Denmark"}
@@ -107,18 +97,15 @@ ig{
         ER{"Eritrea"}
         ES{"Spain"}
         ET{"Ethiopia"}
-        EU{"Otu nzukọ mba Europe"}
-        EZ{"Gburugburu Euro"}
         FI{"Finland"}
         FJ{"Fiji"}
         FK{"Agwaetiti Falkland"}
         FM{"Micronesia"}
         FO{"Agwaetiti Faroe"}
-        FR{"France"}
+        FR{"Mba France"}
         GA{"Gabon"}
-        GB{"United Kingdom"}
+        GB{"Mba United Kingdom"}
         GD{"Grenada"}
-        GE{"Georgia"}
         GF{"Frenchi Guiana"}
         GG{"Guernsey"}
         GH{"Ghana"}
@@ -134,61 +121,43 @@ ig{
         GU{"Guam"}
         GW{"Guinea-Bissau"}
         GY{"Guyana"}
-        HK{"Hong Kong SAR China"}
         HM{"Agwaetiti Heard na Agwaetiti McDonald"}
         HN{"Honduras"}
         HR{"Croatia"}
         HT{"Hati"}
         HU{"Hungary"}
         IC{"Agwaetiti Kanarị"}
-        ID{"Indonesia"}
         IE{"Ireland"}
-        IL{"Israel"}
         IM{"Isle of Man"}
-        IN{"India"}
+        IN{"Mba India"}
         IO{"British Indian Ocean Territory"}
-        IQ{"Iraq"}
-        IR{"Iran"}
         IS{"Iceland"}
-        IT{"Italy"}
+        IT{"Mba Italy"}
         JE{"Jersey"}
         JM{"Jamaika"}
-        JO{"Jordan"}
-        JP{"Japan"}
+        JP{"Mba Japan"}
         KE{"Kenya"}
-        KG{"Kyrgyzstan"}
-        KH{"Cambodia"}
         KI{"Kiribati"}
         KM{"Comorosu"}
-        KN{"Kitts na Nevis Dị nsọ"}
-        KP{"Ugwu Korea"}
-        KR{"South Korea"}
-        KW{"Kuwait"}
+        KN{"St. Kitts & Nevis"}
         KY{"Agwaetiti Cayman"}
-        KZ{"Kazakhstan"}
-        LA{"Laos"}
-        LB{"Lebanon"}
-        LC{"Lucia Dị nsọ"}
+        LC{"St. Lucia"}
         LI{"Liechtenstein"}
-        LK{"Sri Lanka"}
         LR{"Liberia"}
         LS{"Lesotho"}
         LT{"Lithuania"}
         LU{"Luxembourg"}
         LV{"Latvia"}
-        LY{"Libia"}
+        LY{"Libyia"}
         MA{"Morocco"}
         MC{"Monaco"}
         MD{"Moldova"}
         ME{"Montenegro"}
-        MF{"Martin Dị nsọ"}
+        MF{"St. Martin"}
         MG{"Madagaskar"}
         MH{"Agwaetiti Marshall"}
         MK{"North Macedonia"}
         ML{"Mali"}
-        MM{"Myanmar (Burma)"}
-        MN{"Mongolia"}
-        MO{"Macao"}
         MP{"Agwaetiti Northern Mariana"}
         MQ{"Martinique"}
         MR{"Mauritania"}
@@ -198,7 +167,6 @@ ig{
         MV{"Maldivesa"}
         MW{"Malawi"}
         MX{"Mexico"}
-        MY{"Malaysia"}
         MZ{"Mozambik"}
         NA{"Namibia"}
         NC{"New Caledonia"}
@@ -208,33 +176,27 @@ ig{
         NI{"Nicaragua"}
         NL{"Netherlands"}
         NO{"Norway"}
-        NP{"Nepal"}
         NR{"Nauru"}
         NU{"Niue"}
         NZ{"New Zealand"}
-        OM{"Oman"}
         PA{"Panama"}
         PE{"Peru"}
         PF{"Frenchi Polynesia"}
         PG{"Papua New Guinea"}
         PH{"Philippines"}
-        PK{"Pakistan"}
         PL{"Poland"}
-        PM{"Pierre na Miquelon Dị nsọ"}
+        PM{"St. Pierre & Miquelon"}
         PN{"Agwaetiti Pitcairn"}
         PR{"Puerto Rico"}
-        PS{"Palestinian Territories"}
         PT{"Portugal"}
         PW{"Palau"}
         PY{"Paraguay"}
-        QA{"Qatar"}
         QO{"Outlying Oceania"}
         RE{"Réunion"}
         RO{"Romania"}
         RS{"Serbia"}
-        RU{"Rụssịa"}
+        RU{"Mba Russia"}
         RW{"Rwanda"}
-        SA{"Saudi Arabia"}
         SB{"Agwaetiti Solomon"}
         SC{"Seychelles"}
         SD{"Sudan"}
@@ -253,7 +215,6 @@ ig{
         ST{"São Tomé & Príncipe"}
         SV{"El Salvador"}
         SX{"Sint Maarten"}
-        SY{"Syria"}
         SZ{"Eswatini"}
         TA{"Tristan da Cunha"}
         TC{"Agwaetiti Turks na Caicos"}
@@ -261,26 +222,21 @@ ig{
         TF{"Ụmụ ngalaba Frenchi Southern"}
         TG{"Togo"}
         TH{"Thailand"}
-        TJ{"Tajikistan"}
         TK{"Tokelau"}
         TL{"Timor-Leste"}
-        TM{"Turkmenistan"}
         TN{"Tunisia"}
         TO{"Tonga"}
-        TR{"Turkey"}
-        TT{"Trinidad na Tobago"}
+        TT{"Trinidad & Tobago"}
         TV{"Tuvalu"}
-        TW{"Taiwan"}
         TZ{"Tanzania"}
         UA{"Ukraine"}
         UG{"Uganda"}
         UM{"Obere Agwaetiti Dị Na Mpụga U.S"}
         UN{"Mba Ụwa Jikọrọ Ọnụ"}
-        US{"United States"}
+        US{"Mba United States"}
         UY{"Uruguay"}
-        UZ{"Uzbekistan"}
         VA{"Vatican City"}
-        VC{"Vincent na Grenadines Dị nsọ"}
+        VC{"St. Vincent & Grenadines"}
         VE{"Venezuela"}
         VG{"Agwaetiti British Virgin"}
         VI{"Agwaetiti Virgin nke US"}
@@ -291,7 +247,6 @@ ig{
         XA{"Pseudo-Accents"}
         XB{"Pseudo-Bidi"}
         XK{"Kosovo"}
-        YE{"Yemen"}
         YT{"Mayotte"}
         ZA{"South Africa"}
         ZM{"Zambia"}
@@ -309,4 +264,5 @@ ig{
         SZ{"Swaziland"}
         TL{"East Timor"}
     }
+    Version{"36.1"}
 }

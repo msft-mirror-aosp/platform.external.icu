@@ -1,6 +1,5 @@
 ﻿// © 2016 and later: Unicode, Inc. and others.
-// License & terms of use: http://www.unicode.org/copyright.html
-// Generated using tools/cldr/cldr-to-icu/build-icu-data.xml
+// License & terms of use: http://www.unicode.org/copyright.html#License
 jv{
     Keys{
         calendar{"Tanggalan"}
@@ -13,7 +12,7 @@ jv{
         numbers{"Angka"}
     }
     Languages{
-        af{"Afrika"}
+        af{"af"}
         agq{"Aghem"}
         ak{"Akan"}
         am{"Amharik"}
@@ -23,8 +22,9 @@ jv{
         asa{"Asu"}
         ast{"Asturia"}
         az{"Azerbaijan"}
+        ban{"ban"}
         bas{"Basaa"}
-        be{"Belarus"}
+        be{"be"}
         bem{"Bemba"}
         bez{"Bena"}
         bg{"Bulgaria"}
@@ -33,7 +33,7 @@ jv{
         bo{"Tibet"}
         br{"Breton"}
         brx{"Bodo"}
-        bs{"Bosnia lan Hercegovina"}
+        bs{"bs"}
         ca{"Katala"}
         ccp{"Chakma"}
         ce{"Chechen"}
@@ -135,7 +135,6 @@ jv{
         luo{"Luo"}
         luy{"Luyia"}
         lv{"Latvia"}
-        mai{"Maithili"}
         mas{"Masai"}
         mer{"Meru"}
         mfe{"Morisyen"}
@@ -146,7 +145,6 @@ jv{
         mk{"Makedonia"}
         ml{"Malayalam"}
         mn{"Mongolia"}
-        mni{"Manipuri"}
         mr{"Marathi"}
         ms{"Melayu"}
         mt{"Malta"}
@@ -171,7 +169,6 @@ jv{
         or{"Odia"}
         os{"Ossetia"}
         pa{"Punjab"}
-        pcm{"Nigeria Pidgin"}
         pl{"Polandia"}
         prg{"Prusia"}
         ps{"Pashto"}
@@ -187,7 +184,6 @@ jv{
         sa{"Sanskerta"}
         sah{"Sakha"}
         saq{"Samburu"}
-        sat{"Santali"}
         sbp{"Sangu"}
         sd{"Sindhi"}
         se{"Sami Sisih Lor"}
@@ -239,7 +235,6 @@ jv{
         yue{"Kanton"}
         zgh{"Tamazight Moroko Standar"}
         zh{"Tyonghwa"}
-        zh_Hans{"Tyonghwa (Ringkes)"}
         zh_Hant{"Tyonghwa (Tradisional)"}
         zu{"Zulu"}
         zxx{"Konten tanpa linguistik"}
@@ -257,7 +252,7 @@ jv{
         en_GB{"Inggris (Britania)"}
     }
     Scripts{
-        Arab{"hija’iyah"}
+        Arab{"Arab"}
         Armn{"Armenia"}
         Beng{"Bangla"}
         Bopo{"Bopomofo"}
@@ -290,7 +285,6 @@ jv{
         Orya{"Odia"}
         Sinh{"Sinhala"}
         Taml{"Tamil"}
-        Telu{"Telugu"}
         Thaa{"Thaana"}
         Thai{"Thailand"}
         Tibt{"Tibetan"}
@@ -382,6 +376,7 @@ jv{
             tibt{"Digit Tibet"}
         }
     }
+    Version{"36.1"}
     characterLabelPattern{
         all{"{0} — kabeh"}
         compatibility{"{0} — kompatibilitas"}
@@ -394,8 +389,6 @@ jv{
         strokes{
             other{"{0} tunyuk"}
         }
-        subscript{"tika ngisor {0}"}
-        superscript{"tika dhuwur {0}"}
     }
     codePatterns{
         language{"Basa: {0}"}

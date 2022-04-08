@@ -1,6 +1,5 @@
 ﻿// © 2016 and later: Unicode, Inc. and others.
-// License & terms of use: http://www.unicode.org/copyright.html
-// Generated using tools/cldr/cldr-to-icu/build-icu-data.xml
+// License & terms of use: http://www.unicode.org/copyright.html#License
 nn{
     Currencies{
         ADP{
@@ -189,7 +188,7 @@ nn{
         }
         BYN{
             "BYN",
-            "nye kviterussiske rublar",
+            "kviterussiske rublar",
         }
         BYR{
             "BYR",
@@ -226,10 +225,6 @@ nn{
         CLP{
             "CLP",
             "chilenske pesos",
-        }
-        CNH{
-            "CNH",
-            "kinesiske yuan (offshore)",
         }
         CNY{
             "CNY",
@@ -453,7 +448,7 @@ nn{
         }
         ILS{
             "ILS",
-            "nye israelske sheklar",
+            "israelske nye sheklar",
         }
         INR{
             "INR",
@@ -633,7 +628,7 @@ nn{
         }
         MUR{
             "MUR",
-            "mauritiske rupiar",
+            "mauritanske rupiar",
         }
         MVR{
             "MVR",
@@ -869,7 +864,7 @@ nn{
         }
         SZL{
             "SZL",
-            "eswatinisk lilangeni",
+            "swazilandske lilangeni",
         }
         THB{
             "THB",
@@ -1301,7 +1296,7 @@ nn{
             other{"bahamanske dollar"}
         }
         BTN{
-            one{"bhutansk ngultrum"}
+            one{"bhutanske ngultrum"}
             other{"bhutanske ngultrum"}
         }
         BWP{
@@ -1313,8 +1308,8 @@ nn{
             other{"kviterussiske nye rublar (BYB)"}
         }
         BYN{
-            one{"ny kviterussisk rubel"}
-            other{"nye kviterussiske rublar"}
+            one{"kviterussisk rubel"}
+            other{"kviterussiske rublar"}
         }
         BYR{
             one{"kviterussisk rubel (2000–2016)"}
@@ -1351,10 +1346,6 @@ nn{
         CLP{
             one{"chilensk peso"}
             other{"chilenske pesos"}
-        }
-        CNH{
-            one{"kinesisk yuan (offshore)"}
-            other{"kinesiske yuan (offshore)"}
         }
         CNY{
             one{"kinesisk yuan"}
@@ -1573,8 +1564,8 @@ nn{
             other{"israelske pund"}
         }
         ILS{
-            one{"ny israelsk shekel"}
-            other{"nye israelske sheklar"}
+            one{"israelsk ny shekel"}
+            other{"israelske nye sheklar"}
         }
         INR{
             one{"indisk rupi"}
@@ -1733,7 +1724,7 @@ nn{
             other{"mongolske tugrik"}
         }
         MOP{
-            one{"makaoisk pataca"}
+            one{"macaoisk pataca"}
             other{"makaoiske pataca"}
         }
         MRO{
@@ -1753,8 +1744,8 @@ nn{
             other{"maltesiske pund"}
         }
         MUR{
-            one{"mauritisk rupi"}
-            other{"mauritiske rupiar"}
+            one{"mauritansk rupi"}
+            other{"mauritanske rupiar"}
         }
         MVR{
             one{"maldivisk rufiyaa"}
@@ -1790,7 +1781,7 @@ nn{
         }
         MZN{
             one{"mosambikisk metical"}
-            other{"mosambikiske metical"}
+            other{"mosambikisk metical"}
         }
         NAD{
             one{"namibisk dollar"}
@@ -1850,7 +1841,7 @@ nn{
         }
         PHP{
             one{"filippinsk peso"}
-            other{"filippinske pesos"}
+            other{"filippinske peso"}
         }
         PKR{
             one{"pakistansk rupi"}
@@ -1869,7 +1860,7 @@ nn{
             other{"portugisiske escudo"}
         }
         PYG{
-            one{"paraguayansk guaraní"}
+            one{"ṕaraguayansk guaraní"}
             other{"paraguayanske guaraní"}
         }
         QAR{
@@ -1989,8 +1980,8 @@ nn{
             other{"syriske pund"}
         }
         SZL{
-            one{"eswatinisk lilangeni"}
-            other{"eswatiniske emalangeni"}
+            one{"swazilandsk lilangeni"}
+            other{"swazilandske lilangeni"}
         }
         THB{
             one{"thailandsk baht"}
@@ -2221,4 +2212,5 @@ nn{
         one{"{0} {1}"}
         other{"{0} {1}"}
     }
+    Version{"36.1"}
 }

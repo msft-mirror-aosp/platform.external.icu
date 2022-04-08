@@ -33,7 +33,7 @@ import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
 
 /**
- * Confidence test to ensure that {@link Transliterator#transliterate(String)} transliterate
+ * Sanity test to ensure that {@link Transliterator#transliterate(String)} transliterate
  * some strings successfully.
  */
 @MainTestShard
@@ -59,9 +59,6 @@ public class AndroidTransliteratorParameterizedTest {
         String testId = id;
         Transliterator transliterator = Transliterator.getInstance(id);
         UnicodeSet sourceSet = transliterator.getSourceSet();
-
-        // Test sample text "hello"
-        transliterator.transliterate("hello");
 
         if (sourceSet.size() == 0) {
             // Example id: ASCII-Latin
@@ -92,5 +89,6 @@ public class AndroidTransliteratorParameterizedTest {
                         + "\nSourceString: " + sourceString
                         + "\nid: " + testId,
                 resultUnicodeSet.containsAll(targetString));
+
     }
 }

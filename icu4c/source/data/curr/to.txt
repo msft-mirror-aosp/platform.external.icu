@@ -1,15 +1,14 @@
 ﻿// © 2016 and later: Unicode, Inc. and others.
-// License & terms of use: http://www.unicode.org/copyright.html
-// Generated using tools/cldr/cldr-to-icu/build-icu-data.xml
+// License & terms of use: http://www.unicode.org/copyright.html#License
 to{
     Currencies{
         AUD{
             "AUD$",
             "Tola fakaʻaositelēlia",
         }
-        EUR{
-            "€",
-            "ʻEulo",
+        BRL{
+            "R$",
+            "BRL",
         }
         FJD{
             "FJD",
@@ -62,9 +61,6 @@ to{
         AUD{
             other{"Tola fakaʻaositelēlia"}
         }
-        EUR{
-            other{"ʻeulo"}
-        }
         FJD{
             other{"Tola fakafisi"}
         }
@@ -96,4 +92,5 @@ to{
     CurrencyUnitPatterns{
         other{"{1} {0}"}
     }
+    Version{"36.1"}
 }

@@ -1,5 +1,5 @@
 // © 2016 and later: Unicode, Inc. and others.
-// License & terms of use: http://www.unicode.org/copyright.html
+// License & terms of use: http://www.unicode.org/copyright.html#License
 /*
  *******************************************************************************
  * Copyright (C) 2013-2016, International Business Machines Corporation and
@@ -8,6 +8,7 @@
  */
 package com.ibm.icu.text;
 
+import java.io.IOException;
 import java.io.InvalidObjectException;
 import java.text.AttributedCharacterIterator;
 import java.text.Format;
@@ -24,12 +25,13 @@ import com.ibm.icu.impl.SimpleFormatterImpl;
 import com.ibm.icu.impl.SoftCache;
 import com.ibm.icu.impl.StandardPlural;
 import com.ibm.icu.impl.UResource;
-import com.ibm.icu.impl.Utility;
 import com.ibm.icu.impl.number.DecimalQuantity;
 import com.ibm.icu.impl.number.DecimalQuantity_DualStorageBCD;
+import com.ibm.icu.impl.number.SimpleModifier;
 import com.ibm.icu.lang.UCharacter;
 import com.ibm.icu.util.Calendar;
 import com.ibm.icu.util.ICUException;
+import com.ibm.icu.util.ICUUncheckedIOException;
 import com.ibm.icu.util.ULocale;
 import com.ibm.icu.util.UResourceBundle;
 
@@ -247,19 +249,22 @@ public final class RelativeDateTimeFormatter {
 
         /**
          * Quarter
-         * @stable ICU 64
+         * @draft ICU 64
+         * @provisional This API might change or be removed in a future release.
          */
         QUARTER,
 
         /**
          * Hour
-         * @stable ICU 65
+         * @draft ICU 65
+         * @provisional This API might change or be removed in a future release.
          */
         HOUR,
 
         /**
          * Minute
-         * @stable ICU 65
+         * @draft ICU 65
+         * @provisional This API might change or be removed in a future release.
          */
         MINUTE,
     }
@@ -412,7 +417,8 @@ public final class RelativeDateTimeFormatter {
      * There is no public constructor to this class; the only instances are the
      * constants defined here.
      * <p>
-     * @stable ICU 64
+     * @draft ICU 64
+     * @provisional This API might change or be removed in a future release.
      */
     public static class Field extends Format.Field {
         private static final long serialVersionUID = -5327685528663492325L;
@@ -420,14 +426,16 @@ public final class RelativeDateTimeFormatter {
         /**
          * Represents a literal text string, like "tomorrow" or "days ago".
          *
-         * @stable ICU 64
+         * @draft ICU 64
+         * @provisional This API might change or be removed in a future release.
          */
         public static final Field LITERAL = new Field("literal");
 
         /**
          * Represents a number quantity, like "3" in "3 days ago".
          *
-         * @stable ICU 64
+         * @draft ICU 64
+         * @provisional This API might change or be removed in a future release.
          */
         public static final Field NUMERIC = new Field("numeric");
 
@@ -461,7 +469,8 @@ public final class RelativeDateTimeFormatter {
      * Not intended for public subclassing.
      *
      * @author sffc
-     * @stable ICU 64
+     * @draft ICU 64
+     * @provisional This API might change or be removed in a future release.
      */
     public static class FormattedRelativeDateTime implements FormattedValue {
 
@@ -474,7 +483,8 @@ public final class RelativeDateTimeFormatter {
         /**
          * {@inheritDoc}
          *
-         * @stable ICU 64
+         * @draft ICU 64
+         * @provisional This API might change or be removed in a future release.
          */
         @Override
         public String toString() {
@@ -484,7 +494,8 @@ public final class RelativeDateTimeFormatter {
         /**
          * {@inheritDoc}
          *
-         * @stable ICU 64
+         * @draft ICU 64
+         * @provisional This API might change or be removed in a future release.
          */
         @Override
         public int length() {
@@ -494,7 +505,8 @@ public final class RelativeDateTimeFormatter {
         /**
          * {@inheritDoc}
          *
-         * @stable ICU 64
+         * @draft ICU 64
+         * @provisional This API might change or be removed in a future release.
          */
         @Override
         public char charAt(int index) {
@@ -504,7 +516,8 @@ public final class RelativeDateTimeFormatter {
         /**
          * {@inheritDoc}
          *
-         * @stable ICU 64
+         * @draft ICU 64
+         * @provisional This API might change or be removed in a future release.
          */
         @Override
         public CharSequence subSequence(int start, int end) {
@@ -514,17 +527,25 @@ public final class RelativeDateTimeFormatter {
         /**
          * {@inheritDoc}
          *
-         * @stable ICU 64
+         * @draft ICU 64
+         * @provisional This API might change or be removed in a future release.
          */
         @Override
         public <A extends Appendable> A appendTo(A appendable) {
-            return Utility.appendTo(string, appendable);
+            try {
+                appendable.append(string);
+            } catch (IOException e) {
+                // Throw as an unchecked exception to avoid users needing try/catch
+                throw new ICUUncheckedIOException(e);
+            }
+            return appendable;
         }
 
         /**
          * {@inheritDoc}
          *
-         * @stable ICU 64
+         * @draft ICU 64
+         * @provisional This API might change or be removed in a future release.
          */
         @Override
         public boolean nextPosition(ConstrainedFieldPosition cfpos) {
@@ -534,7 +555,8 @@ public final class RelativeDateTimeFormatter {
         /**
          * {@inheritDoc}
          *
-         * @stable ICU 64
+         * @draft ICU 64
+         * @provisional This API might change or be removed in a future release.
          */
         @Override
         public AttributedCharacterIterator toCharacterIterator() {
@@ -673,7 +695,8 @@ public final class RelativeDateTimeFormatter {
      * @return the formatted relative datetime
      * @throws IllegalArgumentException if direction is something other than
      * NEXT or LAST.
-     * @stable ICU 64
+     * @draft ICU 64
+     * @provisional This API might change or be removed in a future release.
      */
     public FormattedRelativeDateTime formatToValue(double quantity, Direction direction, RelativeUnit unit) {
         checkNoAdjustForContext();
@@ -701,7 +724,8 @@ public final class RelativeDateTimeFormatter {
         StandardPlural pluralForm = StandardPlural.orOtherFromString(pluralKeyword);
 
         String compiledPattern = getRelativeUnitPluralPattern(style, unit, pastFutureIndex, pluralForm);
-        SimpleFormatterImpl.formatPrefixSuffix(compiledPattern, Field.LITERAL, 0, output.length(), output);
+        SimpleModifier modifier = new SimpleModifier(compiledPattern, Field.LITERAL, false);
+        modifier.formatAsPrefixSuffix(output, 0, output.length());
         return output;
     }
 
@@ -742,7 +766,8 @@ public final class RelativeDateTimeFormatter {
      *                  date, e.g. RelativeDateTimeUnit.WEEK,
      *                  RelativeDateTimeUnit.FRIDAY.
      * @return          The formatted string (may be empty in case of error)
-     * @stable ICU 64
+     * @draft ICU 64
+     * @provisional This API might change or be removed in a future release.
      */
     public FormattedRelativeDateTime formatNumericToValue(double offset, RelativeDateTimeUnit unit) {
         checkNoAdjustForContext();
@@ -816,7 +841,8 @@ public final class RelativeDateTimeFormatter {
      *  return null to signal that no formatted string is available.
      * @throws IllegalArgumentException if the direction is incompatible with
      * unit this can occur with NOW which can only take PLAIN.
-     * @stable ICU 64
+     * @draft ICU 64
+     * @provisional This API might change or be removed in a future release.
      */
     public FormattedRelativeDateTime formatToValue(Direction direction, AbsoluteUnit unit) {
         checkNoAdjustForContext();
@@ -887,7 +913,8 @@ public final class RelativeDateTimeFormatter {
      *                  date, e.g. RelativeDateTimeUnit.WEEK,
      *                  RelativeDateTimeUnit.FRIDAY.
      * @return          The formatted string (may be empty in case of error)
-     * @stable ICU 64
+     * @draft ICU 64
+     * @provisional This API might change or be removed in a future release.
      */
     public FormattedRelativeDateTime formatToValue(double offset, RelativeDateTimeUnit unit) {
         checkNoAdjustForContext();

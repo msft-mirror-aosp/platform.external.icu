@@ -1,6 +1,5 @@
 ﻿// © 2016 and later: Unicode, Inc. and others.
-// License & terms of use: http://www.unicode.org/copyright.html
-// Generated using tools/cldr/cldr-to-icu/build-icu-data.xml
+// License & terms of use: http://www.unicode.org/copyright.html#License
 kn{
     AuxExemplarCharacters{"[\u200C\u200D ೞ]"}
     Ellipsis{
@@ -241,6 +240,7 @@ kn{
         minimumGroupingDigits{"1"}
         native{"knda"}
     }
+    Version{"36.1"}
     calendar{
         buddhist{
             eras{

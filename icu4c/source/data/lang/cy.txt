@@ -1,6 +1,5 @@
 ﻿// © 2016 and later: Unicode, Inc. and others.
-// License & terms of use: http://www.unicode.org/copyright.html
-// Generated using tools/cldr/cldr-to-icu/build-icu-data.xml
+// License & terms of use: http://www.unicode.org/copyright.html#License
 cy{
     Keys{
         calendar{"Calendr"}
@@ -149,7 +148,6 @@ cy{
         ewo{"Ewondo"}
         ext{"Extremadureg"}
         fa{"Perseg"}
-        fa_AF{"Dari"}
         fat{"Ffanti"}
         ff{"Ffwla"}
         fi{"Ffinneg"}
@@ -389,9 +387,9 @@ cy{
         prg{"Prwseg"}
         pro{"Hen Brofensaleg"}
         ps{"Pashto"}
-        pt{"Portiwgaleg"}
-        pt_BR{"Portiwgaleg Brasil"}
-        pt_PT{"Portiwgaleg Ewrop"}
+        pt{"Portiwgeeg"}
+        pt_BR{"Portiwgeeg Brasil"}
+        pt_PT{"Portiwgeeg Ewrop"}
         qu{"Quechua"}
         quc{"K’iche’"}
         raj{"Rajasthaneg"}
@@ -540,7 +538,7 @@ cy{
         zap{"Zapoteceg"}
         zbl{"Blisssymbols"}
         zea{"Zêlandeg"}
-        zgh{"Tamaseit Moroco Safonol"}
+        zgh{"Tamaseit Safonol"}
         zh{"Tsieinëeg"}
         zh_Hans{"Tsieinëeg Symledig"}
         zh_Hant{"Tsieinëeg Traddodiadol"}
@@ -612,14 +610,14 @@ cy{
     }
     Types{
         calendar{
-            buddhist{"Calendr Bwdaidd"}
+            buddhist{"Calendr y Bwdiaid"}
             chinese{"Calendr Tseina"}
             coptic{"Calendr y Coptiaid"}
             dangi{"Calendr Dangi"}
             ethiopic{"Calendr Ethiopia"}
             ethiopic-amete-alem{"Calendr Amete Alem Ethiopia"}
             gregorian{"Calendr Gregori"}
-            hebrew{"Calendr Hebreaidd"}
+            hebrew{"Calendr yr Hebraed"}
             indian{"Calendr Cenedlaethol India"}
             islamic{"Calendr Islam"}
             iso8601{"Calendr ISO-8601"}
@@ -725,6 +723,7 @@ cy{
         POSIX{"Cyfrifiadur"}
         SCOTLAND{"Saesneg Safonol yr Alban"}
     }
+    Version{"36.1"}
     characterLabelPattern{
         all{"{0} — y cwbl"}
         category-list{"{0}: {1}"}
@@ -743,8 +742,6 @@ cy{
             two{"{0} strôc"}
             zero{"{0} strôc"}
         }
-        subscript{"is-sgript {0}"}
-        superscript{"uwch-sgript {0}"}
     }
     codePatterns{
         language{"Iaith: {0}"}

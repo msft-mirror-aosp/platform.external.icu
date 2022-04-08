@@ -190,7 +190,6 @@ void NameUnicodeTransliterator::handleTransliterate(Replaceable& text, UTransPos
                 }
 
                 if (uprv_isInvariantUString(name.getBuffer(), len)) {
-                    cbuf[0] = 0;
                     name.extract(0, len, cbuf, maxLen, US_INV);
 
                     UErrorCode status = U_ZERO_ERROR;

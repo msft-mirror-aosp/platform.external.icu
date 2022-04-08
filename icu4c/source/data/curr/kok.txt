@@ -1,6 +1,5 @@
 ﻿// © 2016 and later: Unicode, Inc. and others.
-// License & terms of use: http://www.unicode.org/copyright.html
-// Generated using tools/cldr/cldr-to-icu/build-icu-data.xml
+// License & terms of use: http://www.unicode.org/copyright.html#License
 kok{
     Currencies{
         AED{
@@ -794,7 +793,7 @@ kok{
             other{"भुतानीज नागल्ट्रम्स"}
         }
         BWP{
-            other{"बोत्सवाना पुलास"}
+            other{"Vote बोत्सवाना पुलास"}
         }
         BYN{
             other{"बैलोरुसियन् रूबल्स"}
@@ -912,6 +911,9 @@ kok{
         }
         ILS{
             other{"इस्त्रायली न्यु शेकेल्स"}
+        }
+        INR{
+            other{"भारतीय रुपया"}
         }
         IQD{
             other{"इराकी डिनार्स"}
@@ -1196,4 +1198,5 @@ kok{
     CurrencyUnitPatterns{
         other{"{0} {1}"}
     }
+    Version{"36.1"}
 }

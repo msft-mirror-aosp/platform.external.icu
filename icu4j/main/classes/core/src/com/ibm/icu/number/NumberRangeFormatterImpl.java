@@ -1,5 +1,5 @@
 // © 2018 and later: Unicode, Inc. and others.
-// License & terms of use: http://www.unicode.org/copyright.html
+// License & terms of use: http://www.unicode.org/copyright.html#License
 package com.ibm.icu.number;
 
 import java.util.MissingResourceException;
@@ -148,7 +148,7 @@ class NumberRangeFormatterImpl {
         getNumberRangeData(macros.loc, nsName, this);
 
         // TODO: Get locale from PluralRules instead?
-        fPluralRanges = StandardPluralRanges.forLocale(macros.loc);
+        fPluralRanges = new StandardPluralRanges(macros.loc);
     }
 
     public FormattedNumberRange format(DecimalQuantity quantity1, DecimalQuantity quantity2, boolean equalBeforeRounding) {

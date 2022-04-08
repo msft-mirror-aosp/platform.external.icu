@@ -1,6 +1,5 @@
 ﻿// © 2016 and later: Unicode, Inc. and others.
-// License & terms of use: http://www.unicode.org/copyright.html
-// Generated using tools/cldr/cldr-to-icu/build-icu-data.xml
+// License & terms of use: http://www.unicode.org/copyright.html#License
 ga{
     Currencies{
         ADP{
@@ -73,7 +72,7 @@ ga{
         }
         ATS{
             "ATS",
-            "Scilling na hOstaire",
+            "ATS",
         }
         AUD{
             "A$",
@@ -113,7 +112,7 @@ ga{
         }
         BEC{
             "BEC",
-            "Franc na Beilge (inmhalartaithe)",
+            "BEC",
         }
         BEF{
             "BEF",
@@ -121,7 +120,7 @@ ga{
         }
         BEL{
             "BEL",
-            "Franc na Beilge (airgeadais)",
+            "BEL",
         }
         BGL{
             "BGL",
@@ -253,7 +252,7 @@ ga{
         }
         CNH{
             "CNH",
-            "Yuan na Síne (seachairgeadra)",
+            "CNH",
         }
         CNY{
             "CN¥",
@@ -301,7 +300,7 @@ ga{
         }
         DDM{
             "DDM",
-            "Marc Ghearmáin an Oirthir",
+            "DDM",
         }
         DEM{
             "DEM",
@@ -377,7 +376,7 @@ ga{
         }
         FRF{
             "FRF",
-            "Franc na Fraince",
+            "FRF",
         }
         GBP{
             "£",
@@ -585,7 +584,7 @@ ga{
         }
         LUC{
             "LUC",
-            "Franc Inmhalartach Lucsamburgach",
+            "LUC",
         }
         LUF{
             "LUF",
@@ -597,7 +596,7 @@ ga{
         }
         LVR{
             "LVR",
-            "Rúbal na Laitvia",
+            "LVR",
         }
         LYD{
             "LYD",
@@ -689,7 +688,7 @@ ga{
         }
         MXV{
             "MXV",
-            "Aonad Infheistíochta Meicsiceach",
+            "MXV",
         }
         MYR{
             "MYR",
@@ -1117,7 +1116,7 @@ ga{
         }
         YUN{
             "YUN",
-            "Dinar Inmhalartaithe Iúgslavach (1990–1992)",
+            "YUN",
         }
         YUR{
             "YUR",
@@ -1669,11 +1668,11 @@ ga{
             two{"pheso na Sile"}
         }
         CNH{
-            few{"Yuan na Síne (seachairgeadra)"}
-            many{"Yuan na Síne (seachairgeadra)"}
-            one{"Yuan na Síne (seachairgeadra)"}
-            other{"Yuan na Síne (seachairgeadra)"}
-            two{"Yuan na Síne (seachairgeadra)"}
+            few{"CNH"}
+            many{"CNH"}
+            one{"CNH"}
+            other{"CNH"}
+            two{"CNH"}
         }
         CNY{
             few{"yuan na Síne"}
@@ -2215,11 +2214,11 @@ ga{
             two{"Talonas Liotuánach"}
         }
         LUC{
-            few{"Franc Inmhalartach Lucsamburgach"}
-            many{"Franc Inmhalartach Lucsamburgach"}
-            one{"Franc Inmhalartach Lucsamburgach"}
-            other{"Franc Inmhalartach Lucsamburgach"}
-            two{"Franc Inmhalartach Lucsamburgach"}
+            few{"LUC"}
+            many{"LUC"}
+            one{"LUC"}
+            other{"LUC"}
+            two{"LUC"}
         }
         LUF{
             few{"Franc Lucsamburg"}
@@ -3188,4 +3187,5 @@ ga{
         other{"{0} {1}"}
         two{"{0} {1}"}
     }
+    Version{"36.1"}
 }

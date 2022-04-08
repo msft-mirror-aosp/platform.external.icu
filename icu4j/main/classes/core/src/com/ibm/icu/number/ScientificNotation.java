@@ -1,5 +1,5 @@
 // © 2017 and later: Unicode, Inc. and others.
-// License & terms of use: http://www.unicode.org/copyright.html
+// License & terms of use: http://www.unicode.org/copyright.html#License
 package com.ibm.icu.number;
 
 import java.text.Format.Field;
@@ -192,13 +192,8 @@ public class ScientificNotation extends Notation {
                 micros.modInner = this;
             }
 
-            // Change the exponent only after we select appropriate plural form
-            // for formatting purposes so that we preserve expected formatted
-            // string behavior.
-            quantity.adjustExponent(exponent);
-
             // We already performed rounding. Do not perform it again.
-            micros.rounder = null;
+            micros.rounder = Precision.constructPassThrough();
 
             return micros;
         }

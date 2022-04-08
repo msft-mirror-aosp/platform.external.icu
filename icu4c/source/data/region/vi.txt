@@ -1,6 +1,5 @@
 ﻿// © 2016 and later: Unicode, Inc. and others.
-// License & terms of use: http://www.unicode.org/copyright.html
-// Generated using tools/cldr/cldr-to-icu/build-icu-data.xml
+// License & terms of use: http://www.unicode.org/copyright.html#License
 vi{
     Countries{
         001{"Thế giới"}
@@ -254,7 +253,7 @@ vi{
         SV{"El Salvador"}
         SX{"Sint Maarten"}
         SY{"Syria"}
-        SZ{"Eswatini"}
+        SZ{"Swaziland"}
         TA{"Tristan da Cunha"}
         TC{"Quần đảo Turks và Caicos"}
         TD{"Chad"}
@@ -283,7 +282,7 @@ vi{
         VC{"St. Vincent và Grenadines"}
         VE{"Venezuela"}
         VG{"Quần đảo Virgin thuộc Anh"}
-        VI{"Quần đảo Virgin thuộc Hoa Kỳ"}
+        VI{"Quần đảo Virgin thuộc Mỹ"}
         VN{"Việt Nam"}
         VU{"Vanuatu"}
         WF{"Wallis và Futuna"}
@@ -298,12 +297,18 @@ vi{
         ZW{"Zimbabwe"}
         ZZ{"Vùng không xác định"}
     }
+    Countries%short{
+        GB{"Vương quốc Anh"}
+        UN{"Liên hiệp quốc"}
+        US{"Hoa Kỳ"}
+    }
     Countries%variant{
         CD{"Cộng hòa Dân chủ Congo"}
         CG{"Cộng hòa Congo"}
         CI{"Bờ Biển Ngà"}
         CZ{"Cộng hòa Séc"}
-        SZ{"Swaziland"}
+        SZ{"Eswatini"}
         TL{"Đông Timor"}
     }
+    Version{"36.1"}
 }

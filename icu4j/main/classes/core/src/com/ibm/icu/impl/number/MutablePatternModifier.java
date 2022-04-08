@@ -1,5 +1,5 @@
 // © 2017 and later: Unicode, Inc. and others.
-// License & terms of use: http://www.unicode.org/copyright.html
+// License & terms of use: http://www.unicode.org/copyright.html#License
 package com.ibm.icu.impl.number;
 
 import com.ibm.icu.impl.FormattedStringBuilder;
@@ -50,7 +50,7 @@ public class MutablePatternModifier implements Modifier, SymbolProvider, MicroPr
     PluralRules rules;
 
     // Number details
-    Signum signum;
+    int signum;
     StandardPlural plural;
 
     // QuantityChain details
@@ -129,7 +129,7 @@ public class MutablePatternModifier implements Modifier, SymbolProvider, MicroPr
      *            The plural form of the number, required only if the pattern contains the triple
      *            currency sign, "¤¤¤" (and as indicated by {@link #needsPlurals()}).
      */
-    public void setNumberProperties(Signum signum, StandardPlural plural) {
+    public void setNumberProperties(int signum, StandardPlural plural) {
         assert (plural != null) == needsPlurals();
         this.signum = signum;
         this.plural = plural;
@@ -155,35 +155,44 @@ public class MutablePatternModifier implements Modifier, SymbolProvider, MicroPr
      * @return An immutable that supports both positive and negative numbers.
      */
     public ImmutablePatternModifier createImmutable() {
+        return createImmutableAndChain(null);
+    }
+
+    /**
+     * Creates a new quantity-dependent Modifier that behaves the same as the current instance, but which
+     * is immutable and can be saved for future use. The number properties in the current instance are
+     * mutated; all other properties are left untouched.
+     *
+     * @param parent
+     *            The QuantityChain to which to chain this immutable.
+     * @return An immutable that supports both positive and negative numbers.
+     */
+    public ImmutablePatternModifier createImmutableAndChain(MicroPropsGenerator parent) {
         FormattedStringBuilder a = new FormattedStringBuilder();
         FormattedStringBuilder b = new FormattedStringBuilder();
         if (needsPlurals()) {
             // Slower path when we require the plural keyword.
             AdoptingModifierStore pm = new AdoptingModifierStore();
             for (StandardPlural plural : StandardPlural.VALUES) {
-                setNumberProperties(Signum.POS, plural);
-                pm.setModifier(Signum.POS, plural, createConstantModifier(a, b));
-                setNumberProperties(Signum.POS_ZERO, plural);
-                pm.setModifier(Signum.POS_ZERO, plural, createConstantModifier(a, b));
-                setNumberProperties(Signum.NEG_ZERO, plural);
-                pm.setModifier(Signum.NEG_ZERO, plural, createConstantModifier(a, b));
-                setNumberProperties(Signum.NEG, plural);
-                pm.setModifier(Signum.NEG, plural, createConstantModifier(a, b));
+                setNumberProperties(1, plural);
+                pm.setModifier(1, plural, createConstantModifier(a, b));
+                setNumberProperties(0, plural);
+                pm.setModifier(0, plural, createConstantModifier(a, b));
+                setNumberProperties(-1, plural);
+                pm.setModifier(-1, plural, createConstantModifier(a, b));
             }
             pm.freeze();
-            return new ImmutablePatternModifier(pm, rules);
+            return new ImmutablePatternModifier(pm, rules, parent);
         } else {
             // Faster path when plural keyword is not needed.
-            setNumberProperties(Signum.POS, null);
+            setNumberProperties(1, null);
             Modifier positive = createConstantModifier(a, b);
-            setNumberProperties(Signum.POS_ZERO, null);
-            Modifier posZero = createConstantModifier(a, b);
-            setNumberProperties(Signum.NEG_ZERO, null);
-            Modifier negZero = createConstantModifier(a, b);
-            setNumberProperties(Signum.NEG, null);
+            setNumberProperties(0, null);
+            Modifier zero = createConstantModifier(a, b);
+            setNumberProperties(-1, null);
             Modifier negative = createConstantModifier(a, b);
-            AdoptingModifierStore pm = new AdoptingModifierStore(positive, posZero, negZero, negative);
-            return new ImmutablePatternModifier(pm, null);
+            AdoptingModifierStore pm = new AdoptingModifierStore(positive, zero, negative);
+            return new ImmutablePatternModifier(pm, null, parent);
         }
     }
 
@@ -213,30 +222,20 @@ public class MutablePatternModifier implements Modifier, SymbolProvider, MicroPr
     public static class ImmutablePatternModifier implements MicroPropsGenerator {
         final AdoptingModifierStore pm;
         final PluralRules rules;
-        /* final */ MicroPropsGenerator parent;
+        final MicroPropsGenerator parent;
 
         ImmutablePatternModifier(
                 AdoptingModifierStore pm,
-                PluralRules rules) {
+                PluralRules rules,
+                MicroPropsGenerator parent) {
             this.pm = pm;
             this.rules = rules;
-            this.parent = null;
-        }
-
-        public ImmutablePatternModifier addToChain(MicroPropsGenerator parent) {
             this.parent = parent;
-            return this;
         }
 
         @Override
         public MicroProps processQuantity(DecimalQuantity quantity) {
             MicroProps micros = parent.processQuantity(quantity);
-            if (micros.rounder != null) {
-                micros.rounder.apply(quantity);
-            }
-            if (micros.modMiddle != null) {
-                return micros;
-            }
             applyToMicros(micros, quantity);
             return micros;
         }
@@ -271,12 +270,6 @@ public class MutablePatternModifier implements Modifier, SymbolProvider, MicroPr
     @Override
     public MicroProps processQuantity(DecimalQuantity fq) {
         MicroProps micros = parent.processQuantity(fq);
-        if (micros.rounder != null) {
-            micros.rounder.apply(fq);
-        }
-        if (micros.modMiddle != null) {
-            return micros;
-        }
         if (needsPlurals()) {
             StandardPlural pluralForm = RoundingUtils.getPluralSafe(micros.rounder, rules, fq);
             setNumberProperties(fq.signum(), pluralForm);
@@ -374,7 +367,8 @@ public class MutablePatternModifier implements Modifier, SymbolProvider, MicroPr
         }
         PatternStringUtils.patternInfoToStringBuilder(patternInfo,
                 isPrefix,
-                PatternStringUtils.resolveSignDisplay(signDisplay, signum),
+                signum,
+                signDisplay,
                 plural,
                 perMilleReplacesPercent,
                 currentAffix);
@@ -401,23 +395,8 @@ public class MutablePatternModifier implements Modifier, SymbolProvider, MicroPr
             } else if (unitWidth == UnitWidth.HIDDEN) {
                 return "";
             } else {
-                int selector;
-                switch (unitWidth) {
-                    case SHORT:
-                        selector = Currency.SYMBOL_NAME;
-                        break;
-                    case NARROW:
-                        selector = Currency.NARROW_SYMBOL_NAME;
-                        break;
-                    case FORMAL:
-                        selector = Currency.FORMAL_SYMBOL_NAME;
-                        break;
-                    case VARIANT:
-                        selector = Currency.VARIANT_SYMBOL_NAME;
-                        break;
-                    default:
-                        throw new AssertionError();
-                }
+                int selector = unitWidth == UnitWidth.NARROW ? Currency.NARROW_SYMBOL_NAME
+                        : Currency.SYMBOL_NAME;
                 return currency.getName(symbols.getULocale(), selector, null);
             }
         case AffixUtils.TYPE_CURRENCY_DOUBLE:

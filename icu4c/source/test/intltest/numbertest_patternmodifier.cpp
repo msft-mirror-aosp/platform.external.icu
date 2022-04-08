@@ -26,13 +26,14 @@ void PatternModifierTest::testBasic() {
     ParsedPatternInfo patternInfo;
     PatternParser::parseToPatternInfo(u"a0b", patternInfo, status);
     assertSuccess("Spot 1", status);
-    mod.setPatternInfo(&patternInfo, kUndefinedField);
+    mod.setPatternInfo(&patternInfo, UNUM_FIELD_COUNT);
     mod.setPatternAttributes(UNUM_SIGN_AUTO, false);
     DecimalFormatSymbols symbols(Locale::getEnglish(), status);
-    mod.setSymbols(&symbols, {u"USD", status}, UNUM_UNIT_WIDTH_SHORT, nullptr, status);
+    CurrencySymbols currencySymbols({u"USD", status}, "en", status);
     if (!assertSuccess("Spot 2", status, true)) {
         return;
     }
+    mod.setSymbols(&symbols, &currencySymbols, UNUM_UNIT_WIDTH_SHORT, nullptr);
 
     mod.setNumberProperties(SIGNUM_POS, StandardPlural::Form::COUNT);
     assertEquals("Pattern a0b", u"a", getPrefix(mod, status));
@@ -40,10 +41,7 @@ void PatternModifierTest::testBasic() {
     mod.setPatternAttributes(UNUM_SIGN_ALWAYS, false);
     assertEquals("Pattern a0b", u"+a", getPrefix(mod, status));
     assertEquals("Pattern a0b", u"b", getSuffix(mod, status));
-    mod.setNumberProperties(SIGNUM_NEG_ZERO, StandardPlural::Form::COUNT);
-    assertEquals("Pattern a0b", u"-a", getPrefix(mod, status));
-    assertEquals("Pattern a0b", u"b", getSuffix(mod, status));
-    mod.setNumberProperties(SIGNUM_POS_ZERO, StandardPlural::Form::COUNT);
+    mod.setNumberProperties(SIGNUM_ZERO, StandardPlural::Form::COUNT);
     assertEquals("Pattern a0b", u"+a", getPrefix(mod, status));
     assertEquals("Pattern a0b", u"b", getSuffix(mod, status));
     mod.setPatternAttributes(UNUM_SIGN_EXCEPT_ZERO, false);
@@ -60,7 +58,7 @@ void PatternModifierTest::testBasic() {
     ParsedPatternInfo patternInfo2;
     PatternParser::parseToPatternInfo(u"a0b;c-0d", patternInfo2, status);
     assertSuccess("Spot 4", status);
-    mod.setPatternInfo(&patternInfo2, kUndefinedField);
+    mod.setPatternInfo(&patternInfo2, UNUM_FIELD_COUNT);
     mod.setPatternAttributes(UNUM_SIGN_AUTO, false);
     mod.setNumberProperties(SIGNUM_POS, StandardPlural::Form::COUNT);
     assertEquals("Pattern a0b;c-0d", u"a", getPrefix(mod, status));
@@ -68,10 +66,7 @@ void PatternModifierTest::testBasic() {
     mod.setPatternAttributes(UNUM_SIGN_ALWAYS, false);
     assertEquals("Pattern a0b;c-0d", u"c+", getPrefix(mod, status));
     assertEquals("Pattern a0b;c-0d", u"d", getSuffix(mod, status));
-    mod.setNumberProperties(SIGNUM_NEG_ZERO, StandardPlural::Form::COUNT);
-    assertEquals("Pattern a0b;c-0d", u"c-", getPrefix(mod, status));
-    assertEquals("Pattern a0b;c-0d", u"d", getSuffix(mod, status));
-    mod.setNumberProperties(SIGNUM_POS_ZERO, StandardPlural::Form::COUNT);
+    mod.setNumberProperties(SIGNUM_ZERO, StandardPlural::Form::COUNT);
     assertEquals("Pattern a0b;c-0d", u"c+", getPrefix(mod, status));
     assertEquals("Pattern a0b;c-0d", u"d", getSuffix(mod, status));
     mod.setPatternAttributes(UNUM_SIGN_EXCEPT_ZERO, false);
@@ -81,8 +76,9 @@ void PatternModifierTest::testBasic() {
     assertEquals("Pattern a0b;c-0d", u"c-", getPrefix(mod, status));
     assertEquals("Pattern a0b;c-0d", u"d", getSuffix(mod, status));
     mod.setPatternAttributes(UNUM_SIGN_NEVER, false);
-    assertEquals("Pattern a0b;c-0d", u"a", getPrefix(mod, status));
-    assertEquals("Pattern a0b;c-0d", u"b", getSuffix(mod, status));
+    // TODO: What should this behavior be?
+    assertEquals("Pattern a0b;c-0d", u"c-", getPrefix(mod, status));
+    assertEquals("Pattern a0b;c-0d", u"d", getSuffix(mod, status));
     assertSuccess("Spot 5", status);
 }
 
@@ -92,18 +88,19 @@ void PatternModifierTest::testPatternWithNoPlaceholder() {
     ParsedPatternInfo patternInfo;
     PatternParser::parseToPatternInfo(u"abc", patternInfo, status);
     assertSuccess("Spot 1", status);
-    mod.setPatternInfo(&patternInfo, kUndefinedField);
+    mod.setPatternInfo(&patternInfo, UNUM_FIELD_COUNT);
     mod.setPatternAttributes(UNUM_SIGN_AUTO, false);
     DecimalFormatSymbols symbols(Locale::getEnglish(), status);
-    mod.setSymbols(&symbols, {u"USD", status}, UNUM_UNIT_WIDTH_SHORT, nullptr, status);
+    CurrencySymbols currencySymbols({u"USD", status}, "en", status);
     if (!assertSuccess("Spot 2", status, true)) {
         return;
     }
+    mod.setSymbols(&symbols, &currencySymbols, UNUM_UNIT_WIDTH_SHORT, nullptr);
     mod.setNumberProperties(SIGNUM_POS, StandardPlural::Form::COUNT);
 
     // Unsafe Code Path
     FormattedStringBuilder nsb;
-    nsb.append(u"x123y", kUndefinedField, status);
+    nsb.append(u"x123y", UNUM_FIELD_COUNT, status);
     assertSuccess("Spot 3", status);
     mod.apply(nsb, 1, 4, status);
     assertSuccess("Spot 4", status);
@@ -111,7 +108,7 @@ void PatternModifierTest::testPatternWithNoPlaceholder() {
 
     // Safe Code Path
     nsb.clear();
-    nsb.append(u"x123y", kUndefinedField, status);
+    nsb.append(u"x123y", UNUM_FIELD_COUNT, status);
     assertSuccess("Spot 5", status);
     MicroProps micros;
     LocalPointer<ImmutablePatternModifier> imod(mod.createImmutable(status), status);
@@ -134,12 +131,13 @@ void PatternModifierTest::testMutableEqualsImmutable() {
     ParsedPatternInfo patternInfo;
     PatternParser::parseToPatternInfo("a0b;c-0d", patternInfo, status);
     assertSuccess("Spot 1", status);
-    mod.setPatternInfo(&patternInfo, kUndefinedField);
+    mod.setPatternInfo(&patternInfo, UNUM_FIELD_COUNT);
     mod.setPatternAttributes(UNUM_SIGN_AUTO, false);
     DecimalFormatSymbols symbols(Locale::getEnglish(), status);
-    mod.setSymbols(&symbols, {u"USD", status}, UNUM_UNIT_WIDTH_SHORT, nullptr, status);
+    CurrencySymbols currencySymbols({u"USD", status}, "en", status);
     assertSuccess("Spot 2", status);
     if (U_FAILURE(status)) { return; }
+    mod.setSymbols(&symbols, &currencySymbols, UNUM_UNIT_WIDTH_SHORT, nullptr);
     DecimalQuantity fq;
     fq.setToInt(1);
 

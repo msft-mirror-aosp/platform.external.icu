@@ -1,6 +1,6 @@
 /* GENERATED SOURCE. DO NOT MODIFY. */
 // © 2017 and later: Unicode, Inc. and others.
-// License & terms of use: http://www.unicode.org/copyright.html
+// License & terms of use: http://www.unicode.org/copyright.html#License
 package android.icu.dev.test.number;
 
 import static org.junit.Assert.assertEquals;
@@ -13,7 +13,6 @@ import android.icu.impl.FormattedStringBuilder;
 import android.icu.impl.number.DecimalQuantity;
 import android.icu.impl.number.DecimalQuantity_DualStorageBCD;
 import android.icu.impl.number.MicroProps;
-import android.icu.impl.number.Modifier.Signum;
 import android.icu.impl.number.MutablePatternModifier;
 import android.icu.impl.number.PatternStringParser;
 import android.icu.number.NumberFormatter.SignDisplay;
@@ -36,22 +35,19 @@ public class MutablePatternModifierTest {
                 UnitWidth.SHORT,
                 null);
 
-        mod.setNumberProperties(Signum.POS, null);
+        mod.setNumberProperties(1, null);
         assertEquals("a", getPrefix(mod));
         assertEquals("b", getSuffix(mod));
         mod.setPatternAttributes(SignDisplay.ALWAYS, false);
         assertEquals("+a", getPrefix(mod));
         assertEquals("b", getSuffix(mod));
-        mod.setNumberProperties(Signum.POS_ZERO, null);
+        mod.setNumberProperties(0, null);
         assertEquals("+a", getPrefix(mod));
-        assertEquals("b", getSuffix(mod));
-        mod.setNumberProperties(Signum.NEG_ZERO, null);
-        assertEquals("-a", getPrefix(mod));
         assertEquals("b", getSuffix(mod));
         mod.setPatternAttributes(SignDisplay.EXCEPT_ZERO, false);
         assertEquals("a", getPrefix(mod));
         assertEquals("b", getSuffix(mod));
-        mod.setNumberProperties(Signum.NEG, null);
+        mod.setNumberProperties(-1, null);
         assertEquals("-a", getPrefix(mod));
         assertEquals("b", getSuffix(mod));
         mod.setPatternAttributes(SignDisplay.NEVER, false);
@@ -60,27 +56,24 @@ public class MutablePatternModifierTest {
 
         mod.setPatternInfo(PatternStringParser.parseToPatternInfo("a0b;c-0d"), null);
         mod.setPatternAttributes(SignDisplay.AUTO, false);
-        mod.setNumberProperties(Signum.POS, null);
+        mod.setNumberProperties(1, null);
         assertEquals("a", getPrefix(mod));
         assertEquals("b", getSuffix(mod));
         mod.setPatternAttributes(SignDisplay.ALWAYS, false);
         assertEquals("c+", getPrefix(mod));
         assertEquals("d", getSuffix(mod));
-        mod.setNumberProperties(Signum.POS_ZERO, null);
+        mod.setNumberProperties(0, null);
         assertEquals("c+", getPrefix(mod));
-        assertEquals("d", getSuffix(mod));
-        mod.setNumberProperties(Signum.NEG_ZERO, null);
-        assertEquals("c-", getPrefix(mod));
         assertEquals("d", getSuffix(mod));
         mod.setPatternAttributes(SignDisplay.EXCEPT_ZERO, false);
         assertEquals("a", getPrefix(mod));
         assertEquals("b", getSuffix(mod));
-        mod.setNumberProperties(Signum.NEG, null);
+        mod.setNumberProperties(-1, null);
         assertEquals("c-", getPrefix(mod));
         assertEquals("d", getSuffix(mod));
         mod.setPatternAttributes(SignDisplay.NEVER, false);
-        assertEquals("a", getPrefix(mod));
-        assertEquals("b", getSuffix(mod));
+        assertEquals("c-", getPrefix(mod)); // TODO: What should this behavior be?
+        assertEquals("d", getSuffix(mod));
     }
 
     @Test
@@ -122,7 +115,7 @@ public class MutablePatternModifierTest {
                 Currency.getInstance("USD"),
                 UnitWidth.SHORT,
                 null);
-        mod.setNumberProperties(Signum.POS_ZERO, null);
+        mod.setNumberProperties(1, null);
 
         // Unsafe Code Path
         FormattedStringBuilder nsb = new FormattedStringBuilder();

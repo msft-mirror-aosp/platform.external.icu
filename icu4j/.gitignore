@@ -5,7 +5,7 @@
 /build-local.properties
 /demos/out
 /doc
-/eclipse-build
+/eclipse-build/out
 /lib/*.jar
 /main/*/out
 out

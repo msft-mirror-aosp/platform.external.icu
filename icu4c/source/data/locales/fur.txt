@@ -1,6 +1,5 @@
 ﻿// © 2016 and later: Unicode, Inc. and others.
-// License & terms of use: http://www.unicode.org/copyright.html
-// Generated using tools/cldr/cldr-to-icu/build-icu-data.xml
+// License & terms of use: http://www.unicode.org/copyright.html#License
 fur{
     AuxExemplarCharacters{"[å č é ë ğ ï ñ ó š ü]"}
     ExemplarCharacters{"[a à â b c ç d e è ê f g h i ì î j k l m n o ò ô p q r s t u ù û v w x y z]"}
@@ -28,6 +27,7 @@ fur{
             }
         }
     }
+    Version{"36.1"}
     calendar{
         generic{
             DateTimePatterns{
@@ -613,6 +613,9 @@ fur{
                     other{"{0} agns indaûr"}
                 }
             }
+        }
+        zone{
+            dn{"zone"}
         }
     }
     listPattern{

@@ -1,6 +1,5 @@
 ﻿// © 2016 and later: Unicode, Inc. and others.
-// License & terms of use: http://www.unicode.org/copyright.html
-// Generated using tools/cldr/cldr-to-icu/build-icu-data.xml
+// License & terms of use: http://www.unicode.org/copyright.html#License
 vi{
     Keys{
         calendar{"Lịch"}
@@ -176,7 +175,6 @@ vi{
         ewo{"Tiếng Ewondo"}
         ext{"Tiếng Extremadura"}
         fa{"Tiếng Ba Tư"}
-        fa_AF{"Tiếng Dari"}
         fan{"Tiếng Fang"}
         fat{"Tiếng Fanti"}
         ff{"Tiếng Fulah"}
@@ -229,7 +227,7 @@ vi{
         hif{"Tiếng Fiji Hindi"}
         hil{"Tiếng Hiligaynon"}
         hit{"Tiếng Hittite"}
-        hmn{"Tiếng H’Mông"}
+        hmn{"Tiếng Hmông"}
         ho{"Tiếng Hiri Motu"}
         hr{"Tiếng Croatia"}
         hsb{"Tiếng Thượng Sorbia"}
@@ -592,13 +590,11 @@ vi{
         en_US{"Tiếng Anh (Mỹ)"}
     }
     Languages%variant{
-        ckb{"Tiếng Kurd Sorani"}
         ps{"Tiếng Pushto"}
     }
     Scripts{
         Afak{"Chữ Afaka"}
         Arab{"Chữ Ả Rập"}
-        Aran{"Chữ Nastaliq"}
         Armi{"Chữ Imperial Aramaic"}
         Armn{"Chữ Armenia"}
         Avst{"Chữ Avestan"}
@@ -709,7 +705,6 @@ vi{
         Phnx{"Chữ Phoenicia"}
         Plrd{"Ngữ âm Pollard"}
         Prti{"Chữ Parthia Văn bia"}
-        Qaag{"Chữ Zawgyi"}
         Rjng{"Chữ Rejang"}
         Roro{"Chữ Rongorongo"}
         Runr{"Chữ Runic"}
@@ -1000,6 +995,7 @@ vi{
         VALENCIA{"Tiếng Valencia"}
         WADEGILE{"La Mã hóa Wade-Giles"}
     }
+    Version{"36.1"}
     characterLabelPattern{
         all{"{0} — tất cả"}
         category-list{"{0}: {1}"}
@@ -1013,8 +1009,6 @@ vi{
         strokes{
             other{"{0} nét"}
         }
-        subscript{"chỉ số dưới {0}"}
-        superscript{"chỉ số trên {0}"}
     }
     codePatterns{
         language{"Ngôn ngữ: {0}"}

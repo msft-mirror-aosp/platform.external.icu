@@ -1,6 +1,5 @@
 ﻿// © 2016 and later: Unicode, Inc. and others.
-// License & terms of use: http://www.unicode.org/copyright.html
-// Generated using tools/cldr/cldr-to-icu/build-icu-data.xml
+// License & terms of use: http://www.unicode.org/copyright.html#License
 zh_Hant_HK{
     Currencies{
         AED{
@@ -243,6 +242,10 @@ zh_Hant_HK{
             "TZS",
             "坦桑尼亞先令",
         }
+        VES{
+            "VES",
+            "VES",
+        }
         VUV{
             "VUV",
             "瓦努阿圖瓦圖",
@@ -469,4 +472,5 @@ zh_Hant_HK{
             other{"贊比亞克瓦查"}
         }
     }
+    Version{"36.1"}
 }

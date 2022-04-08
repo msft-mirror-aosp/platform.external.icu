@@ -1,6 +1,5 @@
 ﻿// © 2016 and later: Unicode, Inc. and others.
-// License & terms of use: http://www.unicode.org/copyright.html
-// Generated using tools/cldr/cldr-to-icu/build-icu-data.xml
+// License & terms of use: http://www.unicode.org/copyright.html#License
 sw{
     Countries{
         001{"Dunia"}
@@ -32,7 +31,7 @@ sw{
         151{"Ulaya ya Mashariki"}
         154{"Ulaya ya Kaskazini"}
         155{"Ulaya ya Magharibi"}
-        202{"Afrika ya Kusini mwa Jangwa la Sahara"}
+        202{"Afrika Kusini mwa Jangwa la Sahara"}
         419{"Amerika ya Kilatini"}
         AC{"Kisiwa cha Ascension"}
         AD{"Andorra"}
@@ -86,16 +85,16 @@ sw{
         CO{"Kolombia"}
         CP{"Kisiwa cha Clipperton"}
         CR{"Kostarika"}
-        CU{"Kuba"}
+        CU{"Cuba"}
         CV{"Cape Verde"}
         CW{"Curacao"}
         CX{"Kisiwa cha Krismasi"}
-        CY{"Saiprasi"}
+        CY{"Cyprus"}
         CZ{"Chechia"}
         DE{"Ujerumani"}
         DG{"Diego Garcia"}
         DJ{"Jibuti"}
-        DK{"Denmaki"}
+        DK{"Denmark"}
         DM{"Dominika"}
         DO{"Jamhuri ya Dominika"}
         DZ{"Aljeria"}
@@ -108,11 +107,11 @@ sw{
         ES{"Uhispania"}
         ET{"Ethiopia"}
         EU{"Umoja wa Ulaya"}
-        EZ{"Jumuiya ya Ulaya"}
+        EZ{"EZ"}
         FI{"Ufini"}
         FJ{"Fiji"}
         FK{"Visiwa vya Falkland (Islas Malvinas)"}
-        FM{"Mikronesia"}
+        FM{"Micronesia"}
         FO{"Visiwa vya Faroe"}
         FR{"Ufaransa"}
         GA{"Gabon"}
@@ -195,7 +194,7 @@ sw{
         MS{"Montserrat"}
         MT{"Malta"}
         MU{"Morisi"}
-        MV{"Maldivi"}
+        MV{"Maldives"}
         MW{"Malawi"}
         MX{"Meksiko"}
         MY{"Malesia"}
@@ -250,11 +249,11 @@ sw{
         SO{"Somalia"}
         SR{"Suriname"}
         SS{"Sudan Kusini"}
-        ST{"Sao Tome na Principe"}
+        ST{"São Tomé na Príncipe"}
         SV{"El Salvador"}
         SX{"Sint Maarten"}
         SY{"Syria"}
-        SZ{"Eswatini"}
+        SZ{"Uswazi"}
         TA{"Tristan da Cunha"}
         TC{"Visiwa vya Turks na Caicos"}
         TD{"Chad"}
@@ -284,7 +283,7 @@ sw{
         VE{"Venezuela"}
         VG{"Visiwa vya Virgin, Uingereza"}
         VI{"Visiwa vya Virgin, Marekani"}
-        VN{"Vietnamu"}
+        VN{"Vietnam"}
         VU{"Vanuatu"}
         WF{"Wallis na Futuna"}
         WS{"Samoa"}
@@ -299,6 +298,8 @@ sw{
         ZZ{"Eneo lisilojulikana"}
     }
     Countries%short{
+        GB{"Ufalme wa Muungano"}
+        UN{"Umoja wa Mataifa"}
         US{"US"}
     }
     Countries%variant{
@@ -309,4 +310,5 @@ sw{
         SZ{"Uswazi"}
         TL{"Timor ya Mashariki"}
     }
+    Version{"36.1"}
 }

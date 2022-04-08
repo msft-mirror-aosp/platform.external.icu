@@ -1,11 +1,12 @@
 // © 2017 and later: Unicode, Inc. and others.
-// License & terms of use: http://www.unicode.org/copyright.html
+// License & terms of use: http://www.unicode.org/copyright.html#License
 package com.ibm.icu.number;
 
 import java.math.BigDecimal;
 import java.math.MathContext;
 
 import com.ibm.icu.impl.number.AffixPatternProvider;
+import com.ibm.icu.impl.number.CurrencyPluralInfoAffixProvider;
 import com.ibm.icu.impl.number.CustomSymbolCurrency;
 import com.ibm.icu.impl.number.DecimalFormatProperties;
 import com.ibm.icu.impl.number.Grouper;
@@ -103,7 +104,12 @@ final class NumberPropertyMapper {
         // AFFIXES //
         /////////////
 
-        AffixPatternProvider affixProvider = PropertiesAffixPatternProvider.forProperties(properties);
+        AffixPatternProvider affixProvider;
+        if (properties.getCurrencyPluralInfo() == null) {
+            affixProvider = new PropertiesAffixPatternProvider(properties);
+        } else {
+            affixProvider = new CurrencyPluralInfoAffixProvider(properties.getCurrencyPluralInfo(), properties);
+        }
         macros.affixProvider = affixProvider;
 
         ///////////
@@ -155,8 +161,10 @@ final class NumberPropertyMapper {
         }
         // Validate min/max int/frac.
         // For backwards compatibility, minimum overrides maximum if the two conflict.
+        // The following logic ensures that there is always a minimum of at least one digit.
         if (minInt == 0 && maxFrac != 0) {
-            minFrac = (minFrac < 0 || (minFrac == 0 && maxInt == 0)) ? 1 : minFrac;
+            // Force a digit after the decimal point.
+            minFrac = minFrac <= 0 ? 1 : minFrac;
             maxFrac = maxFrac < 0 ? -1 : maxFrac < minFrac ? minFrac : maxFrac;
             minInt = 0;
             maxInt = maxInt < 0 ? -1 : maxInt > RoundingUtils.MAX_INT_FRAC_SIG ? -1 : maxInt;

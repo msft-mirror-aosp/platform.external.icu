@@ -1,7 +1,7 @@
 ﻿// © 2016 and later: Unicode, Inc. and others.
-// License & terms of use: http://www.unicode.org/copyright.html
-// Generated using tools/cldr/cldr-to-icu/build-icu-data.xml
+// License & terms of use: http://www.unicode.org/copyright.html#License
 be{
+    Version{"36.1"}
     durationUnits{
         hm{"hh:mm"}
         hms{"hh:mm:ss"}
@@ -16,7 +16,7 @@ be{
                 one{"{0} g"}
                 other{"{0} g"}
             }
-            meter-per-square-second{
+            meter-per-second-squared{
                 dnam{"м/с²"}
                 few{"{0} м/с²"}
                 many{"{0} м/с²"}
@@ -170,6 +170,13 @@ be{
                 one{"{0} моль"}
                 other{"{0} моля"}
             }
+            part-per-million{
+                dnam{"частак на мільён"}
+                few{"{0} часткі на мільён"}
+                many{"{0} частак на мільён"}
+                one{"{0} частка на мільён"}
+                other{"{0} часткі на мільён"}
+            }
             percent{
                 dnam{"працэнтаў"}
                 few{"{0} працэнты"}
@@ -184,13 +191,6 @@ be{
                 one{"{0} праміле"}
                 other{"{0} праміле"}
             }
-            permillion{
-                dnam{"часткі на мільён"}
-                few{"{0} часткі на мільён"}
-                many{"{0} частак на мільён"}
-                one{"{0} частка на мільён"}
-                other{"{0} часткі на мільён"}
-            }
             permyriad{
                 dnam{"базісныя пункты"}
                 few{"{0} базісныя пункты"}
@@ -200,7 +200,7 @@ be{
             }
         }
         consumption{
-            liter-per-100-kilometer{
+            liter-per-100kilometers{
                 dnam{"літры на 100 кіламетраў"}
                 few{"{0} літры на 100 кіламетраў"}
                 many{"{0} літраў на 100 кіламетраў"}
@@ -550,13 +550,6 @@ be{
             }
         }
         graphics{
-            dot{
-                dnam{"кропкі"}
-                few{"{0} кропкі"}
-                many{"{0} кропак"}
-                one{"{0} кропка"}
-                other{"{0} кропкі"}
-            }
             dot-per-centimeter{
                 dnam{"кропкі на сантыметр"}
                 few{"{0} кропкі на сантыметр"}
@@ -630,20 +623,6 @@ be{
                 one{"{0} дэцыметр"}
                 other{"{0} дэцыметра"}
             }
-            earth-radius{
-                dnam{"радыус Зямлі"}
-                few{"{0} R⊕"}
-                many{"{0} R⊕"}
-                one{"{0} радыус Зямлі"}
-                other{"{0} радыуса Зямлі"}
-            }
-            fathom{
-                dnam{"фатамы"}
-                few{"{0} фатамы"}
-                many{"{0} фатамаў"}
-                one{"{0} фатам"}
-                other{"{0} фатама"}
-            }
             foot{
                 dnam{"футы"}
                 few{"{0} футы"}
@@ -651,13 +630,6 @@ be{
                 one{"{0} фут"}
                 other{"{0} фута"}
                 per{"{0} на фут"}
-            }
-            furlong{
-                dnam{"фурлонгі"}
-                few{"{0} фурлонгі"}
-                many{"{0} фурлонгаў"}
-                one{"{0} фурлонг"}
-                other{"{0} фурлонга"}
             }
             inch{
                 dnam{"цалі"}
@@ -769,20 +741,6 @@ be{
             }
         }
         light{
-            candela{
-                dnam{"кандэла"}
-                few{"{0} кандэлы"}
-                many{"{0} кандэл"}
-                one{"{0} кандэла"}
-                other{"{0} кандэлы"}
-            }
-            lumen{
-                dnam{"люмен"}
-                few{"{0} люмены"}
-                many{"{0} люменаў"}
-                one{"{0} люмен"}
-                other{"{0} люмена"}
-            }
             lux{
                 dnam{"люкс"}
                 few{"{0} люксы"}
@@ -819,13 +777,6 @@ be{
                 many{"{0} мас Зямлі"}
                 one{"{0} маса Зямлі"}
                 other{"{0} масы Зямлі"}
-            }
-            grain{
-                dnam{"граны"}
-                few{"{0} граны"}
-                many{"{0} гранаў"}
-                one{"{0} гран"}
-                other{"{0} грана"}
             }
             gram{
                 dnam{"грамы"}
@@ -893,13 +844,6 @@ be{
                 many{"{0} мас Сонца"}
                 one{"{0} маса Сонца"}
                 other{"{0} масы Сонца"}
-            }
-            stone{
-                dnam{"стоны"}
-                few{"{0} стоны"}
-                many{"{0} стонаў"}
-                one{"{0} стоўн"}
-                other{"{0} стона"}
             }
             ton{
                 dnam{"амерыканскія тоны"}
@@ -975,7 +919,7 @@ be{
                 one{"{0} гектапаскаль"}
                 other{"{0} гектапаскаля"}
             }
-            inch-ofhg{
+            inch-hg{
                 dnam{"цалі ртутнага слупа"}
                 few{"{0} цалі ртутнага слупа"}
                 many{"{0} цаляў ртутнага слупа"}
@@ -1003,7 +947,7 @@ be{
                 one{"{0} мілібар"}
                 other{"{0} мілібара"}
             }
-            millimeter-ofhg{
+            millimeter-of-mercury{
                 dnam{"міліметры ртутнага слупа"}
                 few{"{0} міліметры ртутнага слупа"}
                 many{"{0} міліметраў ртутнага слупа"}
@@ -1017,7 +961,7 @@ be{
                 one{"{0} паскаль"}
                 other{"{0} паскаля"}
             }
-            pound-force-per-square-inch{
+            pound-per-square-inch{
                 dnam{"фунты на квадратную цалю"}
                 few{"{0} фунты на квадратную цалю"}
                 many{"{0} фунтаў на квадратную цалю"}
@@ -1093,7 +1037,7 @@ be{
                 one{"{0} ньютан-метр"}
                 other{"{0} ньютан-метра"}
             }
-            pound-force-foot{
+            pound-foot{
                 dnam{"фунт-футы"}
                 few{"{0} фунт-футы"}
                 many{"{0} фунт-футаў"}
@@ -1115,13 +1059,6 @@ be{
                 many{"{0} барэляў"}
                 one{"{0} барэль"}
                 other{"{0} барэля"}
-            }
-            bushel{
-                dnam{"бушалі"}
-                few{"{0} бушалі"}
-                many{"{0} бушаляў"}
-                one{"{0} бушаль"}
-                other{"{0} бушаля"}
             }
             centiliter{
                 dnam{"сантылітр"}
@@ -1202,34 +1139,6 @@ be{
                 one{"{0} дэцылітр"}
                 other{"{0} дэцылітра"}
             }
-            dessert-spoon{
-                dnam{"дэсертная лыжка"}
-                few{"{0} дэсертныя лыжкі"}
-                many{"{0} дэсертных лыжак"}
-                one{"{0} дэсертная лыжка"}
-                other{"{0} дэсертнай лыжкі"}
-            }
-            dessert-spoon-imperial{
-                dnam{"брытанская дэсертная лыжка"}
-                few{"{0} брыт. дэс. л."}
-                many{"{0} брыт. дэс. л."}
-                one{"{0} брытанская дэсертная лыжка"}
-                other{"{0} брытанскай дэсертнай лыжкі"}
-            }
-            dram{
-                dnam{"драхма"}
-                few{"{0} вад. драхмы"}
-                many{"{0} вад. драхмаў"}
-                one{"{0} драхма"}
-                other{"{0} вад. драхмы"}
-            }
-            drop{
-                dnam{"кропля"}
-                few{"{0} кроплі"}
-                many{"{0} кропляў"}
-                one{"{0} кропля"}
-                other{"{0} кроплі"}
-            }
             fluid-ounce{
                 dnam{"вадкія унцыі"}
                 few{"{0} вадкія унцыі"}
@@ -1267,13 +1176,6 @@ be{
                 one{"{0} гекталітр"}
                 other{"{0} гекталітра"}
             }
-            jigger{
-                dnam{"джыгер"}
-                few{"{0} джыгеры"}
-                many{"{0} джыгераў"}
-                one{"{0} джыгер"}
-                other{"{0} джыгера"}
-            }
             liter{
                 dnam{"літры"}
                 few{"{0} літры"}
@@ -1296,13 +1198,6 @@ be{
                 one{"{0} мілілітр"}
                 other{"{0} мілілітра"}
             }
-            pinch{
-                dnam{"дробка"}
-                few{"{0} дробкі"}
-                many{"{0} дробак"}
-                one{"{0} дробка"}
-                other{"{0} дробкі"}
-            }
             pint{
                 dnam{"пінты"}
                 few{"{0} пінты"}
@@ -1323,13 +1218,6 @@ be{
                 many{"{0} кварт"}
                 one{"{0} кварта"}
                 other{"{0} кварты"}
-            }
-            quart-imperial{
-                dnam{"брыт. кварта"}
-                few{"{0} брыт. кварты"}
-                many{"{0} брыт. кварт"}
-                one{"{0} брыт. кварта"}
-                other{"{0} брыт. кварты"}
             }
             tablespoon{
                 dnam{"сталовыя лыжкі"}
@@ -1361,7 +1249,7 @@ be{
             }
         }
         consumption{
-            liter-per-100-kilometer{
+            liter-per-100kilometers{
                 dnam{"л/100 км"}
                 few{"{0} л/100 км"}
                 many{"{0} л/100 км"}
@@ -1513,7 +1401,7 @@ be{
                 one{"{0} g"}
                 other{"{0} g"}
             }
-            meter-per-square-second{
+            meter-per-second-squared{
                 dnam{"м/с²"}
                 few{"{0} м/с²"}
                 many{"{0} м/с²"}
@@ -1668,6 +1556,13 @@ be{
                 one{"{0} моль"}
                 other{"{0} моля"}
             }
+            part-per-million{
+                dnam{"ppm"}
+                few{"{0} ppm"}
+                many{"{0} ppm"}
+                one{"{0} ppm"}
+                other{"{0} ppm"}
+            }
             percent{
                 dnam{"%"}
                 few{"{0} %"}
@@ -1682,13 +1577,6 @@ be{
                 one{"{0} ‰"}
                 other{"{0} ‰"}
             }
-            permillion{
-                dnam{"ppm"}
-                few{"{0} ppm"}
-                many{"{0} ppm"}
-                one{"{0} ppm"}
-                other{"{0} ppm"}
-            }
             permyriad{
                 dnam{"‱"}
                 few{"{0} ‱"}
@@ -1698,7 +1586,7 @@ be{
             }
         }
         consumption{
-            liter-per-100-kilometer{
+            liter-per-100kilometers{
                 dnam{"л/100 км"}
                 few{"{0} л/100 км"}
                 many{"{0} л/100 км"}
@@ -1736,14 +1624,14 @@ be{
         }
         digital{
             bit{
-                dnam{"біт"}
+                dnam{"біты"}
                 few{"{0} біты"}
                 many{"{0} біт"}
                 one{"{0} біт"}
                 other{"{0} біта"}
             }
             byte{
-                dnam{"байт"}
+                dnam{"байты"}
                 few{"{0} байты"}
                 many{"{0} байт"}
                 one{"{0} байт"}
@@ -1792,7 +1680,7 @@ be{
                 other{"{0} МБ"}
             }
             petabyte{
-                dnam{"ПБ"}
+                dnam{"ПБайт"}
                 few{"{0} ПБ"}
                 many{"{0} ПБ"}
                 one{"{0} ПБ"}
@@ -2048,13 +1936,6 @@ be{
             }
         }
         graphics{
-            dot{
-                dnam{"кр"}
-                few{"{0} кр"}
-                many{"{0} кр"}
-                one{"{0} кр"}
-                other{"{0} кр"}
-            }
             dot-per-centimeter{
                 dnam{"кр/см"}
                 few{"{0} кр/см"}
@@ -2128,13 +2009,6 @@ be{
                 one{"{0} дм"}
                 other{"{0} дм"}
             }
-            fathom{
-                dnam{"фатамы"}
-                few{"{0} фат."}
-                many{"{0} фат."}
-                one{"{0} фат."}
-                other{"{0} фат."}
-            }
             foot{
                 dnam{"футы"}
                 few{"{0} футы"}
@@ -2142,13 +2016,6 @@ be{
                 one{"{0} фут"}
                 other{"{0} фута"}
                 per{"{0}/фут"}
-            }
-            furlong{
-                dnam{"фурлонгі"}
-                few{"{0} фур."}
-                many{"{0} фур."}
-                one{"{0} фур."}
-                other{"{0} фур."}
             }
             inch{
                 dnam{"цалі"}
@@ -2260,20 +2127,6 @@ be{
             }
         }
         light{
-            candela{
-                dnam{"кд"}
-                few{"{0} кд"}
-                many{"{0} кд"}
-                one{"{0} кд"}
-                other{"{0} кд"}
-            }
-            lumen{
-                dnam{"лм"}
-                few{"{0} лм"}
-                many{"{0} лм"}
-                one{"{0} лм"}
-                other{"{0} лм"}
-            }
             lux{
                 dnam{"лк"}
                 few{"{0} лк"}
@@ -2310,13 +2163,6 @@ be{
                 many{"{0} M⊕"}
                 one{"{0} M⊕"}
                 other{"{0} M⊕"}
-            }
-            grain{
-                dnam{"гран"}
-                few{"{0} граны"}
-                many{"{0} гранаў"}
-                one{"{0} гран"}
-                other{"{0} грана"}
             }
             gram{
                 dnam{"г"}
@@ -2384,13 +2230,6 @@ be{
                 many{"{0} M☉"}
                 one{"{0} M☉"}
                 other{"{0} M☉"}
-            }
-            stone{
-                dnam{"стоны"}
-                few{"{0} стоны"}
-                many{"{0} стонаў"}
-                one{"{0} стон"}
-                other{"{0} стона"}
             }
             ton{
                 dnam{"амер. т"}
@@ -2466,7 +2305,7 @@ be{
                 one{"{0} гПа"}
                 other{"{0} гПа"}
             }
-            inch-ofhg{
+            inch-hg{
                 dnam{"цалі рт. сл."}
                 few{"{0} цалі рт. сл."}
                 many{"{0} цаляў рт. сл."}
@@ -2494,7 +2333,7 @@ be{
                 one{"{0} мбар"}
                 other{"{0} мбар"}
             }
-            millimeter-ofhg{
+            millimeter-of-mercury{
                 dnam{"мм рт. сл."}
                 few{"{0} мм рт. сл."}
                 many{"{0} мм рт. сл."}
@@ -2508,7 +2347,7 @@ be{
                 one{"{0} Па"}
                 other{"{0} Па"}
             }
-            pound-force-per-square-inch{
+            pound-per-square-inch{
                 dnam{"фунты на кв. цалю"}
                 few{"{0} фунты на кв. цалю"}
                 many{"{0} фунтаў на кв. цалю"}
@@ -2584,7 +2423,7 @@ be{
                 one{"{0} Н⋅м"}
                 other{"{0} Н⋅м"}
             }
-            pound-force-foot{
+            pound-foot{
                 dnam{"фунт-футы"}
                 few{"{0} фунт-футы"}
                 many{"{0} фунт-футаў"}
@@ -2606,13 +2445,6 @@ be{
                 many{"{0} барэляў"}
                 one{"{0} барэль"}
                 other{"{0} барэля"}
-            }
-            bushel{
-                dnam{"бушалі"}
-                few{"{0} буш."}
-                many{"{0} буш."}
-                one{"{0} буш."}
-                other{"{0} буш."}
             }
             centiliter{
                 dnam{"сл"}
@@ -2693,34 +2525,6 @@ be{
                 one{"{0} дл"}
                 other{"{0} дл"}
             }
-            dessert-spoon{
-                dnam{"дэс. л."}
-                few{"{0} дэс. л."}
-                many{"{0} дэс. л."}
-                one{"{0} дэс. л."}
-                other{"{0} дэс. л."}
-            }
-            dessert-spoon-imperial{
-                dnam{"брыт. дэс. л."}
-                few{"{0} брыт. дэс. л."}
-                many{"{0} брыт. дэс. л."}
-                one{"{0} брыт. дэс. л."}
-                other{"{0} брыт. дэс. л."}
-            }
-            dram{
-                dnam{"вад. драхма"}
-                few{"{0} вад. драхмы"}
-                many{"{0} вад. драхмаў"}
-                one{"{0} вад. драхма"}
-                other{"{0} вад. драхмы"}
-            }
-            drop{
-                dnam{"кропля"}
-                few{"{0} кроплі"}
-                many{"{0} кропель"}
-                one{"{0} кропля"}
-                other{"{0} кроплі"}
-            }
             fluid-ounce{
                 dnam{"вадк. унц."}
                 few{"{0} вадк. унц."}
@@ -2758,13 +2562,6 @@ be{
                 one{"{0} гл"}
                 other{"{0} гл"}
             }
-            jigger{
-                dnam{"джыгер"}
-                few{"{0} джыгеры"}
-                many{"{0} джыгераў"}
-                one{"{0} джыгер"}
-                other{"{0} джыгера"}
-            }
             liter{
                 dnam{"л"}
                 few{"{0} л"}
@@ -2787,13 +2584,6 @@ be{
                 one{"{0} мл"}
                 other{"{0} мл"}
             }
-            pinch{
-                dnam{"дробка"}
-                few{"{0} дробкі"}
-                many{"{0} дробак"}
-                one{"{0} дробка"}
-                other{"{0} дробкі"}
-            }
             pint{
                 dnam{"пінты"}
                 few{"{0} пінты"}
@@ -2814,13 +2604,6 @@ be{
                 many{"{0} кварт"}
                 one{"{0} кварта"}
                 other{"{0} кварты"}
-            }
-            quart-imperial{
-                dnam{"брыт. кварта"}
-                few{"{0} брыт. кварты"}
-                many{"{0} брыт. кварт"}
-                one{"{0} брыт. кварта"}
-                other{"{0} брыт. кварты"}
             }
             tablespoon{
                 dnam{"ст. лыжкі"}

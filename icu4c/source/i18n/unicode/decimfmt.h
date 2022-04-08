@@ -53,10 +53,10 @@ class CompactDecimalFormat;
 
 namespace number {
 class LocalizedNumberFormatter;
+class FormattedNumber;
 namespace impl {
 class DecimalQuantity;
 struct DecimalFormatFields;
-class UFormattedNumberData;
 }
 }
 
@@ -564,11 +564,11 @@ class NumberParserImpl;
  *
  * <li>In order to enable significant digits formatting, use a pattern
  * containing the <code>'@'</code> pattern character.  Alternatively,
- * call setSignificantDigitsUsed(true).
+ * call setSignificantDigitsUsed(TRUE).
  *
  * <li>In order to disable significant digits formatting, use a
  * pattern that does not contain the <code>'@'</code> pattern
- * character. Alternatively, call setSignificantDigitsUsed(false).
+ * character. Alternatively, call setSignificantDigitsUsed(FALSE).
  *
  * <li>The number of significant digits has no effect on parsing.
  *
@@ -817,8 +817,8 @@ class U_I18N_API DecimalFormat : public NumberFormat {
     /**
      * Sets whether lenient parsing should be enabled (it is off by default).
      *
-     * @param enable \c true if lenient parsing should be used,
-     *               \c false otherwise.
+     * @param enable \c TRUE if lenient parsing should be used,
+     *               \c FALSE otherwise.
      * @stable ICU 4.8
      */
     void setLenient(UBool enable) U_OVERRIDE;
@@ -1283,13 +1283,14 @@ class U_I18N_API DecimalFormat : public NumberFormat {
      */
     virtual void setNegativeSuffix(const UnicodeString& newValue);
 
+#ifndef U_HIDE_DRAFT_API
     /**
      * Whether to show the plus sign on positive (non-negative) numbers; for example, "+12"
      *
      * For more control over sign display, use NumberFormatter.
      *
      * @return Whether the sign is shown on positive numbers and zero.
-     * @stable ICU 64
+     * @draft ICU 64
      */
     UBool isSignAlwaysShown() const;
 
@@ -1299,9 +1300,10 @@ class U_I18N_API DecimalFormat : public NumberFormat {
      * For more control over sign display, use NumberFormatter.
      *
      * @param value true to always show a sign; false to hide the sign on positive numbers and zero.
-     * @stable ICU 64
+     * @draft ICU 64
      */
     void setSignAlwaysShown(UBool value);
+#endif  /* U_HIDE_DRAFT_API */
 
     /**
      * Get the multiplier for use in percent, permill, etc.
@@ -1507,7 +1509,7 @@ class U_I18N_API DecimalFormat : public NumberFormat {
 
     /**
      * Return whether or not scientific notation is used.
-     * @return true if this object formats and parses scientific notation
+     * @return TRUE if this object formats and parses scientific notation
      * @see #setScientificNotation
      * @see #getMinimumExponentDigits
      * @see #setMinimumExponentDigits
@@ -1523,7 +1525,7 @@ class U_I18N_API DecimalFormat : public NumberFormat {
      * maximum number of integer digits is set to more than 8, the effective
      * maximum will be 1.  This allows this call to generate a 'default' scientific
      * number format without additional changes.
-     * @param useScientific true if this object formats and parses scientific
+     * @param useScientific TRUE if this object formats and parses scientific
      * notation
      * @see #isScientificNotation
      * @see #getMinimumExponentDigits
@@ -1562,7 +1564,7 @@ class U_I18N_API DecimalFormat : public NumberFormat {
 
     /**
      * Return whether the exponent sign is always shown.
-     * @return true if the exponent is always prefixed with either the
+     * @return TRUE if the exponent is always prefixed with either the
      * localized minus sign or the localized plus sign, false if only negative
      * exponents are prefixed with the localized minus sign.
      * @see #setScientificNotation
@@ -1577,7 +1579,7 @@ class U_I18N_API DecimalFormat : public NumberFormat {
     /**
      * Set whether the exponent sign is always shown.  This has no effect
      * unless scientific notation is in use.
-     * @param expSignAlways true if the exponent is always prefixed with either
+     * @param expSignAlways TRUE if the exponent is always prefixed with either
      * the localized minus sign or the localized plus sign, false if only
      * negative exponents are prefixed with the localized minus sign.
      * @see #setScientificNotation
@@ -1648,6 +1650,7 @@ class U_I18N_API DecimalFormat : public NumberFormat {
      */
     virtual void setSecondaryGroupingSize(int32_t newValue);
 
+#ifndef U_HIDE_DRAFT_API
     /**
      * Returns the minimum number of grouping digits.
      * Grouping separators are output if there are at least this many
@@ -1669,34 +1672,29 @@ class U_I18N_API DecimalFormat : public NumberFormat {
      *
      * @see setMinimumGroupingDigits
      * @see getGroupingSize
-     * @stable ICU 64
+     * @draft ICU 64
      */
     int32_t getMinimumGroupingDigits() const;
 
     /**
-     * Sets the minimum grouping digits. Setting the value to
-     *  - 1: Turns off minimum grouping digits.
-     *  - 0 or -1: The behavior is undefined.
-     *  - UNUM_MINIMUM_GROUPING_DIGITS_AUTO: Display grouping using the default
-     *      strategy for all locales.
-     *  - UNUM_MINIMUM_GROUPING_DIGITS_MIN2: Display grouping using locale
-     *      defaults, except do not show grouping on values smaller than 10000
-     *      (such that there is a minimum of two digits before the first
-     *      separator).
+     * Sets the minimum grouping digits. Setting to a value less than or
+     * equal to 1 turns off minimum grouping digits.
      *
      * For more control over grouping strategies, use NumberFormatter.
      *
      * @param newValue the new value of minimum grouping digits.
      * @see getMinimumGroupingDigits
-     * @stable ICU 64
+     * @draft ICU 64
      */
     void setMinimumGroupingDigits(int32_t newValue);
+#endif  /* U_HIDE_DRAFT_API */
+
 
     /**
      * Allows you to get the behavior of the decimal separator with integers.
      * (The decimal separator will always appear with decimals.)
      *
-     * @return    true if the decimal separator always appear with decimals.
+     * @return    TRUE if the decimal separator always appear with decimals.
      * Example: Decimal ON: 12345 -> 12345.; OFF: 12345 -> 12345
      * @stable ICU 2.0
      */
@@ -1706,7 +1704,7 @@ class U_I18N_API DecimalFormat : public NumberFormat {
      * Allows you to set the behavior of the decimal separator with integers.
      * (The decimal separator will always appear with decimals.)
      *
-     * @param newValue    set true if the decimal separator will always appear with decimals.
+     * @param newValue    set TRUE if the decimal separator will always appear with decimals.
      * Example: Decimal ON: 12345 -> 12345.; OFF: 12345 -> 12345
      * @stable ICU 2.0
      */
@@ -1715,7 +1713,7 @@ class U_I18N_API DecimalFormat : public NumberFormat {
     /**
      * Allows you to get the parse behavior of the pattern decimal mark.
      *
-     * @return    true if input must contain a match to decimal mark in pattern
+     * @return    TRUE if input must contain a match to decimal mark in pattern
      * @stable ICU 54
      */
     UBool isDecimalPatternMatchRequired(void) const;
@@ -1723,20 +1721,21 @@ class U_I18N_API DecimalFormat : public NumberFormat {
     /**
      * Allows you to set the parse behavior of the pattern decimal mark.
      *
-     * if true, the input must have a decimal mark if one was specified in the pattern. When
-     * false the decimal mark may be omitted from the input.
+     * if TRUE, the input must have a decimal mark if one was specified in the pattern. When
+     * FALSE the decimal mark may be omitted from the input.
      *
-     * @param newValue    set true if input must contain a match to decimal mark in pattern
+     * @param newValue    set TRUE if input must contain a match to decimal mark in pattern
      * @stable ICU 54
      */
     virtual void setDecimalPatternMatchRequired(UBool newValue);
 
+#ifndef U_HIDE_DRAFT_API
     /**
      * Returns whether to ignore exponents when parsing.
      *
      * @return Whether to ignore exponents when parsing.
      * @see #setParseNoExponent
-     * @stable ICU 64
+     * @draft ICU 64
      */
     UBool isParseNoExponent() const;
 
@@ -1746,7 +1745,7 @@ class U_I18N_API DecimalFormat : public NumberFormat {
      * 5).
      *
      * @param value true to prevent exponents from being parsed; false to allow them to be parsed.
-     * @stable ICU 64
+     * @draft ICU 64
      */
     void setParseNoExponent(UBool value);
 
@@ -1755,7 +1754,7 @@ class U_I18N_API DecimalFormat : public NumberFormat {
      *
      * @return Whether parsing is case-sensitive.
      * @see #setParseCaseSensitive
-     * @stable ICU 64
+     * @draft ICU 64
      */
     UBool isParseCaseSensitive() const;
 
@@ -1768,7 +1767,7 @@ class U_I18N_API DecimalFormat : public NumberFormat {
      *
      * @param value true to enable case-sensitive parsing (the default); false to force
      *              case-sensitive parsing behavior.
-     * @stable ICU 64
+     * @draft ICU 64
      */
     void setParseCaseSensitive(UBool value);
 
@@ -1778,7 +1777,7 @@ class U_I18N_API DecimalFormat : public NumberFormat {
      *
      * @return Whether an error code is set if high-order digits are truncated.
      * @see setFormatFailIfMoreThanMaxDigits
-     * @stable ICU 64
+     * @draft ICU 64
      */
     UBool isFormatFailIfMoreThanMaxDigits() const;
 
@@ -1787,9 +1786,11 @@ class U_I18N_API DecimalFormat : public NumberFormat {
      * By default, setMaximumIntegerDigits truncates high-order digits silently.
      *
      * @param value Whether to set an error code if high-order digits are truncated.
-     * @stable ICU 64
+     * @draft ICU 64
      */
     void setFormatFailIfMoreThanMaxDigits(UBool value);
+#endif  /* U_HIDE_DRAFT_API */
+
 
     /**
      * Synthesizes a pattern string that represents the current state
@@ -1969,7 +1970,7 @@ class U_I18N_API DecimalFormat : public NumberFormat {
      * to one.  If the maximum significant digits count is less than
      * <code>min</code>, then it is set to <code>min</code>.
      * This function also enables the use of significant digits
-     * by this formatter - areSignificantDigitsUsed() will return true.
+     * by this formatter - areSignificantDigitsUsed() will return TRUE.
      * @see #areSignificantDigitsUsed
      * @param min the fewest significant digits to be shown
      * @stable ICU 3.0
@@ -1982,7 +1983,7 @@ class U_I18N_API DecimalFormat : public NumberFormat {
      * to one.  If the minimum significant digits count is greater
      * than <code>max</code>, then it is set to <code>max</code>.
      * This function also enables the use of significant digits
-     * by this formatter - areSignificantDigitsUsed() will return true.
+     * by this formatter - areSignificantDigitsUsed() will return TRUE.
      * @see #areSignificantDigitsUsed
      * @param max the most significant digits to be shown
      * @stable ICU 3.0
@@ -2066,6 +2067,7 @@ class U_I18N_API DecimalFormat : public NumberFormat {
 
 #endif  /* U_HIDE_INTERNAL_API */
 
+#ifndef U_HIDE_DRAFT_API
     /**
      * Converts this DecimalFormat to a (Localized)NumberFormatter. Starting
      * in ICU 60, NumberFormatter is the recommended way to format numbers.
@@ -2109,9 +2111,10 @@ class U_I18N_API DecimalFormat : public NumberFormat {
      * @param status Set on failure, like U_MEMORY_ALLOCATION_ERROR.
      * @return A pointer to an internal object, or nullptr on failure.
      *         Do not delete the return value!
-     * @stable ICU 64
+     * @draft ICU 64
      */
     const number::LocalizedNumberFormatter* toNumberFormatter(UErrorCode& status) const;
+#endif  /* U_HIDE_DRAFT_API */
 
     /**
      * Return the class ID for this class.  This is useful only for
@@ -2165,17 +2168,11 @@ class U_I18N_API DecimalFormat : public NumberFormat {
 
     const numparse::impl::NumberParserImpl* getCurrencyParser(UErrorCode& status) const;
 
-    static void fieldPositionHelper(
-        const number::impl::UFormattedNumberData& formatted,
-        FieldPosition& fieldPosition,
-        int32_t offset,
-        UErrorCode& status);
+    static void fieldPositionHelper(const number::FormattedNumber& formatted, FieldPosition& fieldPosition,
+                                    int32_t offset, UErrorCode& status);
 
-    static void fieldPositionIteratorHelper(
-        const number::impl::UFormattedNumberData& formatted,
-        FieldPositionIterator* fpi,
-        int32_t offset,
-        UErrorCode& status);
+    static void fieldPositionIteratorHelper(const number::FormattedNumber& formatted,
+                                            FieldPositionIterator* fpi, int32_t offset, UErrorCode& status);
 
     void setupFastFormat();
 

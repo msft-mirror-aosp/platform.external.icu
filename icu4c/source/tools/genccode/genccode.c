@@ -69,7 +69,6 @@ enum {
 #ifdef CAN_GENERATE_OBJECTS
   kOptObject,
   kOptMatchArch,
-  kOptSkipDllExport,
 #endif
   kOptFilename,
   kOptAssembly
@@ -83,9 +82,8 @@ static UOption options[]={
      UOPTION_DEF("name", 'n', UOPT_REQUIRES_ARG),
      UOPTION_DEF("entrypoint", 'e', UOPT_REQUIRES_ARG),
 #ifdef CAN_GENERATE_OBJECTS
-/*6*/UOPTION_DEF("object", 'o', UOPT_NO_ARG),
+/*5*/UOPTION_DEF("object", 'o', UOPT_NO_ARG),
      UOPTION_DEF("match-arch", 'm', UOPT_REQUIRES_ARG),
-     UOPTION_DEF("skip-dll-export", '\0', UOPT_NO_ARG),
 #endif
      UOPTION_DEF("filename", 'f', UOPT_REQUIRES_ARG),
      UOPTION_DEF("assembly", 'a', UOPT_REQUIRES_ARG)
@@ -129,8 +127,7 @@ main(int argc, char* argv[]) {
         fprintf(stderr,
             "\t-o or --object      write a .obj file instead of .c\n"
             "\t-m or --match-arch file.o  match the architecture (CPU, 32/64 bits) of the specified .o\n"
-            "\t                    ELF format defaults to i386. Windows defaults to the native platform.\n"
-            "\t--skip-dll-export   Don't export the ICU data entry point symbol (for use when statically linking)\n");
+            "\t                    ELF format defaults to i386. Windows defaults to the native platform.\n");
 #endif
         fprintf(stderr,
             "\t-f or --filename    Specify an alternate base filename. (default: symbolname_typ)\n"
@@ -196,8 +193,7 @@ main(int argc, char* argv[]) {
                                 options[kOptMatchArch].doesOccur ? options[kOptMatchArch].value : NULL,
                                 options[kOptFilename].doesOccur ? options[kOptFilename].value : NULL,
                                 NULL,
-                                0,
-                                !options[kOptSkipDllExport].doesOccur);
+                                0);
                 break;
 #endif
             default:

@@ -8,7 +8,6 @@
 #include "formatted_string_builder.h"
 #include "unicode/ustring.h"
 #include "unicode/utf16.h"
-#include "unicode/unum.h" // for UNumberFormatFields literals
 
 namespace {
 
@@ -247,7 +246,7 @@ void FormattedStringBuilder::writeTerminator(UErrorCode& status) {
         return;
     }
     getCharPtr()[position] = 0;
-    getFieldPtr()[position] = kUndefinedField;
+    getFieldPtr()[position] = UNUM_FIELD_COUNT;
     fLength--;
 }
 
@@ -276,11 +275,6 @@ int32_t FormattedStringBuilder::prepareForInsertHelper(int32_t index, int32_t co
     char16_t *oldChars = getCharPtr();
     Field *oldFields = getFieldPtr();
     if (fLength + count > oldCapacity) {
-        if ((fLength + count) > INT32_MAX / 2) {
-            // If we continue, then newCapacity will overlow int32_t in the next line.
-            status = U_INPUT_TOO_LONG_ERROR;
-            return -1;
-        }
         int32_t newCapacity = (fLength + count) * 2;
         int32_t newZero = newCapacity / 2 - (fLength + count) / 2;
 
@@ -335,14 +329,12 @@ int32_t FormattedStringBuilder::prepareForInsertHelper(int32_t index, int32_t co
         fZero = newZero;
         fLength += count;
     }
-    U_ASSERT((fZero + index) >= 0);
     return fZero + index;
 }
 
 int32_t FormattedStringBuilder::remove(int32_t index, int32_t count) {
     // TODO: Reset the heap here?  (If the string after removal can fit on stack?)
     int32_t position = index + fZero;
-    U_ASSERT(position >= 0);
     uprv_memmove2(getCharPtr() + position,
             getCharPtr() + position + count,
             sizeof(char16_t) * (fLength - index - count));
@@ -368,11 +360,11 @@ UnicodeString FormattedStringBuilder::toDebugString() const {
     sb.append(toUnicodeString());
     sb.append(u"] [", -1);
     for (int i = 0; i < fLength; i++) {
-        if (fieldAt(i) == kUndefinedField) {
+        if (fieldAt(i) == UNUM_FIELD_COUNT) {
             sb.append(u'n');
-        } else if (fieldAt(i).getCategory() == UFIELD_CATEGORY_NUMBER) {
+        } else {
             char16_t c;
-            switch (fieldAt(i).getField()) {
+            switch (fieldAt(i)) {
                 case UNUM_SIGN_FIELD:
                     c = u'-';
                     break;
@@ -407,12 +399,10 @@ UnicodeString FormattedStringBuilder::toDebugString() const {
                     c = u'$';
                     break;
                 default:
-                    c = u'0' + fieldAt(i).getField();
+                    c = u'?';
                     break;
             }
             sb.append(c);
-        } else {
-            sb.append(u'0' + fieldAt(i).getCategory());
         }
     }
     sb.append(u"]>", -1);

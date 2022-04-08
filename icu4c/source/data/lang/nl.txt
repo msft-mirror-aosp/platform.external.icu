@@ -1,6 +1,5 @@
 ﻿// © 2016 and later: Unicode, Inc. and others.
-// License & terms of use: http://www.unicode.org/copyright.html
-// Generated using tools/cldr/cldr-to-icu/build-icu-data.xml
+// License & terms of use: http://www.unicode.org/copyright.html#License
 nl{
     Keys{
         calendar{"kalender"}
@@ -72,7 +71,7 @@ nl{
         bax{"Bamoun"}
         bbc{"Batak Toba"}
         bbj{"Ghomala’"}
-        be{"Belarussisch"}
+        be{"Wit-Russisch"}
         bej{"Beja"}
         bem{"Bemba"}
         bew{"Betawi"}
@@ -173,7 +172,6 @@ nl{
         ewo{"Ewondo"}
         ext{"Extremeens"}
         fa{"Perzisch"}
-        fa_AF{"Dari"}
         fan{"Fang"}
         fat{"Fanti"}
         ff{"Fulah"}
@@ -379,7 +377,7 @@ nl{
         ms{"Maleis"}
         mt{"Maltees"}
         mua{"Mundang"}
-        mul{"meerdere talen"}
+        mul{"Meerdere talen"}
         mus{"Creek"}
         mwl{"Mirandees"}
         mwr{"Marwari"}
@@ -628,15 +626,13 @@ nl{
         zh_Hant{"Mandarijn (traditioneel)"}
     }
     Languages%menu{
-        ars{"Arabisch, Nadjdi"}
-        ckb{"Koerdisch, Soranî"}
+        yue{"Kantonees"}
         zh{"Mandarijn"}
     }
     Languages%short{
         az{"Azeri"}
     }
     Languages%variant{
-        ckb{"Koerdisch, Soranî"}
         ps{"Pashto"}
     }
     Scripts{
@@ -645,7 +641,6 @@ nl{
         Aghb{"Kaukasisch Albanees"}
         Ahom{"Ahom"}
         Arab{"Arabisch"}
-        Aran{"Nastaliq"}
         Armi{"Keizerlijk Aramees"}
         Armn{"Armeens"}
         Avst{"Avestaans"}
@@ -658,7 +653,7 @@ nl{
         Blis{"Blissymbolen"}
         Bopo{"Bopomofo"}
         Brah{"Brahmi"}
-        Brai{"braille"}
+        Brai{"Braille"}
         Bugi{"Buginees"}
         Buhd{"Buhid"}
         Cakm{"Chakma"}
@@ -666,14 +661,12 @@ nl{
         Cari{"Carisch"}
         Cham{"Cham"}
         Cher{"Cherokee"}
-        Chrs{"Chorasmisch"}
         Cirt{"Cirth"}
         Copt{"Koptisch"}
         Cprt{"Cyprisch"}
         Cyrl{"Cyrillisch"}
         Cyrs{"Oudkerkslavisch Cyrillisch"}
         Deva{"Devanagari"}
-        Diak{"Dives Akuru"}
         Dogr{"Dogra"}
         Dsrt{"Deseret"}
         Dupl{"Duployan snelschrift"}
@@ -693,7 +686,7 @@ nl{
         Grek{"Grieks"}
         Gujr{"Gujarati"}
         Guru{"Gurmukhi"}
-        Hanb{"Han met Bopomofo"}
+        Hanb{"Hanb"}
         Hang{"Hangul"}
         Hani{"Han"}
         Hano{"Hanunoo"}
@@ -718,7 +711,6 @@ nl{
         Khar{"Kharoshthi"}
         Khmr{"Khmer"}
         Khoj{"Khojki"}
-        Kits{"Kitaans kleinschrift"}
         Knda{"Kannada"}
         Kore{"Koreaans"}
         Kpel{"Kpelle"}
@@ -777,7 +769,7 @@ nl{
         Phnx{"Foenicisch"}
         Plrd{"Pollard-fonetisch"}
         Prti{"Inscriptioneel Parthisch"}
-        Qaag{"Zawgyi"}
+        Qaag{"Qaag"}
         Rjng{"Rejang"}
         Rohg{"Hanifi Rohingya"}
         Roro{"Rongorongo"}
@@ -825,13 +817,12 @@ nl{
         Wole{"Woleai"}
         Xpeo{"Oudperzisch"}
         Xsux{"Sumero-Akkadian Cuneiform"}
-        Yezi{"Jezidi"}
         Yiii{"Yi"}
         Zanb{"vierkant Zanabazar"}
         Zinh{"Overgeërfd"}
-        Zmth{"wiskundige notatie"}
+        Zmth{"Wiskundige notatie"}
         Zsye{"emoji"}
-        Zsym{"symbolen"}
+        Zsym{"Symbolen"}
         Zxxx{"ongeschreven"}
         Zyyy{"algemeen"}
         Zzzz{"onbekend schriftsysteem"}
@@ -958,7 +949,6 @@ nl{
             cham{"Cham cijfers"}
             cyrl{"Cyrillische cijfers"}
             deva{"Devanagari cijfers"}
-            diak{"Dives Akuru cijfers"}
             ethi{"Ethiopische cijfers"}
             finance{"Financiële cijfers"}
             fullwide{"cijfers met volledige breedte"}
@@ -1056,7 +1046,6 @@ nl{
         BISKE{"San Giorgio/Bila-dialect"}
         BOHORIC{"Bohorič-alfabet"}
         BOONT{"Boontling"}
-        BORNHOLM{"Bornholms"}
         CISAUP{"Cisaup"}
         COLB1945{"Portugese-Braziliaanse spellingsverdrag van 1945"}
         CORNU{"Cornu"}
@@ -1135,6 +1124,7 @@ nl{
         WADEGILE{"Wade-Giles-romanisering"}
         XSISTEMO{"X-sistemo"}
     }
+    Version{"36.1"}
     characterLabelPattern{
         all{"{0} — alle"}
         category-list{"{0}: {1}"}

@@ -1,7 +1,7 @@
 ﻿// © 2016 and later: Unicode, Inc. and others.
-// License & terms of use: http://www.unicode.org/copyright.html
-// Generated using tools/cldr/cldr-to-icu/build-icu-data.xml
+// License & terms of use: http://www.unicode.org/copyright.html#License
 jv{
+    Version{"36.1"}
     zoneStrings{
         "Africa:Abidjan"{
             ec{"Abidjan"}
@@ -1704,9 +1704,7 @@ jv{
             ls{"Wektu Niue"}
         }
         "meta:Norfolk"{
-            ld{"Wektu Ketigo Pulo Norfolk"}
-            lg{"Wektu Pulo Norfolk"}
-            ls{"Wektu Standar Pulo Norfolk"}
+            ls{"Wektu Pulo Norfolk"}
         }
         "meta:Noronha"{
             ld{"Wektu Ketigo Fernando de Noronha"}

@@ -1,6 +1,6 @@
 /* GENERATED SOURCE. DO NOT MODIFY. */
 // © 2018 and later: Unicode, Inc. and others.
-// License & terms of use: http://www.unicode.org/copyright.html
+// License & terms of use: http://www.unicode.org/copyright.html#License
 package android.icu.impl.number;
 
 import java.io.Externalizable;
@@ -13,9 +13,7 @@ import java.text.FieldPosition;
 import java.text.Format;
 import java.text.ParsePosition;
 
-import android.icu.impl.FormattedStringBuilder;
-import android.icu.impl.FormattedValueStringBuilderImpl;
-import android.icu.impl.Utility;
+import android.icu.number.FormattedNumber;
 import android.icu.number.LocalizedNumberFormatter;
 import android.icu.number.NumberFormatter;
 import android.icu.util.ULocale;
@@ -50,18 +48,16 @@ public class LocalizedNumberFormatterAsFormat extends Format {
         if (!(obj instanceof Number)) {
             throw new IllegalArgumentException();
         }
-        DecimalQuantity dq = new DecimalQuantity_DualStorageBCD((Number) obj);
-        FormattedStringBuilder string = new FormattedStringBuilder();
-        formatter.formatImpl(dq, string);
+        FormattedNumber result = formatter.format((Number) obj);
         // always return first occurrence:
         pos.setBeginIndex(0);
         pos.setEndIndex(0);
-        boolean found = FormattedValueStringBuilderImpl.nextFieldPosition(string, pos);
+        boolean found = result.nextFieldPosition(pos);
         if (found && toAppendTo.length() != 0) {
             pos.setBeginIndex(pos.getBeginIndex() + toAppendTo.length());
             pos.setEndIndex(pos.getEndIndex() + toAppendTo.length());
         }
-        Utility.appendTo(string, toAppendTo);
+        result.appendTo(toAppendTo);
         return toAppendTo;
     }
 

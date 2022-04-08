@@ -1,6 +1,6 @@
 /* GENERATED SOURCE. DO NOT MODIFY. */
 // © 2017 and later: Unicode, Inc. and others.
-// License & terms of use: http://www.unicode.org/copyright.html
+// License & terms of use: http://www.unicode.org/copyright.html#License
 package android.icu.impl.number;
 
 import java.text.Format.Field;
@@ -20,8 +20,8 @@ public class ConstantMultiFieldModifier implements Modifier {
     // value and is treated internally as immutable.
     protected final char[] prefixChars;
     protected final char[] suffixChars;
-    protected final Object[] prefixFields;
-    protected final Object[] suffixFields;
+    protected final Field[] prefixFields;
+    protected final Field[] suffixFields;
     private final boolean overwrite;
     private final boolean strong;
 

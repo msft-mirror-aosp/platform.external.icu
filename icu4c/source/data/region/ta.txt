@@ -1,6 +1,5 @@
 ﻿// © 2016 and later: Unicode, Inc. and others.
-// License & terms of use: http://www.unicode.org/copyright.html
-// Generated using tools/cldr/cldr-to-icu/build-icu-data.xml
+// License & terms of use: http://www.unicode.org/copyright.html#License
 ta{
     Countries{
         001{"உலகம்"}
@@ -308,6 +307,8 @@ ta{
         CG{"காங்கோ (குடியரசு)"}
         CI{"ஐவரி கோஸ்ட்"}
         CZ{"செக் குடியரசு"}
+        SZ{"எஸ்வாட்டீனி"}
         TL{"கிழக்கு தைமூர்"}
     }
+    Version{"36.1"}
 }

@@ -1,10 +1,10 @@
 ﻿// © 2016 and later: Unicode, Inc. and others.
-// License & terms of use: http://www.unicode.org/copyright.html
-// Generated using tools/cldr/cldr-to-icu/build-icu-data.xml
+// License & terms of use: http://www.unicode.org/copyright.html#License
 en_001{
+    Version{"36.1"}
     units{
         acceleration{
-            meter-per-square-second{
+            meter-per-second-squared{
                 dnam{"metres per second squared"}
                 one{"{0} metre per second squared"}
                 other{"{0} metres per second squared"}
@@ -58,7 +58,7 @@ en_001{
             }
         }
         consumption{
-            liter-per-100-kilometer{
+            liter-per-100kilometers{
                 dnam{"litres per 100 kilometres"}
                 one{"{0} litre per 100 kilometres"}
                 other{"{0} litres per 100 kilometres"}
@@ -79,15 +79,7 @@ en_001{
                 other{"{0} miles per gallon"}
             }
         }
-        energy{
-            kilowatt-hour{
-                one{"{0} kilowatt-hour"}
-            }
-        }
         graphics{
-            dot{
-                other{"{0} dots"}
-            }
             dot-per-centimeter{
                 dnam{"dots per centimetre"}
                 one{"{0} dot per centimetre"}
@@ -111,9 +103,6 @@ en_001{
                 one{"{0} decimetre"}
                 other{"{0} decimetres"}
             }
-            earth-radius{
-                other{"{0} earth radii"}
-            }
             kilometer{
                 dnam{"kilometres"}
                 one{"{0} kilometre"}
@@ -131,11 +120,6 @@ en_001{
                 one{"{0} micrometre"}
                 other{"{0} micrometres"}
             }
-            mile-scandinavian{
-                dnam{"Scandinavian mile"}
-                one{"{0} Scandinavian mile"}
-                other{"{0} Scandinavian miles"}
-            }
             millimeter{
                 dnam{"millimetres"}
                 one{"{0} millimetre"}
@@ -152,18 +136,7 @@ en_001{
                 other{"{0} picometres"}
             }
         }
-        light{
-            candela{
-                other{"{0} candelas"}
-            }
-            lumen{
-                other{"{0} lumens"}
-            }
-        }
         mass{
-            grain{
-                other{"{0} grains"}
-            }
             metric-ton{
                 dnam{"tonnes"}
                 one{"{0} tonne"}
@@ -176,7 +149,7 @@ en_001{
             }
         }
         pressure{
-            millimeter-ofhg{
+            millimeter-of-mercury{
                 dnam{"millimetres of mercury"}
                 one{"{0} millimetre of mercury"}
                 other{"{0} millimetres of mercury"}
@@ -195,9 +168,6 @@ en_001{
             }
         }
         temperature{
-            generic{
-                dnam{"degree"}
-            }
             kelvin{
                 dnam{"kelvin"}
                 one{"{0} kelvin"}
@@ -239,22 +209,6 @@ en_001{
                 one{"{0} decilitre"}
                 other{"{0} decilitres"}
             }
-            dessert-spoon{
-                dnam{"US dessertspoon"}
-                one{"{0} US dessertspoon"}
-                other{"{0} US dessertspoons"}
-            }
-            dessert-spoon-imperial{
-                dnam{"dessertspoon"}
-                one{"{0} dessertspoon"}
-                other{"{0} dessertspoons"}
-            }
-            dram{
-                other{"{0} drams"}
-            }
-            drop{
-                other{"{0} drops"}
-            }
             fluid-ounce{
                 dnam{"US fluid ounces"}
                 one{"{0} US fluid ounce"}
@@ -277,9 +231,6 @@ en_001{
                 one{"{0} hectolitre"}
                 other{"{0} hectolitres"}
             }
-            jigger{
-                other{"{0} jiggers"}
-            }
             liter{
                 dnam{"litres"}
                 one{"{0} litre"}
@@ -295,19 +246,6 @@ en_001{
                 dnam{"millilitres"}
                 one{"{0} millilitre"}
                 other{"{0} millilitres"}
-            }
-            pinch{
-                other{"{0} pinches"}
-            }
-            quart{
-                dnam{"US quarts"}
-                one{"{0} US quart"}
-                other{"{0} US quarts"}
-            }
-            quart-imperial{
-                dnam{"quart"}
-                one{"{0} quart"}
-                other{"{0} quarts"}
             }
         }
     }
@@ -330,7 +268,7 @@ en_001{
             }
         }
         consumption{
-            liter-per-100-kilometer{
+            liter-per-100kilometers{
                 dnam{"l/100km"}
                 one{"{0}l/100km"}
                 other{"{0}l/100km"}
@@ -365,9 +303,6 @@ en_001{
         speed{
             kilometer-per-hour{
                 dnam{"km/h"}
-            }
-            mile-per-hour{
-                dnam{"mph"}
             }
         }
         temperature{
@@ -428,13 +363,8 @@ en_001{
     }
     unitsShort{
         acceleration{
-            meter-per-square-second{
+            meter-per-second-squared{
                 dnam{"metres/sec²"}
-            }
-        }
-        angle{
-            revolution{
-                other{"{0} revs"}
             }
         }
         area{
@@ -454,7 +384,7 @@ en_001{
                 other{"{0} mg/dl"}
             }
             millimole-per-liter{
-                dnam{"millimole/litre"}
+                dnam{"millimol/litre"}
                 one{"{0} mmol/l"}
                 other{"{0} mmol/l"}
             }
@@ -466,7 +396,7 @@ en_001{
             }
         }
         consumption{
-            liter-per-100-kilometer{
+            liter-per-100kilometers{
                 dnam{"l/100 km"}
                 one{"{0} l/100 km"}
                 other{"{0} l/100 km"}
@@ -477,7 +407,7 @@ en_001{
                 other{"{0} l/km"}
             }
             mile-per-gallon{
-                dnam{"miles/US gal"}
+                dnam{"miles/gal US"}
                 one{"{0} mpg US"}
                 other{"{0} mpg US"}
             }
@@ -492,11 +422,6 @@ en_001{
                 one{"{0} hr"}
                 other{"{0} hrs"}
             }
-            microsecond{
-                dnam{"μsecs"}
-                one{"{0} μs"}
-                other{"{0} μs"}
-            }
             minute{
                 one{"{0} min"}
                 other{"{0} mins"}
@@ -504,12 +429,6 @@ en_001{
             second{
                 one{"{0} sec"}
                 other{"{0} secs"}
-            }
-        }
-        graphics{
-            dot{
-                one{"{0} dot"}
-                other{"{0} dots"}
             }
         }
         length{
@@ -521,16 +440,13 @@ en_001{
             }
         }
         mass{
-            carat{
-                one{"{0} ct"}
-                other{"{0} ct"}
-            }
-            grain{
-                one{"{0} grains"}
-                other{"{0} grains"}
-            }
             stone{
                 dnam{"stone"}
+            }
+        }
+        pressure{
+            inch-hg{
+                dnam{"inHG"}
             }
         }
         speed{
@@ -549,25 +465,6 @@ en_001{
                 one{"{0} dl"}
                 other{"{0} dl"}
             }
-            dessert-spoon{
-                dnam{"US dstspn"}
-                one{"{0} US dstspn"}
-                other{"{0} US dstspn"}
-            }
-            dessert-spoon-imperial{
-                dnam{"dstspn"}
-                one{"{0} dstspn"}
-                other{"{0} dstspn"}
-            }
-            dram{
-                dnam{"dram"}
-                one{"{0} dram"}
-                other{"{0} drams"}
-            }
-            drop{
-                one{"{0} drops"}
-                other{"{0} drops"}
-            }
             fluid-ounce{
                 dnam{"US fl oz"}
                 one{"{0} US fl oz"}
@@ -575,9 +472,8 @@ en_001{
             }
             gallon{
                 dnam{"US gal"}
-                one{"{0} US gal"}
-                other{"{0} US gal"}
-                per{"{0}/US gal"}
+                one{"{0} gal US"}
+                other{"{0} gal US"}
             }
             gallon-imperial{
                 dnam{"gal"}
@@ -589,9 +485,6 @@ en_001{
                 dnam{"hl"}
                 one{"{0} hl"}
                 other{"{0} hl"}
-            }
-            jigger{
-                other{"{0} jiggers"}
             }
             liter{
                 dnam{"litres"}
@@ -608,20 +501,6 @@ en_001{
                 dnam{"ml"}
                 one{"{0} ml"}
                 other{"{0} ml"}
-            }
-            pinch{
-                one{"{0} pinches"}
-                other{"{0} pinches"}
-            }
-            quart{
-                dnam{"US qts"}
-                one{"{0} US qt"}
-                other{"{0} US qt"}
-            }
-            quart-imperial{
-                dnam{"qt"}
-                one{"{0} qt"}
-                other{"{0} qt"}
             }
         }
     }

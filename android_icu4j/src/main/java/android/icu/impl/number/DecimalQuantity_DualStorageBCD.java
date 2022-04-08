@@ -1,11 +1,10 @@
 /* GENERATED SOURCE. DO NOT MODIFY. */
 // © 2017 and later: Unicode, Inc. and others.
-// License & terms of use: http://www.unicode.org/copyright.html
+// License & terms of use: http://www.unicode.org/copyright.html#License
 package android.icu.impl.number;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
-import java.util.Arrays;
 
 /**
  * A DecimalQuantity with internal storage as a 64-bit BCD, with fallback to a byte array for numbers
@@ -126,8 +125,13 @@ public final class DecimalQuantity_DualStorageBCD extends DecimalQuantity_Abstra
         }
         if (usingBytes) {
             ensureCapacity(precision + numDigits);
-            System.arraycopy(bcdBytes, 0, bcdBytes, numDigits, precision);
-            Arrays.fill(bcdBytes, 0, numDigits, (byte) 0);
+            int i = precision + numDigits - 1;
+            for (; i >= numDigits; i--) {
+                bcdBytes[i] = bcdBytes[i - numDigits];
+            }
+            for (; i >= 0; i--) {
+                bcdBytes[i] = 0;
+            }
         } else {
             bcdLong <<= (numDigits * 4);
         }
@@ -178,7 +182,6 @@ public final class DecimalQuantity_DualStorageBCD extends DecimalQuantity_Abstra
         isApproximate = false;
         origDouble = 0;
         origDelta = 0;
-        exponent = 0;
     }
 
     @Override
@@ -253,11 +256,11 @@ public final class DecimalQuantity_DualStorageBCD extends DecimalQuantity_Abstra
             }
             BigDecimal result = BigDecimal.valueOf(tempLong);
             // Test that the new scale fits inside the BigDecimal
-            long newScale = result.scale() + scale + exponent;
+            long newScale = result.scale() + scale;
             if (newScale <= Integer.MIN_VALUE) {
                 result = BigDecimal.ZERO;
             } else {
-                result = result.scaleByPowerOfTen(scale + exponent);
+                result = result.scaleByPowerOfTen(scale);
             }
             if (isNegative()) {
                 result = result.negate();

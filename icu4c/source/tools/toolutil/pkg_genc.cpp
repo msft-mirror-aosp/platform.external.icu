@@ -131,9 +131,6 @@ static const struct AssemblyType {
     {"gcc",
         ".globl %s\n"
         "\t.section .note.GNU-stack,\"\",%%progbits\n"
-        "#ifdef __CET__\n"
-        "# include <cet.h>\n"
-        "#endif\n"
         "\t.section .rodata\n"
         "\t.balign 16\n"
         "#ifdef U_HIDE_DATA_SYMBOL\n"
@@ -738,8 +735,8 @@ getOutFilename(
         exit(U_ILLEGAL_ARGUMENT_ERROR);
     }
 
-    outFilenameBuilder.extract(outFilename, outFilenameCapacity, status);
-    entryNameBuilder.extract(entryName, entryNameCapacity, status);
+    uprv_strcpy(outFilename, outFilenameBuilder.data());
+    uprv_strcpy(entryName, entryNameBuilder.data());
 }
 
 #ifdef CAN_GENERATE_OBJECTS
@@ -881,8 +878,7 @@ writeObjectCode(
         const char *optMatchArch,
         const char *optFilename,
         char *outFilePath,
-        size_t outFilePathCapacity,
-        UBool optWinDllExport) {
+        size_t outFilePathCapacity) {
     /* common variables */
     char buffer[4096], entry[96]={ 0 };
     FileStream *in, *out;
@@ -891,8 +887,6 @@ writeObjectCode(
 
     uint16_t cpu, bits;
     UBool makeBigEndian;
-
-    (void)optWinDllExport; /* unused except Windows */
 
     /* platform-specific variables and initialization code */
 #ifdef U_ELF
@@ -1260,17 +1254,12 @@ writeObjectCode(
     uprv_memset(&symbolNames, 0, sizeof(symbolNames));
 
     /* write the linker export directive */
-    if (optWinDllExport) {
-        uprv_strcpy(objHeader.linkerOptions, "-export:");
-        length=8;
-        uprv_strcpy(objHeader.linkerOptions+length, entry);
-        length+=entryLength;
-        uprv_strcpy(objHeader.linkerOptions+length, ",data ");
-        length+=6;
-    }
-    else {
-        length=0;
-    }
+    uprv_strcpy(objHeader.linkerOptions, "-export:");
+    length=8;
+    uprv_strcpy(objHeader.linkerOptions+length, entry);
+    length+=entryLength;
+    uprv_strcpy(objHeader.linkerOptions+length, ",data ");
+    length+=6;
 
     /* set the file header */
     objHeader.fileHeader.Machine=cpu;

@@ -1,7 +1,7 @@
 ﻿// © 2016 and later: Unicode, Inc. and others.
-// License & terms of use: http://www.unicode.org/copyright.html
-// Generated using tools/cldr/cldr-to-icu/build-icu-data.xml
+// License & terms of use: http://www.unicode.org/copyright.html#License
 is{
+    Version{"36.1"}
     zoneStrings{
         "Africa:Abidjan"{
             ec{"Abidjan"}
@@ -1107,7 +1107,7 @@ is{
             ec{"Tallinn"}
         }
         "Europe:Tirane"{
-            ec{"Tírana"}
+            ec{"Tirane"}
         }
         "Europe:Ulyanovsk"{
             ec{"Ulyanovsk"}
@@ -1720,9 +1720,7 @@ is{
             ls{"Niue-tími"}
         }
         "meta:Norfolk"{
-            ld{"Sumartími á Norfolk-eyju"}
-            lg{"Tími á Norfolk-eyju"}
-            ls{"Staðaltími á Norfolk-eyju"}
+            ls{"Tími á Norfolk-eyju"}
         }
         "meta:Noronha"{
             ld{"Sumartími í Fernando de Noronha"}

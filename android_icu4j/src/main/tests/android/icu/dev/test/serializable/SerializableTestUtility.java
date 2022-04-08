@@ -1,6 +1,6 @@
 /* GENERATED SOURCE. DO NOT MODIFY. */
 // © 2016 and later: Unicode, Inc. and others.
-// License & terms of use: http://www.unicode.org/copyright.html
+// License & terms of use: http://www.unicode.org/copyright.html#License
 /*
  *******************************************************************************
  * Copyright (C) 1996-2014, International Business Machines Corporation and
@@ -48,7 +48,6 @@ import android.icu.util.DateTimeRule;
 import android.icu.util.GregorianCalendar;
 import android.icu.util.ICUCloneNotSupportedException;
 import android.icu.util.ICUException;
-import android.icu.util.ICUInputTooLongException;
 import android.icu.util.ICUUncheckedIOException;
 import android.icu.util.InitialTimeZoneRule;
 import android.icu.util.RuleBasedTimeZone;
@@ -753,18 +752,6 @@ public class SerializableTestUtility {
         }
     }
 
-    private static class ICUInputTooLongExceptionHandler extends ExceptionHandlerBase {
-        @Override
-        public Object[] getTestObjects() {
-            return new ICUInputTooLongException[] {
-                    new ICUInputTooLongException(),
-                    new ICUInputTooLongException("msg1"),
-                    new ICUInputTooLongException(new RuntimeException("rte1")),
-                    new ICUInputTooLongException("msg2", new RuntimeException("rte2"))
-            };
-        }
-    }
-
     private static HashMap map = new HashMap();
 
     static {
@@ -836,8 +823,6 @@ public class SerializableTestUtility {
         map.put("android.icu.text.MessageFormat$Field", new FormatHandler.MessageFormatFieldHandler());
         map.put("android.icu.text.RelativeDateTimeFormatter$Field", new FormatHandler.RelativeDateTimeFormatterFieldHandler());
         map.put("android.icu.text.DateIntervalFormat$SpanField", new FormatHandler.DateIntervalSpanFieldHandler());
-        map.put("android.icu.text.ListFormatter$Field", new FormatHandler.ListFormatterFieldHandler());
-        map.put("android.icu.text.ListFormatter$SpanField", new FormatHandler.ListFormatterSpanFieldHandler());
 
         map.put("android.icu.impl.duration.BasicDurationFormat", new FormatHandler.BasicDurationFormatHandler());
         map.put("android.icu.impl.RelativeDateFormat", new FormatHandler.RelativeDateFormatHandler());
@@ -859,7 +844,6 @@ public class SerializableTestUtility {
         map.put("android.icu.util.ICUException", new ICUExceptionHandler());
         map.put("android.icu.util.ICUUncheckedIOException", new ICUUncheckedIOExceptionHandler());
         map.put("android.icu.util.ICUCloneNotSupportedException", new ICUCloneNotSupportedExceptionHandler());
-        map.put("android.icu.util.ICUInputTooLongException", new ICUInputTooLongExceptionHandler());
     }
 
     /*

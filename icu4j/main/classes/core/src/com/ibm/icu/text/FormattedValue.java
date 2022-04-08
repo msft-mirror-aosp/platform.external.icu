@@ -1,5 +1,5 @@
 // © 2018 and later: Unicode, Inc. and others.
-// License & terms of use: http://www.unicode.org/copyright.html
+// License & terms of use: http://www.unicode.org/copyright.html#License
 package com.ibm.icu.text;
 
 import java.text.AttributedCharacterIterator;
@@ -11,7 +11,8 @@ import com.ibm.icu.util.ICUUncheckedIOException;
  * Many formatters format to classes implementing FormattedValue.
  *
  * @author sffc
- * @stable ICU 64
+ * @draft ICU 64
+ * @provisional This API might change or be removed in a future release.
  */
 public interface FormattedValue extends CharSequence {
     /**
@@ -20,7 +21,8 @@ public interface FormattedValue extends CharSequence {
      * Consider using {@link #appendTo} for greater efficiency.
      *
      * @return The formatted string.
-     * @stable ICU 64
+     * @draft ICU 64
+     * @provisional This API might change or be removed in a future release.
      */
     @Override
     public String toString();
@@ -34,7 +36,8 @@ public interface FormattedValue extends CharSequence {
      * @param appendable The Appendable to which to append the string output.
      * @return The same Appendable, for chaining.
      * @throws ICUUncheckedIOException if the Appendable throws IOException
-     * @stable ICU 64
+     * @draft ICU 64
+     * @provisional This API might change or be removed in a future release.
      */
     public <A extends Appendable> A appendTo(A appendable);
 
@@ -56,7 +59,8 @@ public interface FormattedValue extends CharSequence {
      *         only one specific field; see {@link ConstrainedFieldPosition#constrainField}.
      * @return true if a new occurrence of the field was found;
      *         false otherwise.
-     * @stable ICU 64
+     * @draft ICU 64
+     * @provisional This API might change or be removed in a future release.
      */
     public boolean nextPosition(ConstrainedFieldPosition cfpos);
 
@@ -66,7 +70,8 @@ public interface FormattedValue extends CharSequence {
      * Consider using {@link #nextPosition} if you are trying to get field information.
      *
      * @return An AttributedCharacterIterator containing full field information.
-     * @stable ICU 64
+     * @draft ICU 64
+     * @provisional This API might change or be removed in a future release.
      */
     public AttributedCharacterIterator toCharacterIterator();
 }

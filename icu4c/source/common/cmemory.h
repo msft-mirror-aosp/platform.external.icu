@@ -274,10 +274,7 @@ inline T *LocalMemory<T>::allocateInsteadAndCopy(int32_t newCapacity, int32_t le
  *
  * WARNING: MaybeStackArray only works with primitive (plain-old data) types.
  * It does NOT know how to call a destructor! If you work with classes with
- * destructors, consider:
- *
- * - LocalArray in localpointer.h if you know the length ahead of time
- * - MaybeStackVector if you know the length at runtime
+ * destructors, consider LocalArray in localpointer.h or MemoryPool.
  */
 template<typename T, int32_t stackCapacity>
 class MaybeStackArray {
@@ -292,21 +289,14 @@ public:
     /**
      * Default constructor initializes with internal T[stackCapacity] buffer.
      */
-    MaybeStackArray() : ptr(stackArray), capacity(stackCapacity), needToRelease(false) {}
+    MaybeStackArray() : ptr(stackArray), capacity(stackCapacity), needToRelease(FALSE) {}
     /**
      * Automatically allocates the heap array if the argument is larger than the stack capacity.
      * Intended for use when an approximate capacity is known at compile time but the true
      * capacity is not known until runtime.
      */
-    MaybeStackArray(int32_t newCapacity, UErrorCode status) : MaybeStackArray() {
-        if (U_FAILURE(status)) {
-            return;
-        }
-        if (capacity < newCapacity) {
-            if (resize(newCapacity) == nullptr) {
-                status = U_MEMORY_ALLOCATION_ERROR;
-            }
-        }
+    MaybeStackArray(int32_t newCapacity) : MaybeStackArray() {
+        if (capacity < newCapacity) { resize(newCapacity); }
     }
     /**
      * Destructor deletes the array (if owned).
@@ -362,7 +352,7 @@ public:
             releaseArray();
             ptr=otherArray;
             capacity=otherCapacity;
-            needToRelease=false;
+            needToRelease=FALSE;
         }
     }
     /**
@@ -387,20 +377,6 @@ public:
      *         caller becomes responsible for deleting the array
      */
     inline T *orphanOrClone(int32_t length, int32_t &resultCapacity);
-
-protected:
-    // Resizes the array to the size of src, then copies the contents of src.
-    void copyFrom(const MaybeStackArray &src, UErrorCode &status) {
-        if (U_FAILURE(status)) {
-            return;
-        }
-        if (this->resize(src.capacity, 0) == NULL) {
-            status = U_MEMORY_ALLOCATION_ERROR;
-            return;
-        }
-        uprv_memcpy(this->ptr, src.ptr, (size_t)capacity * sizeof(T));
-    }
-
 private:
     T *ptr;
     int32_t capacity;
@@ -414,14 +390,14 @@ private:
     void resetToStackArray() {
         ptr=stackArray;
         capacity=stackCapacity;
-        needToRelease=false;
+        needToRelease=FALSE;
     }
     /* No comparison operators with other MaybeStackArray's. */
-    bool operator==(const MaybeStackArray & /*other*/) = delete;
-    bool operator!=(const MaybeStackArray & /*other*/) = delete;
+    bool operator==(const MaybeStackArray & /*other*/) {return FALSE;}
+    bool operator!=(const MaybeStackArray & /*other*/) {return TRUE;}
     /* No ownership transfer: No copy constructor, no assignment operator. */
-    MaybeStackArray(const MaybeStackArray & /*other*/) = delete;
-    void operator=(const MaybeStackArray & /*other*/) = delete;
+    MaybeStackArray(const MaybeStackArray & /*other*/) {}
+    void operator=(const MaybeStackArray & /*other*/) {}
 };
 
 template<typename T, int32_t stackCapacity>
@@ -456,7 +432,7 @@ template<typename T, int32_t stackCapacity>
 inline T *MaybeStackArray<T, stackCapacity>::resize(int32_t newCapacity, int32_t length) {
     if(newCapacity>0) {
 #if U_DEBUG && defined(UPRV_MALLOC_COUNT)
-        ::fprintf(::stderr, "MaybeStackArray (resize) alloc %d * %lu\n", newCapacity, sizeof(T));
+      ::fprintf(::stderr,"MaybeStacArray (resize) alloc %d * %lu\n", newCapacity,sizeof(T));
 #endif
         T *p=(T *)uprv_malloc(newCapacity*sizeof(T));
         if(p!=NULL) {
@@ -472,7 +448,7 @@ inline T *MaybeStackArray<T, stackCapacity>::resize(int32_t newCapacity, int32_t
             releaseArray();
             ptr=p;
             capacity=newCapacity;
-            needToRelease=true;
+            needToRelease=TRUE;
         }
         return p;
     } else {
@@ -528,7 +504,7 @@ public:
     /**
      * Default constructor initializes with internal H+T[stackCapacity] buffer.
      */
-    MaybeStackHeaderAndArray() : ptr(&stackHeader), capacity(stackCapacity), needToRelease(false) {}
+    MaybeStackHeaderAndArray() : ptr(&stackHeader), capacity(stackCapacity), needToRelease(FALSE) {}
     /**
      * Destructor deletes the memory (if owned).
      */
@@ -577,7 +553,7 @@ public:
             releaseMemory();
             ptr=otherMemory;
             capacity=otherCapacity;
-            needToRelease=false;
+            needToRelease=FALSE;
         }
     }
     /**
@@ -616,8 +592,8 @@ private:
         }
     }
     /* No comparison operators with other MaybeStackHeaderAndArray's. */
-    bool operator==(const MaybeStackHeaderAndArray & /*other*/) {return false;}
-    bool operator!=(const MaybeStackHeaderAndArray & /*other*/) {return true;}
+    bool operator==(const MaybeStackHeaderAndArray & /*other*/) {return FALSE;}
+    bool operator!=(const MaybeStackHeaderAndArray & /*other*/) {return TRUE;}
     /* No ownership transfer: No copy constructor, no assignment operator. */
     MaybeStackHeaderAndArray(const MaybeStackHeaderAndArray & /*other*/) {}
     void operator=(const MaybeStackHeaderAndArray & /*other*/) {}
@@ -646,7 +622,7 @@ inline H *MaybeStackHeaderAndArray<H, T, stackCapacity>::resize(int32_t newCapac
             releaseMemory();
             ptr=p;
             capacity=newCapacity;
-            needToRelease=true;
+            needToRelease=TRUE;
         }
         return p;
     } else {
@@ -678,7 +654,7 @@ inline H *MaybeStackHeaderAndArray<H, T, stackCapacity>::orphanOrClone(int32_t l
     resultCapacity=length;
     ptr=&stackHeader;
     capacity=stackCapacity;
-    needToRelease=false;
+    needToRelease=FALSE;
     return p;
 }
 
@@ -708,31 +684,26 @@ inline H *MaybeStackHeaderAndArray<H, T, stackCapacity>::orphanOrClone(int32_t l
 template<typename T, int32_t stackCapacity = 8>
 class MemoryPool : public UMemory {
 public:
-    MemoryPool() : fCount(0), fPool() {}
+    MemoryPool() : count(0), pool() {}
 
     ~MemoryPool() {
-        for (int32_t i = 0; i < fCount; ++i) {
-            delete fPool[i];
+        for (int32_t i = 0; i < count; ++i) {
+            delete pool[i];
         }
     }
 
     MemoryPool(const MemoryPool&) = delete;
     MemoryPool& operator=(const MemoryPool&) = delete;
 
-    MemoryPool(MemoryPool&& other) U_NOEXCEPT : fCount(other.fCount),
-                                                fPool(std::move(other.fPool)) {
-        other.fCount = 0;
+    MemoryPool(MemoryPool&& other) U_NOEXCEPT : count(other.count),
+                                                pool(std::move(other.pool)) {
+        other.count = 0;
     }
 
     MemoryPool& operator=(MemoryPool&& other) U_NOEXCEPT {
-        // Since `this` may contain instances that need to be deleted, we can't
-        // just throw them away and replace them with `other`. The normal way of
-        // dealing with this in C++ is to swap `this` and `other`, rather than
-        // simply overwrite: the destruction of `other` can then take care of
-        // running MemoryPool::~MemoryPool() over the still-to-be-deallocated
-        // instances.
-        std::swap(fCount, other.fCount);
-        std::swap(fPool, other.fPool);
+        count = other.count;
+        pool = std::move(other.pool);
+        other.count = 0;
         return *this;
     }
 
@@ -745,105 +716,19 @@ public:
      */
     template<typename... Args>
     T* create(Args&&... args) {
-        int32_t capacity = fPool.getCapacity();
-        if (fCount == capacity &&
-            fPool.resize(capacity == stackCapacity ? 4 * capacity : 2 * capacity,
-                         capacity) == nullptr) {
+        int32_t capacity = pool.getCapacity();
+        if (count == capacity &&
+            pool.resize(capacity == stackCapacity ? 4 * capacity : 2 * capacity,
+                        capacity) == nullptr) {
             return nullptr;
         }
-        return fPool[fCount++] = new T(std::forward<Args>(args)...);
+        return pool[count++] = new T(std::forward<Args>(args)...);
     }
 
-    template <typename... Args>
-    T* createAndCheckErrorCode(UErrorCode &status, Args &&... args) {
-        if (U_FAILURE(status)) {
-            return nullptr;
-        }
-        T *pointer = this->create(args...);
-        if (U_SUCCESS(status) && pointer == nullptr) {
-            status = U_MEMORY_ALLOCATION_ERROR;
-        }
-        return pointer;
-    }
-
-    /**
-     * @return Number of elements that have been allocated.
-     */
-    int32_t count() const {
-        return fCount;
-    }
-
-protected:
-    int32_t fCount;
-    MaybeStackArray<T*, stackCapacity> fPool;
+private:
+    int32_t count;
+    MaybeStackArray<T*, stackCapacity> pool;
 };
-
-/**
- * An internal Vector-like implementation based on MemoryPool.
- *
- * Heap-allocates each element and stores pointers.
- *
- * To append an item to the vector, use emplaceBack.
- *
- *     MaybeStackVector<MyType> vector;
- *     MyType* element = vector.emplaceBack();
- *     if (!element) {
- *         status = U_MEMORY_ALLOCATION_ERROR;
- *     }
- *     // do stuff with element
- *
- * To loop over the vector, use a for loop with indices:
- *
- *     for (int32_t i = 0; i < vector.length(); i++) {
- *         MyType* element = vector[i];
- *     }
- */
-template<typename T, int32_t stackCapacity = 8>
-class MaybeStackVector : protected MemoryPool<T, stackCapacity> {
-public:
-    template<typename... Args>
-    T* emplaceBack(Args&&... args) {
-        return this->create(args...);
-    }
-
-    template <typename... Args>
-    T *emplaceBackAndCheckErrorCode(UErrorCode &status, Args &&... args) {
-        return this->createAndCheckErrorCode(status, args...);
-    }
-
-    int32_t length() const {
-        return this->fCount;
-    }
-
-    T** getAlias() {
-        return this->fPool.getAlias();
-    }
-
-    const T *const *getAlias() const {
-        return this->fPool.getAlias();
-    }
-
-    /**
-     * Array item access (read-only).
-     * No index bounds check.
-     * @param i array index
-     * @return reference to the array item
-     */
-    const T* operator[](ptrdiff_t i) const {
-        return this->fPool[i];
-    }
-
-    /**
-     * Array item access (writable).
-     * No index bounds check.
-     * @param i array index
-     * @return reference to the array item
-     */
-    T* operator[](ptrdiff_t i) {
-        return this->fPool[i];
-    }
-};
-
 
 U_NAMESPACE_END
 

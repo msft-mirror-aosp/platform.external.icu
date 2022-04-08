@@ -1,6 +1,5 @@
 ﻿// © 2016 and later: Unicode, Inc. and others.
-// License & terms of use: http://www.unicode.org/copyright.html
-// Generated using tools/cldr/cldr-to-icu/build-icu-data.xml
+// License & terms of use: http://www.unicode.org/copyright.html#License
 ar{
     Keys{
         calendar{"التقويم"}
@@ -161,7 +160,6 @@ ar{
         eu{"الباسكية"}
         ewo{"الإيوندو"}
         fa{"الفارسية"}
-        fa_AF{"الدارية"}
         fan{"الفانج"}
         fat{"الفانتي"}
         ff{"الفولانية"}
@@ -557,8 +555,8 @@ ar{
         zza{"زازا"}
     }
     Languages%menu{
-        ars{"العربية، النجدية"}
-        ckb{"الكردية، السورانية"}
+        yue{"الكَنْتُونية"}
+        zh{"الصينية"}
     }
     Languages%short{
         az{"الأذرية"}
@@ -571,7 +569,6 @@ ar{
     }
     Scripts{
         Arab{"العربية"}
-        Aran{"نستعليق"}
         Armn{"الأرمينية"}
         Bali{"البالية"}
         Batk{"الباتاك"}
@@ -643,12 +640,10 @@ ar{
         Mlym{"الماليالام"}
         Mong{"المغولية"}
         Moon{"مون"}
-        Mtei{"ميتي ماييك"}
         Mymr{"الميانمار"}
         Narb{"العربية الشمالية القديمة"}
         Nkoo{"أنكو"}
         Ogam{"الأوجهام"}
-        Olck{"أول تشيكي"}
         Orkh{"الأورخون"}
         Orya{"الأوريا"}
         Osma{"الأوسمانيا"}
@@ -656,7 +651,6 @@ ar{
         Phag{"الفاجسبا"}
         Phnx{"الفينيقية"}
         Plrd{"الصوتيات الجماء"}
-        Qaag{"زوجيي"}
         Roro{"رنجورنجو"}
         Runr{"الروني"}
         Sara{"الساراتي"}
@@ -796,9 +790,9 @@ ar{
             ungegn{"يو إن جي إي جي إن"}
         }
         ms{
-            metric{"النظام المتري"}
-            uksystem{"نظام القياس البريطاني"}
-            ussystem{"نظام القياس الأمريكي"}
+            metric{"نظام متري"}
+            uksystem{"نظام المملكة المتحدة"}
+            ussystem{"نظام الولايات المتحدة"}
         }
         numbers{
             arab{"الأرقام العربية الهندية"}
@@ -863,6 +857,7 @@ ar{
         VALENCIA{"بلنسية"}
         WADEGILE{"المندرين باللاتينية - ويد–جيلز"}
     }
+    Version{"36.1"}
     characterLabelPattern{
         all{"{0} - الكل"}
         category-list{"{0}: {1}"}
@@ -881,8 +876,6 @@ ar{
             two{"ضغطتان ({0})"}
             zero{"{0} ضغطة"}
         }
-        subscript{"نظام الكتابة تحت السطر {0}"}
-        superscript{"نظام الكتابة فوق السطر {0}"}
     }
     codePatterns{
         language{"اللغة: {0}"}

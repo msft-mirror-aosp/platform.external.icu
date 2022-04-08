@@ -1,6 +1,6 @@
 /* GENERATED SOURCE. DO NOT MODIFY. */
 // © 2016 and later: Unicode, Inc. and others.
-// License & terms of use: http://www.unicode.org/copyright.html
+// License & terms of use: http://www.unicode.org/copyright.html#License
 /*
  **********************************************************************
  * Copyright (c) 2004-2016, International Business Machines
@@ -32,16 +32,13 @@ import java.util.concurrent.ConcurrentHashMap;
 
 import android.icu.impl.DontCareFieldPosition;
 import android.icu.impl.FormattedStringBuilder;
-import android.icu.impl.FormattedValueStringBuilderImpl;
 import android.icu.impl.ICUData;
 import android.icu.impl.ICUResourceBundle;
 import android.icu.impl.SimpleCache;
 import android.icu.impl.SimpleFormatterImpl;
-import android.icu.impl.Utility;
-import android.icu.impl.number.DecimalQuantity;
-import android.icu.impl.number.DecimalQuantity_DualStorageBCD;
 import android.icu.impl.number.LongNameHandler;
 import android.icu.impl.number.RoundingUtils;
+import android.icu.number.FormattedNumber;
 import android.icu.number.IntegerWidth;
 import android.icu.number.LocalizedNumberFormatter;
 import android.icu.number.NumberFormatter;
@@ -301,10 +298,9 @@ public class MeasureFormat extends UFormat {
         } else if (obj instanceof Measure[]) {
             formatMeasuresInternal(toAppendTo, fpos, (Measure[]) obj);
         } else if (obj instanceof Measure) {
-            FormattedStringBuilder result = formatMeasure((Measure) obj);
-            // No offset: toAppendTo.length() is considered below
-            FormattedValueStringBuilderImpl.nextFieldPosition(result, fpos);
-            Utility.appendTo(result, toAppendTo);
+            FormattedNumber result = formatMeasure((Measure) obj);
+            result.nextFieldPosition(fpos); // No offset: toAppendTo.length() is considered below
+            result.appendTo(toAppendTo);
         } else {
             throw new IllegalArgumentException(obj.toString());
         }
@@ -365,13 +361,11 @@ public class MeasureFormat extends UFormat {
             MeasureUnit perUnit,
             StringBuilder appendTo,
             FieldPosition pos) {
-        DecimalQuantity dq = new DecimalQuantity_DualStorageBCD(measure.getNumber());
-        FormattedStringBuilder string = new FormattedStringBuilder();
-        getUnitFormatterFromCache(
-            NUMBER_FORMATTER_STANDARD, measure.getUnit(), perUnit
-        ).formatImpl(dq, string);
-        DecimalFormat.fieldPositionHelper(dq, string, pos, appendTo.length());
-        Utility.appendTo(string, appendTo);
+        FormattedNumber result = getUnitFormatterFromCache(NUMBER_FORMATTER_STANDARD,
+                measure.getUnit(),
+                perUnit).format(measure.getNumber());
+        DecimalFormat.fieldPositionHelper(result, pos, appendTo.length());
+        result.appendTo(appendTo);
         return appendTo;
     }
 
@@ -413,9 +407,9 @@ public class MeasureFormat extends UFormat {
             return;
         }
         if (measures.length == 1) {
-            FormattedStringBuilder result = formatMeasure(measures[0]);
-            FormattedValueStringBuilderImpl.nextFieldPosition(result, fieldPosition);
-            Utility.appendTo(result, appendTo);
+            FormattedNumber result = formatMeasure(measures[0]);
+            result.nextFieldPosition(fieldPosition);
+            result.appendTo(appendTo);
             return;
         }
 
@@ -444,7 +438,7 @@ public class MeasureFormat extends UFormat {
                 results[i] = formatMeasureInteger(measures[i]).toString();
             }
         }
-        FormattedListBuilder builder = listFormatter.formatImpl(Arrays.asList(results), false);
+        FormattedListBuilder builder = listFormatter.format(Arrays.asList(results), -1);
         builder.appendTo(appendTo);
     }
 
@@ -733,26 +727,20 @@ public class MeasureFormat extends UFormat {
 
     /// END NUMBER FORMATTER CACHING MACHINERY ///
 
-    private FormattedStringBuilder formatMeasure(Measure measure) {
+    private FormattedNumber formatMeasure(Measure measure) {
         MeasureUnit unit = measure.getUnit();
-        DecimalQuantity dq = new DecimalQuantity_DualStorageBCD(measure.getNumber());
-        FormattedStringBuilder string = new FormattedStringBuilder();
         if (unit instanceof Currency) {
-            getUnitFormatterFromCache(NUMBER_FORMATTER_CURRENCY, unit, null)
-                    .formatImpl(dq, string);
+            return getUnitFormatterFromCache(NUMBER_FORMATTER_CURRENCY, unit, null)
+                    .format(measure.getNumber());
         } else {
-            getUnitFormatterFromCache(NUMBER_FORMATTER_STANDARD, unit, null)
-                    .formatImpl(dq, string);
+            return getUnitFormatterFromCache(NUMBER_FORMATTER_STANDARD, unit, null)
+                    .format(measure.getNumber());
         }
-        return string;
     }
 
-    private FormattedStringBuilder formatMeasureInteger(Measure measure) {
-        DecimalQuantity dq = new DecimalQuantity_DualStorageBCD(measure.getNumber());
-        FormattedStringBuilder string = new FormattedStringBuilder();
-        getUnitFormatterFromCache(NUMBER_FORMATTER_INTEGER, measure.getUnit(), null)
-                .formatImpl(dq, string);
-        return string;
+    private FormattedNumber formatMeasureInteger(Measure measure) {
+        return getUnitFormatterFromCache(NUMBER_FORMATTER_INTEGER, measure.getUnit(), null)
+                .format(measure.getNumber());
     }
 
     private void formatMeasuresSlowTrack(
@@ -768,27 +756,27 @@ public class MeasureFormat extends UFormat {
 
         int fieldPositionFoundIndex = -1;
         for (int i = 0; i < measures.length; ++i) {
-            FormattedStringBuilder result;
+            FormattedNumber result;
             if (i == measures.length - 1) {
                 result = formatMeasure(measures[i]);
             } else {
                 result = formatMeasureInteger(measures[i]);
             }
             if (fieldPositionFoundIndex == -1) {
-                FormattedValueStringBuilderImpl.nextFieldPosition(result, fpos);
+                result.nextFieldPosition(fpos);
                 if (fpos.getEndIndex() != 0) {
                     fieldPositionFoundIndex = i;
                 }
             }
             results[i] = result.toString();
         }
-        ListFormatter.FormattedListBuilder builder = listFormatter.formatImpl(Arrays.asList(results), true);
+        ListFormatter.FormattedListBuilder builder = listFormatter.format(Arrays.asList(results),
+                fieldPositionFoundIndex);
 
         // Fix up FieldPosition indexes if our field is found.
-        int offset = builder.getOffset(fieldPositionFoundIndex);
-        if (offset != -1) {
-            fieldPosition.setBeginIndex(fpos.getBeginIndex() + offset);
-            fieldPosition.setEndIndex(fpos.getEndIndex() + offset);
+        if (builder.getOffset() != -1) {
+            fieldPosition.setBeginIndex(fpos.getBeginIndex() + builder.getOffset());
+            fieldPosition.setEndIndex(fpos.getEndIndex() + builder.getOffset());
         }
         builder.appendTo(appendTo);
     }

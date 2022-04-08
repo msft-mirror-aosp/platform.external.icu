@@ -1,6 +1,5 @@
 ﻿// © 2016 and later: Unicode, Inc. and others.
-// License & terms of use: http://www.unicode.org/copyright.html
-// Generated using tools/cldr/cldr-to-icu/build-icu-data.xml
+// License & terms of use: http://www.unicode.org/copyright.html#License
 sv{
     Countries{
         001{"världen"}
@@ -15,7 +14,7 @@ sv{
         017{"Centralafrika"}
         018{"södra Afrika"}
         019{"Nord- och Sydamerika"}
-        021{"Norra Amerika"}
+        021{"norra Amerika"}
         029{"Karibien"}
         030{"Östasien"}
         034{"Sydasien"}
@@ -108,7 +107,7 @@ sv{
         ES{"Spanien"}
         ET{"Etiopien"}
         EU{"Europeiska unionen"}
-        EZ{"euroområdet"}
+        EZ{"eurozonen"}
         FI{"Finland"}
         FJ{"Fiji"}
         FK{"Falklandsöarna"}
@@ -262,7 +261,7 @@ sv{
         TG{"Togo"}
         TH{"Thailand"}
         TJ{"Tadzjikistan"}
-        TK{"Tokelauöarna"}
+        TK{"Tokelau"}
         TL{"Östtimor"}
         TM{"Turkmenistan"}
         TN{"Tunisien"}
@@ -299,12 +298,17 @@ sv{
         ZZ{"okänd region"}
     }
     Countries%short{
+        GB{"Storbritannien"}
         UN{"FN"}
+        US{"USA"}
     }
     Countries%variant{
         CD{"Demokratiska republiken Kongo"}
         CG{"Republiken Kongo"}
+        CI{"Côte d’Ivoire"}
+        CZ{"Tjeckien"}
         SZ{"Eswatini"}
         TL{"Timor-Leste"}
     }
+    Version{"36.1"}
 }

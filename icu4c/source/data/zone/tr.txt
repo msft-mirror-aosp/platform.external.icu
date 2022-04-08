@@ -1,7 +1,7 @@
 ﻿// © 2016 and later: Unicode, Inc. and others.
-// License & terms of use: http://www.unicode.org/copyright.html
-// Generated using tools/cldr/cldr-to-icu/build-icu-data.xml
+// License & terms of use: http://www.unicode.org/copyright.html#License
 tr{
+    Version{"36.1"}
     zoneStrings{
         "Africa:Abidjan"{
             ec{"Abidjan"}
@@ -1754,9 +1754,7 @@ tr{
             ls{"Niue Saati"}
         }
         "meta:Norfolk"{
-            ld{"Norfolk Adası Yaz Saati"}
-            lg{"Norfolk Adası Saati"}
-            ls{"Norfolk Adası Standart Saati"}
+            ls{"Norfolk Adası Saati"}
         }
         "meta:Noronha"{
             ld{"Fernando de Noronha Yaz Saati"}

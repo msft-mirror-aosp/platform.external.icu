@@ -1,5 +1,5 @@
 // © 2016 and later: Unicode, Inc. and others.
-// License & terms of use: http://www.unicode.org/copyright.html
+// License & terms of use: http://www.unicode.org/copyright.html#License
 /*
  *******************************************************************************
  * Copyright (C) 2001-2011, International Business Machines Corporation and    *
@@ -13,7 +13,6 @@
  **/
 
 package com.ibm.icu.dev.test.format;
-
 import java.util.Locale;
 import java.util.Random;
 
@@ -24,7 +23,6 @@ import org.junit.runners.JUnit4;
 import com.ibm.icu.dev.test.TestFmwk;
 import com.ibm.icu.text.DecimalFormat;
 import com.ibm.icu.text.NumberFormat;
-import com.ibm.icu.util.ULocale;
 
 /**
  * This test does round-trip testing (format -> parse -> format -> parse -> etc.) of
@@ -169,8 +167,6 @@ public class IntlTestNumberFormat extends TestFmwk {
         boolean dump = false;
         int i;
 
-        String message = "Locale: " + fNumberFormat.getLocale(ULocale.VALID_LOCALE);
-
         for (i = 0; i < DEPTH; i++) {
             if (i == 0) {
                 number[i] = aNumber;
@@ -178,7 +174,7 @@ public class IntlTestNumberFormat extends TestFmwk {
                 try {
                     number[i - 1] = fNumberFormat.parse(string[i - 1]).doubleValue();
                 } catch(java.text.ParseException pe) {
-                    errln("**** FAIL: Parse of " + string[i-1] + " failed: " + message);
+                    errln("**** FAIL: Parse of " + string[i-1] + " failed.");
                     dump = true;
                     break;
                 }
@@ -191,7 +187,7 @@ public class IntlTestNumberFormat extends TestFmwk {
                     numberMatch = i;
                 else if (numberMatch > 0 && number[i] != number[i-1])
                 {
-                    errln("**** FAIL: Numeric mismatch after match: " + message);
+                    errln("**** FAIL: Numeric mismatch after match.");
                     dump = true;
                     break;
                 }
@@ -199,7 +195,7 @@ public class IntlTestNumberFormat extends TestFmwk {
                     stringMatch = i;
                 else if (stringMatch > 0 && string[i] != string[i-1])
                 {
-                    errln("**** FAIL: String mismatch after match: " + message);
+                    errln("**** FAIL: String mismatch after match.");
                     dump = true;
                     break;
                 }
@@ -212,7 +208,7 @@ public class IntlTestNumberFormat extends TestFmwk {
 
         if (stringMatch > 2 || numberMatch > 2)
         {
-            errln("**** FAIL: No string and/or number match within 2 iterations: " + message);
+            errln("**** FAIL: No string and/or number match within 2 iterations.");
             dump = true;
         }
 
@@ -233,19 +229,16 @@ public class IntlTestNumberFormat extends TestFmwk {
     public void tryIt(int aNumber) {
         long number;
 
-        String message = "Locale: " + fNumberFormat.getLocale(ULocale.VALID_LOCALE);
-
         String stringNum = fNumberFormat.format(aNumber);
         try {
             number = fNumberFormat.parse(stringNum).longValue();
         } catch (java.text.ParseException pe) {
-            errln("**** FAIL: Parse of " + stringNum + " failed: " + message);
+            errln("**** FAIL: Parse of " + stringNum + " failed.");
             return;
         }
 
         if (number != aNumber) {
-            errln("**** FAIL: Parse of " + stringNum + " failed: " + message
-                + " Got:" + number
+            errln("**** FAIL: Parse of " + stringNum + " failed. Got:" + number
                 + " Expected:" + aNumber);
         }
 
@@ -286,9 +279,9 @@ public class IntlTestNumberFormat extends TestFmwk {
         count = locales.length;
         if (count != 0)
         {
-            if (TestFmwk.getExhaustiveness() < 10 && count > 7) {
-                count = 7;
-                locales = new Locale[count];
+            if (TestFmwk.getExhaustiveness() < 10 && count > 6) {
+                count = 6;
+                locales = new Locale[6];
                 locales[0] = allLocales[0];
                 locales[1] = allLocales[1];
                 locales[2] = allLocales[2];
@@ -298,7 +291,6 @@ public class IntlTestNumberFormat extends TestFmwk {
                 locales[3] = new Locale("ar", "AE", "");
                 locales[4] = new Locale("cs", "CZ", "");
                 locales[5] = new Locale("en", "IN", "");
-                locales[6] = new Locale("su", "", "");
             }
             for (int i=0; i<count; ++i)
             {

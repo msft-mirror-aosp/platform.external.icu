@@ -1,6 +1,5 @@
 ﻿// © 2016 and later: Unicode, Inc. and others.
-// License & terms of use: http://www.unicode.org/copyright.html
-// Generated using tools/cldr/cldr-to-icu/build-icu-data.xml
+// License & terms of use: http://www.unicode.org/copyright.html#License
 sr_Latn{
     %%Parent{"root"}
     AuxExemplarCharacters{"[å q w x y]"}
@@ -251,6 +250,7 @@ sr_Latn{
         minimumGroupingDigits{"1"}
         native{"latn"}
     }
+    Version{"36.1"}
     calendar{
         buddhist{
             eras{
@@ -696,6 +696,10 @@ sr_Latn{
                     "p. n. e.",
                     "n. e.",
                 }
+                abbreviated%variant{
+                    "p. n. e.",
+                    "n. e.",
+                }
                 narrow{
                     "p.n.e.",
                     "n.e.",
@@ -703,10 +707,6 @@ sr_Latn{
                 wide{
                     "pre nove ere",
                     "nove ere",
-                }
-                wide%variant{
-                    "pre naše ere",
-                    "naše ere",
                 }
             }
             intervalFormats{
@@ -2371,7 +2371,7 @@ sr_Latn{
         number{
             lenient{
                 "[\\-‒⁻₋−➖﹣－]",
-                "[,،٫⹁、︐︑﹐﹑，､]",
+                "[,،٫、︐︑﹐﹑，､]",
                 "[+⁺₊➕﬩﹢＋]",
             }
         }

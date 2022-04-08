@@ -1,6 +1,6 @@
 /* GENERATED SOURCE. DO NOT MODIFY. */
 // © 2016 and later: Unicode, Inc. and others.
-// License & terms of use: http://www.unicode.org/copyright.html
+// License & terms of use: http://www.unicode.org/copyright.html#License
 /*
  *******************************************************************************
  * Copyright (C) 2004-2016, International Business Machines Corporation and
@@ -93,6 +93,7 @@ import android.icu.impl.ResourceBundleWrapper;
  * @author ram
  * @hide Only a subset of ICU is exposed in Android
  */
+@libcore.api.IntraCoreApi
 public abstract class UResourceBundle extends ResourceBundle {
 
 
@@ -152,6 +153,7 @@ public abstract class UResourceBundle extends ResourceBundle {
      * implicit.)  This is public for compatibility with Java, whose compiler
      * will generate public default constructors for an abstract class.
      */
+    @libcore.api.IntraCoreApi
     public UResourceBundle() {
     }
 
@@ -196,6 +198,7 @@ public abstract class UResourceBundle extends ResourceBundle {
      * @return a resource bundle for the given base name and locale
      */
 
+    @libcore.api.IntraCoreApi
     public static UResourceBundle getBundleInstance(String baseName, Locale locale) {
         if (baseName == null) {
             baseName = ICUData.ICU_BASE_NAME;
@@ -216,6 +219,7 @@ public abstract class UResourceBundle extends ResourceBundle {
      * @return a resource bundle for the given base name and locale
      */
     @android.compat.annotation.UnsupportedAppUsage
+    @libcore.api.IntraCoreApi
     public static UResourceBundle getBundleInstance(String baseName, ULocale locale) {
         if (baseName == null) {
             baseName = ICUData.ICU_BASE_NAME;
@@ -418,6 +422,7 @@ public abstract class UResourceBundle extends ResourceBundle {
      * @throws MissingResourceException If resource bundle is missing.
      * @throws UResourceTypeMismatchException If resource bundle has a type mismatch.
      */
+    @libcore.api.IntraCoreApi
     public String[] getStringArray() {
         throw new UResourceTypeMismatchException("");
     }

@@ -1,11 +1,9 @@
 /* GENERATED SOURCE. DO NOT MODIFY. */
 // © 2018 and later: Unicode, Inc. and others.
-// License & terms of use: http://www.unicode.org/copyright.html
+// License & terms of use: http://www.unicode.org/copyright.html#License
 package android.icu.impl.number.range;
 
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.MissingResourceException;
 
 import android.icu.impl.ICUData;
 import android.icu.impl.ICUResourceBundle;
@@ -13,7 +11,6 @@ import android.icu.impl.StandardPlural;
 import android.icu.impl.UResource;
 import android.icu.util.ULocale;
 import android.icu.util.UResourceBundle;
-import android.icu.util.UResourceTypeMismatchException;
 
 /**
  * @author sffc
@@ -25,53 +22,7 @@ public class StandardPluralRanges {
     StandardPlural[] flatTriples;
     int numTriples = 0;
 
-    /**
-     * An immutable map from language codes to set IDs.
-     * Pre-computed and cached in Java since it is used as a cache key for PluralRules.
-     */
-    private static volatile Map<String, String> languageToSet;
-
-    /** An empty StandardPluralRanges instance. */
-    public static final StandardPluralRanges DEFAULT = new StandardPluralRanges();
-
     ////////////////////
-
-    private static final class PluralRangeSetsDataSink extends UResource.Sink {
-
-        Map<String, String> output;
-
-        PluralRangeSetsDataSink(Map<String, String> output) {
-            this.output = output;
-        }
-
-        @Override
-        public void put(UResource.Key key, UResource.Value value, boolean noFallback) {
-            UResource.Table table = value.getTable();
-            for (int i = 0; table.getKeyAndValue(i, key, value); ++i) {
-                // The data has only languages; no regions/scripts. If this changes, this
-                // code and languageToSet will need to change.
-                assert key.toString().equals(new ULocale(key.toString()).getLanguage());
-                output.put(key.toString(), value.toString());
-            }
-        }
-    }
-
-    private static Map<String, String> getLanguageToSet() {
-        Map<String, String> candidate = languageToSet;
-        if (candidate == null) {
-            Map<String, String> map = new HashMap<String, String>();
-            PluralRangeSetsDataSink sink = new PluralRangeSetsDataSink(map);
-            ICUResourceBundle resource = (ICUResourceBundle)
-                UResourceBundle.getBundleInstance(ICUData.ICU_BASE_NAME, "pluralRanges");
-            resource.getAllItemsWithFallback("locales", sink);
-            candidate = Collections.unmodifiableMap(map);
-        }
-        // Check if another thread set languageToSet in the mean time
-        if (languageToSet == null) {
-            languageToSet = candidate;
-        }
-        return languageToSet;
-    }
 
     private static final class PluralRangesDataSink extends UResource.Sink {
 
@@ -87,10 +38,6 @@ public class StandardPluralRanges {
             output.setCapacity(entriesArray.getSize());
             for (int i = 0; entriesArray.getValue(i, value); ++i) {
                 UResource.Array pluralFormsArray = value.getArray();
-                if (pluralFormsArray.getSize() != 3) {
-                    throw new UResourceTypeMismatchException(
-                        "Expected 3 elements in pluralRanges.txt array");
-                }
                 pluralFormsArray.getValue(0, value);
                 StandardPlural first = StandardPlural.fromString(value.getString());
                 pluralFormsArray.getValue(1, value);
@@ -103,43 +50,34 @@ public class StandardPluralRanges {
     }
 
     private static void getPluralRangesData(
-            String set,
+            ULocale locale,
             StandardPluralRanges out) {
         StringBuilder sb = new StringBuilder();
         ICUResourceBundle resource;
         resource = (ICUResourceBundle) UResourceBundle.getBundleInstance(ICUData.ICU_BASE_NAME, "pluralRanges");
+        sb.append("locales/");
+        sb.append(locale.getLanguage());
+        String key = sb.toString();
+        String set;
+        try {
+            set = resource.getStringWithFallback(key);
+        } catch (MissingResourceException e) {
+            // Not all languages are covered: fail gracefully
+            return;
+        }
+
         sb.setLength(0);
         sb.append("rules/");
         sb.append(set);
-        String key = sb.toString();
+        key = sb.toString();
         PluralRangesDataSink sink = new PluralRangesDataSink(out);
         resource.getAllItemsWithFallback(key, sink);
     }
 
     ////////////////////
 
-    /** Create a StandardPluralRanges based on locale. */
-    public static StandardPluralRanges forLocale(ULocale locale) {
-        return forSet(getSetForLocale(locale));
-    }
-
-    /** Create a StandardPluralRanges based on set name. */
-    public static StandardPluralRanges forSet(String set) {
-        StandardPluralRanges result = new StandardPluralRanges();
-        if (set == null) {
-            // Not all languages are covered: fail gracefully
-            return DEFAULT;
-        }
-        getPluralRangesData(set, result);
-        return result;
-    }
-
-    /** Get the set name from the locale. */
-    public static String getSetForLocale(ULocale locale) {
-        return getLanguageToSet().get(locale.getLanguage());
-    }
-
-    private StandardPluralRanges() {
+    public StandardPluralRanges(ULocale locale) {
+        getPluralRangesData(locale, this);
     }
 
     /** Used for data loading. */

@@ -1,6 +1,5 @@
 ﻿// © 2016 and later: Unicode, Inc. and others.
-// License & terms of use: http://www.unicode.org/copyright.html
-// Generated using tools/cldr/cldr-to-icu/build-icu-data.xml
+// License & terms of use: http://www.unicode.org/copyright.html#License
 th{
     Countries{
         001{"โลก"}
@@ -186,7 +185,7 @@ th{
         MH{"หมู่เกาะมาร์แชลล์"}
         MK{"มาซิโดเนียเหนือ"}
         ML{"มาลี"}
-        MM{"เมียนมา (พม่า)"}
+        MM{"เมียนมาร์ (พม่า)"}
         MN{"มองโกเลีย"}
         MO{"มาเก๊า"}
         MP{"หมู่เกาะนอร์เทิร์นมาเรียนา"}
@@ -299,6 +298,8 @@ th{
         ZZ{"ภูมิภาคที่ไม่รู้จัก"}
     }
     Countries%short{
+        GB{"สหราชอาณาจักร"}
+        UN{"สหประชาชาติ"}
         US{"สหรัฐฯ"}
     }
     Countries%variant{
@@ -309,4 +310,5 @@ th{
         SZ{"สวาซิแลนด์"}
         TL{"ติมอร์ตะวันออก"}
     }
+    Version{"36.1"}
 }

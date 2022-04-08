@@ -1,6 +1,6 @@
 /* GENERATED SOURCE. DO NOT MODIFY. */
 // © 2017 and later: Unicode, Inc. and others.
-// License & terms of use: http://www.unicode.org/copyright.html
+// License & terms of use: http://www.unicode.org/copyright.html#License
 package android.icu.impl.number.parse;
 
 import java.text.ParsePosition;
@@ -11,6 +11,7 @@ import java.util.List;
 import android.icu.impl.StringSegment;
 import android.icu.impl.number.AffixPatternProvider;
 import android.icu.impl.number.AffixUtils;
+import android.icu.impl.number.CurrencyPluralInfoAffixProvider;
 import android.icu.impl.number.CustomSymbolCurrency;
 import android.icu.impl.number.DecimalFormatProperties;
 import android.icu.impl.number.DecimalFormatProperties.ParseMode;
@@ -139,7 +140,12 @@ public class NumberParserImpl {
             boolean parseCurrency) {
 
         ULocale locale = symbols.getULocale();
-        AffixPatternProvider affixProvider = PropertiesAffixPatternProvider.forProperties(properties);
+        AffixPatternProvider affixProvider;
+        if (properties.getCurrencyPluralInfo() == null) {
+            affixProvider = new PropertiesAffixPatternProvider(properties);
+        } else {
+            affixProvider = new CurrencyPluralInfoAffixProvider(properties.getCurrencyPluralInfo(), properties);
+        }
         Currency currency = CustomSymbolCurrency.resolve(properties.getCurrency(), locale, symbols);
         ParseMode parseMode = properties.getParseMode();
         if (parseMode == null) {

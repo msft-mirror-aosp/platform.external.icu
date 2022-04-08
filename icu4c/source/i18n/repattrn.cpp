@@ -97,6 +97,8 @@ RegexPattern &RegexPattern::operator = (const RegexPattern &other) {
     fMinMatchLen      = other.fMinMatchLen;
     fFrameSize        = other.fFrameSize;
     fDataSize         = other.fDataSize;
+    fStaticSets       = other.fStaticSets;
+    fStaticSets8      = other.fStaticSets8;
 
     fStartType        = other.fStartType;
     fInitialStringIdx = other.fInitialStringIdx;
@@ -173,6 +175,8 @@ void RegexPattern::init() {
     fFrameSize        = 0;
     fDataSize         = 0;
     fGroupMap         = NULL;
+    fStaticSets       = NULL;
+    fStaticSets8      = NULL;
     fStartType        = START_NO_INFO;
     fInitialStringIdx = 0;
     fInitialStringLen = 0;
@@ -801,8 +805,8 @@ void   RegexPattern::dumpOp(int32_t index) const {
                 printf("NOT ");
                 val &= ~URX_NEG_SET;
             }
-            UnicodeSet &set = RegexStaticSets::gStaticSets->fPropSets[val];
-            set.toPattern(s, TRUE);
+            UnicodeSet *set = fStaticSets[val];
+            set->toPattern(s, TRUE);
             printf("%s", CStr(s)());
         }
         break;

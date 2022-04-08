@@ -1,6 +1,5 @@
 ﻿// © 2016 and later: Unicode, Inc. and others.
-// License & terms of use: http://www.unicode.org/copyright.html
-// Generated using tools/cldr/cldr-to-icu/build-icu-data.xml
+// License & terms of use: http://www.unicode.org/copyright.html#License
 en{
     Keys{
         calendar{"Calendar"}
@@ -16,7 +15,6 @@ en{
         collation{"Sort Order"}
         currency{"Currency"}
         d0{"Transform Destination"}
-        dx{"Dictionary Break Exclusions"}
         em{"Emoji Presentation Style"}
         fw{"First day of week"}
         h0{"Mixed-in"}
@@ -668,8 +666,6 @@ en{
         zh_Hant{"Traditional Mandarin Chinese"}
     }
     Languages%menu{
-        ars{"Arabic, Najdi"}
-        ckb{"Kurdish, Central"}
         yue{"Chinese, Cantonese"}
         zh{"Chinese, Mandarin"}
     }
@@ -679,7 +675,6 @@ en{
         en_US{"US English"}
     }
     Languages%variant{
-        ckb{"Kurdish, Sorani"}
         ky{"Kirghiz"}
         my{"Myanmar Language"}
         ps{"Pushto"}
@@ -691,7 +686,6 @@ en{
         Aghb{"Caucasian Albanian"}
         Ahom{"Ahom"}
         Arab{"Arabic"}
-        Aran{"Nastaliq"}
         Armi{"Imperial Aramaic"}
         Armn{"Armenian"}
         Avst{"Avestan"}
@@ -1177,7 +1171,6 @@ en{
             roman{"Roman Numerals"}
             romanlow{"Roman Lowercase Numerals"}
             saur{"Saurashtra Digits"}
-            segment{"Segmented Digits"}
             shrd{"Sharada Digits"}
             sind{"Khudawadi Digits"}
             sinh{"Sinhala Lith Digits"}
@@ -1277,6 +1270,7 @@ en{
         VALENCIA{"Valencian"}
         WADEGILE{"Wade-Giles Romanization"}
     }
+    Version{"36.1"}
     characterLabelPattern{
         all{"{0} — all"}
         category-list{"{0}: {1}"}

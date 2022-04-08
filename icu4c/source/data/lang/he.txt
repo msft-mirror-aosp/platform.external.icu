@@ -1,6 +1,5 @@
 ﻿// © 2016 and later: Unicode, Inc. and others.
-// License & terms of use: http://www.unicode.org/copyright.html
-// Generated using tools/cldr/cldr-to-icu/build-icu-data.xml
+// License & terms of use: http://www.unicode.org/copyright.html#License
 he{
     Keys{
         calendar{"לוח שנה"}
@@ -154,7 +153,6 @@ he{
         eu{"בסקית"}
         ewo{"אוונדו"}
         fa{"פרסית"}
-        fa_AF{"דארי"}
         fan{"פנג"}
         fat{"פאנטי"}
         ff{"פולה"}
@@ -190,7 +188,7 @@ he{
         got{"גותית"}
         grb{"גרבו"}
         grc{"יוונית עתיקה"}
-        gsw{"גרמנית שוויצרית"}
+        gsw{"גרמנית (בשוויץ)"}
         gu{"גוג׳ארטי"}
         guz{"גוסי"}
         gv{"מאנית"}
@@ -556,13 +554,14 @@ he{
         yue{"סינית, קנטונזית"}
         zh{"סינית, מנדרינית"}
     }
+    Languages%short{
+        az{"אזרית"}
+    }
     Languages%variant{
         ps{"פושטו"}
     }
     Scripts{
         Arab{"ערבי"}
-        Aran{"נסתעליק"}
-        Armi{"ארמית רשמית"}
         Armn{"ארמני"}
         Bali{"באלינזי"}
         Beng{"בנגלי"}
@@ -606,13 +605,9 @@ he{
         Maya{"מאיה"}
         Mlym{"מליאלאם"}
         Mong{"מונגולי"}
-        Mtei{"מאיטי מאייק"}
         Mymr{"מיאנמר"}
-        Nkoo{"נ׳קו"}
-        Olck{"אול צ׳יקי"}
         Orya{"אודייה"}
         Phnx{"פיניקי"}
-        Qaag{"זאוגיי"}
         Runr{"רוני"}
         Sinh{"סינהלה"}
         Syrc{"סורי"}
@@ -794,6 +789,7 @@ he{
         SCOTLAND{"אנגלית סקוטית סטנדרטית"}
         WADEGILE{"ווייד-גיילס, שיטה לתעתוק סינית לאותיות לטיניות"}
     }
+    Version{"36.1"}
     characterLabelPattern{
         all{"{0} - הכל"}
         category-list{"{0}: {1}"}
@@ -810,8 +806,6 @@ he{
             other{"{0} משיכות מכחול"}
             two{"{0} משיכות מכחול"}
         }
-        subscript{"כתב תחתי {0}"}
-        superscript{"כתב עילי {0}"}
     }
     codePatterns{
         language{"שפה:‏ {0}"}

@@ -1,8 +1,7 @@
 ﻿// © 2016 and later: Unicode, Inc. and others.
-// License & terms of use: http://www.unicode.org/copyright.html
-// Generated using tools/cldr/cldr-to-icu/build-icu-data.xml
+// License & terms of use: http://www.unicode.org/copyright.html#License
 ceb{
-    AuxExemplarCharacters{"[c f j ñ q v x z]"}
+    AuxExemplarCharacters{"[c f j q v x z]"}
     ExemplarCharacters{"[a b d e g h i k l m n o p r s t u w y]"}
     ExemplarCharactersIndex{"[A B C D E F G H I J K L M N O P Q R S T U V W X Y Z]"}
     ExemplarCharactersPunctuation{"[\\- ‑ , ; \\: ! ? . … ' ‘ ’ \u0022 “ ” ( ) \\[ \\] @ * / \\& # ′ ″]"}
@@ -15,6 +14,7 @@ ceb{
                 accountingFormat{"¤#,##0.00;(¤#,##0.00)"}
                 currencyFormat{"¤#,##0.00"}
                 decimalFormat{"#,##0.###"}
+                percentFormat{"#,#0%"}
                 scientificFormat{"#E0"}
             }
             symbols{
@@ -35,6 +35,7 @@ ceb{
             }
         }
     }
+    Version{"36.1"}
     calendar{
         generic{
             DateTimePatterns{
@@ -136,9 +137,6 @@ ceb{
                     M{"M/d – M/d"}
                     d{"M/d – M/d"}
                 }
-                d{
-                    d{"d – d"}
-                }
                 fallback{"{0} – {1}"}
                 y{
                     y{"y – y G"}
@@ -213,10 +211,10 @@ ceb{
                 Ed{"d E"}
                 Ehm{"E h:mm a"}
                 Ehms{"E h:mm:ss a"}
-                Gy{"y G"}
-                GyMMM{"MMM y G"}
-                GyMMMEd{"E, MMM d, y G"}
-                GyMMMd{"MMM d, y G"}
+                Gy{"G y"}
+                GyMMM{"G y MMM"}
+                GyMMMEd{"G y MMM d, E"}
+                GyMMMd{"G y MMM d"}
                 H{"HH"}
                 Hm{"HH:mm"}
                 Hms{"HH:mm:ss"}
@@ -261,10 +259,10 @@ ceb{
                         "Dom",
                         "Lun",
                         "Mar",
-                        "Miy",
-                        "Huw",
-                        "Biy",
-                        "Sab",
+                        "Mks",
+                        "Hu",
+                        "Bi",
+                        "Sa",
                     }
                     narrow{
                         "D",
@@ -295,15 +293,6 @@ ceb{
                     }
                 }
                 stand-alone{
-                    abbreviated{
-                        "Dom",
-                        "Lun",
-                        "Mar",
-                        "Miy",
-                        "Huw",
-                        "Biy",
-                        "Sab",
-                    }
                     narrow{
                         "D",
                         "L",
@@ -317,20 +306,16 @@ ceb{
             }
             eras{
                 abbreviated{
-                    "BC",
-                    "AD",
+                    "WK",
+                    "KP",
                 }
                 abbreviated%variant{
-                    "BCE",
+                    "WKP",
                     "CE",
                 }
-                wide{
-                    "Sa Wala Pa Si Kristo",
-                    "Anno Domini",
-                }
                 wide%variant{
-                    "Wala Pa ang Komong Panahon",
-                    "Komong Panahon",
+                    "Sa Wala Pa ang Common Era",
+                    "Common Era",
                 }
             }
             intervalFormats{
@@ -400,22 +385,12 @@ ceb{
                     M{"E, MMM d – E, MMM d"}
                     d{"E, MMM d – E, MMM d"}
                 }
-                MMMd{
-                    d{"MMM d – d"}
-                }
                 Md{
                     M{"M/d – M/d"}
                     d{"M/d – M/d"}
                 }
-                d{
-                    d{"d – d"}
-                }
                 fallback{"{0} – {1}"}
-                h{
-                    h{"h – h a"}
-                }
                 hm{
-                    h{"h:mm – h:mm a"}
                     m{"h:mm – h:mm a"}
                 }
                 hmv{
@@ -424,9 +399,6 @@ ceb{
                 }
                 hv{
                     h{"h – h a v"}
-                }
-                y{
-                    y{"y – y"}
                 }
                 yM{
                     M{"M/y – M/y"}
@@ -464,14 +436,14 @@ ceb{
             monthNames{
                 format{
                     abbreviated{
-                        "Ene",
+                        "En",
                         "Peb",
                         "Mar",
-                        "Abr",
+                        "Apr",
                         "May",
                         "Hun",
                         "Hul",
-                        "Ago",
+                        "Ag",
                         "Set",
                         "Okt",
                         "Nob",
@@ -508,14 +480,14 @@ ceb{
                 }
                 stand-alone{
                     abbreviated{
-                        "Ene",
+                        "En",
                         "Peb",
                         "Mar",
-                        "Abr",
+                        "Apr",
                         "May",
                         "Hun",
                         "Hul",
-                        "Ago",
+                        "Ag",
                         "Set",
                         "Okt",
                         "Nob",
@@ -618,7 +590,7 @@ ceb{
             dn{"AM/PM"}
         }
         era{
-            dn{"panahon"}
+            dn{"era"}
         }
         hour{
             dn{"oras"}
@@ -754,8 +726,8 @@ ceb{
             end{"{0}, o {1}"}
         }
         standard{
-            2{"{0} ug {1}"}
-            end{"{0}, ug {1}"}
+            2{"{0} at {1}"}
+            end{"{0}, at {1}"}
             middle{"{0}, {1}"}
             start{"{0}, {1}"}
         }

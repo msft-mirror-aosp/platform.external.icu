@@ -1,6 +1,5 @@
 ﻿// © 2016 and later: Unicode, Inc. and others.
-// License & terms of use: http://www.unicode.org/copyright.html
-// Generated using tools/cldr/cldr-to-icu/build-icu-data.xml
+// License & terms of use: http://www.unicode.org/copyright.html#License
 sr{
     Countries{
         001{"свет"}
@@ -288,8 +287,6 @@ sr{
         VU{"Вануату"}
         WF{"Валис и Футуна"}
         WS{"Самоа"}
-        XA{"Псеудоакценти"}
-        XB{"Псеудобиди"}
         XK{"Косово"}
         YE{"Јемен"}
         YT{"Мајот"}
@@ -308,6 +305,8 @@ sr{
         CG{"Конго (Република)"}
         CI{"Обала Слоноваче"}
         CZ{"Чешка Република"}
+        SZ{"Свазиленд"}
         TL{"Источни Тимор"}
     }
+    Version{"36.1"}
 }

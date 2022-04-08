@@ -1,6 +1,5 @@
 ﻿// © 2016 and later: Unicode, Inc. and others.
-// License & terms of use: http://www.unicode.org/copyright.html
-// Generated using tools/cldr/cldr-to-icu/build-icu-data.xml
+// License & terms of use: http://www.unicode.org/copyright.html#License
 bg{
     Countries{
         001{"свят"}
@@ -263,7 +262,7 @@ bg{
         TH{"Тайланд"}
         TJ{"Таджикистан"}
         TK{"Токелау"}
-        TL{"Тимор Лесте"}
+        TL{"Източен Тимор"}
         TM{"Туркменистан"}
         TN{"Тунис"}
         TO{"Тонга"}
@@ -299,13 +298,16 @@ bg{
         ZZ{"непознат регион"}
     }
     Countries%short{
+        GB{"Обединеното кралство"}
         US{"САЩ"}
     }
     Countries%variant{
         CD{"Конго (ДРК)"}
         CG{"Конго (Република)"}
+        CI{"Кот д’Ивоар"}
         CZ{"Чешка република"}
         SZ{"Свазиленд"}
         TL{"Източен Тимор"}
     }
+    Version{"36.1"}
 }

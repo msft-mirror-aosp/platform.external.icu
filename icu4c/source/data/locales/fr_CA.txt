@@ -1,6 +1,5 @@
 ﻿// © 2016 and later: Unicode, Inc. and others.
-// License & terms of use: http://www.unicode.org/copyright.html
-// Generated using tools/cldr/cldr-to-icu/build-icu-data.xml
+// License & terms of use: http://www.unicode.org/copyright.html#License
 fr_CA{
     AuxExemplarCharacters{"[á å ä ã ā ē í ì ī ñ ó ò ö ø ú ǔ]"}
     NumberElements{
@@ -8,7 +7,6 @@ fr_CA{
             patternsLong{
                 decimalFormat{
                     1000{
-                        1{"0 mille"}
                         one{"0 mille"}
                         other{"0 mille"}
                     }
@@ -101,11 +99,11 @@ fr_CA{
                 }
             }
             symbols{
-                approximatelySign{"≈"}
                 group{" "}
             }
         }
     }
+    Version{"36.1"}
     calendar{
         coptic{
             monthNames{
@@ -350,10 +348,10 @@ fr_CA{
                 "d MMMM y",
                 "d MMM y",
                 "y-MM-dd",
-                "{1}, {0}",
+                "{1} {0}",
                 "{1} 'à' {0}",
                 "{1} 'à' {0}",
-                "{1}, {0}",
+                "{1} {0}",
                 "{1} {0}",
             }
             availableFormats{

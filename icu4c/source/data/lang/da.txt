@@ -1,6 +1,5 @@
 ﻿// © 2016 and later: Unicode, Inc. and others.
-// License & terms of use: http://www.unicode.org/copyright.html
-// Generated using tools/cldr/cldr-to-icu/build-icu-data.xml
+// License & terms of use: http://www.unicode.org/copyright.html#License
 da{
     Keys{
         calendar{"kalender"}
@@ -161,7 +160,6 @@ da{
         eu{"baskisk"}
         ewo{"ewondo"}
         fa{"persisk"}
-        fa_AF{"dari"}
         fan{"fang"}
         fat{"fanti"}
         ff{"fulah"}
@@ -178,7 +176,7 @@ da{
         fro{"oldfransk"}
         frr{"nordfrisisk"}
         frs{"østfrisisk"}
-        fur{"friulisk"}
+        fur{"friulian"}
         fy{"vestfrisisk"}
         ga{"irsk"}
         gaa{"ga"}
@@ -356,7 +354,7 @@ da{
         nan{"min-kinesisk"}
         nap{"napolitansk"}
         naq{"nama"}
-        nb{"bokmål"}
+        nb{"norsk bokmål"}
         nd{"nordndebele"}
         nds{"nedertysk"}
         ne{"nepalesisk"}
@@ -426,7 +424,7 @@ da{
         rwk{"rwa"}
         sa{"sanskrit"}
         sad{"sandawe"}
-        sah{"jakutisk"}
+        sah{"yakut"}
         sam{"samaritansk aramæisk"}
         saq{"samburu"}
         sas{"sasak"}
@@ -535,7 +533,7 @@ da{
         wo{"wolof"}
         wuu{"wu-kinesisk"}
         xal{"kalmyk"}
-        xh{"xhosa"}
+        xh{"isiXhosa"}
         xog{"soga"}
         yao{"yao"}
         yap{"yapese"}
@@ -558,25 +556,19 @@ da{
         zza{"zaza"}
     }
     Languages%menu{
-        ars{"arabisk, najdi"}
-        ckb{"kurdisk, sorani"}
         yue{"kantonesisk (Kina)"}
         zh{"mandarin (Kina)"}
     }
     Languages%short{
         az{"azeri"}
-        en_GB{"britisk engelsk"}
-        en_US{"amerikansk engelsk"}
     }
     Languages%variant{
-        ckb{"centralkurdisk"}
         ps{"pushto"}
         ug{"uighurisk"}
     }
     Scripts{
         Afak{"afaka"}
         Arab{"arabisk"}
-        Aran{"nastaliq"}
         Armi{"armi"}
         Armn{"armensk"}
         Avst{"avestansk"}
@@ -687,7 +679,6 @@ da{
         Phnx{"fønikisk"}
         Plrd{"pollardtegn"}
         Prti{"prti"}
-        Qaag{"zawgyi"}
         Rjng{"rejang"}
         Roro{"rongo-rongo"}
         Runr{"runer"}
@@ -970,6 +961,7 @@ da{
         VALLADER{"vallader"}
         WADEGILE{"Wade-Giles"}
     }
+    Version{"36.1"}
     characterLabelPattern{
         all{"{0} – alle"}
         category-list{"{0}: {1}"}
@@ -984,8 +976,6 @@ da{
             one{"{0} streg"}
             other{"{0} streger"}
         }
-        subscript{"sænket skrift {0}"}
-        superscript{"hævet skrift {0}"}
     }
     codePatterns{
         language{"Sprog: {0}"}

@@ -1,7 +1,7 @@
 ﻿// © 2016 and later: Unicode, Inc. and others.
-// License & terms of use: http://www.unicode.org/copyright.html
-// Generated using tools/cldr/cldr-to-icu/build-icu-data.xml
+// License & terms of use: http://www.unicode.org/copyright.html#License
 be{
+    Version{"36.1"}
     zoneStrings{
         "Africa:Abidjan"{
             ec{"Абіджан"}
@@ -1710,9 +1710,7 @@ be{
             ls{"Час Ніуэ"}
         }
         "meta:Norfolk"{
-            ld{"Летні час вострава Норфалк"}
-            lg{"Час вострава Норфалк"}
-            ls{"Стандартны час вострава Норфалк"}
+            ls{"Час вострава Норфалк"}
         }
         "meta:Noronha"{
             ld{"Летні час Фернанду-дзі-Наронья"}

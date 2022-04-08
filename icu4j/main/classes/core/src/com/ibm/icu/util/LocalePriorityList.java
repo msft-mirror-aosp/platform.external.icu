@@ -1,5 +1,5 @@
 // © 2016 and later: Unicode, Inc. and others.
-// License & terms of use: http://www.unicode.org/copyright.html
+// License & terms of use: http://www.unicode.org/copyright.html#License
 /*
  *******************************************************************************
  * Copyright (C) 2010-2016, Google, Inc.; International Business Machines      *
@@ -142,7 +142,8 @@ public class LocalePriorityList implements Iterable<ULocale> {
      * The set has the same iteration order as this object itself.
      *
      * @return the locales
-     * @stable ICU 65
+     * @draft ICU 65
+     * @provisional This API might change or be removed in a future release.
      */
     public Set<ULocale> getULocales() {
         return languagesAndWeights.keySet();

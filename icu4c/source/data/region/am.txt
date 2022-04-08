@@ -1,6 +1,5 @@
 ﻿// © 2016 and later: Unicode, Inc. and others.
-// License & terms of use: http://www.unicode.org/copyright.html
-// Generated using tools/cldr/cldr-to-icu/build-icu-data.xml
+// License & terms of use: http://www.unicode.org/copyright.html#License
 am{
     Countries{
         001{"ዓለም"}
@@ -188,7 +187,7 @@ am{
         ML{"ማሊ"}
         MM{"ማይናማር(በርማ)"}
         MN{"ሞንጎሊያ"}
-        MO{"ማካኦ"}
+        MO{"ማካኡ"}
         MP{"የሰሜናዊ ማሪያና ደሴቶች"}
         MQ{"ማርቲኒክ"}
         MR{"ሞሪቴኒያ"}
@@ -221,7 +220,7 @@ am{
         PK{"ፓኪስታን"}
         PL{"ፖላንድ"}
         PM{"ቅዱስ ፒዬር እና ሚኩኤሎን"}
-        PN{"ፒትካኢርን ደሴቶች"}
+        PN{"ፒትካኢርን አይስላንድ"}
         PR{"ፖርታ ሪኮ"}
         PS{"ፍልስጥኤም"}
         PT{"ፖርቱጋል"}
@@ -305,10 +304,11 @@ am{
     }
     Countries%variant{
         CD{"ኮንጎ (የዲሞክራቲክ ሪፐብሊክ ኮንጎ)"}
-        CG{"ኮንጎ (ሪፑብሊክ)"}
+        CG{"ኮንጎ (ሪፐብሊክ)"}
         CI{"አይቮሪኮስት"}
         CZ{"ቼክ ሪፑብሊክ"}
         SZ{"ስዋዚላንድ"}
         TL{"ምስራቅ ቲሞር"}
     }
+    Version{"36.1"}
 }

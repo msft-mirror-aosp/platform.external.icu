@@ -1,6 +1,5 @@
 ﻿// © 2016 and later: Unicode, Inc. and others.
-// License & terms of use: http://www.unicode.org/copyright.html
-// Generated using tools/cldr/cldr-to-icu/build-icu-data.xml
+// License & terms of use: http://www.unicode.org/copyright.html#License
 vai{
     Countries{
         AC{"ꗻꗡ ꕒꕡꕌ ꗏ ꔳꘋꗣ"}
@@ -153,6 +152,7 @@ vai{
         ML{"ꕮꔷ"}
         MM{"ꕆꕩꘋꕮ"}
         MN{"ꗞꖐꔷꕩ"}
+        MO{"ꕮꗛꖺ"}
         MP{"ꗛꔤ ꕪꘋꗒ ꕮꔸꕩꕯ ꔳꘋꗣ"}
         MQ{"ꕮꔳꕇꕃ"}
         MR{"ꗞꔓꔎꕇꕰ"}
@@ -257,4 +257,5 @@ vai{
         ZM{"ꕤꔭꕩ"}
         ZW{"ꔽꕓꖜꔃ"}
     }
+    Version{"36.1"}
 }

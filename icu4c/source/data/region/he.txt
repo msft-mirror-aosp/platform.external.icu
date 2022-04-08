@@ -1,6 +1,5 @@
 ﻿// © 2016 and later: Unicode, Inc. and others.
-// License & terms of use: http://www.unicode.org/copyright.html
-// Generated using tools/cldr/cldr-to-icu/build-icu-data.xml
+// License & terms of use: http://www.unicode.org/copyright.html#License
 he{
     Countries{
         001{"העולם"}
@@ -299,6 +298,7 @@ he{
         ZZ{"אזור לא ידוע"}
     }
     Countries%short{
+        GB{"בריטניה"}
         US{"ארה״ב"}
     }
     Countries%variant{
@@ -309,4 +309,5 @@ he{
         SZ{"סווזילנד"}
         TL{"מזרח טימור"}
     }
+    Version{"36.1"}
 }

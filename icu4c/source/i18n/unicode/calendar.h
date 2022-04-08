@@ -464,10 +464,10 @@ public:
     UBool operator!=(const Calendar& that) const {return !operator==(that);}
 
     /**
-     * Returns true if the given Calendar object is equivalent to this
+     * Returns TRUE if the given Calendar object is equivalent to this
      * one.  An equivalent Calendar will behave exactly as this one
      * does, but it may be set to a different time.  By contrast, for
-     * the operator==() method to return true, the other Calendar must
+     * the operator==() method to return TRUE, the other Calendar must
      * be set to the same time.
      *
      * @param other the Calendar to be compared with this Calendar
@@ -1359,7 +1359,7 @@ public:
      *     localeID.append(calType);
      *     char langTag[100];
      *     UErrorCode errorCode = U_ZERO_ERROR;
-     *     int32_t length = uloc_toLanguageTag(localeID.c_str(), langTag, (int32_t)sizeof(langTag), true, &errorCode);
+     *     int32_t length = uloc_toLanguageTag(localeID.c_str(), langTag, (int32_t)sizeof(langTag), TRUE, &errorCode);
      *     if (U_FAILURE(errorCode)) {
      *         // deal with errors & overflow
      *     }
@@ -1410,21 +1410,21 @@ public:
     virtual int32_t getWeekendTransition(UCalendarDaysOfWeek dayOfWeek, UErrorCode &status) const;
 
     /**
-     * Returns true if the given UDate is in the weekend in
+     * Returns TRUE if the given UDate is in the weekend in
      * this calendar system.
      * @param date The UDate in question.
      * @param status The error code for the operation.
-     * @return true if the given UDate is in the weekend in
-     * this calendar system, false otherwise.
+     * @return TRUE if the given UDate is in the weekend in
+     * this calendar system, FALSE otherwise.
      * @stable ICU 4.4
      */
     virtual UBool isWeekend(UDate date, UErrorCode &status) const;
 
     /**
-     * Returns true if this Calendar's current date-time is in the weekend in
+     * Returns TRUE if this Calendar's current date-time is in the weekend in
      * this calendar system.
-     * @return true if this Calendar's current date-time is in the weekend in
-     * this calendar system, false otherwise.
+     * @return TRUE if this Calendar's current date-time is in the weekend in
+     * this calendar system, FALSE otherwise.
      * @stable ICU 4.4
      */
     virtual UBool isWeekend(void) const;
@@ -2372,7 +2372,7 @@ private:
      *
      * @param key the registry key returned by a previous call to registerFactory
      * @param status the in/out status code, no special meanings are assigned
-     * @return true if the factory for the key was successfully unregistered
+     * @return TRUE if the factory for the key was successfully unregistered
      * @internal
      */
     static UBool unregister(URegistryKey key, UErrorCode& status);
@@ -2398,7 +2398,7 @@ private:
 #endif /* !UCONFIG_NO_SERVICE */
 
     /**
-     * @return true if this calendar has a default century (i.e. 03 -> 2003)
+     * @return TRUE if this calendar has a default century (i.e. 03 -> 2003)
      * @internal
      */
     virtual UBool haveDefaultCentury() const = 0;
@@ -2458,7 +2458,7 @@ private:
      * @param base The base time, inclusive
      * @param transitionTime Receives the result time
      * @param status The error status
-     * @return true if a transition is found.
+     * @return TRUE if a transition is found.
      */
     UBool getImmediatePreviousZoneTransition(UDate base, UDate *transitionTime, UErrorCode& status) const;
 
@@ -2531,7 +2531,7 @@ Calendar::internalSet(UCalendarDateFields field, int32_t value)
 {
     fFields[field] = value;
     fStamp[field] = kInternallySet;
-    fIsSet[field]     = true; // Remove later
+    fIsSet[field]     = TRUE; // Remove later
 }
 
 

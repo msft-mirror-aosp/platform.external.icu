@@ -1,6 +1,5 @@
 ﻿// © 2016 and later: Unicode, Inc. and others.
-// License & terms of use: http://www.unicode.org/copyright.html
-// Generated using tools/cldr/cldr-to-icu/build-icu-data.xml
+// License & terms of use: http://www.unicode.org/copyright.html#License
 sd{
     Currencies{
         AED{
@@ -833,12 +832,16 @@ sd{
             other{"ڀوٽاني گلٽرم"}
         }
         BWP{
-            one{"بوٽسواني پولا"}
+            one{"بوستواني پولا"}
             other{"بوستواني پولا"}
         }
         BYN{
             one{"بیلاروسی ربل"}
             other{"بیلاروسی ربل"}
+        }
+        BYR{
+            one{"BYR"}
+            other{"BYR"}
         }
         BZD{
             one{"بيليز ڊالر"}
@@ -897,7 +900,7 @@ sd{
             other{"جبوتي فرينڪ"}
         }
         DKK{
-            one{"ڊينش ڪرون"}
+            one{"دانش ڪرون"}
             other{"دانش ڪرون"}
         }
         DOP{
@@ -986,7 +989,7 @@ sd{
         }
         IDR{
             one{"انڊونيشيائي رپيه"}
-            other{"انڊونيشيائي رپيو"}
+            other{"انڊونيشيائي رپيه"}
         }
         ILS{
             one{"اسرائيلي نيو شيڪل"}
@@ -1021,7 +1024,7 @@ sd{
             other{"جاپاني يين"}
         }
         KES{
-            one{"ڪينيائي شلنگ"}
+            one{"ڪينيائي سلنگ"}
             other{"ڪينيائي سلنگ"}
         }
         KGS{
@@ -1137,11 +1140,11 @@ sd{
             other{"موزمبيق ميٽيڪل"}
         }
         NAD{
-            one{"نميبيائي ڊالر"}
+            one{"نميبائي ڊالر"}
             other{"نميبائي ڊالر"}
         }
         NGN{
-            one{"نائجيريائي نائرا"}
+            one{"نائجريائي نائرا"}
             other{"نائجريائي نائرا"}
         }
         NIO{
@@ -1265,7 +1268,7 @@ sd{
             other{"سائو ٽوم ۽ پرنسپي دوبرا"}
         }
         SYP{
-            one{"شامي پائونڊ"}
+            one{"سيريائي پائونڊ"}
             other{"سيريائي پائونڊ"}
         }
         SZL{
@@ -1281,7 +1284,7 @@ sd{
             other{"تاجڪستاني سوموني"}
         }
         TMT{
-            one{"ترڪمانستاني منت"}
+            one{"ترڪمانستان منت"}
             other{"ترڪمانستان منت"}
         }
         TND{
@@ -1381,4 +1384,5 @@ sd{
             other{"زمبائي ڪواچا"}
         }
     }
+    Version{"36.1"}
 }

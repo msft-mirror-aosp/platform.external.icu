@@ -31,7 +31,7 @@ import org.eclipse.jdt.core.dom.rewrite.ASTRewrite;
 import org.eclipse.jdt.core.dom.rewrite.ListRewrite;
 
 /**
- * Add a default constructor to an allowlist of classes.
+ * Add a default constructor to a white list of classes.
  */
 public class AddDefaultConstructor implements Processor {
 
@@ -42,7 +42,7 @@ public class AddDefaultConstructor implements Processor {
       ModifierKeyword.PUBLIC_KEYWORD,
       ModifierKeyword.PRIVATE_KEYWORD, ModifierKeyword.PROTECTED_KEYWORD};
 
-  private final List<TypeLocator> allowlist;
+  private final List<TypeLocator> whitelist;
   private Listener listener;
 
   public interface Listener {
@@ -56,8 +56,8 @@ public class AddDefaultConstructor implements Processor {
     void onAddDefaultConstructor(TypeLocator locator, TypeDeclaration typeDeclaration);
   }
 
-  public AddDefaultConstructor(List<TypeLocator> allowlist) {
-    this.allowlist = allowlist;
+  public AddDefaultConstructor(List<TypeLocator> whitelist) {
+    this.whitelist = whitelist;
     this.listener = (l, typeDeclaration) -> {};
   }
 
@@ -68,7 +68,7 @@ public class AddDefaultConstructor implements Processor {
   @Override
   public void process(Context context, CompilationUnit cu) {
     final ASTRewrite rewrite = context.rewrite();
-    for (TypeLocator typeLocator : allowlist) {
+    for (TypeLocator typeLocator : whitelist) {
       AbstractTypeDeclaration abstractTypeDeclaration = typeLocator.find(cu);
       if (abstractTypeDeclaration instanceof TypeDeclaration) {
         TypeDeclaration typeDeclaration = (TypeDeclaration) abstractTypeDeclaration;

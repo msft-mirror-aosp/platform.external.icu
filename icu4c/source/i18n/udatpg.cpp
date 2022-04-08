@@ -291,9 +291,4 @@ udatpg_getPatternForSkeleton(const UDateTimePatternGenerator *dtpg,
     return result.getBuffer();
 }
 
-U_CAPI UDateFormatHourCycle U_EXPORT2
-udatpg_getDefaultHourCycle(const UDateTimePatternGenerator *dtpg, UErrorCode* pErrorCode) {
-    return ((const DateTimePatternGenerator *)dtpg)->getDefaultHourCycle(*pErrorCode);
-}
-
 #endif

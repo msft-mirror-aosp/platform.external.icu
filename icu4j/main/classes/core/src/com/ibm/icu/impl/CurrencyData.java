@@ -1,5 +1,5 @@
 // © 2016 and later: Unicode, Inc. and others.
-// License & terms of use: http://www.unicode.org/copyright.html
+// License & terms of use: http://www.unicode.org/copyright.html#License
 /*
  *******************************************************************************
  * Copyright (C) 2009-2016, International Business Machines Corporation and
@@ -151,16 +151,6 @@ public class CurrencyData {
 
         @Override
         public String getNarrowSymbol(String isoCode) {
-            return fallback ? isoCode : null;
-        }
-
-        @Override
-        public String getFormalSymbol(String isoCode) {
-            return fallback ? isoCode : null;
-        }
-
-        @Override
-        public String getVariantSymbol(String isoCode) {
             return fallback ? isoCode : null;
         }
 

@@ -1,6 +1,5 @@
 ﻿// © 2016 and later: Unicode, Inc. and others.
-// License & terms of use: http://www.unicode.org/copyright.html
-// Generated using tools/cldr/cldr-to-icu/build-icu-data.xml
+// License & terms of use: http://www.unicode.org/copyright.html#License
 ce{
     ExemplarCharacters{
         "[а {аь} б в г {гӏ} д е ё ж з и {ий} й к {кк} {ккх} {кх} {кь} {кӏ} л м н о {о"
@@ -194,6 +193,7 @@ ce{
         }
         minimumGroupingDigits{"1"}
     }
+    Version{"36.1"}
     calendar{
         generic{
             DateTimePatterns{
@@ -301,7 +301,7 @@ ce{
                 }
                 abbreviated%variant{
                     "МАССО",
-                    "в. э",
+                    "CE",
                 }
                 wide{
                     "Ӏийса пайхамар вина де кхачале",
@@ -1018,7 +1018,7 @@ ce{
         }
         week-short{
             dn{"кӀир."}
-            relativePeriod{"кӀирнахь {0}"}
+            relativePeriod{"кӀирнахь"}
             relativeTime{
                 future{
                     one{"{0} кӀир. даьлча"}

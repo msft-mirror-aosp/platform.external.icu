@@ -1,6 +1,5 @@
 ﻿// © 2016 and later: Unicode, Inc. and others.
-// License & terms of use: http://www.unicode.org/copyright.html
-// Generated using tools/cldr/cldr-to-icu/build-icu-data.xml
+// License & terms of use: http://www.unicode.org/copyright.html#License
 jv{
     Currencies{
         AED{
@@ -907,6 +906,9 @@ jv{
         MNT{
             other{"Tugrik Mongol"}
         }
+        MOP{
+            other{"MOP"}
+        }
         MRO{
             other{"Ouguiya Mauritania (1973 - 2017)"}
         }
@@ -1115,4 +1117,5 @@ jv{
     CurrencyUnitPatterns{
         other{"{0} {1}"}
     }
+    Version{"36.1"}
 }

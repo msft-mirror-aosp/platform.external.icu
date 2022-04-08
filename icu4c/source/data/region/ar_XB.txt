@@ -1,6 +1,5 @@
 ﻿// © 2016 and later: Unicode, Inc. and others.
-// License & terms of use: http://www.unicode.org/copyright.html
-// Generated using tools/cldr/cldr-to-icu/build-icu-data.xml
+// License & terms of use: http://www.unicode.org/copyright.html#License
 ar_XB{
     Countries{
         001{"؜‮World‬؜"}
@@ -288,8 +287,8 @@ ar_XB{
         VU{"؜‮Vanuatu‬؜"}
         WF{"؜‮Wallis‬؜ & ؜‮Futuna‬؜"}
         WS{"؜‮Samoa‬؜"}
-        XA{"؜‮Pseudo‬؜-؜‮Accents‬؜"}
-        XB{"؜‮Pseudo‬؜-؜‮Bidi‬؜"}
+        XA{"[XA]"}
+        XB{"[XB]"}
         XK{"؜‮Kosovo‬؜"}
         YE{"؜‮Yemen‬؜"}
         YT{"؜‮Mayotte‬؜"}
@@ -309,9 +308,9 @@ ar_XB{
         CD{"؜‮Congo‬؜ (؜‮DRC‬؜)"}
         CG{"؜‮Congo‬؜ (؜‮Republic‬؜)"}
         CI{"؜‮Ivory‬؜ ؜‮Coast‬؜"}
-        CV{"؜‮Cabo‬؜ ؜‮Verde‬؜"}
         CZ{"؜‮Czech‬؜ ؜‮Republic‬؜"}
         SZ{"؜‮Swaziland‬؜"}
         TL{"؜‮East‬؜ ؜‮Timor‬؜"}
     }
+    Version{"36.1"}
 }

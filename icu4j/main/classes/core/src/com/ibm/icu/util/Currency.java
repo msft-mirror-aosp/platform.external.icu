@@ -1,5 +1,5 @@
 // © 2016 and later: Unicode, Inc. and others.
-// License & terms of use: http://www.unicode.org/copyright.html
+// License & terms of use: http://www.unicode.org/copyright.html#License
 /**
  *******************************************************************************
  * Copyright (C) 2001-2016, International Business Machines Corporation and
@@ -90,37 +90,13 @@ public class Currency extends MeasureUnit {
 
     /**
      * Selector for getName() indicating the narrow currency symbol.
-     * <p>
-     * The narrow currency symbol is similar to the regular currency symbol,
-     * but it always takes the shortest form;
-     * for example, "$" instead of "US$" for USD in en-CA.
+     * The narrow currency symbol is similar to the regular currency
+     * symbol, but it always takes the shortest form: for example,
+     * "$" instead of "US$" for USD in en-CA.
      *
      * @stable ICU 61
      */
     public static final int NARROW_SYMBOL_NAME = 3;
-
-    /**
-     * Selector for getName() indicating the formal currency symbol.
-     * <p>
-     * The formal currency symbol is similar to the regular currency symbol,
-     * but it always takes the form used in formal settings such as banking;
-     * for example, "NT$" instead of "$" for TWD in zh-TW.
-     *
-     * @draft ICU 67
-     * @provisional This API might change or be removed in a future release.
-     */
-    public static final int FORMAL_SYMBOL_NAME = 4;
-
-    /**
-     * Selector for getName() indicating the variant currency symbol.
-     * <p>
-     * The variant symbol for a currency is an alternative symbol that is not
-     * necessarily as widely used as the regular symbol.
-     *
-     * @draft ICU 67
-     * @provisional This API might change or be removed in a future release.
-     */
-    public static final int VARIANT_SYMBOL_NAME = 5;
 
     /**
      * Currency Usage used for Decimal Format
@@ -596,10 +572,6 @@ public class Currency extends MeasureUnit {
             return names.getSymbol(subType);
         case NARROW_SYMBOL_NAME:
             return names.getNarrowSymbol(subType);
-        case FORMAL_SYMBOL_NAME:
-            return names.getFormalSymbol(subType);
-        case VARIANT_SYMBOL_NAME:
-            return names.getVariantSymbol(subType);
         case LONG_NAME:
             return names.getName(subType);
         default:

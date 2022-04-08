@@ -1,5 +1,5 @@
 // © 2016 and later: Unicode, Inc. and others.
-// License & terms of use: http://www.unicode.org/copyright.html
+// License & terms of use: http://www.unicode.org/copyright.html#License
 /**
  *******************************************************************************
  * Copyright (C) 2006-2011, International Business Machines Corporation and    *
@@ -17,6 +17,7 @@ import java.nio.charset.CoderResult;
 
 import com.ibm.icu.text.UTF16;
 import com.ibm.icu.text.UnicodeSet;
+import com.ibm.icu.util.VersionInfo;
 
 /**
  * @author Niti Hantaweepant
@@ -64,10 +65,13 @@ class CharsetUTF16 extends CharsetICU {
             this.endianXOR = ENDIAN_XOR_LE;
         }
 
-        // UnicodeBig and UnicodeLittle used to require maxBytesPerChar set to 4 in Java 5 or less,
-        // but it's no longer necessary for newer Java versions. Java 5 or older runtime is no
-        // longer supported.
-        maxBytesPerChar = 2;
+        /* UnicodeBig and UnicodeLittle requires maxBytesPerChar set to 4 in Java 5 or less */
+        if ((VersionInfo.javaVersion().getMajor() == 1 && VersionInfo.javaVersion().getMinor() <= 5)
+                && (isEndianSpecified && version == 1)) {
+            maxBytesPerChar = 4;
+        } else {
+            maxBytesPerChar = 2;
+        }
 
         minBytesPerChar = 2;
         maxCharsPerByte = 1;

@@ -1,6 +1,6 @@
 /* GENERATED SOURCE. DO NOT MODIFY. */
 // © 2016 and later: Unicode, Inc. and others.
-// License & terms of use: http://www.unicode.org/copyright.html
+// License & terms of use: http://www.unicode.org/copyright.html#License
 /*
  *******************************************************************************
  * Copyright (C) 1996-2014, International Business Machines Corporation and    *
@@ -141,7 +141,7 @@ public class PersianCalendar extends Calendar {
     @Deprecated
     public PersianCalendar(Locale aLocale)
     {
-        this(TimeZone.forLocaleOrDefault(aLocale), aLocale);
+        this(TimeZone.getDefault(), aLocale);
     }
 
     /**
@@ -156,7 +156,7 @@ public class PersianCalendar extends Calendar {
     @Deprecated
     public PersianCalendar(ULocale locale)
     {
-        this(TimeZone.forULocaleOrDefault(locale), locale);
+        this(TimeZone.getDefault(), locale);
     }
 
     /**

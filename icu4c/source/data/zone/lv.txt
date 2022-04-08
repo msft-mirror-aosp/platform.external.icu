@@ -1,7 +1,7 @@
 ﻿// © 2016 and later: Unicode, Inc. and others.
-// License & terms of use: http://www.unicode.org/copyright.html
-// Generated using tools/cldr/cldr-to-icu/build-icu-data.xml
+// License & terms of use: http://www.unicode.org/copyright.html#License
 lv{
+    Version{"36.1"}
     zoneStrings{
         "Africa:Abidjan"{
             ec{"Abidžana"}
@@ -1729,9 +1729,7 @@ lv{
             ls{"Niues laiks"}
         }
         "meta:Norfolk"{
-            ld{"Norfolkas salas vasaras laiks"}
-            lg{"Norfolkas salas laiks"}
-            ls{"Norfolkas salas ziemas laiks"}
+            ls{"Norfolkas salas laiks"}
         }
         "meta:Noronha"{
             ld{"Fernandu di Noroņas vasaras laiks"}

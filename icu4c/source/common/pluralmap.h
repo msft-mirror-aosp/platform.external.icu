@@ -234,7 +234,7 @@ public:
     }
 
     /**
-     * Returns true if this object equals rhs.
+     * Returns TRUE if this object equals rhs.
      */
     UBool equals(
             const PluralMap<T> &rhs,
@@ -244,13 +244,13 @@ public:
                 continue;
             }
             if (fVariants[i] == NULL || rhs.fVariants[i] == NULL) {
-                return false;
+                return FALSE;
             }
             if (!eqFunc(*fVariants[i], *rhs.fVariants[i])) {
-                return false;
+                return FALSE;
             }
         }
-        return true;
+        return TRUE;
     }
 
 private:

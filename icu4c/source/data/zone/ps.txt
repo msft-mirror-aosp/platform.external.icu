@@ -1,7 +1,7 @@
 ﻿// © 2016 and later: Unicode, Inc. and others.
-// License & terms of use: http://www.unicode.org/copyright.html
-// Generated using tools/cldr/cldr-to-icu/build-icu-data.xml
+// License & terms of use: http://www.unicode.org/copyright.html#License
 ps{
+    Version{"36.1"}
     zoneStrings{
         "Africa:Abidjan"{
             ec{"ابيجان"}
@@ -540,9 +540,6 @@ ps{
         "America:Sao_Paulo"{
             ec{"ساو پاولو"}
         }
-        "America:Scoresbysund"{
-            ec{"اټوکوټورمیټ"}
-        }
         "America:Sitka"{
             ec{"سیټکا"}
         }
@@ -964,7 +961,7 @@ ps{
             ec{"اندورا"}
         }
         "Europe:Astrakhan"{
-            ec{"استرا خان"}
+            ec{"آسترخان"}
         }
         "Europe:Athens"{
             ec{"ايتنز"}
@@ -1177,9 +1174,6 @@ ps{
         }
         "Pacific:Auckland"{
             ec{"اکلند"}
-        }
-        "Pacific:Bougainville"{
-            ec{"بوګن ویل"}
         }
         "Pacific:Chatham"{
             ec{"چاتام"}
@@ -1482,7 +1476,7 @@ ps{
             ls{"د اکوادور وخت"}
         }
         "meta:Europe_Central"{
-            ld{"مرکزي اروپايياوړي وخت"}
+            ld{"وسطي اروپايي د اوړي وخت"}
             lg{"مرکزي اروپايي وخت"}
             ls{"د مرکزي اروپا معیاري وخت"}
         }
@@ -1707,9 +1701,7 @@ ps{
             ls{"نییو وخت"}
         }
         "meta:Norfolk"{
-            ld{"د نورفکاس ټاپو اوړي وخت"}
-            lg{"نورفوک ټاپو وخت"}
-            ls{"د نورفکاس ټاپو معياري وخت"}
+            ls{"د نورفکاس ټاپو وخت"}
         }
         "meta:Noronha"{
             ld{"فرنانڈو دي نورونھا اوړي وخت"}
@@ -1877,7 +1869,7 @@ ps{
         }
         "meta:Yekaterinburg"{
             ld{"د ياکټرنبرګ د اوړي وخت"}
-            lg{"یکاټیرینبرګ وخت"}
+            lg{"د ياکيټرنبرګ وخت"}
             ls{"د ياکيټرنبرګ معياري وخت"}
         }
         fallbackFormat{"{1} ({0})"}

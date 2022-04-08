@@ -1,6 +1,5 @@
 ﻿// © 2016 and later: Unicode, Inc. and others.
-// License & terms of use: http://www.unicode.org/copyright.html
-// Generated using tools/cldr/cldr-to-icu/build-icu-data.xml
+// License & terms of use: http://www.unicode.org/copyright.html#License
 da{
     AuxExemplarCharacters{"[á à â ç é è ê ë í î ï ñ ó ô œ ú ù û ÿ ü ä ǿ ö]"}
     Ellipsis{
@@ -213,6 +212,7 @@ da{
         minimumGroupingDigits{"1"}
         native{"latn"}
     }
+    Version{"36.1"}
     calendar{
         buddhist{
             eras{
@@ -363,23 +363,21 @@ da{
                 }
                 Bhm{
                     B{"h.mm B–h.mm B"}
-                    h{"h.mm–h.mm B"}
-                    m{"h.mm–h.mm B"}
                 }
                 Gy{
                     G{"y G–y G"}
                     y{"y–y G"}
                 }
                 GyM{
-                    G{"MM.y GGGGG–MM.y GGGGG"}
-                    M{"MM.y–MM.y GGGGG"}
-                    y{"MM.y–MM.y GGGGG"}
+                    G{"M/y GGGGG–M/y GGGGG"}
+                    M{"M/y–M/y GGGGG"}
+                    y{"M/y–M/y GGGGG"}
                 }
                 GyMEd{
-                    G{"E 'den' dd.MM.y GGGGG–E 'den' dd.MM.y GGGGG"}
-                    M{"E 'den' dd.MM.y–E 'den' dd.MM.y GGGGG"}
-                    d{"E 'den' dd.MM.y–E 'den' dd.MM.y GGGGG"}
-                    y{"E 'den' dd.MM.y–E 'den' dd.MM.y GGGGG"}
+                    G{"E 'den' d/M/y GGGGG–E 'den' d/M/y GGGGG"}
+                    M{"E 'den' d/M/y–E 'den' d/M/y GGGGG"}
+                    d{"E 'den' d/M/y–E 'den' d/M/y GGGGG"}
+                    y{"E 'den' d/M/y–E 'den' d/M/y GGGGG"}
                 }
                 GyMMM{
                     G{"MMM y G–MMM y G"}
@@ -399,10 +397,10 @@ da{
                     y{"d. MMM y–d. MMM y G"}
                 }
                 GyMd{
-                    G{"dd.MM.y GGGGG–dd.MM.y GGGGG"}
-                    M{"dd.MM.y–dd.MM.y GGGGG"}
-                    d{"dd.MM.y–dd.MM.y GGGGG"}
-                    y{"dd.MM.y–dd.MM.y GGGGG"}
+                    G{"d/M/y GGGGG–d/M/y GGGGG"}
+                    M{"d/M/y–d/M/y GGGGG"}
+                    d{"d/M/y–d/M/y GGGGG"}
+                    y{"d/M/y–d/M/y GGGGG"}
                 }
                 H{
                     H{"HH–HH"}
@@ -422,8 +420,8 @@ da{
                     M{"M–M"}
                 }
                 MEd{
-                    M{"E dd.MM–E dd.MM"}
-                    d{"E dd.MM–E dd.MM"}
+                    M{"E dd/MM–E dd/MM"}
+                    d{"E dd/MM–E dd/MM"}
                 }
                 MMM{
                     M{"MMM–MMM"}
@@ -437,8 +435,8 @@ da{
                     d{"d.–d. MMM"}
                 }
                 Md{
-                    M{"dd.MM–dd.MM"}
-                    d{"dd.MM–dd.MM"}
+                    M{"dd/MM–dd/MM"}
+                    d{"dd/MM–dd/MM"}
                 }
                 d{
                     d{"d.–d."}
@@ -466,13 +464,13 @@ da{
                     y{"y–y G"}
                 }
                 yM{
-                    M{"MM.y–MM.y G"}
-                    y{"MM.y–MM.y G"}
+                    M{"MM/y–MM/y G"}
+                    y{"MM/y–MM/y G"}
                 }
                 yMEd{
-                    M{"E dd.MM.y–E dd.MM.y G"}
-                    d{"E dd.MM.y–E dd.MM.y G"}
-                    y{"E dd.MM.y–E dd.MM.y G"}
+                    M{"E dd/MM/y–E dd/MM/y G"}
+                    d{"E dd/MM/y–E dd/MM/y G"}
+                    y{"E dd/MM/y–E dd/MM/y G"}
                 }
                 yMMM{
                     M{"MMM–MMM y G"}
@@ -493,9 +491,9 @@ da{
                     y{"d. MMM y–d. MMM y G"}
                 }
                 yMd{
-                    M{"dd.MM.y–dd.MM.y G"}
-                    d{"dd.MM.y–dd.MM.y G"}
-                    y{"dd.MM.y–dd.MM.y G"}
+                    M{"dd/MM/y–dd/MM/y G"}
+                    d{"dd/MM/y–dd/MM/y G"}
+                    y{"dd/MM/y–dd/MM/y G"}
                 }
             }
         }
@@ -776,14 +774,14 @@ da{
                     y{"y–y G"}
                 }
                 GyM{
-                    G{"MM.y GGGGG–MM.y GGGGG"}
-                    M{"MM.y–MM.y GGGGG"}
-                    y{"MM.y–MM.y GGGGG"}
+                    G{"M/y GGGG–M/y GGGG"}
+                    M{"M/y–M/y GGGGG"}
+                    y{"M/y–M/y GGGGG"}
                 }
                 GyMEd{
-                    G{"E dd.MM.y GGGGG–E dd.MM.y GGGGG"}
+                    G{"E, d/M/y GGGGG–E, d/M/y GGGGG"}
                     M{"E dd.MM.y–E dd.MM.y GGGGG"}
-                    d{"E dd.MM.y–E dd.MM.y GGGGG"}
+                    d{"E dd. MM. y–E dd. MM. y GGGGG"}
                     y{"E dd.MM.y–E dd.MM.y GGGGG"}
                 }
                 GyMMM{
@@ -794,19 +792,19 @@ da{
                 GyMMMEd{
                     G{"E d. MMM y G–E d. MMM y G"}
                     M{"E d. MMM–E d. MMM y G"}
-                    d{"E d. MMM–E d. MMM y G"}
+                    d{"E d. MMM y–E d. MMM G"}
                     y{"E d. MMM y–E d. MMM y G"}
                 }
                 GyMMMd{
                     G{"d. MMM y G–d. MMM y G"}
-                    M{"d. MMM–d. MMM y G"}
+                    M{"d. MMM y–d. MMM G"}
                     d{"d.–d. MMM y G"}
                     y{"d. MMM y–d. MMM y G"}
                 }
                 GyMd{
-                    G{"dd.MM.y GGGGG–dd.MM.y GGGGG"}
+                    G{"d/M/y GGGGG–d/M/y GGGGG"}
                     M{"dd.MM.y–dd.MM.y GGGGG"}
-                    d{"dd.MM.y–dd.MM.y GGGGG"}
+                    d{"d/M/y–d/M/y GGGGG"}
                     y{"dd.MM.y–dd.MM.y GGGGG"}
                 }
                 H{
@@ -1336,8 +1334,8 @@ da{
                     other{"om {0} dage"}
                 }
                 past{
-                    one{"{0} dag siden"}
-                    other{"{0} dage siden"}
+                    one{"for {0} dag siden"}
+                    other{"for {0} dage siden"}
                 }
             }
         }
@@ -1356,8 +1354,8 @@ da{
                     other{"om {0} dage"}
                 }
                 past{
-                    one{"{0} dag siden"}
-                    other{"{0} dage siden"}
+                    one{"for {0} dag siden"}
+                    other{"for {0} dage siden"}
                 }
             }
         }
@@ -1392,7 +1390,7 @@ da{
             relative{
                 "-1"{"sidste fredag"}
                 "0"{"på fredag"}
-                "1"{"på fredag"}
+                "1"{"næste fredag"}
             }
             relativeTime{
                 future{
@@ -1409,16 +1407,16 @@ da{
             relative{
                 "-1"{"sidste fr."}
                 "0"{"på fr."}
-                "1"{"på fr."}
+                "1"{"næste fr."}
             }
             relativeTime{
                 future{
-                    one{"om {0} fr."}
-                    other{"om {0} fr."}
+                    one{"om {0} fredag"}
+                    other{"om {0} fredage"}
                 }
                 past{
-                    one{"{0} fr. siden"}
-                    other{"{0} fr. siden"}
+                    one{"for {0} fredag siden"}
+                    other{"for {0} fredage siden"}
                 }
             }
         }
@@ -1426,23 +1424,23 @@ da{
             relative{
                 "-1"{"sidste fre."}
                 "0"{"på fre."}
-                "1"{"på fre."}
+                "1"{"næste fre."}
             }
             relativeTime{
                 future{
-                    one{"om {0} fre."}
-                    other{"om {0} fre."}
+                    one{"om {0} fredag"}
+                    other{"om {0} fredage"}
                 }
                 past{
-                    one{"{0} fre. siden"}
-                    other{"{0} fre. siden"}
+                    one{"for {0} fredag siden"}
+                    other{"for {0} fredage siden"}
                 }
             }
         }
         hour{
             dn{"time"}
             relative{
-                "0"{"denne time"}
+                "0"{"i den kommende time"}
             }
             relativeTime{
                 future{
@@ -1463,8 +1461,8 @@ da{
                     other{"om {0} timer"}
                 }
                 past{
-                    one{"{0} time siden"}
-                    other{"{0} timer siden"}
+                    one{"for {0} time siden"}
+                    other{"for {0} timer siden"}
                 }
             }
         }
@@ -1476,15 +1474,15 @@ da{
                     other{"om {0} timer"}
                 }
                 past{
-                    one{"{0} time siden"}
-                    other{"{0} timer siden"}
+                    one{"for {0} time siden"}
+                    other{"for {0} timer siden"}
                 }
             }
         }
         minute{
             dn{"minut"}
             relative{
-                "0"{"dette minut"}
+                "0"{"i det kommende minut"}
             }
             relativeTime{
                 future{
@@ -1505,8 +1503,8 @@ da{
                     other{"om {0} min."}
                 }
                 past{
-                    one{"{0} min. siden"}
-                    other{"{0} min. siden"}
+                    one{"for {0} min. siden"}
+                    other{"for {0} min. siden"}
                 }
             }
         }
@@ -1518,8 +1516,8 @@ da{
                     other{"om {0} min."}
                 }
                 past{
-                    one{"{0} min. siden"}
-                    other{"{0} min. siden"}
+                    one{"for {0} min. siden"}
+                    other{"for {0} min. siden"}
                 }
             }
         }
@@ -1527,7 +1525,7 @@ da{
             relative{
                 "-1"{"sidste mandag"}
                 "0"{"på mandag"}
-                "1"{"på mandag"}
+                "1"{"næste mandag"}
             }
             relativeTime{
                 future{
@@ -1544,16 +1542,16 @@ da{
             relative{
                 "-1"{"sidste ma."}
                 "0"{"på ma."}
-                "1"{"på ma."}
+                "1"{"næste ma."}
             }
             relativeTime{
                 future{
-                    one{"om {0} ma."}
-                    other{"om {0} ma."}
+                    one{"om {0} mandag"}
+                    other{"om {0} mandage"}
                 }
                 past{
-                    one{"{0} ma. siden"}
-                    other{"{0} ma. siden"}
+                    one{"for {0} mandag siden"}
+                    other{"for {0} mandage siden"}
                 }
             }
         }
@@ -1561,16 +1559,16 @@ da{
             relative{
                 "-1"{"sidste man."}
                 "0"{"på man."}
-                "1"{"på man."}
+                "1"{"næste man."}
             }
             relativeTime{
                 future{
-                    one{"om {0} man."}
-                    other{"om {0} man."}
+                    one{"om {0} mandag"}
+                    other{"om {0} mandage"}
                 }
                 past{
-                    one{"{0} man. siden"}
-                    other{"{0} man. siden"}
+                    one{"for {0} mandag siden"}
+                    other{"for {0} mandage siden"}
                 }
             }
         }
@@ -1605,8 +1603,8 @@ da{
                     other{"om {0} mdr."}
                 }
                 past{
-                    one{"{0} md. siden"}
-                    other{"{0} mdr. siden"}
+                    one{"for {0} md. siden"}
+                    other{"for {0} mdr. siden"}
                 }
             }
         }
@@ -1623,8 +1621,8 @@ da{
                     other{"om {0} mdr."}
                 }
                 past{
-                    one{"{0} md. siden"}
-                    other{"{0} mdr. siden"}
+                    one{"for {0} md. siden"}
+                    other{"for {0} mdr. siden"}
                 }
             }
         }
@@ -1659,8 +1657,8 @@ da{
                     other{"om {0} kvt."}
                 }
                 past{
-                    one{"{0} kvt. siden"}
-                    other{"{0} kvt. siden"}
+                    one{"for {0} kvt. siden"}
+                    other{"for {0} kvt. siden"}
                 }
             }
         }
@@ -1677,8 +1675,8 @@ da{
                     other{"om {0} kvt."}
                 }
                 past{
-                    one{"{0} kvt. siden"}
-                    other{"{0} kvt. siden"}
+                    one{"for {0} kvt. siden"}
+                    other{"for {0} kvt. siden"}
                 }
             }
         }
@@ -1686,7 +1684,7 @@ da{
             relative{
                 "-1"{"sidste lørdag"}
                 "0"{"på lørdag"}
-                "1"{"på lørdag"}
+                "1"{"næste lørdag"}
             }
             relativeTime{
                 future{
@@ -1703,16 +1701,16 @@ da{
             relative{
                 "-1"{"sidste lø."}
                 "0"{"på lø."}
-                "1"{"på lø."}
+                "1"{"næste lø."}
             }
             relativeTime{
                 future{
-                    one{"om {0} lø."}
-                    other{"om {0} lø."}
+                    one{"om {0} lørdag"}
+                    other{"om {0} lørdage"}
                 }
                 past{
-                    one{"{0} lø. siden"}
-                    other{"{0} lø. siden"}
+                    one{"for {0} lørdag siden"}
+                    other{"for {0} lørdage siden"}
                 }
             }
         }
@@ -1720,16 +1718,16 @@ da{
             relative{
                 "-1"{"sidste lør."}
                 "0"{"på lør."}
-                "1"{"på lør."}
+                "1"{"næste lør."}
             }
             relativeTime{
                 future{
-                    one{"om {0} lør."}
-                    other{"om {0} lør."}
+                    one{"om {0} lørdag"}
+                    other{"om {0} lørdage"}
                 }
                 past{
-                    one{"{0} lør. siden"}
-                    other{"{0} lør. siden"}
+                    one{"for {0} lørdag siden"}
+                    other{"for {0} lørdage siden"}
                 }
             }
         }
@@ -1757,8 +1755,8 @@ da{
                     other{"om {0} sek."}
                 }
                 past{
-                    one{"{0} sek. siden"}
-                    other{"{0} sek. siden"}
+                    one{"for {0} sek. siden"}
+                    other{"for {0} sek. siden"}
                 }
             }
         }
@@ -1770,8 +1768,8 @@ da{
                     other{"om {0} sek."}
                 }
                 past{
-                    one{"{0} sek. siden"}
-                    other{"{0} sek. siden"}
+                    one{"for {0} sek. siden"}
+                    other{"for {0} sek. siden"}
                 }
             }
         }
@@ -1779,7 +1777,7 @@ da{
             relative{
                 "-1"{"sidste søndag"}
                 "0"{"på søndag"}
-                "1"{"på søndag"}
+                "1"{"næste søndag"}
             }
             relativeTime{
                 future{
@@ -1796,16 +1794,16 @@ da{
             relative{
                 "-1"{"sidste sø."}
                 "0"{"på sø."}
-                "1"{"på sø."}
+                "1"{"næste sø."}
             }
             relativeTime{
                 future{
-                    one{"om {0} sø."}
-                    other{"om {0} sø."}
+                    one{"om {0} søndag"}
+                    other{"om {0} søndage"}
                 }
                 past{
-                    one{"{0} sø. siden"}
-                    other{"{0} sø. siden"}
+                    one{"for {0} søndag siden"}
+                    other{"for {0} søndage siden"}
                 }
             }
         }
@@ -1813,16 +1811,16 @@ da{
             relative{
                 "-1"{"sidste søn."}
                 "0"{"på søn."}
-                "1"{"på søn."}
+                "1"{"næste søn."}
             }
             relativeTime{
                 future{
-                    one{"om {0} søn."}
-                    other{"om {0} søn."}
+                    one{"om {0} søndag"}
+                    other{"om {0} søndage"}
                 }
                 past{
-                    one{"{0} søn. siden"}
-                    other{"{0} søn. siden"}
+                    one{"for {0} søndag siden"}
+                    other{"for {0} søndage siden"}
                 }
             }
         }
@@ -1830,7 +1828,7 @@ da{
             relative{
                 "-1"{"sidste torsdag"}
                 "0"{"på torsdag"}
-                "1"{"på torsdag"}
+                "1"{"næste torsdag"}
             }
             relativeTime{
                 future{
@@ -1847,16 +1845,16 @@ da{
             relative{
                 "-1"{"sidste to."}
                 "0"{"på to."}
-                "1"{"på to."}
+                "1"{"næste to."}
             }
             relativeTime{
                 future{
-                    one{"om {0} to."}
-                    other{"om {0} to."}
+                    one{"om {0} torsdag"}
+                    other{"om {0} torsdage"}
                 }
                 past{
-                    one{"{0} to. siden"}
-                    other{"{0} to. siden"}
+                    one{"for {0} torsdag siden"}
+                    other{"for {0} torsdage siden"}
                 }
             }
         }
@@ -1864,16 +1862,16 @@ da{
             relative{
                 "-1"{"sidste tor."}
                 "0"{"på tor."}
-                "1"{"på tor."}
+                "1"{"næste tor."}
             }
             relativeTime{
                 future{
-                    one{"om {0} tor."}
-                    other{"om {0} tor."}
+                    one{"om {0} torsdag"}
+                    other{"om {0} torsdage"}
                 }
                 past{
-                    one{"{0} tor. siden"}
-                    other{"{0} tor. siden"}
+                    one{"for {0} torsdag siden"}
+                    other{"for {0} torsdage siden"}
                 }
             }
         }
@@ -1881,7 +1879,7 @@ da{
             relative{
                 "-1"{"sidste tirsdag"}
                 "0"{"på tirsdag"}
-                "1"{"på tirsdag"}
+                "1"{"næste tirsdag"}
             }
             relativeTime{
                 future{
@@ -1898,16 +1896,16 @@ da{
             relative{
                 "-1"{"sidste ti."}
                 "0"{"på ti."}
-                "1"{"på ti."}
+                "1"{"næste ti."}
             }
             relativeTime{
                 future{
-                    one{"om {0} ti."}
-                    other{"om {0} ti."}
+                    one{"om {0} tirsdag"}
+                    other{"om {0} tirsdage"}
                 }
                 past{
-                    one{"{0} ti. siden"}
-                    other{"{0} ti. siden"}
+                    one{"for {0} tirsdag siden"}
+                    other{"for {0} tirsdage siden"}
                 }
             }
         }
@@ -1915,16 +1913,16 @@ da{
             relative{
                 "-1"{"sidste tir."}
                 "0"{"på tir."}
-                "1"{"på tir."}
+                "1"{"næste tir."}
             }
             relativeTime{
                 future{
-                    one{"om {0} tir."}
-                    other{"om {0} tir."}
+                    one{"om {0} tirsdag"}
+                    other{"om {0} tirsdage"}
                 }
                 past{
-                    one{"{0} tir. siden"}
-                    other{"{0} tir. siden"}
+                    one{"for {0} tirsdag siden"}
+                    other{"for {0} tirsdage siden"}
                 }
             }
         }
@@ -1932,7 +1930,7 @@ da{
             relative{
                 "-1"{"sidste onsdag"}
                 "0"{"på onsdag"}
-                "1"{"på onsdag"}
+                "1"{"næste onsdag"}
             }
             relativeTime{
                 future{
@@ -1949,16 +1947,16 @@ da{
             relative{
                 "-1"{"sidste on."}
                 "0"{"på on."}
-                "1"{"på on."}
+                "1"{"næste on."}
             }
             relativeTime{
                 future{
-                    one{"om {0} on."}
-                    other{"om {0} on."}
+                    one{"om {0} onsdag"}
+                    other{"om {0} onsdage"}
                 }
                 past{
-                    one{"{0} on. siden"}
-                    other{"{0} on. siden"}
+                    one{"for {0} onsdag siden"}
+                    other{"for {0} onsdage siden"}
                 }
             }
         }
@@ -1966,16 +1964,16 @@ da{
             relative{
                 "-1"{"sidste ons."}
                 "0"{"på ons."}
-                "1"{"på ons."}
+                "1"{"næste ons."}
             }
             relativeTime{
                 future{
-                    one{"om {0} ons."}
-                    other{"om {0} ons."}
+                    one{"om {0} onsdag"}
+                    other{"om {0} onsdage"}
                 }
                 past{
-                    one{"{0} ons. siden"}
-                    other{"{0} ons. siden"}
+                    one{"for {0} onsdag siden"}
+                    other{"for {0} onsdage siden"}
                 }
             }
         }
@@ -2012,8 +2010,8 @@ da{
                     other{"om {0} uger"}
                 }
                 past{
-                    one{"{0} uge siden"}
-                    other{"{0} uger siden"}
+                    one{"for {0} uge siden"}
+                    other{"for {0} uger siden"}
                 }
             }
         }
@@ -2031,8 +2029,8 @@ da{
                     other{"om {0} uger"}
                 }
                 past{
-                    one{"{0} uge siden"}
-                    other{"{0} uger siden"}
+                    one{"for {0} uge siden"}
+                    other{"for {0} uger siden"}
                 }
             }
         }
@@ -2094,8 +2092,8 @@ da{
                     other{"om {0} år"}
                 }
                 past{
-                    one{"{0} år siden"}
-                    other{"{0} år siden"}
+                    one{"for {0} år siden"}
+                    other{"for {0} år siden"}
                 }
             }
         }
@@ -2112,8 +2110,8 @@ da{
                     other{"om {0} år"}
                 }
                 past{
-                    one{"{0} år siden"}
-                    other{"{0} år siden"}
+                    one{"for {0} år siden"}
+                    other{"for {0} år siden"}
                 }
             }
         }

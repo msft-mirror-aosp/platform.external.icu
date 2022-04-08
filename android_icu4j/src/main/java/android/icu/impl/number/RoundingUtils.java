@@ -1,6 +1,6 @@
 /* GENERATED SOURCE. DO NOT MODIFY. */
 // © 2017 and later: Unicode, Inc. and others.
-// License & terms of use: http://www.unicode.org/copyright.html
+// License & terms of use: http://www.unicode.org/copyright.html#License
 package android.icu.impl.number;
 
 import java.math.BigDecimal;
@@ -230,9 +230,6 @@ public class RoundingUtils {
      */
     public static StandardPlural getPluralSafe(
             Precision rounder, PluralRules rules, DecimalQuantity dq) {
-        if (rounder == null) {
-            return dq.getStandardPlural(rules);
-        }
         // TODO(ICU-20500): Avoid the copy?
         DecimalQuantity copy = dq.createCopy();
         rounder.apply(copy);

@@ -1,6 +1,5 @@
 ﻿// © 2016 and later: Unicode, Inc. and others.
-// License & terms of use: http://www.unicode.org/copyright.html
-// Generated using tools/cldr/cldr-to-icu/build-icu-data.xml
+// License & terms of use: http://www.unicode.org/copyright.html#License
 uz_Cyrl{
     %%Parent{"root"}
     Keys{
@@ -356,6 +355,10 @@ uz_Cyrl{
         Zyyy{"Умумий"}
         Zzzz{"Номаълум шрифт"}
     }
+    Scripts%stand-alone{
+        Hans{"Соддалаштирилган"}
+        Hant{"Анъанавий"}
+    }
     Types{
         calendar{
             gregorian{"Григориан календари"}
@@ -403,6 +406,7 @@ uz_Cyrl{
             tibt{"Тибет рақамлари"}
         }
     }
+    Version{"36.1"}
     codePatterns{
         language{"Тил: {0}"}
         script{"{0}"}

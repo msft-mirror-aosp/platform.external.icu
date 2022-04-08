@@ -226,8 +226,6 @@ public:
 
     void TestTimeZoneDisplayName(void);
 
-    void TestTimeZoneInLocale(void);
-
     void TestRoundtripWithCalendar(void);
 
 public:
@@ -265,7 +263,6 @@ public:
     void TestDayPeriodParsing();
     void TestParseRegression13744();
     void TestAdoptCalendarLeak();
-    void Test20741_ABFields();
 
 private:
     UBool showParse(DateFormat &format, const UnicodeString &formattedString);

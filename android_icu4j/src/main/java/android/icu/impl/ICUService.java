@@ -1,6 +1,6 @@
 /* GENERATED SOURCE. DO NOT MODIFY. */
 // © 2016 and later: Unicode, Inc. and others.
-// License & terms of use: http://www.unicode.org/copyright.html
+// License & terms of use: http://www.unicode.org/copyright.html#License
 /**
  *******************************************************************************
  * Copyright (C) 2001-2016, International Business Machines Corporation and
@@ -597,13 +597,15 @@ public class ICUService extends ICUNotifier {
                         Factory f = lIter.previous();
                         f.updateVisibleIDs(mutableMap);
                     }
-                    this.idcache = Collections.unmodifiableMap(mutableMap);
+                    Map<String, Factory> result = Collections.unmodifiableMap(mutableMap);
+                    this.idcache = result;
+                    return result;
                 } finally {
                     factoryLock.releaseRead();
                 }
             }
+            return idcache;
         }
-        return idcache;
     }
     private Map<String, Factory> idcache;
 

@@ -1,7 +1,7 @@
 ﻿// © 2016 and later: Unicode, Inc. and others.
-// License & terms of use: http://www.unicode.org/copyright.html
-// Generated using tools/cldr/cldr-to-icu/build-icu-data.xml
+// License & terms of use: http://www.unicode.org/copyright.html#License
 kn{
+    Version{"36.1"}
     durationUnits{
         hm{"h:mm"}
         hms{"h:mm:ss"}
@@ -14,7 +14,7 @@ kn{
                 one{"{0} ಜಿ-ಫೋರ್ಸ್"}
                 other{"{0} ಜಿ-ಫೋರ್ಸ್"}
             }
-            meter-per-square-second{
+            meter-per-second-squared{
                 dnam{"ಮೀಟರ್‌ಗಳು ಪ್ರತಿ ಸೆಕೆಂಡ್‌ ಸ್ಕ್ವೇರ್‌ಗಳಿಗೆ"}
                 one{"{0} ಮೀಟರ್‌ ಪ್ರತಿ ಸೆಕೆಂಡ್‌ ಸ್ಕ್ವೇರ್‌ಗಳಿಗೆ"}
                 other{"{0} ಮೀಟರ್‌ಗಳು ಪ್ರತಿ ಸೆಕೆಂಡ್‌ ಸ್ಕ್ವೇರ್‌ಗಳಿಗೆ"}
@@ -128,6 +128,11 @@ kn{
                 one{"{0} ಮೋಲ್‌ಗಳು"}
                 other{"{0} ಮೋಲ್‌ಗಳು"}
             }
+            part-per-million{
+                dnam{"ಪ್ರತಿ ಮಿಲಿಯನ್ ಭಾಗಗಳು"}
+                one{"{0} ಪ್ರತಿ ಮಿಲಿಯನ್ ಭಾಗ"}
+                other{"{0} ಪ್ರತಿ ಮಿಲಿಯನ್ ಭಾಗಗಳು"}
+            }
             percent{
                 dnam{"ಶೇಕಡಾ"}
                 one{"{0} ಶೇಕಡಾ"}
@@ -138,11 +143,6 @@ kn{
                 one{"{0} ಪ್ರತಿ ಸಾವಿರಕ್ಕೆ"}
                 other{"{0} ಪ್ರತಿ ಸಾವಿರಕ್ಕೆ"}
             }
-            permillion{
-                dnam{"ಪ್ರತಿ ಮಿಲಿಯನ್ ಭಾಗಗಳು"}
-                one{"{0} ಪ್ರತಿ ಮಿಲಿಯನ್ ಭಾಗ"}
-                other{"{0} ಪ್ರತಿ ಮಿಲಿಯನ್ ಭಾಗಗಳು"}
-            }
             permyriad{
                 dnam{"ಪರ್ಮಿರೈಡ್"}
                 one{"{0} ಪರ್ಮಿರೈಡ್"}
@@ -150,7 +150,7 @@ kn{
             }
         }
         consumption{
-            liter-per-100-kilometer{
+            liter-per-100kilometers{
                 dnam{"ಪ್ರತಿ 100 ಕಿಲೋಮೀಟರ್‌ಗಳಿಗೆ ಲೀಟರ್‌ಗಳು"}
                 one{"{0} ಪ್ರತಿ 100 ಕಿಲೋಮೀಟರ್‌ಗಳಿಗೆ ಲೀಟರ್‌ಗಳು"}
                 other{"{0} ಪ್ರತಿ 100 ಕಿಲೋಮೀಟರ್‌ಗಳಿಗೆ ಲೀಟರ್‌ಗಳು"}
@@ -408,11 +408,6 @@ kn{
             }
         }
         graphics{
-            dot{
-                dnam{"ಡಾಟ್"}
-                one{"{0}ಡಾಟ್"}
-                other{"{0}ಡಾಟ್"}
-            }
             dot-per-centimeter{
                 dnam{"ಡಾಟ್ಸ್ ಪರ್ ಸೆಂಟಿಮೀಟರ್"}
                 one{"{0} ಡಾಟ್ಸ್ ಪರ್ ಸೆಂಟಿಮೀಟರ್"}
@@ -466,26 +461,11 @@ kn{
                 one{"{0} ಡೆಸಿಮೀಟರ್"}
                 other{"{0} ಡೆಸಿಮೀಟರ್‌ಗಳು"}
             }
-            earth-radius{
-                dnam{"ಭೂಮಿಯ ತ್ರಿಜ್ಯ"}
-                one{"{0} ಭೂಮಿಯ ತ್ರಿಜ್ಯ"}
-                other{"{0} ಭೂಮಿಯ ತ್ರಿಜ್ಯ"}
-            }
-            fathom{
-                dnam{"ಫ್ಯಾಥಮ್ಸ್"}
-                one{"{0} ಫ್ಯಾಥಮ್"}
-                other{"{0} ಫ್ಯಾಥಮ್ಸ್"}
-            }
             foot{
                 dnam{"ಅಡಿ"}
                 one{"{0} ಅಡಿ"}
                 other{"{0} ಅಡಿ"}
                 per{"ಪ್ರತಿ ಅಡಿಗೆ {0}"}
-            }
-            furlong{
-                dnam{"ಫರ್ಲಾಂಗ್ಸ್"}
-                one{"{0} ಫರ್ಲಾಂಗ್"}
-                other{"{0} ಫರ್ಲಾಂಗ್ಸ್"}
             }
             inch{
                 dnam{"ಅಂಗುಲಗಳು"}
@@ -567,16 +547,6 @@ kn{
             }
         }
         light{
-            candela{
-                dnam{"ಕ್ಯಾಂಡಿಲಾ"}
-                one{"{0} ಕ್ಯಾಂಡಿಲಾ"}
-                other{"{0} ಕ್ಯಾಂಡಿಲಾ"}
-            }
-            lumen{
-                dnam{"ಲೂಮೆನ್"}
-                one{"{0} ಲೂಮೆನ್"}
-                other{"{0} ಲೂಮೆನ್"}
-            }
             lux{
                 dnam{"ಲಕ್ಸ್‌‌"}
                 one{"{0} ಲಕ್ಸ್‌‌"}
@@ -603,11 +573,6 @@ kn{
                 dnam{"ಭೂಮಿಯ ದೃವ್ಯರಾಶಿ"}
                 one{"{0} ಭೂಮಿಯ ದೃವ್ಯರಾಶಿ"}
                 other{"{0} ಭೂಮಿಯ ದೃವ್ಯರಾಶಿ"}
-            }
-            grain{
-                dnam{"ಗ್ರೇನ್"}
-                one{"{0} ಗ್ರೇನ್"}
-                other{"{0} ಗ್ರೇನ್"}
             }
             gram{
                 dnam{"ಗ್ರಾಂಗಳು"}
@@ -717,7 +682,7 @@ kn{
                 one{"{0} ಹೆಕ್ಟೋಪ್ಯಾಸ್ಕಲ್"}
                 other{"{0} ಹೆಕ್ಟೋಪ್ಯಾಸ್ಕಲ್‌ಗಳು"}
             }
-            inch-ofhg{
+            inch-hg{
                 dnam{"ಮರ್ಕ್ಯುರಿ ಅಂಗುಲಗಳು"}
                 one{"{0} ಮರ್ಕ್ಯುರಿ ಅಂಗುಲ"}
                 other{"{0} ಮರ್ಕ್ಯುರಿ ಅಂಗುಲಗಳು"}
@@ -737,7 +702,7 @@ kn{
                 one{"{0} ಮಿಲಿಬಾರ್"}
                 other{"{0} ಮಿಲಿಬಾರ್‌ಗಳು"}
             }
-            millimeter-ofhg{
+            millimeter-of-mercury{
                 dnam{"ಮರ್ಕ್ಯುರಿ ಮಿಲಿಮೀಟರ್‌ಗಳು"}
                 one{"{0} ಮರ್ಕ್ಯುರಿ ಮಿಲಿಮೀಟರ್‌"}
                 other{"{0} ಮರ್ಕ್ಯುರಿ ಮಿಲಿಮೀಟರ್‌ಗಳು"}
@@ -747,7 +712,7 @@ kn{
                 one{"{0} ಪ್ಯಾಸ್ಕಲ್"}
                 other{"{0} ಪ್ಯಾಸ್ಕಲ್ಸ್"}
             }
-            pound-force-per-square-inch{
+            pound-per-square-inch{
                 dnam{"ಪ್ರತಿ ಚದರ ಇಂಚಿಗೆ ಪೌಂಡ್‌ಗಳು"}
                 one{"{0} ಪ್ರತಿ ಚದರ ಇಂಚಿಗೆ ಪೌಂಡ್‌"}
                 other{"{0} ಪ್ರತಿ ಚದರ ಇಂಚಿಗೆ ಪೌಂಡ್‌ಗಳು"}
@@ -803,7 +768,7 @@ kn{
                 one{"{0} ನ್ಯೂಟನ್-ಮೀಟರ್"}
                 other{"{0} ನ್ಯೂಟನ್-ಮೀಟರ್"}
             }
-            pound-force-foot{
+            pound-foot{
                 dnam{"ಪೌಂಡ್-ಅಡಿ"}
                 one{"{0} ಪೌಂಡ್-ಅಡಿ"}
                 other{"{0} ಪೌಂಡ್-ಅಡಿ"}
@@ -819,11 +784,6 @@ kn{
                 dnam{"ಬ್ಯಾರೆಲ್‌ಗಳು"}
                 one{"{0} ಬ್ಯಾರೆಲ್"}
                 other{"{0} ಬ್ಯಾರೆಲ್‌ಗಳು"}
-            }
-            bushel{
-                dnam{"ಬುಶಲ್‌ಗಳು"}
-                one{"{0} ಬುಶಲ್"}
-                other{"{0} ಬುಶಲ್‌ಗಳು"}
             }
             centiliter{
                 dnam{"ಸೆಂಟಿಲೀಟರ್‌ಗಳು"}
@@ -882,26 +842,6 @@ kn{
                 one{"{0} ಡೆಸಿಲೀಟರ್‌"}
                 other{"{0} ಡೆಸಿಲೀಟರ್‌‌ಗಳು"}
             }
-            dessert-spoon{
-                dnam{"ಡೆಸರ್ಟ್ ಸ್ಪೂನ್"}
-                one{"{0} ಡೆಸರ್ಟ್ ಸ್ಪೂನ್"}
-                other{"{0} ಡೆಸರ್ಟ್ ಸ್ಪೂನ್"}
-            }
-            dessert-spoon-imperial{
-                dnam{"ಇಂಪಿರಿಯಲ್ ಡೆಸರ್ಟ್ ಸ್ಪೂನ್"}
-                one{"{0} ಇಂಪಿರಿಯಲ್ ಡೆಸರ್ಟ್ ಸ್ಪೂನ್"}
-                other{"{0} ಇಂಪಿರಿಯಲ್ ಡೆಸರ್ಟ್ ಸ್ಪೂನ್"}
-            }
-            dram{
-                dnam{"ಡ್ರಾಮ್"}
-                one{"{0} ಡ್ರಾಮ್"}
-                other{"{0} ಡ್ರಾಮ್"}
-            }
-            drop{
-                dnam{"ಡ್ರಾಪ್"}
-                one{"{0} ಡ್ರಾಪ್"}
-                other{"{0} ಡ್ರಾಪ್"}
-            }
             fluid-ounce{
                 dnam{"ಫ್ಲೂಡ್ ಔನ್ಸ್‌ಗಳು"}
                 one{"{0} ಫ್ಲೂಡ್ ಔನ್ಸ್‌"}
@@ -929,11 +869,6 @@ kn{
                 one{"{0} ಹೆಕ್ಟೋಲೀಟರ್"}
                 other{"{0} ಹೆಕ್ಟೋಲೀಟರ್‌ಗಳು"}
             }
-            jigger{
-                dnam{"ಜಿಗರ್"}
-                one{"{0} ಜಿಗರ್"}
-                other{"{0} ಜಿಗರ್"}
-            }
             liter{
                 dnam{"ಲೀಟರ್‌‌ಗಳು"}
                 one{"{0} ಲೀಟರ್"}
@@ -950,11 +885,6 @@ kn{
                 one{"{0} ಮಿಲಿಲೀಟರ್"}
                 other{"{0} ಮಿಲಿಲೀಟರ್‌ಗಳು"}
             }
-            pinch{
-                dnam{"ಪಿಂಚ್"}
-                one{"{0} ಪಿಂಚ್"}
-                other{"{0} ಪಿಂಚ್"}
-            }
             pint{
                 dnam{"ಪಿಂಟ್‌ಗಳು"}
                 one{"{0} ಪಿಂಟ್‌"}
@@ -969,11 +899,6 @@ kn{
                 dnam{"ಕಾಲುಭಾಗಗಳು"}
                 one{"{0} ಕಾಲುಭಾಗ"}
                 other{"{0} ಕಾಲುಭಾಗಗಳು"}
-            }
-            quart-imperial{
-                dnam{"ಇಂಪಿರಿಯಲ್ ಕ್ವಾರ್ಟ್"}
-                one{"{0} ಇಂಪಿರಿಯಲ್ ಕ್ವಾರ್ಟ್"}
-                other{"{0} ಇಂಪಿರಿಯಲ್ ಕ್ವಾರ್ಟ್"}
             }
             tablespoon{
                 dnam{"ಟೇಬಲ್ ಸ್ಪೂನ್‍ಗಳು"}
@@ -1041,7 +966,7 @@ kn{
             }
         }
         consumption{
-            liter-per-100-kilometer{
+            liter-per-100kilometers{
                 dnam{"ಲೀ/100ಕಿ.ಮೀ"}
                 one{"{0} ಲೀ/100ಕಿಮೀ"}
                 other{"{0} ಲೀ/100ಕಿಮೀ"}
@@ -1217,7 +1142,7 @@ kn{
                 one{"{0}ಹೆ.ಪ್ಯಾ"}
                 other{"{0}ಹೆ.ಪ್ಯಾ"}
             }
-            inch-ofhg{
+            inch-hg{
                 dnam{"ಮರ್ಕ್ಯು.ಅಂ."}
                 one{"{0}\u0022 Hg"}
                 other{"{0}\u0022 Hg"}
@@ -1227,12 +1152,12 @@ kn{
                 one{"{0}ಮಿ.ಬಾ."}
                 other{"{0}ಮಿ.ಬಾ."}
             }
-            millimeter-ofhg{
+            millimeter-of-mercury{
                 dnam{"ಮರ್ಕ್ಯು.ಮಿ.ಮೀ."}
                 one{"{0}mmHg"}
                 other{"{0}mmHg"}
             }
-            pound-force-per-square-inch{
+            pound-per-square-inch{
                 dnam{"ಪ್ರ.ಚ.ಇಂ.ಪೌಂ."}
                 one{"{0}psi"}
                 other{"{0}psi"}
@@ -1300,7 +1225,7 @@ kn{
                 one{"{0} ಜಿ"}
                 other{"{0} ಜಿ"}
             }
-            meter-per-square-second{
+            meter-per-second-squared{
                 dnam{"ಮೀಟರ್‌ಗಳು/ಸೆ²"}
                 one{"{0} ಮೀ/ಸೆ²"}
                 other{"{0} ಮೀ/ಸೆ²"}
@@ -1415,6 +1340,11 @@ kn{
                 one{"{0} ಮೋಲ್"}
                 other{"{0} ಮೋಲ್"}
             }
+            part-per-million{
+                dnam{"ಭಾಗಗಳು/ಮಿಲಿಯನ್"}
+                one{"{0} ಭಾಪ್ರಮಿ"}
+                other{"{0} ಭಾಪ್ರಮಿ"}
+            }
             percent{
                 dnam{"ಶೇಕಡಾ"}
                 one{"{0}%"}
@@ -1425,11 +1355,6 @@ kn{
                 one{"{0}‰"}
                 other{"{0}‰"}
             }
-            permillion{
-                dnam{"ಭಾಗಗಳು/ಮಿಲಿಯನ್"}
-                one{"{0} ಭಾಪ್ರಮಿ"}
-                other{"{0} ಭಾಪ್ರಮಿ"}
-            }
             permyriad{
                 dnam{"ಪರ್ಮಿರೈಡ್"}
                 one{"{0}‱"}
@@ -1437,7 +1362,7 @@ kn{
             }
         }
         consumption{
-            liter-per-100-kilometer{
+            liter-per-100kilometers{
                 dnam{"ಲೀ/100ಕಿಮೀ"}
                 one{"{0} ಲೀ/100ಕಿಮೀ"}
                 other{"{0} ಲೀ/100ಕಿ.ಮೀ"}
@@ -1695,11 +1620,6 @@ kn{
             }
         }
         graphics{
-            dot{
-                dnam{"ಡಾಟ್"}
-                one{"{0} ಡಾಟ್"}
-                other{"{0} ಡಾಟ್"}
-            }
             dot-per-centimeter{
                 dnam{"dpcm"}
                 one{"{0} dpcm"}
@@ -1753,26 +1673,11 @@ kn{
                 one{"{0} ಡೆಮೀ"}
                 other{"{0} ಡೆಮೀ"}
             }
-            earth-radius{
-                dnam{"R⊕"}
-                one{"{0} R⊕"}
-                other{"{0} R⊕"}
-            }
-            fathom{
-                dnam{"ಫ್ಯಾಥಮ್ಸ್"}
-                one{"{0} fth"}
-                other{"{0} fth"}
-            }
             foot{
                 dnam{"ಅಡಿ"}
                 one{"{0} ಅ"}
                 other{"{0} ಅ"}
                 per{"{0}/ಅ"}
-            }
-            furlong{
-                dnam{"ಫರ್ಲಾಂಗ್ಸ್"}
-                one{"{0} ಫರ್"}
-                other{"{0} ಫರ್"}
             }
             inch{
                 dnam{"ಅಂಗುಲಗಳು"}
@@ -1854,16 +1759,6 @@ kn{
             }
         }
         light{
-            candela{
-                dnam{"ಕ್ಯಾಂ"}
-                one{"{0} ಕ್ಯಾಂ"}
-                other{"{0} ಕ್ಯಾಂ"}
-            }
-            lumen{
-                dnam{"ಎಲ್ಎಮ್"}
-                one{"{0} ಎಲ್ಎಮ್"}
-                other{"{0} ಎಲ್ಎಮ್"}
-            }
             lux{
                 dnam{"ಲಕ್ಸ್"}
                 one{"{0} ಎಲ್‌ಎಕ್ಸ್"}
@@ -1888,11 +1783,6 @@ kn{
                 dnam{"ಭೂಮಿಯ ದೃವ್ಯರಾಶಿ"}
                 one{"{0} ದೃ⊕"}
                 other{"{0} ದೃ⊕"}
-            }
-            grain{
-                dnam{"ಗ್ರೇನ್"}
-                one{"{0} ಗ್ರೇನ್"}
-                other{"{0} ಗ್ರೇನ್"}
             }
             gram{
                 dnam{"ಗ್ರಾಂಗಳು"}
@@ -2002,7 +1892,7 @@ kn{
                 one{"{0} ಹೆ.ಪ್ಯಾ"}
                 other{"{0} ಹೆ.ಪ್ಯಾ"}
             }
-            inch-ofhg{
+            inch-hg{
                 dnam{"ಮರ್ಕ್ಯು.ಅಂ."}
                 one{"{0} ಮರ್ಕ್ಯುಅಂ"}
                 other{"{0} ಮರ್ಕ್ಯುಅಂ"}
@@ -2022,7 +1912,7 @@ kn{
                 one{"{0} ಮಿ.ಬಾರ್"}
                 other{"{0} ಮಿ.ಬಾರ್"}
             }
-            millimeter-ofhg{
+            millimeter-of-mercury{
                 dnam{"ಮರ್ಕ್ಯು.ಮಿ.ಮೀ."}
                 one{"{0} ಮರ್ಕ್ಯು ಮಿಮೀ"}
                 other{"{0} ಮರ್ಕ್ಯು ಮಿಮೀ"}
@@ -2032,7 +1922,7 @@ kn{
                 one{"{0} ಪಾ"}
                 other{"{0} ಪ್ಯಾ"}
             }
-            pound-force-per-square-inch{
+            pound-per-square-inch{
                 dnam{"ಪ್ರ.ಚ.ಇಂ.ಪೌಂ."}
                 one{"{0} ಪ್ರಚಇಂಪೌಂ"}
                 other{"{0} ಪ್ರಚಇಂಪೌಂ"}
@@ -2088,7 +1978,7 @@ kn{
                 one{"{0} ನ್ಯೂ.ಮೀ"}
                 other{"{0} ನ್ಯೂ.ಮೀ"}
             }
-            pound-force-foot{
+            pound-foot{
                 dnam{"ಎಲ್‌ಬಿಎಫ್-ಎಫ್‌ಟಿ"}
                 one{"{0} ಎಲ್‌ಬಿಎಫ್-ಎಫ್‌ಟಿ"}
                 other{"{0} ಎಲ್‌ಬಿಎಫ್-ಎಫ್‌ಟಿ"}
@@ -2104,11 +1994,6 @@ kn{
                 dnam{"ಬ್ಯಾರೆಲ್"}
                 one{"{0} bbl"}
                 other{"{0} bbl"}
-            }
-            bushel{
-                dnam{"ಬುಶಲ್‌ಗಳು"}
-                one{"{0} ಬು"}
-                other{"{0} ಬು"}
             }
             centiliter{
                 dnam{"ಸೆಂ.ಲೀ"}
@@ -2167,26 +2052,6 @@ kn{
                 one{"{0} ಡೆ.ಲೀ"}
                 other{"{0} ಡೆ.ಲೀ"}
             }
-            dessert-spoon{
-                dnam{"ಡೆ.ಸ್ಪೂ"}
-                one{"{0} ಡೆ.ಸ್ಪೂ"}
-                other{"{0} ಡೆ.ಸ್ಪೂ"}
-            }
-            dessert-spoon-imperial{
-                dnam{"ಡೆ.ಸ್ಪೂ.ಇಂಪಿ"}
-                one{"{0} ಡೆ.ಸ್ಪೂ.ಇಂಪಿ"}
-                other{"{0} ಡೆ.ಸ್ಪೂ.ಇಂಪಿ"}
-            }
-            dram{
-                dnam{"ಡ್ರಾಮ್ ಫ್ಲೂಡ್"}
-                one{"{0} ಡ್ರಾಮ್ ಫ್ಲೂ"}
-                other{"{0} ಡ್ರಾಮ್.ಫ್ಲೂ"}
-            }
-            drop{
-                dnam{"ಡ್ರಾಪ್"}
-                one{"{0} ಡ್ರಾಪ್"}
-                other{"{0} ಡ್ರಾಪ್"}
-            }
             fluid-ounce{
                 dnam{"ಫ್ಲೂ.ಔ"}
                 one{"{0} ಫ್ಲೂ.ಔ"}
@@ -2214,11 +2079,6 @@ kn{
                 one{"{0} ಹೆ.ಲೀ"}
                 other{"{0} ಹೆ.ಲೀ"}
             }
-            jigger{
-                dnam{"ಜಿಗರ್"}
-                one{"{0} ಜಿಗರ್"}
-                other{"{0} ಜಿಗರ್"}
-            }
             liter{
                 dnam{"ಲೀಟರ್‌ಗಳು"}
                 one{"{0} ಲೀ"}
@@ -2235,11 +2095,6 @@ kn{
                 one{"{0} ಮಿ.ಲೀ"}
                 other{"{0} ಮಿ.ಲೀ"}
             }
-            pinch{
-                dnam{"ಪಿಂಚ್"}
-                one{"{0} ಪಿಂಚ್"}
-                other{"{0} ಪಿಂಚ್"}
-            }
             pint{
                 dnam{"ಪಿಂಟ್‍ಗಳು"}
                 one{"{0} ಪಿಂಟ್‌"}
@@ -2254,11 +2109,6 @@ kn{
                 dnam{"ಕಾ.ಭಾ"}
                 one{"{0} ಕಾ.ಭಾ"}
                 other{"{0} ಕಾ.ಭಾ"}
-            }
-            quart-imperial{
-                dnam{"ಕ್ವಾ.ಇಂಪ್"}
-                one{"{0} ಕ್ವಾ.ಇಂಪ್"}
-                other{"{0} ಕ್ವಾ.ಇಂಪ್"}
             }
             tablespoon{
                 dnam{"ಟೇ.ಸ್ಪೂ"}

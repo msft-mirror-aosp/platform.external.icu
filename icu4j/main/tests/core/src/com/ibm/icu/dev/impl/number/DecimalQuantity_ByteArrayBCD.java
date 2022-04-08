@@ -1,5 +1,5 @@
 // © 2017 and later: Unicode, Inc. and others.
-// License & terms of use: http://www.unicode.org/copyright.html
+// License & terms of use: http://www.unicode.org/copyright.html#License
 package com.ibm.icu.dev.impl.number;
 
 import java.math.BigDecimal;
@@ -112,7 +112,6 @@ public final class DecimalQuantity_ByteArrayBCD extends DecimalQuantity_Abstract
     isApproximate = false;
     origDouble = 0;
     origDelta = 0;
-    exponent = 0;
   }
 
   @Override

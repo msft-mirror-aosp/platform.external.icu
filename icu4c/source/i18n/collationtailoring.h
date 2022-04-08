@@ -50,7 +50,7 @@ struct U_I18N_API CollationTailoring : public SharedObject {
     virtual ~CollationTailoring();
 
     /**
-     * Returns true if the constructor could not initialize properly.
+     * Returns TRUE if the constructor could not initialize properly.
      */
     UBool isBogus() { return settings == NULL; }
 
@@ -92,7 +92,7 @@ private:
     CollationTailoring(const CollationTailoring &other);
 };
 
-struct U_I18N_API CollationCacheEntry : public SharedObject {
+struct CollationCacheEntry : public SharedObject {
     CollationCacheEntry(const Locale &loc, const CollationTailoring *t)
             : validLocale(loc), tailoring(t) {
         if(t != NULL) {

@@ -1,6 +1,6 @@
 /* GENERATED SOURCE. DO NOT MODIFY. */
 // © 2017 and later: Unicode, Inc. and others.
-// License & terms of use: http://www.unicode.org/copyright.html
+// License & terms of use: http://www.unicode.org/copyright.html#License
 package android.icu.impl;
 
 import android.icu.lang.UCharacter;
@@ -223,14 +223,8 @@ public class StringSegment implements CharSequence {
         return Utility.charSequenceHashCode(this);
     }
 
-    /** Returns a string representation useful for debugging. */
     @Override
     public String toString() {
         return str.substring(0, start) + "[" + str.substring(start, end) + "]" + str.substring(end);
-    }
-
-    /** Returns a String that is equivalent to the CharSequence representation. */
-    public String asString() {
-        return str.substring(start, end);
     }
 }

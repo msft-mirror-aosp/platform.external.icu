@@ -1,6 +1,5 @@
 ﻿// © 2016 and later: Unicode, Inc. and others.
-// License & terms of use: http://www.unicode.org/copyright.html
-// Generated using tools/cldr/cldr-to-icu/build-icu-data.xml
+// License & terms of use: http://www.unicode.org/copyright.html#License
 nb{
     Countries{
         001{"verden"}
@@ -74,7 +73,7 @@ nb{
         BZ{"Belize"}
         CA{"Canada"}
         CC{"Kokosøyene"}
-        CD{"Kongo"}
+        CD{"Kongo-Kinshasa"}
         CF{"Den sentralafrikanske republikk"}
         CG{"Kongo-Brazzaville"}
         CH{"Sveits"}
@@ -107,7 +106,7 @@ nb{
         ER{"Eritrea"}
         ES{"Spania"}
         ET{"Etiopia"}
-        EU{"Den europeiske union"}
+        EU{"EU"}
         EZ{"eurosonen"}
         FI{"Finland"}
         FJ{"Fiji"}
@@ -289,7 +288,7 @@ nb{
         WF{"Wallis og Futuna"}
         WS{"Samoa"}
         XA{"pseudospråk – aksenter"}
-        XB{"pseudospråk – tekst begge veier"}
+        XB{"pseudospråk – RTL"}
         XK{"Kosovo"}
         YE{"Jemen"}
         YT{"Mayotte"}
@@ -298,11 +297,18 @@ nb{
         ZW{"Zimbabwe"}
         ZZ{"ukjent område"}
     }
+    Countries%short{
+        GB{"Storbritannia"}
+        UN{"FN"}
+        US{"USA"}
+    }
     Countries%variant{
         CD{"Den demokratiske republikken Kongo"}
         CG{"Republikken Kongo"}
+        CI{"Elfenbenskysten"}
         CZ{"Den tsjekkiske republikk"}
         SZ{"Swaziland"}
         TL{"Timor-Leste"}
     }
+    Version{"36.1"}
 }

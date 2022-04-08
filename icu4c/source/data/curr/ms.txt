@@ -1,6 +1,5 @@
 ﻿// © 2016 and later: Unicode, Inc. and others.
-// License & terms of use: http://www.unicode.org/copyright.html
-// Generated using tools/cldr/cldr-to-icu/build-icu-data.xml
+// License & terms of use: http://www.unicode.org/copyright.html#License
 ms{
     Currencies{
         AED{
@@ -177,7 +176,7 @@ ms{
         }
         ERN{
             "ERN",
-            "Nakfa Eritrea",
+            "ERN",
         }
         ETB{
             "ETB",
@@ -363,10 +362,6 @@ ms{
             "MGA",
             "Ariary Malagasy",
         }
-        MGF{
-            "MGF",
-            "Franc Malagasy",
-        }
         MKD{
             "MKD",
             "Denar Macedonia",
@@ -410,14 +405,6 @@ ms{
         MYR{
             "RM",
             "Ringgit Malaysia",
-        }
-        MZE{
-            "MZE",
-            "Escudo Mozambique",
-        }
-        MZM{
-            "MZM",
-            "Metical Mozambique (1980–2006)",
         }
         MZN{
             "MZN",
@@ -482,10 +469,6 @@ ms{
         QAR{
             "QAR",
             "Rial Qatar",
-        }
-        RHD{
-            "RHD",
-            "Dolar Rhodesia",
         }
         RON{
             "RON",
@@ -603,10 +586,6 @@ ms{
             "UAH",
             "Hryvnia Ukraine",
         }
-        UGS{
-            "UGS",
-            "Shilling Uganda (1966–1987)",
-        }
         UGX{
             "UGX",
             "Syiling Uganda",
@@ -678,18 +657,6 @@ ms{
         ZMW{
             "ZMW",
             "Kwacha Zambia",
-        }
-        ZWD{
-            "ZWD",
-            "Dolar Zimbabwe (1980–2008)",
-        }
-        ZWL{
-            "ZWL",
-            "Dolar Zimbabwe (2009)",
-        }
-        ZWR{
-            "ZWR",
-            "Dolar Zimbabwe (2008)",
         }
     }
     Currencies%narrow{
@@ -1091,12 +1058,6 @@ ms{
         MYR{
             other{"Ringgit Malaysia"}
         }
-        MZE{
-            other{"Escudo Mozambique"}
-        }
-        MZM{
-            other{"Metical Mozambique (1980–2006)"}
-        }
         MZN{
             other{"Metikal Mozambique"}
         }
@@ -1144,9 +1105,6 @@ ms{
         }
         QAR{
             other{"Rial Qatar"}
-        }
-        RHD{
-            other{"Dolar Rhodesia"}
         }
         RON{
             other{"Leu Romania"}
@@ -1235,9 +1193,6 @@ ms{
         UAH{
             other{"Hryvnia Ukraine"}
         }
-        UGS{
-            other{"Shilling Uganda (1966–1987)"}
-        }
         UGX{
             other{"Syiling Uganda"}
         }
@@ -1289,17 +1244,9 @@ ms{
         ZMW{
             other{"Kwacha Zambia"}
         }
-        ZWD{
-            other{"Dolar Zimbabwe (1980–2008)"}
-        }
-        ZWL{
-            other{"Dolar Zimbabwe (2009)"}
-        }
-        ZWR{
-            other{"Dolar Zimbabwe (2008)"}
-        }
     }
     CurrencyUnitPatterns{
         other{"{0} {1}"}
     }
+    Version{"36.1"}
 }

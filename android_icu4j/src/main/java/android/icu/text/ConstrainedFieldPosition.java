@@ -1,6 +1,6 @@
 /* GENERATED SOURCE. DO NOT MODIFY. */
 // © 2018 and later: Unicode, Inc. and others.
-// License & terms of use: http://www.unicode.org/copyright.html
+// License & terms of use: http://www.unicode.org/copyright.html#License
 package android.icu.text;
 
 import java.text.Format.Field;
@@ -16,6 +16,8 @@ import java.util.Objects;
  *   3. It is used for the newer FormattedValue APIs.
  *
  * @author sffc
+ * @hide Only a subset of ICU is exposed in Android
+ * @hide draft / provisional / internal are hidden on Android
  */
 public class ConstrainedFieldPosition {
 
@@ -76,6 +78,8 @@ public class ConstrainedFieldPosition {
      * Initializes a CategoryFieldPosition.
      *
      * By default, the CategoryFieldPosition has no iteration constraints.
+     *
+     * @hide draft / provisional / internal are hidden on Android
      */
     public ConstrainedFieldPosition() {
         reset();
@@ -86,6 +90,8 @@ public class ConstrainedFieldPosition {
      *
      * - Removes any constraints that may have been set on the instance.
      * - Resets the iteration position.
+     *
+     * @hide draft / provisional / internal are hidden on Android
      */
     public void reset() {
         fConstraint = ConstraintType.NONE;
@@ -120,6 +126,7 @@ public class ConstrainedFieldPosition {
      *
      * @param field
      *            The field to fix when iterating.
+     * @hide draft / provisional / internal are hidden on Android
      */
     public void constrainField(Field field) {
         if (field == null) {
@@ -151,6 +158,7 @@ public class ConstrainedFieldPosition {
      *
      * @param classConstraint
      *            The field class to fix when iterating.
+     * @hide draft / provisional / internal are hidden on Android
      */
     public void constrainClass(Class<?> classConstraint) {
         if (classConstraint == null) {
@@ -200,6 +208,7 @@ public class ConstrainedFieldPosition {
      * FormattedValue#nextPosition returns TRUE.
      *
      * @return The field saved in the instance. See above for null conditions.
+     * @hide draft / provisional / internal are hidden on Android
      */
     public Field getField() {
         return fField;
@@ -211,6 +220,7 @@ public class ConstrainedFieldPosition {
      * The return value is well-defined only after FormattedValue#nextPosition returns TRUE.
      *
      * @return The start index saved in the instance.
+     * @hide draft / provisional / internal are hidden on Android
      */
     public int getStart() {
         return fStart;
@@ -222,6 +232,7 @@ public class ConstrainedFieldPosition {
      * The return value is well-defined only after FormattedValue#nextPosition returns TRUE.
      *
      * @return The end index saved in the instance.
+     * @hide draft / provisional / internal are hidden on Android
      */
     public int getLimit() {
         return fLimit;
@@ -233,6 +244,7 @@ public class ConstrainedFieldPosition {
      * The return value is well-defined only after FormattedValue#nextPosition returns TRUE.
      *
      * @return The value for the current position. Might be null.
+     * @hide draft / provisional / internal are hidden on Android
      */
     public Object getFieldValue() {
         return fValue;
@@ -246,6 +258,7 @@ public class ConstrainedFieldPosition {
      * Users of FormattedValue should not need to call this method.
      *
      * @return The current iteration context from {@link #setInt64IterationContext}.
+     * @hide draft / provisional / internal are hidden on Android
      */
     public long getInt64IterationContext() {
         return fContext;
@@ -258,6 +271,7 @@ public class ConstrainedFieldPosition {
      *
      * @param context
      *            The new iteration context.
+     * @hide draft / provisional / internal are hidden on Android
      */
     public void setInt64IterationContext(long context) {
         fContext = context;
@@ -279,12 +293,11 @@ public class ConstrainedFieldPosition {
      *            The new inclusive start index.
      * @param limit
      *            The new exclusive end index.
+     * @hide draft / provisional / internal are hidden on Android
      */
     public void setState(Field field, Object value, int start, int limit) {
         // Check matchesField only as an assertion (debug build)
-        if (field != null) {
-            assert matchesField(field, value);
-        }
+        assert matchesField(field, value);
 
         fField = field;
         fValue = value;
@@ -301,6 +314,7 @@ public class ConstrainedFieldPosition {
      * @param field The field to test.
      * @param fieldValue The field value to test. Should be null if there is no value.
      * @return Whether the field should be included given the constraints.
+     * @hide draft / provisional / internal are hidden on Android
      */
     public boolean matchesField(Field field, Object fieldValue) {
         if (field == null) {
@@ -323,6 +337,7 @@ public class ConstrainedFieldPosition {
 
     /**
      * {@inheritDoc}
+     * @hide draft / provisional / internal are hidden on Android
      */
     @Override
     public String toString() {

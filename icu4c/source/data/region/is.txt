@@ -1,6 +1,5 @@
 ﻿// © 2016 and later: Unicode, Inc. and others.
-// License & terms of use: http://www.unicode.org/copyright.html
-// Generated using tools/cldr/cldr-to-icu/build-icu-data.xml
+// License & terms of use: http://www.unicode.org/copyright.html#License
 is{
     Countries{
         001{"Heimurinn"}
@@ -252,7 +251,7 @@ is{
         SS{"Suður-Súdan"}
         ST{"Saó Tóme og Prinsípe"}
         SV{"El Salvador"}
-        SX{"Sint Maarten"}
+        SX{"Sankti Martin"}
         SY{"Sýrland"}
         SZ{"Svasíland"}
         TA{"Tristan da Cunha"}
@@ -261,7 +260,7 @@ is{
         TF{"Frönsku suðlægu landsvæðin"}
         TG{"Tógó"}
         TH{"Taíland"}
-        TJ{"Tadsíkistan"}
+        TJ{"Tadsjikistan"}
         TK{"Tókelá"}
         TL{"Tímor-Leste"}
         TM{"Túrkmenistan"}
@@ -299,12 +298,17 @@ is{
         ZZ{"Óþekkt svæði"}
     }
     Countries%short{
+        GB{"Bretland"}
         UN{"SÞ"}
         US{"BNA"}
     }
     Countries%variant{
         CD{"Kongó (Lýðstjórnarlýðveldið)"}
         CG{"Kongó (Lýðveldið)"}
+        CI{"Fílabeinsströndin"}
+        CZ{"Tékkland"}
+        SZ{"Svasíland"}
         TL{"Austur-Tímor"}
     }
+    Version{"36.1"}
 }

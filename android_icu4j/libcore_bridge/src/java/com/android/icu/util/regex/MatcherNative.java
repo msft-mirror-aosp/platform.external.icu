@@ -16,16 +16,8 @@
 
 package com.android.icu.util.regex;
 
-import libcore.api.IntraCoreApi;
 import libcore.util.NativeAllocationRegistry;
 
-/**
- * Stores the states when matching an input text with a regular expression pattern
- * {@link PatternNative}.
- *
- * @hide
- */
-@IntraCoreApi
 public class MatcherNative {
 
     private static final NativeAllocationRegistry REGISTRY = NativeAllocationRegistry
@@ -35,12 +27,7 @@ public class MatcherNative {
     @dalvik.annotation.optimization.ReachabilitySensitive
     private final long address;
 
-    /**
-     * Create a {@link MatcherNative} instance from {@link PatternNative}.
-     *
-     * @hide
-     */
-    @IntraCoreApi
+    @libcore.api.IntraCoreApi
     public static MatcherNative create(PatternNative pattern) {
         return new MatcherNative(pattern);
     }
@@ -51,153 +38,57 @@ public class MatcherNative {
         REGISTRY.registerNativeAllocation(this, address);
     }
 
-    /**
-     * Returns the index of the named group.
-     *
-     * @param groupName the group name
-     *
-     * @hide
-     */
-    @IntraCoreApi
+    @libcore.api.IntraCoreApi
     public int getMatchedGroupIndex(String groupName) {
         return nativePattern.getMatchedGroupIndex(groupName);
     }
 
-    /**
-     * Attempts to match the input string starting from {@code startIndex}.
-     *
-     * @param offsets an output argument storing the starting and ending indices of the matched
-     *                groups. This has to be pre-allocated with the size of
-     *                ({@link #groupCount()} + 1) * 2. The elements at index 0 and 1 are the
-     *                starting and ending indices of the 0th group and 0th group is the entire
-     *                match. The index can be -1 when a match is found, but the group is not found.
-     * @return true if a match is found.
-     *
-     *
-     * @hide
-     */
-    @IntraCoreApi
+    @libcore.api.IntraCoreApi
     public boolean find(int startIndex, int[] offsets) {
         return findImpl(address, startIndex, offsets);
     }
 
-    /**
-     * Attempts to find the next match.
-     *
-     * @param offsets an output argument storing the starting and ending indices of the matched
-     *                groups. This has to be pre-allocated with the size of
-     *                ({@link #groupCount()} + 1) * 2. The elements at index 0 and 1 are the
-     *                starting and ending indices of the 0th group and 0th group is the entire
-     *                match. The index can be -1 when a match is found, but the group is not found.
-     * @return true if a match is found.
-     *
-     *
-     * @hide
-     */
-    @IntraCoreApi
+    @libcore.api.IntraCoreApi
     public boolean findNext(int[] offsets) {
         return findNextImpl(address, offsets);
     }
 
-    /**
-     * Returns the number of named-capturing groups provided in the pattern.
-     *
-     * @hide
-     */
-    @IntraCoreApi
+    @libcore.api.IntraCoreApi
     public int groupCount() {
         return groupCountImpl(address);
     }
 
-    /**
-     * Returns true if the matcher has hit the end of the input string in the last match.
-     *
-     * @hide
-     */
-    @IntraCoreApi
+    @libcore.api.IntraCoreApi
     public boolean hitEnd() {
         return hitEndImpl(address);
     }
 
-    /**
-     * Attempts to match the prefix of the input string.
-     *
-     * @param offsets an output argument storing the starting and ending indices of the matched
-     *                groups. This has to be pre-allocated with the size of
-     *                ({@link #groupCount()} + 1) * 2. The elements at index 0 and 1 are the
-     *                starting and ending indices of the 0th group and 0th group is the entire
-     *                match. The index can be -1 when a match is found, but the group is not found.
-     * @return true if it matches the prefix of the input string.
-     *
-     * @hide
-     */
-    @IntraCoreApi
+    @libcore.api.IntraCoreApi
     public boolean lookingAt(int[] offsets) {
         return lookingAtImpl(address, offsets);
     }
 
-    /**
-     * Attempts to match the entire input string.
-     *
-     *
-     * @param offsets an output argument storing the starting and ending indices of the matched
-     *                groups. This has to be pre-allocated with the size of
-     *                ({@link #groupCount()} + 1) * 2. The elements at index 0 and 1 are the
-     *                starting and ending indices of the 0th group and 0th group is the entire
-     *                match. The index can be -1 when a match is found, but the group is not found.
-     * @return true if it matches the entire input string.
-     *
-     * @hide
-     */
-    @IntraCoreApi
+    @libcore.api.IntraCoreApi
     public boolean matches(int[] offsets) {
         return matchesImpl(address, offsets);
     }
 
-    /**
-     * Returns true if the most recent match succeeded and additional input could cause it to fail.
-     *
-     * @hide
-     */
-    @IntraCoreApi
+    @libcore.api.IntraCoreApi
     public boolean requireEnd() {
         return requireEndImpl(address);
     }
 
-    /**
-     * Set the input string.
-     *
-     * @param start the starting index at which to begin matching
-     * @param end the ending index at which to end matching
-     *
-     * @hide
-     */
-    @IntraCoreApi
+    @libcore.api.IntraCoreApi
     public void setInput(String input, int start, int end) {
         setInputImpl(address, input, start, end);
     }
 
-    /**
-     * Set whether using the anchoring bounds.
-     *
-     * Anchoring bounds allow the input string boundary to be matched by constructs ^ and $.
-     *
-     * @hide
-     */
-    @IntraCoreApi
+    @libcore.api.IntraCoreApi
     public void useAnchoringBounds(boolean value) {
         useAnchoringBoundsImpl(address, value);
     }
 
-    /**
-     * Set whether using transparent bounds.
-     *
-     * Transparent bounds makes the boundary of the input string transparent to the lookahead,
-     * lookbehind, and boundary constructs.
-     *
-     * @hide
-     */
-    @IntraCoreApi
+    @libcore.api.IntraCoreApi
     public void useTransparentBounds(boolean value) {
         useTransparentBoundsImpl(address, value);
     }

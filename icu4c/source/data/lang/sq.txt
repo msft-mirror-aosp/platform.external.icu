@@ -1,6 +1,5 @@
 ﻿// © 2016 and later: Unicode, Inc. and others.
-// License & terms of use: http://www.unicode.org/copyright.html
-// Generated using tools/cldr/cldr-to-icu/build-icu-data.xml
+// License & terms of use: http://www.unicode.org/copyright.html#License
 sq{
     Keys{
         calendar{"Kalendari"}
@@ -110,7 +109,6 @@ sq{
         eu{"baskisht"}
         ewo{"euondoisht"}
         fa{"persisht"}
-        fa_AF{"darisht"}
         ff{"fulaisht"}
         fi{"finlandisht"}
         fil{"filipinisht"}
@@ -416,10 +414,6 @@ sq{
         zxx{"nuk ka përmbajtje gjuhësore"}
         zza{"zazaisht"}
     }
-    Languages%long{
-        zh_Hans{"kinezishte mandarine (e thjeshtuar)"}
-        zh_Hant{"kinezishte mandarine (tradicionale)"}
-    }
     Languages%menu{
         yue{"kinezishte kantoneze"}
         zh{"kinezishte mandarine"}
@@ -497,7 +491,7 @@ sq{
             iso8601{"kalendar ISO-8601"}
             japanese{"kalendar japonez"}
             persian{"kalendar persian"}
-            roc{"kalendar minguo"}
+            roc{"kalendar minguo (i Republikës së Kinës)"}
         }
         cf{
             account{"format valutor llogaritës"}
@@ -568,6 +562,7 @@ sq{
             tibt{"shifra tibetiane"}
         }
     }
+    Version{"36.1"}
     characterLabelPattern{
         all{"{0} — Të gjitha"}
         category-list{"{0}: {1}"}
@@ -582,8 +577,6 @@ sq{
             one{"{0} vijëzim drejtshkrimor"}
             other{"{0} vijëzime drejtshkrimore"}
         }
-        subscript{"nënshënim {0}"}
-        superscript{"mbishënim {0}"}
     }
     codePatterns{
         language{"Gjuha: {0}"}

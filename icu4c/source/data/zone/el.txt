@@ -1,7 +1,7 @@
 ﻿// © 2016 and later: Unicode, Inc. and others.
-// License & terms of use: http://www.unicode.org/copyright.html
-// Generated using tools/cldr/cldr-to-icu/build-icu-data.xml
+// License & terms of use: http://www.unicode.org/copyright.html#License
 el{
+    Version{"36.1"}
     zoneStrings{
         "Africa:Abidjan"{
             ec{"Αμπιτζάν"}
@@ -1737,9 +1737,7 @@ el{
             ls{"Ώρα Νιούε"}
         }
         "meta:Norfolk"{
-            ld{"Θερινή ώρα Νήσου Νόρφολκ"}
-            lg{"Ώρα Νήσου Νόρφολκ"}
-            ls{"Χειμερινή ώρα Νήσου Νόρφολκ"}
+            ls{"Ώρα Νήσου Νόρφολκ"}
         }
         "meta:Noronha"{
             ld{"Θερινή ώρα Φερνάρντο ντε Νορόνια"}

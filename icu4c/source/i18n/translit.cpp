@@ -170,7 +170,6 @@ Transliterator* Transliterator::clone() const {
  * Assignment operator.
  */
 Transliterator& Transliterator::operator=(const Transliterator& other) {
-    if (this == &other) { return *this; }  // self-assignment: no-op
     ID = other.ID;
     // NUL-terminate the ID string
     ID.getTerminatedBuffer();
@@ -1509,35 +1508,28 @@ UBool Transliterator::initializeRegistry(UErrorCode &status) {
      */
     //static const char translit_index[] = "translit_index";
 
-    UErrorCode lstatus = U_ZERO_ERROR;
     UResourceBundle *bundle, *transIDs, *colBund;
-    bundle = ures_open(U_ICUDATA_TRANSLIT, NULL/*open default locale*/, &lstatus);
-    transIDs = ures_getByKey(bundle, RB_RULE_BASED_IDS, 0, &lstatus);
+    bundle = ures_open(U_ICUDATA_TRANSLIT, NULL/*open default locale*/, &status);
+    transIDs = ures_getByKey(bundle, RB_RULE_BASED_IDS, 0, &status);
     const UnicodeString T_PART = UNICODE_STRING_SIMPLE("-t-");
 
     int32_t row, maxRows;
-    if (lstatus == U_MEMORY_ALLOCATION_ERROR) {
-        delete registry;
-        registry = nullptr;
-        status = U_MEMORY_ALLOCATION_ERROR;
-        return FALSE;
-    }
-    if (U_SUCCESS(lstatus)) {
+    if (U_SUCCESS(status)) {
         maxRows = ures_getSize(transIDs);
         for (row = 0; row < maxRows; row++) {
-            colBund = ures_getByIndex(transIDs, row, 0, &lstatus);
-            if (U_SUCCESS(lstatus)) {
+            colBund = ures_getByIndex(transIDs, row, 0, &status);
+            if (U_SUCCESS(status)) {
                 UnicodeString id(ures_getKey(colBund), -1, US_INV);
                 if(id.indexOf(T_PART) != -1) {
                     ures_close(colBund);
                     continue;
                 }
-                UResourceBundle* res = ures_getNextResource(colBund, NULL, &lstatus);
+                UResourceBundle* res = ures_getNextResource(colBund, NULL, &status);
                 const char* typeStr = ures_getKey(res);
                 UChar type;
                 u_charsToUChars(typeStr, &type, 1);
 
-                if (U_SUCCESS(lstatus)) {
+                if (U_SUCCESS(status)) {
                     int32_t len = 0;
                     const UChar *resString;
                     switch (type) {
@@ -1547,19 +1539,19 @@ UBool Transliterator::initializeRegistry(UErrorCode &status) {
                         // row[2]=resource, row[3]=direction
                         {
                             
-                            resString = ures_getStringByKey(res, "resource", &len, &lstatus);
+                            resString = ures_getStringByKey(res, "resource", &len, &status);
                             UBool visible = (type == 0x0066 /*f*/);
                             UTransDirection dir = 
-                                (ures_getUnicodeStringByKey(res, "direction", &lstatus).charAt(0) ==
+                                (ures_getUnicodeStringByKey(res, "direction", &status).charAt(0) ==
                                  0x0046 /*F*/) ?
                                 UTRANS_FORWARD : UTRANS_REVERSE;
-                            registry->put(id, UnicodeString(TRUE, resString, len), dir, TRUE, visible, lstatus);
+                            registry->put(id, UnicodeString(TRUE, resString, len), dir, TRUE, visible, status);
                         }
                         break;
                     case 0x61: // 'a'
                         // 'alias'; row[2]=createInstance argument
-                        resString = ures_getString(res, &len, &lstatus);
-                        registry->put(id, UnicodeString(TRUE, resString, len), TRUE, TRUE, lstatus);
+                        resString = ures_getString(res, &len, &status);
+                        registry->put(id, UnicodeString(TRUE, resString, len), TRUE, TRUE, status);
                         break;
                     }
                 }

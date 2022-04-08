@@ -1,6 +1,5 @@
 ﻿// © 2016 and later: Unicode, Inc. and others.
-// License & terms of use: http://www.unicode.org/copyright.html
-// Generated using tools/cldr/cldr-to-icu/build-icu-data.xml
+// License & terms of use: http://www.unicode.org/copyright.html#License
 te{
     Countries{
         001{"ప్రపంచం"}
@@ -311,4 +310,5 @@ te{
         SZ{"స్వాజిల్యాండ్"}
         TL{"తూర్పు టిమోర్"}
     }
+    Version{"36.1"}
 }

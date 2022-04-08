@@ -1,6 +1,6 @@
 /* GENERATED SOURCE. DO NOT MODIFY. */
 // © 2018 and later: Unicode, Inc. and others.
-// License & terms of use: http://www.unicode.org/copyright.html
+// License & terms of use: http://www.unicode.org/copyright.html#License
 package android.icu.dev.test.format;
 
 import static org.junit.Assert.assertEquals;
@@ -218,8 +218,6 @@ public class FormattedValueTest {
         }
         boolean afterLoopResult = fv.nextPosition(cfpos);
         assertFalse(baseMessage + "after loop: " + cfpos, afterLoopResult);
-        afterLoopResult = fv.nextPosition(cfpos);
-        assertFalse(baseMessage + "after loop again: " + cfpos, afterLoopResult);
 
         // Check nextPosition constrained over each class one at a time
         for (Class<?> classConstraint : uniqueFieldClasses) {
@@ -243,8 +241,6 @@ public class FormattedValueTest {
             }
             afterLoopResult = fv.nextPosition(cfpos);
             assertFalse(baseMessage + "after loop: " + cfpos, afterLoopResult);
-            afterLoopResult = fv.nextPosition(cfpos);
-            assertFalse(baseMessage + "after loop again: " + cfpos, afterLoopResult);
         }
 
         // Check nextPosition constrained over an unrelated class
@@ -274,8 +270,6 @@ public class FormattedValueTest {
             }
             afterLoopResult = fv.nextPosition(cfpos);
             assertFalse(baseMessage + "after loop: " + cfpos, afterLoopResult);
-            afterLoopResult = fv.nextPosition(cfpos);
-            assertFalse(baseMessage + "after loop again: " + cfpos, afterLoopResult);
         }
     }
 

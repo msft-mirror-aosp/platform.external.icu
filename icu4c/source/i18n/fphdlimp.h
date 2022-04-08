@@ -41,8 +41,8 @@ class U_I18N_API FieldPositionHandler: public UMemory {
 
 class FieldPositionOnlyHandler : public FieldPositionHandler {
   FieldPosition& pos;
-  UBool acceptFirstOnly = false;
-  UBool seenFirst = false;
+  UBool acceptFirstOnly = FALSE;
+  UBool seenFirst = FALSE;
 
  public:
   FieldPositionOnlyHandler(FieldPosition& pos);
@@ -62,9 +62,8 @@ class FieldPositionOnlyHandler : public FieldPositionHandler {
 
 
 // utility subclass FieldPositionIteratorHandler
-// exported as U_I18N_API for tests
 
-class U_I18N_API FieldPositionIteratorHandler : public FieldPositionHandler {
+class FieldPositionIteratorHandler : public FieldPositionHandler {
   FieldPositionIterator* iter; // can be NULL
   UVector32* vec;
   UErrorCode status;

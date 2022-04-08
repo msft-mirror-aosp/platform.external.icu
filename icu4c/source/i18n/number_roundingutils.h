@@ -8,7 +8,6 @@
 #define __NUMBER_ROUNDINGUTILS_H__
 
 #include "number_types.h"
-#include "string_segment.h"
 
 U_NAMESPACE_BEGIN
 namespace number {
@@ -45,9 +44,6 @@ enum Section {
 inline bool
 getRoundingDirection(bool isEven, bool isNegative, Section section, RoundingMode roundingMode,
                      UErrorCode &status) {
-    if (U_FAILURE(status)) {
-        return false;
-    }
     switch (roundingMode) {
         case RoundingMode::UNUM_ROUND_UP:
             // round away from zero
@@ -154,7 +150,7 @@ digits_t doubleFractionLength(double input, int8_t* singleDigit);
  */
 class RoundingImpl {
   public:
-    RoundingImpl() = default;  // defaults to pass-through rounder
+    RoundingImpl() = default;  // default constructor: leaves object in undefined state
 
     RoundingImpl(const Precision& precision, UNumberFormatRoundingMode roundingMode,
                  const CurrencyUnit& currency, UErrorCode& status);
@@ -190,23 +186,9 @@ class RoundingImpl {
   private:
     Precision fPrecision;
     UNumberFormatRoundingMode fRoundingMode;
-    bool fPassThrough = true;  // default value
-
-    // Permits access to fPrecision.
-    friend class units::UnitsRouter;
-
-    // Permits access to fPrecision.
-    friend class UnitConversionHandler;
+    bool fPassThrough;
 };
 
-/**
- * Parses Precision-related skeleton strings without knowledge of MacroProps
- * - see blueprint_helpers::parseIncrementOption().
- *
- * Referencing MacroProps means needing to pull in the .o files that have the
- * destructors for the SymbolsWrapper, Usage, and Scale classes.
- */
-void parseIncrementOption(const StringSegment &segment, Precision &outPrecision, UErrorCode &status);
 
 } // namespace impl
 } // namespace number

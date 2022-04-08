@@ -1,10 +1,10 @@
 ﻿// © 2016 and later: Unicode, Inc. and others.
-// License & terms of use: http://www.unicode.org/copyright.html
-// Generated using tools/cldr/cldr-to-icu/build-icu-data.xml
+// License & terms of use: http://www.unicode.org/copyright.html#License
 zh_Hant_HK{
+    Version{"36.1"}
     units{
         acceleration{
-            meter-per-square-second{
+            meter-per-second-squared{
                 dnam{"米/平方秒"}
                 other{"{0} 米/平方秒"}
             }
@@ -53,9 +53,12 @@ zh_Hant_HK{
                 dnam{"每公升毫摩爾"}
                 other{"每公升 {0} 毫摩爾"}
             }
+            part-per-million{
+                other{"{0} ppm"}
+            }
         }
         consumption{
-            liter-per-100-kilometer{
+            liter-per-100kilometers{
                 dnam{"公升/100公里"}
             }
             liter-per-kilometer{
@@ -171,20 +174,10 @@ zh_Hant_HK{
                 other{"{0} pt"}
             }
         }
-        light{
-            candela{
-                dnam{"坎德拉"}
-                other{"{0} 坎德拉"}
-            }
-        }
         mass{
             dalton{
                 dnam{"道爾頓"}
                 other{"{0} 道爾頓"}
-            }
-            grain{
-                dnam{"格令"}
-                other{"{0}格令"}
             }
             gram{
                 per{"{0} 每克"}
@@ -228,7 +221,7 @@ zh_Hant_HK{
                 dnam{"百帕斯卡"}
                 other{"{0} 百帕斯卡"}
             }
-            inch-ofhg{
+            inch-hg{
                 dnam{"英吋汞柱"}
                 other{"{0} 英吋汞柱"}
             }
@@ -236,7 +229,7 @@ zh_Hant_HK{
                 dnam{"兆帕斯卡"}
                 other{"{0} 兆帕斯卡"}
             }
-            pound-force-per-square-inch{
+            pound-per-square-inch{
                 dnam{"磅/平方吋"}
                 other{"{0} 磅/平方吋"}
             }
@@ -266,7 +259,7 @@ zh_Hant_HK{
             }
         }
         torque{
-            pound-force-foot{
+            pound-foot{
                 dnam{"磅尺"}
                 other{"{0} 磅尺"}
             }
@@ -322,7 +315,7 @@ zh_Hant_HK{
     }
     unitsNarrow{
         acceleration{
-            meter-per-square-second{
+            meter-per-second-squared{
                 dnam{"米每平方秒"}
             }
         }
@@ -364,12 +357,12 @@ zh_Hant_HK{
             millimole-per-liter{
                 dnam{"毫摩爾/公升"}
             }
-            permillion{
+            part-per-million{
                 other{"{0} ppm"}
             }
         }
         consumption{
-            liter-per-100-kilometer{
+            liter-per-100kilometers{
                 other{"{0}L/100km"}
             }
         }
@@ -495,11 +488,11 @@ zh_Hant_HK{
             }
         }
         pressure{
-            inch-ofhg{
+            inch-hg{
                 dnam{"英吋汞柱"}
                 other{"{0}″ Hg"}
             }
-            pound-force-per-square-inch{
+            pound-per-square-inch{
                 dnam{"磅每平方吋"}
             }
         }
@@ -561,7 +554,7 @@ zh_Hant_HK{
             g-force{
                 other{"{0} G"}
             }
-            meter-per-square-second{
+            meter-per-second-squared{
                 dnam{"米每平方秒"}
                 other{"{0} 米每平方秒"}
             }
@@ -617,7 +610,7 @@ zh_Hant_HK{
                 dnam{"毫摩爾/公升"}
                 other{"{0} 毫摩爾/公升"}
             }
-            permillion{
+            part-per-million{
                 other{"{0} ppm"}
             }
         }
@@ -755,17 +748,7 @@ zh_Hant_HK{
                 other{"{0} pt"}
             }
         }
-        light{
-            candela{
-                dnam{"坎德拉"}
-                other{"{0} 坎德拉"}
-            }
-        }
         mass{
-            grain{
-                dnam{"格令"}
-                other{"{0} 格令"}
-            }
             gram{
                 per{"{0} 每克"}
             }
@@ -795,11 +778,15 @@ zh_Hant_HK{
             }
         }
         pressure{
-            inch-ofhg{
+            inch-hg{
                 dnam{"英吋汞柱"}
                 other{"{0} 英吋汞柱"}
             }
-            pound-force-per-square-inch{
+            pascal{
+                dnam{"帕"}
+                other{"{0} 帕"}
+            }
+            pound-per-square-inch{
                 dnam{"磅每平方吋"}
                 other{"{0} 磅每平方吋"}
             }

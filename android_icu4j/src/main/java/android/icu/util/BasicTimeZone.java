@@ -1,6 +1,6 @@
 /* GENERATED SOURCE. DO NOT MODIFY. */
 // © 2016 and later: Unicode, Inc. and others.
-// License & terms of use: http://www.unicode.org/copyright.html
+// License & terms of use: http://www.unicode.org/copyright.html#License
 /*
  *******************************************************************************
  * Copyright (C) 2007-2014, International Business Machines Corporation and    *
@@ -28,6 +28,7 @@ import android.icu.impl.Grego;
  *
  * @hide Only a subset of ICU is exposed in Android
  */
+@libcore.api.IntraCoreApi
 @libcore.api.CorePlatformApi
 public abstract class BasicTimeZone extends TimeZone {
 
@@ -46,6 +47,7 @@ public abstract class BasicTimeZone extends TimeZone {
      *          after the given base time, or null if no time zone transitions
      *          are available after the base time.
      */
+    @libcore.api.IntraCoreApi
     @libcore.api.CorePlatformApi
     public abstract TimeZoneTransition getNextTransition(long base, boolean inclusive);
 
@@ -60,6 +62,7 @@ public abstract class BasicTimeZone extends TimeZone {
      *          before the given base time, or null if no time zone transitions
      *          are available before the base time.
      */
+    @libcore.api.IntraCoreApi
     public abstract TimeZoneTransition getPreviousTransition(long base, boolean inclusive);
 
     /**
@@ -211,6 +214,7 @@ public abstract class BasicTimeZone extends TimeZone {
      * @return  The array of <code>TimeZoneRule</code> which represents this
      *          time zone.
      */
+    @libcore.api.IntraCoreApi
     public abstract TimeZoneRule[] getTimeZoneRules();
 
     /**

@@ -1,7 +1,7 @@
 ﻿// © 2016 and later: Unicode, Inc. and others.
-// License & terms of use: http://www.unicode.org/copyright.html
-// Generated using tools/cldr/cldr-to-icu/build-icu-data.xml
+// License & terms of use: http://www.unicode.org/copyright.html#License
 he{
+    Version{"36.1"}
     zoneStrings{
         "Africa:Abidjan"{
             ec{"אביג׳אן"}
@@ -613,7 +613,7 @@ he{
             ec{"דומון ד׳אורוויל"}
         }
         "Antarctica:Macquarie"{
-            ec{"מקווארי"}
+            ec{"מקרי"}
         }
         "Antarctica:Mawson"{
             ec{"מוסון"}
@@ -1743,9 +1743,7 @@ he{
             ls{"שעון ניואה"}
         }
         "meta:Norfolk"{
-            ld{"שעון האי נורפוק (קיץ)"}
-            lg{"שעון האי נורפוק"}
-            ls{"שעון האי נורפוק (חורף)"}
+            ls{"שעון האי נורפוק"}
         }
         "meta:Noronha"{
             ld{"שעון פרננדו די נורוניה (קיץ)"}

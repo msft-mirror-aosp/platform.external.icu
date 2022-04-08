@@ -19,38 +19,36 @@ import (
 )
 
 func init() {
-	host_allowlist := []string{
+	host_whitelist := []string{
+		"art/build/apex/",
 		"device/google/cuttlefish/host/commands/",
 		"external/skia",
 		"frameworks/base/libs/hwui",
-		"packages/modules/RuntimeI18n/apex/",
 	}
 
-	device_allowlist := []string{
+	device_whitelist := []string{
+		"art/",
 		"external/chromium-libpac",
 		"external/icu/",
 		"external/v8/",
-		"packages/modules/RuntimeI18n/",
-		// TODO(b/155921753): Restrict this when prebuilts are in their proper
-		// locations.
-		"prebuilts/",
+		"libcore/",
 	}
 
 	android.AddNeverAllowRules(
 		android.NeverAllow().
 			InDirectDeps("libandroidicu").
 			WithOsClass(android.Host).
-			NotIn(host_allowlist...).
+			NotIn(host_whitelist...).
 			Because("libandroidicu is not intended to be used on host"),
 		android.NeverAllow().
 			InDirectDeps("libicuuc").
 			WithOsClass(android.Device).
-			NotIn(device_allowlist...).
+			NotIn(device_whitelist...).
 			Because("libicuuc is not intended to be used on device"),
 		android.NeverAllow().
 			InDirectDeps("libicui18n").
 			WithOsClass(android.Device).
-			NotIn(device_allowlist...).
+			NotIn(device_whitelist...).
 			Because("libicui18n is not intended to be used on device"),
 	)
 }

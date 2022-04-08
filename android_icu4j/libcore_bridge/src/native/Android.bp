@@ -15,20 +15,13 @@
 //
 package {
     default_visibility: [
-        "//packages/modules/RuntimeI18n/apex",
+        "//art/build/apex",
     ],
-    // See: http://go/android-license-faq
-    // A large-scale-change added 'default_applicable_licenses' to import
-    // all of the 'license_kinds' from "external_icu_license"
-    // to get the below license kinds:
-    //   SPDX-license-identifier-Apache-2.0
-    default_applicable_licenses: ["external_icu_license"],
 }
 
 cc_library_shared {
     name: "libicu_jni",
     host_supported: true,
-    header_libs: ["jni_headers"],
     shared_libs: [
         "libbase",
         "libicuuc",
@@ -56,6 +49,7 @@ cc_library_shared {
         },
     },
     apex_available: [
-        "com.android.i18n",
+        "com.android.art.release",
+        "com.android.art.debug",
     ],
 }

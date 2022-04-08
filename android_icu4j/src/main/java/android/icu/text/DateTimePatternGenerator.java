@@ -1,6 +1,6 @@
 /* GENERATED SOURCE. DO NOT MODIFY. */
 // © 2016 and later: Unicode, Inc. and others.
-// License & terms of use: http://www.unicode.org/copyright.html
+// License & terms of use: http://www.unicode.org/copyright.html#License
 /*
  ********************************************************************************
  * Copyright (C) 2006-2016, Google, International Business Machines Corporation
@@ -112,6 +112,7 @@ public class DateTimePatternGenerator implements Freezable<DateTimePatternGenera
      * @hide original deprecated declaration
      * @hide draft / provisional / internal are hidden on Android
      */
+    @libcore.api.IntraCoreApi
     @Deprecated
     public static DateTimePatternGenerator getFrozenInstance(ULocale uLocale) {
         String localeKey = uLocale.toString();
@@ -121,7 +122,7 @@ public class DateTimePatternGenerator implements Freezable<DateTimePatternGenera
         }
 
         result = new DateTimePatternGenerator();
-        result.initData(uLocale, false);
+        result.initData(uLocale);
 
         // freeze and cache
         result.freeze();
@@ -129,39 +130,16 @@ public class DateTimePatternGenerator implements Freezable<DateTimePatternGenera
         return result;
     }
 
-    /**
-     * Construct a non-frozen instance of DateTimePatternGenerator for a
-     * given locale that skips using the standard date and time patterns.
-     * Because this is different than the normal instance for the locale,
-     * it does not set or use the cache.
-     * @param uLocale The locale to pass.
-     * @deprecated This API is ICU internal only.
-     * @hide draft / provisional / internal are hidden on Android
-     */
-    @Deprecated
-    public static DateTimePatternGenerator getInstanceNoStdPat(ULocale uLocale) {
-        DateTimePatternGenerator result = new DateTimePatternGenerator();
-        result.initData(uLocale, true);
-        return result;
-    }
-
-    private void initData(ULocale uLocale, boolean skipStdPatterns) {
+    private void initData(ULocale uLocale) {
         // This instance of PatternInfo is required for calling some functions.  It is used for
         // passing additional information to the caller.  We won't use this extra information, but
         // we still need to make a temporary instance.
         PatternInfo returnInfo = new PatternInfo();
 
         addCanonicalItems();
-        if (!skipStdPatterns) { // skip to prevent circular dependency when used by Calendar
-            addICUPatterns(returnInfo, uLocale);
-        }
+        addICUPatterns(returnInfo, uLocale);
         addCLDRData(returnInfo, uLocale);
-        if (!skipStdPatterns) { // also skip to prevent circular dependency from Calendar
-            setDateTimeFromCalendar(uLocale);
-        } else {
-            // instead, since from Calendar we do not care about dateTimePattern, use a fallback
-            setDateTimeFormat("{1} {0}");
-        }
+        setDateTimeFromCalendar(uLocale);
         setDecimalSymbols(uLocale);
         getAllowedHourFormats(uLocale);
         fillInMissing();
@@ -387,26 +365,6 @@ public class DateTimePatternGenerator implements Freezable<DateTimePatternGenera
 
         String[] list = getAllowedHourFormatsLangCountry(language, country);
 
-        // We need to check if there is an hour cycle on locale
-        Character defaultCharFromLocale = null;
-        String hourCycle = uLocale.getKeywordValue("hours");
-        if (hourCycle != null) {
-            switch(hourCycle) {
-                case "h24":
-                    defaultCharFromLocale = 'k';
-                    break;
-                case "h23":
-                    defaultCharFromLocale = 'H';
-                    break;
-                case "h12":
-                    defaultCharFromLocale = 'h';
-                    break;
-                case "h11":
-                    defaultCharFromLocale = 'K';
-                    break;
-            }
-        }
-
         // Check if the region has an alias
         if (list == null) {
             try {
@@ -419,11 +377,11 @@ public class DateTimePatternGenerator implements Freezable<DateTimePatternGenera
         }
 
         if (list != null) {
-            defaultHourFormatChar = defaultCharFromLocale != null ? defaultCharFromLocale : list[0].charAt(0);
+            defaultHourFormatChar = list[0].charAt(0);
             allowedHourFormats = Arrays.copyOfRange(list, 1, list.length - 1);
         } else {
             allowedHourFormats = LAST_RESORT_ALLOWED_HOUR_FORMAT;
-            defaultHourFormatChar = (defaultCharFromLocale != null) ? defaultCharFromLocale : allowedHourFormats[0].charAt(0);
+            defaultHourFormatChar = allowedHourFormats[0].charAt(0);
         }
     }
 
@@ -641,45 +599,16 @@ public class DateTimePatternGenerator implements Freezable<DateTimePatternGenera
         return getBestPattern(skeleton, null, options);
     }
 
-    // BEGIN Android-added: http://b/170233598 Allow duplicate fields
-    /**
-     * Return the best pattern matching the input skeleton. It is guaranteed to
-     * have all of the fields in the skeleton.
-     *
-     * @param skeleton The skeleton is a pattern containing only the variable fields.
-     *            For example, "MMMdd" and "mmhh" are skeletons.
-     * @param options MATCH_xxx options for forcing the length of specified fields in
-     *            the returned pattern to match those in the skeleton (when this would
-     *            not happen otherwise). For default behavior, use MATCH_NO_OPTIONS.
-     * @param allowDuplicateFields allows duplicated field in the skeleton
-     * @return Best pattern matching the input skeleton (and options).
-     * @hide draft / provisional / internal are hidden on Android
-     */
-    @libcore.api.CorePlatformApi
-    public String getBestPattern(String skeleton, int options, boolean allowDuplicateFields) {
-        return getBestPattern(skeleton, null, options, allowDuplicateFields);
-    }
-
-    private String getBestPattern(String skeleton, DateTimeMatcher skipMatcher, int options) {
-        return getBestPattern(skeleton, skipMatcher, options, false);
-    }
-    // END Android-added: http://b/170233598 Allow duplicate fields
-
     /*
      * getBestPattern which takes optional skip matcher
      */
-    // Android-changed: http://b/170233598 Allow duplicate fields
-    // private String getBestPattern(String skeleton, DateTimeMatcher skipMatcher, int options) {
-    private String getBestPattern(String skeleton, DateTimeMatcher skipMatcher, int options,
-            boolean allowDuplicateFields) {
+    private String getBestPattern(String skeleton, DateTimeMatcher skipMatcher, int options) {
         EnumSet<DTPGflags> flags = EnumSet.noneOf(DTPGflags.class);
         // Replace hour metacharacters 'j', 'C', and 'J', set flags as necessary
         String skeletonMapped = mapSkeletonMetacharacters(skeleton, flags);
         String datePattern, timePattern;
         synchronized(this) {
-            // Android-changed: http://b/170233598 Allow duplicate fields
-            // current.set(skeletonMapped, fp, false);
-            current.set(skeletonMapped, fp, allowDuplicateFields);
+            current.set(skeletonMapped, fp, false);
             PatternWithMatcher bestWithMatcher = getBestRaw(current, -1, _distanceInfo, skipMatcher);
             if (_distanceInfo.missingFieldMask == 0 && _distanceInfo.extraFieldMask == 0) {
                 // we have a good item. Adjust the field types
@@ -1240,6 +1169,7 @@ public class DateTimePatternGenerator implements Freezable<DateTimePatternGenera
     private static final int APPENDITEM_WIDTH_INT = APPENDITEM_WIDTH.ordinal();
     private static final DisplayWidth[] CLDR_FIELD_WIDTH = DisplayWidth.values();
 
+
     // Option masks for getBestPattern, replaceFieldTypes (individual masks may be ORed together)
 
     /**
@@ -1339,20 +1269,6 @@ public class DateTimePatternGenerator implements Freezable<DateTimePatternGenera
      */
     public String getAppendItemName(int field) {
         return getFieldDisplayName(field, APPENDITEM_WIDTH);
-    }
-
-    /**
-     * Return the default hour cycle.
-     * @hide draft / provisional / internal are hidden on Android
-     */
-    public DateFormat.HourCycle getDefaultHourCycle() {
-      switch(getDefaultHourFormatChar()) {
-        case 'h': return DateFormat.HourCycle.HOUR_CYCLE_12;
-        case 'H': return DateFormat.HourCycle.HOUR_CYCLE_23;
-        case 'k': return DateFormat.HourCycle.HOUR_CYCLE_24;
-        case 'K': return DateFormat.HourCycle.HOUR_CYCLE_11;
-        default: throw new AssertionError("should be unreachable");
-      }
     }
 
     /**
@@ -2090,7 +2006,6 @@ public class DateTimePatternGenerator implements Freezable<DateTimePatternGenera
         //      if (SHOW_DISTANCE) System.out.println("Searching for: " + source.pattern
         //      + ", mask: " + showMask(includeMask));
         int bestDistance = Integer.MAX_VALUE;
-        int bestMissingFieldMask = Integer.MIN_VALUE;
         PatternWithMatcher bestPatternWithMatcher = new PatternWithMatcher("", null);
         DistanceInfo tempInfo = new DistanceInfo();
         for (DateTimeMatcher trial : skeleton2pattern.keySet()) {
@@ -2100,16 +2015,8 @@ public class DateTimePatternGenerator implements Freezable<DateTimePatternGenera
             int distance = source.getDistance(trial, includeMask, tempInfo);
             //          if (SHOW_DISTANCE) System.out.println("\tDistance: " + trial.pattern + ":\t"
             //          + distance + ",\tmissing fields: " + tempInfo);
-
-            // Because we iterate over a map the order is undefined. Can change between implementations,
-            // versions, and will very likely be different between Java and C/C++.
-            // So if we have patterns with the same distance we also look at the missingFieldMask,
-            // and we favour the smallest one. Because the field is a bitmask this technically means we
-            // favour differences in the "least significant fields". For example we prefer the one with differences
-            // in seconds field vs one with difference in the hours field.
-            if (distance < bestDistance || (distance == bestDistance && bestMissingFieldMask < tempInfo.missingFieldMask)) {
+            if (distance < bestDistance) {
                 bestDistance = distance;
-                bestMissingFieldMask = tempInfo.missingFieldMask;
                 PatternWithSkeletonFlag patternWithSkelFlag = skeleton2pattern.get(trial);
                 bestPatternWithMatcher.pattern = patternWithSkelFlag.pattern;
                 // If the best raw match had a specified skeleton then return it too.
@@ -2168,10 +2075,8 @@ public class DateTimePatternGenerator implements Freezable<DateTimePatternGenera
                     // - "field" is the field from the found pattern.
                     //
                     // The adjusted field should consist of characters from the originally requested
-                    // skeleton, except in the case of MONTH or WEEKDAY or YEAR, in which case it
-                    // should consist of characters from the found pattern. There is some adjustment
-                    // in some cases of HOUR to "defaultHourFormatChar". There is explanation
-                    // how it is done below.
+                    // skeleton, except in the case of HOUR or MONTH or WEEKDAY or YEAR, in which case it
+                    // should consist of characters from the found pattern.
                     //
                     // The length of the adjusted field (adjFieldLen) should match that in the originally
                     // requested skeleton, except that in the following cases the length of the adjusted field
@@ -2216,25 +2121,8 @@ public class DateTimePatternGenerator implements Freezable<DateTimePatternGenera
                             && (type != YEAR || reqFieldChar=='Y'))
                             ? reqFieldChar
                             : fieldBuilder.charAt(0);
-                    if (type == HOUR) {
-                        // The adjustment here is required to match spec (https://www.unicode.org/reports/tr35/tr35-dates.html#dfst-hour).
-                        // It is necessary to match the hour-cycle preferred by the Locale.
-                        // Given that, we need to do the following adjustments:
-                        // 1. When hour-cycle is h11 it should replace 'h' by 'K'.
-                        // 2. When hour-cycle is h23 it should replace 'H' by 'k'.
-                        // 3. When hour-cycle is h24 it should replace 'k' by 'H'.
-                        // 4. When hour-cycle is h12 it should replace 'K' by 'h'.
-                        if (flags.contains(DTPGflags.SKELETON_USES_CAP_J) || reqFieldChar == defaultHourFormatChar) {
-                            c = defaultHourFormatChar;
-                        } else if (reqFieldChar == 'h' && defaultHourFormatChar == 'K') {
-                            c = 'K';
-                        } else if (reqFieldChar == 'H' && defaultHourFormatChar == 'k') {
-                            c = 'k';
-                        } else if (reqFieldChar == 'k' && defaultHourFormatChar == 'H') {
-                            c = 'H';
-                        } else if (reqFieldChar == 'K' && defaultHourFormatChar == 'h') {
-                            c = 'h';
-                        }
+                    if (type == HOUR && flags.contains(DTPGflags.SKELETON_USES_CAP_J)) {
+                        c = defaultHourFormatChar;
                     }
                     fieldBuilder = new StringBuilder();
                     for (int i = adjFieldLen; i > 0; --i) fieldBuilder.append(c);
@@ -2733,32 +2621,6 @@ public class DateTimePatternGenerator implements Freezable<DateTimePatternGenera
                 if (subField > 0) subField += value.length();
                 type[field] = subField;
             }
-
-            // #20739, we have a skeleton with minutes and milliseconds, but no seconds
-            //
-            // Theoretically we would need to check and fix all fields with "gaps":
-            // for example year-day (no month), month-hour (no day), and so on, All the possible field combinations.
-            // Plus some smartness: year + hour => should we add month, or add day-of-year?
-            // What about month + day-of-week, or month + am/pm indicator.
-            // I think beyond a certain point we should not try to fix bad developer input and try guessing what they mean.
-            // Garbage in, garbage out.
-            if (!original.isFieldEmpty(MINUTE) && !original.isFieldEmpty(FRACTIONAL_SECOND) && original.isFieldEmpty(SECOND)) {
-                // Force the use of seconds
-                for (int i = 0; i < types.length; ++i) {
-                    int[] row = types[i];
-                    if (row[1] == SECOND) {
-                        // first entry for SECOND
-                        original.populate(SECOND, (char)row[0], row[3]);
-                        baseOriginal.populate(SECOND, (char)row[0], row[3]);
-                        // We add value.length, same as above, when type is first initialized.
-                        // The value we want to "fake" here is "s", and 1 means "s".length()
-                        int subField = row[2];
-                        type[SECOND] = (subField > 0) ? subField + 1 : subField;
-                        break;
-                    }
-                }
-            }
-
             // #13183, handle special behavior for day period characters (a, b, B)
             if (!original.isFieldEmpty(HOUR)) {
                 if (original.getFieldChar(HOUR)=='h' || original.getFieldChar(HOUR)=='K') {
@@ -2849,7 +2711,7 @@ public class DateTimePatternGenerator implements Freezable<DateTimePatternGenera
     private static class DistanceInfo {
         int missingFieldMask;
         int extraFieldMask;
-        @android.compat.annotation.UnsupportedAppUsage(maxTargetSdk = 30, trackingBug = 170729553)
+        @android.compat.annotation.UnsupportedAppUsage
         private DistanceInfo() {
         }
         void clear() {

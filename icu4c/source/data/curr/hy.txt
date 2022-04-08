@@ -1,6 +1,5 @@
 ﻿// © 2016 and later: Unicode, Inc. and others.
-// License & terms of use: http://www.unicode.org/copyright.html
-// Generated using tools/cldr/cldr-to-icu/build-icu-data.xml
+// License & terms of use: http://www.unicode.org/copyright.html#License
 hy{
     Currencies{
         AED{
@@ -125,7 +124,7 @@ hy{
         }
         CNH{
             "CNH",
-            "չինական օֆշորային յուան",
+            "CNH",
         }
         CNY{
             "CN¥",
@@ -878,8 +877,8 @@ hy{
             other{"չիլիական պեսո"}
         }
         CNH{
-            one{"չինական օֆշորային յուան"}
-            other{"չինական օֆշորային յուան"}
+            one{"CNH"}
+            other{"CNH"}
         }
         CNY{
             one{"չինական յուան"}
@@ -1414,4 +1413,5 @@ hy{
         one{"{0} {1}"}
         other{"{0} {1}"}
     }
+    Version{"36.1"}
 }

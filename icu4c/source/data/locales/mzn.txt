@@ -1,6 +1,5 @@
 ﻿// © 2016 and later: Unicode, Inc. and others.
-// License & terms of use: http://www.unicode.org/copyright.html
-// Generated using tools/cldr/cldr-to-icu/build-icu-data.xml
+// License & terms of use: http://www.unicode.org/copyright.html#License
 mzn{
     AuxExemplarCharacters{"[\u200C\u200D\u200E\u200F \u064E \u064F \u0650 \u0652 \u0656 \u0670 إ ك ى ي]"}
     Ellipsis{
@@ -27,6 +26,7 @@ mzn{
         default{"arabext"}
         native{"arabext"}
     }
+    Version{"36.1"}
     calendar{
         gregorian{
             eras{

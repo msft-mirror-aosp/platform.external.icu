@@ -1,6 +1,6 @@
 /* GENERATED SOURCE. DO NOT MODIFY. */
 // © 2017 and later: Unicode, Inc. and others.
-// License & terms of use: http://www.unicode.org/copyright.html
+// License & terms of use: http://www.unicode.org/copyright.html#License
 package android.icu.impl.number;
 
 import java.text.Format.Field;
@@ -18,15 +18,6 @@ import android.icu.impl.StandardPlural;
  * @hide Only a subset of ICU is exposed in Android
  */
 public interface Modifier {
-
-    static enum Signum {
-        NEG,
-        NEG_ZERO,
-        POS_ZERO,
-        POS;
-
-        static final int COUNT = Signum.values().length;
-    };
 
     /**
      * Apply this Modifier to the string builder.
@@ -77,7 +68,7 @@ public interface Modifier {
      */
     public static class Parameters {
         public ModifierStore obj;
-        public Signum signum;
+        public int signum;
         public StandardPlural plural;
     }
 

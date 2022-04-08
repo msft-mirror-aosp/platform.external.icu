@@ -1,7 +1,7 @@
 ﻿// © 2016 and later: Unicode, Inc. and others.
-// License & terms of use: http://www.unicode.org/copyright.html
-// Generated using tools/cldr/cldr-to-icu/build-icu-data.xml
+// License & terms of use: http://www.unicode.org/copyright.html#License
 kk{
+    Version{"36.1"}
     zoneStrings{
         "Africa:Abidjan"{
             ec{"Абиджан"}
@@ -1713,9 +1713,7 @@ kk{
             ls{"Ниуэ уақыты"}
         }
         "meta:Norfolk"{
-            ld{"Норфолк аралы жазғы уақыты"}
-            lg{"Норфолк аралы уақыты"}
-            ls{"Норфолк аралы стандартты уақыты"}
+            ls{"Норфолк аралы уақыты"}
         }
         "meta:Noronha"{
             ld{"Фернанду-ди-Норонья жазғы уақыты"}

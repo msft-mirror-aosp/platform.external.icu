@@ -1,6 +1,5 @@
 ﻿// © 2016 and later: Unicode, Inc. and others.
-// License & terms of use: http://www.unicode.org/copyright.html
-// Generated using tools/cldr/cldr-to-icu/build-icu-data.xml
+// License & terms of use: http://www.unicode.org/copyright.html#License
 az{
     AuxExemplarCharacters{"[w]"}
     Ellipsis{
@@ -190,7 +189,6 @@ az{
                 }
             }
             symbols{
-                approximatelySign{"~"}
                 decimal{","}
                 exponential{"E"}
                 group{"."}
@@ -220,6 +218,7 @@ az{
         minimumGroupingDigits{"1"}
         native{"latn"}
     }
+    Version{"36.1"}
     calendar{
         generic{
             DateTimePatterns{
@@ -868,16 +867,16 @@ az{
                     }
                     wide{
                         "yanvar",
-                        "fevral",
+                        "Fevral",
                         "mart",
-                        "aprel",
-                        "may",
-                        "iyun",
-                        "iyul",
-                        "avqust",
-                        "sentyabr",
-                        "oktyabr",
-                        "noyabr",
+                        "Aprel",
+                        "May",
+                        "İyun",
+                        "İyul",
+                        "Avqust",
+                        "Sentyabr",
+                        "Oktyabr",
+                        "Noyabr",
                         "dekabr",
                     }
                 }

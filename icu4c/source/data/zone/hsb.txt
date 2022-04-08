@@ -1,7 +1,7 @@
 ﻿// © 2016 and later: Unicode, Inc. and others.
-// License & terms of use: http://www.unicode.org/copyright.html
-// Generated using tools/cldr/cldr-to-icu/build-icu-data.xml
+// License & terms of use: http://www.unicode.org/copyright.html#License
 hsb{
+    Version{"36.1"}
     zoneStrings{
         "Africa:Accra"{
             ec{"Akkra"}
@@ -790,9 +790,7 @@ hsb{
             ls{"niueski čas"}
         }
         "meta:Norfolk"{
-            ld{"lětni čas kupy Norfolk"}
-            lg{"čas kupy Norfolk"}
-            ls{"standardny čas kupy Norfolk"}
+            ls{"čas kupy Norfolk"}
         }
         "meta:Noronha"{
             ld{"lětni čas kupow Fernando de Noronha"}

@@ -1,7 +1,8 @@
 // © 2017 and later: Unicode, Inc. and others.
-// License & terms of use: http://www.unicode.org/copyright.html
+// License & terms of use: http://www.unicode.org/copyright.html#License
 package com.ibm.icu.impl;
 
+import java.text.Format.Field;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
@@ -23,21 +24,15 @@ import com.ibm.icu.text.NumberFormat;
  *
  * @author sffc (Shane Carr)
  */
-public class FormattedStringBuilder implements CharSequence, Appendable {
+public class FormattedStringBuilder implements CharSequence {
 
     /** A constant, empty FormattedStringBuilder. Do NOT call mutative operations on this. */
     public static final FormattedStringBuilder EMPTY = new FormattedStringBuilder();
 
     char[] chars;
-    Object[] fields;
+    Field[] fields;
     int zero;
     int length;
-
-    /** Number of characters from the end where .append() operations insert. */
-    int appendOffset = 0;
-
-    /** Field applied when Appendable methods are used. */
-    Object appendableField = null;
 
     public FormattedStringBuilder() {
         this(40);
@@ -45,7 +40,7 @@ public class FormattedStringBuilder implements CharSequence, Appendable {
 
     public FormattedStringBuilder(int capacity) {
         chars = new char[capacity];
-        fields = new Object[capacity];
+        fields = new Field[capacity];
         zero = capacity / 2;
         length = 0;
     }
@@ -77,7 +72,7 @@ public class FormattedStringBuilder implements CharSequence, Appendable {
         return chars[zero + index];
     }
 
-    public Object fieldAt(int index) {
+    public Field fieldAt(int index) {
         assert index >= 0;
         assert index < length;
         return fields[zero + index];
@@ -111,20 +106,11 @@ public class FormattedStringBuilder implements CharSequence, Appendable {
         return this;
     }
 
-    /**
-     * Sets the index at which append operations insert. Defaults to the end.
-     *
-     * @param index The index at which append operations should insert.
-     */
-    public void setAppendIndex(int index) {
-        appendOffset = length - index;
+    public int appendChar16(char codeUnit, Field field) {
+        return insertChar16(length, codeUnit, field);
     }
 
-    public int appendChar16(char codeUnit, Object field) {
-        return insertChar16(length - appendOffset, codeUnit, field);
-    }
-
-    public int insertChar16(int index, char codeUnit, Object field) {
+    public int insertChar16(int index, char codeUnit, Field field) {
         int count = 1;
         int position = prepareForInsert(index, count);
         chars[position] = codeUnit;
@@ -137,8 +123,8 @@ public class FormattedStringBuilder implements CharSequence, Appendable {
      *
      * @return The number of chars added: 1 if the code point is in the BMP, or 2 otherwise.
      */
-    public int appendCodePoint(int codePoint, Object field) {
-        return insertCodePoint(length - appendOffset, codePoint, field);
+    public int appendCodePoint(int codePoint, Field field) {
+        return insertCodePoint(length, codePoint, field);
     }
 
     /**
@@ -146,7 +132,7 @@ public class FormattedStringBuilder implements CharSequence, Appendable {
      *
      * @return The number of chars added: 1 if the code point is in the BMP, or 2 otherwise.
      */
-    public int insertCodePoint(int index, int codePoint, Object field) {
+    public int insertCodePoint(int index, int codePoint, Field field) {
         int count = Character.charCount(codePoint);
         int position = prepareForInsert(index, count);
         Character.toChars(codePoint, chars, position);
@@ -161,8 +147,8 @@ public class FormattedStringBuilder implements CharSequence, Appendable {
      *
      * @return The number of chars added, which is the length of CharSequence.
      */
-    public int append(CharSequence sequence, Object field) {
-        return insert(length - appendOffset, sequence, field);
+    public int append(CharSequence sequence, Field field) {
+        return insert(length, sequence, field);
     }
 
     /**
@@ -170,7 +156,7 @@ public class FormattedStringBuilder implements CharSequence, Appendable {
      *
      * @return The number of chars added, which is the length of CharSequence.
      */
-    public int insert(int index, CharSequence sequence, Object field) {
+    public int insert(int index, CharSequence sequence, Field field) {
         if (sequence.length() == 0) {
             // Nothing to insert.
             return 0;
@@ -189,7 +175,7 @@ public class FormattedStringBuilder implements CharSequence, Appendable {
      *
      * @return The number of chars added, which is the length of CharSequence.
      */
-    public int insert(int index, CharSequence sequence, int start, int end, Object field) {
+    public int insert(int index, CharSequence sequence, int start, int end, Field field) {
         int count = end - start;
         int position = prepareForInsert(index, count);
         for (int i = 0; i < count; i++) {
@@ -213,7 +199,7 @@ public class FormattedStringBuilder implements CharSequence, Appendable {
             CharSequence sequence,
             int startOther,
             int endOther,
-            Object field) {
+            Field field) {
         int thisLength = endThis - startThis;
         int otherLength = endOther - startOther;
         int count = otherLength - thisLength;
@@ -238,8 +224,8 @@ public class FormattedStringBuilder implements CharSequence, Appendable {
      *
      * @return The number of chars added, which is the length of the char array.
      */
-    public int append(char[] chars, Object[] fields) {
-        return insert(length - appendOffset, chars, fields);
+    public int append(char[] chars, Field[] fields) {
+        return insert(length, chars, fields);
     }
 
     /**
@@ -248,7 +234,7 @@ public class FormattedStringBuilder implements CharSequence, Appendable {
      *
      * @return The number of chars added, which is the length of the char array.
      */
-    public int insert(int index, char[] chars, Object[] fields) {
+    public int insert(int index, char[] chars, Field[] fields) {
         assert fields == null || chars.length == fields.length;
         int count = chars.length;
         if (count == 0)
@@ -267,7 +253,7 @@ public class FormattedStringBuilder implements CharSequence, Appendable {
      * @return The number of chars added, which is the length of the other {@link FormattedStringBuilder}.
      */
     public int append(FormattedStringBuilder other) {
-        return insert(length - appendOffset, other);
+        return insert(length, other);
     }
 
     /**
@@ -302,9 +288,6 @@ public class FormattedStringBuilder implements CharSequence, Appendable {
      * @return The position in the char array to insert the chars.
      */
     private int prepareForInsert(int index, int count) {
-        if (index == -1) {
-            index = length;
-        }
         if (index == 0 && zero - count >= 0) {
             // Append to start
             zero -= count;
@@ -326,13 +309,13 @@ public class FormattedStringBuilder implements CharSequence, Appendable {
         int oldCapacity = getCapacity();
         int oldZero = zero;
         char[] oldChars = chars;
-        Object[] oldFields = fields;
+        Field[] oldFields = fields;
         if (length + count > oldCapacity) {
             int newCapacity = (length + count) * 2;
             int newZero = newCapacity / 2 - (length + count) / 2;
 
             char[] newChars = new char[newCapacity];
-            Object[] newFields = new Object[newCapacity];
+            Field[] newFields = new Field[newCapacity];
 
             // First copy the prefix and then the suffix, leaving room for the new chars that the
             // caller wants to insert.
@@ -425,7 +408,7 @@ public class FormattedStringBuilder implements CharSequence, Appendable {
         return new String(chars, zero, length);
     }
 
-    private static final Map<Object, Character> fieldToDebugChar = new HashMap<>();
+    private static final Map<Field, Character> fieldToDebugChar = new HashMap<>();
 
     static {
         fieldToDebugChar.put(NumberFormat.Field.SIGN, '-');
@@ -476,50 +459,8 @@ public class FormattedStringBuilder implements CharSequence, Appendable {
     }
 
     /** @return A new array containing the field values of this string builder. */
-    public Object[] toFieldArray() {
+    public Field[] toFieldArray() {
         return Arrays.copyOfRange(fields, zero, zero + length);
-    }
-
-    /**
-     * Call this method before using any of the Appendable overrides.
-     *
-     * @param field The field used when inserting strings.
-     */
-    public void setAppendableField(Object field) {
-        appendableField = field;
-    }
-
-    /**
-     * This method is provided for Java Appendable compatibility. In most cases, please use the append methods that take
-     * a Field parameter. If you do use this method, you must call {@link #setAppendableField} first.
-     */
-    @Override
-    public Appendable append(CharSequence csq) {
-        assert appendableField != null;
-        insert(length - appendOffset, csq, appendableField);
-        return this;
-    }
-
-    /**
-     * This method is provided for Java Appendable compatibility. In most cases, please use the append methods that take
-     * a Field parameter. If you do use this method, you must call {@link #setAppendableField} first.
-     */
-    @Override
-    public Appendable append(CharSequence csq, int start, int end) {
-        assert appendableField != null;
-        insert(length - appendOffset, csq, start, end, appendableField);
-        return this;
-    }
-
-    /**
-     * This method is provided for Java Appendable compatibility. In most cases, please use the append methods that take
-     * a Field parameter. If you do use this method, you must call {@link #setAppendableField} first.
-     */
-    @Override
-    public Appendable append(char c) {
-        assert appendableField != null;
-        insertChar16(length - appendOffset, c, appendableField);
-        return this;
     }
 
     /**
@@ -528,7 +469,7 @@ public class FormattedStringBuilder implements CharSequence, Appendable {
      * @see #toCharArray
      * @see #toFieldArray
      */
-    public boolean contentEquals(char[] chars, Object[] fields) {
+    public boolean contentEquals(char[] chars, Field[] fields) {
         if (chars.length != length)
             return false;
         if (fields.length != length)

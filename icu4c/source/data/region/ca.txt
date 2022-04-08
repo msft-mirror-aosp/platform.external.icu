@@ -1,6 +1,5 @@
 ﻿// © 2016 and later: Unicode, Inc. and others.
-// License & terms of use: http://www.unicode.org/copyright.html
-// Generated using tools/cldr/cldr-to-icu/build-icu-data.xml
+// License & terms of use: http://www.unicode.org/copyright.html#License
 ca{
     Countries{
         001{"Món"}
@@ -126,7 +125,7 @@ ca{
         GL{"Groenlàndia"}
         GM{"Gàmbia"}
         GN{"Guinea"}
-        GP{"Guadalupe"}
+        GP{"Guadeloupe"}
         GQ{"Guinea Equatorial"}
         GR{"Grècia"}
         GS{"Illes Geòrgia del Sud i Sandwich del Sud"}
@@ -309,5 +308,7 @@ ca{
         CI{"Costa d’Ivori"}
         CZ{"República Txeca"}
         SZ{"Swazilàndia"}
+        TL{"Timor Oriental"}
     }
+    Version{"36.1"}
 }

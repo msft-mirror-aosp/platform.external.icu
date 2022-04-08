@@ -1,6 +1,6 @@
 /* GENERATED SOURCE. DO NOT MODIFY. */
 // © 2016 and later: Unicode, Inc. and others.
-// License & terms of use: http://www.unicode.org/copyright.html
+// License & terms of use: http://www.unicode.org/copyright.html#License
 /*
  *******************************************************************************
  * Copyright (C) 2005-2016 International Business Machines Corporation and
@@ -27,10 +27,10 @@ import android.icu.impl.CharacterIteration;
 import android.icu.impl.ICUBinary;
 import android.icu.impl.ICUDebug;
 import android.icu.impl.RBBIDataWrapper;
+import android.icu.impl.Trie2;
 import android.icu.lang.UCharacter;
 import android.icu.lang.UProperty;
 import android.icu.lang.UScript;
-import android.icu.util.CodePointTrie;
 
 /**
  * Rule Based Break Iterator
@@ -70,7 +70,6 @@ public class RuleBasedBreakIterator extends BreakIterator {
     public static RuleBasedBreakIterator getInstanceFromCompiledRules(InputStream is) throws IOException {
         RuleBasedBreakIterator  This = new RuleBasedBreakIterator();
         This.fRData = RBBIDataWrapper.get(ICUBinary.getByteBufferFromInputStreamAndCloseStream(is));
-        This.fLookAheadMatches = new int[This.fRData.fFTable.fLookAheadResultsSize];
         return This;
     }
 
@@ -94,7 +93,6 @@ public class RuleBasedBreakIterator extends BreakIterator {
     public static RuleBasedBreakIterator getInstanceFromCompiledRules(ByteBuffer bytes) throws IOException {
         RuleBasedBreakIterator  This = new RuleBasedBreakIterator();
         This.fRData = RBBIDataWrapper.get(bytes);
-        This.fLookAheadMatches = new int[This.fRData.fFTable.fLookAheadResultsSize];
         return This;
     }
 
@@ -108,7 +106,6 @@ public class RuleBasedBreakIterator extends BreakIterator {
             ByteArrayOutputStream ruleOS = new ByteArrayOutputStream();
             compileRules(rules, ruleOS);
             fRData = RBBIDataWrapper.get(ByteBuffer.wrap(ruleOS.toByteArray()));
-            fLookAheadMatches = new int[fRData.fFTable.fLookAheadResultsSize];
         } catch (IOException e) {
             ///CLOVER:OFF
             // An IO exception can only arrive here if there is a bug in the RBBI Rule compiler,
@@ -139,7 +136,7 @@ public class RuleBasedBreakIterator extends BreakIterator {
         synchronized (gAllBreakEngines)  {
             result.fBreakEngines = new ArrayList<>(gAllBreakEngines);
         }
-        result.fLookAheadMatches = new int[fRData.fFTable.fLookAheadResultsSize];
+        result.fLookAheadMatches = new LookAheadResults();
         result.fBreakCache = result.new BreakCache(fBreakCache);
         result.fDictionaryCache = result.new DictionaryCache(fDictionaryCache);
         return result;
@@ -248,11 +245,6 @@ public class RuleBasedBreakIterator extends BreakIterator {
      * True when iteration has run off the end, and iterator functions should return UBRK_DONE.
      */
     private boolean            fDone;
-
-    /**
-     *  Array of look-ahead tentative results.
-     */
-    private int[]              fLookAheadMatches;
 
     /**
      *   Cache of previously determined boundary positions.
@@ -727,6 +719,53 @@ public class RuleBasedBreakIterator extends BreakIterator {
         }   // end synchronized(gAllBreakEngines)
     }
 
+    private static final int kMaxLookaheads = 8;
+    private static class LookAheadResults {
+        int      fUsedSlotLimit;
+        int[]    fPositions;
+        int[]    fKeys;
+
+        LookAheadResults() {
+            fUsedSlotLimit= 0;
+            fPositions = new int[kMaxLookaheads];
+            fKeys = new int[kMaxLookaheads];
+        }
+
+        int getPosition(int key) {
+            for (int i=0; i<fUsedSlotLimit; ++i) {
+                if (fKeys[i] == key) {
+                    return fPositions[i];
+                }
+            }
+            assert(false);
+            return -1;
+        }
+
+        void setPosition(int key, int position) {
+            int i;
+            for (i=0; i<fUsedSlotLimit; ++i) {
+                if (fKeys[i] == key) {
+                    fPositions[i] = position;
+                    return;
+                }
+            }
+            if (i >= kMaxLookaheads) {
+                assert(false);
+                i = kMaxLookaheads - 1;
+            }
+            fKeys[i] = key;
+            fPositions[i] = position;
+            assert(fUsedSlotLimit == i);
+            fUsedSlotLimit = i + 1;
+        }
+
+        void reset() {
+            fUsedSlotLimit = 0;
+        }
+    };
+    private LookAheadResults fLookAheadMatches = new LookAheadResults();
+
+
     /**
      * The State Machine Engine for moving forward is here.
      * This function is the heart of the RBBI run time engine.
@@ -761,9 +800,9 @@ public class RuleBasedBreakIterator extends BreakIterator {
 
         // caches for quicker access
         CharacterIterator text = fText;
-        CodePointTrie trie = fRData.fTrie;
+        Trie2 trie = fRData.fTrie;
 
-        char[] stateTable  = fRData.fFTable.fTable;
+        short[] stateTable  = fRData.fFTable.fTable;
         int initialPosition = fPosition;
         text.setIndex(initialPosition);
         int result          = initialPosition;
@@ -783,7 +822,6 @@ public class RuleBasedBreakIterator extends BreakIterator {
         int row             = fRData.getRowIndex(state);
         short category      = 3;
         int flagsState      = fRData.fFTable.fFlags;
-        int dictStart       = fRData.fFTable.fDictCategoriesStart;
         int mode            = RBBI_RUN;
         if ((flagsState & RBBIDataWrapper.RBBI_BOF_REQUIRED) != 0) {
             category = 2;
@@ -794,6 +832,7 @@ public class RuleBasedBreakIterator extends BreakIterator {
                 System.out.println(RBBIDataWrapper.intToString(state,7) + RBBIDataWrapper.intToString(category,6));
             }
         }
+        fLookAheadMatches.reset();
 
         // loop until we reach the end of the text or transition to state 0
         while (state != STOP_STATE) {
@@ -820,9 +859,15 @@ public class RuleBasedBreakIterator extends BreakIterator {
                 //
                 category = (short) trie.get(c);
 
-                // Check for categories that require word dictionary handling.
-                if (category >= dictStart) {
+                // Check the dictionary bit in the character's category.
+                //    Counter is only used by dictionary based iterators (subclasses).
+                //    Chars that need to be handled by a dictionary have a flag bit set
+                //    in their category values.
+                //
+                if ((category & 0x4000) != 0)  {
                     fDictionaryCharCount++;
+                    //  And off the dictionary flag bit.
+                    category &= ~0x4000;
                 }
 
                 if (TRACE) {
@@ -846,8 +891,8 @@ public class RuleBasedBreakIterator extends BreakIterator {
             // look up a state transition in the state table
             state = stateTable[row + RBBIDataWrapper.NEXTSTATES + category];
             row   = fRData.getRowIndex(state);
-            int accepting = stateTable[row + RBBIDataWrapper.ACCEPTING];
-            if (accepting == RBBIDataWrapper.ACCEPTING_UNCONDITIONAL) {
+
+            if (stateTable[row + RBBIDataWrapper.ACCEPTING] == -1) {
                 // Match found, common case
                 result = text.getIndex();
                 if (c >= UTF16.SUPPLEMENTARY_MIN_VALUE && c <= UTF16.CODEPOINT_MAX_VALUE) {
@@ -857,33 +902,30 @@ public class RuleBasedBreakIterator extends BreakIterator {
                 }
 
                 //  Remember the break status (tag) values.
-                fRuleStatusIndex = stateTable[row + RBBIDataWrapper.TAGSIDX];
-            } else if (accepting > RBBIDataWrapper.ACCEPTING_UNCONDITIONAL) {
+                fRuleStatusIndex = stateTable[row + RBBIDataWrapper.TAGIDX];
+            }
+
+            int completedRule = stateTable[row + RBBIDataWrapper.ACCEPTING];
+            if (completedRule > 0) {
                 // Lookahead match is completed
-                int lookaheadResult = fLookAheadMatches[accepting];
+                int lookaheadResult = fLookAheadMatches.getPosition(completedRule);
                 if (lookaheadResult >= 0) {
-                    fRuleStatusIndex = stateTable[row + RBBIDataWrapper.TAGSIDX];
+                    fRuleStatusIndex = stateTable[row + RBBIDataWrapper.TAGIDX];
                     fPosition = lookaheadResult;
                     return lookaheadResult;
                 }
             }
 
-
-            // If we are at the position of the '/' in a look-ahead (hard break) rule;
-            // record the current position, to be returned later, if the full rule matches.
-            // TODO: Move this check before the previous check of fAccepting.
-            //       This would enable hard-break rules with no following context.
-            //       But there are line break test failures when trying this. Investigate.
-            //       Issue ICU-20837
-            int rule = stateTable[row + RBBIDataWrapper.LOOKAHEAD];
+            int rule =  stateTable[row + RBBIDataWrapper.LOOKAHEAD];
             if (rule != 0) {
+                // At the position of a '/' in a look-ahead match. Record it.
                 int  pos = text.getIndex();
                 if (c >= UTF16.SUPPLEMENTARY_MIN_VALUE && c <= UTF16.CODEPOINT_MAX_VALUE) {
                     // The iterator has been left in the middle of a surrogate pair.
                     // We want the beginning  of it.
                     pos--;
                 }
-                fLookAheadMatches[rule] = pos;
+                fLookAheadMatches.setPosition(rule, pos);
             }
 
 
@@ -928,14 +970,14 @@ public class RuleBasedBreakIterator extends BreakIterator {
      * @hide draft / provisional / internal are hidden on Android
      */
     private int handleSafePrevious(int fromPosition) {
-        char            state;
+        int             state;
         short           category = 0;
         int             result = 0;
 
         // caches for quicker access
         CharacterIterator text = fText;
-        CodePointTrie trie = fRData.fTrie;
-        char[] stateTable  = fRData.fRTable.fTable;
+        Trie2 trie = fRData.fTrie;
+        short[] stateTable  = fRData.fRTable.fTable;
 
         CISetIndex32(text, fromPosition);
         if (TRACE) {
@@ -961,6 +1003,7 @@ public class RuleBasedBreakIterator extends BreakIterator {
             //
             //  And off the dictionary flag bit. For reverse iteration it is not used.
             category = (short) trie.get(c);
+            category &= ~0x4000;
             if (TRACE) {
                 System.out.print("            " +  RBBIDataWrapper.intToString(text.getIndex(), 5));
                 System.out.print(RBBIDataWrapper.intToHexString(c, 10));
@@ -1148,10 +1191,9 @@ public class RuleBasedBreakIterator extends BreakIterator {
             fText.setIndex(rangeStart);
             int     c = CharacterIteration.current32(fText);
             category = (short)fRData.fTrie.get(c);
-            int dictStart = fRData.fFTable.fDictCategoriesStart;
 
             while(true) {
-                while((current = fText.getIndex()) < rangeEnd && (category < dictStart)) {
+                while((current = fText.getIndex()) < rangeEnd && (category & 0x4000) == 0) {
                     c = CharacterIteration.next32(fText);    // pre-increment
                     category = (short)fRData.fTrie.get(c);
                 }

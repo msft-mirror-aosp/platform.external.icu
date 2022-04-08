@@ -1,7 +1,7 @@
 ﻿// © 2016 and later: Unicode, Inc. and others.
-// License & terms of use: http://www.unicode.org/copyright.html
-// Generated using tools/cldr/cldr-to-icu/build-icu-data.xml
+// License & terms of use: http://www.unicode.org/copyright.html#License
 ceb{
+    Version{"36.1"}
     durationUnits{
         hm{"h:mm"}
         hms{"h:mm:ss"}
@@ -13,10 +13,10 @@ ceb{
                 one{"{0} g-force"}
                 other{"{0} g-force"}
             }
-            meter-per-square-second{
-                dnam{"mga metro kada segundo kwadrado"}
-                one{"{0} ka metro kada segundo kwadrado"}
-                other{"{0} ka mga metro kada segundo kwadrado"}
+            meter-per-second-squared{
+                dnam{"mga metro kada second squared"}
+                one{"{0} ka metro kada second squared"}
+                other{"{0} ka mga metro kada second squared"}
             }
         }
         angle{
@@ -63,10 +63,10 @@ ceb{
                 other{"{0} ka mga ektarya"}
             }
             square-centimeter{
-                dnam{"mga centimetro kwadrado"}
-                one{"{0} ka sentimetro kwadrado"}
-                other{"{0} ka mga sentimetro kwadrado"}
-                per{"{0} kada sentimetro kwadrado"}
+                dnam{"mga square centimeter"}
+                one{"{0} ka square centimeter"}
+                other{"{0} ka mga square centimeter"}
+                per{"{0} kada square centimeter"}
             }
             square-foot{
                 dnam{"mga square foot"}
@@ -81,21 +81,21 @@ ceb{
             }
             square-kilometer{
                 dnam{"mga square kilometer"}
-                one{"{0} ka kilometro kwadrado"}
-                other{"{0} ka mga kilometro kwadrado"}
-                per{"{0} kada kilometro kwadrado"}
+                one{"{0} ka square kilometer"}
+                other{"{0} ka mga square kilometer"}
+                per{"{0} kada square kilometer"}
             }
             square-meter{
-                dnam{"mga metro kwadrado"}
-                one{"{0} ka metro kwadrado"}
-                other{"{0} ka mga metro kwadrado"}
-                per{"{0} kada metro kwadrado"}
+                dnam{"mga square meter"}
+                one{"{0} ka square meter"}
+                other{"{0} ka mga square meter"}
+                per{"{0} kada square meter"}
             }
             square-mile{
-                dnam{"mga milya kwadrado"}
-                one{"{0} ka milya kwadrado"}
-                other{"{0} ka mga milya kwadrado"}
-                per{"{0} kada milya kwadrado"}
+                dnam{"mga square mile"}
+                one{"{0} ka square mile"}
+                other{"{0} ka mga square mile"}
+                per{"{0} kada square mile"}
             }
             square-yard{
                 dnam{"mga square yard"}
@@ -127,6 +127,11 @@ ceb{
                 one{"{0} ka mole"}
                 other{"{0} ka mga mole"}
             }
+            part-per-million{
+                dnam{"mga part per million"}
+                one{"{0} ka part per million"}
+                other{"{0} ka mga part per million"}
+            }
             percent{
                 dnam{"porsyento"}
                 one{"{0} ka porsyento"}
@@ -137,11 +142,6 @@ ceb{
                 one{"{0} ka permille"}
                 other{"{0} ka permille"}
             }
-            permillion{
-                dnam{"mga part per million"}
-                one{"{0} ka part per million"}
-                other{"{0} ka mga part per million"}
-            }
             permyriad{
                 dnam{"permyriad"}
                 one{"{0} ka permyriad"}
@@ -149,7 +149,7 @@ ceb{
             }
         }
         consumption{
-            liter-per-100-kilometer{
+            liter-per-100kilometers{
                 dnam{"mga litro kada 100 kilometro"}
                 one{"{0} ka litro kada 100 kilometro"}
                 other{"{0} ka litro kada 100 kilometro"}
@@ -407,10 +407,6 @@ ceb{
             }
         }
         graphics{
-            dot{
-                one{"{0} dot"}
-                other{"{0} dot"}
-            }
             dot-per-centimeter{
                 dnam{"mga dot kada sentimetro"}
                 one{"{0} ka dot kada sentimetro"}
@@ -463,11 +459,6 @@ ceb{
                 dnam{"mga decimeter"}
                 one{"{0} ka decimeter"}
                 other{"{0} ka mga decimeter"}
-            }
-            earth-radius{
-                dnam{"radyus sa yuta"}
-                one{"{0} ka radyus sa yuta"}
-                other{"{0} ka radyus sa yuta"}
             }
             foot{
                 dnam{"mga piye"}
@@ -555,16 +546,6 @@ ceb{
             }
         }
         light{
-            candela{
-                dnam{"candela"}
-                one{"{0} ka candela"}
-                other{"{0} ka candela"}
-            }
-            lumen{
-                dnam{"lumen"}
-                one{"{0} ka lumen"}
-                other{"{0} ka lumen"}
-            }
             lux{
                 dnam{"lux"}
                 one{"{0} lux"}
@@ -591,10 +572,6 @@ ceb{
                 dnam{"mga mass sa Earth"}
                 one{"{0} ka mass sa Earth"}
                 other{"{0} ka mga mass sa Earth"}
-            }
-            grain{
-                one{"{0} ka grain"}
-                other{"{0} ka grain"}
             }
             gram{
                 dnam{"mga gramo"}
@@ -699,9 +676,9 @@ ceb{
                 one{"{0} ka hectopascal"}
                 other{"{0} ka mga hectopascal"}
             }
-            inch-ofhg{
-                dnam{"mga inch sa mercury"}
-                one{"{0} ka inch sa mercury"}
+            inch-hg{
+                dnam{"mga pulgada sa mercury"}
+                one{"{0} ka pulgada sa mercury"}
                 other{"{0} ka mga pulgada sa mercury"}
             }
             kilopascal{
@@ -719,7 +696,7 @@ ceb{
                 one{"{0} ka millibar"}
                 other{"{0} ka mga millibar"}
             }
-            millimeter-ofhg{
+            millimeter-of-mercury{
                 dnam{"mga millimetro sa mercury"}
                 one{"{0} ka millimetro sa mercury"}
                 other{"{0} ka mga millimetro sa mercury"}
@@ -729,7 +706,7 @@ ceb{
                 one{"{0} ka pascal"}
                 other{"{0} ka mga pascal"}
             }
-            pound-force-per-square-inch{
+            pound-per-square-inch{
                 dnam{"mga pound kada kuwadradong pulgada"}
                 one{"{0} ka pound kada kuwadradong pulgada"}
                 other{"{0} ka mga pound kada kuwadradong pulgada"}
@@ -777,13 +754,13 @@ ceb{
         torque{
             newton-meter{
                 dnam{"mga newton-meter"}
-                one{"{0} N⋅m"}
+                one{"{0} ka newton-meter"}
                 other{"{0} ka mga newton-meter"}
             }
-            pound-force-foot{
-                dnam{"pound-feet"}
-                one{"{0} ka pound-force-foot"}
-                other{"{0} ka mga pound-force-foot"}
+            pound-foot{
+                dnam{"mga pound-foot"}
+                one{"{0} ka pound-foot"}
+                other{"{0} ka mga pound-foot"}
             }
         }
         volume{
@@ -854,25 +831,6 @@ ceb{
                 one{"{0} ka deciliter"}
                 other{"{0} ka mga deciliter"}
             }
-            dessert-spoon{
-                dnam{"kutsarang panghinam-is"}
-                one{"{0} ka kutsarang panghinam-is"}
-                other{"{0} ka kutsarang panghinam-is"}
-            }
-            dessert-spoon-imperial{
-                dnam{"Imp. nga kutsarang panghinam-is"}
-                one{"{0} ka Imp. nga kutsarang panghinam-is"}
-                other{"{0} ka Imp. nga kutsarang panghinam-is"}
-            }
-            dram{
-                dnam{"dram"}
-                one{"{0} ka dram"}
-                other{"{0} ka dram"}
-            }
-            drop{
-                one{"{0} ka drop"}
-                other{"{0} ka drop"}
-            }
             fluid-ounce{
                 dnam{"mga fluid ounce"}
                 one{"{0} ka fluid ounce"}
@@ -900,10 +858,6 @@ ceb{
                 one{"{0} ka hectoliter"}
                 other{"{0} ka mga hectoliter"}
             }
-            jigger{
-                one{"{0} ka jigger"}
-                other{"{0} ka jigger"}
-            }
             liter{
                 dnam{"mga litro"}
                 one{"{0} ka litro"}
@@ -920,10 +874,6 @@ ceb{
                 one{"{0} ka milliliter"}
                 other{"{0} ka mga milliliter"}
             }
-            pinch{
-                one{"{0} ka pinch"}
-                other{"{0} ka pinch"}
-            }
             pint{
                 dnam{"mga pint"}
                 one{"{0} ka pint"}
@@ -939,11 +889,6 @@ ceb{
                 one{"{0} ka quart"}
                 other{"{0} ka mga quart"}
             }
-            quart-imperial{
-                dnam{"Imp. quart"}
-                one{"{0} ka Imp. quart"}
-                other{"{0} ka Imp. quart"}
-            }
             tablespoon{
                 dnam{"mga kutsara"}
                 one{"{0} ka kutsara"}
@@ -957,13 +902,8 @@ ceb{
         }
     }
     unitsNarrow{
-        concentr{
-            percent{
-                dnam{"%"}
-            }
-        }
         consumption{
-            liter-per-100-kilometer{
+            liter-per-100kilometers{
                 dnam{"L/100km"}
                 one{"{0}L/100km"}
                 other{"{0}L/100km"}
@@ -971,10 +911,6 @@ ceb{
         }
         coordinate{
             dnam{"direksyon"}
-            east{"{0}E"}
-            north{"{0}N"}
-            south{"{0}S"}
-            west{"{0}W"}
         }
         duration{
             day{
@@ -995,7 +931,7 @@ ceb{
             minute{
                 dnam{"minuto"}
                 one{"{0} minuto"}
-                other{"{0} minuto"}
+                other{"{0}minuto"}
             }
             month{
                 dnam{"buwan"}
@@ -1068,7 +1004,7 @@ ceb{
     }
     unitsShort{
         acceleration{
-            meter-per-square-second{
+            meter-per-second-squared{
                 dnam{"mga metro/sec²"}
             }
         }
@@ -1113,10 +1049,10 @@ ceb{
                 dnam{"mga inch²"}
             }
             square-meter{
-                dnam{"mga metro²"}
+                dnam{"mga meter²"}
             }
             square-mile{
-                dnam{"mga milya kwadrado"}
+                dnam{"mga sq mile"}
                 one{"{0} sq mi"}
                 other{"{0} sq mi"}
             }
@@ -1140,21 +1076,21 @@ ceb{
                 one{"{0} mol"}
                 other{"{0} mol"}
             }
+            part-per-million{
+                dnam{"mga part/million"}
+            }
             percent{
                 dnam{"porsyento"}
             }
             permille{
                 dnam{"permille"}
             }
-            permillion{
-                dnam{"mga part/million"}
-            }
             permyriad{
                 dnam{"permyriad"}
             }
         }
         consumption{
-            liter-per-100-kilometer{
+            liter-per-100kilometers{
                 dnam{"L/100 km"}
                 one{"{0} L/100 km"}
                 other{"{0} L/100 km"}
@@ -1414,7 +1350,7 @@ ceb{
                 one{"{0} ka mbar"}
                 other{"{0} ka mbar"}
             }
-            millimeter-ofhg{
+            millimeter-of-mercury{
                 dnam{"mmHg"}
                 one{"{0} mmHg"}
                 other{"{0} mmHg"}
@@ -1460,14 +1396,6 @@ ceb{
             cup{
                 dnam{"mga tasa"}
             }
-            dram{
-                one{"{0} ka dram fl"}
-                other{"{0} ka dram fl"}
-            }
-            drop{
-                one{"{0} ka drop"}
-                other{"{0} ka drop"}
-            }
             fluid-ounce{
                 dnam{"fl oz"}
                 one{"{0} fl oz"}
@@ -1484,19 +1412,11 @@ ceb{
                 other{"{0} gal"}
                 per{"{0}/gal US"}
             }
-            jigger{
-                one{"{0} ka jigger"}
-                other{"{0} ka jigger"}
-            }
             liter{
                 dnam{"mga litro"}
                 one{"{0} L"}
                 other{"{0} L"}
                 per{"{0}/L"}
-            }
-            pinch{
-                one{"{0} ka pinch"}
-                other{"{0} ka pinch"}
             }
             pint{
                 dnam{"mga pint"}

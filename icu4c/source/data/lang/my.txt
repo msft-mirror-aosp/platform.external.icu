@@ -1,6 +1,5 @@
 ﻿// © 2016 and later: Unicode, Inc. and others.
-// License & terms of use: http://www.unicode.org/copyright.html
-// Generated using tools/cldr/cldr-to-icu/build-icu-data.xml
+// License & terms of use: http://www.unicode.org/copyright.html#License
 my{
     Keys{
         calendar{"ပြက္ခဒိန်"}
@@ -34,7 +33,7 @@ my{
         arp{"အာရာပါဟို"}
         as{"အာသံ"}
         asa{"အာစု"}
-        ast{"အက်စ်တိုးရီးယား"}
+        ast{"အက်စတူရီယန်း"}
         av{"အာဗာရစ်ခ်"}
         awa{"အာဝါဒီ"}
         ay{"အိုင်မာရ"}
@@ -102,7 +101,7 @@ my{
         eka{"အီကာဂျုခ်"}
         el{"ဂရိ"}
         en{"အင်္ဂလိပ်"}
-        en_AU{"ဩစတြေးလျ အင်္ဂလိပ်"}
+        en_AU{"ဩစတြေးလျှ အင်္ဂလိပ်"}
         en_CA{"ကနေဒါ အင်္ဂလိပ်"}
         en_GB{"ဗြိတိသျှ အင်္ဂလိပ်"}
         en_US{"အမေရိကန် အင်္ဂလိပ်"}
@@ -115,7 +114,6 @@ my{
         eu{"ဘာစ်ခ်"}
         ewo{"အီဝန်ဒို"}
         fa{"ပါရှန်"}
-        fa_AF{"ဒါရီ"}
         ff{"ဖူလာ"}
         fi{"ဖင်လန်"}
         fil{"ဖိလစ်ပိုင်"}
@@ -421,7 +419,7 @@ my{
         ybb{"ရမ်ဘာ"}
         yi{"ဂျူး"}
         yo{"ယိုရူဘာ"}
-        yue{"ကွမ်းတုံ"}
+        yue{"ကွမ်တုံ"}
         zgh{"မိုရိုကို တမဇိုက်"}
         zh{"တရုတ်"}
         zu{"ဇူးလူး"}
@@ -593,6 +591,7 @@ my{
         REVISED{"ပြန်လည်စီစစ်ထားသော ရေးထုံး"}
         SCOTLAND{"စကော့ စံ အင်္ဂလိပ်"}
     }
+    Version{"36.1"}
     characterLabelPattern{
         all{"{0} — အားလုံး"}
         category-list{"{0} − {1}"}
@@ -606,8 +605,6 @@ my{
         strokes{
             other{"ရေးချက် {0} ခု"}
         }
-        subscript{"စာတန်းအောက်မှ အညွှန်းစာလုံးသေး {0}"}
-        superscript{"စာတန်းအပေါ်မှ အညွှန်းစာလုံးသေး {0}"}
     }
     codePatterns{
         language{"ဘာသာစကား - {0}"}
@@ -615,7 +612,7 @@ my{
         territory{"နယ်ပယ်ဒေသ - {0}"}
     }
     localeDisplayPattern{
-        keyTypePattern{"{0}- {1}"}
+        keyTypePattern{"{0}၊ {1}"}
         pattern{"{0} ({1})"}
         separator{"{0}၊ {1}"}
     }

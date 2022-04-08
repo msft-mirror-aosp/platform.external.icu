@@ -1,6 +1,6 @@
 /* GENERATED SOURCE. DO NOT MODIFY. */
 // © 2016 and later: Unicode, Inc. and others.
-// License & terms of use: http://www.unicode.org/copyright.html
+// License & terms of use: http://www.unicode.org/copyright.html#License
 /*
  *******************************************************************************
  * Copyright (C) 1996-2016, International Business Machines Corporation and    *
@@ -195,7 +195,7 @@ public class IslamicCalendar extends Calendar {
      */
     public IslamicCalendar(Locale aLocale)
     {
-        this(TimeZone.forLocaleOrDefault(aLocale), aLocale);
+        this(TimeZone.getDefault(), aLocale);
     }
 
     /**
@@ -206,7 +206,7 @@ public class IslamicCalendar extends Calendar {
      */
     public IslamicCalendar(ULocale locale)
     {
-        this(TimeZone.forULocaleOrDefault(locale), locale);
+        this(TimeZone.getDefault(), locale);
     }
 
     /**
@@ -839,8 +839,8 @@ public class IslamicCalendar extends Calendar {
                 months--;
             }
 
-            year = months >=  0 ? ((months / 12) + 1) : ((months + 1 ) / 12);
-            month = ((months % 12) + 12 ) % 12;
+            year = months / 12 + 1;
+            month = months % 12;
         } else if (cType == CalculationType.ISLAMIC_UMALQURA) {
             long umalquraStartdays = yearStart(UMALQURA_YEAR_START);
             if( days < umalquraStartdays) {

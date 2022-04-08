@@ -1,6 +1,5 @@
 ﻿// © 2016 and later: Unicode, Inc. and others.
-// License & terms of use: http://www.unicode.org/copyright.html
-// Generated using tools/cldr/cldr-to-icu/build-icu-data.xml
+// License & terms of use: http://www.unicode.org/copyright.html#License
 sr{
     Keys{
         calendar{"календар"}
@@ -84,7 +83,6 @@ sr{
         cad{"кадо"}
         car{"карипски"}
         cch{"атсам"}
-        ccp{"чакма"}
         ce{"чеченски"}
         ceb{"себуански"}
         cgg{"чига"}
@@ -114,7 +112,6 @@ sr{
         dar{"даргински"}
         dav{"таита"}
         de{"немачки"}
-        de_AT{"аустријски немачки"}
         de_CH{"швајцарски високи немачки"}
         del{"делаверски"}
         den{"слејви"}
@@ -148,7 +145,6 @@ sr{
         eu{"баскијски"}
         ewo{"евондо"}
         fa{"персијски"}
-        fa_AF{"дари"}
         fan{"фанг"}
         fat{"фанти"}
         ff{"фула"}
@@ -532,10 +528,6 @@ sr{
         zxx{"без лингвистичког садржаја"}
         zza{"заза"}
     }
-    Languages%long{
-        zh_Hans{"поједностављени мандарински кинески"}
-        zh_Hant{"традиционални мандарински кинески"}
-    }
     Languages%menu{
         yue{"кантонски кинески"}
         zh{"мандарински кинески"}
@@ -858,6 +850,7 @@ sr{
         TARASK{"Тараскијевичка ортографија"}
         VALENCIA{"Валенцијска"}
     }
+    Version{"36.1"}
     characterLabelPattern{
         all{"{0} — све"}
         category-list{"{0}: {1}"}
@@ -873,8 +866,6 @@ sr{
             one{"{0} потез"}
             other{"{0} потеза"}
         }
-        subscript{"написано испод {0}"}
-        superscript{"написано изнад {0}"}
     }
     codePatterns{
         language{"Језик: {0}"}

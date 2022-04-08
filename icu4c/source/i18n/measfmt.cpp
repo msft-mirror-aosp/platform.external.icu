@@ -38,7 +38,6 @@
 #include "uassert.h"
 #include "unicode/numberformatter.h"
 #include "number_longnames.h"
-#include "number_utypes.h"
 
 #include "sharednumberformat.h"
 #include "sharedpluralrules.h"
@@ -47,8 +46,6 @@
 
 
 U_NAMESPACE_BEGIN
-
-using number::impl::UFormattedNumberData;
 
 static constexpr int32_t WIDTH_INDEX_COUNT = UMEASFMT_WIDTH_NARROW + 1;
 
@@ -507,13 +504,12 @@ UnicodeString &MeasureFormat::formatMeasurePerUnit(
         status = U_UNSUPPORTED_ERROR;
         return appendTo;
     }
-    UFormattedNumberData result;
+    number::FormattedNumber result;
     if (auto* lnf = df->toNumberFormatter(status)) {
-        result.quantity.setToDouble(measure.getNumber().getDouble(status));
-        lnf->unit(measure.getUnit())
+        result = lnf->unit(measure.getUnit())
             .perUnit(perUnit)
             .unitWidth(getUnitWidth(fWidth))
-            .formatImpl(&result, status);
+            .formatDouble(measure.getNumber().getDouble(status), status);
     }
     DecimalFormat::fieldPositionHelper(result, pos, appendTo.length(), status);
     appendTo.append(result.toTempString(status));
@@ -703,12 +699,11 @@ UnicodeString &MeasureFormat::formatMeasure(
         SimpleFormatter formatter(pattern, 0, 1, status);
         return QuantityFormatter::format(formatter, formattedNumber, appendTo, pos, status);
     }
-    UFormattedNumberData result;
+    number::FormattedNumber result;
     if (auto* lnf = df->toNumberFormatter(status)) {
-        result.quantity.setToDouble(amtNumber.getDouble(status));
-        lnf->unit(amtUnit)
+        result = lnf->unit(amtUnit)
             .unitWidth(getUnitWidth(fWidth))
-            .formatImpl(&result, status);
+            .formatDouble(amtNumber.getDouble(status), status);
     }
     DecimalFormat::fieldPositionHelper(result, pos, appendTo.length(), status);
     appendTo.append(result.toTempString(status));
@@ -779,6 +774,11 @@ UnicodeString &MeasureFormat::formatNumeric(
             case u's': value = seconds; break;
         }
 
+        // For undefined field we use UNUM_FIELD_COUNT, for historical reasons.
+        // See cleanup bug: https://unicode-org.atlassian.net/browse/ICU-20665
+        // But we give it a clear name, to keep "the ugly part" in one place.
+        constexpr UNumberFormatFields undefinedField = UNUM_FIELD_COUNT;
+
         // There is not enough info to add Field(s) for the unit because all we have are plain
         // text patterns. For example in "21:51" there is no text for something like "hour",
         // while in something like "21h51" there is ("h"). But we can't really tell...
@@ -787,7 +787,7 @@ UnicodeString &MeasureFormat::formatNumeric(
             case u'm':
             case u's':
                 if (protect) {
-                    fsb.appendChar16(c, kUndefinedField, status);
+                    fsb.appendChar16(c, undefinedField, status);
                 } else {
                     UnicodeString tmp;
                     if ((i + 1 < patternLength) && pattern[i + 1] == c) { // doubled
@@ -797,20 +797,20 @@ UnicodeString &MeasureFormat::formatNumeric(
                         numberFormatter->format(value, tmp, status);
                     }
                     // TODO: Use proper Field
-                    fsb.append(tmp, kUndefinedField, status);
+                    fsb.append(tmp, undefinedField, status);
                 }
                 break;
             case u'\'':
                 // '' is escaped apostrophe
                 if ((i + 1 < patternLength) && pattern[i + 1] == c) {
-                    fsb.appendChar16(c, kUndefinedField, status);
+                    fsb.appendChar16(c, undefinedField, status);
                     i++;
                 } else {
                     protect = !protect;
                 }
                 break;
             default:
-                fsb.appendChar16(c, kUndefinedField, status);
+                fsb.appendChar16(c, undefinedField, status);
         }
     }
 
@@ -861,7 +861,7 @@ UnicodeString &MeasureFormat::formatMeasuresSlowTrack(
         return appendTo;
     }
     // Fix up FieldPosition indexes if our field is found.
-    if (fieldPositionFoundIndex != -1 && offset != -1) {
+    if (offset != -1) {
         pos.setBeginIndex(fpos.getBeginIndex() + offset);
         pos.setEndIndex(fpos.getEndIndex() + offset);
     }

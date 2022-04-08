@@ -1,6 +1,5 @@
 ﻿// © 2016 and later: Unicode, Inc. and others.
-// License & terms of use: http://www.unicode.org/copyright.html
-// Generated using tools/cldr/cldr-to-icu/build-icu-data.xml
+// License & terms of use: http://www.unicode.org/copyright.html#License
 hi{
     Countries{
         001{"विश्व"}
@@ -300,6 +299,7 @@ hi{
     }
     Countries%short{
         GB{"यू॰के॰"}
+        UN{"संयुक्त राष्ट्र"}
         US{"अमेरिका"}
     }
     Countries%variant{
@@ -307,6 +307,8 @@ hi{
         CG{"कांगो (गणराज्य)"}
         CI{"आइवरी कोस्ट"}
         CZ{"चेक गणराज्य"}
+        SZ{"स्वाज़ीलैंड"}
         TL{"पूर्वी तिमोर"}
     }
+    Version{"36.1"}
 }

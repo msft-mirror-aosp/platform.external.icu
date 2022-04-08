@@ -1,6 +1,6 @@
 /* GENERATED SOURCE. DO NOT MODIFY. */
 // © 2017 and later: Unicode, Inc. and others.
-// License & terms of use: http://www.unicode.org/copyright.html
+// License & terms of use: http://www.unicode.org/copyright.html#License
 package android.icu.impl.number;
 
 import java.util.Arrays;
@@ -103,12 +103,7 @@ public class CompactData implements MultiplierProducer {
                 .entrySet()) {
             byte magnitude = (byte) (magnitudeEntry.getKey().length() - 1);
             for (Map.Entry<String, String> pluralEntry : magnitudeEntry.getValue().entrySet()) {
-                String pluralString = pluralEntry.getKey().toString();
-                if ("0".equals(pluralString) || "1".equals(pluralString)) {
-                    // TODO(ICU-21258): Handle this case. For now, skip.
-                    continue;
-                }
-                StandardPlural plural = StandardPlural.fromString(pluralString);
+                StandardPlural plural = StandardPlural.fromString(pluralEntry.getKey().toString());
                 String patternString = pluralEntry.getValue().toString();
                 patterns[getIndex(magnitude, plural)] = patternString;
                 int numZeros = countZeros(patternString);
@@ -186,11 +181,6 @@ public class CompactData implements MultiplierProducer {
                 // Iterate over the plural variants ("one", "other", etc)
                 UResource.Table pluralVariantsTable = value.getTable();
                 for (int i4 = 0; pluralVariantsTable.getKeyAndValue(i4, key, value); ++i4) {
-
-                    if ("0".equals(key.toString()) || "1".equals(key.toString())) {
-                        // TODO(ICU-21258): Handle this case. For now, skip.
-                        continue;
-                    }
 
                     // Skip this magnitude/plural if we already have it from a child locale.
                     // Note: This also skips USE_FALLBACK entries.

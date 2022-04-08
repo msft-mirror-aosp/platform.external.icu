@@ -1,6 +1,5 @@
 ﻿// © 2016 and later: Unicode, Inc. and others.
-// License & terms of use: http://www.unicode.org/copyright.html
-// Generated using tools/cldr/cldr-to-icu/build-icu-data.xml
+// License & terms of use: http://www.unicode.org/copyright.html#License
 ml{
     Keys{
         calendar{"കലണ്ടർ"}
@@ -160,7 +159,6 @@ ml{
         eu{"ബാസ്‌ക്"}
         ewo{"എവോൻഡോ"}
         fa{"പേർഷ്യൻ"}
-        fa_AF{"ഡാരി"}
         fan{"ഫങ്"}
         fat{"ഫാന്റി"}
         ff{"ഫുല"}
@@ -240,7 +238,7 @@ ml{
         jmc{"മചേം"}
         jpr{"ജൂഡിയോ-പേർഷ്യൻ"}
         jrb{"ജൂഡിയോ-അറബിക്"}
-        jv{"ജാവനീസ്"}
+        jv{"ജാവാനീസ്"}
         ka{"ജോർജിയൻ"}
         kaa{"കര-കാൽപ്പക്"}
         kab{"കബൈൽ"}
@@ -557,9 +555,6 @@ ml{
         zxx{"ഭാഷാപരമായ ഉള്ളടക്കമൊന്നുമില്ല"}
         zza{"സാസാ"}
     }
-    Languages%long{
-        zh_Hans{"ലളിതവൽകൃത മാൻഡറിൻ ചൈനീസ്"}
-    }
     Languages%menu{
         yue{"ചൈനീസ്, കാന്റണീസ്"}
         zh{"ചൈനീസ്, മാൻഡറിൻ"}
@@ -570,7 +565,6 @@ ml{
         en_US{"യു.എസ്. ഇംഗ്ലീഷ്"}
     }
     Languages%variant{
-        ckb{"സൊറാനി കുർദിഷ്"}
         ps{"പുഷ്തോ"}
         ug{"ഉയ്ഗൂർ"}
     }
@@ -910,6 +904,7 @@ ml{
         POSIX{"കമ്പ്യൂട്ടർ"}
         REVISED{"പരിഷ്ക്കരിച്ച ലിപി"}
     }
+    Version{"36.1"}
     characterLabelPattern{
         all{"{0} — എല്ലാം"}
         category-list{"{0}: {1}"}
@@ -924,8 +919,6 @@ ml{
             one{"{0} സ്‌ട്രോക്ക്"}
             other{"{0} സ്‌ട്രോക്കുകൾ"}
         }
-        subscript{"സബ്‌സ്ക്രിപ്റ്റ് {0}"}
-        superscript{"സൂപ്പർസ്ക്രിപ്റ്റ് {0}"}
     }
     codePatterns{
         language{"ഭാഷ: {0}"}

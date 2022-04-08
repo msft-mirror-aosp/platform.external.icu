@@ -10,7 +10,6 @@
 #include "intltest.h"
 #include "formatted_string_builder.h"
 #include "formattedval_impl.h"
-#include "unicode/unum.h"
 
 
 class FormattedStringBuilderTest : public IntlTest {
@@ -62,9 +61,10 @@ void FormattedStringBuilderTest::testInsertAppendUnicodeString() {
 
         FormattedStringBuilder sb3;
         sb1.append(str);
-        sb2.append(str, kUndefinedField, status);
+        // Note: UNUM_FIELD_COUNT is like passing null in Java
+        sb2.append(str, UNUM_FIELD_COUNT, status);
         assertSuccess("Appending to sb2", status);
-        sb3.append(str, kUndefinedField, status);
+        sb3.append(str, UNUM_FIELD_COUNT, status);
         assertSuccess("Appending to sb3", status);
         assertEqualsImpl(sb1, sb2);
         assertEqualsImpl(str, sb3);
@@ -74,16 +74,16 @@ void FormattedStringBuilderTest::testInsertAppendUnicodeString() {
         sb4.append(u"😇");
         sb4.append(str);
         sb4.append(u"xx");
-        sb5.append(u"😇xx", kUndefinedField, status);
+        sb5.append(u"😇xx", UNUM_FIELD_COUNT, status);
         assertSuccess("Appending to sb5", status);
-        sb5.insert(2, str, kUndefinedField, status);
+        sb5.insert(2, str, UNUM_FIELD_COUNT, status);
         assertSuccess("Inserting into sb5", status);
         assertEqualsImpl(sb4, sb5);
 
         int start = uprv_min(1, str.length());
         int end = uprv_min(10, str.length());
         sb4.insert(3, str, start, end - start); // UnicodeString uses length instead of end index
-        sb5.insert(3, str, start, end, kUndefinedField, status);
+        sb5.insert(3, str, start, end, UNUM_FIELD_COUNT, status);
         assertSuccess("Inserting into sb5 again", status);
         assertEqualsImpl(sb4, sb5);
 
@@ -124,8 +124,8 @@ void FormattedStringBuilderTest::testSplice() {
             sb1.append(cas.input);
             sb1.replace(cas.startThis, cas.endThis - cas.startThis, replacement);
             sb2.clear();
-            sb2.append(cas.input, kUndefinedField, status);
-            sb2.splice(cas.startThis, cas.endThis, replacement, 0, replacement.length(), kUndefinedField, status);
+            sb2.append(cas.input, UNUM_FIELD_COUNT, status);
+            sb2.splice(cas.startThis, cas.endThis, replacement, 0, replacement.length(), UNUM_FIELD_COUNT, status);
             assertSuccess("Splicing into sb2 first time", status);
             assertEqualsImpl(sb1, sb2);
 
@@ -137,8 +137,8 @@ void FormattedStringBuilderTest::testSplice() {
             sb1.append(cas.input);
             sb1.replace(cas.startThis, cas.endThis - cas.startThis, UnicodeString(replacement, 1, 2));
             sb2.clear();
-            sb2.append(cas.input, kUndefinedField, status);
-            sb2.splice(cas.startThis, cas.endThis, replacement, 1, 3, kUndefinedField, status);
+            sb2.append(cas.input, UNUM_FIELD_COUNT, status);
+            sb2.splice(cas.startThis, cas.endThis, replacement, 1, 3, UNUM_FIELD_COUNT, status);
             assertSuccess("Splicing into sb2 second time", status);
             assertEqualsImpl(sb1, sb2);
         }
@@ -154,9 +154,9 @@ void FormattedStringBuilderTest::testInsertAppendCodePoint() {
     for (UChar32 cas : cases) {
         FormattedStringBuilder sb3;
         sb1.append(cas);
-        sb2.appendCodePoint(cas, kUndefinedField, status);
+        sb2.appendCodePoint(cas, UNUM_FIELD_COUNT, status);
         assertSuccess("Appending to sb2", status);
-        sb3.appendCodePoint(cas, kUndefinedField, status);
+        sb3.appendCodePoint(cas, UNUM_FIELD_COUNT, status);
         assertSuccess("Appending to sb3", status);
         assertEqualsImpl(sb1, sb2);
         assertEquals("Length of sb3", U16_LENGTH(cas), sb3.length());
@@ -170,9 +170,9 @@ void FormattedStringBuilderTest::testInsertAppendCodePoint() {
         FormattedStringBuilder sb5;
         sb4.append(u"😇xx");
         sb4.insert(2, cas);
-        sb5.append(u"😇xx", kUndefinedField, status);
+        sb5.append(u"😇xx", UNUM_FIELD_COUNT, status);
         assertSuccess("Appending to sb5", status);
-        sb5.insertCodePoint(2, cas, kUndefinedField, status);
+        sb5.insertCodePoint(2, cas, UNUM_FIELD_COUNT, status);
         assertSuccess("Inserting into sb5", status);
         assertEqualsImpl(sb4, sb5);
 
@@ -180,10 +180,10 @@ void FormattedStringBuilderTest::testInsertAppendCodePoint() {
         FormattedStringBuilder sb7;
         sb6.append(cas);
         if (U_IS_SUPPLEMENTARY(cas)) {
-            sb7.appendChar16(U16_TRAIL(cas), kUndefinedField, status);
-            sb7.insertChar16(0, U16_LEAD(cas), kUndefinedField, status);
+            sb7.appendChar16(U16_TRAIL(cas), UNUM_FIELD_COUNT, status);
+            sb7.insertChar16(0, U16_LEAD(cas), UNUM_FIELD_COUNT, status);
         } else {
-            sb7.insertChar16(0, cas, kUndefinedField, status);
+            sb7.insertChar16(0, cas, UNUM_FIELD_COUNT, status);
         }
         assertSuccess("Insert/append into sb7", status);
         assertEqualsImpl(sb6, sb7);
@@ -194,35 +194,33 @@ void FormattedStringBuilderTest::testCopy() {
     UErrorCode status = U_ZERO_ERROR;
     for (UnicodeString str : EXAMPLE_STRINGS) {
         FormattedStringBuilder sb1;
-        sb1.append(str, kUndefinedField, status);
+        sb1.append(str, UNUM_FIELD_COUNT, status);
         assertSuccess("Appending to sb1 first time", status);
         FormattedStringBuilder sb2(sb1);
         assertTrue("Content should equal itself", sb1.contentEquals(sb2));
 
-        sb1.append("12345", kUndefinedField, status);
+        sb1.append("12345", UNUM_FIELD_COUNT, status);
         assertSuccess("Appending to sb1 second time", status);
         assertFalse("Content should no longer equal itself", sb1.contentEquals(sb2));
     }
 }
 
 void FormattedStringBuilderTest::testFields() {
-    typedef FormattedStringBuilder::Field Field;
     UErrorCode status = U_ZERO_ERROR;
     // Note: This is a C++11 for loop that calls the UnicodeString constructor on each iteration.
     for (UnicodeString str : EXAMPLE_STRINGS) {
-        FormattedValueStringBuilderImpl sbi(kUndefinedField);
+        FormattedValueStringBuilderImpl sbi(0);
         FormattedStringBuilder& sb = sbi.getStringRef();
-        sb.append(str, kUndefinedField, status);
+        sb.append(str, UNUM_FIELD_COUNT, status);
         assertSuccess("Appending to sb", status);
-        sb.append(str, {UFIELD_CATEGORY_NUMBER, UNUM_CURRENCY_FIELD}, status);
+        sb.append(str, UNUM_CURRENCY_FIELD, status);
         assertSuccess("Appending to sb", status);
         assertEquals("Reference string copied twice", str.length() * 2, sb.length());
         for (int32_t i = 0; i < str.length(); i++) {
             assertEquals("Null field first",
-                kUndefinedField.bits, sb.fieldAt(i).bits);
+                (FormattedStringBuilder::Field) UNUM_FIELD_COUNT, sb.fieldAt(i));
             assertEquals("Currency field second",
-                Field(UFIELD_CATEGORY_NUMBER, UNUM_CURRENCY_FIELD).bits,
-                sb.fieldAt(i + str.length()).bits);
+                (FormattedStringBuilder::Field) UNUM_CURRENCY_FIELD, sb.fieldAt(i + str.length()));
         }
 
         // Very basic FieldPosition test. More robust tests happen in NumberFormatTest.
@@ -234,12 +232,10 @@ void FormattedStringBuilderTest::testFields() {
         assertEquals("Currency end position", str.length() * 2, fp.getEndIndex());
 
         if (str.length() > 0) {
-            sb.insertCodePoint(2, 100, {UFIELD_CATEGORY_NUMBER, UNUM_INTEGER_FIELD}, status);
+            sb.insertCodePoint(2, 100, UNUM_INTEGER_FIELD, status);
             assertSuccess("Inserting code point into sb", status);
             assertEquals("New length", str.length() * 2 + 1, sb.length());
-            assertEquals("Integer field",
-                Field(UFIELD_CATEGORY_NUMBER, UNUM_INTEGER_FIELD).bits,
-                sb.fieldAt(2).bits);
+            assertEquals("Integer field", (FormattedStringBuilder::Field) UNUM_INTEGER_FIELD, sb.fieldAt(2));
         }
 
         FormattedStringBuilder old(sb);
@@ -249,14 +245,13 @@ void FormattedStringBuilderTest::testFields() {
         int32_t numCurr = 0;
         int32_t numInt = 0;
         for (int32_t i = 0; i < sb.length(); i++) {
-            auto field = sb.fieldAt(i);
-            assertEquals("Field should equal location in old",
-                old.fieldAt(i % old.length()).bits, field.bits);
-            if (field == kUndefinedField) {
+            FormattedStringBuilder::Field field = sb.fieldAt(i);
+            assertEquals("Field should equal location in old", old.fieldAt(i % old.length()), field);
+            if (field == UNUM_FIELD_COUNT) {
                 numNull++;
-            } else if (field == Field(UFIELD_CATEGORY_NUMBER, UNUM_CURRENCY_FIELD)) {
+            } else if (field == UNUM_CURRENCY_FIELD) {
                 numCurr++;
-            } else if (field == Field(UFIELD_CATEGORY_NUMBER, UNUM_INTEGER_FIELD)) {
+            } else if (field == UNUM_INTEGER_FIELD) {
                 numInt++;
             } else {
                 errln("Encountered unknown field");
@@ -276,7 +271,7 @@ void FormattedStringBuilderTest::testUnlimitedCapacity() {
         UnicodeString message("Iteration #");
         message += Int64ToUnicodeString(i);
         assertEquals(message, builder.length(), i);
-        builder.appendCodePoint(u'x', kUndefinedField, status);
+        builder.appendCodePoint(u'x', UNUM_FIELD_COUNT, status);
         assertSuccess(message, status);
         assertEquals(message, builder.length(), i + 1);
     }
@@ -289,7 +284,7 @@ void FormattedStringBuilderTest::testCodePoints() {
     assertEquals("Last is -1 on empty string", -1, nsb.getLastCodePoint());
     assertEquals("Length is 0 on empty string", 0, nsb.codePointCount());
 
-    nsb.append(u"q", kUndefinedField, status);
+    nsb.append(u"q", UNUM_FIELD_COUNT, status);
     assertSuccess("Spot 1", status);
     assertEquals("First is q", u'q', nsb.getFirstCodePoint());
     assertEquals("Last is q", u'q', nsb.getLastCodePoint());
@@ -298,7 +293,7 @@ void FormattedStringBuilderTest::testCodePoints() {
     assertEquals("Code point count is 1", 1, nsb.codePointCount());
 
     // 🚀 is two char16s
-    nsb.append(u"🚀", kUndefinedField, status);
+    nsb.append(u"🚀", UNUM_FIELD_COUNT, status);
     assertSuccess("Spot 2" ,status);
     assertEquals("First is still q", u'q', nsb.getFirstCodePoint());
     assertEquals("Last is space ship", 128640, nsb.getLastCodePoint());

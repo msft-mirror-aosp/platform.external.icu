@@ -1,6 +1,5 @@
 ﻿// © 2016 and later: Unicode, Inc. and others.
-// License & terms of use: http://www.unicode.org/copyright.html
-// Generated using tools/cldr/cldr-to-icu/build-icu-data.xml
+// License & terms of use: http://www.unicode.org/copyright.html#License
 ug{
     Keys{
         calendar{"يىلنامە"}
@@ -681,6 +680,10 @@ ug{
         Zyyy{"ئورتاق"}
         Zzzz{"يوچۇن يېزىق"}
     }
+    Scripts%stand-alone{
+        Hans{"ئاددىي خەنچە"}
+        Hant{"مۇرەككەپ خەنچە"}
+    }
     Types{
         calendar{
             buddhist{"بۇددا يىلنامەسى"}
@@ -827,6 +830,7 @@ ug{
         VALENCIA{"ۋالېنسىيە"}
         WADEGILE{"ۋېي ئائىلىسى پىنيىن لاتىنلاشتۇرۇش"}
     }
+    Version{"36.1"}
     codePatterns{
         language{"تىل: {0}"}
         script{"يېزىق: {0}"}

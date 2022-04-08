@@ -1,5 +1,5 @@
 // © 2016 and later: Unicode, Inc. and others.
-// License & terms of use: http://www.unicode.org/copyright.html
+// License & terms of use: http://www.unicode.org/copyright.html#License
 /*
 *******************************************************************************
 *   Copyright (C) 2011-2014, International Business Machines
@@ -57,7 +57,8 @@ public final class CharsTrie implements Cloneable, Iterable<CharsTrie.Entry> {
      * Does not copy the char array which will be shared.
      * Same as clone() but without the throws clause.
      *
-     * @stable ICU 64
+     * @draft ICU 64
+     * @provisional This API might change or be removed in a future release.
      */
     public CharsTrie(CharsTrie other) {
         chars_ = other.chars_;
@@ -94,7 +95,8 @@ public final class CharsTrie implements Cloneable, Iterable<CharsTrie.Entry> {
      *
      * @return opaque state value
      * @see #resetToState64
-     * @stable ICU 64
+     * @draft ICU 64
+     * @provisional This API might change or be removed in a future release.
      */
     public long getState64() {
         return ((long)remainingMatchLength_ << 32) | pos_;
@@ -112,7 +114,8 @@ public final class CharsTrie implements Cloneable, Iterable<CharsTrie.Entry> {
      * @see #getState64
      * @see #resetToState
      * @see #reset
-     * @stable ICU 64
+     * @draft ICU 64
+     * @provisional This API might change or be removed in a future release.
      */
     public CharsTrie resetToState64(long state) {
         remainingMatchLength_ = (int)(state >> 32);

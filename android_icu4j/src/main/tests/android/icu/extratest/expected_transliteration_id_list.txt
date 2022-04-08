@@ -35,9 +35,6 @@ Bengali-Telugu
 Bopo-Latn
 Bopomofo-Latin
 Bulgarian-Latin/BGN
-Burmese-Latin
-CanadianAboriginal-Latin
-Cans-Latn
 Cyrillic-Latin
 Cyrl-Latn
 Deva-Arab
@@ -62,8 +59,6 @@ Devanagari-Oriya
 Devanagari-Tamil
 Devanagari-Telugu
 Digit-Tone
-Ethi-Latn
-Ethiopic-Latin
 Fullwidth-Halfwidth
 Geor-Latn
 Georgian-Latin
@@ -167,10 +162,8 @@ Latin-Arabic
 Latin-Armenian
 Latin-Bengali
 Latin-Bopomofo
-Latin-CanadianAboriginal
 Latin-Cyrillic
 Latin-Devanagari
-Latin-Ethiopic
 Latin-Georgian
 Latin-Greek
 Latin-Greek/UNGEGN
@@ -195,10 +188,8 @@ Latn-Arab
 Latn-Armn
 Latn-Beng
 Latn-Bopo
-Latn-Cans
 Latn-Cyrl
 Latn-Deva
-Latn-Ethi
 Latn-Geor
 Latn-Grek
 Latn-Grek/UNGEGN
@@ -241,7 +232,6 @@ Mlym-Taml
 Mlym-Telu
 Mlym-ur
 Mongolian-Latin/BGN
-Myanmar-Latin
 NumericPinyin-Latin
 NumericPinyin-Pinyin
 Oriya-Arabic
@@ -439,7 +429,6 @@ my-ar
 my-chr
 my-fa
 my-my_FONIPA
-my-my_Latn
 nl-Title
 nv-nv_FONIPA
 pl-am
@@ -602,8 +591,6 @@ Any-Jamo
 Any-Armenian
 Any-Thai
 Any-Cyrillic
-Any-CanadianAboriginal
-Any-Ethiopic
 Any-Oriya
 Any-Latin/BGN
 Any-am_FONIPA
@@ -646,18 +633,16 @@ Any-Latin/Names
 Any-vec_FONIPA
 Any-uk_Latn/BGN
 Any-Hira
-Any-Hang
-Any-Cans
-Any-Cyrl
-Any-Ethi
 Any-Grek
 Any-Grek/UNGEGN
 Any-Syrc
 Any-Bopo
+Any-Hang
 Any-Thaa
 Any-Geor
 Any-Kana
 Any-Hebr
+Any-Cyrl
 Any-Armn
 Any-mk_Latn/BGN
 Any-mn_Latn/BGN
@@ -668,7 +653,6 @@ Any-eo_FONIPA
 Any-tk/BGN
 Any-chr_FONIPA
 Any-my_FONIPA
-Any-my_Latn
 Any-es_FONIPA
 Any-ru/BGN
 Any-dsb_FONIPA

@@ -1,6 +1,5 @@
 ﻿// © 2016 and later: Unicode, Inc. and others.
-// License & terms of use: http://www.unicode.org/copyright.html
-// Generated using tools/cldr/cldr-to-icu/build-icu-data.xml
+// License & terms of use: http://www.unicode.org/copyright.html#License
 bn{
     AuxExemplarCharacters{"[\u200C\u200D ৲ ৳ ৴ ৵ ৶ ৷ ৸ ৹ ৰ ৱ]"}
     Ellipsis{
@@ -200,8 +199,8 @@ bn{
                         other{"00শত কো"}
                     }
                     100000000000{
-                        one{"000কো"}
-                        other{"000কো"}
+                        one{"00000 কো"}
+                        other{"00000 কো"}
                     }
                     1000000000000{
                         one{"0 লা'.'কো'.'"}
@@ -248,6 +247,7 @@ bn{
         minimumGroupingDigits{"1"}
         native{"beng"}
     }
+    Version{"36.1"}
     calendar{
         buddhist{
             eras{
@@ -2102,7 +2102,7 @@ bn{
                     other{"{0} সোমবারেতে"}
                 }
                 past{
-                    one{"{0} সোমবার আগে"}
+                    one{"{0} সোমবারেতে"}
                     other{"{0} সোমবার আগে"}
                 }
             }

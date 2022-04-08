@@ -1,6 +1,6 @@
 /* GENERATED SOURCE. DO NOT MODIFY. */
 // © 2016 and later: Unicode, Inc. and others.
-// License & terms of use: http://www.unicode.org/copyright.html
+// License & terms of use: http://www.unicode.org/copyright.html#License
 /*
  *******************************************************************************
  * Copyright (C) 2010-2016, Google, Inc.; International Business Machines      *
@@ -138,6 +138,7 @@ public class LocalePriorityList implements Iterable<ULocale> {
      * The set has the same iteration order as this object itself.
      *
      * @return the locales
+     * @hide draft / provisional / internal are hidden on Android
      */
     public Set<ULocale> getULocales() {
         return languagesAndWeights.keySet();

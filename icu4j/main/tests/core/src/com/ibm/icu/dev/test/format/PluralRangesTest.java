@@ -1,5 +1,5 @@
 // © 2016 and later: Unicode, Inc. and others.
-// License & terms of use: http://www.unicode.org/copyright.html
+// License & terms of use: http://www.unicode.org/copyright.html#License
 /*
  *******************************************************************************
  * Copyright (C) 2008-2016, International Business Machines Corporation and
@@ -10,6 +10,7 @@ package com.ibm.icu.dev.test.format;
 
 import java.util.Arrays;
 
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
@@ -17,14 +18,12 @@ import org.junit.runners.JUnit4;
 import com.ibm.icu.dev.test.TestFmwk;
 import com.ibm.icu.impl.SimpleFormatterImpl;
 import com.ibm.icu.impl.StandardPlural;
-import com.ibm.icu.impl.number.range.StandardPluralRanges;
-import com.ibm.icu.number.FormattedNumberRange;
-import com.ibm.icu.number.NumberFormatter;
-import com.ibm.icu.number.NumberFormatter.UnitWidth;
-import com.ibm.icu.number.NumberRangeFormatter;
 import com.ibm.icu.text.MeasureFormat;
 import com.ibm.icu.text.MeasureFormat.FormatWidth;
+import com.ibm.icu.text.PluralRanges;
+import com.ibm.icu.text.PluralRules.Factory;
 import com.ibm.icu.util.Currency;
+import com.ibm.icu.util.Measure;
 import com.ibm.icu.util.MeasureUnit;
 import com.ibm.icu.util.ULocale;
 
@@ -38,7 +37,7 @@ public class PluralRangesTest extends TestFmwk {
     public void TestLocaleData() {
         String[][] tests = {
                 {"de", "other", "one", "one"},
-                {"xxx", "other", "other", "other" },
+                {"xxx", "few", "few", "few" },
                 {"de", "one", "other", "other"},
                 {"de", "other", "one", "one"},
                 {"de", "other", "other", "other"},
@@ -51,9 +50,9 @@ public class PluralRangesTest extends TestFmwk {
             final StandardPlural start = StandardPlural.fromString(test[1]);
             final StandardPlural end = StandardPlural.fromString(test[2]);
             final StandardPlural expected = StandardPlural.fromString(test[3]);
-            final StandardPluralRanges pluralRanges = StandardPluralRanges.forLocale(locale);
+            final PluralRanges pluralRanges = Factory.getDefaultFactory().getPluralRanges(locale);
 
-            StandardPlural actual = pluralRanges.resolve(start, end);
+            StandardPlural actual = pluralRanges.get(start, end);
             assertEquals("Deriving range category", expected, actual);
         }
     }
@@ -74,28 +73,30 @@ public class PluralRangesTest extends TestFmwk {
         }
     }
 
+    // TODO: Re-enable this test when #12454 is fixed.
+    @Ignore("http://bugs.icu-project.org/trac/ticket/12454")
     @Test
     public void TestFormatting() {
         Object[][] tests = {
-                {0.0, 1.0, ULocale.FRANCE, UnitWidth.FULL_NAME, MeasureUnit.FAHRENHEIT, "0–1\u00A0degré Fahrenheit"},
-                {1.0, 2.0, ULocale.FRANCE, UnitWidth.FULL_NAME, MeasureUnit.FAHRENHEIT, "1–2\u00A0degrés Fahrenheit"},
-                {3.1, 4.25, ULocale.FRANCE, UnitWidth.SHORT, MeasureUnit.FAHRENHEIT, "3,1–4,25\u202F°F"},
-                {3.1, 4.25, ULocale.ENGLISH, UnitWidth.SHORT, MeasureUnit.FAHRENHEIT, "3.1–4.25°F"},
-                {3.1, 4.25, ULocale.CHINESE, UnitWidth.FULL_NAME, MeasureUnit.INCH, "3.1-4.25英寸"},
-                {0.0, 1.0, ULocale.ENGLISH, UnitWidth.FULL_NAME, MeasureUnit.INCH, "0–1 inches"},
+                {0.0, 1.0, ULocale.FRANCE, FormatWidth.WIDE, MeasureUnit.FAHRENHEIT, "0–1 degré Fahrenheit"},
+                {1.0, 2.0, ULocale.FRANCE, FormatWidth.WIDE, MeasureUnit.FAHRENHEIT, "1–2 degrés Fahrenheit"},
+                {3.1, 4.25, ULocale.FRANCE, FormatWidth.SHORT, MeasureUnit.FAHRENHEIT, "3,1–4,25 °F"},
+                {3.1, 4.25, ULocale.ENGLISH, FormatWidth.SHORT, MeasureUnit.FAHRENHEIT, "3.1–4.25°F"},
+                {3.1, 4.25, ULocale.CHINESE, FormatWidth.WIDE, MeasureUnit.INCH, "3.1-4.25英寸"},
+                {0.0, 1.0, ULocale.ENGLISH, FormatWidth.WIDE, MeasureUnit.INCH, "0–1 inches"},
 
-                {0.0, 1.0, ULocale.ENGLISH, UnitWidth.NARROW, Currency.getInstance("EUR"), "€0.00 – €1.00"},
-                {0.0, 1.0, ULocale.FRENCH, UnitWidth.NARROW, Currency.getInstance("EUR"), "0,00–1,00 €"},
-                {0.0, 100.0, ULocale.FRENCH, UnitWidth.NARROW, Currency.getInstance("JPY"), "0–100\u00a0¥"},
+                {0.0, 1.0, ULocale.ENGLISH, FormatWidth.NARROW, Currency.getInstance("EUR"), "€0.00–1.00"},
+                {0.0, 1.0, ULocale.FRENCH, FormatWidth.NARROW, Currency.getInstance("EUR"), "0,00–1,00 €"},
+                {0.0, 100.0, ULocale.FRENCH, FormatWidth.NARROW, Currency.getInstance("JPY"), "0–100\u00a0JPY"},
 
-                {0.0, 1.0, ULocale.ENGLISH, UnitWidth.SHORT, Currency.getInstance("EUR"), "€0.00 – €1.00"},
-                {0.0, 1.0, ULocale.FRENCH, UnitWidth.SHORT, Currency.getInstance("EUR"), "0,00–1,00\u00a0€"},
-                {0.0, 100.0, ULocale.FRENCH, UnitWidth.SHORT, Currency.getInstance("JPY"), "0–100\u00a0JPY"},
+                {0.0, 1.0, ULocale.ENGLISH, FormatWidth.SHORT, Currency.getInstance("EUR"), "EUR0.00–1.00"},
+                {0.0, 1.0, ULocale.FRENCH, FormatWidth.SHORT, Currency.getInstance("EUR"), "0,00–1,00\u00a0EUR"},
+                {0.0, 100.0, ULocale.FRENCH, FormatWidth.SHORT, Currency.getInstance("JPY"), "0–100\u00a0JPY"},
 
-                {0.0, 1.0, ULocale.ENGLISH, UnitWidth.FULL_NAME, Currency.getInstance("EUR"), "0.00–1.00 euros"},
-                {0.0, 1.0, ULocale.FRENCH, UnitWidth.FULL_NAME, Currency.getInstance("EUR"), "0,00–1,00 euro"},
-                {0.0, 2.0, ULocale.FRENCH, UnitWidth.FULL_NAME, Currency.getInstance("EUR"), "0,00–2,00 euros"},
-                {0.0, 100.0, ULocale.FRENCH, UnitWidth.FULL_NAME, Currency.getInstance("JPY"), "0–100 yens japonais"},
+                {0.0, 1.0, ULocale.ENGLISH, FormatWidth.WIDE, Currency.getInstance("EUR"), "0.00–1.00 euros"},
+                {0.0, 1.0, ULocale.FRENCH, FormatWidth.WIDE, Currency.getInstance("EUR"), "0,00–1,00 euro"},
+                {0.0, 2.0, ULocale.FRENCH, FormatWidth.WIDE, Currency.getInstance("EUR"), "0,00–2,00 euros"},
+                {0.0, 100.0, ULocale.FRENCH, FormatWidth.WIDE, Currency.getInstance("JPY"), "0–100 yens japonais"},
         };
         int i = 0;
         for (Object[] test : tests) {
@@ -103,15 +104,34 @@ public class PluralRangesTest extends TestFmwk {
             double low = (Double) test[0];
             double high = (Double) test[1];
             final ULocale locale = (ULocale) test[2];
-            final UnitWidth unitWidth = (UnitWidth) test[3];
+            final FormatWidth width = (FormatWidth) test[3];
             final MeasureUnit unit = (MeasureUnit) test[4];
-            final String expected = (String) test[5];
+            final Object expected = test[5];
 
-            FormattedNumberRange actual = NumberRangeFormatter.with()
-                .numberFormatterBoth(NumberFormatter.with().unit(unit).unitWidth(unitWidth))
-                .locale(locale)
-                .formatRange(low, high);
-            assertEquals(i + " Formatting unit", expected, actual.toString());
+            MeasureFormat mf = MeasureFormat.getInstance(locale, width);
+            Object actual;
+            try {
+                // TODO: Fix this when range formatting is added again.
+                // To let the code compile, the following line does list formatting.
+                actual = mf.formatMeasures(new Measure(low, unit), new Measure(high, unit));
+            } catch (Exception e) {
+                actual = e.getClass();
+            }
+            assertEquals(i + " Formatting unit", expected, actual);
+        }
+    }
+
+    @Test
+    public void TestBasic() {
+        PluralRanges a = new PluralRanges();
+        a.add(StandardPlural.ONE, StandardPlural.OTHER, StandardPlural.ONE);
+        StandardPlural actual = a.get(StandardPlural.ONE, StandardPlural.OTHER);
+        assertEquals("range", StandardPlural.ONE, actual);
+        a.freeze();
+        try {
+            a.add(StandardPlural.ONE, StandardPlural.ONE, StandardPlural.ONE);
+            errln("Failed to cause exception on frozen instance");
+        } catch (UnsupportedOperationException e) {
         }
     }
 }

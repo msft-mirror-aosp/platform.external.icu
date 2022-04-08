@@ -1,6 +1,5 @@
 ﻿// © 2016 and later: Unicode, Inc. and others.
-// License & terms of use: http://www.unicode.org/copyright.html
-// Generated using tools/cldr/cldr-to-icu/build-icu-data.xml
+// License & terms of use: http://www.unicode.org/copyright.html#License
 so{
     Countries{
         001{"Dunida"}
@@ -36,7 +35,7 @@ so{
         419{"Laatiin Ameerika"}
         AC{"Jasiiradda Asensiyoon"}
         AD{"Andora"}
-        AE{"Midawga Imaaraatka Carabta"}
+        AE{"Imaaraadka Carabta ee Midoobay"}
         AF{"Afgaanistaan"}
         AG{"Antigua & Barbuuda"}
         AI{"Anguula"}
@@ -53,7 +52,7 @@ so{
         AZ{"Asarbajan"}
         BA{"Boosniya & Harsegofina"}
         BB{"Baarbadoos"}
-        BD{"Bangaladhesh"}
+        BD{"Bangladesh"}
         BE{"Biljam"}
         BF{"Burkiina Faaso"}
         BG{"Bulgaariya"}
@@ -62,7 +61,7 @@ so{
         BJ{"Biniin"}
         BL{"St. Baathelemiy"}
         BM{"Barmuuda"}
-        BN{"Buruneey"}
+        BN{"Buruneeya"}
         BO{"Boliifiya"}
         BQ{"Karibiyaan Nadarlands"}
         BR{"Baraasiil"}
@@ -83,7 +82,6 @@ so{
         CL{"Jili"}
         CM{"Kaameruun"}
         CN{"Shiinaha"}
-        CO{"Koloombiya"}
         CP{"Jasiiradda Kilibarton"}
         CR{"Kosta Riika"}
         CU{"Kuuba"}
@@ -133,7 +131,6 @@ so{
         GT{"Guwaatamaala"}
         GU{"Guaam"}
         GW{"Gini-Bisaaw"}
-        GY{"Guyana"}
         HK{"Hong Kong"}
         HM{"Jasiiradda Haad & MakDonald"}
         HN{"Honduras"}
@@ -186,7 +183,7 @@ so{
         MH{"Jasiiradda Maarshal"}
         MK{"Masedooniya Waqooyi"}
         ML{"Maali"}
-        MM{"Mayanmar"}
+        MM{"Miyanmar"}
         MN{"Mongooliya"}
         MO{"Makaaw"}
         MP{"Jasiiradda Waqooyiga Mariaana"}
@@ -195,10 +192,10 @@ so{
         MS{"Montserrat"}
         MT{"Maalta"}
         MU{"Mawrishiyaas"}
-        MV{"Maaldiifis"}
+        MV{"Maaldiqeen"}
         MW{"Malaawi"}
         MX{"Meksiko"}
-        MY{"Malaysiya"}
+        MY{"Malaysia"}
         MZ{"Musambiik"}
         NA{"Namiibiya"}
         NC{"Jasiiradda Niyuu Kaledooniya"}
@@ -216,7 +213,7 @@ so{
         PA{"Baanama"}
         PE{"Beeru"}
         PF{"Booliyneesiya Faransiiska"}
-        PG{"Babwa Niyuu Gini"}
+        PG{"Babua Niyuu Gini"}
         PH{"Filibiin"}
         PK{"Bakistaan"}
         PL{"Booland"}
@@ -240,7 +237,7 @@ so{
         SD{"Suudaan"}
         SE{"Iswidhan"}
         SG{"Singaboor"}
-        SH{"Saynt Helena"}
+        SH{"Saint Helena"}
         SI{"Islofeeniya"}
         SJ{"Jasiiradda Sfaldbaad & Jaan Mayen"}
         SK{"Islofaakiya"}
@@ -278,7 +275,7 @@ so{
         UN{"Qaramada Midoobay"}
         US{"Maraykanka"}
         UY{"Uruguwaay"}
-        UZ{"Usbakistan"}
+        UZ{"Uusbakistaan"}
         VA{"Faatikaan"}
         VC{"St. Finsent & Girenadiins"}
         VE{"Fenisuweela"}
@@ -288,8 +285,6 @@ so{
         VU{"Fanuaatu"}
         WF{"Walis & Futuna"}
         WS{"Samoowa"}
-        XA{"Shigshiga"}
-        XB{"Pseudo-Bidi"}
         XK{"Koosofo"}
         YE{"Yaman"}
         YT{"Mayotte"}
@@ -307,6 +302,7 @@ so{
         CI{"Aayforikoost"}
         CZ{"Jamhuuriyadda Jek"}
         SZ{"Iswaasilaan"}
-        TL{"Bariga Timor"}
+        TL{"Timoor Bari"}
     }
+    Version{"36.1"}
 }

@@ -13,7 +13,6 @@
 #include "number_utypes.h"
 #include "numparse_types.h"
 #include "formattedval_impl.h"
-#include "number_decnum.h"
 #include "unicode/numberformatter.h"
 #include "unicode/unumberformatter.h"
 
@@ -157,7 +156,7 @@ unumf_resultToString(const UFormattedNumber* uresult, UChar* buffer, int32_t buf
         return 0;
     }
 
-    return result->fData.toTempString(*ec).extract(buffer, bufferCapacity, *ec);
+    return result->fImpl.toTempString(*ec).extract(buffer, bufferCapacity, *ec);
 }
 
 U_CAPI UBool U_EXPORT2
@@ -174,7 +173,7 @@ unumf_resultNextFieldPosition(const UFormattedNumber* uresult, UFieldPosition* u
     fp.setField(ufpos->field);
     fp.setBeginIndex(ufpos->beginIndex);
     fp.setEndIndex(ufpos->endIndex);
-    bool retval = result->fData.nextFieldPosition(fp, *ec);
+    bool retval = result->fImpl.nextFieldPosition(fp, *ec);
     ufpos->beginIndex = fp.getBeginIndex();
     ufpos->endIndex = fp.getEndIndex();
     // NOTE: MSVC sometimes complains when implicitly converting between bool and UBool
@@ -193,25 +192,7 @@ unumf_resultGetAllFieldPositions(const UFormattedNumber* uresult, UFieldPosition
     }
 
     auto* fpi = reinterpret_cast<FieldPositionIterator*>(ufpositer);
-    FieldPositionIteratorHandler fpih(fpi, *ec);
-    result->fData.getAllFieldPositions(fpih, *ec);
-}
-
-U_CAPI int32_t U_EXPORT2
-unumf_resultToDecimalNumber(
-        const UFormattedNumber* uresult,
-        char* dest,
-        int32_t destCapacity,
-        UErrorCode* ec) {
-    const auto* result = UFormattedNumberApiHelper::validate(uresult, *ec);
-    if (U_FAILURE(*ec)) {
-        return 0;
-    }
-    DecNum decnum;
-    return result->fData.quantity
-        .toDecNum(decnum, *ec)
-        .toCharString(*ec)
-        .extract(dest, destCapacity, *ec);
+    result->fImpl.getAllFieldPositions(*fpi, *ec);
 }
 
 U_CAPI void U_EXPORT2

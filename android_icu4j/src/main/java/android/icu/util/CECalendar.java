@@ -1,6 +1,6 @@
 /* GENERATED SOURCE. DO NOT MODIFY. */
 // © 2016 and later: Unicode, Inc. and others.
-// License & terms of use: http://www.unicode.org/copyright.html
+// License & terms of use: http://www.unicode.org/copyright.html#License
 /*
  *******************************************************************************
  * Copyright (C) 2005-2011, International Business Machines Corporation and    *
@@ -77,7 +77,7 @@ abstract class CECalendar extends Calendar {
      * @param aLocale The locale for the new calendar.
      */
     protected CECalendar(Locale aLocale) {
-        this(TimeZone.forLocaleOrDefault(aLocale), aLocale);
+        this(TimeZone.getDefault(), aLocale);
     }
 
     /**
@@ -87,7 +87,7 @@ abstract class CECalendar extends Calendar {
      * @param locale The locale for the new calendar.
      */
     protected CECalendar(ULocale locale) {
-        this(TimeZone.forULocaleOrDefault(locale), locale);
+        this(TimeZone.getDefault(), locale);
     }
 
     /**

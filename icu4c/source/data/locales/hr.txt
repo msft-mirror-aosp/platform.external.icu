@@ -1,6 +1,5 @@
 ﻿// © 2016 and later: Unicode, Inc. and others.
-// License & terms of use: http://www.unicode.org/copyright.html
-// Generated using tools/cldr/cldr-to-icu/build-icu-data.xml
+// License & terms of use: http://www.unicode.org/copyright.html#License
 hr{
     AuxExemplarCharacters{"[q w x y]"}
     Ellipsis{
@@ -102,9 +101,9 @@ hr{
             patternsShort{
                 currencyFormat{
                     1000{
-                        few{"0"}
-                        one{"0"}
-                        other{"0"}
+                        few{"0000¤"}
+                        one{"0000¤"}
+                        other{"0000¤"}
                     }
                     10000{
                         few{"00 tis'.' ¤"}
@@ -226,13 +225,12 @@ hr{
                 }
             }
             symbols{
-                approximatelySign{"~"}
                 decimal{","}
                 exponential{"E"}
                 group{"."}
                 infinity{"∞"}
                 list{";"}
-                minusSign{"−"}
+                minusSign{"-"}
                 nan{"NaN"}
                 perMille{"‰"}
                 percentSign{"%"}
@@ -254,6 +252,7 @@ hr{
         minimumGroupingDigits{"1"}
         native{"latn"}
     }
+    Version{"36.1"}
     calendar{
         buddhist{
             eras{

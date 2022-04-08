@@ -1,6 +1,5 @@
 ﻿// © 2016 and later: Unicode, Inc. and others.
-// License & terms of use: http://www.unicode.org/copyright.html
-// Generated using tools/cldr/cldr-to-icu/build-icu-data.xml
+// License & terms of use: http://www.unicode.org/copyright.html#License
 lv{
     Countries{
         001{"pasaule"}
@@ -144,7 +143,7 @@ lv{
         ID{"Indonēzija"}
         IE{"Īrija"}
         IL{"Izraēla"}
-        IM{"Menas sala"}
+        IM{"Mena"}
         IN{"Indija"}
         IO{"Indijas okeāna Britu teritorija"}
         IQ{"Irāka"}
@@ -255,7 +254,7 @@ lv{
         SX{"Sintmārtena"}
         SY{"Sīrija"}
         SZ{"Svatini"}
-        TA{"Tristana da Kuņjas salu teritorijas"}
+        TA{"Tristana da Kuņas salas"}
         TC{"Tērksas un Kaikosas salas"}
         TD{"Čada"}
         TF{"Francijas Dienvidjūru teritorija"}
@@ -299,6 +298,7 @@ lv{
         ZZ{"nezināms reģions"}
     }
     Countries%short{
+        GB{"Apvienotā Karaliste"}
         UN{"ANO"}
         US{"ASV"}
     }
@@ -308,5 +308,7 @@ lv{
         CI{"Ziloņkaula krasts"}
         CZ{"Čehijas Republika"}
         SZ{"Svazilenda"}
+        TL{"Austrumtimora"}
     }
+    Version{"36.1"}
 }
