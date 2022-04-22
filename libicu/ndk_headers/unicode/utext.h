@@ -20,6 +20,8 @@
 #define __UTEXT_H__
 
 /**
+ * @addtogroup ICU4C
+ * @{
  * \file
  * \brief C API: Abstract Unicode Text API
  *
@@ -150,7 +152,7 @@
 U_CDECL_BEGIN
 
 struct UText;
-typedef struct UText UText; /**< C typedef for struct UText. @stable ICU 3.6 */
+typedef struct UText UText; /**< C typedef for struct UText. \xrefitem stable "Stable" "Stable List" ICU 3.6 */
 
 
 /***************************************************************************************
@@ -159,8 +161,6 @@ typedef struct UText UText; /**< C typedef for struct UText. @stable ICU 3.6 */
  *
  ****************************************************************************************/
 
-
-#if !defined(__ANDROID__) || __ANDROID_API__ >= 31
 
 /**
   * Close function for UText instances.
@@ -180,33 +180,12 @@ typedef struct UText UText; /**< C typedef for struct UText. @stable ICU 3.6 */
   *            returned by this function, and may be safely used again in
   *            a subsequent utext_open.
   *
-  * @stable ICU 3.4
+  * \xrefitem stable "Stable" "Stable List" ICU 3.4
   */
-U_STABLE UText * U_EXPORT2
+U_CAPI UText * U_EXPORT2
 utext_close(UText *ut) __INTRODUCED_IN(31);
 
-#endif // !defined(__ANDROID__) || __ANDROID_API__ >= 31
 
-#if U_SHOW_CPLUSPLUS_API
-
-U_NAMESPACE_BEGIN
-
-/**
- * \class LocalUTextPointer
- * "Smart pointer" class, closes a UText via utext_close().
- * For most methods see the LocalPointerBase base class.
- *
- * @see LocalPointerBase
- * @see LocalPointer
- * @stable ICU 4.4
- */
-U_DEFINE_LOCAL_OPEN_POINTER(LocalUTextPointer, UText, utext_close);
-
-U_NAMESPACE_END
-
-#endif
-
-#if !defined(__ANDROID__) || __ANDROID_API__ >= 31
 
 /**
  * Open a read-only UText implementation for UTF-8 strings.
@@ -227,15 +206,13 @@ U_NAMESPACE_END
  * @param status Errors are returned here.
  * @return       A pointer to the UText.  If a pre-allocated UText was provided, it
  *               will always be used and returned.
- * @stable ICU 3.4
+ * \xrefitem stable "Stable" "Stable List" ICU 3.4
  */
-U_STABLE UText * U_EXPORT2
+U_CAPI UText * U_EXPORT2
 utext_openUTF8(UText *ut, const char *s, int64_t length, UErrorCode *status) __INTRODUCED_IN(31);
 
-#endif // !defined(__ANDROID__) || __ANDROID_API__ >= 31
 
 
-#if !defined(__ANDROID__) || __ANDROID_API__ >= 31
 
 /**
  * Open a read-only UText for UChar * string.
@@ -249,12 +226,12 @@ utext_openUTF8(UText *ut, const char *s, int64_t length, UErrorCode *status) __I
  * @param status Errors are returned here.
  * @return       A pointer to the UText.  If a pre-allocated UText was provided, it
  *               will always be used and returned.
- * @stable ICU 3.4
+ * \xrefitem stable "Stable" "Stable List" ICU 3.4
  */
-U_STABLE UText * U_EXPORT2
+U_CAPI UText * U_EXPORT2
 utext_openUChars(UText *ut, const UChar *s, int64_t length, UErrorCode *status) __INTRODUCED_IN(31);
 
-#endif // !defined(__ANDROID__) || __ANDROID_API__ >= 31
+
 
 
 #if U_SHOW_CPLUSPLUS_API
@@ -270,8 +247,6 @@ utext_openUChars(UText *ut, const UChar *s, int64_t length, UErrorCode *status) 
 
 #endif
 
-
-#if !defined(__ANDROID__) || __ANDROID_API__ >= 31
 
 /**
   *  Clone a UText.  This is much like opening a UText where the source text is itself
@@ -304,7 +279,7 @@ utext_openUChars(UText *ut, const UChar *s, int64_t length, UErrorCode *status) 
   *  shallow clones provide some protection against errors of this type by
   *  disabling text modification via the cloned UText.
   *
-  *  A shallow clone made with the readOnly parameter == FALSE will preserve the 
+  *  A shallow clone made with the readOnly parameter == false will preserve the 
   *  utext_isWritable() state of the source object.  Note, however, that
   *  write operations must be avoided while more than one UText exists that refer
   *  to the same underlying text.
@@ -320,39 +295,37 @@ utext_openUChars(UText *ut, const UChar *s, int64_t length, UErrorCode *status) 
   *                If non-NULL, must refer to an already existing UText, which will then
   *                be reset to become the clone.
   *  @param src    The UText to be cloned.
-  *  @param deep   TRUE to request a deep clone, FALSE for a shallow clone.
-  *  @param readOnly TRUE to request that the cloned UText have read only access to the 
+  *  @param deep   true to request a deep clone, false for a shallow clone.
+  *  @param readOnly true to request that the cloned UText have read only access to the 
   *                underlying text.  
 
   *  @param status Errors are returned here.  For deep clones, U_UNSUPPORTED_ERROR
   *                will be returned if the text provider is unable to clone the
   *                original text.
   *  @return       The newly created clone, or NULL if the clone operation failed.
-  *  @stable ICU 3.4
+  *  \xrefitem stable "Stable" "Stable List" ICU 3.4
   */
-U_STABLE UText * U_EXPORT2
+U_CAPI UText * U_EXPORT2
 utext_clone(UText *dest, const UText *src, UBool deep, UBool readOnly, UErrorCode *status) __INTRODUCED_IN(31);
 
-#endif // !defined(__ANDROID__) || __ANDROID_API__ >= 31
 
 
-#if !defined(__ANDROID__) || __ANDROID_API__ >= 31
 
 /**
   *  Compare two UText objects for equality.
   *  UTexts are equal if they are iterating over the same text, and
   *    have the same iteration position within the text.
-  *    If either or both of the parameters are NULL, the comparison is FALSE.
+  *    If either or both of the parameters are NULL, the comparison is false.
   *
   *  @param a   The first of the two UTexts to compare.
   *  @param b   The other UText to be compared.
-  *  @return    TRUE if the two UTexts are equal.
-  *  @stable ICU 3.6
+  *  @return    true if the two UTexts are equal.
+  *  \xrefitem stable "Stable" "Stable List" ICU 3.6
   */
-U_STABLE UBool U_EXPORT2
+U_CAPI UBool U_EXPORT2
 utext_equals(const UText *a, const UText *b) __INTRODUCED_IN(31);
 
-#endif // !defined(__ANDROID__) || __ANDROID_API__ >= 31
+
 
 
 /*****************************************************************************
@@ -360,8 +333,6 @@ utext_equals(const UText *a, const UText *b) __INTRODUCED_IN(31);
  *   Functions to work with the text represented by a UText wrapper
  *
  *****************************************************************************/
-
-#if !defined(__ANDROID__) || __ANDROID_API__ >= 31
 
 /**
   * Get the length of the text.  Depending on the characteristics
@@ -372,16 +343,14 @@ utext_equals(const UText *a, const UText *b) __INTRODUCED_IN(31);
   * @param ut  the text to be accessed.
   * @return the length of the text, expressed in native units.
   *
-  * @stable ICU 3.4
+  * \xrefitem stable "Stable" "Stable List" ICU 3.4
   */
-U_STABLE int64_t U_EXPORT2
+U_CAPI int64_t U_EXPORT2
 utext_nativeLength(UText *ut) __INTRODUCED_IN(31);
 
-#endif // !defined(__ANDROID__) || __ANDROID_API__ >= 31
 
 
 
-#if !defined(__ANDROID__) || __ANDROID_API__ >= 31
 
 /**
  * Returns the code point at the requested index,
@@ -406,15 +375,13 @@ utext_nativeLength(UText *ut) __INTRODUCED_IN(31);
  *        to other than the first unit of a multi-unit character, it will be adjusted
  *        to the start of the character.
  * @return the code point at the specified index.
- * @stable ICU 3.4
+ * \xrefitem stable "Stable" "Stable List" ICU 3.4
  */
-U_STABLE UChar32 U_EXPORT2
+U_CAPI UChar32 U_EXPORT2
 utext_char32At(UText *ut, int64_t nativeIndex) __INTRODUCED_IN(31);
 
-#endif // !defined(__ANDROID__) || __ANDROID_API__ >= 31
 
 
-#if !defined(__ANDROID__) || __ANDROID_API__ >= 31
 
 /**
  *
@@ -424,15 +391,13 @@ utext_char32At(UText *ut, int64_t nativeIndex) __INTRODUCED_IN(31);
  *
  * @param ut the text to be accessed.
  * @return the Unicode code point at the current iterator position.
- * @stable ICU 3.4
+ * \xrefitem stable "Stable" "Stable List" ICU 3.4
  */
-U_STABLE UChar32 U_EXPORT2
+U_CAPI UChar32 U_EXPORT2
 utext_current32(UText *ut) __INTRODUCED_IN(31);
 
-#endif // !defined(__ANDROID__) || __ANDROID_API__ >= 31
 
 
-#if !defined(__ANDROID__) || __ANDROID_API__ >= 31
 
 /**
  * Get the code point at the current iteration position of the UText, and
@@ -450,15 +415,13 @@ utext_current32(UText *ut) __INTRODUCED_IN(31);
  * @param ut the text to be accessed.
  * @return the Unicode code point at the iteration position.
  * @see UTEXT_NEXT32
- * @stable ICU 3.4
+ * \xrefitem stable "Stable" "Stable List" ICU 3.4
  */
-U_STABLE UChar32 U_EXPORT2
+U_CAPI UChar32 U_EXPORT2
 utext_next32(UText *ut) __INTRODUCED_IN(31);
 
-#endif // !defined(__ANDROID__) || __ANDROID_API__ >= 31
 
 
-#if !defined(__ANDROID__) || __ANDROID_API__ >= 31
 
 /**
  *  Move the iterator position to the character (code point) whose
@@ -475,15 +438,13 @@ utext_next32(UText *ut) __INTRODUCED_IN(31);
  *  @return the previous UChar32 code point, or U_SENTINEL (-1) 
  *          if the iteration has reached the start of the text.
  *  @see UTEXT_PREVIOUS32
- *  @stable ICU 3.4
+ *  \xrefitem stable "Stable" "Stable List" ICU 3.4
  */
-U_STABLE UChar32 U_EXPORT2
+U_CAPI UChar32 U_EXPORT2
 utext_previous32(UText *ut) __INTRODUCED_IN(31);
 
-#endif // !defined(__ANDROID__) || __ANDROID_API__ >= 31
 
 
-#if !defined(__ANDROID__) || __ANDROID_API__ >= 31
 
 /**
   * Set the iteration index and return the code point at that index. 
@@ -501,16 +462,14 @@ utext_previous32(UText *ut) __INTRODUCED_IN(31);
   *  @param nativeIndex Iteration index, in the native units of the text provider.
   *  @return Code point which starts at or before index,
   *         or U_SENTINEL (-1) if it is out of bounds.
-  * @stable ICU 3.4
+  * \xrefitem stable "Stable" "Stable List" ICU 3.4
   */
-U_STABLE UChar32 U_EXPORT2
+U_CAPI UChar32 U_EXPORT2
 utext_next32From(UText *ut, int64_t nativeIndex) __INTRODUCED_IN(31);
 
-#endif // !defined(__ANDROID__) || __ANDROID_API__ >= 31
 
 
 
-#if !defined(__ANDROID__) || __ANDROID_API__ >= 31
 
 /**
   * Set the iteration index, and return the code point preceding the
@@ -525,14 +484,12 @@ utext_next32From(UText *ut, int64_t nativeIndex) __INTRODUCED_IN(31);
   * @return Code point preceding the one at the initial index,
   *         or U_SENTINEL (-1) if it is out of bounds.
   *
-  * @stable ICU 3.4
+  * \xrefitem stable "Stable" "Stable List" ICU 3.4
   */
-U_STABLE UChar32 U_EXPORT2
+U_CAPI UChar32 U_EXPORT2
 utext_previous32From(UText *ut, int64_t nativeIndex) __INTRODUCED_IN(31);
 
-#endif // !defined(__ANDROID__) || __ANDROID_API__ >= 31
 
-#if !defined(__ANDROID__) || __ANDROID_API__ >= 31
 
 /**
   * Get the current iterator position, which can range from 0 to 
@@ -544,14 +501,12 @@ utext_previous32From(UText *ut, int64_t nativeIndex) __INTRODUCED_IN(31);
   *
   * @param ut the text to be accessed.
   * @return the current index position, in the native units of the text provider.
-  * @stable ICU 3.4
+  * \xrefitem stable "Stable" "Stable List" ICU 3.4
   */
-U_STABLE int64_t U_EXPORT2
+U_CAPI int64_t U_EXPORT2
 utext_getNativeIndex(const UText *ut) __INTRODUCED_IN(31);
 
-#endif // !defined(__ANDROID__) || __ANDROID_API__ >= 31
 
-#if !defined(__ANDROID__) || __ANDROID_API__ >= 31
 
 /**
  * Set the current iteration position to the nearest code point
@@ -574,14 +529,12 @@ utext_getNativeIndex(const UText *ut) __INTRODUCED_IN(31);
  *
  * @param ut the text to be accessed.
  * @param nativeIndex the native unit index of the new iteration position.
- * @stable ICU 3.4
+ * \xrefitem stable "Stable" "Stable List" ICU 3.4
  */
-U_STABLE void U_EXPORT2
+U_CAPI void U_EXPORT2
 utext_setNativeIndex(UText *ut, int64_t nativeIndex) __INTRODUCED_IN(31);
 
-#endif // !defined(__ANDROID__) || __ANDROID_API__ >= 31
 
-#if !defined(__ANDROID__) || __ANDROID_API__ >= 31
 
 /**
  * Move the iterator position by delta code points.  The number of code points
@@ -595,14 +548,14 @@ utext_setNativeIndex(UText *ut, int64_t nativeIndex) __INTRODUCED_IN(31);
  *
  * @param ut the text to be accessed.
  * @param delta the signed number of code points to move the iteration position.
- * @return TRUE if the position could be moved the requested number of positions while
+ * @return true if the position could be moved the requested number of positions while
  *              staying within the range [0 - text length].
- * @stable ICU 3.4
+ * \xrefitem stable "Stable" "Stable List" ICU 3.4
  */
-U_STABLE UBool U_EXPORT2
+U_CAPI UBool U_EXPORT2
 utext_moveIndex32(UText *ut, int32_t delta) __INTRODUCED_IN(31);
 
-#endif // !defined(__ANDROID__) || __ANDROID_API__ >= 31
+
 
 /**
  * Get the native index of the character preceding the current position.
@@ -624,13 +577,11 @@ utext_moveIndex32(UText *ut, int32_t delta) __INTRODUCED_IN(31);
  * @param ut the text to be accessed
  * @return the native index of the character preceding the current index position,
  *         or zero if the current position is at the start of the text.
- * @stable ICU 3.6
+ * \xrefitem stable "Stable" "Stable List" ICU 3.6
  */
-U_STABLE int64_t U_EXPORT2
+U_CAPI int64_t U_EXPORT2
 utext_getPreviousNativeIndex(UText *ut); 
 
-
-#if !defined(__ANDROID__) || __ANDROID_API__ >= 31
 
 /**
  *
@@ -664,15 +615,15 @@ utext_getPreviousNativeIndex(UText *ut);
  *         buffer was too small.  Returns number of UChars for preflighting.
  * @return Number of UChars in the data to be extracted.  Does not include a trailing NUL.
  *
- * @stable ICU 3.4
+ * \xrefitem stable "Stable" "Stable List" ICU 3.4
  */
-U_STABLE int32_t U_EXPORT2
+U_CAPI int32_t U_EXPORT2
 utext_extract(UText *ut,
              int64_t nativeStart, int64_t nativeLimit,
              UChar *dest, int32_t destCapacity,
              UErrorCode *status) __INTRODUCED_IN(31);
 
-#endif // !defined(__ANDROID__) || __ANDROID_API__ >= 31
+
 
 
 
@@ -681,5 +632,26 @@ utext_extract(UText *ut,
 U_CDECL_END
 
 
+#if U_SHOW_CPLUSPLUS_API
+
+U_NAMESPACE_BEGIN
+
+/**
+ * \class LocalUTextPointer
+ * "Smart pointer" class, closes a UText via utext_close().
+ * For most methods see the LocalPointerBase base class.
+ *
+ * @see LocalPointerBase
+ * @see LocalPointer
+ * \xrefitem stable "Stable" "Stable List" ICU 4.4
+ */
+U_DEFINE_LOCAL_OPEN_POINTER(LocalUTextPointer, UText, utext_close);
+
+U_NAMESPACE_END
 
 #endif
+
+
+#endif
+
+/** @} */ // addtogroup
