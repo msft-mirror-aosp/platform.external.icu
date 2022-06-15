@@ -85,9 +85,8 @@ public final class ZoneInfoData {
     private final int mEarliestRawOffset;
 
     /**
-     * The times (in Unix epoch time, seconds since 1st Jan 1970 00:00:00 UTC) at which the offsets
-     * changes for any reason, whether that is a change in the offset from UTC or a change in the
-     * DST.
+     * The times (in seconds) at which the offsets changes for any reason, whether that is a change
+     * in the offset from UTC or a change in the DST.
      *
      * <p>These times are pre-calculated externally from a set of rules (both historical and
      * future) and stored in a file from which {@link ZoneInfoData#readTimeZone(String,
@@ -564,21 +563,21 @@ public final class ZoneInfoData {
 
     /**
      * Get the raw and DST offsets for the specified time in milliseconds since
-     * 1st Jan 1970 00:00:00 UTC.
+     * 1st Jan 1970 00:00:00.000 UTC.
      *
      * <p>The raw offset, i.e. that part of the total offset which is not due to DST, is stored at
      * index 0 of the {@code offsets} array and the DST offset, i.e. that part of the offset which
      * is due to DST is stored at index 1.
      *
-     * @param unixEpochTimeInMillis the Unix epoch time in milliseconds.
+     * @param utcTimeInMillis the UTC time in milliseconds.
      * @param offsets the array whose length must be greater than or equal to 2.
      * @return the total offset which is the sum of the raw and DST offsets.
      *
      * @hide
      */
     @libcore.api.IntraCoreApi
-    public int getOffsetsByUtcTime(long unixEpochTimeInMillis, @NonNull int[] offsets) {
-        int transitionIndex = findTransitionIndex(roundDownMillisToSeconds(unixEpochTimeInMillis));
+    public int getOffsetsByUtcTime(long utcTimeInMillis, @NonNull int[] offsets) {
+        int transitionIndex = findTransitionIndex(roundDownMillisToSeconds(utcTimeInMillis));
         int totalOffset;
         int rawOffset;
         int dstOffset;
@@ -625,15 +624,15 @@ public final class ZoneInfoData {
     }
 
     /**
-     * Returns the offset from UTC in milliseconds at the specified time {@code whenMillis}.
+     * Returns the offset from UTC in milliseconds at the specified time {@when}.
      *
-     * @param whenMillis the Unix epoch time in milliseconds since 1st Jan 1970, 00:00:00 UTC
+     * @param when the number of milliseconds since January 1, 1970, 00:00:00 GMT
      *
      * @hide
      */
     @libcore.api.IntraCoreApi
-    public int getOffset(long whenMillis) {
-        int offsetIndex = findOffsetIndexForTimeInMilliseconds(whenMillis);
+    public int getOffset(long when) {
+        int offsetIndex = findOffsetIndexForTimeInMilliseconds(when);
         if (offsetIndex == -1) {
             // Assume that all times before our first transition correspond to the
             // oldest-known non-daylight offset. The obvious alternative would be to
@@ -644,15 +643,15 @@ public final class ZoneInfoData {
     }
 
     /**
-     * Returns whether the given {@code whenMillis} is in daylight saving time in this time zone.
+     * Returns whether the given {@code when} is in daylight saving time in this time zone.
      *
-     * @param whenMillis the Unix epoch time in milliseconds since 1st Jan 1970, 00:00:00 UTC
+     * @param when the number of milliseconds since January 1, 1970, 00:00:00 GMT
      *
      * @hide
      */
     @libcore.api.IntraCoreApi
-    public boolean isInDaylightTime(long whenMillis) {
-        int offsetIndex = findOffsetIndexForTimeInMilliseconds(whenMillis);
+    public boolean isInDaylightTime(long when) {
+        int offsetIndex = findOffsetIndexForTimeInMilliseconds(when);
         if (offsetIndex == -1) {
             // Assume that all times before our first transition are non-daylight.
             // Transition data tends to start with a transition to daylight, so just
@@ -675,15 +674,15 @@ public final class ZoneInfoData {
 
     /**
      * Returns the offset of daylight saving in milliseconds in the latest Daylight Savings Time
-     * after the time {@code whenMillis}. If no known DST occurs after {@code whenMillis}, it
-     * returns {@code null}.
+     * after the time {@code when}. If no known DST occurs after {@code when}, it returns
+     * {@code null}.
      *
-     * @param whenMillis the Unix epoch time in milliseconds since 1st Jan 1970, 00:00:00 UTC
+     * @param when the number of milliseconds since January 1, 1970, 00:00:00 GMT
      *
      * @hide
      */
     @libcore.api.IntraCoreApi
-    public @Nullable Integer getLatestDstSavingsMillis(long whenMillis) {
+    public @Nullable Integer getLatestDstSavingsMillis(long when) {
         // Find the latest daylight and standard offsets (if any).
         int lastStdTransitionIndex = -1;
         int lastDstTransitionIndex = -1;
@@ -708,7 +707,7 @@ public final class ZoneInfoData {
             // time in milliseconds into seconds in order to compare with transition time this
             // rounds up rather than down. It does that because this is interested in what
             // transitions apply in future
-            long currentUnixTimeSeconds = roundUpMillisToSeconds(whenMillis);
+            long currentUnixTimeSeconds = roundUpMillisToSeconds(when);
 
             // Is this zone observing DST currently or in the future?
             // We don't care if they've historically used it: most places have at least once.
@@ -812,9 +811,8 @@ public final class ZoneInfoData {
     }
 
     /**
-     * Returns the Unix epoch times (in seconds since 1st Jan 1970 00:00:00 UTC) at which the
-     * offsets changes for any reason, whether that is a change in the offset from UTC or a change
-     * in the DST.
+     * Returns the times (in seconds) at which the offsets changes for any reason, whether that is a
+     * change in the offset from UTC or a change in the DST.
      *
      * WARNING: This API is exposed only for app compat usage in @link libcore.util.ZoneInfo}.
      *

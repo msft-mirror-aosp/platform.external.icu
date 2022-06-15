@@ -264,11 +264,11 @@ void TransliteratorErrorTest::TestRBTErrors() {
 class StubTransliterator: public Transliterator{
 public:
     StubTransliterator(): Transliterator(UNICODE_STRING_SIMPLE("Any-Null"), 0) {}
-    virtual void handleTransliterate(Replaceable& ,UTransPosition& offsets,UBool) const override {
+    virtual void handleTransliterate(Replaceable& ,UTransPosition& offsets,UBool) const {
         offsets.start = offsets.limit;
     }
 
-    virtual UClassID getDynamicClassID() const override {
+    virtual UClassID getDynamicClassID() const{
         static char classID = 0;
         return (UClassID)&classID; 
     }

@@ -1078,6 +1078,7 @@ public abstract class NumberFormat extends UFormat {
      * {@icu} Returns the list of Locales for which NumberFormats are available.
      * @return the available locales
      * @draft ICU 3.2 (retain)
+     * @provisional This API might change or be removed in a future release.
      */
     public static ULocale[] getAvailableULocales() {
         if (shim == null) {
@@ -1439,7 +1440,7 @@ public abstract class NumberFormat extends UFormat {
     static NumberFormat createInstance(ULocale desiredLocale, int choice) {
         // If the choice is PLURALCURRENCYSTYLE, the pattern is not a single
         // pattern, it is a pattern set, so we do not need to get them here.
-        // If the choice is ISOCURRENCYSTYLE, the pattern is the currency
+        // If the choice is ISOCURRENCYSTYLE, the pattern is the currrency
         // pattern in the locale but by replacing the single currency sign
         // with double currency sign.
         String pattern = getPattern(desiredLocale, choice);

@@ -1,4 +1,3 @@
-
 /*
  * Copyright (C) 2007 The Android Open Source Project
  *
@@ -223,16 +222,16 @@ static void Memory_pokeLongNative(JNIEnv*, jclass, jlong dstAddress, jlong value
 
 static JNINativeMethod gMethods[] = {
     FAST_NATIVE_METHOD(Memory, peekByte, "(J)B"),
-    FAST_NATIVE_METHOD(Memory, peekByteArray, "(J[BII)V"),
-    FAST_NATIVE_METHOD(Memory, peekCharArray, "(J[CIIZ)V"),
-    FAST_NATIVE_METHOD(Memory, peekDoubleArray, "(J[DIIZ)V"),
-    FAST_NATIVE_METHOD(Memory, peekFloatArray, "(J[FIIZ)V"),
+    NATIVE_METHOD(Memory, peekByteArray, "(J[BII)V"),
+    NATIVE_METHOD(Memory, peekCharArray, "(J[CIIZ)V"),
+    NATIVE_METHOD(Memory, peekDoubleArray, "(J[DIIZ)V"),
+    NATIVE_METHOD(Memory, peekFloatArray, "(J[FIIZ)V"),
     FAST_NATIVE_METHOD(Memory, peekIntNative, "(J)I"),
-    FAST_NATIVE_METHOD(Memory, peekIntArray, "(J[IIIZ)V"),
+    NATIVE_METHOD(Memory, peekIntArray, "(J[IIIZ)V"),
     FAST_NATIVE_METHOD(Memory, peekLongNative, "(J)J"),
-    FAST_NATIVE_METHOD(Memory, peekLongArray, "(J[JIIZ)V"),
+    NATIVE_METHOD(Memory, peekLongArray, "(J[JIIZ)V"),
     FAST_NATIVE_METHOD(Memory, peekShortNative, "(J)S"),
-    FAST_NATIVE_METHOD(Memory, peekShortArray, "(J[SIIZ)V"),
+    NATIVE_METHOD(Memory, peekShortArray, "(J[SIIZ)V"),
     FAST_NATIVE_METHOD(Memory, pokeByte, "(JB)V"),
     NATIVE_METHOD(Memory, pokeByteArray, "(J[BII)V"),
     NATIVE_METHOD(Memory, pokeCharArray, "(J[CIIZ)V"),

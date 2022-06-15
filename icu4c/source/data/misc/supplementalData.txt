@@ -2105,7 +2105,7 @@ supplementalData:table(nofallback){
             "islamic-tbla",
         }
     }
-    cldrVersion{"40"}
+    cldrVersion{"38.1"}
     codeMappings{
         {
             "AA",
@@ -4676,12 +4676,9 @@ supplementalData:table(nofallback){
                 "bgm",
                 "bh",
                 "bhk",
-                "bic",
-                "bij",
                 "bjd",
                 "bjq",
                 "bkb",
-                "blg",
                 "bmy",
                 "bpb",
                 "btb",
@@ -4739,7 +4736,6 @@ supplementalData:table(nofallback){
                 "ggn~o",
                 "ggr",
                 "gio",
-                "gji",
                 "gli",
                 "gno",
                 "gti",
@@ -4808,7 +4804,6 @@ supplementalData:table(nofallback){
                 "mof",
                 "mst",
                 "mup",
-                "mvm",
                 "mwd",
                 "mwj",
                 "mwx~y",
@@ -4820,11 +4815,11 @@ supplementalData:table(nofallback){
                 "nbf",
                 "nbx",
                 "ncp",
-                "ngo",
                 "nln",
                 "nlr",
                 "nns",
                 "nnx",
+                "no",
                 "noo",
                 "npi",
                 "nts",
@@ -4833,7 +4828,6 @@ supplementalData:table(nofallback){
                 "ome",
                 "ory",
                 "oun",
-                "pat",
                 "pbu",
                 "pbz",
                 "pcr",
@@ -4891,11 +4885,9 @@ supplementalData:table(nofallback){
                 "unp",
                 "uok",
                 "uzn",
-                "vki",
                 "wgw",
                 "wit",
                 "wiw",
-                "wra",
                 "xba",
                 "xbx",
                 "xia",
@@ -5013,7 +5005,7 @@ supplementalData:table(nofallback){
                 "aqa",
                 "aqc~d",
                 "aqg",
-                "aqk~n",
+                "aql~n",
                 "aqp",
                 "aqr",
                 "aqt",
@@ -5084,9 +5076,8 @@ supplementalData:table(nofallback){
                 "bha~j",
                 "bhl~z",
                 "bi",
-                "bia~b",
-                "bid~g",
-                "bik~r",
+                "bia~g",
+                "bij~r",
                 "bit~z",
                 "bja~c",
                 "bje~p",
@@ -5094,8 +5085,7 @@ supplementalData:table(nofallback){
                 "bka",
                 "bkc~d",
                 "bkf~z",
-                "bla~f",
-                "blh~t",
+                "bla~t",
                 "blv~z",
                 "bm",
                 "bma~x",
@@ -5108,7 +5098,7 @@ supplementalData:table(nofallback){
                 "boe~r",
                 "bot~z",
                 "bpa",
-                "bpd~e",
+                "bpd",
                 "bpg~z",
                 "bqa~d",
                 "bqf~z",
@@ -5239,13 +5229,14 @@ supplementalData:table(nofallback){
                 "crf~t",
                 "crv~z",
                 "cs",
-                "csa~z",
+                "csa~w",
+                "csy~z",
                 "cta",
                 "ctc~e",
                 "ctg~h",
                 "ctl~p",
                 "cts~u",
-                "cty~z",
+                "ctz",
                 "cu",
                 "cua~c",
                 "cug~l",
@@ -5317,7 +5308,6 @@ supplementalData:table(nofallback){
                 "dju",
                 "djw",
                 "dka",
-                "dkg",
                 "dkk",
                 "dkr~s",
                 "dkx",
@@ -5407,7 +5397,6 @@ supplementalData:table(nofallback){
                 "egl",
                 "ego",
                 "egx~y",
-                "ehs",
                 "ehu",
                 "eip",
                 "eit",
@@ -5434,10 +5423,10 @@ supplementalData:table(nofallback){
                 "emg",
                 "emi",
                 "emm~n",
-                "emp~q",
+                "emp",
                 "ems",
                 "emu",
-                "emw~z",
+                "emw~y",
                 "en",
                 "ena~d",
                 "enf",
@@ -5581,10 +5570,11 @@ supplementalData:table(nofallback){
                 "ghn~o",
                 "ghr~t",
                 "gia~e",
-                "gig~i",
+                "gig~h",
                 "gil~n",
                 "gip~u",
                 "giw~z",
+                "gji",
                 "gjk",
                 "gjm~n",
                 "gjr",
@@ -5594,7 +5584,7 @@ supplementalData:table(nofallback){
                 "gkn~p",
                 "gku",
                 "gl",
-                "glb~d",
+                "glc~d",
                 "glh",
                 "glj~l",
                 "glo",
@@ -5663,7 +5653,7 @@ supplementalData:table(nofallback){
                 "gyi",
                 "gyl~o",
                 "gyr",
-                "gyy~z",
+                "gyy",
                 "gza",
                 "gzi",
                 "gzn",
@@ -5697,7 +5687,6 @@ supplementalData:table(nofallback){
                 "hji",
                 "hka",
                 "hke",
-                "hkh",
                 "hkk",
                 "hkn",
                 "hks",
@@ -5886,7 +5875,7 @@ supplementalData:table(nofallback){
                 "jax~z",
                 "jbe",
                 "jbi~k",
-                "jbm~o",
+                "jbn~o",
                 "jbr",
                 "jbt~u",
                 "jbw",
@@ -5919,7 +5908,7 @@ supplementalData:table(nofallback){
                 "jka",
                 "jkm",
                 "jko~p",
-                "jkr~s",
+                "jkr",
                 "jku",
                 "jle",
                 "jls",
@@ -6128,7 +6117,7 @@ supplementalData:table(nofallback){
                 "lrt",
                 "lrv",
                 "lrz",
-                "lsa~b",
+                "lsa",
                 "lsd~e",
                 "lsh~i",
                 "lsl~p",
@@ -6158,7 +6147,6 @@ supplementalData:table(nofallback){
                 "lwo",
                 "lws~u",
                 "lww",
-                "lxm",
                 "lya",
                 "lyg",
                 "lyn",
@@ -6235,8 +6223,7 @@ supplementalData:table(nofallback){
                 "mux~z",
                 "mva~b",
                 "mvd~i",
-                "mvk~l",
-                "mvn~z",
+                "mvk~z",
                 "mwa~c",
                 "mwe~i",
                 "mwk~w",
@@ -6277,8 +6264,7 @@ supplementalData:table(nofallback){
                 "nfr",
                 "nfu",
                 "ng",
-                "nga~n",
-                "ngp~z",
+                "nga~z",
                 "nha~i",
                 "nhk",
                 "nhm~r",
@@ -6309,7 +6295,6 @@ supplementalData:table(nofallback){
                 "nnp~r",
                 "nnt~w",
                 "nny~z",
-                "no",
                 "noa",
                 "noc~n",
                 "nop~q",
@@ -6325,7 +6310,6 @@ supplementalData:table(nofallback){
                 "nqg",
                 "nqk~o",
                 "nqq",
-                "nqt",
                 "nqy",
                 "nr",
                 "nra~c",
@@ -6389,7 +6373,6 @@ supplementalData:table(nofallback){
                 "oc",
                 "oca",
                 "och",
-                "ocm",
                 "oco",
                 "ocu",
                 "oda",
@@ -6411,12 +6394,12 @@ supplementalData:table(nofallback){
                 "ojp",
                 "ojs",
                 "ojv~w",
-                "oka~e",
+                "oka~b",
+                "okd~e",
                 "okg~o",
                 "okr~s",
                 "oku~v",
                 "okx",
-                "okz",
                 "ola",
                 "old~e",
                 "olk",
@@ -6430,7 +6413,7 @@ supplementalData:table(nofallback){
                 "omi",
                 "omk~l",
                 "omn~r",
-                "omt~y",
+                "omt~x",
                 "ona~b",
                 "one",
                 "ong",
@@ -6460,7 +6443,7 @@ supplementalData:table(nofallback){
                 "osa",
                 "osc",
                 "osi",
-                "osn~p",
+                "oso~p",
                 "ost~u",
                 "osx",
                 "ota~b",
@@ -6484,8 +6467,7 @@ supplementalData:table(nofallback){
                 "pa",
                 "paa~i",
                 "pak~m",
-                "pao~s",
-                "pau~z",
+                "pao~z",
                 "pbb~c",
                 "pbe~i",
                 "pbl~p",
@@ -6703,7 +6685,8 @@ supplementalData:table(nofallback){
                 "ruy~z",
                 "rw",
                 "rwa",
-                "rwk~m",
+                "rwk",
+                "rwm",
                 "rwo",
                 "rwr",
                 "rxd",
@@ -6792,7 +6775,6 @@ supplementalData:table(nofallback){
                 "sqj~k",
                 "sqm~o",
                 "sqq~u",
-                "sqx",
                 "sr",
                 "sra~b",
                 "sre~i",
@@ -6810,7 +6792,6 @@ supplementalData:table(nofallback){
                 "sue",
                 "sug",
                 "sui~k",
-                "suo",
                 "suq~t",
                 "suv~z",
                 "sv",
@@ -6956,7 +6937,8 @@ supplementalData:table(nofallback){
                 "tyn",
                 "typ",
                 "tyr~v",
-                "tyx~z",
+                "tyx",
+                "tyz",
                 "tza",
                 "tzh",
                 "tzj",
@@ -7010,7 +6992,6 @@ supplementalData:table(nofallback){
                 "una",
                 "une",
                 "ung",
-                "uni",
                 "unk",
                 "unm~n",
                 "unr",
@@ -7069,9 +7050,9 @@ supplementalData:table(nofallback){
                 "vis~t",
                 "viv",
                 "vka",
-                "vkj~p",
+                "vki~m",
+                "vko~p",
                 "vkt~u",
-                "vkz",
                 "vlp",
                 "vls",
                 "vma~m",
@@ -7147,7 +7128,7 @@ supplementalData:table(nofallback){
                 "wlr~s",
                 "wlu~y",
                 "wma~e",
-                "wmg~i",
+                "wmh~i",
                 "wmm~o",
                 "wms~t",
                 "wmw~x",
@@ -7168,7 +7149,7 @@ supplementalData:table(nofallback){
                 "wow",
                 "woy",
                 "wpc",
-                "wrb",
+                "wra~b",
                 "wrd",
                 "wrg~i",
                 "wrk~p",
@@ -7270,9 +7251,10 @@ supplementalData:table(nofallback){
                 "xmj~z",
                 "xna~b",
                 "xnd",
-                "xng~k",
+                "xng~i",
+                "xnk",
                 "xnm~o",
-                "xnq~u",
+                "xnr~u",
                 "xny~z",
                 "xoc~d",
                 "xog",
@@ -7418,7 +7400,8 @@ supplementalData:table(nofallback){
                 "yry",
                 "ysc~d",
                 "ysg",
-                "ysl~p",
+                "ysl",
+                "ysn~p",
                 "ysr~s",
                 "ysy",
                 "yta",
@@ -7458,7 +7441,7 @@ supplementalData:table(nofallback){
                 "zbc",
                 "zbe",
                 "zbl",
-                "zbt~u",
+                "zbt",
                 "zbw",
                 "zca",
                 "zch",
@@ -7488,7 +7471,6 @@ supplementalData:table(nofallback){
                 "zkr",
                 "zkt~v",
                 "zkz",
-                "zla",
                 "zle",
                 "zlj",
                 "zlm~n",
@@ -7757,7 +7739,6 @@ supplementalData:table(nofallback){
                 "Cher",
                 "Chrs",
                 "Copt",
-                "Cpmn",
                 "Cprt",
                 "Cyrl",
                 "Deva",
@@ -7841,7 +7822,6 @@ supplementalData:table(nofallback){
                 "Orya",
                 "Osge",
                 "Osma",
-                "Ougr",
                 "Palm",
                 "Pauc",
                 "Perm",
@@ -7884,11 +7864,8 @@ supplementalData:table(nofallback){
                 "Thai",
                 "Tibt",
                 "Tirh",
-                "Tnsa",
-                "Toto",
                 "Ugar",
                 "Vaii",
-                "Vith",
                 "Wara",
                 "Wcho",
                 "Xpeo",
@@ -7986,31 +7963,15 @@ supplementalData:table(nofallback){
                 "czus",
                 "czvy",
                 "czzl",
-                "ee44",
-                "ee49",
-                "ee51",
-                "ee57",
-                "ee59",
-                "ee65",
-                "ee67",
-                "ee70",
-                "ee78",
-                "ee82",
-                "ee86",
                 "fi01",
                 "fra~b",
                 "frbl",
                 "frc",
-                "frcor",
                 "frcp",
                 "frd~g",
                 "frgf",
                 "frgp",
-                "frgua",
-                "frh~l",
-                "frlre",
-                "frm",
-                "frmay",
+                "frh~m",
                 "frmf",
                 "frmq",
                 "frn",
@@ -8030,7 +7991,6 @@ supplementalData:table(nofallback){
                 "gbarm",
                 "gbbla",
                 "gbbly",
-                "gbbmh",
                 "gbbnb",
                 "gbcgv",
                 "gbckf",
@@ -8054,7 +8014,6 @@ supplementalData:table(nofallback){
                 "gbnta",
                 "gbnym",
                 "gbomh",
-                "gbpol",
                 "gbsct",
                 "gbstb",
                 "gbukm",
@@ -8073,17 +8032,16 @@ supplementalData:table(nofallback){
                 "gr81~5",
                 "gr91~4",
                 "gra1",
-                "indd",
-                "indn",
-                "ir31~2",
                 "is0",
                 "itao",
                 "itci",
+                "itgo",
                 "itog",
                 "itot",
-                "itsd",
+                "itpn",
+                "itts",
+                "itud",
                 "itvs",
-                "kzbay",
                 "laxn",
                 "lud",
                 "lug",
@@ -8102,11 +8060,6 @@ supplementalData:table(nofallback){
                 "mk70~9",
                 "mk80~5",
                 "mrnkc",
-                "mubr",
-                "mucu",
-                "mupu",
-                "muqb",
-                "muvp",
                 "mvce",
                 "mvnc",
                 "mvno",
@@ -8118,14 +8071,7 @@ supplementalData:table(nofallback){
                 "nlaw",
                 "nlcw",
                 "nlsx",
-                "no01~2",
-                "no04~9",
-                "no10",
-                "no12",
-                "no14",
                 "no16~7",
-                "no19",
-                "no20",
                 "no23",
                 "nzn",
                 "nzs",
@@ -8148,7 +8094,6 @@ supplementalData:table(nofallback){
                 "plwp",
                 "plzp",
                 "shta",
-                "sts",
                 "tteto",
                 "ttrcm",
                 "ttwto",
@@ -8815,94 +8760,21 @@ supplementalData:table(nofallback){
                 "ecsd~e",
                 "ect~u",
                 "ecw~z",
-                "ee130",
-                "ee141~2",
-                "ee171",
-                "ee184",
-                "ee191",
-                "ee198",
-                "ee205",
-                "ee214",
-                "ee245",
-                "ee247",
-                "ee251",
-                "ee255",
-                "ee272",
-                "ee283~4",
-                "ee291",
-                "ee293",
-                "ee296",
-                "ee303",
-                "ee305",
-                "ee317",
-                "ee321",
-                "ee338",
-                "ee353",
                 "ee37",
                 "ee39",
-                "ee424",
-                "ee430~2",
-                "ee441~2",
-                "ee446",
-                "ee45",
-                "ee478",
-                "ee480",
-                "ee486",
-                "ee50",
-                "ee503",
-                "ee511",
-                "ee514",
-                "ee52",
-                "ee528",
-                "ee557",
-                "ee56",
-                "ee567",
-                "ee586",
-                "ee60",
-                "ee615",
-                "ee618",
-                "ee622",
-                "ee624",
-                "ee638",
-                "ee64",
-                "ee651",
-                "ee653",
-                "ee661",
-                "ee663",
-                "ee668",
-                "ee68",
-                "ee689",
-                "ee698",
-                "ee708",
-                "ee71",
-                "ee712",
-                "ee714",
-                "ee719",
-                "ee726",
-                "ee732",
-                "ee735",
+                "ee44",
+                "ee49",
+                "ee51",
+                "ee57",
+                "ee59",
+                "ee65",
+                "ee67",
+                "ee70",
                 "ee74",
-                "ee784",
-                "ee79",
-                "ee792~3",
-                "ee796",
-                "ee803",
-                "ee809",
-                "ee81",
-                "ee824",
-                "ee834",
+                "ee78",
+                "ee82",
                 "ee84",
-                "ee855",
-                "ee87",
-                "ee890",
-                "ee897",
-                "ee899",
-                "ee901",
-                "ee903",
-                "ee907",
-                "ee917",
-                "ee919",
-                "ee928",
+                "ee86",
                 "egalx",
                 "egasn",
                 "egast",
@@ -9019,7 +8891,6 @@ supplementalData:table(nofallback){
                 "fmyap",
                 "fr01~9",
                 "fr10~9",
-                "fr20r",
                 "fr21~9",
                 "fr2a~b",
                 "fr30~9",
@@ -9029,15 +8900,17 @@ supplementalData:table(nofallback){
                 "fr70~9",
                 "fr80~9",
                 "fr90~5",
-                "fr971~4",
-                "fr976",
                 "frara",
                 "frbfc",
                 "frbre",
+                "frcor",
                 "frcvl",
                 "frges",
+                "frgua",
                 "frhdf",
                 "fridf",
+                "frlre",
+                "frmay",
                 "frnaq",
                 "frnor",
                 "frocc",
@@ -9052,7 +8925,6 @@ supplementalData:table(nofallback){
                 "gbans",
                 "gbbas",
                 "gbbbd",
-                "gbbcp",
                 "gbbdf~g",
                 "gbben",
                 "gbbex",
@@ -9061,6 +8933,7 @@ supplementalData:table(nofallback){
                 "gbbgw",
                 "gbbir",
                 "gbbkm",
+                "gbbmh",
                 "gbbne",
                 "gbbnh",
                 "gbbns",
@@ -9185,6 +9058,7 @@ supplementalData:table(nofallback){
                 "gbpem",
                 "gbpkn",
                 "gbply",
+                "gbpol",
                 "gbpor",
                 "gbpow",
                 "gbpte",
@@ -9328,7 +9202,6 @@ supplementalData:table(nofallback){
                 "gqbs",
                 "gqc",
                 "gqcs",
-                "gqdj",
                 "gqi",
                 "gqkn",
                 "gqli",
@@ -9513,8 +9386,9 @@ supplementalData:table(nofallback){
                 "inbr",
                 "inch",
                 "inct",
-                "indh",
+                "indd",
                 "indl",
+                "indn",
                 "inga",
                 "ingj",
                 "inhp",
@@ -9559,82 +9433,11 @@ supplementalData:table(nofallback){
                 "iqsd",
                 "iqsu",
                 "iqwa",
-                "ir00~9",
+                "ir01~8",
                 "ir10~9",
                 "ir20~9",
-                "ir30",
+                "ir30~2",
                 "is1~8",
-                "isakh",
-                "isakn",
-                "isaku",
-                "isarn",
-                "isasa",
-                "isbfj",
-                "isbla",
-                "isblo",
-                "isbog",
-                "isbol",
-                "isdab",
-                "isdav",
-                "isdju",
-                "iseom",
-                "iseyf",
-                "isfjd",
-                "isfjl",
-                "isfla",
-                "isfld",
-                "isflr",
-                "isgar",
-                "isgog",
-                "isgrn",
-                "isgru",
-                "isgry",
-                "ishaf",
-                "ishel",
-                "ishrg",
-                "ishru",
-                "ishut",
-                "ishuv",
-                "ishva",
-                "ishve",
-                "isisa",
-                "iskal",
-                "iskjo",
-                "iskop",
-                "islan",
-                "ismos",
-                "ismyr",
-                "isnor",
-                "isrge",
-                "isrgy",
-                "isrhh",
-                "isrkn",
-                "isrkv",
-                "issbh",
-                "issbt",
-                "issdn",
-                "issdv",
-                "issel",
-                "issey",
-                "issfa",
-                "isshf",
-                "isskf~g",
-                "issko",
-                "issku",
-                "issnf",
-                "issog",
-                "issol",
-                "isssf",
-                "issss",
-                "isstr",
-                "issty",
-                "issvg",
-                "istal",
-                "isthg",
-                "istjo",
-                "isvem",
-                "isver",
-                "isvop",
                 "it21",
                 "it23",
                 "it25",
@@ -9682,7 +9485,6 @@ supplementalData:table(nofallback){
                 "itfm",
                 "itfr",
                 "itge",
-                "itgo",
                 "itgr",
                 "itim",
                 "itis",
@@ -9705,7 +9507,7 @@ supplementalData:table(nofallback){
                 "itpc~e",
                 "itpg",
                 "itpi",
-                "itpn~o",
+                "itpo",
                 "itpr",
                 "itpt~v",
                 "itpz",
@@ -9716,16 +9518,16 @@ supplementalData:table(nofallback){
                 "itri",
                 "itrm~o",
                 "itsa",
+                "itsd",
                 "itsi",
                 "itso~p",
                 "itsr~s",
-                "itsu~v",
+                "itsv",
                 "itta",
                 "itte",
                 "ittn~p",
-                "ittr~s",
+                "ittr",
                 "ittv",
-                "itud",
                 "itva~c",
                 "itve",
                 "itvi",
@@ -9799,6 +9601,7 @@ supplementalData:table(nofallback){
                 "kzalm",
                 "kzast",
                 "kzaty",
+                "kzbay",
                 "kzkar",
                 "kzkus",
                 "kzkzy",
@@ -10148,16 +9951,21 @@ supplementalData:table(nofallback){
                 "mt60~8",
                 "muag",
                 "mubl",
+                "mubr",
                 "mucc",
+                "mucu",
                 "mufl",
                 "mugp",
                 "mumo",
                 "mupa",
                 "mupl",
+                "mupu",
                 "mupw",
+                "muqb",
                 "muro",
                 "murr",
                 "musa",
+                "muvp",
                 "mv00~5",
                 "mv07~8",
                 "mv12~4",
@@ -10314,18 +10122,12 @@ supplementalData:table(nofallback){
                 "nlut",
                 "nlze",
                 "nlzh",
-                "no03",
-                "no11",
-                "no15",
-                "no18",
-                "no21~2",
-                "no30",
-                "no34",
-                "no38",
-                "no42",
-                "no46",
+                "no01~9",
+                "no10~2",
+                "no14~5",
+                "no18~9",
+                "no20~2",
                 "no50",
-                "no54",
                 "np1~5",
                 "npba",
                 "npbh",
@@ -10715,7 +10517,7 @@ supplementalData:table(nofallback){
                 "sbwe",
                 "sc01~9",
                 "sc10~9",
-                "sc20~7",
+                "sc20~5",
                 "sddc",
                 "sdde",
                 "sddn",
@@ -10832,8 +10634,8 @@ supplementalData:table(nofallback){
                 "ssnu",
                 "ssuy",
                 "sswr",
-                "st01~6",
                 "stp",
+                "sts",
                 "svah",
                 "svca",
                 "svch",
@@ -11025,15 +10827,15 @@ supplementalData:table(nofallback){
                 "ug201~9",
                 "ug210~9",
                 "ug220~9",
-                "ug230~7",
+                "ug230~6",
                 "ug301~9",
                 "ug310~9",
                 "ug320~9",
-                "ug330~7",
+                "ug330~4",
                 "ug401~9",
                 "ug410~9",
                 "ug420~9",
-                "ug430~5",
+                "ug430~2",
                 "ugc",
                 "uge",
                 "ugn",
@@ -11478,7 +11280,6 @@ supplementalData:table(nofallback){
                 "pressure-millimeter-of-mercury",
                 "proportion-karat",
                 "torque-pound-foot",
-                "concentr-milligram-per-deciliter",
             }
             regular{
                 "acceleration-g-force",
@@ -11499,7 +11300,7 @@ supplementalData:table(nofallback){
                 "area-square-yard",
                 "area-dunam",
                 "concentr-karat",
-                "concentr-milligram-ofglucose-per-deciliter",
+                "concentr-milligram-per-deciliter",
                 "concentr-millimole-per-liter",
                 "concentr-percent",
                 "concentr-permille",
@@ -11508,7 +11309,6 @@ supplementalData:table(nofallback){
                 "concentr-mole",
                 "concentr-item",
                 "concentr-portion",
-                "concentr-ofglucose",
                 "consumption-liter-per-100-kilometer",
                 "consumption-liter-per-kilometer",
                 "consumption-mile-per-gallon",
@@ -11555,7 +11355,6 @@ supplementalData:table(nofallback){
                 "energy-british-thermal-unit",
                 "force-pound-force",
                 "force-newton",
-                "force-kilowatt-hour-per-100-kilometer",
                 "frequency-gigahertz",
                 "frequency-hertz",
                 "frequency-kilohertz",
@@ -11692,7 +11491,6 @@ supplementalData:table(nofallback){
                 "aluku",
                 "ao1990",
                 "aranes",
-                "arkaika",
                 "asante",
                 "auvern",
                 "baku1926",
@@ -11717,7 +11515,6 @@ supplementalData:table(nofallback){
                 "fonnapa",
                 "fonupa",
                 "fonxsamp",
-                "gallo",
                 "gascon",
                 "grclass",
                 "grital",
@@ -11768,7 +11565,6 @@ supplementalData:table(nofallback){
                 "surmiran",
                 "sursilv",
                 "sutsilv",
-                "synnejyl",
                 "tarask",
                 "tongyong",
                 "tunumiit",
@@ -11779,7 +11575,6 @@ supplementalData:table(nofallback){
                 "vaidika",
                 "valencia",
                 "vallader",
-                "vecdruka",
                 "vivaraup",
                 "wadegile",
                 "xsistemo",
@@ -12686,6 +12481,8 @@ supplementalData:table(nofallback){
         ckb{
             primary{
                 scripts{"Arab"}
+            }
+            secondary{
                 territories{
                     "IQ",
                     "IR",
@@ -13890,10 +13687,6 @@ supplementalData:table(nofallback){
         hnj{
             primary{
                 scripts{"Laoo"}
-            }
-            secondary{
-                scripts{"Hmnp"}
-                territories{"US"}
             }
         }
         hnn{
@@ -15481,15 +15274,6 @@ supplementalData:table(nofallback){
                 scripts{"Latn"}
             }
         }
-        no{
-            primary{
-                scripts{"Latn"}
-                territories{
-                    "NO",
-                    "SJ",
-                }
-            }
-        }
         nod{
             primary{
                 scripts{"Lana"}
@@ -15908,17 +15692,6 @@ supplementalData:table(nofallback){
         rgn{
             primary{
                 scripts{"Latn"}
-            }
-        }
-        rhg{
-            primary{
-                scripts{"Rohg"}
-            }
-            secondary{
-                scripts{
-                    "Arab",
-                    "Latn",
-                }
             }
         }
         ria{
@@ -17555,7 +17328,7 @@ supplementalData:table(nofallback){
             matchVariable{
                 americas{"019"}
                 cnsar{"HK+MO"}
-                enUS{"AS+CA+GU+MH+MP+PH+PR+UM+US+VI"}
+                enUS{"AS+GU+MH+MP+PR+UM+US+VI"}
                 maghreb{"MA+DZ+TN+LY+MR+EH"}
             }
             paradigmLocales{
@@ -17655,12 +17428,6 @@ supplementalData:table(nofallback){
                 "1",
             }
             {
-                "am",
-                "en",
-                "30",
-                "1",
-            }
-            {
                 "ay",
                 "es",
                 "20",
@@ -17670,12 +17437,6 @@ supplementalData:table(nofallback){
                 "az",
                 "ru",
                 "30",
-                "1",
-            }
-            {
-                "bal",
-                "ur",
-                "20",
                 "1",
             }
             {
@@ -17703,20 +17464,8 @@ supplementalData:table(nofallback){
                 "1",
             }
             {
-                "bo",
-                "zh",
-                "20",
-                "1",
-            }
-            {
                 "br",
                 "fr",
-                "20",
-                "1",
-            }
-            {
-                "ca",
-                "es",
                 "20",
                 "1",
             }
@@ -17749,12 +17498,6 @@ supplementalData:table(nofallback){
                 "fr",
                 "20",
                 "1",
-            }
-            {
-                "cs",
-                "sk",
-                "20",
-                "0",
             }
             {
                 "cy",
@@ -17958,12 +17701,6 @@ supplementalData:table(nofallback){
                 "lua",
                 "fr",
                 "30",
-                "1",
-            }
-            {
-                "mai",
-                "hi",
-                "20",
                 "1",
             }
             {
@@ -18237,12 +17974,6 @@ supplementalData:table(nofallback){
                 "1",
             }
             {
-                "uk",
-                "ru",
-                "20",
-                "1",
-            }
-            {
                 "ur",
                 "en",
                 "30",
@@ -18276,12 +18007,6 @@ supplementalData:table(nofallback){
                 "yo",
                 "en",
                 "30",
-                "1",
-            }
-            {
-                "za",
-                "zh",
-                "20",
                 "1",
             }
             {
@@ -19413,12 +19138,6 @@ supplementalData:table(nofallback){
                 "0",
             }
             {
-                "am_Ethi",
-                "en_Latn",
-                "10",
-                "1",
-            }
-            {
                 "az_Latn",
                 "ru_Cyrl",
                 "10",
@@ -19427,12 +19146,6 @@ supplementalData:table(nofallback){
             {
                 "bn_Beng",
                 "en_Latn",
-                "10",
-                "1",
-            }
-            {
-                "bo_Tibt",
-                "zh_Hans",
                 "10",
                 "1",
             }
@@ -19563,9 +19276,15 @@ supplementalData:table(nofallback){
                 "0",
             }
             {
-                "za_Latn",
                 "zh_Hans",
-                "10",
+                "zh_Hant",
+                "15",
+                "1",
+            }
+            {
+                "zh_Hant",
+                "zh_Hans",
+                "19",
                 "1",
             }
             {
@@ -19957,6 +19676,7 @@ supplementalData:table(nofallback){
             "en_BS",
             "en_BW",
             "en_BZ",
+            "en_CA",
             "en_CC",
             "en_CK",
             "en_CM",
@@ -19995,7 +19715,6 @@ supplementalData:table(nofallback){
             "en_MS",
             "en_MT",
             "en_MU",
-            "en_MV",
             "en_MW",
             "en_MY",
             "en_NA",
@@ -20005,6 +19724,7 @@ supplementalData:table(nofallback){
             "en_NU",
             "en_NZ",
             "en_PG",
+            "en_PH",
             "en_PK",
             "en_PN",
             "en_PW",
@@ -20068,10 +19788,6 @@ supplementalData:table(nofallback){
             "es_UY",
             "es_VE",
         }
-        no{
-            "nb",
-            "nn",
-        }
         pt_PT{
             "pt_AO",
             "pt_CH",
@@ -20088,7 +19804,6 @@ supplementalData:table(nofallback){
         root{
             "az_Arab",
             "az_Cyrl",
-            "bal_Latn",
             "blt_Latn",
             "bm_Nkoo",
             "bs_Cyrl",
@@ -21036,19 +20751,19 @@ supplementalData:table(nofallback){
         EE{
             "ee37",
             "ee39",
-            "ee45",
-            "ee50",
-            "ee52",
-            "ee56",
-            "ee60",
-            "ee64",
-            "ee68",
-            "ee71",
+            "ee44",
+            "ee49",
+            "ee51",
+            "ee57",
+            "ee59",
+            "ee65",
+            "ee67",
+            "ee70",
             "ee74",
-            "ee79",
-            "ee81",
+            "ee78",
+            "ee82",
             "ee84",
-            "ee87",
+            "ee86",
         }
         EG{
             "egalx",
@@ -21156,18 +20871,20 @@ supplementalData:table(nofallback){
             "fmyap",
         }
         FR{
-            "fr20r",
             "frara",
             "frbfc",
             "frbl",
             "frbre",
+            "frcor",
             "frcp",
             "frcvl",
             "frges",
             "frgf",
-            "frgp",
+            "frgua",
             "frhdf",
             "fridf",
+            "frlre",
+            "frmay",
             "frmf",
             "frmq",
             "frnaq",
@@ -21178,10 +20895,8 @@ supplementalData:table(nofallback){
             "frpdl",
             "frpf",
             "frpm",
-            "frre",
             "frtf",
             "frwf",
-            "fryt",
         }
         GA{
             "ga1",
@@ -21205,7 +20920,6 @@ supplementalData:table(nofallback){
             "gbans",
             "gbbas",
             "gbbbd",
-            "gbbcp",
             "gbbdf",
             "gbbdg",
             "gbben",
@@ -21215,6 +20929,7 @@ supplementalData:table(nofallback){
             "gbbgw",
             "gbbir",
             "gbbkm",
+            "gbbmh",
             "gbbne",
             "gbbnh",
             "gbbns",
@@ -21342,6 +21057,7 @@ supplementalData:table(nofallback){
             "gbpem",
             "gbpkn",
             "gbply",
+            "gbpol",
             "gbpor",
             "gbpow",
             "gbpte",
@@ -21671,8 +21387,9 @@ supplementalData:table(nofallback){
             "inbr",
             "inch",
             "inct",
-            "indh",
+            "indd",
             "indl",
+            "indn",
             "inga",
             "ingj",
             "inhp",
@@ -21722,7 +21439,6 @@ supplementalData:table(nofallback){
             "iqwa",
         }
         IR{
-            "ir00",
             "ir01",
             "ir02",
             "ir03",
@@ -21731,7 +21447,6 @@ supplementalData:table(nofallback){
             "ir06",
             "ir07",
             "ir08",
-            "ir09",
             "ir10",
             "ir11",
             "ir12",
@@ -21753,6 +21468,8 @@ supplementalData:table(nofallback){
             "ir28",
             "ir29",
             "ir30",
+            "ir31",
+            "ir32",
         }
         IS{
             "is1",
@@ -22014,6 +21731,7 @@ supplementalData:table(nofallback){
             "kzalm",
             "kzast",
             "kzaty",
+            "kzbay",
             "kzkar",
             "kzkus",
             "kzkzy",
@@ -22688,16 +22406,21 @@ supplementalData:table(nofallback){
         MU{
             "muag",
             "mubl",
+            "mubr",
             "mucc",
+            "mucu",
             "mufl",
             "mugp",
             "mumo",
             "mupa",
             "mupl",
+            "mupu",
             "mupw",
+            "muqb",
             "muro",
             "murr",
             "musa",
+            "muvp",
         }
         MV{
             "mv00",
@@ -22897,19 +22620,26 @@ supplementalData:table(nofallback){
             "nlzh",
         }
         NO{
+            "no01",
+            "no02",
             "no03",
+            "no04",
+            "no05",
+            "no06",
+            "no07",
+            "no08",
+            "no09",
+            "no10",
             "no11",
+            "no12",
+            "no14",
             "no15",
             "no18",
+            "no19",
+            "no20",
             "no21",
             "no22",
-            "no30",
-            "no34",
-            "no38",
-            "no42",
-            "no46",
             "no50",
-            "no54",
         }
         NP{
             "np1",
@@ -23385,8 +23115,6 @@ supplementalData:table(nofallback){
             "sc23",
             "sc24",
             "sc25",
-            "sc26",
-            "sc27",
         }
         SD{
             "sddc",
@@ -23746,13 +23474,8 @@ supplementalData:table(nofallback){
             "sswr",
         }
         ST{
-            "st01",
-            "st02",
-            "st03",
-            "st04",
-            "st05",
-            "st06",
             "stp",
+            "sts",
         }
         SV{
             "svah",
@@ -24814,113 +24537,6 @@ supplementalData:table(nofallback){
             "do11",
             "do12",
         }
-        ee37{
-            "ee141",
-            "ee198",
-            "ee245",
-            "ee296",
-            "ee305",
-            "ee338",
-            "ee353",
-            "ee424",
-            "ee431",
-            "ee446",
-            "ee651",
-            "ee653",
-            "ee719",
-            "ee726",
-            "ee784",
-            "ee890",
-        }
-        ee39{"ee205"}
-        ee45{
-            "ee130",
-            "ee251",
-            "ee321",
-            "ee442",
-            "ee511",
-            "ee514",
-            "ee735",
-            "ee803",
-        }
-        ee50{
-            "ee247",
-            "ee486",
-            "ee618",
-        }
-        ee52{
-            "ee255",
-            "ee567",
-            "ee834",
-        }
-        ee56{
-            "ee184",
-            "ee441",
-            "ee907",
-        }
-        ee60{
-            "ee191",
-            "ee272",
-            "ee661",
-            "ee663",
-            "ee792",
-            "ee901",
-            "ee903",
-            "ee928",
-        }
-        ee64{
-            "ee284",
-            "ee622",
-            "ee708",
-        }
-        ee68{
-            "ee214",
-            "ee303",
-            "ee430",
-            "ee624",
-            "ee638",
-            "ee712",
-            "ee809",
-        }
-        ee71{
-            "ee293",
-            "ee317",
-            "ee503",
-            "ee668",
-        }
-        ee74{
-            "ee478",
-            "ee689",
-            "ee714",
-        }
-        ee79{
-            "ee171",
-            "ee283",
-            "ee291",
-            "ee432",
-            "ee528",
-            "ee586",
-            "ee793",
-            "ee796",
-        }
-        ee81{
-            "ee557",
-            "ee824",
-            "ee855",
-        }
-        ee84{
-            "ee480",
-            "ee615",
-            "ee897",
-            "ee899",
-        }
-        ee87{
-            "ee142",
-            "ee698",
-            "ee732",
-            "ee917",
-            "ee919",
-        }
         esan{
             "esal",
             "esca",
@@ -25013,10 +24629,6 @@ supplementalData:table(nofallback){
             "fj08",
             "fj11",
         }
-        fr20r{
-            "fr2a",
-            "fr2b",
-        }
         frara{
             "fr01",
             "fr03",
@@ -25047,6 +24659,10 @@ supplementalData:table(nofallback){
             "fr35",
             "fr56",
         }
+        frcor{
+            "fr2a",
+            "fr2b",
+        }
         frcvl{
             "fr18",
             "fr28",
@@ -25067,8 +24683,7 @@ supplementalData:table(nofallback){
             "fr68",
             "fr88",
         }
-        frgf{"fr973"}
-        frgp{"fr971"}
+        frgua{"frgp"}
         frhdf{
             "fr02",
             "fr59",
@@ -25086,7 +24701,8 @@ supplementalData:table(nofallback){
             "fr94",
             "fr95",
         }
-        frmq{"fr972"}
+        frlre{"frre"}
+        frmay{"fryt"}
         frnaq{
             "fr16",
             "fr17",
@@ -25138,8 +24754,6 @@ supplementalData:table(nofallback){
             "fr72",
             "fr85",
         }
-        frre{"fr974"}
-        fryt{"fr976"}
         gnb{
             "gnbf",
             "gnbk",
@@ -25189,7 +24803,6 @@ supplementalData:table(nofallback){
         }
         gqc{
             "gqcs",
-            "gqdj",
             "gqkn",
             "gqli",
             "gqwn",
@@ -25295,94 +24908,6 @@ supplementalData:table(nofallback){
             "iedl",
             "iemn",
         }
-        is1{
-            "isgar",
-            "ishaf",
-            "iskjo",
-            "iskop",
-            "ismos",
-            "isrkv",
-            "issel",
-        }
-        is2{
-            "isgrn",
-            "isrkn",
-            "issdn",
-            "issvg",
-        }
-        is3{
-            "isakn",
-            "isbog",
-            "isdab",
-            "iseom",
-            "isgru",
-            "ishel",
-            "ishva",
-            "issko",
-            "issnf",
-            "issty",
-        }
-        is4{
-            "isarn",
-            "isbol",
-            "isisa",
-            "iskal",
-            "isrhh",
-            "issdv",
-            "isstr",
-            "istal",
-            "isver",
-        }
-        is5{
-            "isakh",
-            "isblo",
-            "ishut",
-            "ishuv",
-            "isskg",
-            "isssf",
-            "issss",
-        }
-        is6{
-            "isaku",
-            "isdav",
-            "iseyf",
-            "isfjl",
-            "isgry",
-            "ishrg",
-            "islan",
-            "isnor",
-            "issbh",
-            "issbt",
-            "issku",
-            "isthg",
-            "istjo",
-        }
-        is7{
-            "isbfj",
-            "isdju",
-            "isfjd",
-            "isfld",
-            "isflr",
-            "issey",
-            "isshf",
-            "isvop",
-        }
-        is8{
-            "isasa",
-            "isbla",
-            "isfla",
-            "isgog",
-            "ishru",
-            "ishve",
-            "ismyr",
-            "isrge",
-            "isrgy",
-            "issfa",
-            "isskf",
-            "issog",
-            "issol",
-            "isvem",
-        }
         it21{
             "ital",
             "itat",
@@ -25419,12 +24944,6 @@ supplementalData:table(nofallback){
             "itve",
             "itvi",
             "itvr",
-        }
-        it36{
-            "itgo",
-            "itpn",
-            "itts",
-            "itud",
         }
         it42{
             "itge",
@@ -25524,8 +25043,8 @@ supplementalData:table(nofallback){
             "itca",
             "itnu",
             "itor",
+            "itsd",
             "itss",
-            "itsu",
         }
         knk{
             "kn01",
@@ -25967,7 +25486,6 @@ supplementalData:table(nofallback){
             "ug234",
             "ug235",
             "ug236",
-            "ug237",
         }
         ugn{
             "ug301",
@@ -26004,9 +25522,6 @@ supplementalData:table(nofallback){
             "ug332",
             "ug333",
             "ug334",
-            "ug335",
-            "ug336",
-            "ug337",
         }
         ugw{
             "ug401",
@@ -26041,9 +25556,6 @@ supplementalData:table(nofallback){
             "ug430",
             "ug431",
             "ug432",
-            "ug433",
-            "ug434",
-            "ug435",
         }
     }
     territoryContainment{
@@ -27082,9 +26594,6 @@ supplementalData:table(nofallback){
             my{
                 populationShareF:int{47210000}
             }
-            rhg{
-                populationShareF:int{47530000}
-            }
             rkt{
                 literacyShareF:int{49200000}
                 populationShareF:int{48650000}
@@ -27347,7 +26856,7 @@ supplementalData:table(nofallback){
                 populationShareF:int{45470000}
             }
             yrl{
-                populationShareF:int{46100000}
+                populationShareF:int{45520000}
             }
         }
         BS{
@@ -27917,9 +27426,6 @@ supplementalData:table(nofallback){
                 61711600,
                 49936000,
                 57490848,
-            }
-            yrl{
-                populationShareF:int{45610000}
             }
         }
         CP{
@@ -28710,7 +28216,7 @@ supplementalData:table(nofallback){
             }
             os{
                 officialStatus{"official_regional"}
-                populationShareF:int{48220000}
+                populationShareF:int{48409000}
             }
             ru{
                 populationShareF:int{48900000}
@@ -30523,9 +30029,6 @@ supplementalData:table(nofallback){
                 officialStatus{"official"}
                 populationShareF:int{49640000}
             }
-            rhg{
-                populationShareF:int{48170000}
-            }
             shn{
                 populationShareF:int{48640000}
             }
@@ -30689,15 +30192,12 @@ supplementalData:table(nofallback){
         MV{
             dv{
                 officialStatus{"official"}
-                populationShareF:int{49980000}
-            }
-            en{
-                populationShareF:int{49750000}
+                populationShareF:int{49940000}
             }
             territoryF:intvector{
                 59690100,
                 49984000,
-                55540542,
+                55391904,
             }
         }
         MW{
@@ -33034,9 +32534,6 @@ supplementalData:table(nofallback){
                 49955000,
                 57286446,
             }
-            yrl{
-                populationShareF:int{45700000}
-            }
         }
         VG{
             en{
@@ -33678,12 +33175,12 @@ supplementalData:table(nofallback){
         }
         CN{
             allowed{
-                "H",
                 "hB",
                 "hb",
                 "h",
+                "H",
             }
-            preferred{"H"}
+            preferred{"h"}
         }
         CO{
             allowed{
@@ -34047,9 +33544,9 @@ supplementalData:table(nofallback){
         }
         HK{
             allowed{
-                "h",
                 "hB",
                 "hb",
+                "h",
                 "H",
             }
             preferred{"h"}
@@ -34458,9 +33955,9 @@ supplementalData:table(nofallback){
         }
         MO{
             allowed{
-                "h",
                 "hB",
                 "hb",
+                "h",
                 "H",
             }
             preferred{"h"}
@@ -35492,7 +34989,7 @@ supplementalData:table(nofallback){
             86400000,
         }
         AU:intvector{
-            2,
+            1,
             1,
             7,
             0,
@@ -36812,11 +36309,6 @@ supplementalData:table(nofallback){
             "weekOfYear",
             "weekOfInterval",
             "weekOfDate",
-        }
-        nb{
-            "weekOfYear",
-            "weekOfMonth",
-            "weekOfInterval",
         }
         nl{
             "weekOfDate",

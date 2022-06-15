@@ -45,9 +45,4 @@ public interface AffixPatternProvider {
      * number instead of rendering the number.
      */
     public boolean hasBody();
-
-    /**
-     * True if the currency symbol should replace the decimal separator.
-     */
-    public boolean currencyAsDecimal();
 }

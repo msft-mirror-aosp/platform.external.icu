@@ -537,30 +537,35 @@ public abstract class DateFormat extends UFormat {
 
     /**
      * Hour Cycle
-     * @stable ICU 67
+     * @draft ICU 67
+     * @provisional This API might change or be removed in a future release.
      */
     public enum HourCycle {
         /**
          * hour in am/pm (0~11)
-         * @stable ICU 67
+         * @draft ICU 67
+         * @provisional This API might change or be removed in a future release.
          */
         HOUR_CYCLE_11,
 
         /**
          * hour in am/pm (1~12)
-         * @stable ICU 67
+         * @draft ICU 67
+         * @provisional This API might change or be removed in a future release.
          */
         HOUR_CYCLE_12,
 
         /**
          * hour in day (0~23)
-         * @stable ICU 67
+         * @draft ICU 67
+         * @provisional This API might change or be removed in a future release.
          */
         HOUR_CYCLE_23,
 
         /**
          * hour in day (1~24)
-         * @stable ICU 67
+         * @draft ICU 67
+         * @provisional This API might change or be removed in a future release.
          */
         HOUR_CYCLE_24;
     };
@@ -1592,6 +1597,7 @@ public abstract class DateFormat extends UFormat {
      * {@icu} Returns the set of locales for which DateFormats are installed.
      * @return the set of locales for which DateFormats are installed.
      * @draft ICU 3.2 (retain)
+     * @provisional This API might change or be removed in a future release.
      */
     public static ULocale[] getAvailableULocales()
     {
@@ -1925,7 +1931,7 @@ public abstract class DateFormat extends UFormat {
     //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
     //-------------------------------------------------------------------------
-    // Public static interface for creating custom DateFormats for different
+    // Public static interface for creating custon DateFormats for different
     // types of Calendars.
     //-------------------------------------------------------------------------
 
@@ -2073,6 +2079,7 @@ public abstract class DateFormat extends UFormat {
      * @param cal   The calendar system for which a date/time format is desired.
      * @param locale The locale for which the date/time format is desired.
      * @stable ICU 3.2
+     * @provisional This API might change or be removed in a future release.
      */
     static final public DateFormat getInstance(Calendar cal, ULocale locale) {
         return getDateTimeInstance(cal, SHORT, SHORT, locale);

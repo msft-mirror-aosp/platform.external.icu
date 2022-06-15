@@ -395,7 +395,7 @@ ar_XB{
         mgh{"؜‮Makhuwa‬؜-؜‮Meetto‬؜"}
         mgo{"؜‮Metaʼ‬؜"}
         mh{"؜‮Marshallese‬؜"}
-        mi{"؜‮Māori‬؜"}
+        mi{"؜‮Maori‬؜"}
         mic{"؜‮Mi‬؜'؜‮kmaq‬؜"}
         min{"؜‮Minangkabau‬؜"}
         mk{"؜‮Macedonian‬؜"}
@@ -491,7 +491,6 @@ ar_XB{
         rap{"؜‮Rapanui‬؜"}
         rar{"؜‮Rarotongan‬؜"}
         rgn{"؜‮Romagnol‬؜"}
-        rhg{"؜‮Rohingya‬؜"}
         rif{"؜‮Riffian‬؜"}
         rm{"؜‮Romansh‬؜"}
         rn{"؜‮Rundi‬؜"}
@@ -499,6 +498,7 @@ ar_XB{
         ro_MD{"؜‮Moldavian‬؜"}
         rof{"؜‮Rombo‬؜"}
         rom{"؜‮Romany‬؜"}
+        root{"؜‮Root‬؜"}
         rtm{"؜‮Rotuman‬؜"}
         ru{"؜‮Russian‬؜"}
         rue{"؜‮Rusyn‬؜"}
@@ -670,11 +670,6 @@ ar_XB{
     Languages%menu{
         ars{"؜‮Arabic‬؜, ؜‮Najdi‬؜"}
         ckb{"؜‮Kurdish‬؜, ؜‮Central‬؜"}
-        se{"؜‮Sami‬؜, ؜‮Northern‬؜"}
-        sma{"؜‮Sami‬؜, ؜‮Southern‬؜"}
-        smj{"؜‮Sami‬؜, ؜‮Lule‬؜"}
-        smn{"؜‮Sami‬؜, ؜‮Inari‬؜"}
-        sms{"؜‮Sami‬؜, ؜‮Skolt‬؜"}
         yue{"؜‮Chinese‬؜, ؜‮Cantonese‬؜"}
         zh{"؜‮Chinese‬؜, ؜‮Mandarin‬؜"}
     }
@@ -720,7 +715,6 @@ ar_XB{
         Chrs{"؜‮Chorasmian‬؜"}
         Cirt{"؜‮Cirth‬؜"}
         Copt{"؜‮Coptic‬؜"}
-        Cpmn{"؜‮Cypro‬؜-؜‮Minoan‬؜"}
         Cprt{"؜‮Cypriot‬؜"}
         Cyrl{"؜‮Cyrillic‬؜"}
         Cyrs{"؜‮Old‬؜ ؜‮Church‬؜ ؜‮Slavonic‬؜ ؜‮Cyrillic‬؜"}
@@ -819,7 +813,6 @@ ar_XB{
         Orya{"؜‮Odia‬؜"}
         Osge{"؜‮Osage‬؜"}
         Osma{"؜‮Osmanya‬؜"}
-        Ougr{"؜‮Old‬؜ ؜‮Uyghur‬؜"}
         Palm{"؜‮Palmyrene‬؜"}
         Pauc{"؜‮Pau‬؜ ؜‮Cin‬؜ ؜‮Hau‬؜"}
         Perm{"؜‮Old‬؜ ؜‮Permic‬؜"}
@@ -832,7 +825,7 @@ ar_XB{
         Prti{"؜‮Inscriptional‬؜ ؜‮Parthian‬؜"}
         Qaag{"؜‮Zawgyi‬؜"}
         Rjng{"؜‮Rejang‬؜"}
-        Rohg{"؜‮Hanifi‬؜"}
+        Rohg{"؜‮Hanifi‬؜ ؜‮Rohingya‬؜"}
         Roro{"؜‮Rongorongo‬؜"}
         Runr{"؜‮Runic‬؜"}
         Samr{"؜‮Samaritan‬؜"}
@@ -870,12 +863,9 @@ ar_XB{
         Thai{"؜‮Thai‬؜"}
         Tibt{"؜‮Tibetan‬؜"}
         Tirh{"؜‮Tirhuta‬؜"}
-        Tnsa{"؜‮Tangsa‬؜"}
-        Toto{"؜‮Toto‬؜"}
         Ugar{"؜‮Ugaritic‬؜"}
         Vaii{"؜‮Vai‬؜"}
         Visp{"؜‮Visible‬؜ ؜‮Speech‬؜"}
-        Vith{"؜‮Vithkuqi‬؜"}
         Wara{"؜‮Varang‬؜ ؜‮Kshiti‬؜"}
         Wcho{"؜‮Wancho‬؜"}
         Wole{"؜‮Woleai‬؜"}
@@ -899,7 +889,6 @@ ar_XB{
     Scripts%stand-alone{
         Hans{"؜‮Simplified‬؜ ؜‮Han‬؜"}
         Hant{"؜‮Traditional‬؜ ؜‮Han‬؜"}
-        Rohg{"؜‮Hanifi‬؜ ؜‮Rohingya‬؜"}
     }
     Scripts%variant{
         Arab{"؜‮Perso‬؜-؜‮Arabic‬؜"}
@@ -953,13 +942,6 @@ ar_XB{
         colNumeric{
             no{"؜‮Sort‬؜ ؜‮Digits‬؜ ؜‮Individually‬؜"}
             yes{"؜‮Sort‬؜ ؜‮Digits‬؜ ؜‮Numerically‬؜"}
-        }
-        colReorder{
-            currency{"؜‮Currency‬؜"}
-            digit{"؜‮Digits‬؜"}
-            punct{"؜‮Punctuation‬؜"}
-            space{"؜‮Whitespace‬؜"}
-            symbol{"؜‮Symbol‬؜"}
         }
         colStrength{
             identical{"؜‮Sort‬؜ ؜‮All‬؜"}
@@ -1080,6 +1062,13 @@ ar_XB{
             var{"؜‮Keyboard‬؜ ؜‮Variant‬؜"}
             viqr{"؜‮Vietnamese‬؜ ؜‮VIQR‬؜ ؜‮Keyboard‬؜"}
             windows{"؜‮Windows‬؜ ؜‮Keyboard‬؜"}
+        }
+        kr{
+            currency{"؜‮Currency‬؜"}
+            digit{"؜‮Digits‬؜"}
+            punct{"؜‮Punctuation‬؜"}
+            space{"؜‮Whitespace‬؜"}
+            symbol{"؜‮Symbol‬؜"}
         }
         kv{
             currency{
@@ -1223,7 +1212,6 @@ ar_XB{
             thai{"؜‮Thai‬؜ ؜‮Digits‬؜"}
             tibt{"؜‮Tibetan‬؜ ؜‮Digits‬؜"}
             tirh{"؜‮Tirhuta‬؜ ؜‮Digits‬؜"}
-            tnsa{"؜‮Tangsa‬؜ ؜‮Digits‬؜"}
             traditional{"؜‮Traditional‬؜ ؜‮Numerals‬؜"}
             vaii{"؜‮Vai‬؜ ؜‮Digits‬؜"}
             wara{"؜‮Warang‬؜ ؜‮Citi‬؜ ؜‮Digits‬؜"}
