@@ -27,7 +27,7 @@
 #include <unicode/udata.h>
 #include <unicode/utypes.h>
 
-#ifndef __ANDROID__
+#if !defined(__ANDROID__) || defined(NO_ANDROID_LIBLOG)
 static int PriorityToLevel(char priority) {
   // Priority is just the array index of priority in kPriorities.
   static const char* kPriorities = "VDIWEF";
@@ -57,12 +57,12 @@ bool AIcuHostShouldLog(char priority) {
   static int g_LogLevel = GetHostLogLevel();
   return PriorityToLevel(priority) >= g_LogLevel;
 }
-#endif  // __ANDROID__
+#endif  // !defined(__ANDROID__) || defined(NO_ANDROID_LIBLOG)
 
 namespace androidicuinit {
 namespace impl {
 
-#ifndef __ANDROID__
+#if !defined(__ANDROID__) || defined(NO_ANDROID_LIBLOG)
 // http://b/171371690 Avoid dependency on liblog and libbase on host
 // Simplified version of android::base::unique_fd for host.
 class simple_unique_fd final {
@@ -103,10 +103,10 @@ class simple_unique_fd final {
         _rc;                                   \
       })
   #endif
-#endif // #ifndef __ANDROID__
+#endif // !defined(__ANDROID__) || defined(NO_ANDROID_LIBLOG)
 
 // http://b/171371690 Avoid dependency on liblog and libbase on host
-#ifdef __ANDROID__
+#if defined(__ANDROID__) && !defined(NO_ANDROID_LIBLOG)
   typedef android::base::unique_fd aicu_unique_fd;
 #else
   typedef simple_unique_fd aicu_unique_fd;
@@ -212,28 +212,11 @@ void IcuRegistration::Deregister() {
 // Init ICU, configuring it and loading the data files.
 IcuRegistration::IcuRegistration() {
   // Note: This logic below should match the logic for ICU4J in
-  // TimeZoneDataFiles.java in libcore/ to ensure consistent behavior between
+  // TimeZoneDataFiles.java in external/icu/ to ensure consistent behavior between
   // ICU4C and ICU4J.
 
-  // Check the timezone /data override file exists from the "Time zone update
-  // via APK" feature.
-  // https://source.android.com/devices/tech/config/timezone-rules
-  // If it does, map it first so we use its data in preference to later ones.
-  std::string dataPath = getDataTimeZonePath();
-  if (pathExists(dataPath)) {
-    AICU_LOGD("Time zone override file found: %s", dataPath.c_str());
-    icu_datamap_from_data_ = impl::IcuDataMap::Create(dataPath);
-    if (icu_datamap_from_data_ == nullptr) {
-      AICU_LOGW(
-          "TZ override /data file %s exists but could not be loaded. Skipping.",
-          dataPath.c_str());
-    }
-  } else {
-    AICU_LOGV("No timezone override /data file found: %s", dataPath.c_str());
-  }
-
   // Check the timezone override file exists from a mounted APEX file.
-  // If it does, map it next so we use its data in preference to later ones.
+  // If it does, map it so we use its data in preference to later ones.
   std::string tzModulePath = getTimeZoneModulePath();
   if (pathExists(tzModulePath)) {
     AICU_LOGD("Time zone APEX ICU file found: %s", tzModulePath.c_str());
@@ -264,27 +247,11 @@ IcuRegistration::~IcuRegistration() {
   // Unmap ICU data files.
   icu_datamap_from_i18n_module_.reset();
   icu_datamap_from_tz_module_.reset();
-  icu_datamap_from_data_.reset();
 }
 
 bool IcuRegistration::pathExists(const std::string& path) {
   struct stat sb;
   return stat(path.c_str(), &sb) == 0;
-}
-
-// Returns a string containing the expected path of the (optional) /data tz data
-// file
-std::string IcuRegistration::getDataTimeZonePath() {
-  const char* dataPathPrefix = getenv("ANDROID_DATA");
-  if (dataPathPrefix == NULL) {
-    AICU_LOGE("ANDROID_DATA environment variable not set");
-    abort();
-  }
-  std::string dataPath;
-  dataPath = dataPathPrefix;
-  dataPath += "/misc/zoneinfo/current/icu/icu_tzdata.dat";
-
-  return dataPath;
 }
 
 // Returns a string containing the expected path of the (optional) /apex tz
