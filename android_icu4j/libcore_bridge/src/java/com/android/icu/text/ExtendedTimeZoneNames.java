@@ -54,20 +54,19 @@ public class ExtendedTimeZoneNames {
 
     private final ULocale locale;
     private final TimeZoneNames timeZoneNames;
-
-    /**
+/**
      * A class representing the return result of {@link #matchName(CharSequence, int, String)}
      *
      * @hide
      */
     @IntraCoreApi
-    public static class MatchedTimeZone {
+    public static final class Match {
 
         private final int matchLength;
         private final @NonNull String tzId;
         private final boolean isDst;
 
-        private MatchedTimeZone(int matchLength, @NonNull String tzId, boolean isDst) {
+        private Match(int matchLength, @NonNull String tzId, boolean isDst) {
             this.matchLength = matchLength;
             this.tzId = tzId;
             this.isDst = isDst;
@@ -94,7 +93,8 @@ public class ExtendedTimeZoneNames {
         }
 
         /**
-         * Returns true if the matched name is a display name for daylight saving time.
+         * Returns true if the matched name is a display name for daylight saving time. For example,
+         * returns true for "Pacific Daylight Time", but false for "Pacific Standard Time".
          *
          * @hide
          */
@@ -130,7 +130,7 @@ public class ExtendedTimeZoneNames {
     }
 
     /**
-     * Returns {@link MatchedTimeZone} if a time zone name in ICU can be matched against the input
+     * Returns {@link Match} if a time zone name in ICU can be matched against the input
      * CharSequence {@code s}.
      * The best match is found by the following principles:
      * <ul>
@@ -143,7 +143,7 @@ public class ExtendedTimeZoneNames {
      * is US, America/Los_Angeles is returned.</li>
      * </ul>
      *
-     * @param s input string to be matched against time zone names in ICU
+     * @param text input string to be matched against time zone names in ICU
      * @param start the begin index in the CharSequence {@code s}
      * @param currentTzId the time zone ID prioritized to be matched if multiple time zone IDs can
      *                    be matched and this is one of the matched IDs.
@@ -152,12 +152,12 @@ public class ExtendedTimeZoneNames {
      * @hide
      */
     @IntraCoreApi
-    public @Nullable MatchedTimeZone matchName(@NonNull CharSequence s, int start,
+    public @Nullable Match matchName(@NonNull CharSequence text, int start,
             @NonNull String currentTzId) {
         currentTzId = TimeZone.getCanonicalID(currentTzId);
 
         Collection<TimeZoneNames.MatchInfo> matchedInfos =
-                timeZoneNames.find(s, start, STANDARD_AND_DST_TYPES);
+                timeZoneNames.find(text, start, STANDARD_AND_DST_TYPES);
 
         if (matchedInfos.isEmpty()) {
             return null;
@@ -216,9 +216,9 @@ public class ExtendedTimeZoneNames {
         return null;
     }
 
-    private static MatchedTimeZone matchedTimeZone(
+    private static Match matchedTimeZone(
             String timeZoneId, TimeZoneNames.MatchInfo matchInfo) {
-        return new MatchedTimeZone(
+        return new Match(
                 matchInfo.matchLength(),
                 timeZoneId,
                 DST_NAME_TYPES.contains(matchInfo.nameType()));

@@ -73,10 +73,10 @@ package com.android.icu.text {
   public class ExtendedTimeZoneNames {
     method @NonNull public static com.android.icu.text.ExtendedTimeZoneNames getInstance(@NonNull android.icu.util.ULocale);
     method @NonNull public android.icu.text.TimeZoneNames getTimeZoneNames();
-    method @Nullable public com.android.icu.text.ExtendedTimeZoneNames.MatchedTimeZone matchName(@NonNull CharSequence, int, @NonNull String);
+    method @Nullable public com.android.icu.text.ExtendedTimeZoneNames.Match matchName(@NonNull CharSequence, int, @NonNull String);
   }
 
-  public static class ExtendedTimeZoneNames.MatchedTimeZone {
+  public static final class ExtendedTimeZoneNames.Match {
     method public int getMatchLength();
     method @NonNull public String getTzId();
     method public boolean isDst();
