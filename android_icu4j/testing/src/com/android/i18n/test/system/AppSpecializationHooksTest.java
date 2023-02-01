@@ -20,7 +20,6 @@ import static org.junit.Assert.assertNull;
 
 import android.icu.testsharding.MainTestShard;
 
-import com.android.i18n.system.AppSpecializationHooks;
 import com.android.i18n.system.ZygoteHooks;
 
 import org.junit.Test;
@@ -34,18 +33,7 @@ public class AppSpecializationHooksTest {
 
     @Test
     public void testDisableCompatChangesBeforeAppStart() {
-        assertSystemPropBinaryDataPath_null();
-
-        // The value should stay null after the app startup or after invoking the same method
-        // repeatedly.
-        AppSpecializationHooks.handleCompatChangesBeforeBindingApplication();
-        assertSystemPropBinaryDataPath_null();
-    }
-
-    /**
-     * CtsIcuTestCases use current SDK, and thus the property value should be null.
-     */
-    private static void assertSystemPropBinaryDataPath_null() {
+        // CtsIcuTestCases use current SDK, and thus the property value should be null.
         assertNull(ZygoteHooks.PROP_ICUBINARY_DATA_PATH + " property is not null.",
                 System.getProperty(ZygoteHooks.PROP_ICUBINARY_DATA_PATH));
     }
