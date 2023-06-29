@@ -1322,6 +1322,11 @@ static void TestIllegalArgumentWhenNoDataWithNoSubstitute()
 /* test for uloc_getISOLanguages, uloc_getISOCountries */
 static void TestISOFunctions()
 {
+    // Android-changed: Skip this test on Android because we allow extra languages added on devices.
+    if (true) {
+        return;
+    }
+
     const char* const* str=uloc_getISOLanguages();
     const char* const* str1=uloc_getISOCountries();
     const char* test;
