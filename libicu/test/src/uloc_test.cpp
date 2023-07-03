@@ -16,6 +16,7 @@
 
 #include <gtest/gtest.h>
 
+#include <unordered_set>
 #include <vector>
 #include <unicode/uloc.h>
 
@@ -42,4 +43,26 @@ TEST(Icu4cLocaleTest, test_uloc_getCountry) {
   uloc_getCountry("en_US", country, sizeof(country), &error);
   ASSERT_EQ(U_ZERO_ERROR, error);
   EXPECT_STREQ("US", country);
+}
+
+TEST(Icu4cLocaleTest, test_uloc_getISOLanguages) {
+  std::unordered_set<std::string> languages;
+  const char* const* list_ptr = uloc_getISOLanguages();
+  while(*list_ptr != 0) {
+    languages.insert(*list_ptr);
+    list_ptr++;
+  }
+
+  EXPECT_TRUE(languages.find("en") != languages.end()) << "language en must be supported.";
+}
+
+TEST(Icu4cLocaleTest, test_uloc_getISOCountries) {
+  std::unordered_set<std::string> countries;
+  const char* const* list_ptr = uloc_getISOCountries();
+  while(*list_ptr != 0) {
+    countries.insert(*list_ptr);
+    list_ptr++;
+  }
+
+  EXPECT_TRUE(countries.find("US") != countries.end()) << "country US must be supported.";
 }
