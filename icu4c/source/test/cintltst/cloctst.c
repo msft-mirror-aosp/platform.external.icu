@@ -1323,6 +1323,7 @@ static void TestISOFunctions()
 {
     // Android-changed: Skip this test on Android because we allow extra languages added on devices.
     if (true) {
+        log_verbose("TestISOFunctions: Skip this test because Android allows extra languages.");
         return;
     }
 
