@@ -21,7 +21,6 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Set;
 
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
@@ -176,7 +175,7 @@ public class TimeZoneTest extends TestFmwk
             new ZoneDescriptor("AET", 600, true),   // ICU Link - Australia/Sydney
             new ZoneDescriptor("SST", 660, false),  // ICU Link - Pacific/Guadalcanal
             new ZoneDescriptor("NST", 720, true),   // ICU Link - Pacific/Auckland
-            new ZoneDescriptor("MIT", 780, true),   // ICU Link - Pacific/Apia
+            new ZoneDescriptor("MIT", 780, false),  // ICU Link - Pacific/Apia
 
             new ZoneDescriptor("Etc/Unknown", 0, false),    // CLDR
 
@@ -1482,7 +1481,6 @@ public class TimeZoneTest extends TestFmwk
     }
 
     @Test
-    @Ignore
     public void TestCanonicalID() {
         // Olson (IANA) tzdata used to have very few "Link"s long time ago.
         // This test case was written when most of CLDR canonical time zones are
@@ -1562,6 +1560,7 @@ public class TimeZoneTest extends TestFmwk
                 {"America/Thunder_Bay", "America/Toronto"},
                 {"America/Tortola", "America/Puerto_Rico"},
                 {"America/Virgin", "America/Puerto_Rico"},
+                {"America/Yellowknife", "America/Edmonton"},
                 {"Antarctica/DumontDUrville", "Pacific/Port_Moresby"},
                 {"Antarctica/South_Pole", "Antarctica/McMurdo"},
                 {"Antarctica/Syowa", "Asia/Riyadh"},
@@ -2356,6 +2355,36 @@ public class TimeZoneTest extends TestFmwk
         assertFalse("Compare TimeZone and TimeZoneAdapter", icuChicago.equals(icuChicagoWrapped));
         assertFalse("Compare TimeZoneAdapter with TimeZone", icuChicagoWrapped.equals(icuChicago));
         assertTrue("Compare two TimeZoneAdapters", icuChicagoWrapped.equals(icuChicagoWrapped2));
+    }
+
+    @Test
+    public void TestCasablancaNameAndOffset22041() {
+        String id = "Africa/Casablanca";
+        TimeZone zone = TimeZone.getTimeZone(id);
+        String standardName = zone.getDisplayName(false, TimeZone.LONG, Locale.ENGLISH);
+        String summerName = zone.getDisplayName(true, TimeZone.LONG, Locale.ENGLISH);
+        assertEquals("TimeZone name for Africa/Casablanca should not contain '+02' since it is located in UTC, but got "
+                     + standardName, -1, standardName.indexOf("+02"));
+        assertEquals("TimeZone name for Africa/Casablanca should not contain '+02' since it is located in UTC, but got "
+                     + summerName, -1, summerName.indexOf("+02"));
+        int[] offsets = new int[2]; // raw = offsets[0], dst = offsets[1]
+        zone.getOffset((new Date()).getTime(), false, offsets);
+        int raw = offsets[0];
+        assertEquals("getRawOffset() and the raw from getOffset(now, false, offset) should not be different but got",
+                     zone.getRawOffset(), raw);
+    }
+
+    @Test
+    public void TestRawOffsetAndOffsetConsistency22041() {
+        long now = (new Date()).getTime();
+        int[] offsets = new int[2]; // raw = offsets[0], dst = offsets[1]
+        for (String id : TimeZone.getAvailableIDs()) {
+            TimeZone zone = TimeZone.getTimeZone(id);
+            zone.getOffset((new Date()).getTime(), false, offsets);
+            int raw = offsets[0];
+            assertEquals("getRawOffset() and the raw from getOffset(now, false, offset) should not be different but got",
+                         zone.getRawOffset(), raw);
+        }
     }
 }
 
