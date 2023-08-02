@@ -12,8 +12,8 @@ The below contains the steps and commands in order to upgrade the ICU version in
 2. Generate a github read-access token and setup a local ~/.m2/setting.xml
    * See http://cldr.unicode.org/development/maven. This is required to download
      the prebuilt ICU to break the circular dependency between CLDR and icu.
-3. Check out aosp/master
-   * http://go/repo-init/aosp-master-with-phones
+3. Check out aosp/main
+   * http://go/repo-init/aosp-main-with-phones
 
 # Steps
 1. Create a new branch in AOSP
@@ -21,11 +21,11 @@ The below contains the steps and commands in order to upgrade the ICU version in
    * See detailed instruction at http://g3doc/company/teams/android-build-team/playbook/create_branch#creating-new-git-branches.
    * **Choose a branch name**
      * Create aosp/icu{version} branch, e.g. `aosp/icu67` in the `external/icu` project
-       forked from `aosp/master`
+       forked from `aosp/main`
      * For the external/cldr project, we don't need a new branch.
        We use the **`aosp/upstream-release-cldr** as the mirror of the upstream release branch.
        We don’t modify this branch with Android patches, but merge this branch
-       into aosp/master where the Android patches are located.
+       into aosp/main where the Android patches are located.
 2. Configure the versions and temp directory
 
    2a. Customize the following environment variables.
@@ -75,13 +75,13 @@ The below contains the steps and commands in order to upgrade the ICU version in
     repo upload --cbr .
     ```
 
-   3b. Merge the upstream sources with patches in `aosp/master`
+   3b. Merge the upstream sources with patches in `aosp/main`
     ```shell
-    export CLDR_BRANCH=cldr${CLDR_VERSION}-master
-    git branch ${CLDR_BRANCH} --track aosp/master
+    export CLDR_BRANCH=cldr${CLDR_VERSION}-main
+    git branch ${CLDR_BRANCH} --track aosp/main
     git checkout ${CLDR_BRANCH}
     git merge ${CLDR_UPSTREAM_BRANCH} -m "
-    Merge CLDR ${CLDR_VERSION} in upstream-release-cldr into aosp/master
+    Merge CLDR ${CLDR_VERSION} in upstream-release-cldr into aosp/main
 
     Bug: ${ICU_UPGRADE_BUG}
     Test: external/icu/tools/updatecldrdata.py
@@ -94,7 +94,7 @@ The below contains the steps and commands in order to upgrade the ICU version in
     git merge --continue
     ```
 
-   3d. Upload the CL to master branch
+   3d. Upload the CL to main branch
     ```shell
     repo upload --cbr .
     ```
@@ -146,7 +146,7 @@ EOF
         ```
    5b. Cherry-pick the patches since the ICU upgrade
       * Find the patches with this query.
-           https://r.android.com/q/%2522Android+patch%2522+project:platform/external/icu+status:merged+-owner:automerger+-owner:android-build-coastguard-worker%2540google.com+branch:master
+           https://r.android.com/q/%2522Android+patch%2522+project:platform/external/icu+status:merged+-owner:automerger+-owner:android-build-coastguard-worker%2540google.com+branch:main
 
 6. Regenerate and commit the artifacts
 
@@ -264,7 +264,7 @@ EOF
       ```
 
    6g. [Not required for every ICU release] Increment Distro major version
-      * See https://android.googlesource.com/platform/system/timezone/+/master/README.android
+      * See https://android.googlesource.com/platform/system/timezone/+/main/README.android
         for details. Usually, it’s needed only when it’s the first ICU upgrade
         in the Android dessert release.
 
@@ -334,12 +334,12 @@ EOF
 ```shell
 repo upload --cbr -o uploadvalidator~skip --no-verify .
 ```
-9. Merge `aosp/icu*` branch to aosp/master
+9. Merge `aosp/icu*` branch to aosp/main
 ```shell
 cd $ANDROID_BUILD_TOP/external/icu
-repo start icu${ICU_VERSION}-master .
+repo start icu${ICU_VERSION}-main .
 git merge --no-ff icu${ICU_VERSION} -m "
-Merge branch aosp/icu${ICU_VERSION} into aosp/master
+Merge branch aosp/icu${ICU_VERSION} into aosp/main
 
 Bug: ${ICU_UPGRADE_BUG}
 Test: atest CtsIcu4cTestCases CtsIcuTestCases CtsLibcoreTestCases CtsLibcoreOjTestCases CtsBionicTestCases CtsTextTestCases minikin_tests
@@ -354,7 +354,7 @@ Test: atest CtsIcu4cTestCases CtsIcuTestCases CtsLibcoreTestCases CtsLibcoreOjTe
           app compatibility issues if the app depends on them. However, app
          has been warned to check the availability before invoking them.
           https://developer.android.com/reference/android/icu/text/Transliterator#getAvailableIDs()
-11. After submitting all the CLs to aosp/master, expose the new stable ICU4J APIs to Android SDK
+11. After submitting all the CLs to aosp/main, expose the new stable ICU4J APIs to Android SDK
 ```shell
 rm tools/srcgen/allowlisted-public-api.txt
 ./tools/generate_android_icu4j.sh
@@ -378,7 +378,7 @@ EOF
    Hi, Libcore and ICU team,
 
    ICU <version> just landed Android AOSP.
-   https://android.googlesource.com/platform/external/icu/+/master/README.version
+   https://android.googlesource.com/platform/external/icu/+/main/README.version
    as well as Android S (or Android 12).
    https://googleplex-android.googlesource.com/platform/external/icu/+/sc-dev/README.version
 
