@@ -60,7 +60,7 @@ mkdir -p ${DEST_RESOURCE_DIR}
 # Generate the source code needed by Android.
 # Branches used for testing new versions of ICU will have have the ${ALLOWLIST_API_FILE} file
 # that prevents new (stable) APIs being added to the Android public SDK API. The file should
-# not exist on "normal" release branches and master.
+# not exist on "normal" release branches and main.
 ICU4J_BASE_COMMAND="${SRCGEN_TOOL_BINARY} Icu4jTransform"
 if [ -e "${ALLOWLIST_API_FILE}" ]; then
   ICU4J_BASE_COMMAND+=" --hide-non-allowlisted-api ${ALLOWLIST_API_FILE}"
