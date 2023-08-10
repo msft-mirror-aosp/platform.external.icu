@@ -55,6 +55,7 @@ java_defaults {
             "-Xep:IdentityBinaryExpression:WARN",
         ],
     },
+    sdk_version: "core_current",
 }
 
 java_library {
@@ -95,6 +96,7 @@ java_library {
 java_library_static {
     name: "icu4j_calendar_astronomer",
     host_supported: false,
+    sdk_version: "core_current",
     srcs: ["main/classes/core/src/com/ibm/icu/impl/CalendarAstronomer.java"],
     visibility: [
         "//frameworks/base/services/core",
