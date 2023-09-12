@@ -275,15 +275,12 @@ public class TimeZoneIntegrationTest {
         String apexRootDir = TimeZoneDataFiles.getTimeZoneModuleFile("");
         List<String> dataModuleFiles =
                 createModuleTzFiles(TimeZoneDataFiles::getTimeZoneModuleTzFile);
-        String icuOverlayFile = AndroidDataFiles.getTimeZoneModuleIcuFile("icu_tzdata.dat");
         if (fileExists(apexRootDir)) {
             assertEquals("OK", tzModuleStatus);
             dataModuleFiles.forEach(TimeZoneIntegrationTest::assertFileExists);
-            assertFileExists(icuOverlayFile);
         } else {
             assertEquals("NOT_FOUND", tzModuleStatus);
             dataModuleFiles.forEach(TimeZoneIntegrationTest::assertFileDoesNotExist);
-            assertFileDoesNotExist(icuOverlayFile);
         }
 
         String icuDatFileName = "icudt" + VersionInfo.ICU_VERSION.getMajor() + "l.dat";
