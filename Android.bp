@@ -62,10 +62,11 @@ cc_defaults {
         "-Wall",
         "-Werror",
         // Make all warnings into errors, but ignore a set of warnings used in headers by default.
+        "-Wno-ambiguous-reversed-operator",
+        "-Wno-deprecated-declarations",
         "-Wno-unused-parameter",
         "-Wno-unused-const-variable",
         "-Wno-unneeded-internal-declaration",
-        "-Wno-deprecated-declarations",
         "-DUCONFIG_USE_ML_PHRASE_BREAKING=1",
     ],
     target: {
