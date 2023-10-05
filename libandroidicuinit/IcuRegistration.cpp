@@ -24,6 +24,7 @@
 #include <string.h>
 #include <unistd.h>
 
+#include <unicode/putil.h>
 #include <unicode/udata.h>
 #include <unicode/utypes.h>
 
@@ -211,24 +212,28 @@ void IcuRegistration::Deregister() {
 
 // Init ICU, configuring it and loading the data files.
 IcuRegistration::IcuRegistration() {
-  // Note: This logic below should match the logic for ICU4J in
-  // TimeZoneDataFiles.java in external/icu/ to ensure consistent behavior between
-  // ICU4C and ICU4J.
-
   // Check the timezone override file exists from a mounted APEX file.
   // If it does, map it so we use its data in preference to later ones.
+  // However, I18N apex is not expected to have the time zone data resources.
+  // http://b/171542040
   std::string tzModulePath = getTimeZoneModulePath();
-  if (pathExists(tzModulePath)) {
-    AICU_LOGD("Time zone APEX ICU file found: %s", tzModulePath.c_str());
-    icu_datamap_from_tz_module_ = impl::IcuDataMap::Create(tzModulePath);
+  std::string tzIcuDataPath = tzModulePath + "icu_tzdata.dat";
+  if (pathExists(tzIcuDataPath)) {
+    AICU_LOGD("Time zone APEX ICU file found: %s", tzIcuDataPath.c_str());
+    icu_datamap_from_tz_module_ = impl::IcuDataMap::Create(tzIcuDataPath);
     if (icu_datamap_from_tz_module_ == nullptr) {
-      AICU_LOGW(
-          "TZ module override file %s exists but could not be loaded. "
-          "Skipping.",
-          tzModulePath.c_str());
+      AICU_LOGW("TZ module .dat file %s exists but could not be loaded. Skipping.",
+          tzIcuDataPath.c_str());
     }
   } else {
-    AICU_LOGV("No time zone module override file found: %s", tzModulePath.c_str());
+    UErrorCode status = U_ZERO_ERROR;
+    u_setTimeZoneFilesDirectory(tzModulePath.c_str(), &status);
+    if (U_SUCCESS(status)) {
+      AICU_LOGD("u_setTimeZoneFilesDirectory(\"%s\") succeeded. ", tzModulePath.c_str());
+    } else {
+      AICU_LOGE("u_setTimeZoneFilesDirectory(\"%s\") failed: %s",
+          tzModulePath.c_str(), u_errorName(status));
+    }
   }
 
   // Use the ICU data files that shipped with the i18n module for everything
@@ -254,8 +259,8 @@ bool IcuRegistration::pathExists(const std::string& path) {
   return stat(path.c_str(), &sb) == 0;
 }
 
-// Returns a string containing the expected path of the (optional) /apex tz
-// module data file
+// Returns a string containing the expected path of the /apex tz
+// module ICU data directory
 std::string IcuRegistration::getTimeZoneModulePath() {
   const char* tzdataModulePathPrefix = getenv("ANDROID_TZDATA_ROOT");
   if (tzdataModulePathPrefix == NULL) {
@@ -265,7 +270,7 @@ std::string IcuRegistration::getTimeZoneModulePath() {
 
   std::string tzdataModulePath;
   tzdataModulePath = tzdataModulePathPrefix;
-  tzdataModulePath += "/etc/icu/icu_tzdata.dat";
+  tzdataModulePath += "/etc/icu/";
   return tzdataModulePath;
 }
 

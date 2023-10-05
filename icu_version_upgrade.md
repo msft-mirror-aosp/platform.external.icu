@@ -330,6 +330,10 @@ EOF
       * ICU4J host-side test `ant check`
       * ICU4C host-side test `make CINTLTST_OPTS=-w INTLTEST_OPTS=-w check`
          (Currently, it has some failing tests. No of failures?)
+
+   7d. If libcore/ tests are changed, verify the change
+      * To verify the test change in ART MTS, run `m mts && mts-tradefed run mts-art` on Android S.
+      * To verify the test change on LUCI bot, run `art/tools/run-libcore-tests.sh --mode=host`, because LUCI uses older ICU versions.
 8. Upload the CLs to gerrit for code reviews from `aosp/icu${ICU_VERSION}` in `external/icu` and `aosp/upstream-release-cldr` in `external/cldr`
 ```shell
 repo upload --cbr -o uploadvalidator~skip --no-verify .
