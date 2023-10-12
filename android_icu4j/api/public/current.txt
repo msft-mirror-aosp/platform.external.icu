@@ -1,6 +1,4 @@
 // Signature format: 2.0
-// - add-additional-overrides=no
-// - migrating=Migration in progress see b/299366704
 package android.icu.lang {
 
   public final class UCharacter implements android.icu.lang.UCharacterEnums.ECharacterCategory android.icu.lang.UCharacterEnums.ECharacterDirection {
@@ -1717,6 +1715,7 @@ package android.icu.number {
     method public CharSequence subSequence(int, int);
     method public java.math.BigDecimal toBigDecimal();
     method public java.text.AttributedCharacterIterator toCharacterIterator();
+    method public String toString();
   }
 
   public class FormattedNumberRange implements android.icu.text.FormattedValue {
@@ -1729,6 +1728,7 @@ package android.icu.number {
     method public boolean nextPosition(android.icu.text.ConstrainedFieldPosition);
     method public CharSequence subSequence(int, int);
     method public java.text.AttributedCharacterIterator toCharacterIterator();
+    method public String toString();
   }
 
   public abstract class FractionPrecision extends android.icu.number.Precision {
@@ -2201,6 +2201,7 @@ package android.icu.text {
     method public android.icu.text.Collator cloneAsThawed();
     method public abstract int compare(String, String);
     method public int compare(Object, Object);
+    method public boolean equals(Object);
     method public boolean equals(String, String);
     method public android.icu.text.Collator freeze();
     method public static java.util.Locale[] getAvailableLocales();
@@ -2578,6 +2579,7 @@ package android.icu.text {
     method public boolean nextPosition(android.icu.text.ConstrainedFieldPosition);
     method public CharSequence subSequence(int, int);
     method public java.text.AttributedCharacterIterator toCharacterIterator();
+    method public String toString();
   }
 
   public class DateIntervalInfo implements java.lang.Cloneable android.icu.util.Freezable<android.icu.text.DateIntervalInfo> java.io.Serializable {
@@ -2949,6 +2951,7 @@ package android.icu.text {
     method public boolean nextPosition(android.icu.text.ConstrainedFieldPosition);
     method public CharSequence subSequence(int, int);
     method public java.text.AttributedCharacterIterator toCharacterIterator();
+    method public String toString();
   }
 
   public enum ListFormatter.Type {
@@ -3414,6 +3417,7 @@ package android.icu.text {
     method public boolean nextPosition(android.icu.text.ConstrainedFieldPosition);
     method public CharSequence subSequence(int, int);
     method public java.text.AttributedCharacterIterator toCharacterIterator();
+    method public String toString();
   }
 
   public enum RelativeDateTimeFormatter.RelativeDateTimeUnit {
