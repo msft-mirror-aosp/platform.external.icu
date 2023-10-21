@@ -187,7 +187,11 @@ java_sdk_library {
         // locations.
         "//prebuilts:__subpackages__",
     ],
+    // Added to make sure that no private classes leak out in stubs.
+    defaults: ["libcore_icu_bridge_defaults"],
     srcs: [
+        // Added to make sure that no private classes leak out in stubs.
+        ":android_icu4j_repackaged_src_files",
         ":android_icu4j_public_api_files",
     ],
     droiddoc_options: [
