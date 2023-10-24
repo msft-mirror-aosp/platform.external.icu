@@ -172,6 +172,9 @@ java_library {
 platform_compat_config {
     name: "icu4j-platform-compat-config",
     src: ":core-icu4j",
+    visibility: [
+        "//frameworks/base",
+    ],
 }
 
 java_sdk_library {
