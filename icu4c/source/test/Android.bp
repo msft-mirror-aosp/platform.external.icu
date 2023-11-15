@@ -32,6 +32,7 @@ cc_defaults {
     name: "icu_test_defaults",
     gtest: false,
     rtti: true,
+    cpp_std: "gnu++17",
     cflags: [
         "-Wno-deprecated-declarations",
         "-Wno-missing-field-initializers",
