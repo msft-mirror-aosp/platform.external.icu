@@ -119,6 +119,7 @@ cc_library {
             dist: {
                 targets: ["layoutlib"],
                 dir: "layoutlib_native/windows",
+                tag: "stripped_all",
             },
         },
     },
