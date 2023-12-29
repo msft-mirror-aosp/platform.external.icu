@@ -82,3 +82,20 @@ cc_defaults {
         },
     },
 }
+
+aconfig_declarations {
+    name: "icu_aconfig_flags",
+    package: "com.android.icu",
+    srcs: [
+        "icu.aconfig",
+    ],
+}
+
+java_aconfig_library {
+    name: "icu_aconfig_flags_lib",
+    aconfig_declarations: "icu_aconfig_flags",
+    apex_available: [
+        "//apex_available:platform",
+        "com.android.i18n",
+    ],
+}
