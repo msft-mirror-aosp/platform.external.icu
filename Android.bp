@@ -94,6 +94,9 @@ aconfig_declarations {
 java_aconfig_library {
     name: "icu_aconfig_flags_lib",
     aconfig_declarations: "icu_aconfig_flags",
+    host_supported: true,
+    // "fake_device_config" is needed for the host.
+    libs: ["fake_device_config"],
     apex_available: [
         "//apex_available:platform",
         "com.android.i18n",
