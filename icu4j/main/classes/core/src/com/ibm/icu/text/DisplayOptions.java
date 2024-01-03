@@ -21,8 +21,9 @@ import java.util.List;
  *                             .build();
  *                             }
  *
- * @draft ICU 72
+ * @stable ICU 72
  */
+@android.annotation.FlaggedApi(com.android.icu.Flags.FLAG_ICU74)
 public final class DisplayOptions {
     private final GrammaticalCase grammaticalCase;
     private final NounClass nounClass;
@@ -46,8 +47,9 @@ public final class DisplayOptions {
      * Creates a builder with the {@code UNDEFINED} value for all the parameters.
      *
      * @return Builder
-     * @draft ICU 72
+     * @stable ICU 72
      */
+    @android.annotation.FlaggedApi(com.android.icu.Flags.FLAG_ICU74)
     public static Builder builder() {
         return new Builder();
     }
@@ -56,8 +58,9 @@ public final class DisplayOptions {
      * Creates a builder with the same parameters from this object.
      *
      * @return Builder
-     * @draft ICU 72
+     * @stable ICU 72
      */
+    @android.annotation.FlaggedApi(com.android.icu.Flags.FLAG_ICU74)
     public Builder copyToBuilder() {
         return new Builder(this);
     }
@@ -66,8 +69,9 @@ public final class DisplayOptions {
      * Gets the grammatical case.
      *
      * @return GrammaticalCase
-     * @draft ICU 72
+     * @stable ICU 72
      */
+    @android.annotation.FlaggedApi(com.android.icu.Flags.FLAG_ICU74)
     public GrammaticalCase getGrammaticalCase() {
         return this.grammaticalCase;
     }
@@ -76,8 +80,9 @@ public final class DisplayOptions {
      * Gets the noun class.
      *
      * @return NounClass
-     * @draft ICU 72
+     * @stable ICU 72
      */
+    @android.annotation.FlaggedApi(com.android.icu.Flags.FLAG_ICU74)
     public NounClass getNounClass() {
         return this.nounClass;
     }
@@ -86,8 +91,9 @@ public final class DisplayOptions {
      * Gets the plural category.
      *
      * @return PluralCategory
-     * @draft ICU 72
+     * @stable ICU 72
      */
+    @android.annotation.FlaggedApi(com.android.icu.Flags.FLAG_ICU74)
     public PluralCategory getPluralCategory() {
         return this.pluralCategory;
     }
@@ -96,8 +102,9 @@ public final class DisplayOptions {
      * Gets the capitalization.
      *
      * @return Capitalization
-     * @draft ICU 72
+     * @stable ICU 72
      */
+    @android.annotation.FlaggedApi(com.android.icu.Flags.FLAG_ICU74)
     public Capitalization getCapitalization() {
         return this.capitalization;
     }
@@ -106,8 +113,9 @@ public final class DisplayOptions {
      * Gets the name style.
      *
      * @return NameStyle
-     * @draft ICU 72
+     * @stable ICU 72
      */
+    @android.annotation.FlaggedApi(com.android.icu.Flags.FLAG_ICU74)
     public NameStyle getNameStyle() {
         return this.nameStyle;
     }
@@ -116,8 +124,9 @@ public final class DisplayOptions {
      * Gets the display length.
      *
      * @return DisplayLength
-     * @draft ICU 72
+     * @stable ICU 72
      */
+    @android.annotation.FlaggedApi(com.android.icu.Flags.FLAG_ICU74)
     public DisplayLength getDisplayLength() {
         return this.displayLength;
     }
@@ -126,8 +135,9 @@ public final class DisplayOptions {
      * Gets the substitute handling.
      *
      * @return SubstituteHandling
-     * @draft ICU 72
+     * @stable ICU 72
      */
+    @android.annotation.FlaggedApi(com.android.icu.Flags.FLAG_ICU74)
     public SubstituteHandling getSubstituteHandling() {
         return this.substituteHandling;
     }
@@ -135,8 +145,9 @@ public final class DisplayOptions {
     /**
      * Responsible for building {@code DisplayOptions}.
      *
-     * @draft ICU 72
+     * @stable ICU 72
      */
+    @android.annotation.FlaggedApi(com.android.icu.Flags.FLAG_ICU74)
     public static class Builder {
         private GrammaticalCase grammaticalCase;
         private NounClass nounClass;
@@ -149,8 +160,9 @@ public final class DisplayOptions {
         /**
          * Creates a {@code DisplayOptions.Builder} with the default values.
          *
-         * @draft ICU 72
+         * @stable ICU 72
          */
+        @android.annotation.FlaggedApi(com.android.icu.Flags.FLAG_ICU74)
         private Builder() {
             this.grammaticalCase = GrammaticalCase.UNDEFINED;
             this.nounClass = NounClass.UNDEFINED;
@@ -165,8 +177,9 @@ public final class DisplayOptions {
          * Creates a {@code Builder} with all the information from a {@code DisplayOptions}.
          *
          * @param displayOptions Options to be copied.
-         * @draft ICU 72
+         * @stable ICU 72
          */
+        @android.annotation.FlaggedApi(com.android.icu.Flags.FLAG_ICU74)
         private Builder(DisplayOptions displayOptions) {
             this.grammaticalCase = displayOptions.grammaticalCase;
             this.nounClass = displayOptions.nounClass;
@@ -182,8 +195,9 @@ public final class DisplayOptions {
          *
          * @param grammaticalCase The grammatical case.
          * @return Builder
-         * @draft ICU 72
+         * @stable ICU 72
          */
+        @android.annotation.FlaggedApi(com.android.icu.Flags.FLAG_ICU74)
         public Builder setGrammaticalCase(GrammaticalCase grammaticalCase) {
             this.grammaticalCase = grammaticalCase;
             return this;
@@ -194,8 +208,9 @@ public final class DisplayOptions {
          *
          * @param nounClass The noun class.
          * @return Builder
-         * @draft ICU 72
+         * @stable ICU 72
          */
+        @android.annotation.FlaggedApi(com.android.icu.Flags.FLAG_ICU74)
         public Builder setNounClass(NounClass nounClass) {
             this.nounClass = nounClass;
             return this;
@@ -206,8 +221,9 @@ public final class DisplayOptions {
          *
          * @param pluralCategory The plural category.
          * @return Builder
-         * @draft ICU 72
+         * @stable ICU 72
          */
+        @android.annotation.FlaggedApi(com.android.icu.Flags.FLAG_ICU74)
         public Builder setPluralCategory(PluralCategory pluralCategory) {
             this.pluralCategory = pluralCategory;
             return this;
@@ -218,8 +234,9 @@ public final class DisplayOptions {
          *
          * @param capitalization The capitalization.
          * @return Builder
-         * @draft ICU 72
+         * @stable ICU 72
          */
+        @android.annotation.FlaggedApi(com.android.icu.Flags.FLAG_ICU74)
         public Builder setCapitalization(Capitalization capitalization) {
             this.capitalization = capitalization;
             return this;
@@ -230,8 +247,9 @@ public final class DisplayOptions {
          *
          * @param nameStyle The name style.
          * @return Builder
-         * @draft ICU 72
+         * @stable ICU 72
          */
+        @android.annotation.FlaggedApi(com.android.icu.Flags.FLAG_ICU74)
         public Builder setNameStyle(NameStyle nameStyle) {
             this.nameStyle = nameStyle;
             return this;
@@ -242,8 +260,9 @@ public final class DisplayOptions {
          *
          * @param displayLength The display length.
          * @return Builder
-         * @draft ICU 72
+         * @stable ICU 72
          */
+        @android.annotation.FlaggedApi(com.android.icu.Flags.FLAG_ICU74)
         public Builder setDisplayLength(DisplayLength displayLength) {
             this.displayLength = displayLength;
             return this;
@@ -254,8 +273,9 @@ public final class DisplayOptions {
          *
          * @param substituteHandling The substitute handling.
          * @return Builder
-         * @draft ICU 72
+         * @stable ICU 72
          */
+        @android.annotation.FlaggedApi(com.android.icu.Flags.FLAG_ICU74)
         public Builder setSubstituteHandling(SubstituteHandling substituteHandling) {
             this.substituteHandling = substituteHandling;
             return this;
@@ -265,8 +285,9 @@ public final class DisplayOptions {
          * Builds the display options.
          *
          * @return DisplayOptions
-         * @draft ICU 72
+         * @stable ICU 72
          */
+        @android.annotation.FlaggedApi(com.android.icu.Flags.FLAG_ICU74)
         public DisplayOptions build() {
             DisplayOptions displayOptions = new DisplayOptions(this);
             return displayOptions;
@@ -276,47 +297,57 @@ public final class DisplayOptions {
     /**
      * Represents all the grammatical noun classes that are supported by CLDR.
      *
-     * @draft ICU 72
+     * @stable ICU 72
      */
+    @android.annotation.FlaggedApi(com.android.icu.Flags.FLAG_ICU74)
     public enum NounClass {
         /**
          * A possible setting for NounClass. The noun class context to be used is unknown (this is the
          * default value).
          *
-         * @draft ICU 72
+         * @stable ICU 72
          */
+        @android.annotation.FlaggedApi(com.android.icu.Flags.FLAG_ICU74)
         UNDEFINED("undefined"),
         /**
-         * @draft ICU 72
+         * @stable ICU 72
          */
+        @android.annotation.FlaggedApi(com.android.icu.Flags.FLAG_ICU74)
         OTHER("other"),
         /**
-         * @draft ICU 72
+         * @stable ICU 72
          */
+        @android.annotation.FlaggedApi(com.android.icu.Flags.FLAG_ICU74)
         NEUTER("neuter"),
         /**
-         * @draft ICU 72
+         * @stable ICU 72
          */
+        @android.annotation.FlaggedApi(com.android.icu.Flags.FLAG_ICU74)
         FEMININE("feminine"),
         /**
-         * @draft ICU 72
+         * @stable ICU 72
          */
+        @android.annotation.FlaggedApi(com.android.icu.Flags.FLAG_ICU74)
         MASCULINE("masculine"),
         /**
-         * @draft ICU 72
+         * @stable ICU 72
          */
+        @android.annotation.FlaggedApi(com.android.icu.Flags.FLAG_ICU74)
         ANIMATE("animate"),
         /**
-         * @draft ICU 72
+         * @stable ICU 72
          */
+        @android.annotation.FlaggedApi(com.android.icu.Flags.FLAG_ICU74)
         INANIMATE("inanimate"),
         /**
-         * @draft ICU 72
+         * @stable ICU 72
          */
+        @android.annotation.FlaggedApi(com.android.icu.Flags.FLAG_ICU74)
         PERSONAL("personal"),
         /**
-         * @draft ICU 72
+         * @stable ICU 72
          */
+        @android.annotation.FlaggedApi(com.android.icu.Flags.FLAG_ICU74)
         COMMON("common");
 
         private final String identifier;
@@ -328,15 +359,17 @@ public final class DisplayOptions {
         /**
          * Unmodifiable List of all noun classes constants. List version of {@link #values()}.
          *
-         * @draft ICU 72
+         * @stable ICU 72
          */
+        @android.annotation.FlaggedApi(com.android.icu.Flags.FLAG_ICU74)
         public static final List<NounClass> VALUES =
                 Collections.unmodifiableList(Arrays.asList(NounClass.values()));
 
         /**
          * @return the lowercase CLDR keyword string for the noun class.
-         * @draft ICU 72
+         * @stable ICU 72
          */
+        @android.annotation.FlaggedApi(com.android.icu.Flags.FLAG_ICU74)
         public final String getIdentifier() {
             return this.identifier;
         }
@@ -344,8 +377,9 @@ public final class DisplayOptions {
         /**
          * @param identifier in lower case such as "feminine" or "masculine"
          * @return the plural category corresponding to the identifier, or {@code UNDEFINED}
-         * @draft ICU 72
+         * @stable ICU 72
          */
+        @android.annotation.FlaggedApi(com.android.icu.Flags.FLAG_ICU74)
         public static final NounClass fromIdentifier(String identifier) {
             if (identifier == null) {
                 return NounClass.UNDEFINED;
@@ -364,36 +398,41 @@ public final class DisplayOptions {
     /**
      * Represents all the name styles.
      *
-     * @draft ICU 72
+     * @stable ICU 72
      */
+    @android.annotation.FlaggedApi(com.android.icu.Flags.FLAG_ICU74)
     public enum NameStyle {
         /**
          * A possible setting for NameStyle. The NameStyle context to be used is unknown (this is the
          * default value).
          *
-         * @draft ICU 72
+         * @stable ICU 72
          */
+        @android.annotation.FlaggedApi(com.android.icu.Flags.FLAG_ICU74)
         UNDEFINED,
         /**
          * Use standard names when generating a locale name, e.g. en_GB displays as 'English (United
          * Kingdom)'.
          *
-         * @draft ICU 72
+         * @stable ICU 72
          */
+        @android.annotation.FlaggedApi(com.android.icu.Flags.FLAG_ICU74)
         STANDARD_NAMES,
 
         /**
          * Use dialect names, when generating a locale name, e.g. en_GB displays as 'British English'.
          *
-         * @draft ICU 72
+         * @stable ICU 72
          */
+        @android.annotation.FlaggedApi(com.android.icu.Flags.FLAG_ICU74)
         DIALECT_NAMES;
 
         /**
          * Unmodifiable List of all name styles constants. List version of {@link #values()}.
          *
-         * @draft ICU 72
+         * @stable ICU 72
          */
+        @android.annotation.FlaggedApi(com.android.icu.Flags.FLAG_ICU74)
         public static final List<NameStyle> VALUES =
                 Collections.unmodifiableList(Arrays.asList(NameStyle.values()));
     }
@@ -401,36 +440,41 @@ public final class DisplayOptions {
     /**
      * Represents all the substitute handlings.
      *
-     * @draft ICU 72
+     * @stable ICU 72
      */
+    @android.annotation.FlaggedApi(com.android.icu.Flags.FLAG_ICU74)
     public enum SubstituteHandling {
         /**
          * A possible setting for SubstituteHandling. The SubstituteHandling context to be used is
          * unknown (this is the default value).
          *
-         * @draft ICU 72
+         * @stable ICU 72
          */
+        @android.annotation.FlaggedApi(com.android.icu.Flags.FLAG_ICU74)
         UNDEFINED,
         /**
          * Returns a fallback value (e.g., the input code) when no data is available. This is the
          * default behaviour.
          *
-         * @draft ICU 72
+         * @stable ICU 72
          */
+        @android.annotation.FlaggedApi(com.android.icu.Flags.FLAG_ICU74)
         SUBSTITUTE,
 
         /**
          * Returns a null value when no data is available.
          *
-         * @draft ICU 72
+         * @stable ICU 72
          */
+        @android.annotation.FlaggedApi(com.android.icu.Flags.FLAG_ICU74)
         NO_SUBSTITUTE;
 
         /**
          * Unmodifiable List of all substitute handlings constants. List version of {@link #values()}.
          *
-         * @draft ICU 72
+         * @stable ICU 72
          */
+        @android.annotation.FlaggedApi(com.android.icu.Flags.FLAG_ICU74)
         public static final List<SubstituteHandling> VALUES =
                 Collections.unmodifiableList(Arrays.asList(SubstituteHandling.values()));
     }
@@ -438,35 +482,40 @@ public final class DisplayOptions {
     /**
      * Represents all the display lengths.
      *
-     * @draft ICU 72
+     * @stable ICU 72
      */
+    @android.annotation.FlaggedApi(com.android.icu.Flags.FLAG_ICU74)
     public enum DisplayLength {
         /**
          * A possible setting for DisplayLength. The DisplayLength context to be used is unknown (this
          * is the default value).
          *
-         * @draft ICU 72
+         * @stable ICU 72
          */
+        @android.annotation.FlaggedApi(com.android.icu.Flags.FLAG_ICU74)
         UNDEFINED,
         /**
          * Uses full names when generating a locale name, e.g. "United States" for US.
          *
-         * @draft ICU 72
+         * @stable ICU 72
          */
+        @android.annotation.FlaggedApi(com.android.icu.Flags.FLAG_ICU74)
         LENGTH_FULL,
 
         /**
          * Use short names when generating a locale name, e.g. "U.S." for US.
          *
-         * @draft ICU 72
+         * @stable ICU 72
          */
+        @android.annotation.FlaggedApi(com.android.icu.Flags.FLAG_ICU74)
         LENGTH_SHORT;
 
         /**
          * Unmodifiable List of all display lengths constants. List version of {@link #values()}.
          *
-         * @draft ICU 72
+         * @stable ICU 72
          */
+        @android.annotation.FlaggedApi(com.android.icu.Flags.FLAG_ICU74)
         public static final List<DisplayLength> VALUES =
                 Collections.unmodifiableList(Arrays.asList(DisplayLength.values()));
     }
@@ -474,31 +523,35 @@ public final class DisplayOptions {
     /**
      * Represents all the capitalization options.
      *
-     * @draft ICU 72
+     * @stable ICU 72
      */
+    @android.annotation.FlaggedApi(com.android.icu.Flags.FLAG_ICU74)
     public enum Capitalization {
         /**
          * A possible setting for Capitalization. The capitalization context to be used is unknown (this
          * is the default value).
          *
-         * @draft ICU 72
+         * @stable ICU 72
          */
+        @android.annotation.FlaggedApi(com.android.icu.Flags.FLAG_ICU74)
         UNDEFINED,
 
         /**
          * The capitalization context if a date, date symbol or display name is to be formatted with
          * capitalization appropriate for the beginning of a sentence.
          *
-         * @draft ICU 72
+         * @stable ICU 72
          */
+        @android.annotation.FlaggedApi(com.android.icu.Flags.FLAG_ICU74)
         BEGINNING_OF_SENTENCE,
 
         /**
          * The capitalization context if a date, date symbol or display name is to be formatted with
          * capitalization appropriate for the middle of a sentence.
          *
-         * @draft ICU 72
+         * @stable ICU 72
          */
+        @android.annotation.FlaggedApi(com.android.icu.Flags.FLAG_ICU74)
         MIDDLE_OF_SENTENCE,
 
         /**
@@ -506,23 +559,26 @@ public final class DisplayOptions {
          * capitalization appropriate for stand-alone usage such as an isolated name on a calendar
          * page.
          *
-         * @draft ICU 72
+         * @stable ICU 72
          */
+        @android.annotation.FlaggedApi(com.android.icu.Flags.FLAG_ICU74)
         STANDALONE,
 
         /**
          * The capitalization context if a date, date symbol or display name is to be formatted with
          * capitalization appropriate for a user-interface list or menu item.
          *
-         * @draft ICU 72
+         * @stable ICU 72
          */
+        @android.annotation.FlaggedApi(com.android.icu.Flags.FLAG_ICU74)
         UI_LIST_OR_MENU;
 
         /**
          * Unmodifiable List of all the capitalizations constants. List version of {@link #values()}.
          *
-         * @draft ICU 72
+         * @stable ICU 72
          */
+        @android.annotation.FlaggedApi(com.android.icu.Flags.FLAG_ICU74)
         public static final List<Capitalization> VALUES =
                 Collections.unmodifiableList(Arrays.asList(Capitalization.values()));
     }
@@ -530,45 +586,53 @@ public final class DisplayOptions {
     /**
      * Standard CLDR plural category constants. See http://www.unicode.org/reports/tr35/tr35-numbers.html#Language_Plural_Rules
      *
-     * @draft ICU 72
+     * @stable ICU 72
      */
+    @android.annotation.FlaggedApi(com.android.icu.Flags.FLAG_ICU74)
     public enum PluralCategory {
         /**
          * A possible setting for PluralCategory. The plural category context to be used is unknown
          * (this is the default value).
          *
-         * @draft ICU 72
+         * @stable ICU 72
          */
+        @android.annotation.FlaggedApi(com.android.icu.Flags.FLAG_ICU74)
         UNDEFINED("undefined"),
 
         /**
-         * @draft ICU 72
+         * @stable ICU 72
          */
+        @android.annotation.FlaggedApi(com.android.icu.Flags.FLAG_ICU74)
         ZERO("zero"),
 
         /**
-         * @draft ICU 72
+         * @stable ICU 72
          */
+        @android.annotation.FlaggedApi(com.android.icu.Flags.FLAG_ICU74)
         ONE("one"),
 
         /**
-         * @draft ICU 72
+         * @stable ICU 72
          */
+        @android.annotation.FlaggedApi(com.android.icu.Flags.FLAG_ICU74)
         TWO("two"),
 
         /**
-         * @draft ICU 72
+         * @stable ICU 72
          */
+        @android.annotation.FlaggedApi(com.android.icu.Flags.FLAG_ICU74)
         FEW("few"),
 
         /**
-         * @draft ICU 72
+         * @stable ICU 72
          */
+        @android.annotation.FlaggedApi(com.android.icu.Flags.FLAG_ICU74)
         MANY("many"),
 
         /**
-         * @draft ICU 72
+         * @stable ICU 72
          */
+        @android.annotation.FlaggedApi(com.android.icu.Flags.FLAG_ICU74)
         OTHER("other");
 
         private final String identifier;
@@ -580,15 +644,17 @@ public final class DisplayOptions {
         /**
          * Unmodifiable List of all plural categories constants. List version of {@link #values()}.
          *
-         * @draft ICU 72
+         * @stable ICU 72
          */
+        @android.annotation.FlaggedApi(com.android.icu.Flags.FLAG_ICU74)
         public static final List<PluralCategory> VALUES =
                 Collections.unmodifiableList(Arrays.asList(PluralCategory.values()));
 
         /**
          * @return the lowercase CLDR keyword string for the plural category
-         * @draft ICU 72
+         * @stable ICU 72
          */
+        @android.annotation.FlaggedApi(com.android.icu.Flags.FLAG_ICU74)
         public final String getIdentifier() {
             return this.identifier;
         }
@@ -596,8 +662,9 @@ public final class DisplayOptions {
         /**
          * @param identifier in lower case such as "few" or "other"
          * @return the plural category corresponding to the identifier, or {@code UNDEFINED}
-         * @draft ICU 72
+         * @stable ICU 72
          */
+        @android.annotation.FlaggedApi(com.android.icu.Flags.FLAG_ICU74)
         public static final PluralCategory fromIdentifier(String identifier) {
             if (identifier == null) {
                 return PluralCategory.UNDEFINED;
@@ -616,85 +683,101 @@ public final class DisplayOptions {
     /**
      * Represents all the grammatical cases that are supported by CLDR.
      *
-     * @draft ICU 72
+     * @stable ICU 72
      */
+    @android.annotation.FlaggedApi(com.android.icu.Flags.FLAG_ICU74)
     public enum GrammaticalCase {
         /**
          * A possible setting for GrammaticalCase. The grammatical case context to be used is unknown
          * (this is the default value).
          *
-         * @draft ICU 72
+         * @stable ICU 72
          */
+        @android.annotation.FlaggedApi(com.android.icu.Flags.FLAG_ICU74)
         UNDEFINED("undefined"),
 
         /**
-         * @draft ICU 72
+         * @stable ICU 72
          */
+        @android.annotation.FlaggedApi(com.android.icu.Flags.FLAG_ICU74)
         ABLATIVE("ablative"),
 
         /**
-         * @draft ICU 72
+         * @stable ICU 72
          */
+        @android.annotation.FlaggedApi(com.android.icu.Flags.FLAG_ICU74)
         ACCUSATIVE("accusative"),
 
         /**
-         * @draft ICU 72
+         * @stable ICU 72
          */
+        @android.annotation.FlaggedApi(com.android.icu.Flags.FLAG_ICU74)
         COMITATIVE("comitative"),
 
         /**
-         * @draft ICU 72
+         * @stable ICU 72
          */
+        @android.annotation.FlaggedApi(com.android.icu.Flags.FLAG_ICU74)
         DATIVE("dative"),
 
         /**
-         * @draft ICU 72
+         * @stable ICU 72
          */
+        @android.annotation.FlaggedApi(com.android.icu.Flags.FLAG_ICU74)
         ERGATIVE("ergative"),
 
         /**
-         * @draft ICU 72
+         * @stable ICU 72
          */
+        @android.annotation.FlaggedApi(com.android.icu.Flags.FLAG_ICU74)
         GENITIVE("genitive"),
 
         /**
-         * @draft ICU 72
+         * @stable ICU 72
          */
+        @android.annotation.FlaggedApi(com.android.icu.Flags.FLAG_ICU74)
         INSTRUMENTAL("instrumental"),
 
         /**
-         * @draft ICU 72
+         * @stable ICU 72
          */
+        @android.annotation.FlaggedApi(com.android.icu.Flags.FLAG_ICU74)
         LOCATIVE("locative"),
 
         /**
-         * @draft ICU 72
+         * @stable ICU 72
          */
+        @android.annotation.FlaggedApi(com.android.icu.Flags.FLAG_ICU74)
         LOCATIVE_COPULATIVE("locative_copulative"),
 
         /**
-         * @draft ICU 72
+         * @stable ICU 72
          */
+        @android.annotation.FlaggedApi(com.android.icu.Flags.FLAG_ICU74)
         NOMINATIVE("nominative"),
 
         /**
-         * @draft ICU 72
+         * @stable ICU 72
          */
+        @android.annotation.FlaggedApi(com.android.icu.Flags.FLAG_ICU74)
         OBLIQUE("oblique"),
 
         /**
-         * @draft ICU 72
+         * @stable ICU 72
          */
+        @android.annotation.FlaggedApi(com.android.icu.Flags.FLAG_ICU74)
         PREPOSITIONAL("prepositional"),
 
         /**
-         * @draft ICU 72
+         * @stable ICU 72
          */
+        @android.annotation.FlaggedApi(com.android.icu.Flags.FLAG_ICU74)
         SOCIATIVE("sociative"),
 
         /**
-         * @draft ICU 72
+         * @stable ICU 72
          */
+        @android.annotation.FlaggedApi(com.android.icu.Flags.FLAG_ICU74)
         VOCATIVE("vocative");
 
         private final String identifier;
@@ -706,15 +789,17 @@ public final class DisplayOptions {
         /**
          * Unmodifiable List of all grammatical cases constants. List version of {@link #values()}.
          *
-         * @draft ICU 72
+         * @stable ICU 72
          */
+        @android.annotation.FlaggedApi(com.android.icu.Flags.FLAG_ICU74)
         public static final List<GrammaticalCase> VALUES =
                 Collections.unmodifiableList(Arrays.asList(GrammaticalCase.values()));
 
         /**
          * @return the lowercase CLDR keyword string for the grammatical case.
-         * @draft ICU 72
+         * @stable ICU 72
          */
+        @android.annotation.FlaggedApi(com.android.icu.Flags.FLAG_ICU74)
         public final String getIdentifier() {
             return this.identifier;
         }
@@ -722,8 +807,9 @@ public final class DisplayOptions {
         /**
          * @param identifier in lower case such as "dative" or "nominative"
          * @return the plural category corresponding to the identifier, or {@code UNDEFINED}
-         * @draft ICU 72
+         * @stable ICU 72
          */
+        @android.annotation.FlaggedApi(com.android.icu.Flags.FLAG_ICU74)
         public static final GrammaticalCase fromIdentifier(String identifier) {
             if (identifier == null) {
                 return GrammaticalCase.UNDEFINED;
