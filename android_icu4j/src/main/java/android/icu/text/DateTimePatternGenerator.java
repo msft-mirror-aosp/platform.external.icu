@@ -1089,8 +1089,8 @@ public class DateTimePatternGenerator implements Freezable<DateTimePatternGenera
      *              be thrown if out of range.
      * @param dateTimeFormat
      *              the new dateTimeFormat to set for the specified style
-     * @hide draft / provisional / internal are hidden on Android
      */
+    @android.annotation.FlaggedApi(com.android.icu.Flags.FLAG_ICU74)
     public void setDateTimeFormat(int style, String dateTimeFormat) {
         if (style < DateFormat.FULL || style > DateFormat.SHORT) {
             throw new IllegalArgumentException("Illegal style here: " + style);
@@ -1107,8 +1107,8 @@ public class DateTimePatternGenerator implements Freezable<DateTimePatternGenera
      *              be thrown if out of range.
      * @return
      *              the current dateTimeFormat for the specified style.
-     * @hide draft / provisional / internal are hidden on Android
      */
+    @android.annotation.FlaggedApi(com.android.icu.Flags.FLAG_ICU74)
     public String getDateTimeFormat(int style) {
         if (style < DateFormat.FULL || style > DateFormat.SHORT) {
             throw new IllegalArgumentException("Illegal style here: " + style);
