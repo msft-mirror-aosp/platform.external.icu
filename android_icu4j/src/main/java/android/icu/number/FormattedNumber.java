@@ -126,8 +126,8 @@ public class FormattedNumber implements FormattedValue {
      * supported yet.
      *
      * @return NounClass
-     * @hide draft / provisional / internal are hidden on Android
      */
+    @android.annotation.FlaggedApi(com.android.icu.Flags.FLAG_ICU74)
     public DisplayOptions.NounClass getNounClass() {
         return DisplayOptions.NounClass.fromIdentifier(this.gender);
     }
