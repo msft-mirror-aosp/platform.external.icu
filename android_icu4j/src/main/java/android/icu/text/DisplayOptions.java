@@ -21,10 +21,8 @@ import java.util.List;
  *                             .setPluralCategory(PluralCategory.FEW)
  *                             .build();
  *                             }
- *
- * @hide Only a subset of ICU is exposed in Android
- * @hide draft / provisional / internal are hidden on Android
  */
+@android.annotation.FlaggedApi(com.android.icu.Flags.FLAG_ICU74)
 public final class DisplayOptions {
     private final GrammaticalCase grammaticalCase;
     private final NounClass nounClass;
@@ -48,8 +46,8 @@ public final class DisplayOptions {
      * Creates a builder with the {@code UNDEFINED} value for all the parameters.
      *
      * @return Builder
-     * @hide draft / provisional / internal are hidden on Android
      */
+    @android.annotation.FlaggedApi(com.android.icu.Flags.FLAG_ICU74)
     public static Builder builder() {
         return new Builder();
     }
@@ -58,8 +56,8 @@ public final class DisplayOptions {
      * Creates a builder with the same parameters from this object.
      *
      * @return Builder
-     * @hide draft / provisional / internal are hidden on Android
      */
+    @android.annotation.FlaggedApi(com.android.icu.Flags.FLAG_ICU74)
     public Builder copyToBuilder() {
         return new Builder(this);
     }
@@ -68,8 +66,8 @@ public final class DisplayOptions {
      * Gets the grammatical case.
      *
      * @return GrammaticalCase
-     * @hide draft / provisional / internal are hidden on Android
      */
+    @android.annotation.FlaggedApi(com.android.icu.Flags.FLAG_ICU74)
     public GrammaticalCase getGrammaticalCase() {
         return this.grammaticalCase;
     }
@@ -78,8 +76,8 @@ public final class DisplayOptions {
      * Gets the noun class.
      *
      * @return NounClass
-     * @hide draft / provisional / internal are hidden on Android
      */
+    @android.annotation.FlaggedApi(com.android.icu.Flags.FLAG_ICU74)
     public NounClass getNounClass() {
         return this.nounClass;
     }
@@ -88,8 +86,8 @@ public final class DisplayOptions {
      * Gets the plural category.
      *
      * @return PluralCategory
-     * @hide draft / provisional / internal are hidden on Android
      */
+    @android.annotation.FlaggedApi(com.android.icu.Flags.FLAG_ICU74)
     public PluralCategory getPluralCategory() {
         return this.pluralCategory;
     }
@@ -98,8 +96,8 @@ public final class DisplayOptions {
      * Gets the capitalization.
      *
      * @return Capitalization
-     * @hide draft / provisional / internal are hidden on Android
      */
+    @android.annotation.FlaggedApi(com.android.icu.Flags.FLAG_ICU74)
     public Capitalization getCapitalization() {
         return this.capitalization;
     }
@@ -108,8 +106,8 @@ public final class DisplayOptions {
      * Gets the name style.
      *
      * @return NameStyle
-     * @hide draft / provisional / internal are hidden on Android
      */
+    @android.annotation.FlaggedApi(com.android.icu.Flags.FLAG_ICU74)
     public NameStyle getNameStyle() {
         return this.nameStyle;
     }
@@ -118,8 +116,8 @@ public final class DisplayOptions {
      * Gets the display length.
      *
      * @return DisplayLength
-     * @hide draft / provisional / internal are hidden on Android
      */
+    @android.annotation.FlaggedApi(com.android.icu.Flags.FLAG_ICU74)
     public DisplayLength getDisplayLength() {
         return this.displayLength;
     }
@@ -128,18 +126,16 @@ public final class DisplayOptions {
      * Gets the substitute handling.
      *
      * @return SubstituteHandling
-     * @hide draft / provisional / internal are hidden on Android
      */
+    @android.annotation.FlaggedApi(com.android.icu.Flags.FLAG_ICU74)
     public SubstituteHandling getSubstituteHandling() {
         return this.substituteHandling;
     }
 
     /**
      * Responsible for building {@code DisplayOptions}.
-     *
-     * @hide Only a subset of ICU is exposed in Android
-     * @hide draft / provisional / internal are hidden on Android
      */
+    @android.annotation.FlaggedApi(com.android.icu.Flags.FLAG_ICU74)
     public static class Builder {
         private GrammaticalCase grammaticalCase;
         private NounClass nounClass;
@@ -151,9 +147,8 @@ public final class DisplayOptions {
 
         /**
          * Creates a {@code DisplayOptions.Builder} with the default values.
-         *
-         * @hide draft / provisional / internal are hidden on Android
          */
+        @android.annotation.FlaggedApi(com.android.icu.Flags.FLAG_ICU74)
         private Builder() {
             this.grammaticalCase = GrammaticalCase.UNDEFINED;
             this.nounClass = NounClass.UNDEFINED;
@@ -168,8 +163,8 @@ public final class DisplayOptions {
          * Creates a {@code Builder} with all the information from a {@code DisplayOptions}.
          *
          * @param displayOptions Options to be copied.
-         * @hide draft / provisional / internal are hidden on Android
          */
+        @android.annotation.FlaggedApi(com.android.icu.Flags.FLAG_ICU74)
         private Builder(DisplayOptions displayOptions) {
             this.grammaticalCase = displayOptions.grammaticalCase;
             this.nounClass = displayOptions.nounClass;
@@ -185,8 +180,8 @@ public final class DisplayOptions {
          *
          * @param grammaticalCase The grammatical case.
          * @return Builder
-         * @hide draft / provisional / internal are hidden on Android
          */
+        @android.annotation.FlaggedApi(com.android.icu.Flags.FLAG_ICU74)
         public Builder setGrammaticalCase(GrammaticalCase grammaticalCase) {
             this.grammaticalCase = grammaticalCase;
             return this;
@@ -197,8 +192,8 @@ public final class DisplayOptions {
          *
          * @param nounClass The noun class.
          * @return Builder
-         * @hide draft / provisional / internal are hidden on Android
          */
+        @android.annotation.FlaggedApi(com.android.icu.Flags.FLAG_ICU74)
         public Builder setNounClass(NounClass nounClass) {
             this.nounClass = nounClass;
             return this;
@@ -209,8 +204,8 @@ public final class DisplayOptions {
          *
          * @param pluralCategory The plural category.
          * @return Builder
-         * @hide draft / provisional / internal are hidden on Android
          */
+        @android.annotation.FlaggedApi(com.android.icu.Flags.FLAG_ICU74)
         public Builder setPluralCategory(PluralCategory pluralCategory) {
             this.pluralCategory = pluralCategory;
             return this;
@@ -221,8 +216,8 @@ public final class DisplayOptions {
          *
          * @param capitalization The capitalization.
          * @return Builder
-         * @hide draft / provisional / internal are hidden on Android
          */
+        @android.annotation.FlaggedApi(com.android.icu.Flags.FLAG_ICU74)
         public Builder setCapitalization(Capitalization capitalization) {
             this.capitalization = capitalization;
             return this;
@@ -233,8 +228,8 @@ public final class DisplayOptions {
          *
          * @param nameStyle The name style.
          * @return Builder
-         * @hide draft / provisional / internal are hidden on Android
          */
+        @android.annotation.FlaggedApi(com.android.icu.Flags.FLAG_ICU74)
         public Builder setNameStyle(NameStyle nameStyle) {
             this.nameStyle = nameStyle;
             return this;
@@ -245,8 +240,8 @@ public final class DisplayOptions {
          *
          * @param displayLength The display length.
          * @return Builder
-         * @hide draft / provisional / internal are hidden on Android
          */
+        @android.annotation.FlaggedApi(com.android.icu.Flags.FLAG_ICU74)
         public Builder setDisplayLength(DisplayLength displayLength) {
             this.displayLength = displayLength;
             return this;
@@ -257,8 +252,8 @@ public final class DisplayOptions {
          *
          * @param substituteHandling The substitute handling.
          * @return Builder
-         * @hide draft / provisional / internal are hidden on Android
          */
+        @android.annotation.FlaggedApi(com.android.icu.Flags.FLAG_ICU74)
         public Builder setSubstituteHandling(SubstituteHandling substituteHandling) {
             this.substituteHandling = substituteHandling;
             return this;
@@ -268,8 +263,8 @@ public final class DisplayOptions {
          * Builds the display options.
          *
          * @return DisplayOptions
-         * @hide draft / provisional / internal are hidden on Android
          */
+        @android.annotation.FlaggedApi(com.android.icu.Flags.FLAG_ICU74)
         public DisplayOptions build() {
             DisplayOptions displayOptions = new DisplayOptions(this);
             return displayOptions;
@@ -278,49 +273,46 @@ public final class DisplayOptions {
 
     /**
      * Represents all the grammatical noun classes that are supported by CLDR.
-     *
-     * @hide Only a subset of ICU is exposed in Android
-     * @hide draft / provisional / internal are hidden on Android
      */
+    @android.annotation.FlaggedApi(com.android.icu.Flags.FLAG_ICU74)
     public enum NounClass {
         /**
          * A possible setting for NounClass. The noun class context to be used is unknown (this is the
          * default value).
-         *
-         * @hide draft / provisional / internal are hidden on Android
          */
+        @android.annotation.FlaggedApi(com.android.icu.Flags.FLAG_ICU74)
         UNDEFINED("undefined"),
         /**
-         * @hide draft / provisional / internal are hidden on Android
          */
+        @android.annotation.FlaggedApi(com.android.icu.Flags.FLAG_ICU74)
         OTHER("other"),
         /**
-         * @hide draft / provisional / internal are hidden on Android
          */
+        @android.annotation.FlaggedApi(com.android.icu.Flags.FLAG_ICU74)
         NEUTER("neuter"),
         /**
-         * @hide draft / provisional / internal are hidden on Android
          */
+        @android.annotation.FlaggedApi(com.android.icu.Flags.FLAG_ICU74)
         FEMININE("feminine"),
         /**
-         * @hide draft / provisional / internal are hidden on Android
          */
+        @android.annotation.FlaggedApi(com.android.icu.Flags.FLAG_ICU74)
         MASCULINE("masculine"),
         /**
-         * @hide draft / provisional / internal are hidden on Android
          */
+        @android.annotation.FlaggedApi(com.android.icu.Flags.FLAG_ICU74)
         ANIMATE("animate"),
         /**
-         * @hide draft / provisional / internal are hidden on Android
          */
+        @android.annotation.FlaggedApi(com.android.icu.Flags.FLAG_ICU74)
         INANIMATE("inanimate"),
         /**
-         * @hide draft / provisional / internal are hidden on Android
          */
+        @android.annotation.FlaggedApi(com.android.icu.Flags.FLAG_ICU74)
         PERSONAL("personal"),
         /**
-         * @hide draft / provisional / internal are hidden on Android
          */
+        @android.annotation.FlaggedApi(com.android.icu.Flags.FLAG_ICU74)
         COMMON("common");
 
         private final String identifier;
@@ -331,16 +323,15 @@ public final class DisplayOptions {
 
         /**
          * Unmodifiable List of all noun classes constants. List version of {@link #values()}.
-         *
-         * @hide draft / provisional / internal are hidden on Android
          */
+        @android.annotation.FlaggedApi(com.android.icu.Flags.FLAG_ICU74)
         public static final List<NounClass> VALUES =
                 Collections.unmodifiableList(Arrays.asList(NounClass.values()));
 
         /**
          * @return the lowercase CLDR keyword string for the noun class.
-         * @hide draft / provisional / internal are hidden on Android
          */
+        @android.annotation.FlaggedApi(com.android.icu.Flags.FLAG_ICU74)
         public final String getIdentifier() {
             return this.identifier;
         }
@@ -348,8 +339,8 @@ public final class DisplayOptions {
         /**
          * @param identifier in lower case such as "feminine" or "masculine"
          * @return the plural category corresponding to the identifier, or {@code UNDEFINED}
-         * @hide draft / provisional / internal are hidden on Android
          */
+        @android.annotation.FlaggedApi(com.android.icu.Flags.FLAG_ICU74)
         public static final NounClass fromIdentifier(String identifier) {
             if (identifier == null) {
                 return NounClass.UNDEFINED;
@@ -367,217 +358,188 @@ public final class DisplayOptions {
 
     /**
      * Represents all the name styles.
-     *
-     * @hide Only a subset of ICU is exposed in Android
-     * @hide draft / provisional / internal are hidden on Android
      */
+    @android.annotation.FlaggedApi(com.android.icu.Flags.FLAG_ICU74)
     public enum NameStyle {
         /**
          * A possible setting for NameStyle. The NameStyle context to be used is unknown (this is the
          * default value).
-         *
-         * @hide draft / provisional / internal are hidden on Android
          */
+        @android.annotation.FlaggedApi(com.android.icu.Flags.FLAG_ICU74)
         UNDEFINED,
         /**
          * Use standard names when generating a locale name, e.g. en_GB displays as 'English (United
          * Kingdom)'.
-         *
-         * @hide draft / provisional / internal are hidden on Android
          */
+        @android.annotation.FlaggedApi(com.android.icu.Flags.FLAG_ICU74)
         STANDARD_NAMES,
 
         /**
          * Use dialect names, when generating a locale name, e.g. en_GB displays as 'British English'.
-         *
-         * @hide draft / provisional / internal are hidden on Android
          */
+        @android.annotation.FlaggedApi(com.android.icu.Flags.FLAG_ICU74)
         DIALECT_NAMES;
 
         /**
          * Unmodifiable List of all name styles constants. List version of {@link #values()}.
-         *
-         * @hide draft / provisional / internal are hidden on Android
          */
+        @android.annotation.FlaggedApi(com.android.icu.Flags.FLAG_ICU74)
         public static final List<NameStyle> VALUES =
                 Collections.unmodifiableList(Arrays.asList(NameStyle.values()));
     }
 
     /**
      * Represents all the substitute handlings.
-     *
-     * @hide Only a subset of ICU is exposed in Android
-     * @hide draft / provisional / internal are hidden on Android
      */
+    @android.annotation.FlaggedApi(com.android.icu.Flags.FLAG_ICU74)
     public enum SubstituteHandling {
         /**
          * A possible setting for SubstituteHandling. The SubstituteHandling context to be used is
          * unknown (this is the default value).
-         *
-         * @hide draft / provisional / internal are hidden on Android
          */
+        @android.annotation.FlaggedApi(com.android.icu.Flags.FLAG_ICU74)
         UNDEFINED,
         /**
          * Returns a fallback value (e.g., the input code) when no data is available. This is the
          * default behaviour.
-         *
-         * @hide draft / provisional / internal are hidden on Android
          */
+        @android.annotation.FlaggedApi(com.android.icu.Flags.FLAG_ICU74)
         SUBSTITUTE,
 
         /**
          * Returns a null value when no data is available.
-         *
-         * @hide draft / provisional / internal are hidden on Android
          */
+        @android.annotation.FlaggedApi(com.android.icu.Flags.FLAG_ICU74)
         NO_SUBSTITUTE;
 
         /**
          * Unmodifiable List of all substitute handlings constants. List version of {@link #values()}.
-         *
-         * @hide draft / provisional / internal are hidden on Android
          */
+        @android.annotation.FlaggedApi(com.android.icu.Flags.FLAG_ICU74)
         public static final List<SubstituteHandling> VALUES =
                 Collections.unmodifiableList(Arrays.asList(SubstituteHandling.values()));
     }
 
     /**
      * Represents all the display lengths.
-     *
-     * @hide Only a subset of ICU is exposed in Android
-     * @hide draft / provisional / internal are hidden on Android
      */
+    @android.annotation.FlaggedApi(com.android.icu.Flags.FLAG_ICU74)
     public enum DisplayLength {
         /**
          * A possible setting for DisplayLength. The DisplayLength context to be used is unknown (this
          * is the default value).
-         *
-         * @hide draft / provisional / internal are hidden on Android
          */
+        @android.annotation.FlaggedApi(com.android.icu.Flags.FLAG_ICU74)
         UNDEFINED,
         /**
          * Uses full names when generating a locale name, e.g. "United States" for US.
-         *
-         * @hide draft / provisional / internal are hidden on Android
          */
+        @android.annotation.FlaggedApi(com.android.icu.Flags.FLAG_ICU74)
         LENGTH_FULL,
 
         /**
          * Use short names when generating a locale name, e.g. "U.S." for US.
-         *
-         * @hide draft / provisional / internal are hidden on Android
          */
+        @android.annotation.FlaggedApi(com.android.icu.Flags.FLAG_ICU74)
         LENGTH_SHORT;
 
         /**
          * Unmodifiable List of all display lengths constants. List version of {@link #values()}.
-         *
-         * @hide draft / provisional / internal are hidden on Android
          */
+        @android.annotation.FlaggedApi(com.android.icu.Flags.FLAG_ICU74)
         public static final List<DisplayLength> VALUES =
                 Collections.unmodifiableList(Arrays.asList(DisplayLength.values()));
     }
 
     /**
      * Represents all the capitalization options.
-     *
-     * @hide Only a subset of ICU is exposed in Android
-     * @hide draft / provisional / internal are hidden on Android
      */
+    @android.annotation.FlaggedApi(com.android.icu.Flags.FLAG_ICU74)
     public enum Capitalization {
         /**
          * A possible setting for Capitalization. The capitalization context to be used is unknown (this
          * is the default value).
-         *
-         * @hide draft / provisional / internal are hidden on Android
          */
+        @android.annotation.FlaggedApi(com.android.icu.Flags.FLAG_ICU74)
         UNDEFINED,
 
         /**
          * The capitalization context if a date, date symbol or display name is to be formatted with
          * capitalization appropriate for the beginning of a sentence.
-         *
-         * @hide draft / provisional / internal are hidden on Android
          */
+        @android.annotation.FlaggedApi(com.android.icu.Flags.FLAG_ICU74)
         BEGINNING_OF_SENTENCE,
 
         /**
          * The capitalization context if a date, date symbol or display name is to be formatted with
          * capitalization appropriate for the middle of a sentence.
-         *
-         * @hide draft / provisional / internal are hidden on Android
          */
+        @android.annotation.FlaggedApi(com.android.icu.Flags.FLAG_ICU74)
         MIDDLE_OF_SENTENCE,
 
         /**
          * The capitalization context if a date, date symbol or display name is to be formatted with
          * capitalization appropriate for stand-alone usage such as an isolated name on a calendar
          * page.
-         *
-         * @hide draft / provisional / internal are hidden on Android
          */
+        @android.annotation.FlaggedApi(com.android.icu.Flags.FLAG_ICU74)
         STANDALONE,
 
         /**
          * The capitalization context if a date, date symbol or display name is to be formatted with
          * capitalization appropriate for a user-interface list or menu item.
-         *
-         * @hide draft / provisional / internal are hidden on Android
          */
+        @android.annotation.FlaggedApi(com.android.icu.Flags.FLAG_ICU74)
         UI_LIST_OR_MENU;
 
         /**
          * Unmodifiable List of all the capitalizations constants. List version of {@link #values()}.
-         *
-         * @hide draft / provisional / internal are hidden on Android
          */
+        @android.annotation.FlaggedApi(com.android.icu.Flags.FLAG_ICU74)
         public static final List<Capitalization> VALUES =
                 Collections.unmodifiableList(Arrays.asList(Capitalization.values()));
     }
 
     /**
      * Standard CLDR plural category constants. See http://www.unicode.org/reports/tr35/tr35-numbers.html#Language_Plural_Rules
-     *
-     * @hide Only a subset of ICU is exposed in Android
-     * @hide draft / provisional / internal are hidden on Android
      */
+    @android.annotation.FlaggedApi(com.android.icu.Flags.FLAG_ICU74)
     public enum PluralCategory {
         /**
          * A possible setting for PluralCategory. The plural category context to be used is unknown
          * (this is the default value).
-         *
-         * @hide draft / provisional / internal are hidden on Android
          */
+        @android.annotation.FlaggedApi(com.android.icu.Flags.FLAG_ICU74)
         UNDEFINED("undefined"),
 
         /**
-         * @hide draft / provisional / internal are hidden on Android
          */
+        @android.annotation.FlaggedApi(com.android.icu.Flags.FLAG_ICU74)
         ZERO("zero"),
 
         /**
-         * @hide draft / provisional / internal are hidden on Android
          */
+        @android.annotation.FlaggedApi(com.android.icu.Flags.FLAG_ICU74)
         ONE("one"),
 
         /**
-         * @hide draft / provisional / internal are hidden on Android
          */
+        @android.annotation.FlaggedApi(com.android.icu.Flags.FLAG_ICU74)
         TWO("two"),
 
         /**
-         * @hide draft / provisional / internal are hidden on Android
          */
+        @android.annotation.FlaggedApi(com.android.icu.Flags.FLAG_ICU74)
         FEW("few"),
 
         /**
-         * @hide draft / provisional / internal are hidden on Android
          */
+        @android.annotation.FlaggedApi(com.android.icu.Flags.FLAG_ICU74)
         MANY("many"),
 
         /**
-         * @hide draft / provisional / internal are hidden on Android
          */
+        @android.annotation.FlaggedApi(com.android.icu.Flags.FLAG_ICU74)
         OTHER("other");
 
         private final String identifier;
@@ -588,16 +550,15 @@ public final class DisplayOptions {
 
         /**
          * Unmodifiable List of all plural categories constants. List version of {@link #values()}.
-         *
-         * @hide draft / provisional / internal are hidden on Android
          */
+        @android.annotation.FlaggedApi(com.android.icu.Flags.FLAG_ICU74)
         public static final List<PluralCategory> VALUES =
                 Collections.unmodifiableList(Arrays.asList(PluralCategory.values()));
 
         /**
          * @return the lowercase CLDR keyword string for the plural category
-         * @hide draft / provisional / internal are hidden on Android
          */
+        @android.annotation.FlaggedApi(com.android.icu.Flags.FLAG_ICU74)
         public final String getIdentifier() {
             return this.identifier;
         }
@@ -605,8 +566,8 @@ public final class DisplayOptions {
         /**
          * @param identifier in lower case such as "few" or "other"
          * @return the plural category corresponding to the identifier, or {@code UNDEFINED}
-         * @hide draft / provisional / internal are hidden on Android
          */
+        @android.annotation.FlaggedApi(com.android.icu.Flags.FLAG_ICU74)
         public static final PluralCategory fromIdentifier(String identifier) {
             if (identifier == null) {
                 return PluralCategory.UNDEFINED;
@@ -624,87 +585,84 @@ public final class DisplayOptions {
 
     /**
      * Represents all the grammatical cases that are supported by CLDR.
-     *
-     * @hide Only a subset of ICU is exposed in Android
-     * @hide draft / provisional / internal are hidden on Android
      */
+    @android.annotation.FlaggedApi(com.android.icu.Flags.FLAG_ICU74)
     public enum GrammaticalCase {
         /**
          * A possible setting for GrammaticalCase. The grammatical case context to be used is unknown
          * (this is the default value).
-         *
-         * @hide draft / provisional / internal are hidden on Android
          */
+        @android.annotation.FlaggedApi(com.android.icu.Flags.FLAG_ICU74)
         UNDEFINED("undefined"),
 
         /**
-         * @hide draft / provisional / internal are hidden on Android
          */
+        @android.annotation.FlaggedApi(com.android.icu.Flags.FLAG_ICU74)
         ABLATIVE("ablative"),
 
         /**
-         * @hide draft / provisional / internal are hidden on Android
          */
+        @android.annotation.FlaggedApi(com.android.icu.Flags.FLAG_ICU74)
         ACCUSATIVE("accusative"),
 
         /**
-         * @hide draft / provisional / internal are hidden on Android
          */
+        @android.annotation.FlaggedApi(com.android.icu.Flags.FLAG_ICU74)
         COMITATIVE("comitative"),
 
         /**
-         * @hide draft / provisional / internal are hidden on Android
          */
+        @android.annotation.FlaggedApi(com.android.icu.Flags.FLAG_ICU74)
         DATIVE("dative"),
 
         /**
-         * @hide draft / provisional / internal are hidden on Android
          */
+        @android.annotation.FlaggedApi(com.android.icu.Flags.FLAG_ICU74)
         ERGATIVE("ergative"),
 
         /**
-         * @hide draft / provisional / internal are hidden on Android
          */
+        @android.annotation.FlaggedApi(com.android.icu.Flags.FLAG_ICU74)
         GENITIVE("genitive"),
 
         /**
-         * @hide draft / provisional / internal are hidden on Android
          */
+        @android.annotation.FlaggedApi(com.android.icu.Flags.FLAG_ICU74)
         INSTRUMENTAL("instrumental"),
 
         /**
-         * @hide draft / provisional / internal are hidden on Android
          */
+        @android.annotation.FlaggedApi(com.android.icu.Flags.FLAG_ICU74)
         LOCATIVE("locative"),
 
         /**
-         * @hide draft / provisional / internal are hidden on Android
          */
+        @android.annotation.FlaggedApi(com.android.icu.Flags.FLAG_ICU74)
         LOCATIVE_COPULATIVE("locative_copulative"),
 
         /**
-         * @hide draft / provisional / internal are hidden on Android
          */
+        @android.annotation.FlaggedApi(com.android.icu.Flags.FLAG_ICU74)
         NOMINATIVE("nominative"),
 
         /**
-         * @hide draft / provisional / internal are hidden on Android
          */
+        @android.annotation.FlaggedApi(com.android.icu.Flags.FLAG_ICU74)
         OBLIQUE("oblique"),
 
         /**
-         * @hide draft / provisional / internal are hidden on Android
          */
+        @android.annotation.FlaggedApi(com.android.icu.Flags.FLAG_ICU74)
         PREPOSITIONAL("prepositional"),
 
         /**
-         * @hide draft / provisional / internal are hidden on Android
          */
+        @android.annotation.FlaggedApi(com.android.icu.Flags.FLAG_ICU74)
         SOCIATIVE("sociative"),
 
         /**
-         * @hide draft / provisional / internal are hidden on Android
          */
+        @android.annotation.FlaggedApi(com.android.icu.Flags.FLAG_ICU74)
         VOCATIVE("vocative");
 
         private final String identifier;
@@ -715,16 +673,15 @@ public final class DisplayOptions {
 
         /**
          * Unmodifiable List of all grammatical cases constants. List version of {@link #values()}.
-         *
-         * @hide draft / provisional / internal are hidden on Android
          */
+        @android.annotation.FlaggedApi(com.android.icu.Flags.FLAG_ICU74)
         public static final List<GrammaticalCase> VALUES =
                 Collections.unmodifiableList(Arrays.asList(GrammaticalCase.values()));
 
         /**
          * @return the lowercase CLDR keyword string for the grammatical case.
-         * @hide draft / provisional / internal are hidden on Android
          */
+        @android.annotation.FlaggedApi(com.android.icu.Flags.FLAG_ICU74)
         public final String getIdentifier() {
             return this.identifier;
         }
@@ -732,8 +689,8 @@ public final class DisplayOptions {
         /**
          * @param identifier in lower case such as "dative" or "nominative"
          * @return the plural category corresponding to the identifier, or {@code UNDEFINED}
-         * @hide draft / provisional / internal are hidden on Android
          */
+        @android.annotation.FlaggedApi(com.android.icu.Flags.FLAG_ICU74)
         public static final GrammaticalCase fromIdentifier(String identifier) {
             if (identifier == null) {
                 return GrammaticalCase.UNDEFINED;

@@ -1211,8 +1211,9 @@ public class MeasureUnit implements Serializable {
 
     /**
      * Constant for unit of duration: quarter
-     * @draft ICU 72
+     * @stable ICU 72
      */
+    @android.annotation.FlaggedApi(com.android.icu.Flags.FLAG_ICU74)
     public static final MeasureUnit QUARTER = MeasureUnit.internalGetInstance("duration", "quarter");
 
     /**
@@ -1663,8 +1664,9 @@ public class MeasureUnit implements Serializable {
 
     /**
      * Constant for unit of mass: tonne
-     * @draft ICU 72
+     * @stable ICU 72
      */
+    @android.annotation.FlaggedApi(com.android.icu.Flags.FLAG_ICU74)
     public static final MeasureUnit TONNE = MeasureUnit.internalGetInstance("mass", "tonne");
 
     /**
