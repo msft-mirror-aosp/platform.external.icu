@@ -96,15 +96,15 @@ java_library_static {
     name: "core-repackaged-icu4j",
     installable: false,
     srcs: [":android_icu4j_repackaged_src_files"],
-    static_libs: [
-        "icu_aconfig_flags_lib",
-    ],
     libs: [
         "unsupportedappusage",
         // Need framework-api-annotations-lib for @FlaggedApi.
         // Put framework-api-annotations into libs to avoid exposing the definition of framework's
         // annotations from ICU (wrong place) instead of framework (correct place).
         "framework-annotations-lib",
+        // We only need the aconfig library for @FlaggedApi. We can move it to static_libs
+        // if we need it for flagging features in the future.
+        "icu_aconfig_flags_lib",
     ],
     // The resource files are generated in the downstream branch master-icu-dev.
     java_resource_dirs: ["resources"],
