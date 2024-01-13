@@ -148,7 +148,6 @@ public final class DisplayOptions {
         /**
          * Creates a {@code DisplayOptions.Builder} with the default values.
          */
-        @android.annotation.FlaggedApi(com.android.icu.Flags.FLAG_ICU74)
         private Builder() {
             this.grammaticalCase = GrammaticalCase.UNDEFINED;
             this.nounClass = NounClass.UNDEFINED;
@@ -164,7 +163,6 @@ public final class DisplayOptions {
          *
          * @param displayOptions Options to be copied.
          */
-        @android.annotation.FlaggedApi(com.android.icu.Flags.FLAG_ICU74)
         private Builder(DisplayOptions displayOptions) {
             this.grammaticalCase = displayOptions.grammaticalCase;
             this.nounClass = displayOptions.nounClass;

@@ -144,7 +144,6 @@ public class FormattedNumber implements FormattedValue {
      * @return NounClass
      * @stable ICU 71.
      */
-    @android.annotation.FlaggedApi(com.android.icu.Flags.FLAG_ICU74)
     public DisplayOptions.NounClass getNounClass() {
         return DisplayOptions.NounClass.fromIdentifier(this.gender);
     }

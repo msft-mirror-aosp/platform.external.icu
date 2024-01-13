@@ -1973,7 +1973,6 @@ public abstract class NumberFormat extends UFormat {
          * Approximately sign. In ICU 70, this was categorized under the generic SIGN field.
          * @stable ICU 71
          */
-        @android.annotation.FlaggedApi(com.android.icu.Flags.FLAG_ICU74)
         public static final Field APPROXIMATELY_SIGN = new Field("approximately sign");
 
         /**
