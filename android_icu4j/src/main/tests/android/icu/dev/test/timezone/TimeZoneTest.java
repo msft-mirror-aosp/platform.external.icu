@@ -1507,7 +1507,11 @@ public class TimeZoneTest extends TestFmwk
     }
 
     @Test
-    @Ignore
+    // Android-added: Ignore this test on CTS branches.
+    // This test is written is such a way that it is heavily coupled with
+    // tzdata. Keeping it passing with system image tzdata and a newer one, which changes
+    // canonicality rules (i.e. 2023d), would probably mean re-writing this test.
+    @org.junit.Ignore
     public void TestCanonicalID() {
         // Some canonical IDs in CLDR are defined as "Link"
         // in Olson tzdata.
