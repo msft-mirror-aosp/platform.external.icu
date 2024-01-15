@@ -70,7 +70,11 @@ void TimeZoneTest::runIndexedTest( int32_t index, UBool exec, const char* &name,
     TESTCASE_AUTO(TestFractionalDST);
     TESTCASE_AUTO(TestFebruary);
     TESTCASE_AUTO(TestCanonicalIDAPI);
-    TESTCASE_AUTO(TestCanonicalID);
+    // Android-changed: Ignore this test on CTS branches.
+    // This test is written is such a way that it is heavily coupled with
+    // tzdata. Keeping it passing with system image tzdata and a newer one, which changes
+    // canonicality rules (i.e. 2023d), would probably mean re-writing this test.
+    // TESTCASE_AUTO(TestCanonicalID);
     TESTCASE_AUTO(TestDisplayNamesMeta);
     // Android-changed: skip as tzdata version dependent.
     // TESTCASE_AUTO(TestGetRegion);
