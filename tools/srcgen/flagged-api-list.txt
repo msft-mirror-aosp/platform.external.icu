@@ -89,3 +89,11 @@ method:android.icu.text.DisplayOptions$GrammaticalCase#fromIdentifier(String)
 field:android.icu.text.NumberFormat$Field#APPROXIMATELY_SIGN
 field:android.icu.util.MeasureUnit#QUARTER
 field:android.icu.util.MeasureUnit#TONNE
+field:android.icu.lang.UCharacter$LineBreak#AKSARA
+field:android.icu.lang.UCharacter$LineBreak#AKSARA_PREBASE
+field:android.icu.lang.UCharacter$LineBreak#AKSARA_START
+field:android.icu.lang.UCharacter$LineBreak#VIRAMA
+field:android.icu.lang.UCharacter$LineBreak#VIRAMA_FINAL
+field:android.icu.lang.UCharacter$UnicodeBlock#CJK_UNIFIED_IDEOGRAPHS_EXTENSION_I
+field:android.icu.lang.UCharacter$UnicodeBlock#CJK_UNIFIED_IDEOGRAPHS_EXTENSION_I_ID
+field:android.icu.util.VersionInfo#UNICODE_15_1
