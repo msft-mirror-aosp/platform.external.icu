@@ -370,6 +370,9 @@ package android.icu.lang {
   }
 
   public static interface UCharacter.LineBreak {
+    field @FlaggedApi(com.android.icu.Flags.FLAG_ICU74) public static final int AKSARA = 43; // 0x2b
+    field @FlaggedApi(com.android.icu.Flags.FLAG_ICU74) public static final int AKSARA_PREBASE = 44; // 0x2c
+    field @FlaggedApi(com.android.icu.Flags.FLAG_ICU74) public static final int AKSARA_START = 45; // 0x2d
     field public static final int ALPHABETIC = 2; // 0x2
     field public static final int AMBIGUOUS = 1; // 0x1
     field public static final int BREAK_AFTER = 4; // 0x4
@@ -411,6 +414,8 @@ package android.icu.lang {
     field public static final int SPACE = 26; // 0x1a
     field public static final int SURROGATE = 25; // 0x19
     field public static final int UNKNOWN = 0; // 0x0
+    field @FlaggedApi(com.android.icu.Flags.FLAG_ICU74) public static final int VIRAMA = 47; // 0x2f
+    field @FlaggedApi(com.android.icu.Flags.FLAG_ICU74) public static final int VIRAMA_FINAL = 46; // 0x2e
     field public static final int WORD_JOINER = 30; // 0x1e
     field public static final int ZWJ = 42; // 0x2a
     field public static final int ZWSPACE = 28; // 0x1c
@@ -567,6 +572,8 @@ package android.icu.lang {
     field public static final int CJK_UNIFIED_IDEOGRAPHS_EXTENSION_G_ID = 302; // 0x12e
     field public static final android.icu.lang.UCharacter.UnicodeBlock CJK_UNIFIED_IDEOGRAPHS_EXTENSION_H;
     field public static final int CJK_UNIFIED_IDEOGRAPHS_EXTENSION_H_ID = 322; // 0x142
+    field @FlaggedApi(com.android.icu.Flags.FLAG_ICU74) public static final android.icu.lang.UCharacter.UnicodeBlock CJK_UNIFIED_IDEOGRAPHS_EXTENSION_I;
+    field @FlaggedApi(com.android.icu.Flags.FLAG_ICU74) public static final int CJK_UNIFIED_IDEOGRAPHS_EXTENSION_I_ID = 328; // 0x148
     field public static final int CJK_UNIFIED_IDEOGRAPHS_ID = 71; // 0x47
     field public static final android.icu.lang.UCharacter.UnicodeBlock COMBINING_DIACRITICAL_MARKS;
     field public static final android.icu.lang.UCharacter.UnicodeBlock COMBINING_DIACRITICAL_MARKS_EXTENDED;
@@ -5150,6 +5157,7 @@ package android.icu.util {
     field public static final android.icu.util.VersionInfo UNICODE_13_0;
     field public static final android.icu.util.VersionInfo UNICODE_14_0;
     field public static final android.icu.util.VersionInfo UNICODE_15_0;
+    field @FlaggedApi(com.android.icu.Flags.FLAG_ICU74) public static final android.icu.util.VersionInfo UNICODE_15_1;
     field public static final android.icu.util.VersionInfo UNICODE_1_0;
     field public static final android.icu.util.VersionInfo UNICODE_1_0_1;
     field public static final android.icu.util.VersionInfo UNICODE_1_1_0;
