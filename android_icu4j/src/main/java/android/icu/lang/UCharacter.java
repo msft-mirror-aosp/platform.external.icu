@@ -1132,7 +1132,7 @@ public final class UCharacter implements ECharacterCategory, ECharacterDirection
          * @hide unsupported on Android
          */
         @Deprecated
-        public static final int COUNT = 329;
+        public static final int COUNT = 328;
 
         // blocks objects ---------------------------------------------------
 
@@ -2519,7 +2519,9 @@ public final class UCharacter implements ECharacterCategory, ECharacterDirection
         {
             super(name);
             m_id_ = id;
-            if (id >= 0) {
+            // Android-changed: Avoid leaking flagged UnicodeBlock until ICU 74 data is integrated.
+            // if (id >= 0) {
+            if (id >= 0 && id < BLOCKS_.length) {
                 BLOCKS_[id] = this;
             }
         }
@@ -3312,7 +3314,7 @@ public final class UCharacter implements ECharacterCategory, ECharacterDirection
          * @hide unsupported on Android
          */
         @Deprecated
-        public static final int COUNT = 48;
+        public static final int COUNT = 43;
     }
 
     /**
