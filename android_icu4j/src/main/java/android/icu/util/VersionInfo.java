@@ -180,7 +180,7 @@ public final class VersionInfo implements Comparable<VersionInfo>
     /**
      * Unicode 15.1 version
      */
-    @android.annotation.FlaggedApi(com.android.icu.Flags.FLAG_ICU74)
+    @android.annotation.FlaggedApi(com.android.icu.Flags.FLAG_ICU_V_API)
     public static final VersionInfo UNICODE_15_1;
 
     /**
