@@ -536,7 +536,7 @@ public abstract class NumberFormatterSettings<T extends NumberFormatterSettings<
      *
      * @return The fluent chain.
      */
-    @android.annotation.FlaggedApi(com.android.icu.Flags.FLAG_ICU74)
+    @android.annotation.FlaggedApi(com.android.icu.Flags.FLAG_ICU_V_API)
     public T displayOptions(DisplayOptions displayOptions) {
         // `displayCase` does not recognise the `undefined`
         if (displayOptions.getGrammaticalCase() == GrammaticalCase.UNDEFINED) {

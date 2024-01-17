@@ -1148,7 +1148,7 @@ public class Icu4jTransform {
               "android.annotation.FlaggedApi",
               "value",
               String.class,
-              new AnnotationInfo.Placeholder("com.android.icu.Flags.FLAG_ICU74"),
+              new AnnotationInfo.Placeholder("com.android.icu.Flags.FLAG_ICU_V_API"),
               flaggedApiListPath));
   }
 
