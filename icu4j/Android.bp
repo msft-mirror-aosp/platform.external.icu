@@ -72,6 +72,14 @@ java_library {
         "//system/timezone/input_tools/android/tzlookup_generator",
     ],
     defaults: ["icu4j-defaults"],
+    libs: [
+        // Need the following shared libraries for @FlaggedApi. These libraries are only needed
+        // compile-time, not runtime, and it shouldn't need to be statically linked.
+        // framework-api-annotations are not static libs to avoid exposing the definition of
+        // framework's annotations from ICU (wrong place) instead of framework (correct place).
+        "framework-annotations-lib",
+        "icu_aconfig_flags_lib",
+    ],
 
     srcs: ["main/classes/**/*.java"],
     java_resource_dirs: ["main/classes/*/src"],

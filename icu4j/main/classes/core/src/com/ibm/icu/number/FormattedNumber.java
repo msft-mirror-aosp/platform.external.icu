@@ -142,7 +142,7 @@ public class FormattedNumber implements FormattedValue {
      * supported yet.
      *
      * @return NounClass
-     * @draft ICU 71.
+     * @stable ICU 71.
      */
     public DisplayOptions.NounClass getNounClass() {
         return DisplayOptions.NounClass.fromIdentifier(this.gender);
