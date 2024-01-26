@@ -49,9 +49,10 @@ public class NumberFormatTest {
         // below assert statement.
         assertEquals('.', dfs.getGroupingSeparator());
         assertEquals(',', dfs.getDecimalSeparator());
-        assertEquals(',', dfs.getMonetaryDecimalSeparator());
-        assertEquals(',', dfs.getMonetaryGroupingSeparator());
+        // Disable this monetary separator check due to an intended bug fix in ART. http://b/318786838
+        // assertEquals(',', dfs.getMonetaryDecimalSeparator());
+        // assertEquals(',', dfs.getMonetaryGroupingSeparator());
         // Assert that the separators in DecimalFormatSymbols are used.
-        assertEquals("€9,876,66",df.format(9876.66));
+        // assertEquals("€9,876,66",df.format(9876.66));
     }
 }
