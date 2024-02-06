@@ -87,6 +87,7 @@ cc_defaults {
 aconfig_declarations {
     name: "icu_aconfig_flags",
     package: "com.android.icu",
+    container: "system",
     srcs: [
         "icu.aconfig",
     ],
