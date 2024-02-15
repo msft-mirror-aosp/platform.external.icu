@@ -1118,6 +1118,12 @@ public final class UCharacter implements ECharacterCategory, ECharacterDirection
         /***/
         public static final int NAG_MUNDARI_ID = 327; /*[1E4D0]*/
 
+        // New block in Unicode 15.1
+
+        /***/
+        @android.annotation.FlaggedApi(com.android.icu.Flags.FLAG_ICU_V_API)
+        public static final int CJK_UNIFIED_IDEOGRAPHS_EXTENSION_I_ID = 328; /*[2EBF0]*/
+
         /**
          * One more than the highest normal UnicodeBlock value.
          * The highest value is available via UCharacter.getIntPropertyMaxValue(UProperty.BLOCK).
@@ -2383,6 +2389,14 @@ public final class UCharacter implements ECharacterCategory, ECharacterDirection
         public static final UnicodeBlock NAG_MUNDARI =
                 new UnicodeBlock("NAG_MUNDARI", NAG_MUNDARI_ID); /*[1E4D0]*/
 
+        // New block in Unicode 15.1
+
+        /***/
+        @android.annotation.FlaggedApi(com.android.icu.Flags.FLAG_ICU_V_API)
+        public static final UnicodeBlock CJK_UNIFIED_IDEOGRAPHS_EXTENSION_I =
+                new UnicodeBlock("CJK_UNIFIED_IDEOGRAPHS_EXTENSION_I",
+                        CJK_UNIFIED_IDEOGRAPHS_EXTENSION_I_ID); /*[2EBF0]*/
+
         /**
          */
         public static final UnicodeBlock INVALID_CODE
@@ -2505,7 +2519,9 @@ public final class UCharacter implements ECharacterCategory, ECharacterDirection
         {
             super(name);
             m_id_ = id;
-            if (id >= 0) {
+            // Android-changed: Avoid leaking flagged UnicodeBlock until ICU 74 data is integrated.
+            // if (id >= 0) {
+            if (id >= 0 && id < BLOCKS_.length) {
                 BLOCKS_[id] = this;
             }
         }
@@ -3275,6 +3291,21 @@ public final class UCharacter implements ECharacterCategory, ECharacterDirection
         public static final int E_MODIFIER = 41;  /*[EM]*/
         /***/
         public static final int ZWJ = 42;  /*[ZWJ]*/
+        /***/
+        @android.annotation.FlaggedApi(com.android.icu.Flags.FLAG_ICU_V_API)
+        public static final int AKSARA = 43;  /*[AK]*/ /* from here on: new in Unicode 15.1/ICU 74 */
+        /***/
+        @android.annotation.FlaggedApi(com.android.icu.Flags.FLAG_ICU_V_API)
+        public static final int AKSARA_PREBASE = 44;  /*[AP]*/
+        /***/
+        @android.annotation.FlaggedApi(com.android.icu.Flags.FLAG_ICU_V_API)
+        public static final int AKSARA_START = 45;  /*[AS]*/
+        /***/
+        @android.annotation.FlaggedApi(com.android.icu.Flags.FLAG_ICU_V_API)
+        public static final int VIRAMA_FINAL = 46;  /*[VF]*/
+        /***/
+        @android.annotation.FlaggedApi(com.android.icu.Flags.FLAG_ICU_V_API)
+        public static final int VIRAMA = 47;  /*[VI]*/
         /**
          * One more than the highest normal LineBreak value.
          * The highest value is available via UCharacter.getIntPropertyMaxValue(UProperty.LINE_BREAK).

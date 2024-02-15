@@ -535,8 +535,8 @@ public abstract class NumberFormatterSettings<T extends NumberFormatterSettings<
      * the desired case for a unit formatter's output (e.g. accusative, dative, genitive).
      *
      * @return The fluent chain.
-     * @hide draft / provisional / internal are hidden on Android
      */
+    @android.annotation.FlaggedApi(com.android.icu.Flags.FLAG_ICU_V_API)
     public T displayOptions(DisplayOptions displayOptions) {
         // `displayCase` does not recognise the `undefined`
         if (displayOptions.getGrammaticalCase() == GrammaticalCase.UNDEFINED) {

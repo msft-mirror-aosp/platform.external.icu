@@ -13,6 +13,7 @@
 // limitations under the License.
 
 package {
+    default_team: "trendy_team_java_core_libraries",
     default_applicable_licenses: ["external_icu_license"],
 }
 
@@ -62,10 +63,12 @@ cc_defaults {
         "-Wall",
         "-Werror",
         // Make all warnings into errors, but ignore a set of warnings used in headers by default.
+        "-Wno-ambiguous-reversed-operator",
+        "-Wno-deprecated-declarations",
         "-Wno-unused-parameter",
         "-Wno-unused-const-variable",
         "-Wno-unneeded-internal-declaration",
-        "-Wno-deprecated-declarations",
+        "-DUCONFIG_USE_ML_PHRASE_BREAKING=1",
     ],
     target: {
         android: {
@@ -79,4 +82,25 @@ cc_defaults {
             enabled: true,
         },
     },
+}
+
+aconfig_declarations {
+    name: "icu_aconfig_flags",
+    package: "com.android.icu",
+    container: "system",
+    srcs: [
+        "icu.aconfig",
+    ],
+}
+
+java_aconfig_library {
+    name: "icu_aconfig_flags_lib",
+    aconfig_declarations: "icu_aconfig_flags",
+    host_supported: true,
+    // "fake_device_config" is needed for the host.
+    libs: ["fake_device_config"],
+    apex_available: [
+        "//apex_available:platform",
+        "com.android.i18n",
+    ],
 }
