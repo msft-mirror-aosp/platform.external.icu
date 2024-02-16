@@ -207,6 +207,9 @@ java_sdk_library {
         ":android_icu4j_repackaged_src_files",
         ":android_icu4j_public_api_files",
     ],
+    libs: [
+        "icu_aconfig_flags_lib",
+    ],
     droiddoc_options: [
         "--force-convert-to-warning-nullability-annotations +*:-android.*:+android.icu.*:-dalvik.* ",
     ],
@@ -245,6 +248,9 @@ java_sdk_library {
     // version of the API.
     dist_stem: "runtime-i18n",
     dist_group: "android",
+    aconfig_declarations: [
+        "icu_aconfig_flags",
+    ],
 }
 
 // Generates stub source files for the intra-core API of the I18N module.
