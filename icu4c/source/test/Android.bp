@@ -37,6 +37,7 @@ cc_defaults {
     cflags: [
         "-Wno-deprecated-declarations",
         "-Wno-missing-field-initializers",
+        "-Wno-tautological-undefined-compare",
         "-Wno-unused-function",
         "-Wno-unused-parameter",
         "-Wno-unused-variable",
