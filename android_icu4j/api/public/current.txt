@@ -2907,8 +2907,8 @@ package android.icu.text {
   }
 
   @FlaggedApi("com.android.icu.icu_v_api") public enum DisplayOptions.GrammaticalCase {
-    method @FlaggedApi("com.android.icu.icu_v_api") public static final android.icu.text.DisplayOptions.GrammaticalCase fromIdentifier(String);
-    method @FlaggedApi("com.android.icu.icu_v_api") public final String getIdentifier();
+    method @FlaggedApi("com.android.icu.icu_v_api") public static android.icu.text.DisplayOptions.GrammaticalCase fromIdentifier(String);
+    method @FlaggedApi("com.android.icu.icu_v_api") public String getIdentifier();
     enum_constant @FlaggedApi("com.android.icu.icu_v_api") public static final android.icu.text.DisplayOptions.GrammaticalCase ABLATIVE;
     enum_constant @FlaggedApi("com.android.icu.icu_v_api") public static final android.icu.text.DisplayOptions.GrammaticalCase ACCUSATIVE;
     enum_constant @FlaggedApi("com.android.icu.icu_v_api") public static final android.icu.text.DisplayOptions.GrammaticalCase COMITATIVE;
@@ -2935,8 +2935,8 @@ package android.icu.text {
   }
 
   @FlaggedApi("com.android.icu.icu_v_api") public enum DisplayOptions.NounClass {
-    method @FlaggedApi("com.android.icu.icu_v_api") public static final android.icu.text.DisplayOptions.NounClass fromIdentifier(String);
-    method @FlaggedApi("com.android.icu.icu_v_api") public final String getIdentifier();
+    method @FlaggedApi("com.android.icu.icu_v_api") public static android.icu.text.DisplayOptions.NounClass fromIdentifier(String);
+    method @FlaggedApi("com.android.icu.icu_v_api") public String getIdentifier();
     enum_constant @FlaggedApi("com.android.icu.icu_v_api") public static final android.icu.text.DisplayOptions.NounClass ANIMATE;
     enum_constant @FlaggedApi("com.android.icu.icu_v_api") public static final android.icu.text.DisplayOptions.NounClass COMMON;
     enum_constant @FlaggedApi("com.android.icu.icu_v_api") public static final android.icu.text.DisplayOptions.NounClass FEMININE;
@@ -2950,8 +2950,8 @@ package android.icu.text {
   }
 
   @FlaggedApi("com.android.icu.icu_v_api") public enum DisplayOptions.PluralCategory {
-    method @FlaggedApi("com.android.icu.icu_v_api") public static final android.icu.text.DisplayOptions.PluralCategory fromIdentifier(String);
-    method @FlaggedApi("com.android.icu.icu_v_api") public final String getIdentifier();
+    method @FlaggedApi("com.android.icu.icu_v_api") public static android.icu.text.DisplayOptions.PluralCategory fromIdentifier(String);
+    method @FlaggedApi("com.android.icu.icu_v_api") public String getIdentifier();
     enum_constant @FlaggedApi("com.android.icu.icu_v_api") public static final android.icu.text.DisplayOptions.PluralCategory FEW;
     enum_constant @FlaggedApi("com.android.icu.icu_v_api") public static final android.icu.text.DisplayOptions.PluralCategory MANY;
     enum_constant @FlaggedApi("com.android.icu.icu_v_api") public static final android.icu.text.DisplayOptions.PluralCategory ONE;
