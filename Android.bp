@@ -45,7 +45,7 @@ license {
         "legacy_unencumbered",
     ],
     license_text: [
-        "NOTICE",
+        "LICENSE",
     ],
 }
 
@@ -54,7 +54,7 @@ filegroup {
     visibility: [
         "//external/icu:__subpackages__",
     ],
-    srcs: ["NOTICE"],
+    srcs: ["LICENSE"],
 }
 
 cc_defaults {
