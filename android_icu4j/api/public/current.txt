@@ -4034,7 +4034,7 @@ package android.icu.text {
     method public String toPattern(boolean);
     field public static final int ADD_CASE_MAPPINGS = 4; // 0x4
     field public static final android.icu.text.UnicodeSet ALL_CODE_POINTS;
-    field public static final int CASE = 2; // 0x2
+    field @Deprecated public static final int CASE = 2; // 0x2
     field public static final int CASE_INSENSITIVE = 2; // 0x2
     field public static final android.icu.text.UnicodeSet EMPTY;
     field public static final int IGNORE_SPACE = 1; // 0x1
