@@ -4236,7 +4236,6 @@ package android.icu.util {
     field public static final int AM_PM = 9; // 0x9
     field public static final int APRIL = 3; // 0x3
     field public static final int AUGUST = 7; // 0x7
-    field @Deprecated protected static final int BASE_FIELD_COUNT = 23; // 0x17
     field public static final int DATE = 5; // 0x5
     field public static final int DAY_OF_MONTH = 5; // 0x5
     field public static final int DAY_OF_WEEK = 7; // 0x7
