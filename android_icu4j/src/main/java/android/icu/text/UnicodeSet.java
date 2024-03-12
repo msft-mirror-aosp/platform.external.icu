@@ -3780,32 +3780,9 @@ public class UnicodeSet extends UnicodeFilter implements Iterable<String>, Compa
     public static final int IGNORE_SPACE = 1;
 
     /**
-     * Bitmask for constructor, applyPattern(), and closeOver()
-     * indicating letter case.  This may be ORed together with other
-     * selectors.
+     * Alias for {@link #CASE_INSENSITIVE}.
      *
-     * Enable case insensitive matching.  E.g., "[ab]" with this flag
-     * will match 'a', 'A', 'b', and 'B'.  "[^ab]" with this flag will
-     * match all except 'a', 'A', 'b', and 'B'. This performs a full
-     * closure over case mappings, e.g. U+017F for s.
-     *
-     * The resulting set is a superset of the input for the code points but
-     * not for the strings.
-     * It performs a case mapping closure of the code points and adds
-     * full case folding strings for the code points, and reduces strings of
-     * the original set to their full case folding equivalents.
-     *
-     * This is designed for case-insensitive matches, for example
-     * in regular expressions. The full code point case closure allows checking of
-     * an input character directly against the closure set.
-     * Strings are matched by comparing the case-folded form from the closure
-     * set with an incremental case folding of the string in question.
-     *
-     * The closure set will also contain single code points if the original
-     * set contained case-equivalent strings (like U+00DF for "ss" or "Ss" etc.).
-     * This is not necessary (that is, redundant) for the above matching method
-     * but results in the same closure sets regardless of whether the original
-     * set contained the code point or a string.
+     * @deprecated ICU 73 Use {@link #CASE_INSENSITIVE} instead.
      */
     public static final int CASE = 2;
 
