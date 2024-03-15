@@ -26,6 +26,7 @@ flag {
 flag {
     namespace: "core_libraries"
     name: "icu_v_api"
+    is_exported: true
     description: "This flag controls whether exposing ICU 74 APIs and implementation"
     bug: "312171264"
     # ICU is used before SettingsProvider starts
