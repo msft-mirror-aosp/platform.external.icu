@@ -4034,7 +4034,7 @@ package android.icu.text {
     method public String toPattern(boolean);
     field public static final int ADD_CASE_MAPPINGS = 4; // 0x4
     field public static final android.icu.text.UnicodeSet ALL_CODE_POINTS;
-    field public static final int CASE = 2; // 0x2
+    field @Deprecated public static final int CASE = 2; // 0x2
     field public static final int CASE_INSENSITIVE = 2; // 0x2
     field public static final android.icu.text.UnicodeSet EMPTY;
     field public static final int IGNORE_SPACE = 1; // 0x1
@@ -4236,7 +4236,6 @@ package android.icu.util {
     field public static final int AM_PM = 9; // 0x9
     field public static final int APRIL = 3; // 0x3
     field public static final int AUGUST = 7; // 0x7
-    field @Deprecated protected static final int BASE_FIELD_COUNT = 23; // 0x17
     field public static final int DATE = 5; // 0x5
     field public static final int DAY_OF_MONTH = 5; // 0x5
     field public static final int DAY_OF_WEEK = 7; // 0x7
