@@ -64,7 +64,7 @@ yo{
         BM{"Bémúdà"}
         BN{"Búrúnẹ́lì"}
         BO{"Bọ̀lífíyà"}
-        BQ{"Káríbíánì ti Nẹ́dálándì"}
+        BQ{"Kàríbíánì ti Nẹ́dálándì"}
         BR{"Bàràsílì"}
         BS{"Bàhámásì"}
         BT{"Bútánì"}
@@ -88,7 +88,7 @@ yo{
         CR{"Kuusita Ríkà"}
         CU{"Kúbà"}
         CV{"Etíokun Kápé féndè"}
-        CW{"Kúrásáò"}
+        CW{"Curaçao"}
         CX{"Erékùsù Christmas"}
         CY{"Kúrúsì"}
         CZ{"Ṣẹ́ẹ́kì"}
@@ -134,7 +134,7 @@ yo{
         GU{"Guamu"}
         GW{"Gene-Busau"}
         GY{"Guyana"}
-        HK{"Hong Kong"}
+        HK{"Agbègbè Ìṣàkóso Ìṣúná Hong Kong Tí Ṣánà Ń Darí"}
         HM{"Erékùsù Heard àti Erékùsù McDonald"}
         HN{"Hondurasi"}
         HR{"Kòróátíà"}
@@ -181,14 +181,14 @@ yo{
         MC{"Monako"}
         MD{"Modofia"}
         ME{"Montenegro"}
-        MF{"Ìlú Mátíìnì"}
+        MF{"Ìlú Màtìnì"}
         MG{"Madasika"}
         MH{"Etikun Máṣali"}
         MK{"Àríwá Macedonia"}
         ML{"Mali"}
         MM{"Manamari"}
         MN{"Mogolia"}
-        MO{"Màkáò"}
+        MO{"Agbègbè Ìṣàkóso Pàtàkì Macao"}
         MP{"Etikun Guusu Mariana"}
         MQ{"Matinikuwi"}
         MR{"Maritania"}
@@ -223,7 +223,7 @@ yo{
         PM{"Pẹẹri ati mikuloni"}
         PN{"Pikarini"}
         PR{"Pọto Riko"}
-        PS{"Palẹsítínì"}
+        PS{"Agbègbè ara Palẹsítínì"}
         PT{"Pọ́túgà"}
         PW{"Paalu"}
         PY{"Paraguye"}
@@ -297,6 +297,17 @@ yo{
         ZM{"Ṣamibia"}
         ZW{"Ṣimibabe"}
         ZZ{"Àgbègbè àìmọ̀"}
+    }
+    Countries%biot{
+        IO{"Àlà-ilẹ̀ Bírítéènì ní Etíkun Índíà"}
+    }
+    Countries%chagos{
+        IO{"Àkójọpọ̀ Àwọn Erékùṣù Ṣágòsì"}
+    }
+    Countries%short{
+        HK{"Hong Kong"}
+        MO{"Màkáò"}
+        PS{"Palẹsítínì"}
     }
     Countries%variant{
         CD{"Kóńgò (Tiwantiwa)"}

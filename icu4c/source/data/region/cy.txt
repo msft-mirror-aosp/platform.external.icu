@@ -111,7 +111,7 @@ cy{
         EZ{"Ardal yr Ewro"}
         FI{"Y Ffindir"}
         FJ{"Fiji"}
-        FK{"Ynysoedd y Falkland (Ynysoedd y Malfinas)"}
+        FK{"Ynysoedd y Falkland/Malvinas"}
         FM{"Micronesia"}
         FO{"Ynysoedd Ffaro"}
         FR{"Ffrainc"}
@@ -134,7 +134,7 @@ cy{
         GU{"Guam"}
         GW{"Guiné-Bissau"}
         GY{"Guyana"}
-        HK{"Hong Kong"}
+        HK{"Hong Kong SAR Tsieina"}
         HM{"Ynys Heard ac Ynysoedd McDonald"}
         HN{"Honduras"}
         HR{"Croatia"}
@@ -188,7 +188,7 @@ cy{
         ML{"Mali"}
         MM{"Myanmar (Burma)"}
         MN{"Mongolia"}
-        MO{"Macau"}
+        MO{"Macau SAR Tsieina"}
         MP{"Ynysoedd Gogledd Mariana"}
         MQ{"Martinique"}
         MR{"Mauritania"}
@@ -223,7 +223,7 @@ cy{
         PM{"Saint-Pierre-et-Miquelon"}
         PN{"Ynysoedd Pitcairn"}
         PR{"Puerto Rico"}
-        PS{"Palesteina"}
+        PS{"Tiriogaethau Palesteinaidd"}
         PT{"Portiwgal"}
         PW{"Palau"}
         PY{"Paraguay"}
@@ -275,7 +275,7 @@ cy{
         UA{"Wcráin"}
         UG{"Uganda"}
         UM{"Ynysoedd Pellennig UDA"}
-        UN{"y Cenhedloedd Unedig"}
+        UN{"Y Cenhedloedd Unedig"}
         US{"Yr Unol Daleithiau"}
         UY{"Uruguay"}
         UZ{"Uzbekistan"}
@@ -298,9 +298,15 @@ cy{
         ZW{"Zimbabwe"}
         ZZ{"Rhanbarth Anhysbys"}
     }
+    Countries%chagos{
+        IO{"Ynysfor Chagos"}
+    }
     Countries%short{
         GB{"DU"}
-        UN{"UN"}
+        HK{"Hong Kong"}
+        MO{"Macau"}
+        PS{"Palesteina"}
+        UN{"CU"}
         US{"UDA"}
     }
     Countries%variant{
@@ -308,6 +314,7 @@ cy{
         CG{"Y Congo (Gweriniaeth)"}
         CI{"Arfordir Ifori"}
         CZ{"Gweriniaeth Tsiec"}
+        FK{"Ynysoedd y Falkland (Ynysoedd y Malfinas)"}
         NZ{"Aotearoa Seland Newydd"}
         SZ{"Gwlad Swazi"}
         TL{"Dwyrain Timor"}

@@ -1650,9 +1650,9 @@ ko{
             ls{"서부 카자흐스탄 시간"}
         }
         "meta:Korea"{
-            ld{"한국 하계 표준시"}
-            lg{"한국 시간"}
-            ls{"한국 표준시"}
+            ld{"대한민국 하계 표준시"}
+            lg{"대한민국 시간"}
+            ls{"대한민국 표준시"}
         }
         "meta:Kosrae"{
             ls{"코스라에섬 시간"}
@@ -1941,9 +1941,6 @@ ko{
             ls{"유콘 시간"}
         }
         fallbackFormat{"{1}({0})"}
-        gmtFormat{"GMT{0}"}
-        gmtZeroFormat{"GMT"}
-        hourFormat{"+HH:mm;-HH:mm"}
         regionFormat{"{0} 시간"}
         regionFormatDaylight{"{0} 하계 표준시"}
         regionFormatStandard{"{0} 표준시"}

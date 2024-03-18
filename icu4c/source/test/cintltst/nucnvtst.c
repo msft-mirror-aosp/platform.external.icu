@@ -291,10 +291,10 @@ void addTestNewConvert(TestNode** root)
    addTest(root, &TestISO_2022_JP, "tsconv/nucnvtst/TestISO_2022_JP");
    addTest(root, &TestJIS, "tsconv/nucnvtst/TestJIS");
    addTest(root, &TestISO_2022_JP_1, "tsconv/nucnvtst/TestISO_2022_JP_1");
-   // android-changed (no have ISO_2022_JP_2) -- addTest(root, &TestISO_2022_JP_2, "tsconv/nucnvtst/TestISO_2022_JP_2");
+   addTest(root, &TestISO_2022_JP_2, "tsconv/nucnvtst/TestISO_2022_JP_2");
    addTest(root, &TestISO_2022_KR, "tsconv/nucnvtst/TestISO_2022_KR");
    addTest(root, &TestISO_2022_KR_1, "tsconv/nucnvtst/TestISO_2022_KR_1");
-   // android-changed (no ISO-2022-CN) -- addTest(root, &TestISO_2022_CN, "tsconv/nucnvtst/TestISO_2022_CN");
+   addTest(root, &TestISO_2022_CN, "tsconv/nucnvtst/TestISO_2022_CN");
    /*
     * ICU 4.4 (ticket #7314) removes mappings for CNS 11643 planes 3..7
    addTest(root, &TestISO_2022_CN_EXT, "tsconv/nucnvtst/TestISO_2022_CN_EXT");
@@ -330,7 +330,8 @@ void addTestNewConvert(TestNode** root)
 #if !UCONFIG_NO_LEGACY_CONVERSION
    addTest(root, &TestJitterbug2346, "tsconv/nucnvtst/TestJitterbug2346");
    addTest(root, &TestJitterbug2411, "tsconv/nucnvtst/TestJitterbug2411");
-   // android-removed (no full ISO2022 CJK tables)  -- addTest(root, &TestJitterbug6175, "tsconv/nucnvtst/TestJitterbug6175");
+   addTest(root, &TestJitterbug6175, "tsconv/nucnvtst/TestJitterbug6175");
+
    addTest(root, &TestIsFixedWidth, "tsconv/nucnvtst/TestIsFixedWidth");
 #endif
 }
@@ -343,7 +344,7 @@ void addTestNewConvert(TestNode** root)
 
 static void setNuConvTestName(const char *codepage, const char *direction)
 {
-    sprintf(gNuConvTestName, "[Testing %s %s Unicode, InputBufSiz=%d, OutputBufSiz=%d]",
+    snprintf(gNuConvTestName, sizeof(gNuConvTestName), "[Testing %s %s Unicode, InputBufSiz=%d, OutputBufSiz=%d]",
         codepage,
         direction,
         (int)gInBufferSize,
@@ -455,8 +456,8 @@ static ETestConvertResult testConvertFromU( const UChar *source, int sourceLen, 
       junk[0] = 0;
       offset_str[0] = 0;
       for(ptr = junkout;ptr<targ;ptr++) {
-        sprintf(junk + strlen(junk), "0x%02x, ", (int)(0xFF & *ptr));
-        sprintf(offset_str + strlen(offset_str), "0x%02x, ", (int)(0xFF & junokout[ptr-junkout]));
+        snprintf(junk + strlen(junk), sizeof(junk)-strlen(junk), "0x%02x, ", (int)(0xFF & *ptr));
+        snprintf(offset_str + strlen(offset_str), sizeof(offset_str)-strlen(offset_str), "0x%02x, ", (int)(0xFF & junokout[ptr-junkout]));
       }
       
       log_verbose(junk);
@@ -618,8 +619,8 @@ static ETestConvertResult testConvertToU( const uint8_t *source, int sourcelen, 
 
         for(ptr = junkout;ptr<targ;ptr++)
         {
-            sprintf(junk + strlen(junk), "0x%04x, ", (0xFFFF) & (unsigned int)*ptr);
-            sprintf(offset_str + strlen(offset_str), "0x%04x, ", (0xFFFF) & (unsigned int)junokout[ptr-junkout]);
+            snprintf(junk + strlen(junk), sizeof(junk)-strlen(junk), "0x%04x, ", (0xFFFF) & (unsigned int)*ptr);
+            snprintf(offset_str + strlen(offset_str), sizeof(offset_str)-strlen(offset_str), "0x%04x, ", (0xFFFF) & (unsigned int)junokout[ptr-junkout]);
         }
 
         log_verbose(junk);
@@ -1535,13 +1536,7 @@ static void TestAmbiguous()
     for(i=0; (name=ucnv_getAvailableName(i))!=NULL; ++i) {
         cnv=ucnv_open(name, &status);
         if(U_SUCCESS(status)) {
-            /* BEGIN android-changed. To save space Android does not build full ISO-2022-CN CJK tables. */
-            const char* cnvName = ucnv_getName(cnv, &status);
-            if (strlen(cnvName) < 8 ||
-                strncmp(cnvName, "ISO_2022_CN", 8) != 0) {
             TestAmbiguousConverter(cnv);
-            }
-            /* END android-changed */
             ucnv_close(cnv);
         } else {
             log_err("error: unable to open available converter \"%s\"\n", name);

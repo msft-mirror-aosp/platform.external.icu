@@ -77,7 +77,7 @@ static void printUSeqErr(const UChar* a, int len)
 
 static void setNuConvTestName(const char *codepage, const char *direction)
 {
-    sprintf(gNuConvTestName, "[testing %s %s Unicode, InputBufSiz=%d, OutputBufSiz=%d]",
+    snprintf(gNuConvTestName, sizeof(gNuConvTestName), "[testing %s %s Unicode, InputBufSiz=%d, OutputBufSiz=%d]",
             codepage,
             direction,
             (int)gInBufferSize,
@@ -94,11 +94,7 @@ void addTestConvertErrorCallBack(TestNode** root)
     addTest(root, &TestSkipCallBack,  "tsconv/nccbtst/TestSkipCallBack");
     addTest(root, &TestStopCallBack,  "tsconv/nccbtst/TestStopCallBack");
     addTest(root, &TestSubCallBack,   "tsconv/nccbtst/TestSubCallBack");
-    /* BEGIN android-removed
-       To save space, Android does not build complete CJK conversion tables.
-       We skip the test here.
     addTest(root, &TestSubWithValueCallBack, "tsconv/nccbtst/TestSubWithValueCallBack");
-       END android-removed */
 
 #if !UCONFIG_NO_LEGACY_CONVERSION
     addTest(root, &TestLegalAndOtherCallBack,  "tsconv/nccbtst/TestLegalAndOtherCallBack");
@@ -2759,8 +2755,8 @@ UBool testConvertFromUnicode(const UChar *source, int sourceLen,  const uint8_t 
         offset_str[0] = 0;
         for(p = junkout;p<targ;p++)
         {
-            sprintf(junk + strlen(junk), "0x%02x, ", (0xFF) & (unsigned int)*p);
-            sprintf(offset_str + strlen(offset_str), "0x%02x, ", (0xFF) & (unsigned int)junokout[p-junkout]);
+            snprintf(junk + strlen(junk), sizeof(junk)-strlen(junk), "0x%02x, ", (0xFF) & (unsigned int)*p);
+            snprintf(offset_str + strlen(offset_str), sizeof(offset_str) - strlen(offset_str), "0x%02x, ", (0xFF) & (unsigned int)junokout[p-junkout]);
         }
 
         log_verbose(junk);
@@ -2955,8 +2951,8 @@ UBool testConvertToUnicode( const uint8_t *source, int sourcelen, const UChar *e
 
         for(p = junkout;p<targ;p++)
         {
-            sprintf(junk + strlen(junk), "0x%04x, ", (0xFFFF) & (unsigned int)*p);
-            sprintf(offset_str + strlen(offset_str), "0x%04x, ", (0xFFFF) & (unsigned int)junokout[p-junkout]);
+            snprintf(junk + strlen(junk), sizeof(junk)-strlen(junk), "0x%04x, ", (0xFFFF) & (unsigned int)*p);
+            snprintf(offset_str + strlen(offset_str), sizeof(offset_str)-strlen(offset_str), "0x%04x, ", (0xFFFF) & (unsigned int)junokout[p-junkout]);
         }
 
         log_verbose(junk);
@@ -3133,8 +3129,8 @@ UBool testConvertFromUnicodeWithContext(const UChar *source, int sourceLen,  con
         offset_str[0] = 0;
         for(p = junkout;p<targ;p++)
         {
-            sprintf(junk + strlen(junk), "0x%02x, ", (0xFF) & (unsigned int)*p);
-            sprintf(offset_str + strlen(offset_str), "0x%02x, ", (0xFF) & (unsigned int)junokout[p-junkout]);
+            snprintf(junk + strlen(junk), sizeof(junk)-strlen(junk), "0x%02x, ", (0xFF) & (unsigned int)*p);
+            snprintf(offset_str + strlen(offset_str), sizeof(offset_str)-strlen(offset_str), "0x%02x, ", (0xFF) & (unsigned int)junokout[p-junkout]);
         }
 
         log_verbose(junk);
@@ -3312,8 +3308,8 @@ UBool testConvertToUnicodeWithContext( const uint8_t *source, int sourcelen, con
 
         for(p = junkout;p<targ;p++)
         {
-            sprintf(junk + strlen(junk), "0x%04x, ", (0xFFFF) & (unsigned int)*p);
-            sprintf(offset_str + strlen(offset_str), "0x%04x, ", (0xFFFF) & (unsigned int)junokout[p-junkout]);
+            snprintf(junk + strlen(junk), sizeof(junk)-strlen(junk), "0x%04x, ", (0xFFFF) & (unsigned int)*p);
+            snprintf(offset_str + strlen(offset_str), sizeof(offset_str)-strlen(offset_str), "0x%04x, ", (0xFFFF) & (unsigned int)junokout[p-junkout]);
         }
 
         log_verbose(junk);

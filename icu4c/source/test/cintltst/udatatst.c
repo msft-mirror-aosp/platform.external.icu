@@ -708,17 +708,13 @@ static void TestUDataOpenChoiceDemo1() {
     type="typ";
     result=udata_openChoice(fullTestDataPath, type, name[3], isAcceptable1, NULL, &status);
     if(status != U_INVALID_FORMAT_ERROR){
-        // Android-changed: Android does not try to load ICU data from other files. See  gDataFileAccess = UDATA_NO_FILES in udata.cpp.
-        // log_err("FAIL: udata_openChoice() did not fail as expected. name=%s, type=%s, \n errorcode=%s\n", name[3], type, myErrorName(status));
-        log_data_err("FAIL: udata_openChoice() did not fail as expected. name=%s, type=%s, \n errorcode=%s\n", name[3], type, myErrorName(status));
+        log_err("FAIL: udata_openChoice() did not fail as expected. name=%s, type=%s, \n errorcode=%s\n", name[3], type, myErrorName(status));
     }
 
     status=U_USELESS_COLLATOR_ERROR;
     result=udata_openChoice(fullTestDataPath, type, name[3], isAcceptable1, NULL, &status);
     if(status != U_USELESS_COLLATOR_ERROR){
-        // Android-changed: Android does not try to load ICU data from other files. See  gDataFileAccess = UDATA_NO_FILES in udata.cpp.
-        // log_err("FAIL: udata_openChoice() did not fail as expected. name=%s, type=%s, \n errorcode=%s\n", name[3], type, myErrorName(status));
-        log_data_err("FAIL: udata_openChoice() did not fail as expected. name=%s, type=%s, \n errorcode=%s\n", name[3], type, myErrorName(status));
+        log_err("FAIL: udata_openChoice() did not fail as expected. name=%s, type=%s, \n errorcode=%s\n", name[3], type, myErrorName(status));
     }
 }
 
@@ -1161,7 +1157,7 @@ static void TestICUDataName()
     }
 
     /* Only major number is needed. */
-    sprintf(expectDataName, "%s%d%c",
+    snprintf(expectDataName, sizeof(expectDataName), "%s%d%c",
                 "icudt",
                 (int)icuVersion[0],
                 typeChar);
@@ -1337,7 +1333,7 @@ static const struct {
     /* EUC-TW (3-byte) conversion table file without extension */
     {"ibm-964_P110-1999",        "cnv", ucnv_swap},
     /* GB 18030 (4-byte) conversion table file without extension */
-    {"gb18030",                  "cnv", ucnv_swap},
+    {"gb18030-2022",             "cnv", ucnv_swap},
     /* MBCS conversion table file with extension */
     {"*test4x",                  "cnv", ucnv_swap},
     /*
@@ -1630,7 +1626,7 @@ TestSwapCase(UDataMemory *pData, const char *name,
 
 static void U_CALLCONV
 printErrorToString(void *context, const char *fmt, va_list args) {
-    vsprintf((char *)context, fmt, args);
+    vsnprintf((char *)context, 100, fmt, args);
 }
 
 #if !UCONFIG_NO_FILE_IO && !UCONFIG_NO_LEGACY_CONVERSION

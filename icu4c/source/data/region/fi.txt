@@ -85,6 +85,7 @@ fi{
         CN{"Kiina"}
         CO{"Kolumbia"}
         CP{"Clippertoninsaari"}
+        CQ{"Sark"}
         CR{"Costa Rica"}
         CU{"Kuuba"}
         CV{"Kap Verde"}
@@ -111,7 +112,7 @@ fi{
         EZ{"euroalue"}
         FI{"Suomi"}
         FJ{"Fidži"}
-        FK{"Falklandinsaaret (Malvinassaaret)"}
+        FK{"Falklandinsaaret"}
         FM{"Mikronesia"}
         FO{"Färsaaret"}
         FR{"Ranska"}
@@ -134,7 +135,7 @@ fi{
         GU{"Guam"}
         GW{"Guinea-Bissau"}
         GY{"Guyana"}
-        HK{"Hongkong"}
+        HK{"Hongkong – Kiinan erityishallintoalue"}
         HM{"Heard ja McDonaldinsaaret"}
         HN{"Honduras"}
         HR{"Kroatia"}
@@ -188,7 +189,7 @@ fi{
         ML{"Mali"}
         MM{"Myanmar (Burma)"}
         MN{"Mongolia"}
-        MO{"Macao"}
+        MO{"Macao – Kiinan erityishallintoalue"}
         MP{"Pohjois-Mariaanit"}
         MQ{"Martinique"}
         MR{"Mauritania"}
@@ -223,7 +224,7 @@ fi{
         PM{"Saint-Pierre ja Miquelon"}
         PN{"Pitcairn"}
         PR{"Puerto Rico"}
-        PS{"Palestiina"}
+        PS{"Palestiinalaisalue"}
         PT{"Portugali"}
         PW{"Palau"}
         PY{"Paraguay"}
@@ -242,7 +243,7 @@ fi{
         SG{"Singapore"}
         SH{"Saint Helena"}
         SI{"Slovenia"}
-        SJ{"Svalbard ja Jan Mayen"}
+        SJ{"Huippuvuoret ja Jan Mayen"}
         SK{"Slovakia"}
         SL{"Sierra Leone"}
         SM{"San Marino"}
@@ -298,8 +299,14 @@ fi{
         ZW{"Zimbabwe"}
         ZZ{"tuntematon alue"}
     }
+    Countries%chagos{
+        IO{"Chagossaaret"}
+    }
     Countries%short{
         GB{"Britannia"}
+        HK{"Hongkong"}
+        MO{"Macao"}
+        PS{"Palestiina"}
         UN{"YK"}
         US{"USA"}
     }
@@ -308,6 +315,7 @@ fi{
         CG{"Kongo-Brazzaville"}
         CI{"Côte d’Ivoire"}
         CZ{"Tšekin tasavalta"}
+        FK{"Falklandinsaaret (Malvinassaaret)"}
         NZ{"Aotearoa"}
         SZ{"Swazimaa"}
         TL{"Timor-Leste"}
