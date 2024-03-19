@@ -111,7 +111,7 @@ mi{
         EZ{"Te Rohe o Ūropi"}
         FI{"Whinarana"}
         FJ{"Whītī"}
-        FK{"Motu Whākarangi"}
+        FK{"Motu Whākana (Ira Māwina)"}
         FM{"Mekanēhia"}
         FO{"Motu Wharau"}
         FR{"Wīwī"}
@@ -134,7 +134,7 @@ mi{
         GU{"Kuama"}
         GW{"Kini-Pihao"}
         GY{"Kaiana"}
-        HK{"Hongipua Haina"}
+        HK{"Hongipua"}
         HM{"Ngā Moutere Heriti me Makitānara"}
         HN{"Honotura"}
         HR{"Koroātia"}
@@ -188,7 +188,7 @@ mi{
         ML{"Māri"}
         MM{"Pēma"}
         MN{"Mongōria"}
-        MO{"Makau Haina"}
+        MO{"Makau"}
         MP{"Ngā Motu Mariana ki te Raki"}
         MQ{"Mātiniki"}
         MR{"Mauritānia"}
@@ -223,7 +223,7 @@ mi{
         PM{"Hato Piere & Mikerona"}
         PN{"Pitikeina"}
         PR{"Peta Riko"}
-        PS{"Ngā Rohe o Parihitini"}
+        PS{"Parihitini"}
         PT{"Potukara"}
         PW{"Pārau"}
         PY{"Parakai"}
@@ -301,16 +301,10 @@ mi{
     Countries%chagos{
         IO{"Te Rohe o te Moana Īnia Piritene"}
     }
-    Countries%short{
-        HK{"Hongipua"}
-        MO{"Makau"}
-        PS{"Parihitini"}
-    }
     Countries%variant{
         CD{"Kōngo"}
         CG{"Kōngo (Whenua Tūhake)"}
         CZ{"Te Whenua Tūhake o Tieke"}
-        FK{"Motu Whākana (Ira Māwina)"}
         SZ{"Warerangi"}
     }
 }

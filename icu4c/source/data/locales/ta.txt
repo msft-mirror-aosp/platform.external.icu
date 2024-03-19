@@ -514,7 +514,7 @@ ta{
         gregorian{
             AmPmMarkersAbbr{
                 "AM",
-                "பிற்பகல்",
+                "PM",
             }
             AmPmMarkersNarrow{
                 "மு.ப",
@@ -659,7 +659,7 @@ ta{
                 stand-alone{
                     abbreviated{
                         am{"முற்பகல்"}
-                        pm{"பிற்பகல்"}
+                        pm{"PM"}
                     }
                     narrow{
                         afternoon1{"மதி."}
@@ -676,7 +676,7 @@ ta{
                     }
                     wide{
                         am{"முற்பகல்"}
-                        pm{"பிற்பகல்"}
+                        pm{"PM"}
                     }
                 }
             }

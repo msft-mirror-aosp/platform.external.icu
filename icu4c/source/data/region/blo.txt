@@ -112,7 +112,7 @@ blo{
         EZ{"Eroo kaBʊtǝna"}
         FI{"Fɛnlanɖ"}
         FJ{"Fiji"}
-        FK{"Fɔklanɖ kaBʊtukǝltǝna"}
+        FK{"Fɔklanɖ kaBʊtukǝltǝna (Malfina kaBʊtukǝltǝna)"}
         FM{"Mikronesiya"}
         FO{"Faroi kaBʊtukǝltǝna"}
         FR{"Gafɔntǝna"}
@@ -135,7 +135,7 @@ blo{
         GU{"Guwam"}
         GW{"Ginee Bisoo"}
         GY{"Guyanaa"}
-        HK{"Hɔŋ Kɔŋ Caɩna kaja"}
+        HK{"Hɔŋ Kɔŋ"}
         HM{"Hɛɛrɖ na Mɛkɖɔnalɖ kaBʊtukǝltǝna"}
         HN{"Hɔnɖuraasɩ"}
         HR{"Krowasii"}
@@ -189,7 +189,7 @@ blo{
         ML{"Malii"}
         MM{"Miyanmaa (Birmanii)"}
         MN{"Mɔŋgolii"}
-        MO{"Makawoo Caɩna kaja"}
+        MO{"Makawoo"}
         MP{"Mariyan kaBʊtukǝltǝna gʊnyɩpɛnɛlaŋ"}
         MQ{"Martiniiki"}
         MR{"Moritanii"}
@@ -224,7 +224,7 @@ blo{
         PM{"Sɛŋ-Petrɔs na Mikelɔŋ"}
         PN{"Pɩtkɛɛn kaBʊtukǝltǝna"}
         PR{"Pɔrto Rikoo"}
-        PS{"Palɛstiin kAsàʊ"}
+        PS{"Palɛstiin"}
         PT{"Pɔrtigal"}
         PW{"Palawoo"}
         PY{"Paraguwee"}
@@ -304,9 +304,6 @@ blo{
     }
     Countries%short{
         GB{"GT"}
-        HK{"Hɔŋ Kɔŋ"}
-        MO{"Makawoo"}
-        PS{"Palɛstiin"}
         US{"GKA"}
     }
     Countries%variant{
@@ -314,7 +311,6 @@ blo{
         CG{"Koŋgoo kaRepibliiki"}
         CI{"Aɩfɔrɩ Kɔɔst"}
         CZ{"Cɛk kaRepibliiki"}
-        FK{"Fɔklanɖ kaBʊtukǝltǝna (Malfina kaBʊtukǝltǝna)"}
         NZ{"Awoteyarowa Selanɖ afɔlɩ"}
         SZ{"Sʊwasilanɖ"}
     }

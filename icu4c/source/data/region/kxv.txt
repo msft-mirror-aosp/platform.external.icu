@@ -77,7 +77,7 @@ kxv{
         ET{"ītiyopiya"}
         FI{"pinlaṇd"}
         FJ{"piji"}
-        FK{"paklaṇd dīp"}
+        FK{"paklaṇd dīp (āislas malvinas)"}
         FM{"micronesiaa"}
         FO{"pēro dīp"}
         FR{"prans"}
@@ -100,7 +100,7 @@ kxv{
         GU{"guām"}
         GW{"gini-bisau"}
         GY{"guyana"}
-        HK{"hong kong (sar) caina"}
+        HK{"hong kong"}
         HN{"honḍuras"}
         HR{"kroesia"}
         HT{"haiti"}
@@ -153,7 +153,7 @@ kxv{
         ML{"mali"}
         MM{"myanmar (brma)"}
         MN{"mongolia"}
-        MO{"makao sar cina"}
+        MO{"makao"}
         MP{"uttar mariyana dīp"}
         MQ{"marṭinik"}
         MR{"mauriṭaniya"}
@@ -188,7 +188,7 @@ kxv{
         PM{"seint pierri ande mikelon"}
         PN{"piṭkarn dīp"}
         PR{"puerto rico"}
-        PS{"palesṭiati handi"}
+        PS{"palesṭain"}
         PT{"portugal"}
         PW{"palau"}
         PY{"pareguvai"}
@@ -259,9 +259,6 @@ kxv{
     }
     Countries%short{
         GB{"yuke"}
-        HK{"hong kong"}
-        MO{"makao"}
-        PS{"palesṭain"}
         US{"yu.es."}
     }
     Countries%variant{
@@ -269,7 +266,6 @@ kxv{
         CG{"kongo republik"}
         CI{"aivrī kosṭ"}
         CZ{"cek republik"}
-        FK{"paklaṇd dīp (āislas malvinas)"}
         SZ{"svajilanḍ"}
         TL{"īst ṭimor"}
     }
