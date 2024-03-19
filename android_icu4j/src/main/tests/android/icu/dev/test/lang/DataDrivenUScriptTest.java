@@ -13,14 +13,14 @@ import org.junit.experimental.runners.Enclosed;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 
-import android.icu.dev.test.TestFmwk;
+import android.icu.dev.test.CoreTestFmwk;
 import android.icu.lang.UScript;
 import android.icu.util.ULocale;
 import android.icu.testsharding.MainTestShard;
 
 @MainTestShard
 @RunWith(Enclosed.class)
-public class DataDrivenUScriptTest extends TestFmwk {
+public class DataDrivenUScriptTest extends CoreTestFmwk {
 
     private static String scriptsToString(int[] scripts) {
         if (scripts == null) {
@@ -117,7 +117,7 @@ public class DataDrivenUScriptTest extends TestFmwk {
     }
 
     @RunWith(Parameterized.class)
-    public static class TestMultipleUScript extends TestFmwk {
+    public static class TestMultipleUScript extends CoreTestFmwk {
         private String testLocaleName;
         private Locale testLocale;
         private int[] expected;
@@ -168,7 +168,7 @@ public class DataDrivenUScriptTest extends TestFmwk {
     }
 
     @RunWith(Parameterized.class)
-    public static class GetCodeTest extends TestFmwk {
+    public static class GetCodeTest extends CoreTestFmwk {
         private String testName;
         private int expected;
 
@@ -235,7 +235,13 @@ public class DataDrivenUScriptTest extends TestFmwk {
                     { "Cans", UScript.CANADIAN_ABORIGINAL },
                     { "arabic", UScript.ARABIC },
                     { "Yi", UScript.YI },
-                    { "Zyyy", UScript.COMMON }
+                    { "Zyyy", UScript.COMMON },
+                    /* test other cases that are ambiguous (script alias vs language tag) */
+                    { "han", UScript.HAN },
+                    { "mro", UScript.MRO },
+                    { "nko", UScript.NKO },
+                    { "old-hungarian", UScript.OLD_HUNGARIAN },
+                    { "new-tai-lue", UScript.NEW_TAI_LUE },
                 });
         }
 

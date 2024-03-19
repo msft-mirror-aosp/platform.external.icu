@@ -32,7 +32,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 
-import android.icu.dev.test.TestFmwk;
+import android.icu.dev.test.CoreTestFmwk;
 import android.icu.text.DateFormat;
 import android.icu.text.SimpleDateFormat;
 import android.icu.util.Calendar;
@@ -49,7 +49,7 @@ import android.icu.testsharding.MainTestShard;
  **/
 @MainTestShard
 @RunWith(JUnit4.class)
-public class DateFormatRegressionTest extends TestFmwk {
+public class DateFormatRegressionTest extends CoreTestFmwk {
     /**
      * @bug 4029195
      */
@@ -1276,7 +1276,7 @@ public class DateFormatRegressionTest extends TestFmwk {
     @Test
     public void TestT10110() {
         try {
-            SimpleDateFormat formatter = new SimpleDateFormat("Gy年M月d日E", new Locale("zh_Hans"));
+            SimpleDateFormat formatter = new SimpleDateFormat("Gy年M月d日E", Locale.forLanguageTag("zh-Hans"));
             /* Object parsed = */ formatter.parseObject("610000");
         }
         catch(ParseException pe) {

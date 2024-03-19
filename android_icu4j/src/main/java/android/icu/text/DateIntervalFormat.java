@@ -1158,7 +1158,7 @@ public class DateIntervalFormat extends UFormat {
      * @param source    The string to be parsed into an object.
      * @param parse_pos The position to start parsing at. Since no parsing
      *                  is supported, upon return this param is unchanged.
-     * @return          A newly created Formattable* object, or NULL
+     * @return          A newly created {@code Formattable} object, or NULL
      *                  on failure.
      * @deprecated This API is ICU internal only.
      * @hide original deprecated declaration
@@ -2205,7 +2205,7 @@ public class DateIntervalFormat extends UFormat {
      * substitution inside quoted literal text.
      * @param targetString The string to perform the find-replace operation on.
      * @param strToReplace The string to search for and replace in the target string.
-     * @param strToReplaceWith The string to substitute in wherever `stringToReplace` was found.
+     * @param strToReplaceWith The string to substitute in wherever {@code stringToReplace} was found.
      */
     private static String findReplaceInPattern(String targetString,
                                                String strToReplace,

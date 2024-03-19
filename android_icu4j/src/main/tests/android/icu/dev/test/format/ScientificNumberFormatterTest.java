@@ -13,7 +13,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 
-import android.icu.dev.test.TestFmwk;
+import android.icu.dev.test.CoreTestFmwk;
 import android.icu.text.DecimalFormat;
 import android.icu.text.NumberFormat;
 import android.icu.text.ScientificNumberFormatter;
@@ -26,7 +26,7 @@ import android.icu.testsharding.MainTestShard;
  */
 @MainTestShard
 @RunWith(JUnit4.class)
-public class ScientificNumberFormatterTest extends TestFmwk {
+public class ScientificNumberFormatterTest extends CoreTestFmwk {
     @Test
     public void TestBasic() {
         ScientificNumberFormatter markup = ScientificNumberFormatter.getMarkupInstance(

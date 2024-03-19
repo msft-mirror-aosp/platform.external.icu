@@ -15,7 +15,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 
-import android.icu.dev.test.TestFmwk;
+import android.icu.dev.test.CoreTestFmwk;
 import android.icu.util.IllformedLocaleException;
 import android.icu.util.ULocale;
 import android.icu.util.ULocale.Builder;
@@ -26,7 +26,7 @@ import android.icu.testsharding.MainTestShard;
  */
 @MainTestShard
 @RunWith(JUnit4.class)
-public class LocaleBuilderTest extends TestFmwk {
+public class LocaleBuilderTest extends CoreTestFmwk {
     @Test
     public void TestLocaleBuilder() {
         // "L": +1 = language

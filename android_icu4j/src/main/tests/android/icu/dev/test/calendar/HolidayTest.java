@@ -16,7 +16,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 
-import android.icu.dev.test.TestFmwk;
+import android.icu.dev.test.CoreTestFmwk;
 import android.icu.impl.LocaleUtility;
 import android.icu.util.Calendar;
 import android.icu.util.EasterHoliday;
@@ -34,12 +34,14 @@ import android.icu.testsharding.MainTestShard;
  */
 @MainTestShard
 @RunWith(JUnit4.class)
-public class HolidayTest extends TestFmwk {
+public class HolidayTest extends CoreTestFmwk {
 
     // Do not use Before annotation, because TestFmwk's Before
     // method must be executed first to initialize default time zone
     @Override
-    protected void localTestInitialize() {
+    public void localTestInitialize() {
+        super.localTestInitialize();
+
         cal = new GregorianCalendar(1, 0, 1);
         longTimeAgo = cal.getTime();
         now = new Date();

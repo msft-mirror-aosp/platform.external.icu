@@ -17,11 +17,13 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
@@ -31,9 +33,8 @@ import java.util.regex.Pattern;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.junit.runners.JUnit4;
 
-import android.icu.dev.test.TestFmwk;
+import android.icu.dev.test.CoreTestFmwk;
 import android.icu.dev.test.TestUtil;
 import android.icu.dev.test.TestUtil.JavaVendor;
 import android.icu.text.DateFormat;
@@ -54,11 +55,14 @@ import android.icu.util.ULocale.Category;
 import android.icu.util.ULocale.Minimize;
 import android.icu.util.UResourceBundle;
 import android.icu.util.VersionInfo;
+
+import junitparams.JUnitParamsRunner;
+import junitparams.Parameters;
 import android.icu.testsharding.MainTestShard;
 
 @MainTestShard
-@RunWith(JUnit4.class)
-public class ULocaleTest extends TestFmwk {
+@RunWith(JUnitParamsRunner.class)
+public class ULocaleTest extends CoreTestFmwk {
 
     // Ticket #8078 and #11674
     private static final boolean JAVA7_OR_LATER =
@@ -1251,6 +1255,31 @@ public class ULocaleTest extends TestFmwk {
                 new Item("en", NM_DIA, CAP_MID, LEN_FU, SUB_SU, "mo",     "Romanian" ),
                 new Item("ro", NM_STD, CAP_MID, LEN_FU, SUB_SU, "mo",     "română" ),
                 new Item("ro", NM_STD, CAP_MID, LEN_FU, SUB_SU, "mo_MD",  "română (Republica Moldova)" ),
+                 // https://unicode-org.atlassian.net/browse/ICU-10297:
+                new Item("zh",      NM_DIA, CAP_MID, LEN_FU, SUB_SU, "ar_001", "现代标准阿拉伯语" ),
+                new Item("zh",      NM_DIA, CAP_MID, LEN_FU, SUB_SU, "nl_BE",  "弗拉芒语" ),
+                new Item("zh",      NM_DIA, CAP_MID, LEN_FU, SUB_SU, "ro_MD",  "摩尔多瓦语" ),
+                new Item("zh",      NM_DIA, CAP_MID, LEN_FU, SUB_SU, "en_AU",  "澳大利亚英语" ),
+                new Item("zh",      NM_DIA, CAP_MID, LEN_FU, SUB_SU, "en_CA",  "加拿大英语" ),
+                new Item("zh",      NM_DIA, CAP_MID, LEN_FU, SUB_SU, "en_GB",  "英国英语" ),
+                new Item("zh",      NM_DIA, CAP_MID, LEN_FU, SUB_SU, "en_US",  "美国英语" ),
+                new Item("zh",      NM_DIA, CAP_MID, LEN_FU, SUB_SU, "es_419", "拉丁美洲西班牙语" ),
+                new Item("zh",      NM_DIA, CAP_MID, LEN_FU, SUB_SU, "es_ES",  "欧洲西班牙语" ),
+                new Item("zh",      NM_DIA, CAP_MID, LEN_FU, SUB_SU, "es_MX",  "墨西哥西班牙语" ),
+                new Item("zh",      NM_DIA, CAP_MID, LEN_FU, SUB_SU, "fr_CA",  "加拿大法语" ),
+                new Item("zh",      NM_DIA, CAP_MID, LEN_FU, SUB_SU, "fr_CH",  "瑞士法语" ),
+                new Item("zh_Hant", NM_DIA, CAP_MID, LEN_FU, SUB_SU, "ar_001", "現代標準阿拉伯文" ),
+                new Item("zh_Hant", NM_DIA, CAP_MID, LEN_FU, SUB_SU, "nl_BE",  "法蘭德斯文" ),
+                new Item("zh_Hant", NM_DIA, CAP_MID, LEN_FU, SUB_SU, "ro_MD",  "摩爾多瓦文" ),
+                new Item("zh_Hant", NM_DIA, CAP_MID, LEN_FU, SUB_SU, "en_AU",  "英文（澳洲）" ),
+                new Item("zh_Hant", NM_DIA, CAP_MID, LEN_FU, SUB_SU, "en_CA",  "英文（加拿大）" ),
+                new Item("zh_Hant", NM_DIA, CAP_MID, LEN_FU, SUB_SU, "en_GB",  "英文（英國）" ),
+                new Item("zh_Hant", NM_DIA, CAP_MID, LEN_FU, SUB_SU, "en_US",  "英文（美國）" ),
+                new Item("zh_Hant", NM_DIA, CAP_MID, LEN_FU, SUB_SU, "es_419", "西班牙文（拉丁美洲）" ),
+                new Item("zh_Hant", NM_DIA, CAP_MID, LEN_FU, SUB_SU, "es_ES",  "西班牙文（西班牙）" ),
+                new Item("zh_Hant", NM_DIA, CAP_MID, LEN_FU, SUB_SU, "es_MX",  "西班牙文（墨西哥）" ),
+                new Item("zh_Hant", NM_DIA, CAP_MID, LEN_FU, SUB_SU, "fr_CA",  "法文（加拿大）" ),
+                new Item("zh_Hant", NM_DIA, CAP_MID, LEN_FU, SUB_SU, "fr_CH",  "法文（瑞士）" ),
             };
             for (Item item: items) {
                 ULocale locale = new ULocale(item.displayLocale);
@@ -1629,8 +1658,8 @@ public class ULocaleTest extends TestFmwk {
         h[0].put("stroke", "Stroke Order");
         h[0].put("japanese", "Japanese Calendar");
         h[0].put("buddhist", "Buddhist Calendar");
-        h[0].put("islamic", "Islamic Calendar");
-        h[0].put("islamic-civil", "Islamic Calendar (tabular, civil epoch)" );
+        h[0].put("islamic", "Hijri Calendar");
+        h[0].put("islamic-civil", "Hijri Calendar (tabular, civil epoch)" );
         h[0].put("hebrew", "Hebrew Calendar");
         h[0].put("chinese", "Chinese Calendar");
         h[0].put("gregorian", "Gregorian Calendar" );
@@ -1645,8 +1674,8 @@ public class ULocaleTest extends TestFmwk {
         h[1].put("traditional", "\u4F20\u7EDF\u6392\u5E8F");
         h[1].put("japanese", "\u65E5\u672C\u65E5\u5386");
         h[1].put("buddhist", "\u4F5B\u5386");
-        h[1].put("islamic", "\u4F0A\u65AF\u5170\u65E5\u5386");
-        h[1].put("islamic-civil", "\u4F0A\u65AF\u5170\u5E0C\u5409\u6765\u65E5\u5386");
+        h[1].put("islamic", "伊斯兰历");
+        h[1].put("islamic-civil", "伊斯兰希吉来日历");
         h[1].put("hebrew", "\u5E0C\u4F2F\u6765\u65E5\u5386");
         h[1].put("chinese", "\u519C\u5386");
         h[1].put("gregorian", "\u516C\u5386");
@@ -1923,7 +1952,7 @@ public class ULocaleTest extends TestFmwk {
                     "de__POSIX_1901"
                 }, {
                     "und",
-                    ""
+                    "en"
                 }
         };
 
@@ -2316,7 +2345,7 @@ public class ULocaleTest extends TestFmwk {
                     "pa_PK"
                 }, {
                     "pap",
-                    "pap_Latn_AW",
+                    "pap_Latn_CW",
                     "pap"
                 }, {
                     "pau",
@@ -2736,8 +2765,8 @@ public class ULocaleTest extends TestFmwk {
                     "am"
                 }, {
                     "und_Ethi_ER",
-                    "am_Ethi_ER",
-                    "am_ER"
+                    "ti_Ethi_ER",
+                    "ti_ER"
                 }, {
                     "und_FI",
                     "fi_Latn_FI",
@@ -3468,8 +3497,8 @@ public class ULocaleTest extends TestFmwk {
                     "zh_HK"
                 }, {
                     "und_AQ",
-                    "_Latn_AQ",
-                    "_AQ"
+                    "en_Latn_AQ",
+                    "en_AQ"
                 }, {
                     "und_Zzzz",
                     "en_Latn_US",
@@ -3492,8 +3521,8 @@ public class ULocaleTest extends TestFmwk {
                     "zh_HK"
                 }, {
                     "und_Zzzz_AQ",
-                    "_Latn_AQ",
-                    "_AQ"
+                    "en_Latn_AQ",
+                    "en_AQ"
                 }, {
                     "und_Latn",
                     "en_Latn_US",
@@ -3512,12 +3541,12 @@ public class ULocaleTest extends TestFmwk {
                     "trv"
                 }, {
                     "und_Latn_HK",
-                    "zh_Latn_HK",
-                    "zh_Latn_HK"
+                    "en_Latn_HK",
+                    "en_HK"
                 }, {
                     "und_Latn_AQ",
-                    "_Latn_AQ",
-                    "_AQ"
+                    "en_Latn_AQ",
+                    "en_AQ"
                 }, {
                     "und_Hans",
                     "zh_Hans_CN",
@@ -3588,8 +3617,8 @@ public class ULocaleTest extends TestFmwk {
                     "zh_Moon_HK"
                 }, {
                     "und_Moon_AQ",
-                    "_Moon_AQ",
-                    "_Moon_AQ"
+                    "en_Moon_AQ",
+                    "en_Moon_AQ"
                 }, {
                     "es",
                     "es_Latn_ES",
@@ -4013,7 +4042,7 @@ public class ULocaleTest extends TestFmwk {
                 }, {
                     "aae_Latn_IT",
                     "aae_Latn_IT",
-                    "aae_Latn_IT"
+                    "aae"
                 }, {
                     "aae_Thai_CO",
                     "aae_Thai_CO",
@@ -4021,7 +4050,7 @@ public class ULocaleTest extends TestFmwk {
                 }, {
                     "und_CW",
                     "pap_Latn_CW",
-                    "pap_CW"
+                    "pap"
                 }, {
                     "zh_Hant",
                     "zh_Hant_TW",
@@ -4044,8 +4073,8 @@ public class ULocaleTest extends TestFmwk {
                     "es_419"
                 }, {
                     "und_150",
-                    "ru_Cyrl_RU",
-                    "ru"
+                    "en_Latn_150",
+                    "en_150"
                 }, {
                     "und_AT",
                     "de_Latn_AT",
@@ -4099,7 +4128,7 @@ public class ULocaleTest extends TestFmwk {
 
         cldrVersion = LocaleData.getCLDRVersion();
 
-        TestFmwk.logln("uloc_getCLDRVersion() returned: '"+cldrVersion+"'");
+        logln("uloc_getCLDRVersion() returned: '"+cldrVersion+"'");
 
         // why isn't this public for tests somewhere?
         final ClassLoader testLoader = ICUResourceBundleTest.class.getClassLoader();
@@ -5370,7 +5399,7 @@ public class ULocaleTest extends TestFmwk {
 
     @Test
     public void TestLocaleCanonicalizationFromFile() throws IOException {
-        BufferedReader testFile = TestUtil.getDataReader("unicode/localeCanonicalization.txt");
+        BufferedReader testFile = TestUtil.getDataReader("cldr/localeIdentifiers/localeCanonicalization.txt");
         try {
             String line;
             while ((line = testFile.readLine()) != null) {
@@ -5392,5 +5421,82 @@ public class ULocaleTest extends TestFmwk {
             testFile.close();
         }
 
+    }
+
+    private static final class TestCase implements Cloneable {
+        private static final String ENDL = System.getProperties().getProperty("line.separator");
+
+        int lineNr = 0;
+
+        String source = "";
+        String addLikely = "";
+        String removeFavorScript = "";
+        String removeFavorRegion = "";
+
+        @Override
+        public TestCase clone() throws CloneNotSupportedException {
+            return (TestCase) super.clone();
+        }
+
+        @Override
+        public String toString() {
+            return (new StringBuilder(source))
+                .append(";")
+                .append(addLikely)
+                .append(";")
+                .append(removeFavorScript)
+                .append(";")
+                .append(removeFavorRegion)
+                .toString();
+        }
+    }
+    static List<TestCase> readLikelySubtagsTestCases() throws Exception {
+        List<TestCase> tests = new ArrayList<>();
+        TestCase test = new TestCase();
+        BufferedReader testFile = TestUtil.getDataReader("cldr/localeIdentifiers/likelySubtags.txt");
+        try {
+            String line;
+            while ((line = testFile.readLine()) != null) {
+                if (line.startsWith("#")) continue;
+                String [] fields = line.split("[ \t]?;[ \t]?");
+                if (fields.length < 2) continue;
+                test.source = fields[0];
+                test.addLikely = fields[1];
+                test.removeFavorScript = (fields.length < 3) || fields[2].isEmpty() ? test.addLikely : fields[2];
+                test.removeFavorRegion = (fields.length < 4) || fields[3].isEmpty() ? test.removeFavorScript : fields[3];
+                tests.add(test.clone());
+            }
+        } finally {
+            testFile.close();
+        }
+        return tests;
+    }
+
+    @Test
+    @Parameters(method = "readLikelySubtagsTestCases")
+    public void likelySubtagsDataDriven(TestCase test) {
+        ULocale l = ULocale.forLanguageTag(test.source);
+
+        if (test.addLikely.equals("FAIL")) {
+            assertEquals("addLikelySubtags(" + test.source + ") should be unchanged",
+                l, ULocale.addLikelySubtags(l));
+        } else {
+            assertEquals("addLikelySubtags(" + test.source + ")",
+                test.addLikely, ULocale.addLikelySubtags(l).toLanguageTag());
+        }
+        if (test.removeFavorRegion.equals("FAIL")) {
+            assertEquals("minimizeSubtags(" + test.source + ") should be unchanged",
+                l, ULocale.minimizeSubtags(l));
+        } else {
+            assertEquals("minimizeSubtags(" + test.source + ")",
+                test.removeFavorRegion, ULocale.minimizeSubtags(l).toLanguageTag());
+        }
+        if (test.removeFavorScript.equals("FAIL")) {
+            assertEquals("minimizeSubtags(" + test.source + ") - FAVOR_SCRIPT should be unchanged",
+                l, ULocale.minimizeSubtags(l, ULocale.Minimize.FAVOR_SCRIPT));
+        } else {
+            assertEquals("minimizeSubtags(" + test.source + ") - FAVOR_SCRIPT",
+                test.removeFavorScript, ULocale.minimizeSubtags(l, ULocale.Minimize.FAVOR_SCRIPT).toLanguageTag());
+        }
     }
 }

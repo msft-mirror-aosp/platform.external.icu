@@ -25,7 +25,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 
-import android.icu.dev.test.TestFmwk;
+import android.icu.dev.test.CoreTestFmwk;
 import android.icu.impl.duration.BasicPeriodFormatterService;
 import android.icu.impl.duration.Period;
 import android.icu.impl.duration.PeriodBuilder;
@@ -41,7 +41,7 @@ import android.icu.impl.duration.impl.DataRecord.EUnitVariant;
  * Test cases for en
  */
 @RunWith(JUnit4.class)
-public abstract class LanguageTestFmwk extends TestFmwk implements TimeUnitConstants {
+public abstract class LanguageTestFmwk extends CoreTestFmwk implements TimeUnitConstants {
 
     private static final TimeUnit[] units = {
         TimeUnit.YEAR, TimeUnit.MONTH, TimeUnit.WEEK, TimeUnit.DAY, TimeUnit.HOUR,
