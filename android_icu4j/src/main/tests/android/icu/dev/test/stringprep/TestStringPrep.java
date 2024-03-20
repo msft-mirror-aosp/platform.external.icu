@@ -15,7 +15,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 
-import android.icu.dev.test.TestFmwk;
+import android.icu.dev.test.CoreTestFmwk;
 import android.icu.text.StringPrep;
 import android.icu.text.StringPrepParseException;
 import android.icu.testsharding.MainTestShard;
@@ -26,7 +26,7 @@ import android.icu.testsharding.MainTestShard;
  */
 @MainTestShard
 @RunWith(JUnit4.class)
-public class TestStringPrep extends TestFmwk {
+public class TestStringPrep extends CoreTestFmwk {
     /*
        There are several special identifiers ("who") which need to be
        understood universally, rather than in the context of a particular

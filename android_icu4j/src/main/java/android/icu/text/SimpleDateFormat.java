@@ -3839,7 +3839,7 @@ public class SimpleDateFormat extends DateFormat {
                 } else {
                     number = parseInt(text, pos, allowNegative,currentNumberFormat);
                 }
-                if (!isLenient() && pos.getIndex() < start + count) {
+                if (obeyCount && !isLenient() && pos.getIndex() < start + count) {
                     return -start;
                 }
                 if (number != null) {

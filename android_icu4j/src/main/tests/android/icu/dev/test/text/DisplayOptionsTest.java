@@ -8,7 +8,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 
-import android.icu.dev.test.TestFmwk;
+import android.icu.dev.test.CoreTestFmwk;
 import android.icu.text.DisplayOptions;
 import android.icu.text.DisplayOptions.Capitalization;
 import android.icu.text.DisplayOptions.DisplayLength;
@@ -25,7 +25,7 @@ import android.icu.testsharding.MainTestShard;
  */
 @MainTestShard
 @RunWith(JUnit4.class)
-public class DisplayOptionsTest extends TestFmwk {
+public class DisplayOptionsTest extends CoreTestFmwk {
 
     @Test
     public void TestDisplayOptionsDefault(){

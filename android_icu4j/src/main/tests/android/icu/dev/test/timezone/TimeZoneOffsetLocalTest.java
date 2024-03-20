@@ -15,7 +15,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 
-import android.icu.dev.test.TestFmwk;
+import android.icu.dev.test.CoreTestFmwk;
 import android.icu.text.DateFormat;
 import android.icu.util.AnnualTimeZoneRule;
 import android.icu.util.BasicTimeZone;
@@ -34,7 +34,7 @@ import android.icu.testsharding.MainTestShard;
  */
 @MainTestShard
 @RunWith(JUnit4.class)
-public class TimeZoneOffsetLocalTest extends TestFmwk {
+public class TimeZoneOffsetLocalTest extends CoreTestFmwk {
     /*
      * Testing getOffset APIs around rule transition by local standard/wall time.
      */

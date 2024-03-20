@@ -13,8 +13,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 
-import android.icu.dev.test.TestFmwk;
-import android.icu.dev.test.TestUtil;
+import android.icu.dev.test.CoreTestFmwk;
 import android.icu.impl.breakiter.LSTMBreakEngine;
 import android.icu.lang.UScript;
 import android.icu.text.BreakIterator;
@@ -29,7 +28,7 @@ import android.icu.testsharding.MainTestShard;
  */
 @MainTestShard
 @RunWith(JUnit4.class)
-public class RBBILSTMTest extends TestFmwk {
+public class RBBILSTMTest extends CoreTestFmwk {
     public RBBILSTMTest() {
     }
 
@@ -46,7 +45,7 @@ public class RBBILSTMTest extends TestFmwk {
     private void runTestFromFile(String filename, int script) {
         // The expectation in this test depends on LSTM, skip the test if the
         // configuration is not build with LSTM data.
-        org.junit.Assume.assumeTrue(!TestUtil.skipLSTMTest());
+        org.junit.Assume.assumeTrue(!RBBITstUtils.skipLSTMTest());
 
         BreakIterator bi = BreakIterator.getWordInstance();
         String testString;

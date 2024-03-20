@@ -29,6 +29,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 
+import android.icu.dev.test.CoreTestFmwk;
 import android.icu.dev.test.TestFmwk;
 import android.icu.impl.ICULocaleService;
 import android.icu.impl.ICUService;
@@ -39,7 +40,7 @@ import android.icu.testsharding.MainTestShard;
 
 @MainTestShard
 @RunWith(JUnit4.class)
-public class ICUServiceThreadTest extends TestFmwk
+public class ICUServiceThreadTest extends CoreTestFmwk
 {
     private static final boolean PRINTSTATS = false;
 

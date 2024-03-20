@@ -27,7 +27,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 
-import android.icu.dev.test.TestFmwk;
+import android.icu.dev.test.CoreTestFmwk;
 import android.icu.impl.ICULocaleService;
 import android.icu.impl.ICULocaleService.ICUResourceBundleFactory;
 import android.icu.impl.ICULocaleService.LocaleKey;
@@ -46,7 +46,7 @@ import android.icu.testsharding.MainTestShard;
 
 @MainTestShard
 @RunWith(JUnit4.class)
-public class ICUServiceTest extends TestFmwk
+public class ICUServiceTest extends CoreTestFmwk
 {
     private String lrmsg(String message, Object lhs, Object rhs) {
     return message + " lhs: " + lhs + " rhs: " + rhs;

@@ -10,6 +10,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 
+import android.icu.dev.test.CoreTestFmwk;
 import android.icu.dev.test.TestFmwk;
 import android.icu.text.BreakIterator;
 import android.icu.testsharding.MainTestShard;
@@ -20,7 +21,7 @@ import android.icu.testsharding.MainTestShard;
  */
 @MainTestShard
 @RunWith(JUnit4.class)
-public class AbstractBreakIteratorTests extends TestFmwk {
+public class AbstractBreakIteratorTests extends CoreTestFmwk {
 
     private class AbstractBreakIterator extends BreakIterator {
         private int position = 0;

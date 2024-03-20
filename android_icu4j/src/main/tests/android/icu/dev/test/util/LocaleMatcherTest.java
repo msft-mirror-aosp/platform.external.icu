@@ -24,8 +24,7 @@ import java.util.TreeSet;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import android.icu.dev.test.TestFmwk;
-import android.icu.dev.tool.locale.LikelySubtagsBuilder;
+import android.icu.dev.test.CoreTestFmwk;
 import android.icu.impl.locale.XCldrStub.FileUtilities;
 import android.icu.impl.locale.XLikelySubtags;
 import android.icu.util.LocaleMatcher;
@@ -44,7 +43,7 @@ import android.icu.testsharding.MainTestShard;
  */
 @MainTestShard
 @RunWith(JUnitParamsRunner.class)
-public class LocaleMatcherTest extends TestFmwk {
+public class LocaleMatcherTest extends CoreTestFmwk {
     private static final ULocale ZH_MO = new ULocale("zh_MO");
     private static final ULocale ZH_HK = new ULocale("zh_HK");
 
@@ -872,17 +871,10 @@ public class LocaleMatcherTest extends TestFmwk {
         long start = System.nanoTime();
         for (int i = iterations; i > 0; --i) {
             for (ULocale locale : list) {
-                XLikelySubtags.INSTANCE.makeMaximizedLsrFrom(locale);
+                XLikelySubtags.INSTANCE.makeMaximizedLsrFrom(locale, false);
             }
         }
         return System.nanoTime() - start;
-    }
-
-    @Test
-    public void testLikelySubtagsLoadedDataSameAsBuiltFromScratch() {
-        XLikelySubtags.Data built = LikelySubtagsBuilder.build();
-        XLikelySubtags.Data loaded = XLikelySubtags.Data.load();
-        assertEquals("run LocaleDistanceBuilder and update ICU4C langInfo.txt", built, loaded);
     }
 
     private static final class TestCase implements Cloneable {

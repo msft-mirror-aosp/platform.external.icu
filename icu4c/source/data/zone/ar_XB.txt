@@ -3,15 +3,6 @@
 // Generated using tools/cldr/cldr-to-icu/build-icu-data.xml
 ar_XB{
     zoneStrings{
-        "Africa:Sao_Tome"{
-            ec{"؜‮São‬؜ ؜‮Tomé‬؜"}
-        }
-        "America:Asuncion"{
-            ec{"؜‮Asunción‬؜"}
-        }
-        "America:Curacao"{
-            ec{"؜‮Curaçao‬؜"}
-        }
         "America:St_Barthelemy"{
             ec{"؜‮St‬؜. ؜‮Barthélemy‬؜"}
         }
@@ -29,9 +20,6 @@ ar_XB{
         }
         "America:St_Vincent"{
             ec{"؜‮St‬؜. ؜‮Vincent‬؜"}
-        }
-        "Antarctica:DumontDUrville"{
-            ec{"؜‮Dumont‬؜ ؜‮d‬؜’؜‮Urville‬؜"}
         }
         "Asia:Aqtau"{
             ec{"؜‮Aqtau‬؜"}
@@ -54,17 +42,11 @@ ar_XB{
         "Europe:Dublin"{
             ld{"؜‮Irish‬؜ ؜‮Standard‬؜ ؜‮Time‬؜"}
         }
-        "Europe:Kiev"{
-            ec{"؜‮Kyiv‬؜"}
-        }
         "Europe:London"{
             ld{"؜‮British‬؜ ؜‮Summer‬؜ ؜‮Time‬؜"}
         }
         "Europe:Uzhgorod"{
             ec{"؜‮Uzhhorod‬؜"}
-        }
-        "Indian:Reunion"{
-            ec{"؜‮Réunion‬؜"}
         }
         "Pacific:Honolulu"{
             sd{"؜‮HDT‬؜"}
