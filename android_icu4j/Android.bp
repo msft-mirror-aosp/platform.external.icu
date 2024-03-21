@@ -295,7 +295,7 @@ java_sdk_library {
 
 // Referenced implicitly from i18n.module.intra.core.api.
 filegroup {
-    name: "i18n.module.intra.core.api.api.public.latest",
+    name: "i18n.module.intra.core.api.api.combined.public.latest",
     srcs: [
         "api/intra/last-api.txt",
     ],
@@ -303,7 +303,7 @@ filegroup {
 
 // Referenced implicitly from i18n.module.intra.core.api.
 filegroup {
-    name: "i18n.module.intra.core.api-removed.api.public.latest",
+    name: "i18n.module.intra.core.api-removed.api.combined.public.latest",
     srcs: [
         "api/intra/last-removed.txt",
     ],
@@ -319,7 +319,7 @@ filegroup {
 
 // Referenced implicitly from legacy.i18n.module.platform.api.
 filegroup {
-    name: "legacy.i18n.module.platform.api.api.public.latest",
+    name: "legacy.i18n.module.platform.api.api.combined.public.latest",
     srcs: [
         "api/legacy_platform/last-api.txt",
     ],
@@ -327,7 +327,7 @@ filegroup {
 
 // Referenced implicitly from legacy.i18n.module.platform.api.
 filegroup {
-    name: "legacy.i18n.module.platform.api-removed.api.public.latest",
+    name: "legacy.i18n.module.platform.api-removed.api.combined.public.latest",
     srcs: [
         "api/legacy_platform/last-removed.txt",
     ],
@@ -343,7 +343,7 @@ filegroup {
 
 // Referenced implicitly from stable.i18n.module.platform.api.
 filegroup {
-    name: "stable.i18n.module.platform.api.api.public.latest",
+    name: "stable.i18n.module.platform.api.api.combined.public.latest",
     srcs: [
         "api/stable_platform/last-api.txt",
     ],
@@ -351,7 +351,7 @@ filegroup {
 
 // Referenced implicitly from stable.i18n.module.platform.api.
 filegroup {
-    name: "stable.i18n.module.platform.api-removed.api.public.latest",
+    name: "stable.i18n.module.platform.api-removed.api.combined.public.latest",
     srcs: [
         "api/stable_platform/last-removed.txt",
     ],
