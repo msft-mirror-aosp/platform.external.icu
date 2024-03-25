@@ -11,7 +11,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 
-import android.icu.dev.test.TestFmwk;
+import android.icu.dev.test.CoreTestFmwk;
 import android.icu.message2.FormattedPlaceholder;
 import android.icu.message2.Formatter;
 import android.icu.message2.FormatterFactory;
@@ -26,7 +26,7 @@ import android.icu.testsharding.MainTestShard;
 @MainTestShard
 @RunWith(JUnit4.class)
 @SuppressWarnings("javadoc")
-public class CustomFormatterGrammarCaseTest extends TestFmwk {
+public class CustomFormatterGrammarCaseTest extends CoreTestFmwk {
 
     static class GrammarCasesFormatterFactory implements FormatterFactory {
 

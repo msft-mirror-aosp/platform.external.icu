@@ -24,7 +24,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 
-import android.icu.dev.test.TestFmwk;
+import android.icu.dev.test.CoreTestFmwk;
 import android.icu.dev.test.TestUtil;
 import android.icu.text.IDNA;
 import android.icu.text.StringPrepParseException;
@@ -37,7 +37,7 @@ import android.icu.testsharding.MainTestShard;
  */
 @MainTestShard
 @RunWith(JUnit4.class)
-public class IDNAConformanceTest extends TestFmwk {
+public class IDNAConformanceTest extends CoreTestFmwk {
     @Test
     public void TestConformance() {
 

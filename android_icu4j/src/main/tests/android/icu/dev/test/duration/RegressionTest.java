@@ -13,7 +13,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 
-import android.icu.dev.test.TestFmwk;
+import android.icu.dev.test.CoreTestFmwk;
 import android.icu.impl.duration.BasicPeriodFormatterService;
 import android.icu.impl.duration.DurationFormatter;
 import android.icu.impl.duration.PeriodBuilder;
@@ -24,7 +24,7 @@ import android.icu.testsharding.MainTestShard;
 
 @MainTestShard
 @RunWith(JUnit4.class)
-public class RegressionTest extends TestFmwk {
+public class RegressionTest extends CoreTestFmwk {
     // bug6397
     @Test
     public void TestDisallowedMillis() {

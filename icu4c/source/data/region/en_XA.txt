@@ -85,6 +85,7 @@ en_XA{
         CN{"[Çĥîñå one]"}
         CO{"[Çöļöɱƀîå one two]"}
         CP{"[Çļîþþéŕţöñ Îšļåñð one two three]"}
+        CQ{"[Šåŕķ one]"}
         CR{"[Çöšţå Ŕîçå one two]"}
         CU{"[Çûƀå one]"}
         CV{"[Çåþé Ṽéŕðé one two]"}
@@ -297,6 +298,9 @@ en_XA{
         ZM{"[Žåɱƀîå one]"}
         ZW{"[Žîɱƀåƀŵé one two]"}
         ZZ{"[Ûñķñöŵñ Ŕéĝîöñ one two]"}
+    }
+    Countries%chagos{
+        IO{"[Çĥåĝöš Åŕçĥîþéļåĝö one two three]"}
     }
     Countries%short{
         BA{"[Ɓöšñîå one]"}

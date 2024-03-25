@@ -15,6 +15,7 @@ import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 
+import android.icu.dev.test.CoreTestFmwk;
 import android.icu.dev.test.TestFmwk;
 import android.icu.text.DateFormat;
 import android.icu.text.SimpleDateFormat;
@@ -29,7 +30,7 @@ import android.icu.testsharding.MainTestShard;
  * Defines various useful utility methods and constants
  */
 @MainTestShard
-public class CalendarTestFmwk extends TestFmwk {
+public class CalendarTestFmwk extends CoreTestFmwk {
 
     // Constants for use by subclasses, solely to save typing
     public final static int SUN = Calendar.SUNDAY;
@@ -262,6 +263,9 @@ public class CalendarTestFmwk extends TestFmwk {
             cal.setTimeInMillis(greg.getTimeInMillis());
             for (int j=0; j<fieldsToTest.length; ++j) {
                 int f = fieldsToTest[j];
+                if (cal.getType().equals("hebrew") && greg.get(Calendar.YEAR)>2500 && logKnownIssue("ICU-22441", "Hebrew calendar illegal year length")) {
+                    break;
+                }
                 int v = cal.get(f);
                 int minActual = cal.getActualMinimum(f);
                 int maxActual = cal.getActualMaximum(f);

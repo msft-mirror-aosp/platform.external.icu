@@ -1266,7 +1266,7 @@ public class CollationMiscTest extends TestFmwk {
 
         // no such locale in icu4j
         // logln("Using ko__LOTUS locale\n");
-        // genericLocaleStarter(new Locale("ko__LOTUS", ""), koreanData);
+        // genericLocaleStarter(new Locale("ko", "", "LOTUS"), koreanData);
     }
 
     @Test

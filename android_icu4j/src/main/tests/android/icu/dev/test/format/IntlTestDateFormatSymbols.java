@@ -25,7 +25,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 
-import android.icu.dev.test.TestFmwk;
+import android.icu.dev.test.CoreTestFmwk;
 import android.icu.text.DateFormatSymbols;
 import android.icu.util.Calendar;
 import android.icu.util.ULocale;
@@ -33,7 +33,7 @@ import android.icu.testsharding.MainTestShard;
 
 @MainTestShard
 @RunWith(JUnit4.class)
-public class IntlTestDateFormatSymbols extends TestFmwk
+public class IntlTestDateFormatSymbols extends CoreTestFmwk
 {
     // Test getMonths
     @Test

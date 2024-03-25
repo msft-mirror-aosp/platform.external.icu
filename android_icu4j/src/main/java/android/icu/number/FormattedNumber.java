@@ -115,14 +115,14 @@ public class FormattedNumber implements FormattedValue {
      * MeasureUnit.Complexity.MIXED unit complexity (MeasureUnit.getComplexity()), such
      * as "foot-and-inch" or "hour-and-minute-and-second".
      *
-     * @return `MeasureUnit`.
+     * @return {@code MeasureUnit}.
      */
     public MeasureUnit getOutputUnit() {
         return this.outputUnit;
     }
 
     /**
-     * Gets the noun class of the formatted output. Returns `UNDEFINED` when the noun class is not
+     * Gets the noun class of the formatted output. Returns {@code UNDEFINED} when the noun class is not
      * supported yet.
      *
      * @return NounClass

@@ -29,7 +29,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 
-import android.icu.dev.test.TestFmwk;
+import android.icu.dev.test.CoreTestFmwk;
 import android.icu.math.BigDecimal;
 import android.icu.math.MathContext;
 import android.icu.text.DecimalFormat;
@@ -39,7 +39,7 @@ import android.icu.testsharding.MainTestShard;
 
 @MainTestShard
 @RunWith(JUnit4.class)
-public class IntlTestDecimalFormatAPI extends TestFmwk
+public class IntlTestDecimalFormatAPI extends CoreTestFmwk
 {
     /**
      * Problem 1: simply running
@@ -104,6 +104,8 @@ public class IntlTestDecimalFormatAPI extends TestFmwk
     @Test
     public void TestAPI()
     {
+        Locale startLocale = Locale.getDefault();
+
         logln("DecimalFormat API test---"); logln("");
         Locale.setDefault(Locale.ENGLISH);
 
@@ -268,6 +270,8 @@ public class IntlTestDecimalFormatAPI extends TestFmwk
         if( ! s3.equals(p2) ) {
             errln("ERROR: toLocalizedPattern() result did not match pattern applied");
         }
+
+        Locale.setDefault(startLocale);
     }
 
     @Test

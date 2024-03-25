@@ -21,7 +21,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 
-import android.icu.dev.test.TestFmwk;
+import android.icu.dev.test.CoreTestFmwk;
 import android.icu.util.BytesTrie;
 import android.icu.util.BytesTrieBuilder;
 import android.icu.util.StringTrieBuilder;
@@ -29,7 +29,7 @@ import android.icu.testsharding.MainTestShard;
 
 @MainTestShard
 @RunWith(JUnit4.class)
-public class BytesTrieTest extends TestFmwk {
+public class BytesTrieTest extends CoreTestFmwk {
     public BytesTrieTest() {}
 
     // All test functions have a TestNN prefix where NN is a double-digit number.
