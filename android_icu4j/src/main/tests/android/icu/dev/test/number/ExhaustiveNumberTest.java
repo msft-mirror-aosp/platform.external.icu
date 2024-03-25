@@ -11,7 +11,7 @@ import java.util.Random;
 import org.junit.Before;
 import org.junit.Test;
 
-import android.icu.dev.test.TestFmwk;
+import android.icu.dev.test.CoreTestFmwk;
 import android.icu.impl.StaticUnicodeSets.Key;
 import android.icu.impl.number.DecimalQuantity_DualStorageBCD;
 import android.icu.lang.UCharacter;
@@ -31,7 +31,7 @@ import android.icu.testsharding.MainTestShard;
  * @author sffc
  */
 @MainTestShard
-public class ExhaustiveNumberTest extends TestFmwk {
+public class ExhaustiveNumberTest extends CoreTestFmwk {
     @Before
     public void beforeMethod() {
         // Disable this test class except for exhaustive mode.
@@ -64,7 +64,9 @@ public class ExhaustiveNumberTest extends TestFmwk {
             if (!locale.getBaseName().startsWith("ks_Deva") || !logKnownIssue("22099", "locale-specific parse sets not supported")) {
                 assertInSet(locale, decimals, dfs.getDecimalSeparatorString());
             }
-            assertInSet(locale, grouping, dfs.getGroupingSeparatorString());
+            if (!locale.getBaseName().startsWith("nqo") || !logKnownIssue("CLDR-17023", "Number symbols and/or parseLenients messed up for N’Ko")) {
+                assertInSet(locale, grouping, dfs.getGroupingSeparatorString());
+            }
             assertInSet(locale, plusSign, dfs.getPlusSignString());
             assertInSet(locale, minusSign, dfs.getMinusSignString());
             assertInSet(locale, percent, dfs.getPercentString());

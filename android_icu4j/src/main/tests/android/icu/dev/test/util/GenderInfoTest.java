@@ -16,7 +16,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 
-import android.icu.dev.test.TestFmwk;
+import android.icu.dev.test.CoreTestFmwk;
 import android.icu.util.GenderInfo;
 import android.icu.util.GenderInfo.Gender;
 import android.icu.util.ULocale;
@@ -24,7 +24,7 @@ import android.icu.testsharding.MainTestShard;
 
 @MainTestShard
 @RunWith(JUnit4.class)
-public class GenderInfoTest extends TestFmwk {
+public class GenderInfoTest extends CoreTestFmwk {
     public static GenderInfo NEUTRAL_LOCALE = GenderInfo.getInstance(ULocale.ENGLISH);
     public static GenderInfo MIXED_NEUTRAL_LOCALE = GenderInfo.getInstance(new ULocale("is"));
     public static GenderInfo MALE_TAINTS_LOCALE = GenderInfo.getInstance(ULocale.FRENCH);

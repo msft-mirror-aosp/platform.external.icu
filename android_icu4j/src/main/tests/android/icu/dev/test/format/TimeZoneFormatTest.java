@@ -30,6 +30,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 
+import android.icu.dev.test.CoreTestFmwk;
 import android.icu.dev.test.TestFmwk;
 import android.icu.impl.TZDBTimeZoneNames;
 import android.icu.impl.ZoneMeta;
@@ -56,7 +57,7 @@ import android.icu.testsharding.MainTestShard;
 
 @MainTestShard
 @RunWith(JUnit4.class)
-public class TimeZoneFormatTest extends TestFmwk {
+public class TimeZoneFormatTest extends CoreTestFmwk {
 
     private static boolean JDKTZ = (TimeZone.getDefaultTimeZoneType() == TimeZone.TIMEZONE_JDK);
     private static final Pattern EXCL_TZ_PATTERN = Pattern.compile(".*/Riyadh8[7-9]");
@@ -276,7 +277,8 @@ public class TimeZoneFormatTest extends TestFmwk {
                                 }
                             } else {
                                 // Specific or generic: raw offset must be preserved.
-                                if (inOffsets[0] != outOffsets[0]) {
+                                if (inOffsets[0] != outOffsets[0] && !(LOCALES[locidx].getName().startsWith("ku") && tzids[tzidx].equals("America/Miquelon")
+                                        && logKnownIssue("CLDR-17024", "TestTimeZoneRoundTrip exhaust. fail with tz=America/Miquelon, locale=ku"))) {
                                     if (JDKTZ && tzids[tzidx].startsWith("SystemV/")) {
                                         // JDK uses rule SystemV for these zones while
                                         // ICU handles these zones as aliases of existing time zones

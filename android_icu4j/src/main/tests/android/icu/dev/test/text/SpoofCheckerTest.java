@@ -29,11 +29,12 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 
-import android.icu.dev.test.TestFmwk;
+import android.icu.dev.test.CoreTestFmwk;
 import android.icu.dev.test.TestUtil;
 import android.icu.dev.test.TestUtil.JavaVendor;
 import android.icu.impl.Utility;
 import android.icu.lang.UScript;
+import android.icu.text.Bidi;
 import android.icu.text.Normalizer2;
 import android.icu.text.SpoofChecker;
 import android.icu.text.SpoofChecker.CheckResult;
@@ -44,7 +45,7 @@ import android.icu.testsharding.MainTestShard;
 
 @MainTestShard
 @RunWith(JUnit4.class)
-public class SpoofCheckerTest extends TestFmwk {
+public class SpoofCheckerTest extends CoreTestFmwk {
     /*
      * Identifiers for verifying that spoof checking is minimally alive and working.
      */
@@ -69,6 +70,7 @@ public class SpoofCheckerTest extends TestFmwk {
 
     String han_Hiragana = "\u3086\u308A \u77F3\u7530";  // Hiragana, space, Han
 
+    static final UnicodeSet DEFAULT_IGNORABLE_CODE_POINT = new UnicodeSet("\\p{di}");
 
     /*
      * Test basic constructor.
@@ -379,6 +381,15 @@ public class SpoofCheckerTest extends TestFmwk {
         s = "I1l0O";
         String dest = sc.getSkeleton(SpoofChecker.ANY_CASE, s);
         assertEquals("", dest, "lllOO");
+
+        // Example from UTS #55, Section 5.1.3 https://www.unicode.org/reports/tr55/#General-Security-Profile,
+        // of a minimal pair with a ZWNJ in Persian.
+        final String behrooz = "بهروز";
+        final String update = "به‌روز";
+        // These strings differ only by a ZWNJ.
+        assertEquals("", update.replace("\u200C", ""), behrooz);
+        checkResult = sc.areConfusable(behrooz, update);
+        assertEquals("", SpoofChecker.SINGLE_SCRIPT_CONFUSABLE, checkResult);
     }
 
     @Test
@@ -445,6 +456,16 @@ public class SpoofCheckerTest extends TestFmwk {
 
     }
 
+    @Test
+    public void TestBidiSkeleton() {
+        final SpoofChecker sc = new SpoofChecker.Builder().build();
+        final String testName = "TestBidiSkeleton";
+        checkBidiSkeleton(sc, Bidi.DIRECTION_LEFT_TO_RIGHT, "A1<שׂ", "Al<ש\u0307", testName);
+        checkBidiSkeleton(sc, Bidi.DIRECTION_LEFT_TO_RIGHT, "Αשֺ>1", "Al<ש\u0307", testName);
+        checkBidiSkeleton(sc, Bidi.DIRECTION_RIGHT_TO_LEFT, "A1<שׂ", "ש\u0307>Al", testName);
+        checkBidiSkeleton(sc, Bidi.DIRECTION_RIGHT_TO_LEFT, "Αשֺ>1", "l<ש\u0307A", testName);
+    }
+
     // Internal function to run a single skeleton test case.
     //
     // Run a single confusable skeleton transformation test case.
@@ -460,6 +481,19 @@ public class SpoofCheckerTest extends TestFmwk {
         assertEquals(testName + " test at line " + lineNumberOfTest + " :  Expected (escaped): " + expected, uExpected, actual);
     }
 
+    // Internal function to run a single skeleton test case.
+    //
+    // Run a single confusable skeleton transformation test case.
+    //
+    void checkBidiSkeleton(SpoofChecker sc, int direction, String input, String expected, String testName) {
+        assertEquals(
+            "bidiSkeleton(" +
+            (direction == Bidi.DIRECTION_LEFT_TO_RIGHT ? "LTR" : "RTL") +
+            ", \"" + input +"\")",
+            expected,
+            sc.getBidiSkeleton(direction, input));
+    }
+
     @Test
     public void TestAreConfusable() {
         SpoofChecker sc = new SpoofChecker.Builder().setChecks(SpoofChecker.CONFUSABLE).build();
@@ -468,6 +502,21 @@ public class SpoofCheckerTest extends TestFmwk {
         String s2 = "A long string that wi11 overflow stack buffers.  A long string that will overflow stack buffers. "
                 + "A long string that wi11 overflow stack buffers.  A long string that will overflow stack buffers. ";
         assertEquals("", SpoofChecker.SINGLE_SCRIPT_CONFUSABLE, sc.areConfusable(s1, s2));
+    }
+
+    @Test
+    public void TestAreBidiConfusable() {
+        SpoofChecker sc = new SpoofChecker.Builder().setChecks(SpoofChecker.CONFUSABLE).build();
+        final String jHyphen2 = "J-2";
+        // The following string has RLMs around the 2–, flipping it; it uses an
+        // EN DASH instead of the HYPHEN-MINUS above.
+        final String j2Dash = "J\u200F2\u2013\u200F";
+        assertEquals("Unescaped display of j2Dash", "J‏2–‏", j2Dash);
+
+        assertEquals(
+            "Expected single-script confusability",
+            SpoofChecker.SINGLE_SCRIPT_CONFUSABLE,
+            sc.areConfusable(Bidi.DIRECTION_LEFT_TO_RIGHT, jHyphen2, j2Dash));
     }
 
     @Test
@@ -727,6 +776,13 @@ public class SpoofCheckerTest extends TestFmwk {
                 if (!normalizer.isNormalized(from)) {
                     // The source character was not NFD.
                     // Skip this case; the first step in obtaining a skeleton is to NFD the input,
+                    // so the mapping in this line of confusables.txt will never be applied.
+                    continue;
+                }
+
+                if (DEFAULT_IGNORABLE_CODE_POINT.containsSome(from)) {
+                    // The source character is a default ignorable code point.
+                    // Skip this case; the second step in obtaining a skeleton is to remove DIs,
                     // so the mapping in this line of confusables.txt will never be applied.
                     continue;
                 }

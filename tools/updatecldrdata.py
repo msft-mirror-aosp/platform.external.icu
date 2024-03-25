@@ -64,7 +64,8 @@ def main():
   shutil.copytree(os.path.join(icu_dir, 'tools'), icu_tools_build_dir, symlinks=True)
 
   # Setup environment variables for all subshell
-  os.environ['ANT_OPTS'] = '-Xmx4096m'
+  os.environ['ANT_OPTS'] = '-Xmx8192m'
+  os.environ['MAVEN_ARGS'] = '--no-transfer-progress'
 
   # This is the location of the original CLDR source tree (not the temporary
   # copy of the tools source code) from where the data files are to be read:
@@ -75,6 +76,8 @@ def main():
   os.environ['TOOLS_ROOT'] = icu_tools_build_dir
   cldr_tmp_dir = os.path.join(build_dir, 'cldr-staging')
   os.environ['CLDR_TMP_DIR'] = cldr_tmp_dir
+  cldr_production_tmp_dir = os.path.join(cldr_tmp_dir, 'production')
+  os.environ['CLDR_DATA_DIR'] = cldr_production_tmp_dir
 
   icu_tools_cldr_dir = os.path.join(icu_tools_build_dir, 'cldr')
   print('Installing CLDR tools ...')
@@ -90,7 +93,6 @@ def main():
 
   # Finally we "compile" CLDR-data to a "production" form and place it in ICU
   os.chdir(os.path.join(icu_tools_build_dir, 'cldr', 'cldr-to-icu'))
-  cldr_production_tmp_dir = os.path.join(cldr_tmp_dir, 'production')
   subprocess.check_call([
     'ant',
     '-f',
@@ -109,19 +111,14 @@ def main():
   # Copy the generated data files from the temporary directory into AOSP.
   icu4c_data_source_dir = os.path.join(icu_dir, 'icu4c/source/data')
   rmAndCopyTree(icu4c_data_build_dir, icu4c_data_source_dir)
+
+  # Copy test data. It mirrors the copy-cldr-testdata steps in tools/cldr/build.xml.
   rmAndCopyTree(
     os.path.join(icu4c_build_dir, 'source/test/testdata/cldr'),
     os.path.join(icu_dir, 'icu4c/source/test/testdata/cldr'))
   rmAndCopyTree(
-    os.path.join(icu4j_build_dir, 'main/tests/core/src/com/ibm/icu/dev/data/cldr'),
-    os.path.join(icu_dir, 'icu4j/main/tests/core/src/com/ibm/icu/dev/data/cldr'))
-
-  localeCanonicalization_src = os.path.join(
-    cldr_production_tmp_dir, 'common/testData/localeIdentifiers/localeCanonicalization.txt')
-  shutil.copy(localeCanonicalization_src, os.path.join(
-    icu_dir, 'icu4c/source/test/testdata/localeCanonicalization.txt'))
-  shutil.copy(localeCanonicalization_src, os.path.join(
-    icu_dir, 'icu4j/main/tests/core/src/com/ibm/icu/dev/data/unicode/localeCanonicalization.txt'))
+    os.path.join(icu4j_build_dir, 'main/core/src/test/resources/com/ibm/icu/dev/data/cldr'),
+    os.path.join(icu_dir, 'icu4j/main/core/src/test/resources/com/ibm/icu/dev/data/cldr'))
 
   print('Look in %s for new data source files' % icu4c_data_source_dir)
   sys.exit(0)

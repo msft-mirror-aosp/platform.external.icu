@@ -9,9 +9,9 @@
  */
 package android.icu.dev.util;
 
-import android.icu.text.DecimalFormat;
-import android.icu.text.NumberFormat;
-import android.icu.util.ULocale;
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
+import java.util.Locale;
 import android.icu.testsharding.MainTestShard;
 
 @MainTestShard
@@ -81,8 +81,8 @@ public final class Timer {
         return nf.format(getDuration()/iterations) + "\tns\t" + pf.format((double)getDuration()/other - 1D) + "";
     }
 
-    private DecimalFormat nf = (DecimalFormat) NumberFormat.getNumberInstance(ULocale.ENGLISH);
-    private DecimalFormat pf = (DecimalFormat) NumberFormat.getPercentInstance(ULocale.ENGLISH);
+    private DecimalFormat nf = (DecimalFormat) NumberFormat.getNumberInstance(Locale.ENGLISH);
+    private DecimalFormat pf = (DecimalFormat) NumberFormat.getPercentInstance(Locale.ENGLISH);
     
     {
         pf.setMaximumFractionDigits(1);

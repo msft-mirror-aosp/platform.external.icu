@@ -20,7 +20,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 
-import android.icu.dev.test.TestFmwk;
+import android.icu.dev.test.CoreTestFmwk;
 import android.icu.impl.ValidIdentifiers;
 import android.icu.impl.ValidIdentifiers.Datasubtype;
 import android.icu.impl.ValidIdentifiers.Datatype;
@@ -37,7 +37,7 @@ import android.icu.testsharding.MainTestShard;
  */
 @MainTestShard
 @RunWith(JUnit4.class)
-public class TestLocaleValidity extends TestFmwk {
+public class TestLocaleValidity extends CoreTestFmwk {
     @Test
     public void testBasic() {
         String[][] tests = {
@@ -94,6 +94,7 @@ public class TestLocaleValidity extends TestFmwk {
                 {"OK", "en-t-t0-und"},
                 {"OK", "en-t-x0-12345678"},
                 {"OK", "en-u-tz-camtr"}, // CLDR 43 no longer deprecated, see CLDR-16489
+
 
                 // tests from LDML spec section on Hybrid Locale Identifiers
                 {"OK", "hi-t-en-h0-hybrid"},
@@ -183,7 +184,7 @@ public class TestLocaleValidity extends TestFmwk {
                 //{"{u, ca-civil}", "en-u-ca-islamicc"}, // deprecated, but turns into valid
                 {"{u, co-direct}", "en-u-co-direct"}, // deprecated
                 {"{u, kh}", "en-u-kh-false"}, // deprecated
-                // {"{u, tz-camtr}", "en-u-tz-camtr"}, // CLDR 43 no longer deprecated, see CLDR-16489
+                //{"{u, tz-camtr}", "en-u-tz-camtr"}, // CLDR 43 no longer deprecated, see CLDR-16489
                 {"{u, vt}", "en-u-vt-0020-0041"}, // deprecated
         };
         final LinkedHashSet<String> foundKeys = new LinkedHashSet<String>();

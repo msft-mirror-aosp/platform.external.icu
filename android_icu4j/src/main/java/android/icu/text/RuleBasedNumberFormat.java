@@ -559,7 +559,9 @@ public class RuleBasedNumberFormat extends NumberFormat {
 
     /**
      * Selector code that tells the constructor to create a duration formatter
+     * @deprecated ICU 74 Use MeasureFormat instead.
      */
+    @Deprecated
     public static final int DURATION = 3;
 
     /**

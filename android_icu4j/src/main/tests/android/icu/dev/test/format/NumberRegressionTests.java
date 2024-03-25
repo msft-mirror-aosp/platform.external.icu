@@ -44,7 +44,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 
-import android.icu.dev.test.TestFmwk;
+import android.icu.dev.test.CoreTestFmwk;
 import android.icu.impl.ICUData;
 import android.icu.impl.ICUResourceBundle;
 import android.icu.text.DateFormat;
@@ -59,7 +59,7 @@ import android.icu.testsharding.HiMemTestShard;
 
 @HiMemTestShard
 @RunWith(JUnit4.class)
-public class NumberRegressionTests extends TestFmwk {
+public class NumberRegressionTests extends CoreTestFmwk {
     private static final char EURO = '\u20ac';
 
     /**

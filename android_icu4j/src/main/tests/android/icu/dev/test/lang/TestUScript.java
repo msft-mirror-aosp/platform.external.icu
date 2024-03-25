@@ -16,7 +16,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 
-import android.icu.dev.test.TestFmwk;
+import android.icu.dev.test.CoreTestFmwk;
 import android.icu.lang.UProperty;
 import android.icu.lang.UScript;
 import android.icu.lang.UScript.ScriptUsage;
@@ -25,7 +25,7 @@ import android.icu.testsharding.MainTestShard;
 
 @MainTestShard
 @RunWith(JUnit4.class)
-public class TestUScript extends TestFmwk {
+public class TestUScript extends CoreTestFmwk {
 
     /**
     * Constructor
