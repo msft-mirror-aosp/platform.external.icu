@@ -22,6 +22,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 
+import android.icu.dev.test.CoreTestFmwk;
 import android.icu.dev.test.TestFmwk;
 import android.icu.impl.ICUData;
 import android.icu.text.DateFormat;
@@ -32,7 +33,7 @@ import android.icu.testsharding.MainTestShard;
 
 @MainTestShard
 @RunWith(JUnit4.class)
-public class LocaleAliasTest extends TestFmwk {
+public class LocaleAliasTest extends CoreTestFmwk {
     private static final ULocale[][] _LOCALES = {
 
             {new ULocale("en", "RH"), new ULocale("en", "ZW")},

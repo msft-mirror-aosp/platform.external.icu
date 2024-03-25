@@ -190,7 +190,10 @@ unorm2_getNFKDInstance(UErrorCode *pErrorCode) __INTRODUCED_IN(31);
 
 
 /**
- * Returns a UNormalizer2 instance for Unicode NFKC_Casefold normalization.
+ * Returns a UNormalizer2 instance for Unicode toNFKC_Casefold() normalization
+ * which is equivalent to applying the NFKC_Casefold mappings and then NFC.
+ * See https://www.unicode.org/reports/tr44/#NFKC_Casefold
+ *
  * Same as unorm2_getInstance(NULL, "nfkc_cf", UNORM2_COMPOSE, pErrorCode).
  * Returns an unmodifiable singleton instance. Do not delete it.
  * @param pErrorCode Standard ICU error code. Its input value must
@@ -204,6 +207,10 @@ U_CAPI const UNormalizer2 * U_EXPORT2
 unorm2_getNFKCCasefoldInstance(UErrorCode *pErrorCode) __INTRODUCED_IN(31);
 
 
+
+#ifndef U_HIDE_DRAFT_API
+
+#endif  // U_HIDE_DRAFT_API
 
 
 

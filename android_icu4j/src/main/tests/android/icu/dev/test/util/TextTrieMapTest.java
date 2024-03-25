@@ -16,14 +16,14 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 
-import android.icu.dev.test.TestFmwk;
+import android.icu.dev.test.CoreTestFmwk;
 import android.icu.impl.TextTrieMap;
 import android.icu.text.UnicodeSet;
 import android.icu.testsharding.MainTestShard;
 
 @MainTestShard
 @RunWith(JUnit4.class)
-public class TextTrieMapTest extends TestFmwk {
+public class TextTrieMapTest extends CoreTestFmwk {
 
     private static final Integer SUN = new Integer(1);
     private static final Integer MON = new Integer(2);

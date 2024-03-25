@@ -3,12 +3,10 @@
 // License & terms of use: http://www.unicode.org/copyright.html
 package android.icu.dev.test.number;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
-
+import org.junit.Assert;
 import org.junit.Test;
 
+import android.icu.dev.test.CoreTestFmwk;
 import android.icu.impl.StringSegment;
 import android.icu.impl.number.CustomSymbolCurrency;
 import android.icu.impl.number.DecimalFormatProperties;
@@ -33,7 +31,7 @@ import android.icu.testsharding.MainTestShard;
  *
  */
 @MainTestShard
-public class NumberParserTest {
+public class NumberParserTest extends CoreTestFmwk {
     @Test
     public void testBasic() {
         Object[][] cases = new Object[][] {
@@ -202,13 +200,13 @@ public class NumberParserTest {
 
         ParsedNumber resultObject = new ParsedNumber();
         parser.parse("epäluku", false, resultObject);
-        assertTrue(resultObject.success());
-        assertEquals(Double.NaN, resultObject.getNumber().doubleValue(), 0.0);
+        assertTrue("Parsing locale fi spellout number", resultObject.success());
+        Assert.assertEquals(Double.NaN, resultObject.getNumber().doubleValue(), 0.0);
 
         resultObject = new ParsedNumber();
         parser.parse("1,2e3", false, resultObject);
-        assertTrue(resultObject.success());
-        assertEquals(1200.0, resultObject.getNumber().doubleValue(), 0.0);
+        assertTrue("Parsing formatted compact decimal", resultObject.success());
+        Assert.assertEquals(1200.0, resultObject.getNumber().doubleValue(), 0.0);
     }
 
     @Test
@@ -222,9 +220,9 @@ public class NumberParserTest {
         series.addMatcher(IgnorablesMatcher.getInstance(0));
         series.freeze();
 
-        assertFalse(series.smokeTest(new StringSegment("x", false)));
-        assertFalse(series.smokeTest(new StringSegment("-", false)));
-        assertTrue(series.smokeTest(new StringSegment("+", false)));
+        Assert.assertFalse(series.smokeTest(new StringSegment("x", false)));
+        Assert.assertFalse(series.smokeTest(new StringSegment("-", false)));
+        Assert.assertTrue(series.smokeTest(new StringSegment("+", false)));
 
         Object[][] cases = new Object[][] {
                 { "", 0, true },

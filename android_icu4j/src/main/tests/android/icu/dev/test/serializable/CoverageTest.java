@@ -16,7 +16,7 @@ import java.util.List;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import android.icu.dev.test.TestFmwk;
+import android.icu.dev.test.CoreTestFmwk;
 import android.icu.dev.test.serializable.SerializableTestUtility.Handler;
 
 import junitparams.JUnitParamsRunner;
@@ -30,7 +30,7 @@ import android.icu.testsharding.MainTestShard;
  */
 @MainTestShard
 @RunWith(JUnitParamsRunner.class)
-public class CoverageTest extends TestFmwk {
+public class CoverageTest extends CoreTestFmwk {
 
     @Test
     @Parameters(method="generateClassList")

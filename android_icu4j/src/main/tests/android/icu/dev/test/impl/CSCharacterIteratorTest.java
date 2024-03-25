@@ -11,13 +11,13 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 
-import android.icu.dev.test.TestFmwk;
+import android.icu.dev.test.CoreTestFmwk;
 import android.icu.impl.CSCharacterIterator;
 import android.icu.testsharding.MainTestShard;
 
 @MainTestShard
 @RunWith(JUnit4.class)
-public class CSCharacterIteratorTest extends TestFmwk {
+public class CSCharacterIteratorTest extends CoreTestFmwk {
     public CSCharacterIteratorTest() {};
 
     @Test

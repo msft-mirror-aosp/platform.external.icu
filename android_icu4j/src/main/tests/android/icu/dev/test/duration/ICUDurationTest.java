@@ -24,7 +24,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 
-import android.icu.dev.test.TestFmwk;
+import android.icu.dev.test.CoreTestFmwk;
 import android.icu.text.DurationFormat;
 import android.icu.util.Calendar;
 import android.icu.util.ULocale;
@@ -36,7 +36,7 @@ import android.icu.testsharding.MainTestShard;
  */
 @MainTestShard
 @RunWith(JUnit4.class)
-public class ICUDurationTest extends TestFmwk {
+public class ICUDurationTest extends CoreTestFmwk {
     /**
      * Allows us to not depend on javax.xml.datatype.DatatypeFactory.
      * We need just a tiny subset of the Duration API:

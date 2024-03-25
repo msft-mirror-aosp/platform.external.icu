@@ -15,7 +15,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 
-import android.icu.dev.test.TestFmwk;
+import android.icu.dev.test.CoreTestFmwk;
 import android.icu.impl.SimpleFormatterImpl;
 import android.icu.impl.StandardPlural;
 import android.icu.impl.number.range.StandardPluralRanges;
@@ -36,7 +36,7 @@ import android.icu.testsharding.MainTestShard;
  */
 @MainTestShard
 @RunWith(JUnit4.class)
-public class PluralRangesTest extends TestFmwk {
+public class PluralRangesTest extends CoreTestFmwk {
     @Test
     public void TestLocaleData() {
         String[][] tests = {

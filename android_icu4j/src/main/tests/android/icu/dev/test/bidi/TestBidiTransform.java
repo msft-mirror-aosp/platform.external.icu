@@ -8,7 +8,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 
-import android.icu.dev.test.TestFmwk;
+import android.icu.dev.test.CoreTestFmwk;
 import android.icu.lang.UCharacter;
 import android.icu.text.ArabicShaping;
 import android.icu.text.Bidi;
@@ -25,7 +25,7 @@ import android.icu.testsharding.MainTestShard;
  */
 @MainTestShard
 @RunWith(JUnit4.class)
-public class TestBidiTransform extends TestFmwk {
+public class TestBidiTransform extends CoreTestFmwk {
 
     static final char LATN_ZERO         = '\u0030';
     static final char ARAB_ZERO         = '\u0660';

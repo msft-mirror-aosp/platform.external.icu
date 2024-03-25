@@ -182,6 +182,8 @@ public class HebrewCalendar extends Calendar {
         { -5000000, -5000000, 5000000, 5000000 }, // EXTENDED_YEAR
         {/*                                  */}, // JULIAN_DAY
         {/*                                  */}, // MILLISECONDS_IN_DAY
+        {/*                                  */}, // IS_LEAP_MONTH
+        {        0,        0,      11,      12 }, // ORDINAL_MONTH
     };
 
     /**
@@ -427,6 +429,7 @@ public class HebrewCalendar extends Calendar {
     {
         switch (field) {
         case MONTH:
+        case ORDINAL_MONTH:
             {
                 // We can't just do a set(MONTH, get(MONTH) + amount).  The
                 // reason is ADAR_1.  Suppose amount is +2 and we land in
@@ -513,6 +516,7 @@ public class HebrewCalendar extends Calendar {
     {
         switch (field) {
         case MONTH:
+        case ORDINAL_MONTH:
             {
                 int month = get(MONTH);
                 int year = get(YEAR);
@@ -741,7 +745,8 @@ public class HebrewCalendar extends Calendar {
     @Override
     @Deprecated
     protected void validateField(int field) {
-        if (field == MONTH && !isLeapYear(handleGetExtendedYear()) && internalGet(MONTH) == ADAR_1) {
+        if ((field == MONTH || field == ORDINAL_MONTH) &&
+          !isLeapYear(handleGetExtendedYear()) && internalGetMonth() == ADAR_1) {
             throw new IllegalArgumentException("MONTH cannot be ADAR_1(5) except leap years");
         }
 
@@ -789,7 +794,8 @@ public class HebrewCalendar extends Calendar {
 
         // Now figure out which month we're in, and the date within that month
         int yearType = yearType(year);
-        int monthStart[][] = isLeapYear(year) ? LEAP_MONTH_START : MONTH_START;
+        boolean isLeap = isLeapYear(year);
+        int monthStart[][] = isLeap ? LEAP_MONTH_START : MONTH_START;
 
         int month = 0;
         while (dayOfYear > monthStart[month][yearType]) {
@@ -801,6 +807,11 @@ public class HebrewCalendar extends Calendar {
         internalSet(ERA, 0);
         internalSet(YEAR, year);
         internalSet(EXTENDED_YEAR, year);
+        int ordinal_month = month;
+        if (!isLeap && ordinal_month > ADAR_1) {
+            ordinal_month--;
+        }
+        internalSet(ORDINAL_MONTH, ordinal_month);
         internalSet(MONTH, month);
         internalSet(DAY_OF_MONTH, dayOfMonth);
         internalSet(DAY_OF_YEAR, dayOfYear);
@@ -862,6 +873,81 @@ public class HebrewCalendar extends Calendar {
     @Override
     public String getType() {
         return "hebrew";
+    }
+
+    //-------------------------------------------------------------------------
+    // Temporal Calendar API.
+    //-------------------------------------------------------------------------
+    /**
+     * {@inheritDoc}
+     * @hide draft / provisional / internal are hidden on Android
+     */
+    public boolean inTemporalLeapYear() {
+        return isLeapYear(get(EXTENDED_YEAR));
+    }
+
+    private static String [] gTemporalMonthCodesForHebrew = {
+        "M01", "M02", "M03", "M04", "M05", "M05L",
+        "M06", "M07", "M08", "M09", "M10", "M11", "M12"
+    };
+
+    /**
+     * Gets The Temporal monthCode value corresponding to the month for the date.
+     * The value is a string identifier that starts with the literal grapheme
+     * "M" followed by two graphemes representing the zero-padded month number
+     * of the current month in a normal (non-leap) year and suffixed by an
+     * optional literal grapheme "L" if this is a leap month in a lunisolar
+     * calendar. For the Hebrew calendar, the values are "M01" .. "M12" for
+     * non-leap year, and "M01" .. "M05", "M05L", "M06" .. "M12" for leap year.
+     *
+     * @return       One of 13 possible strings in {"M01".. "M05", "M05L", "M06" .. "M12"}.
+     * @hide draft / provisional / internal are hidden on Android
+     */
+    public String getTemporalMonthCode() {
+        return gTemporalMonthCodesForHebrew[get(MONTH)];
+    }
+
+    /**
+     * Sets The Temporal monthCode which is a string identifier that starts
+     * with the literal grapheme "M" followed by two graphemes representing
+     * the zero-padded month number of the current month in a normal
+     * (non-leap) year and suffixed by an optional literal grapheme "L" if this
+     * is a leap month in a lunisolar calendar. For Hebrew calendar, the values
+     * are "M01" .. "M12" for non-leap years, and "M01" .. "M05", "M05L", "M06"
+     * .. "M12" for leap year.
+     * @param temporalMonth The value to be set for temporal monthCode.
+     * @hide draft / provisional / internal are hidden on Android
+     */
+    public void setTemporalMonthCode( String temporalMonth ) {
+        if (temporalMonth.length() == 3 || temporalMonth.length() == 4) {
+            for (int m = 0; m < gTemporalMonthCodesForHebrew.length; m++) {
+                if (temporalMonth.equals(gTemporalMonthCodesForHebrew[m])) {
+                    set(MONTH, m);
+                    return;
+                }
+            }
+        }
+        throw new IllegalArgumentException("Incorrect temporal Month code: " + temporalMonth);
+    }
+
+    //-------------------------------------------------------------------------
+    // End of Temporal Calendar API
+    //-------------------------------------------------------------------------
+
+    /**
+     * {@inheritDoc}
+     * @deprecated This API is ICU internal only.
+     * @hide draft / provisional / internal are hidden on Android
+     */
+    @Deprecated
+    protected int internalGetMonth()
+    {
+        if (resolveFields(MONTH_PRECEDENCE) == ORDINAL_MONTH) {
+            int ordinalMonth = internalGet(ORDINAL_MONTH);
+            int year = handleGetExtendedYear();
+            return ordinalMonth + (((!isLeapYear(year)) && (ordinalMonth > ADAR_1)) ? 1: 0);
+        }
+        return super.internalGetMonth();
     }
 
     /*

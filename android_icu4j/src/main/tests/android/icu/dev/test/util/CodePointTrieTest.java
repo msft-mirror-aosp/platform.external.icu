@@ -18,7 +18,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 
-import android.icu.dev.test.TestFmwk;
+import android.icu.dev.test.CoreTestFmwk;
 import android.icu.impl.Normalizer2Impl.UTF16Plus;
 import android.icu.impl.Utility;
 import android.icu.lang.UCharacter;
@@ -32,7 +32,7 @@ import android.icu.testsharding.MainTestShard;
 
 @MainTestShard
 @RunWith(JUnit4.class)
-public final class CodePointTrieTest extends TestFmwk {
+public final class CodePointTrieTest extends CoreTestFmwk {
     /* Values for setting possibly overlapping, out-of-order ranges of values */
     private static class SetRange {
         SetRange(int start, int limit, int value) {

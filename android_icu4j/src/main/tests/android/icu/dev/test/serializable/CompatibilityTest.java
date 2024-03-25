@@ -27,7 +27,7 @@ import java.util.jar.JarFile;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import android.icu.dev.test.TestFmwk;
+import android.icu.dev.test.CoreTestFmwk;
 import android.icu.dev.test.serializable.SerializableTestUtility.Handler;
 
 import junitparams.JUnitParamsRunner;
@@ -40,7 +40,7 @@ import android.icu.testsharding.MainTestShard;
  */
 @MainTestShard
 @RunWith(JUnitParamsRunner.class)
-public class CompatibilityTest extends TestFmwk
+public class CompatibilityTest extends CoreTestFmwk
 {
     private static final class FileHolder {
         String className;

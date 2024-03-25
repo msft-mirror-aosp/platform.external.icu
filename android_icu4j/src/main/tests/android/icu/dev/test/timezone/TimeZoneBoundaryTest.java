@@ -8,13 +8,14 @@
  *******************************************************************************
  */
 package android.icu.dev.test.timezone;
+
 import java.util.Date;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 
-import android.icu.dev.test.TestFmwk;
+import android.icu.dev.test.CoreTestFmwk;
 import android.icu.dev.test.TestUtil;
 import android.icu.dev.test.TestUtil.JavaVendor;
 import android.icu.text.DateFormat;
@@ -29,7 +30,7 @@ import android.icu.testsharding.MainTestShard;
  */
 @MainTestShard
 @RunWith(JUnit4.class)
-public class TimeZoneBoundaryTest extends TestFmwk
+public class TimeZoneBoundaryTest extends CoreTestFmwk
 {
     static final int ONE_SECOND = 1000;
     static final int ONE_MINUTE = 60*ONE_SECOND;
@@ -447,15 +448,19 @@ public class TimeZoneBoundaryTest extends TestFmwk
         // support historic transitions, therefore, the test below
         // will fail on such environment (with the latest TimeZone
         // patch for US 2007+ rule).
-        if (TestUtil.getJavaVendor() == JavaVendor.Android || TestUtil.getJavaVersion() > 3) {
-            // This only works in PST/PDT
-            TimeZone.setDefault(safeGetTimeZone("PST"));
-            logln("========================================");
-            tempcal.set(1997, 0, 1);
-            findDaylightBoundaryUsingDate(tempcal.getTime(), "PST", PST_1997_BEG);
-            logln("========================================");
-            tempcal.set(1997, 6, 1);
-            findDaylightBoundaryUsingDate(tempcal.getTime(), "PDT", PST_1997_END);
+        try {
+            if (TestUtil.getJavaVendor() == JavaVendor.Android || TestUtil.getJavaVersion() > 3) {
+                // This only works in PST/PDT
+                TimeZone.setDefault(safeGetTimeZone("PST"));
+                logln("========================================");
+                tempcal.set(1997, 0, 1);
+                findDaylightBoundaryUsingDate(tempcal.getTime(), "PST", PST_1997_BEG);
+                logln("========================================");
+                tempcal.set(1997, 6, 1);
+                findDaylightBoundaryUsingDate(tempcal.getTime(), "PDT", PST_1997_END);
+            }
+        } finally {
+            TimeZone.setDefault(save);
         }
 
         //  if (true)
@@ -858,5 +863,17 @@ public class TimeZoneBoundaryTest extends TestFmwk
         // findBoundariesStepwise(1997, ONE_DAY, safeGetTimeZone("ACT"), 2);
         findBoundariesStepwise(1997, ONE_DAY, safeGetTimeZone("America/Phoenix"), 0); // Added 3Jan01
         findBoundariesStepwise(1997, ONE_DAY, safeGetTimeZone(AUSTRALIA), 2);
+    }
+
+    private static TimeZone safeGetTimeZone(String id) {
+        TimeZone tz = TimeZone.getTimeZone(id);
+        if (tz == null) {
+            // should never happen
+            errln("FAIL: TimeZone.getTimeZone(" + id + ") => null");
+        }
+        if (!tz.getID().equals(id)) {
+            warnln("FAIL: TimeZone.getTimeZone(" + id + ") => " + tz.getID());
+        }
+        return tz;
     }
 }
