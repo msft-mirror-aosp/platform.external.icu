@@ -16,6 +16,9 @@
 
 package com.android.i18n.test.timezone;
 
+import static java.util.stream.Collectors.toList;
+import static java.util.stream.Collectors.toSet;
+
 import android.icu.testsharding.MainTestShard;
 
 import com.android.i18n.timezone.TimeZoneDataFiles;
@@ -24,6 +27,11 @@ import com.android.i18n.timezone.ZoneInfoDb;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.RandomAccessFile;
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
 import libcore.timezone.testing.ZoneInfoTestHelper;
 
 @MainTestShard
@@ -96,6 +104,28 @@ public class ZoneInfoDbTest extends junit.framework.TestCase {
       assertEquals(data.getAvailableIDs().length, dataWithOverride.getAvailableIDs().length);
     } finally {
       goodFile.delete();
+    }
+  }
+
+  public void testGetAvailableIDsWithRawOffset() {
+    ZoneInfoDb zoneInfoDb = ZoneInfoDb.getInstance();
+    String[] allIds = zoneInfoDb.getAvailableIDs();
+    List<ZoneInfoData> allZones = Arrays.stream(allIds)
+            .map(id -> zoneInfoDb.makeZoneInfoData(id))
+            .collect(toList());
+
+    int[] allRawOffsets = allZones.stream()
+            .mapToInt(zone -> zone.getRawOffset())
+            .distinct()
+            .toArray();
+
+    for (int rawOffset : allRawOffsets) {
+      Set<String> ids = new HashSet<>(Arrays.asList(zoneInfoDb.getAvailableIDs(rawOffset)));
+      Set<String> expectedIds = allZones.stream()
+              .filter(zone -> zone.getRawOffset() == rawOffset)
+              .map(zone -> zone.getID())
+              .collect(toSet());
+      assertEquals("zoneInfoDb.getAvailableIDs(" + rawOffset + ")", expectedIds, ids);
     }
   }
 
@@ -226,13 +256,12 @@ public class ZoneInfoDbTest extends junit.framework.TestCase {
       ZoneInfoDb data = db.getDelegate();
       String tzId = "Europe/London";
       ZoneInfoData first = data.makeZoneInfoData(tzId);
-      ZoneInfoData second = data.makeZoneInfoData(tzId);
+      ZoneInfoData second = first.createCopyWithRawOffset(3600);
+      // Confirms that makeZoneInfoData(tzId) creates a new different instance.
       assertNotSame(first, second);
 
-      assertTrue(first.hasSameRules(second));
-
-      first.setRawOffset(3600);
       assertFalse(first.getRawOffset() == second.getRawOffset());
+      assertFalse(first.hasSameRules(second));
     }
   }
 

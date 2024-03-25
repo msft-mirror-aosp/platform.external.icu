@@ -20,6 +20,7 @@ import android.icu.util.TimeZone;
 
 import com.android.i18n.util.Log;
 
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -65,13 +66,9 @@ public final class CountryTimeZones {
         }
 
         @libcore.api.CorePlatformApi
-        public boolean isShownInPicker() {
-            return shownInPicker;
-        }
-
-        @libcore.api.CorePlatformApi
-        public Long getNotUsedAfter() {
-            return notUsedAfter;
+        public boolean isShownInPickerAt(Instant time) {
+            return shownInPicker
+                    && (notUsedAfter == null || notUsedAfter >= time.toEpochMilli());
         }
 
         /**
