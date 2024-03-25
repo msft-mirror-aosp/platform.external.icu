@@ -22,7 +22,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 
-import android.icu.dev.test.TestFmwk;
+import android.icu.dev.test.CoreTestFmwk;
 import android.icu.text.DecimalFormat;
 import android.icu.text.NumberFormat;
 import android.icu.testsharding.MainTestShard;
@@ -32,7 +32,7 @@ import android.icu.testsharding.MainTestShard;
  **/
 @MainTestShard
 @RunWith(JUnit4.class)
-public class NumberFormatRoundTripTest extends TestFmwk {
+public class NumberFormatRoundTripTest extends CoreTestFmwk {
 
     public double MAX_ERROR = 1e-14;
     public double max_numeric_error = 0.0;

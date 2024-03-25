@@ -201,7 +201,31 @@ def MakeAndCopyIcuDataFiles(icu_build_dir, copy_icu4c_dat_file_only=False):
   subprocess.check_call(['make', '-j32', 'tests'])
 
   # Copy the ICU4J .jar files to their ultimate destination.
+  CopyIcu4jDataFiles()
+
+  os.chdir(icu4jDir())
+  # os.path.basename(dat_file) is like icudt??l.dat
+  icu4j_data_ver = os.path.basename(dat_file)[:-5] + "b"
+  subprocess.check_call(['env', 'ICU_DATA_VER=' + icu4j_data_ver, './extract-data-files.sh'])
+  os.chdir(icu_build_dir)
+
+  # The upstream extract-data-files.sh extracts the files, but removed the binary data jar files.
+  # We have to copy them again for the usage in AOSP .bp files.
+  CopyIcu4jDataFiles()
+
+  testdata_out_dir = '%s/test/testdata/out' % icu4cDir()
+  print('Copying test data to %s ' % testdata_out_dir)
+  if os.path.exists(testdata_out_dir):
+    shutil.rmtree(testdata_out_dir)
+  shutil.copytree('test/testdata/out', testdata_out_dir)
+
+  # Switch back to the original working cwd.
+  os.chdir(original_working_dir)
+
+def CopyIcu4jDataFiles():
+  """Copy the ICU4J .jar files to their ultimate destination"""
   icu_jar_data_dir = '%s/main/shared/data' % icu4jDir()
+  os.makedirs(icu_jar_data_dir, exist_ok=True)
   jarfiles = glob.glob('data/out/icu4j/*.jar')
   if len(jarfiles) != 3:
     print('ERROR: Unexpectedly found %d .jar files (%s). Halting.' % (len(jarfiles), jarfiles))
@@ -213,16 +237,6 @@ def MakeAndCopyIcuDataFiles(icu_build_dir, copy_icu4c_dat_file_only=False):
     else:
       print('Copying %s to %s ...' % (jarfile, icu_jar_data_dir))
       shutil.copy(jarfile, icu_jar_data_dir)
-
-  testdata_out_dir = '%s/test/testdata/out' % icu4cDir()
-  print('Copying test data to %s ' % testdata_out_dir)
-  if os.path.exists(testdata_out_dir):
-    shutil.rmtree(testdata_out_dir)
-  shutil.copytree('test/testdata/out', testdata_out_dir)
-
-  # Switch back to the original working cwd.
-  os.chdir(original_working_dir)
-
 
 def MakeAndCopyOverlayTzIcuData(icu_build_dir, dest_file):
   """Makes a .dat file containing just time-zone data.
@@ -302,52 +316,12 @@ def MakeAndCopyOverlayTzIcuData(icu_build_dir, dest_file):
   # Switch back to the original working cwd.
   os.chdir(original_working_dir)
 
-def _MakeLangInfo():
-  """ Regenerates icu4c/source/data/misc/langInfo.txt.
-  Returns true if the file was changed and false otherwise.
-
-  This is implementation detail, should not be called outside
-  of this script.
-  """
-
-  # Generate icu4c/source/data/misc/langInfo.txt by a ICU4J tool
-  langInfo_dst_path = os.path.join(icu4cDir(), 'data/misc/langInfo.txt')
-  print('Building %s' % langInfo_dst_path)
-  langInfo_out_path = '/tmp/langInfo.txt'  # path hardcoded in the LocaleDistanceBuilder tool
-  if os.path.exists(langInfo_out_path):
-    os.remove(langInfo_out_path)
-
-  icu4j_dir = icu4jDir()
-  os.chdir(icu4j_dir)
-  subprocess.check_call(['ant', 'icu4jJar'])
-  os.chdir(os.path.join(icu4j_dir, 'tools', 'misc'))
-  subprocess.check_call(['ant', 'jar'])
-  subprocess.check_call([
-    'java',
-    '-cp',
-    'out/lib/icu4j-tools.jar:../../icu4j.jar',
-    'com.ibm.icu.dev.tool.locale.LocaleDistanceBuilder',
-  ])
-  if (filecmp.cmp(langInfo_dst_path, langInfo_out_path)):
-    print('The files {src} and {dst} are the same'.format(src=langInfo_out_path, dst=langInfo_dst_path))
-    return False
-
-  print('Copying {src} to {dst}'.format(src=langInfo_out_path, dst=langInfo_dst_path))
-  shutil.copyfile(langInfo_out_path, langInfo_dst_path)
-  return True
-
 def GenerateIcuDataFiles():
   """ There are ICU files generation of which depends on ICU itself.
   This method repeatedly builds ICU and re-generates these files until they
   converge, i.e. subsequent builds do not change these files.
   """
   last_icu_build_dir = _MakeIcuDataFilesOnce()
-
-  # If icu4c/source/data/misc/langInfo.txt is re-generated, the binary data files need to be
-  # re-generated. MakeIcuDataFiles() is called until it converges because the re-generation
-  # depends icu4j, and icu4j depends on the binary data files.
-  while _MakeLangInfo():
-    last_icu_build_dir = _MakeIcuDataFilesOnce()
 
   _MakeIcuDataFilesWithoutTimeZoneFiles(last_icu_build_dir)
 
@@ -388,7 +362,7 @@ def _MakeIcuDataFilesWithoutTimeZoneFiles(icu_build_dir):
 def CopyLicenseFiles(target_dir):
   """Copies ICU license files to the target_dir"""
 
-  license_file = '%s/main/shared/licenses/LICENSE' % icu4jDir()
+  license_file = '%s/LICENSE' % icuDir()
   print('Copying %s to %s ...' % (license_file, target_dir))
   shutil.copy(license_file, target_dir)
 

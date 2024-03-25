@@ -1104,12 +1104,15 @@ public class IBMCalendarTest extends CalendarTestFmwk {
                 "fr_CH",
                 "fr_SA",
                 "fr_CH@rg=sazzzz",
+                "fr_CH@rg=sa14",
                 "fr_CH@calendar=japanese;rg=sazzzz",
+                "fr_CH@rg=twcyi", // test for ICU-22364
+                "fr_CH@rg=ugw", // test for ICU-22364
                 "fr_TH@rg=SA",  // ignore malformed rg tag, use buddhist
                 "th@rg=SA",		// ignore malformed rg tag, use buddhist
         };
 
-        // Android patch: Force default Gregorian calendar.
+        // Android patch: Force default Gregorian calendar regardless of region.
         String[] types = {
                 "gregorian",
                 "japanese",
@@ -1127,7 +1130,10 @@ public class IBMCalendarTest extends CalendarTestFmwk {
                 "gregorian",
                 "gregorian",
                 "gregorian",
+                "gregorian",
                 "japanese",
+                "gregorian",
+                "gregorian",
                 "gregorian",
                 "gregorian",
         };
@@ -2111,8 +2117,8 @@ public class IBMCalendarTest extends CalendarTestFmwk {
 
     public void checkConsistency(String locale) {
         boolean quick = getExhaustiveness() <= 5;
-        // Check 3 years in quick mode and 8000 years in exhaustive mode.
-        int numOfDaysToTest = (quick ? 3 * 365 : 8000 * 365);
+        // Check 3 years in quick mode and 6000 years in exhaustive mode.
+        int numOfDaysToTest = (quick ? 3 * 365 : 6000 * 365);
         int msInADay = 1000*60*60*24;
 
         // g is just for debugging messages.
@@ -2122,6 +2128,9 @@ public class IBMCalendarTest extends CalendarTestFmwk {
 
         Calendar r = (Calendar)base.clone();
         int lastDay = 1;
+        String type = base.getType();
+        boolean ignoreOrdinaryMonth12Bug = (!quick) && (type.equals("chinese") || type.equals("dangi"));
+        boolean ignoreICU22258 = (!quick) && type.equals("dangi");
         for (int j = 0; j < numOfDaysToTest; j++, test.setTime(test.getTime() - msInADay)) {
             g.setTime(test);
             base.clear();
@@ -2166,6 +2175,19 @@ public class IBMCalendarTest extends CalendarTestFmwk {
             }
             Date result = r.getTime();
             if (!test.equals(result)) {
+                if (ignoreOrdinaryMonth12Bug && base.get(Calendar.ORDINAL_MONTH) == 12) {
+                    logKnownIssue("ICU-22230", "Problem December in Leap Year");
+                    continue;
+                }
+                int year = base.get(Calendar.YEAR);
+                int month = base.get(Calendar.MONTH) + 1;
+                int date = base.get(Calendar.DATE);
+                if (ignoreICU22258 && (year == 4 || year == 34) && month == 12 && date == 30) {
+                    logKnownIssue("ICU-22258",
+                                  "Dangi Problem in 1988/2/17=>4/12/30 and 1958/2/18=>34/12/30");
+                    continue;
+                }
+
                 errln("Round trip conversion produces different time from " + test + " to  " +
                     result + " delta: " + (result.getTime() - test.getTime()) +
                     " Gregorian(e=" + g.get(Calendar.ERA) + " " + g.get(Calendar.YEAR) + "/" +

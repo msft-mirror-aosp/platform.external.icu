@@ -18,6 +18,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 
+import android.icu.dev.test.CoreTestFmwk;
 import android.icu.dev.test.TestFmwk;
 import android.icu.dev.test.TestUtil;
 import android.icu.dev.test.TestUtil.JavaVendor;
@@ -103,7 +104,7 @@ import android.icu.testsharding.MainTestShard;
 
 @MainTestShard
 @RunWith(JUnit4.class)
-public class DiagBigDecimalTest extends TestFmwk {
+public class DiagBigDecimalTest extends CoreTestFmwk {
     private static final android.icu.math.BigDecimal zero = android.icu.math.BigDecimal.ZERO;
     private static final android.icu.math.BigDecimal one = android.icu.math.BigDecimal.ONE;
     private static final android.icu.math.BigDecimal two = new android.icu.math.BigDecimal(2);

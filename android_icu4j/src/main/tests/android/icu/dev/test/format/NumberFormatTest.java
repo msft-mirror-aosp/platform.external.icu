@@ -41,7 +41,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 
-import android.icu.dev.test.TestFmwk;
+import android.icu.dev.test.CoreTestFmwk;
 import android.icu.dev.test.TestUtil;
 import android.icu.dev.test.format.IntlTestDecimalFormatAPIC.FieldContainer;
 import android.icu.impl.DontCareFieldPosition;
@@ -72,7 +72,7 @@ import android.icu.testsharding.MainTestShard;
 
 @MainTestShard
 @RunWith(JUnit4.class)
-public class NumberFormatTest extends TestFmwk {
+public class NumberFormatTest extends CoreTestFmwk {
 
     @Test
     public void TestRoundingScientific10542() {
@@ -211,7 +211,7 @@ public class NumberFormatTest extends TestFmwk {
             double value = parser.parse("-0,5").doubleValue();
             assertEquals("Expect -0.5", -0.5, value);
         } catch (ParseException e) {
-            TestFmwk.errln("Parsing -0.5 should have succeeded.");
+            errln("Parsing -0.5 should have succeeded.");
         }
     }
 
@@ -222,7 +222,7 @@ public class NumberFormatTest extends TestFmwk {
             double value = parser.parse("\u208B0.5").doubleValue();
             assertEquals("Expect -0.5", -0.5, value);
         } catch (ParseException e) {
-            TestFmwk.errln("Parsing -0.5 should have succeeded.");
+            errln("Parsing -0.5 should have succeeded.");
         }
     }
 
@@ -4458,12 +4458,12 @@ public class NumberFormatTest extends TestFmwk {
                 {"ja_JP",             "-1000.5",  "-￥1,000",          "-￥1,000",          "(￥1,000)",         "false"},
                 {"ja_JP@cf=account",  "-1000.5",  "(￥1,000)",         "-￥1,000",          "(￥1,000)",         "false"},
                 {"de_DE",             "-23456.7", "-23.456,70\u00A0€", "-23.456,70\u00A0€", "-23.456,70\u00A0€", "true" },
-                {"en_ID",             "1234.5",   "IDR 1,234.50",      "IDR 1,234.50",      "IDR 1,234.50",      "true"},
-                {"en_ID@cf=account",  "1234.5",   "IDR 1,234.50",      "IDR 1,234.50",      "IDR 1,234.50",      "true"},
-                {"en_ID@cf=standard", "1234.5",   "IDR 1,234.50",      "IDR 1,234.50",      "IDR 1,234.50",      "true"},
-                {"en_ID",             "-1234.5",  "-IDR 1,234.50",     "-IDR 1,234.50",     "(IDR 1,234.50)",    "true"},
-                {"en_ID@cf=account",  "-1234.5",  "(IDR 1,234.50)",    "-IDR 1,234.50",     "(IDR 1,234.50)",    "true"},
-                {"en_ID@cf=standard", "-1234.5",  "-IDR 1,234.50",     "-IDR 1,234.50",     "(IDR 1,234.50)",    "true"},
+                {"en_ID",             "1234.5",   "Rp 1.234,50",      "Rp 1.234,50",      "Rp 1.234,50",      "true"},
+                {"en_ID@cf=account",  "1234.5",   "Rp 1.234,50",      "Rp 1.234,50",      "Rp 1.234,50",      "true"},
+                {"en_ID@cf=standard", "1234.5",   "Rp 1.234,50",      "Rp 1.234,50",      "Rp 1.234,50",      "true"},
+                {"en_ID",             "-1234.5",  "-Rp 1.234,50",     "-Rp 1.234,50",     "(Rp 1.234,50)",    "true"},
+                {"en_ID@cf=account",  "-1234.5",  "(Rp 1.234,50)",    "-Rp 1.234,50",     "(Rp 1.234,50)",    "true"},
+                {"en_ID@cf=standard", "-1234.5",  "-Rp 1.234,50",     "-Rp 1.234,50",     "(Rp 1.234,50)",    "true"},
                 {"sh_ME",             "1234.5",   "1.234,50 €",        "1.234,50 €",        "1.234,50 €",        "true"},
                 {"sh_ME@cf=account",  "1234.5",   "1.234,50 €",        "1.234,50 €",        "1.234,50 €",        "true"},
                 {"sh_ME@cf=standard", "1234.5",   "1.234,50 €",        "1.234,50 €",        "1.234,50 €",        "true"},
@@ -4628,14 +4628,14 @@ public class NumberFormatTest extends TestFmwk {
                 result = parser.parse(value2Parse).doubleValue();
                 assertEquals("wrong parsed value", parseValue, result);
             } catch (ParseException e) {
-                TestFmwk.errln("Parsing " + value2Parse + " should have succeeded with " + testPattern[i] +
+                errln("Parsing " + value2Parse + " should have succeeded with " + testPattern[i] +
                             " and isDecimalPointMatchRequired set to: " + parser.isDecimalPatternMatchRequired());
             }
             try {
                 result = parser.parse(value2ParseWithDecimal).doubleValue();
                 assertEquals("wrong parsed value", parseValueWithDecimal, result);
             } catch (ParseException e) {
-                TestFmwk.errln("Parsing " + value2ParseWithDecimal + " should have succeeded with " + testPattern[i] +
+                errln("Parsing " + value2ParseWithDecimal + " should have succeeded with " + testPattern[i] +
                             " and isDecimalPointMatchRequired set to: " + parser.isDecimalPatternMatchRequired());
             }
 
@@ -4643,7 +4643,7 @@ public class NumberFormatTest extends TestFmwk {
             try {
                 result = parser.parse(value2Parse).doubleValue();
                 if(hasDecimalPoint){
-                    TestFmwk.errln("Parsing " + value2Parse + " should NOT have succeeded with " + testPattern[i] +
+                    errln("Parsing " + value2Parse + " should NOT have succeeded with " + testPattern[i] +
                             " and isDecimalPointMatchRequired set to: " + parser.isDecimalPatternMatchRequired());
                 }
             } catch (ParseException e) {
@@ -4652,7 +4652,7 @@ public class NumberFormatTest extends TestFmwk {
             try {
                 result = parser.parse(value2ParseWithDecimal).doubleValue();
                 if(!hasDecimalPoint){
-                    TestFmwk.errln("Parsing " + value2ParseWithDecimal + " should NOT have succeeded with " + testPattern[i] +
+                    errln("Parsing " + value2ParseWithDecimal + " should NOT have succeeded with " + testPattern[i] +
                             " and isDecimalPointMatchRequired set to: " + parser.isDecimalPatternMatchRequired() +
                             " (got: " + result + ")");
                 }

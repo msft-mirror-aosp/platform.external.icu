@@ -3,15 +3,6 @@
 // Generated using tools/cldr/cldr-to-icu/build-icu-data.xml
 en_XA{
     zoneStrings{
-        "Africa:Sao_Tome"{
-            ec{"[Šãö Ţöɱé one two]"}
-        }
-        "America:Asuncion"{
-            ec{"[Åšûñçîóñ one two]"}
-        }
-        "America:Curacao"{
-            ec{"[Çûŕåçåö one two]"}
-        }
         "America:St_Barthelemy"{
             ec{"[Šţ· Ɓåŕţĥéļéɱý one two]"}
         }
@@ -29,9 +20,6 @@ en_XA{
         }
         "America:St_Vincent"{
             ec{"[Šţ· Ṽîñçéñţ one two]"}
-        }
-        "Antarctica:DumontDUrville"{
-            ec{"[Ðûɱöñţ ð’Ûŕṽîļļé one two three]"}
         }
         "Asia:Aqtau"{
             ec{"[Åǫţåû one]"}
@@ -54,17 +42,11 @@ en_XA{
         "Europe:Dublin"{
             ld{"[Îŕîšĥ Šţåñðåŕð Ţîɱé one two three]"}
         }
-        "Europe:Kiev"{
-            ec{"[Ķýîṽ one]"}
-        }
         "Europe:London"{
             ld{"[Ɓŕîţîšĥ Šûɱɱéŕ Ţîɱé one two three]"}
         }
         "Europe:Uzhgorod"{
             ec{"[Ûžĥĥöŕöð one two]"}
-        }
-        "Indian:Reunion"{
-            ec{"[Ŕéûñîöñ one two]"}
         }
         "Pacific:Honolulu"{
             sd{"[ĤÐŢ one]"}

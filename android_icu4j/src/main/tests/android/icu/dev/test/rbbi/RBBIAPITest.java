@@ -27,6 +27,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 
+import android.icu.dev.test.CoreTestFmwk;
 import android.icu.dev.test.TestFmwk;
 import android.icu.text.BreakIterator;
 import android.icu.text.RuleBasedBreakIterator;
@@ -38,7 +39,7 @@ import android.icu.testsharding.MainTestShard;
  */
 @MainTestShard
 @RunWith(JUnit4.class)
-public class RBBIAPITest extends TestFmwk {
+public class RBBIAPITest extends CoreTestFmwk {
     /**
      * Tests clone() and equals() methods of RuleBasedBreakIterator
      **/

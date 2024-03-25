@@ -9,14 +9,6 @@
  */
 package android.icu.dev.test.rbbi;
 
-//Regression testing of RuleBasedBreakIterator
-//
-//  TODO:  These tests should be mostly retired.
-//          Much of the test data that was originally here was removed when the RBBI rules
-//            were updated to match the Unicode boundary TRs, and the data was found to be invalid.
-//          Much of the remaining data has been moved into the rbbitst.txt test data file,
-//            which is common between ICU4C and ICU4J.  The remaining test data should also be moved,
-//            or simply retired if it is no longer interesting.
 import java.text.CharacterIterator;
 import java.util.ArrayList;
 import java.util.List;
@@ -26,8 +18,15 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 
-import android.icu.dev.test.TestFmwk;
-import android.icu.dev.test.TestUtil;
+//Regression testing of RuleBasedBreakIterator
+//
+//  TODO:  These tests should be mostly retired.
+//          Much of the test data that was originally here was removed when the RBBI rules
+//            were updated to match the Unicode boundary TRs, and the data was found to be invalid.
+//          Much of the remaining data has been moved into the rbbitst.txt test data file,
+//            which is common between ICU4C and ICU4J.  The remaining test data should also be moved,
+//            or simply retired if it is no longer interesting.
+import android.icu.dev.test.CoreTestFmwk;
 import android.icu.impl.RBBIDataWrapper;
 import android.icu.text.BreakIterator;
 import android.icu.text.RuleBasedBreakIterator;
@@ -38,7 +37,7 @@ import android.icu.testsharding.MainTestShard;
 
 @MainTestShard
 @RunWith(JUnit4.class)
-public class RBBITest extends TestFmwk {
+public class RBBITest extends CoreTestFmwk {
     public RBBITest() {
     }
 
@@ -48,7 +47,7 @@ public class RBBITest extends TestFmwk {
    public void TestThaiDictionaryBreakIterator() {
        // The expectations in this test heavily depends on the Thai dictionary.
        // Therefore, we skip this test under the LSTM configuration.
-       org.junit.Assume.assumeTrue(!TestUtil.skipDictionaryTest());
+       org.junit.Assume.assumeTrue(!RBBITstUtils.skipDictionaryTest());
        int position;
        int index;
        int result[] = { 1, 2, 5, 10, 11, 12, 11, 10, 5, 2, 1, 0 };

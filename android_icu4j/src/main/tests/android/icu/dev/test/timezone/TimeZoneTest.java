@@ -25,6 +25,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 
+import android.icu.dev.test.CoreTestFmwk;
 import android.icu.dev.test.TestFmwk;
 import android.icu.impl.ICUData;
 import android.icu.impl.TimeZoneAdapter;
@@ -55,7 +56,7 @@ import android.icu.testsharding.MainTestShard;
  */
 @MainTestShard
 @RunWith(JUnit4.class)
-public class TimeZoneTest extends TestFmwk
+public class TimeZoneTest extends CoreTestFmwk
 {
     static final int millisPerHour = 3600000;
 
@@ -204,7 +205,7 @@ public class TimeZoneTest extends TestFmwk
                 if (!isDevelopmentBuild || isJDKTimeZone) {
                     logln("Warning: Expected " + referenceZone +
                             "; got " + currentZone);
-                } else {
+                } else if (!(referenceZone.getID().equals("ART") && logKnownIssue("ICU-22436", "Wrong DST status for time zone ART"))) {
                     errln("Fail: Expected " + referenceZone +
                             "; got " + currentZone);
                 }
@@ -1380,19 +1381,24 @@ public class TimeZoneTest extends TestFmwk
     @Test
     public void TestZoneMeta() {
         java.util.TimeZone save = java.util.TimeZone.getDefault();
-        java.util.TimeZone newZone = java.util.TimeZone.getTimeZone("GMT-08:00");
-        android.icu.util.TimeZone.setDefault(null);
-        java.util.TimeZone.setDefault(newZone);
-        SimpleTimeZone zone = new SimpleTimeZone(0, "GMT");
-        android.icu.util.TimeZone defaultZone = android.icu.util.TimeZone.getDefault();
-        if(defaultZone==null){
-            errln("TimeZone.getDefault() failed for GMT-08:00");
+        android.icu.util.TimeZone icuTzSave = android.icu.util.TimeZone.getDefault();
+        try {
+            java.util.TimeZone newZone = java.util.TimeZone.getTimeZone("GMT-08:00");
+            android.icu.util.TimeZone.setDefault(null);
+            java.util.TimeZone.setDefault(newZone);
+            SimpleTimeZone zone = new SimpleTimeZone(0, "GMT");
+            android.icu.util.TimeZone defaultZone = android.icu.util.TimeZone.getDefault();
+            if(defaultZone==null){
+                errln("TimeZone.getDefault() failed for GMT-08:00");
+            }
+            if(zone==null){
+                errln("SimpleTimeZone(0, GMT-08:00) failed for GMT-08:00");
+            }
+        } finally {
+            // reset timezones
+            java.util.TimeZone.setDefault(save);
+            android.icu.util.TimeZone.setDefault(icuTzSave);
         }
-        if(zone==null){
-            errln("SimpleTimeZone(0, GMT-08:00) failed for GMT-08:00");
-        }
-        //reset
-        java.util.TimeZone.setDefault(save);
     }
 
     // Copied from the protected constant in TimeZone.
@@ -1723,6 +1729,7 @@ public class TimeZoneTest extends TestFmwk
     @Test
     public void TestSetDefault() {
         java.util.TimeZone save = java.util.TimeZone.getDefault();
+        TimeZone icuSave = TimeZone.getDefault();
 
         /*
          * America/Caracs (Venezuela) changed the base offset from -4:00 to
@@ -1775,6 +1782,7 @@ public class TimeZoneTest extends TestFmwk
         }
 
         // Restore the original JDK time zone
+        TimeZone.setDefault(icuSave);
         java.util.TimeZone.setDefault(save);
     }
 
@@ -2384,6 +2392,42 @@ public class TimeZoneTest extends TestFmwk
             assertEquals("getRawOffset() and the raw from getOffset(now, false, offset) should not be different but got",
                          zone.getRawOffset(), raw);
         }
+    }
+
+    @Test
+    public void TestGetIanaID() {
+        final String UNKNOWN = TimeZone.UNKNOWN_ZONE_ID;
+
+        final String[][] TESTDATA = {
+                {"",                    UNKNOWN},
+                {null,                  UNKNOWN},
+                {UNKNOWN,               UNKNOWN},
+                {"America/New_York",    "America/New_York"},
+                {"Asia/Calcutta",       "Asia/Kolkata"},
+                {"Europe/Kiev",         "Europe/Kyiv"},
+                {"Europe/Zaporozhye",   "Europe/Kyiv"},
+                {"Etc/GMT-1",           "Etc/GMT-1"},
+                {"Etc/GMT+20",          UNKNOWN},
+                {"PST8PDT",             "PST8PDT"},
+                {"GMT-08:00",           UNKNOWN},
+        };
+
+        for (String[] test : TESTDATA) {
+            String ianaId = TimeZone.getIanaID(test[0]);
+            assertEquals("IANA ID for " + test[0], test[1], ianaId);
+            if (test[1].equals(UNKNOWN)) {
+                // Calling getIanaID with an IANA ID should return the same
+                String ianaId2 = TimeZone.getIanaID(ianaId);
+                assertEquals("IANA ID for " + ianaId, ianaId, ianaId2);
+            }
+        }
+    }
+    @Test
+    public void TestGMTMinus24ICU22526() {
+        TimeZone tz = TimeZone.getTimeZone("GMT-23:59");
+        GregorianCalendar gc = new GregorianCalendar(tz);
+        gc.setTimeInMillis(123456789);
+        gc.get(GregorianCalendar.MONTH);
     }
 }
 

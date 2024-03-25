@@ -28,7 +28,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 
-import android.icu.dev.test.TestFmwk;
+import android.icu.dev.test.CoreTestFmwk;
 import android.icu.text.CurrencyPluralInfo;
 import android.icu.text.DecimalFormat;
 import android.icu.text.DecimalFormatSymbols;
@@ -41,11 +41,12 @@ import android.icu.testsharding.MainTestShard;
 // verifies that it works on a basic level.
 @MainTestShard
 @RunWith(JUnit4.class)
-public class IntlTestDecimalFormatAPIC extends TestFmwk {
+public class IntlTestDecimalFormatAPIC extends CoreTestFmwk {
 
     // This test checks various generic API methods in DecimalFormat to achieve 100% API coverage.
     @Test
     public void TestAPI() {
+        Locale startLocale = Locale.getDefault();
 
         logln("DecimalFormat API test---");
         logln("");
@@ -253,6 +254,7 @@ public class IntlTestDecimalFormatAPIC extends TestFmwk {
         //            errln("ERROR: Couldn't create a DecimalFormat");
         //        }
 
+        Locale.setDefault(startLocale);
     }
 
     @Test

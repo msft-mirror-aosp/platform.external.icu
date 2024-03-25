@@ -29,7 +29,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 
-import android.icu.dev.test.TestFmwk;
+import android.icu.dev.test.CoreTestFmwk;
 import android.icu.text.DateFormat;
 import android.icu.text.NumberFormat;
 import android.icu.util.Calendar;
@@ -38,7 +38,7 @@ import android.icu.testsharding.MainTestShard;
 
 @MainTestShard
 @RunWith(JUnit4.class)
-public class IntlTestDateFormatAPI extends TestFmwk
+public class IntlTestDateFormatAPI extends CoreTestFmwk
 {
     // Test that the equals method works correctly.
     @Test
@@ -77,6 +77,8 @@ public class IntlTestDateFormatAPI extends TestFmwk
     @Test
     public void TestAPI()
     {
+        Locale startLocale = Locale.getDefault();
+
         logln("DateFormat API test---"); logln("");
         Locale.setDefault(Locale.ENGLISH);
 
@@ -231,5 +233,7 @@ public class IntlTestDateFormatAPI extends TestFmwk
 //        catch (Exception e) {
 //            errln("ERROR: Couldn't create a DateFormat");
 //        }
+
+        Locale.setDefault(startLocale);
     }
 }

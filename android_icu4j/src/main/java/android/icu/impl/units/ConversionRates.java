@@ -36,7 +36,7 @@ public class ConversionRates {
     }
 
     /**
-     * Extracts the factor from a `SingleUnitImpl` to its Basic Unit.
+     * Extracts the factor from a {@code SingleUnitImpl} to its Basic Unit.
      *
      * @param singleUnit
      * @return
@@ -106,7 +106,7 @@ public class ConversionRates {
 
     /**
      * @param singleUnit An instance of SingleUnitImpl.
-     * @return The base units in the `SingleUnitImpl` with applying the dimensionality only and not the SI prefix.
+     * @return The base units in the {@code SingleUnitImpl} with applying the dimensionality only and not the SI prefix.
      * <p>
      * NOTE:
      * This method is helpful when checking the convertibility because no need to check convertibility.
@@ -124,10 +124,17 @@ public class ConversionRates {
     }
 
     /**
-     * Checks if the `MeasureUnitImpl` is simple or not.
+     * @return The measurement systems for the specified unit.
+     */
+    public String extractSystems(SingleUnitImpl singleUnit) {
+        return mapToConversionRate.get(singleUnit.getSimpleUnitID()).getSystems();
+    }
+
+    /**
+     * Checks if the {@code MeasureUnitImpl} is simple or not.
      *
      * @param measureUnitImpl
-     * @return true if the `MeasureUnitImpl` is simple, false otherwise.
+     * @return true if the {@code MeasureUnitImpl} is simple, false otherwise.
      */
     private boolean checkSimpleUnit(MeasureUnitImpl measureUnitImpl) {
         if (measureUnitImpl.getComplexity() != MeasureUnit.Complexity.SINGLE) return false;
@@ -162,6 +169,7 @@ public class ConversionRates {
                 String target = null;
                 String factor = null;
                 String offset = "0";
+                String systems = null;
                 for (int j = 0; simpleUnitConversionInfo.getKeyAndValue(j, key, value); j++) {
                     assert (value.getType() == UResourceBundle.STRING);
 
@@ -174,8 +182,10 @@ public class ConversionRates {
                         factor = valueString;
                     } else if ("offset".equals(keyString)) {
                         offset = valueString;
+                    } else if ("systems".equals(keyString)) {
+                        systems = value.toString(); // still want the spaces here
                     } else {
-                        assert false : "The key must be target, factor or offset";
+                        assert false : "The key must be target, factor, systems or offset";
                     }
                 }
 
@@ -183,7 +193,7 @@ public class ConversionRates {
                 assert (target != null);
                 assert (factor != null);
 
-                mapToConversionRate.put(simpleUnit, new ConversionRateInfo(simpleUnit, target, factor, offset));
+                mapToConversionRate.put(simpleUnit, new ConversionRateInfo(simpleUnit, target, factor, offset, systems));
             }
 
 
@@ -204,12 +214,14 @@ public class ConversionRates {
         private final String target;
         private final String conversionRate;
         private final BigDecimal offset;
+        private final String systems;
 
-        public ConversionRateInfo(String simpleUnit, String target, String conversionRate, String offset) {
+        public ConversionRateInfo(String simpleUnit, String target, String conversionRate, String offset, String systems) {
             this.simpleUnit = simpleUnit;
             this.target = target;
             this.conversionRate = conversionRate;
             this.offset = forNumberWithDivision(offset);
+            this.systems = systems;
         }
 
         private static BigDecimal forNumberWithDivision(String numberWithDivision) {
@@ -246,5 +258,10 @@ public class ConversionRates {
         public String getConversionRate() {
             return conversionRate;
         }
+
+        /**
+         * @return The measurement systems this unit belongs to.
+         */
+        public String getSystems() { return systems; }
     }
 }

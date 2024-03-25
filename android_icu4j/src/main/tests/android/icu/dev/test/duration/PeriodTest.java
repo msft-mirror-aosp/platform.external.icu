@@ -16,14 +16,14 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 
-import android.icu.dev.test.TestFmwk;
+import android.icu.dev.test.CoreTestFmwk;
 import android.icu.impl.duration.Period;
 import android.icu.impl.duration.TimeUnit;
 import android.icu.testsharding.MainTestShard;
 
 @MainTestShard
 @RunWith(JUnit4.class)
-public class PeriodTest extends TestFmwk {
+public class PeriodTest extends CoreTestFmwk {
     @Test
     public void testIsSet() {
         Period p = Period.at(0, TimeUnit.YEAR);

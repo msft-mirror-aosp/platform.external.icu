@@ -14,13 +14,13 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 
-import android.icu.dev.test.TestFmwk;
+import android.icu.dev.test.CoreTestFmwk;
 import android.icu.text.Normalizer;
 import android.icu.testsharding.MainTestShard;
 
 @MainTestShard
 @RunWith(JUnit4.class)
-public class NormalizerRegressionTests extends TestFmwk {
+public class NormalizerRegressionTests extends CoreTestFmwk {
     @Test
     public void TestJB4472() {
         // submitter's test case
