@@ -12,7 +12,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 
-import android.icu.dev.test.TestFmwk;
+import android.icu.dev.test.CoreTestFmwk;
 import android.icu.math.BigDecimal;
 import android.icu.util.Currency;
 import android.icu.util.CurrencyAmount;
@@ -29,7 +29,7 @@ import android.icu.testsharding.MainTestShard;
 @MainTestShard
 @RunWith(JUnit4.class)
 @SuppressWarnings("javadoc")
-public class Mf2FeaturesTest extends TestFmwk {
+public class Mf2FeaturesTest extends CoreTestFmwk {
 
     // November 23, 2022 at 7:42:37.123 PM
     static final Date TEST_DATE = new Date(1669261357123L);

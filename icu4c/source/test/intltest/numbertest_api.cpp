@@ -1220,7 +1220,7 @@ void NumberFormatterApiTest::unitArbitraryMeasureUnits() {
                 .unit(MeasureUnit::forIdentifier("nanogram-per-picobarrel", status)),
             Locale("en-ZA"),
             2.4,
-            u"2,4 ng/pbbl");
+            u"2.4 ng/pbbl");
 
     assertFormatSingle(
             u"Prefix in the denominator: nanogram-per-picobarrel unit-width-full-name",
@@ -1231,7 +1231,7 @@ void NumberFormatterApiTest::unitArbitraryMeasureUnits() {
                 .unitWidth(UNUM_UNIT_WIDTH_FULL_NAME),
             Locale("en-ZA"),
             2.4,
-            u"2,4 nanograms per picobarrel");
+            u"2.4 nanograms per picobarrel");
 
     // Valid MeasureUnit, but unformattable, because we only have patterns for
     // pow2 and pow3 at this time:
@@ -1253,7 +1253,7 @@ void NumberFormatterApiTest::unitArbitraryMeasureUnits() {
                 .unitWidth(UNUM_UNIT_WIDTH_FULL_NAME),
             Locale("en-ZA"),
             2.4,
-            u"2,4 kibijoule-feet per cubic gigafurlong-square second");
+            u"2.4 kibijoule-feet per cubic gigafurlong-square second");
 
     assertFormatSingle(
             u"kibijoule-foot-per-cubic-gigafurlong-square-second unit-width-full-name",
@@ -1280,7 +1280,7 @@ void NumberFormatterApiTest::unitArbitraryMeasureUnits() {
                 .unitWidth(UNUM_UNIT_WIDTH_FULL_NAME),
             Locale("en-ZA"),
             2.4,
-            u"2,4 kilowatt-hours per 100 kilometres");
+            u"2.4 kilowatt-hours per 100 kilometres");
 }
 
 // TODO: merge these tests into numbertest_skeletons.cpp instead of here:
@@ -1472,11 +1472,11 @@ void NumberFormatterApiTest::unitUsage() {
             u"unit/meter usage/road",
             unloc_formatter,
             Locale("en-ZA"),
-            u"87\u00A0650 km",
-            u"8\u00A0765 km",
+            u"87,650 km",
+            u"8,765 km",
             u"876 km", // 6.5 rounds down, 7.5 rounds up.
             u"88 km",
-            u"8,8 km",
+            u"8.8 km",
             u"900 m",
             u"90 m",
             u"9 m",
@@ -1663,14 +1663,14 @@ void NumberFormatterApiTest::unitUsage() {
                     .precision(Precision::minMaxSignificantDigits(1, 4))
                     .unitWidth(UNumberUnitWidth::UNUM_UNIT_WIDTH_FULL_NAME),
             Locale("en-ZA"),
-            u"8,765E1 square kilometres",
-            u"8,765E0 square kilometres",
-            u"8,765E1 hectares",
-            u"8,765E0 hectares",
-            u"8,765E3 square metres",
-            u"8,765E2 square metres",
-            u"8,765E1 square metres",
-            u"8,765E0 square metres",
+            u"8.765E1 square kilometres",
+            u"8.765E0 square kilometres",
+            u"8.765E1 hectares",
+            u"8.765E0 hectares",
+            u"8.765E3 square metres",
+            u"8.765E2 square metres",
+            u"8.765E1 square metres",
+            u"8.765E0 square metres",
             u"0E0 square centimetres");
 
     assertFormatSingle(
@@ -2039,7 +2039,7 @@ void NumberFormatterApiTest::unitUsageSkeletons() {
                 .precision(Precision::maxSignificantDigits(4)),
             Locale("en-ZA"),
             321.45, // 0.45 rounds down, 0.55 rounds up.
-            u"3,214E2 m");
+            u"3.214E2 m");
 
     assertFormatSingle(
             u"Scientific notation with Usage: possible when using a reasonable Precision",
@@ -2052,7 +2052,7 @@ void NumberFormatterApiTest::unitUsageSkeletons() {
                 .unitWidth(UNumberUnitWidth::UNUM_UNIT_WIDTH_FULL_NAME),
             Locale("en-ZA"),
             1e20,
-            u"1,5E28 kilometres");
+            u"1.5E28 kilometres");
 
     status.assertSuccess();
 }
@@ -2311,7 +2311,7 @@ void NumberFormatterApiTest::runUnitInflectionsTestCases(UnlocalizedNumberFormat
             continue;
         };
         UnicodeString skelString = UnicodeString("unit/") + t.unitIdentifier + u" " + skeleton;
-        const UChar *skel;
+        const char16_t *skel;
         if (t.unitDisplayCase == nullptr || t.unitDisplayCase[0] == 0) {
             unf = unf.unit(mu).unitDisplayCase("");
             skel = skelString.getTerminatedBuffer();
@@ -2338,7 +2338,7 @@ void NumberFormatterApiTest::runUnitInflectionsTestCases(UnlocalizedNumberFormat
         };
 
         UnicodeString skelString = UnicodeString("unit/") + t.unitIdentifier + u" " + skeleton;
-        const UChar *skel;
+        const char16_t *skel;
         auto displayOptionsBuilder = DisplayOptions::builder();
         if (t.unitDisplayCase == nullptr || t.unitDisplayCase[0] == 0) {
             auto displayoptions = displayOptionsBuilder.build();
@@ -2366,7 +2366,7 @@ void NumberFormatterApiTest::unitInflections() {
     IcuTestErrorCode status(*this, "unitInflections");
 
     UnlocalizedNumberFormatter unf;
-    const UChar *skeleton;
+    const char16_t *skeleton;
     {
         // Simple inflected form test - test case based on the example in CLDR's
         // grammaticalFeatures.xml
@@ -2996,7 +2996,7 @@ void NumberFormatterApiTest::unitLocaleTags() {
          nullptr, "celsius", 0.0, "0 degrees Celsius"},
         {"Test the locale with mu = fahrenheit and with usage", "en-US-u-mu-fahrenheit", "celsius", 0,
          "default", "fahrenheit", 32.0, "32 degrees Fahrenheit"},
-        {u"Test the locale with rg = UKOI and with usage", "en-US-u-rg-ukoizzzz", "fahrenheit", 0,
+        {u"Test the locale with rg = UKOI and with usage", "en-US-u-rg-ukoi", "fahrenheit", 0,
          "default", "celsius", -18.0, u"-18 degrees Celsius"},
 
         // Test the priorities
@@ -6004,7 +6004,7 @@ void NumberFormatterApiTest::microPropsInternals() {
     MicroProps copyConstructed(mp);
     MicroProps copyAssigned;
     int64_t *resizeResult = mp.mixedMeasures.resize(4, 4);
-    assertTrue("Resize success", resizeResult != NULL);
+    assertTrue("Resize success", resizeResult != nullptr);
     copyAssigned = mp;
 
     assertTrue("MicroProps success status", U_SUCCESS(mp.mixedMeasures.status));

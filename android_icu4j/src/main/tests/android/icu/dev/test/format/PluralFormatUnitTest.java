@@ -23,6 +23,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 
+import android.icu.dev.test.CoreTestFmwk;
 import android.icu.dev.test.TestFmwk;
 import android.icu.impl.number.DecimalQuantity;
 import android.icu.text.DecimalFormat;
@@ -42,7 +43,7 @@ import android.icu.testsharding.MainTestShard;
  */
 @MainTestShard
 @RunWith(JUnit4.class)
-public class PluralFormatUnitTest extends TestFmwk {
+public class PluralFormatUnitTest extends CoreTestFmwk {
     @Test
     public void TestConstructor() {
         // Test correct formatting of numbers.

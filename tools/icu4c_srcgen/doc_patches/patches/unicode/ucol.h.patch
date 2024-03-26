@@ -1,5 +1,5 @@
---- libicu/ndk_headers/unicode/ucol.h	2022-02-07 13:48:24.008286549 +0000
-+++ libicu/ndk_headers/unicode/ucol.h	2022-02-07 13:48:24.108287466 +0000
+--- libicu/ndk_headers/unicode/ucol.h	2024-03-08 16:39:44.550050707 +0000
++++ libicu/ndk_headers/unicode/ucol.h	2024-03-08 16:39:51.262182329 +0000
 @@ -73,7 +73,7 @@
   * Possible values for a comparison result 
   * \xrefitem stable "Stable" "Stable List" ICU 2.0
@@ -36,7 +36,7 @@
       /** Attribute for direction of secondary weights - used in Canadian French.
        * Acceptable values are UCOL_ON, which results in secondary weights
        * being considered backwards and UCOL_OFF which treats secondary
-@@ -356,25 +356,6 @@
+@@ -366,25 +366,6 @@
  #endif  // U_FORCE_HIDE_DEPRECATED_API
  } UColAttribute;
  
@@ -62,7 +62,7 @@
  
  /**
   * Open a UCollator for comparing strings.
-@@ -878,7 +859,7 @@
+@@ -888,7 +869,7 @@
   * depends on them having these numbers     
   * \xrefitem stable "Stable" "Stable List" ICU 2.0
   */

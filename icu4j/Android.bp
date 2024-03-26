@@ -82,15 +82,20 @@ java_library {
         "icu_aconfig_flags_lib",
     ],
 
-    srcs: ["main/classes/**/*.java"],
-    java_resource_dirs: ["main/classes/*/src"],
+    srcs: ["main/*/src/main/java/**/*.java"],
+    java_resource_dirs: ["main/*/src/main/resources"],
 
     // User-supplied locale service providers (using the java.text.spi or
     // java.util.spi mechanisms) are not supported in Android:
     //
     // http://developer.android.com/reference/java/util/Locale.html
-    exclude_srcs: ["main/classes/localespi/**/*.java"],
-    exclude_java_resource_dirs: ["main/classes/localespi/src"],
+    exclude_srcs: ["main/localespi/src/main/java/**/*.java"],
+    exclude_java_resource_dirs: [
+        "main/localespi/src/main/resources",
+        // The actual resource files are included by linking icu4j-icudata and icu4j-icutzdata
+        // statically.
+        "main/*/src/main/resources/com/ibm/icu/impl/data/icudt*",
+    ],
 
     static_libs: [
         "icu4j-icudata",
@@ -106,7 +111,7 @@ java_library_static {
     name: "icu4j_calendar_astronomer",
     host_supported: false,
     sdk_version: "core_current",
-    srcs: ["main/classes/core/src/com/ibm/icu/impl/CalendarAstronomer.java"],
+    srcs: ["main/core/src/main/java/com/ibm/icu/impl/CalendarAstronomer.java"],
     visibility: [
         "//frameworks/base/services/core",
         "//packages/apps/WallpaperPicker2",
@@ -118,13 +123,12 @@ java_test {
     defaults: ["icu4j-defaults"],
 
     srcs: [
-        "main/tests/**/*.java",
-        "tools/misc/src/com/ibm/icu/dev/tool/locale/*.java",
+        "main/*/src/test/**/*.java",
     ],
-    java_resource_dirs: ["main/tests/*/src"],
+    java_resource_dirs: ["main/*/src/test/resources"],
 
-    exclude_srcs: ["main/tests/localespi/**/*.java"],
-    exclude_java_resource_dirs: ["main/tests/localespi/src"],
+    exclude_srcs: ["main/localespi/src/test/**/*.java"],
+    exclude_java_resource_dirs: ["main/localespi/src/test"],
 
     static_libs: [
         "icu4j",
@@ -195,77 +199,4 @@ java_library {
 java_library_host {
     name: "icu4j-host",
     static_libs: ["icu4j"],
-}
-
-// Rules to generate android_icu4j files during build time
-// The following rules are used in the downstream branches master-icu-dev only,
-// but NOT used in AOSP.
-generate_script_srcs = [
-    "main/**/*",
-    "samples/**/*",
-]
-generate_script_tools = [
-    "android_icu4j_srcgen_binary",
-    "soong_zip",
-]
-generate_script_tool_files = [
-    ":generate_android_icu4j_script",
-]
-// ANDROID_BUILD_TOP is needed to be set for generate_android_icu4j.sh
-generate_script_common_cmd = "export ANDROID_BUILD_TOP=$$(pwd) && " +
-    "$(location :generate_android_icu4j_script) " +
-    "--no-doc-patch " +
-    "--gen $(genDir) " +
-    "--srcgen-tool $(location android_icu4j_srcgen_binary)"
-
-genrule {
-    name: "generated_android_icu4j_src_files",
-    enabled: false, // http://b/117312606
-    srcs: generate_script_srcs,
-    tools: generate_script_tools,
-    tool_files: generate_script_tool_files,
-    out: ["generated_android_icu4j.srcjar"],
-    cmd: generate_script_common_cmd +
-        "&& $(location soong_zip) -o $(out) -C $(genDir)/android_icu4j/src/main/java " +
-        "-D $(genDir)/android_icu4j/src/main/java",
-}
-
-java_genrule {
-    name: "generated_android_icu4j_resources",
-    enabled: false, // http://b/117312606
-    host_supported: true,
-    srcs: generate_script_srcs,
-    tools: generate_script_tools,
-    tool_files: generate_script_tool_files,
-    out: ["generated_android_icu4j_resources.jar"],
-    cmd: generate_script_common_cmd +
-        "&& $(location soong_zip) -o $(out) -C $(genDir)/android_icu4j/resources " +
-        "-D $(genDir)/android_icu4j/resources",
-}
-
-genrule {
-    name: "generated_android_icu4j_test_files",
-    enabled: false, // http://b/117312606
-    srcs: generate_script_srcs,
-    tools: generate_script_tools,
-    tool_files: generate_script_tool_files,
-    out: ["generated_android_icu4j_test.srcjar"],
-    cmd: generate_script_common_cmd +
-        "&& find $(genDir)/android_icu4j/src/main/tests -type f -not -name \"*.java\" -exec rm {} \\; " +
-        "&& $(location soong_zip) -o $(out) -C $(genDir)/android_icu4j/src/main/tests " +
-        "-D $(genDir)/android_icu4j/src/main/tests",
-}
-
-java_genrule {
-    name: "generated_android_icu4j_test_resources",
-    enabled: false, // http://b/117312606
-    host_supported: true,
-    srcs: generate_script_srcs,
-    tools: generate_script_tools,
-    tool_files: generate_script_tool_files,
-    out: ["generated_android_icu4j_test_resources.jar"],
-    cmd: generate_script_common_cmd +
-        "&& find $(genDir)/android_icu4j/src/main/tests -type f -name \"*.java\" -exec rm {} \\; " +
-        "&& $(location soong_zip) -o $(out) -C $(genDir)/android_icu4j/src/main/tests " +
-        "-D $(genDir)/android_icu4j/src/main/tests",
 }

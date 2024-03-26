@@ -21,7 +21,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 
-import android.icu.dev.test.TestFmwk;
+import android.icu.dev.test.CoreTestFmwk;
 import android.icu.text.MessagePattern;
 import android.icu.text.MessagePatternUtil;
 import android.icu.text.MessagePatternUtil.ArgNode;
@@ -38,7 +38,7 @@ import android.icu.testsharding.MainTestShard;
  */
 @MainTestShard
 @RunWith(JUnit4.class)
-public final class MessagePatternUtilTest extends TestFmwk {
+public final class MessagePatternUtilTest extends CoreTestFmwk {
     // The following nested "Expect..." classes are used to build
     // a tree structure parallel to what the MessagePatternUtil class builds.
     // These nested test classes are not static so that they have access to TestFmwk methods.
