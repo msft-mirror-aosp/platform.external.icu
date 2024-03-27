@@ -19,7 +19,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 
-import android.icu.dev.test.TestFmwk;
+import android.icu.dev.test.CoreTestFmwk;
 import android.icu.dev.test.TestUtil;
 import android.icu.impl.Utility;
 import android.icu.text.Normalizer;
@@ -29,7 +29,7 @@ import android.icu.testsharding.MainTestShard;
 
 @MainTestShard
 @RunWith(JUnit4.class)
-public class ConformanceTest extends TestFmwk {
+public class ConformanceTest extends CoreTestFmwk {
 
     Normalizer normalizer;
 

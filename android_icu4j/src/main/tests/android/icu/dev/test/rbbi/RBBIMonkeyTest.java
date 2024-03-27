@@ -20,7 +20,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 
-import android.icu.dev.test.TestFmwk;
+import android.icu.dev.test.CoreTestFmwk;
 import android.icu.impl.UCharacterName;
 import android.icu.impl.UCharacterNameChoice;
 import android.icu.text.BreakIterator;
@@ -37,7 +37,7 @@ import android.icu.testsharding.HiMemTestShard;
 
 @HiMemTestShard
 @RunWith(JUnit4.class)
-public class RBBIMonkeyTest extends TestFmwk {
+public class RBBIMonkeyTest extends CoreTestFmwk {
 
 
     //  class CharClass    Represents a single character class from the source break rules.

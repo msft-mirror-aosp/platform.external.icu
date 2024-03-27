@@ -22,6 +22,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 
+import android.icu.dev.test.CoreTestFmwk;
 import android.icu.dev.test.TestFmwk;
 import android.icu.util.AnnualTimeZoneRule;
 import android.icu.util.BasicTimeZone;
@@ -45,7 +46,7 @@ import android.icu.testsharding.MainTestShard;
  */
 @MainTestShard
 @RunWith(JUnit4.class)
-public class TimeZoneRuleTest extends TestFmwk {
+public class TimeZoneRuleTest extends CoreTestFmwk {
 
     private static final int HOUR = 60 * 60 * 1000;
 

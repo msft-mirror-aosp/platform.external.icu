@@ -13,7 +13,7 @@ import org.junit.experimental.runners.Enclosed;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 
-import android.icu.dev.test.TestFmwk;
+import android.icu.dev.test.CoreTestFmwk;
 import android.icu.text.ArabicShaping;
 import android.icu.text.ArabicShapingException;
 import android.icu.testsharding.MainTestShard;
@@ -23,7 +23,7 @@ import android.icu.testsharding.MainTestShard;
  */
 @MainTestShard
 @RunWith(Enclosed.class)
-public class DataDrivenArabicShapingRegTest extends TestFmwk {
+public class DataDrivenArabicShapingRegTest extends CoreTestFmwk {
 
     /* constants copied from ArabicShaping for convenience */
 
@@ -51,7 +51,7 @@ public class DataDrivenArabicShapingRegTest extends TestFmwk {
     public static final int DIGIT_TYPE_AN_EXTENDED = 0x100;
 
     @RunWith(Parameterized.class)
-    public static class StandardDataTest extends TestFmwk {
+    public static class StandardDataTest extends CoreTestFmwk {
         private String source;
         private int flags;
         private String expected;
@@ -381,7 +381,7 @@ public class DataDrivenArabicShapingRegTest extends TestFmwk {
     }
 
     @RunWith(Parameterized.class)
-    public static class PreflightDataTest extends TestFmwk {
+    public static class PreflightDataTest extends CoreTestFmwk {
         private String source;
         private int flags;
         private int length;
@@ -432,7 +432,7 @@ public class DataDrivenArabicShapingRegTest extends TestFmwk {
     }
 
     @RunWith(Parameterized.class)
-    public static class ErrorDataTest extends TestFmwk {
+    public static class ErrorDataTest extends CoreTestFmwk {
         private String source;
         private int flags;
         private Class error;

@@ -8,7 +8,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 
-import android.icu.dev.test.TestFmwk;
+import android.icu.dev.test.CoreTestFmwk;
 import android.icu.testsharding.MainTestShard;
 
 /**
@@ -20,7 +20,7 @@ import android.icu.testsharding.MainTestShard;
 @MainTestShard
 @RunWith(JUnit4.class)
 @SuppressWarnings("javadoc")
-public class FromJsonTest extends TestFmwk {
+public class FromJsonTest extends CoreTestFmwk {
 
     static final TestCase[] TEST_CASES = {
             new TestCase.Builder()

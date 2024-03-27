@@ -16,7 +16,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 
-import android.icu.dev.test.TestFmwk;
+import android.icu.dev.test.CoreTestFmwk;
 import android.icu.lang.UCharacter;
 import android.icu.lang.UCharacterCategory;
 import android.icu.text.Normalizer;
@@ -25,7 +25,7 @@ import android.icu.testsharding.MainTestShard;
 
 @MainTestShard
 @RunWith(JUnit4.class)
-public class NormalizationMonkeyTest extends TestFmwk {
+public class NormalizationMonkeyTest extends CoreTestFmwk {
     int loopCount = 100;
     int maxCharCount = 20;
     int maxCodePoint = 0x10ffff;

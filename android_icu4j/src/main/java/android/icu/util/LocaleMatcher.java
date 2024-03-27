@@ -758,7 +758,7 @@ public final class LocaleMatcher {
         if (locale.equals(UND_ULOCALE)) {
             return UND_LSR;
         } else {
-            return XLikelySubtags.INSTANCE.makeMaximizedLsrFrom(locale);
+            return XLikelySubtags.INSTANCE.makeMaximizedLsrFrom(locale, false);
         }
     }
 

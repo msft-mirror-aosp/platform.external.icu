@@ -11,14 +11,13 @@
 
 package android.icu.dev.test.util;
 
-
 import java.util.Arrays;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 
-import android.icu.dev.test.TestFmwk;
+import android.icu.dev.test.CoreTestFmwk;
 import android.icu.util.VersionInfo;
 import android.icu.testsharding.MainTestShard;
 
@@ -30,7 +29,7 @@ import android.icu.testsharding.MainTestShard;
 */
 @MainTestShard
 @RunWith(JUnit4.class)
-public final class VersionInfoTest extends TestFmwk
+public final class VersionInfoTest extends CoreTestFmwk
 {
     // constructor ---------------------------------------------------
 

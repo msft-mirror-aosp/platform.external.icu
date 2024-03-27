@@ -16,12 +16,12 @@ import java.util.List;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import android.icu.dev.test.CoreTestFmwk;
 import android.icu.dev.test.ModuleTest;
 import android.icu.dev.test.ModuleTest.TestDataPair;
 import android.icu.dev.test.TestDataModule;
 import android.icu.dev.test.TestDataModule.DataMap;
 import android.icu.dev.test.TestDataModule.TestData;
-import android.icu.dev.test.TestFmwk;
 import android.icu.dev.test.util.CalendarFieldsSet;
 import android.icu.text.DateFormat;
 import android.icu.text.SimpleDateFormat;
@@ -42,7 +42,7 @@ import android.icu.testsharding.MainTestShard;
  */
 @MainTestShard
 @RunWith(JUnitParamsRunner.class)
-public class DataDrivenCalendarTest extends TestFmwk {
+public class DataDrivenCalendarTest extends CoreTestFmwk {
 
     public DataDrivenCalendarTest() {
         //super("com/ibm/icu/dev/data/testdata/", "calendar");

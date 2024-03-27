@@ -19,8 +19,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 
-import android.icu.dev.test.TestFmwk;
-import android.icu.dev.test.TestUtil;
+import android.icu.dev.test.CoreTestFmwk;
 import android.icu.impl.ICUConfig;
 import android.icu.impl.Utility;
 import android.icu.lang.UCharacter;
@@ -39,7 +38,7 @@ import android.icu.testsharding.MainTestShard;
  */
 @MainTestShard
 @RunWith(JUnit4.class)
-public class RBBITestExtended extends TestFmwk {
+public class RBBITestExtended extends CoreTestFmwk {
 public RBBITestExtended() {
     }
 
@@ -59,7 +58,7 @@ static class TestParams {
 public void TestExtended() {
     // The expectations in this test heavily depends on the Thai dictionary.
     // Therefore, we skip this test under the LSTM configuration.
-    org.junit.Assume.assumeTrue(!TestUtil.skipDictionaryTest());
+    org.junit.Assume.assumeTrue(!RBBITstUtils.skipDictionaryTest());
     TestParams     tp = new TestParams();
 
 

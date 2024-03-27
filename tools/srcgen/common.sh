@@ -51,15 +51,26 @@ CLASSPATH=${ANDROID_HOST_OUT}/framework/currysrc.jar:${ANDROID_HOST_OUT}/framewo
 #   localespi - is not supported on Android
 #   charset - because icu4c is used instead
 INPUT_DIRS="\
-    ${ICU4J_DIR}/main/classes/collate/src \
-    ${ICU4J_DIR}/main/classes/core/src \
-    ${ICU4J_DIR}/main/classes/currdata/src \
-    ${ICU4J_DIR}/main/classes/langdata/src \
-    ${ICU4J_DIR}/main/classes/regiondata/src \
-    ${ICU4J_DIR}/main/classes/translit/src \
+    ${ICU4J_DIR}/main/collate/src/main \
+    ${ICU4J_DIR}/main/core/src/main \
+    ${ICU4J_DIR}/main/currdata/src/main \
+    ${ICU4J_DIR}/main/langdata/src/main \
+    ${ICU4J_DIR}/main/regiondata/src/main \
+    ${ICU4J_DIR}/main/translit/src/main \
     "
 
-SAMPLE_INPUT_DIR=${ICU4J_DIR}/samples/src/com/ibm/icu/samples
+INPUT_JAVA_DIRS=""
+INPUT_RESOURCE_DIRS=""
+for INPUT_DIR in ${INPUT_DIRS}; do
+  if [ -d "${INPUT_DIR}/java" ]; then
+    INPUT_JAVA_DIRS="${INPUT_JAVA_DIRS} ${INPUT_DIR}/java"
+  fi
+  if [ -d "${INPUT_DIR}/resources" ]; then
+    INPUT_RESOURCE_DIRS="${INPUT_RESOURCE_DIRS} ${INPUT_DIR}/resources"
+  fi
+done
+
+SAMPLE_INPUT_DIR=${ICU4J_DIR}/samples/src/main/java/com/ibm/icu/samples
 # Only generate sample files for code we know should compile on Android with the public APIs.
 SAMPLE_INPUT_FILES="\
     ${SAMPLE_INPUT_DIR}/text/dateintervalformat/DateIntervalFormatSample.java \
@@ -70,12 +81,23 @@ SAMPLE_INPUT_FILES="\
 # See above for an explanation as to why the tests for charset and localespi are not included here.
 TEST_INPUT_DIR=${ICU4J_DIR}/main/tests
 TEST_INPUT_DIRS="\
-    ${TEST_INPUT_DIR}/collate/src \
-    ${TEST_INPUT_DIR}/framework/src \
-    ${TEST_INPUT_DIR}/translit/src \
-    ${TEST_INPUT_DIR}/core/src \
-    ${TEST_INPUT_DIR}/packaging/src \
-    ${ICU4J_DIR}/tools/misc/src/com/ibm/icu/dev/tool/locale"
+    ${ICU4J_DIR}/main/collate/src/test \
+    ${ICU4J_DIR}/main/framework/src/test \
+    ${ICU4J_DIR}/main/core/src/test \
+    ${ICU4J_DIR}/main/common_tests/src/test \
+    ${ICU4J_DIR}/main/translit/src/test \
+    "
+
+TEST_INPUT_JAVA_DIRS=""
+TEST_INPUT_RESOURCE_DIRS=""
+for TEST_INPUT_DIR in ${TEST_INPUT_DIRS}; do
+  if [ -d "${TEST_INPUT_DIR}/java" ]; then
+    TEST_INPUT_JAVA_DIRS="${TEST_INPUT_JAVA_DIRS} ${TEST_INPUT_DIR}/java"
+  fi
+  if [ -d "${TEST_INPUT_DIR}/resources" ]; then
+    TEST_INPUT_RESOURCE_DIRS="${TEST_INPUT_RESOURCE_DIRS} ${TEST_INPUT_DIR}/resources"
+  fi
+done
 
 # Allow override of the java runtime to avoid http://b/27775477
 SRCGEN_JAVA_BINARY=${SRCGEN_JAVA_BINARY:-java}

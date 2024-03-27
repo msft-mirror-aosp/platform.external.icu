@@ -15,7 +15,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 
-import android.icu.dev.test.TestFmwk;
+import android.icu.dev.test.CoreTestFmwk;
 import android.icu.math.BigDecimal;
 import android.icu.util.UniversalTimeScale;
 import android.icu.testsharding.MainTestShard;
@@ -25,7 +25,7 @@ import android.icu.testsharding.MainTestShard;
  */
 @MainTestShard
 @RunWith(JUnit4.class)
-public class TimeScaleAPITest extends TestFmwk
+public class TimeScaleAPITest extends CoreTestFmwk
 {
 
     /**
