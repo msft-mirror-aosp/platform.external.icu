@@ -16,7 +16,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 
-import android.icu.dev.test.TestFmwk;
+import android.icu.dev.test.CoreTestFmwk;
 import android.icu.text.ReplaceableString;
 import android.icu.text.UCharacterIterator;
 import android.icu.text.UTF16;
@@ -32,7 +32,7 @@ import android.icu.testsharding.MainTestShard;
  */
 @MainTestShard
 @RunWith(JUnit4.class)
-public class TestUCharacterIterator extends TestFmwk{
+public class TestUCharacterIterator extends CoreTestFmwk{
 
     // constructor -----------------------------------------------------
 

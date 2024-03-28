@@ -24,7 +24,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 
-import android.icu.dev.test.TestFmwk;
+import android.icu.dev.test.CoreTestFmwk;
 import android.icu.text.DateFormat;
 import android.icu.text.DateFormatSymbols;
 import android.icu.text.SimpleDateFormat;
@@ -34,7 +34,7 @@ import android.icu.testsharding.MainTestShard;
 
 @MainTestShard
 @RunWith(JUnit4.class)
-public class DateFormatRegressionTestJ extends TestFmwk {
+public class DateFormatRegressionTestJ extends CoreTestFmwk {
 
     private static final String TIME_STRING = "2000/11/17 08:01:00";
     private static final long UTC_LONG = 974476860000L;
@@ -173,6 +173,8 @@ public class DateFormatRegressionTestJ extends TestFmwk {
     //about regression test
     @Test
     public void Test4266432() {
+        Locale startLocale = Locale.getDefault();
+
         Locale.setDefault(Locale.JAPAN);
         Locale loc = Locale.getDefault();
         String dateFormat = "MM/dd/yy HH:mm:ss zzz";
@@ -182,6 +184,8 @@ public class DateFormatRegressionTestJ extends TestFmwk {
         logln("Under  " + loc +"  locale");
         Date d = fmt.parse("01/22/92 04:52:00 GMT", p0);
         logln(d.toString());
+
+        Locale.setDefault(startLocale);
     }
 
     //SimpleDateFormat inconsistent for number of digits for years

@@ -14,7 +14,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 
-import android.icu.dev.test.TestFmwk;
+import android.icu.dev.test.CoreTestFmwk;
 import android.icu.impl.Utility;
 import android.icu.lang.UCharacter;
 import android.icu.text.UTF16;
@@ -25,7 +25,7 @@ import android.icu.testsharding.MainTestShard;
  */
 @MainTestShard
 @RunWith(JUnit4.class)
-public final class UCharacterSurrogateTest extends TestFmwk {
+public final class UCharacterSurrogateTest extends CoreTestFmwk {
     @Test
     public void TestUnicodeBlockForName() {
       String[] names = {"Latin-1 Supplement",

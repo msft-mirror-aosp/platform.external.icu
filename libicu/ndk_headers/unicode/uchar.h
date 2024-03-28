@@ -60,7 +60,7 @@ U_CDECL_BEGIN
  * @see u_getUnicodeVersion
  * \xrefitem stable "Stable" "Stable List" ICU 2.0
  */
-#define U_UNICODE_VERSION "15.0"
+#define U_UNICODE_VERSION "15.1"
 
 /**
  * @addtogroup icu4c ICU4C
@@ -534,12 +534,33 @@ typedef enum UProperty {
      * \xrefitem stable "Stable" "Stable List" ICU 70
      */
     UCHAR_RGI_EMOJI=71,
+#ifndef U_HIDE_DRAFT_API
+    /**
+     * Binary property IDS_Unary_Operator.
+     * For programmatic determination of Ideographic Description Sequences.
+     *
+     * \xrefitem draft "Draft" "Draft List" This API may be changed in the future versions and was introduced in ICU 74
+     */
+    UCHAR_IDS_UNARY_OPERATOR=72,
+    /**
+     * Binary property ID_Compat_Math_Start.
+     * Used in mathematical identifier profile in UAX #31.
+     * \xrefitem draft "Draft" "Draft List" This API may be changed in the future versions and was introduced in ICU 74
+     */
+    UCHAR_ID_COMPAT_MATH_START=73,
+    /**
+     * Binary property ID_Compat_Math_Continue.
+     * Used in mathematical identifier profile in UAX #31.
+     * \xrefitem draft "Draft" "Draft List" This API may be changed in the future versions and was introduced in ICU 74
+     */
+    UCHAR_ID_COMPAT_MATH_CONTINUE=74,
+#endif  // U_HIDE_DRAFT_API
 #ifndef U_HIDE_DEPRECATED_API
     /**
      * One more than the last constant for binary Unicode properties.
      * \xrefitem deprecated "Deprecated" "Deprecated List" ICU 58 The numeric value may change over time, see ICU ticket #12420.
      */
-    UCHAR_BINARY_LIMIT=72,
+    UCHAR_BINARY_LIMIT=75,
 #endif  // U_HIDE_DEPRECATED_API
 
     /** Enumerated property Bidi_Class.
@@ -1902,6 +1923,11 @@ enum UBlockCode {
     /** \xrefitem stable "Stable" "Stable List" ICU 72 */
     UBLOCK_NAG_MUNDARI = 327, /*[1E4D0]*/
 
+    // New block in Unicode 15.1
+
+    /** \xrefitem stable "Stable" "Stable List" ICU 74 */
+    UBLOCK_CJK_UNIFIED_IDEOGRAPHS_EXTENSION_I = 328, /*[2EBF0]*/
+
 #ifndef U_HIDE_DEPRECATED_API
     /**
      * One more than the highest normal UBlockCode value.
@@ -1909,7 +1935,7 @@ enum UBlockCode {
      *
      * \xrefitem deprecated "Deprecated" "Deprecated List" ICU 58 The numeric value may change over time, see ICU ticket #12420.
      */
-    UBLOCK_COUNT = 328,
+    UBLOCK_COUNT = 329,
 #endif  // U_HIDE_DEPRECATED_API
 
     /** \xrefitem stable "Stable" "Stable List" ICU 2.0 */
@@ -2441,6 +2467,16 @@ typedef enum ULineBreak {
     U_LB_E_MODIFIER = 41,        /*[EM]*/
     /** \xrefitem stable "Stable" "Stable List" ICU 58 */
     U_LB_ZWJ = 42,               /*[ZWJ]*/
+    /** \xrefitem stable "Stable" "Stable List" ICU 74 */
+    U_LB_AKSARA = 43,            /*[AK]*/
+    /** \xrefitem stable "Stable" "Stable List" ICU 74 */
+    U_LB_AKSARA_PREBASE = 44,    /*[AP]*/
+    /** \xrefitem stable "Stable" "Stable List" ICU 74 */
+    U_LB_AKSARA_START = 45,      /*[AS]*/
+    /** \xrefitem stable "Stable" "Stable List" ICU 74 */
+    U_LB_VIRAMA_FINAL = 46,      /*[VF]*/
+    /** \xrefitem stable "Stable" "Stable List" ICU 74 */
+    U_LB_VIRAMA = 47,            /*[VI]*/
 #ifndef U_HIDE_DEPRECATED_API
     /**
      * One more than the highest normal ULineBreak value.
@@ -2448,7 +2484,7 @@ typedef enum ULineBreak {
      *
      * \xrefitem deprecated "Deprecated" "Deprecated List" ICU 58 The numeric value may change over time, see ICU ticket #12420.
      */
-    U_LB_COUNT = 43
+    U_LB_COUNT = 48
 #endif  // U_HIDE_DEPRECATED_API
 } ULineBreak;
 
@@ -3834,13 +3870,10 @@ u_getPropertyValueEnum(UProperty property,
 
 
 /**
- * Determines if the specified character is permissible as the
- * first character in an identifier according to Unicode
- * (The Unicode Standard, Version 3.0, chapter 5.16 Identifiers).
- * True for characters with general categories "L" (letters) and "Nl" (letter numbers).
+ * Determines if the specified character is permissible as the first character in an identifier
+ * according to UAX #31 Unicode Identifier and Pattern Syntax.
  *
- * Same as java.lang.Character.isUnicodeIdentifierStart().
- * Same as UCHAR_ID_START
+ * Same as Unicode ID_Start (UCHAR_ID_START).
  *
  * @param c the code point to be tested
  * @return true if the code point may start an identifier
@@ -3856,20 +3889,13 @@ u_isIDStart(UChar32 c) __INTRODUCED_IN(31);
 
 
 /**
- * Determines if the specified character is permissible
- * in an identifier according to Java.
- * True for characters with general categories "L" (letters),
- * "Nl" (letter numbers), "Nd" (decimal digits),
- * "Mc" and "Mn" (combining marks), "Pc" (connecting punctuation), and
- * u_isIDIgnorable(c).
+ * Determines if the specified character is permissible as a non-initial character of an identifier
+ * according to UAX #31 Unicode Identifier and Pattern Syntax.
  *
- * Same as java.lang.Character.isUnicodeIdentifierPart().
- * Almost the same as Unicode's ID_Continue (UCHAR_ID_CONTINUE)
- * except that Unicode recommends to ignore Cf which is less than
- * u_isIDIgnorable(c).
+ * Same as Unicode ID_Continue (UCHAR_ID_CONTINUE).
  *
  * @param c the code point to be tested
- * @return true if the code point may occur in an identifier according to Java
+ * @return true if the code point may occur as a non-initial character of an identifier
  *
  * @see UCHAR_ID_CONTINUE
  * @see u_isIDStart

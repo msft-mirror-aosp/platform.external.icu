@@ -12,7 +12,7 @@ package android.icu.dev.test.bidi;
 
 import java.util.Arrays;
 
-import android.icu.dev.test.TestFmwk;
+import android.icu.dev.test.CoreTestFmwk;
 import android.icu.impl.Utility;
 import android.icu.lang.UCharacter;
 import android.icu.text.Bidi;
@@ -27,7 +27,7 @@ import android.icu.testsharding.MainTestShard;
  */
 
 @MainTestShard
-public class BidiFmwk extends TestFmwk {
+public class BidiFmwk extends CoreTestFmwk {
 
     protected static final char[] charFromDirProp = {
          /* L      R    EN    ES    ET     AN    CS    B    S    WS    ON */

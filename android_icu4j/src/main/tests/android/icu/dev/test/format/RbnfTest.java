@@ -18,7 +18,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 
-import android.icu.dev.test.TestFmwk;
+import android.icu.dev.test.CoreTestFmwk;
 import android.icu.math.BigDecimal;
 import android.icu.text.DecimalFormat;
 import android.icu.text.DecimalFormatSymbols;
@@ -34,7 +34,7 @@ import android.icu.testsharding.MainTestShard;
  */
 @MainTestShard
 @RunWith(JUnit4.class)
-public class RbnfTest extends TestFmwk {
+public class RbnfTest extends CoreTestFmwk {
     static String fracRules =
         "%main:\n" +
         // this rule formats the number if it's 1 or more.  It formats
@@ -364,6 +364,13 @@ public class RbnfTest extends TestFmwk {
         };
 
         doTest(formatter, testData, true);
+
+        String[][] fractionalTestData = {
+                { "1234", "20:34" },
+                { "1234.2", "20:34" },
+                { "1234.7", "20:35" }
+        };
+        doTest(formatter, fractionalTestData, false);
 
         String[][] testDataLenient = {
                 { "2-51-33", "10,293" },

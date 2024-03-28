@@ -85,6 +85,7 @@ ar_XB{
         CN{"؜‮China‬؜"}
         CO{"؜‮Colombia‬؜"}
         CP{"؜‮Clipperton‬؜ ؜‮Island‬؜"}
+        CQ{"؜‮Sark‬؜"}
         CR{"؜‮Costa‬؜ ؜‮Rica‬؜"}
         CU{"؜‮Cuba‬؜"}
         CV{"؜‮Cape‬؜ ؜‮Verde‬؜"}
@@ -297,6 +298,9 @@ ar_XB{
         ZM{"؜‮Zambia‬؜"}
         ZW{"؜‮Zimbabwe‬؜"}
         ZZ{"؜‮Unknown‬؜ ؜‮Region‬؜"}
+    }
+    Countries%chagos{
+        IO{"؜‮Chagos‬؜ ؜‮Archipelago‬؜"}
     }
     Countries%short{
         BA{"؜‮Bosnia‬؜"}

@@ -115,7 +115,9 @@ ar_XB{
             10p-2{"؜‮centi‬؜{0}"}
             10p-21{"؜‮zepto‬؜{0}"}
             10p-24{"؜‮yocto‬؜{0}"}
+            10p-27{"؜‮ronto‬؜{0}"}
             10p-3{"؜‮milli‬؜{0}"}
+            10p-30{"؜‮quecto‬؜{0}"}
             10p-6{"؜‮micro‬؜{0}"}
             10p-9{"؜‮nano‬؜{0}"}
             10p1{"؜‮deka‬؜{0}"}
@@ -125,7 +127,9 @@ ar_XB{
             10p2{"؜‮hecto‬؜{0}"}
             10p21{"؜‮zetta‬؜{0}"}
             10p24{"؜‮yotta‬؜{0}"}
+            10p27{"؜‮ronna‬؜{0}"}
             10p3{"؜‮kilo‬؜{0}"}
+            10p30{"؜‮quetta‬؜{0}"}
             10p6{"؜‮mega‬؜{0}"}
             10p9{"؜‮giga‬؜{0}"}
             per{"{0} ؜‮per‬؜ {1}"}
@@ -342,6 +346,7 @@ ar_XB{
                 dnam{"؜‮quarters‬؜"}
                 one{"{0} ؜‮quarter‬؜"}
                 other{"{0} ؜‮quarters‬؜"}
+                per{"{0}/؜‮q‬؜"}
             }
             second{
                 dnam{"؜‮seconds‬؜"}
@@ -775,6 +780,11 @@ ar_XB{
                 one{"{0} ؜‮bar‬؜"}
                 other{"{0} ؜‮bars‬؜"}
             }
+            gasoline-energy-density{
+                dnam{"؜‮of‬؜ ؜‮gasoline‬؜ ؜‮equivalent‬؜"}
+                one{"{0} ؜‮of‬؜ ؜‮gasoline‬؜ ؜‮equivalent‬؜"}
+                other{"{0} ؜‮of‬؜ ؜‮gasoline‬؜ ؜‮equivalent‬؜"}
+            }
             hectopascal{
                 dnam{"؜‮hectopascals‬؜"}
                 one{"{0} ؜‮hectopascal‬؜"}
@@ -817,6 +827,11 @@ ar_XB{
             }
         }
         speed{
+            beaufort{
+                dnam{"؜‮Beaufort‬؜"}
+                one{"؜‮Beaufort‬؜ {0}"}
+                other{"؜‮Beaufort‬؜ {0}"}
+            }
             kilometer-per-hour{
                 dnam{"؜‮kilometers‬؜ ؜‮per‬؜ ؜‮hour‬؜"}
                 one{"{0} ؜‮kilometer‬؜ ؜‮per‬؜ ؜‮hour‬؜"}
@@ -1148,7 +1163,64 @@ ar_XB{
             }
         }
         compound{
+            1024p1{"؜‮Ki‬؜{0}"}
+            1024p2{"؜‮Mi‬؜{0}"}
+            1024p3{"؜‮Gi‬؜{0}"}
+            1024p4{"؜‮Ti‬؜{0}"}
+            1024p5{"؜‮Pi‬؜{0}"}
+            1024p6{"؜‮Ei‬؜{0}"}
+            1024p7{"؜‮Zi‬؜{0}"}
+            1024p8{"؜‮Yi‬؜{0}"}
+            10p-1{"؜‮d‬؜{0}"}
+            10p-12{"؜‮p‬؜{0}"}
+            10p-15{"؜‮f‬؜{0}"}
+            10p-18{"؜‮a‬؜{0}"}
+            10p-2{"؜‮c‬؜{0}"}
+            10p-21{"؜‮z‬؜{0}"}
+            10p-24{"؜‮y‬؜{0}"}
+            10p-27{"؜‮r‬؜{0}"}
+            10p-3{"؜‮m‬؜{0}"}
+            10p-30{"؜‮q‬؜{0}"}
+            10p-6{"؜‮μ‬؜{0}"}
+            10p-9{"؜‮n‬؜{0}"}
+            10p1{"؜‮da‬؜{0}"}
+            10p12{"؜‮T‬؜{0}"}
+            10p15{"؜‮P‬؜{0}"}
+            10p18{"؜‮E‬؜{0}"}
+            10p2{"؜‮h‬؜{0}"}
+            10p21{"؜‮Z‬؜{0}"}
+            10p24{"؜‮Y‬؜{0}"}
+            10p27{"؜‮R‬؜{0}"}
+            10p3{"؜‮k‬؜{0}"}
+            10p30{"؜‮Q‬؜{0}"}
+            10p6{"؜‮M‬؜{0}"}
+            10p9{"؜‮G‬؜{0}"}
             per{"{0}/{1}"}
+            power2{
+                one{
+                    _{
+                        _{"{0}²"}
+                    }
+                }
+                other{
+                    _{
+                        _{"{0}²"}
+                    }
+                }
+            }
+            power3{
+                one{
+                    _{
+                        _{"{0}³"}
+                    }
+                }
+                other{
+                    _{
+                        _{"{0}³"}
+                    }
+                }
+            }
+            times{"{0}⋅{1}"}
         }
         concentr{
             item{
@@ -1337,6 +1409,7 @@ ar_XB{
                 dnam{"؜‮qtr‬؜"}
                 one{"{0} ؜‮qtr‬؜"}
                 other{"{0} ؜‮qtrs‬؜"}
+                per{"{0}/؜‮q‬؜"}
             }
             second{
                 dnam{"؜‮secs‬؜"}
@@ -1466,6 +1539,11 @@ ar_XB{
             }
         }
         graphics{
+            dot{
+                dnam{"؜‮dots‬؜"}
+                one{"{0} ؜‮dot‬؜"}
+                other{"{0} ؜‮dots‬؜"}
+            }
             dot-per-centimeter{
                 dnam{"؜‮dpcm‬؜"}
                 one{"{0} ؜‮dpcm‬؜"}
@@ -1518,6 +1596,11 @@ ar_XB{
                 dnam{"؜‮dm‬؜"}
                 one{"{0} ؜‮dm‬؜"}
                 other{"{0} ؜‮dm‬؜"}
+            }
+            earth-radius{
+                dnam{"؜‮earth‬؜ ؜‮radius‬؜"}
+                one{"{0} ؜‮R‬؜⊕"}
+                other{"{0} ؜‮R‬؜⊕"}
             }
             fathom{
                 dnam{"؜‮fathoms‬؜"}
@@ -1615,6 +1698,16 @@ ar_XB{
             }
         }
         light{
+            candela{
+                dnam{"؜‮candela‬؜"}
+                one{"{0} ؜‮cd‬؜"}
+                other{"{0} ؜‮cd‬؜"}
+            }
+            lumen{
+                dnam{"؜‮lumen‬؜"}
+                one{"{0} ؜‮lm‬؜"}
+                other{"{0} ؜‮lm‬؜"}
+            }
             lux{
                 dnam{"؜‮lux‬؜"}
                 one{"{0} ؜‮lx‬؜"}
@@ -1643,7 +1736,9 @@ ar_XB{
                 other{"{0} ؜‮M‬؜⊕"}
             }
             grain{
-                other{"{0} ؜‮grain‬؜"}
+                dnam{"؜‮grains‬؜"}
+                one{"{0} ؜‮gr‬؜"}
+                other{"{0} ؜‮gr‬؜"}
             }
             gram{
                 dnam{"؜‮grams‬؜"}
@@ -1748,6 +1843,11 @@ ar_XB{
                 one{"{0} ؜‮bar‬؜"}
                 other{"{0} ؜‮bar‬؜"}
             }
+            gasoline-energy-density{
+                dnam{"؜‮gas‬؜-؜‮equiv‬؜"}
+                one{"{0} ؜‮gas‬؜-؜‮equiv‬؜"}
+                other{"{0} ؜‮gas‬؜-؜‮equiv‬؜"}
+            }
             hectopascal{
                 dnam{"؜‮hPa‬؜"}
                 one{"{0} ؜‮hPa‬؜"}
@@ -1790,6 +1890,11 @@ ar_XB{
             }
         }
         speed{
+            beaufort{
+                dnam{"؜‮Bft‬؜"}
+                one{"؜‮B‬؜ {0}"}
+                other{"؜‮B‬؜ {0}"}
+            }
             kilometer-per-hour{
                 dnam{"؜‮km‬؜/؜‮hour‬؜"}
                 one{"{0} ؜‮km‬؜/؜‮h‬؜"}
@@ -1821,6 +1926,11 @@ ar_XB{
                 dnam{"؜‮deg‬؜. ؜‮F‬؜"}
                 one{"{0}°؜‮F‬؜"}
                 other{"{0}°؜‮F‬؜"}
+            }
+            generic{
+                dnam{"؜‮deg‬؜. ؜‮temp‬؜."}
+                one{"{0}°"}
+                other{"{0}°"}
             }
             kelvin{
                 dnam{"؜‮K‬؜"}
@@ -1865,6 +1975,7 @@ ar_XB{
                 dnam{"؜‮cm‬؜³"}
                 one{"{0} ؜‮cm‬؜³"}
                 other{"{0} ؜‮cm‬؜³"}
+                per{"{0}/؜‮cm‬؜³"}
             }
             cubic-foot{
                 dnam{"؜‮feet‬؜³"}
@@ -1885,6 +1996,7 @@ ar_XB{
                 dnam{"؜‮m‬؜³"}
                 one{"{0} ؜‮m‬؜³"}
                 other{"{0} ؜‮m‬؜³"}
+                per{"{0}/؜‮m‬؜³"}
             }
             cubic-mile{
                 dnam{"؜‮mi‬؜³"}
@@ -1912,19 +2024,24 @@ ar_XB{
                 other{"{0} ؜‮dL‬؜"}
             }
             dessert-spoon{
-                dnam{"؜‮dstspn‬؜"}
-                other{"{0} ؜‮dstspn‬؜"}
+                dnam{"؜‮dessert‬؜ ؜‮spoons‬؜"}
+                one{"{0} ؜‮dsp‬؜"}
+                other{"{0} ؜‮dsp‬؜"}
             }
             dessert-spoon-imperial{
-                dnam{"؜‮dstspn‬؜ ؜‮Imp‬؜"}
-                other{"{0} ؜‮dstspn‬؜ ؜‮Imp‬؜"}
+                dnam{"؜‮Imp‬؜. ؜‮dessert‬؜ ؜‮spoons‬؜"}
+                one{"{0} ؜‮dsp‬؜-؜‮Imp‬؜."}
+                other{"{0} ؜‮dsp‬؜-؜‮Imp‬؜."}
             }
             dram{
-                dnam{"؜‮dram‬؜ ؜‮fluid‬؜"}
-                other{"{0} ؜‮dram‬؜ ؜‮fl‬؜"}
+                dnam{"؜‮drams‬؜"}
+                one{"{0} ؜‮dram‬؜"}
+                other{"{0} ؜‮drams‬؜"}
             }
             drop{
-                other{"{0} ؜‮drop‬؜"}
+                dnam{"؜‮drops‬؜"}
+                one{"{0} ؜‮dr‬؜"}
+                other{"{0} ؜‮drdrops‬؜"}
             }
             fluid-ounce{
                 dnam{"؜‮fl‬؜ ؜‮oz‬؜"}
@@ -1946,7 +2063,7 @@ ar_XB{
                 dnam{"؜‮Imp‬؜. ؜‮gal‬؜"}
                 one{"{0} ؜‮gal‬؜ ؜‮Imp‬؜."}
                 other{"{0} ؜‮gal‬؜ ؜‮Imp‬؜."}
-                per{"{0}/؜‮gal‬؜ ؜‮Imp‬؜."}
+                per{"{0}/؜‮galImp‬؜"}
             }
             hectoliter{
                 dnam{"؜‮hL‬؜"}
@@ -1954,7 +2071,9 @@ ar_XB{
                 other{"{0} ؜‮hL‬؜"}
             }
             jigger{
-                other{"{0} ؜‮jigger‬؜"}
+                dnam{"؜‮jiggers‬؜"}
+                one{"{0} ؜‮jigger‬؜"}
+                other{"{0} ؜‮jiggers‬؜"}
             }
             liter{
                 dnam{"؜‮liters‬؜"}
@@ -1973,7 +2092,9 @@ ar_XB{
                 other{"{0} ؜‮mL‬؜"}
             }
             pinch{
-                other{"{0} ؜‮pinch‬؜"}
+                dnam{"؜‮pinches‬؜"}
+                one{"{0} ؜‮pn‬؜"}
+                other{"{0} ؜‮pn‬؜"}
             }
             pint{
                 dnam{"؜‮pints‬؜"}
@@ -1991,8 +2112,9 @@ ar_XB{
                 other{"{0} ؜‮qt‬؜"}
             }
             quart-imperial{
-                dnam{"؜‮qt‬؜ ؜‮Imp‬؜"}
-                other{"{0} ؜‮qt‬؜ ؜‮Imp‬؜."}
+                dnam{"؜‮Imp‬؜. ؜‮quarts‬؜"}
+                one{"{0} ؜‮qt‬؜-؜‮Imp‬؜."}
+                other{"{0} ؜‮qt‬؜-؜‮Imp‬؜."}
             }
             tablespoon{
                 dnam{"؜‮tbsp‬؜"}

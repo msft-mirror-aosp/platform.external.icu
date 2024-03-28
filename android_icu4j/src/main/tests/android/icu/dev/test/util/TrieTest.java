@@ -14,7 +14,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 
-import android.icu.dev.test.TestFmwk;
+import android.icu.dev.test.CoreTestFmwk;
 import android.icu.impl.CharTrie;
 import android.icu.impl.IntTrie;
 import android.icu.impl.IntTrieBuilder;
@@ -34,7 +34,7 @@ import android.icu.testsharding.MainTestShard;
 */
 @MainTestShard
 @RunWith(JUnit4.class)
-public final class TrieTest extends TestFmwk
+public final class TrieTest extends CoreTestFmwk
 {
     // constructor ---------------------------------------------------
 

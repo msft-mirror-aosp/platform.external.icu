@@ -13,7 +13,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 
-import android.icu.dev.test.TestFmwk;
+import android.icu.dev.test.CoreTestFmwk;
 import android.icu.impl.Utility;
 import android.icu.util.CompactByteArray;
 import android.icu.util.CompactCharArray;
@@ -24,7 +24,7 @@ import android.icu.testsharding.MainTestShard;
  */
 @MainTestShard
 @RunWith(JUnit4.class)
-public final class CompactArrayTest extends TestFmwk
+public final class CompactArrayTest extends CoreTestFmwk
 {
     @Test
     public void TestByteArrayCoverage() {

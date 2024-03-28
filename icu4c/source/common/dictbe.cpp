@@ -42,7 +42,7 @@ DictionaryBreakEngine::~DictionaryBreakEngine() {
 }
 
 UBool
-DictionaryBreakEngine::handles(UChar32 c) const {
+DictionaryBreakEngine::handles(UChar32 c, const char*) const {
     return fSet.contains(c);
 }
 
@@ -54,13 +54,13 @@ DictionaryBreakEngine::findBreaks( UText *text,
                                  UBool isPhraseBreaking,
                                  UErrorCode& status) const {
     if (U_FAILURE(status)) return 0;
-    (void)startPos;            // TODO: remove this param?
     int32_t result = 0;
 
     // Find the span of characters included in the set.
     //   The span to break begins at the current position in the text, and
     //   extends towards the start or end of the text, depending on 'reverse'.
 
+    utext_setNativeIndex(text, startPos);
     int32_t start = (int32_t)utext_getNativeIndex(text);
     int32_t current;
     int32_t rangeStart;
@@ -140,7 +140,7 @@ int32_t PossibleWord::candidates( UText *text, DictionaryMatcher *dict, int32_t 
     int32_t start = (int32_t)utext_getNativeIndex(text);
     if (start != offset) {
         offset = start;
-        count = dict->matches(text, rangeEnd-start, UPRV_LENGTHOF(cuLengths), cuLengths, cpLengths, NULL, &prefix);
+        count = dict->matches(text, rangeEnd-start, UPRV_LENGTHOF(cuLengths), cuLengths, cpLengths, nullptr, &prefix);
         // Dictionary leaves text after longest prefix, not longest word. Back up.
         if (count <= 0) {
             utext_setNativeIndex(text, start);
@@ -1146,7 +1146,7 @@ CjkBreakEngine::divideUpDictionaryRange( UText *inText,
     UnicodeString inString;
 
     // inputMap[inStringIndex] = corresponding native index from UText inText.
-    // If NULL then mapping is 1:1
+    // If nullptr then mapping is 1:1
     LocalPointer<UVector32>     inputMap;
 
     // if UText has the input string as one contiguous UTF-16 chunk
@@ -1311,9 +1311,9 @@ CjkBreakEngine::divideUpDictionaryRange( UText *inText,
         int32_t count;
         utext_setNativeIndex(&fu, ix);
         count = fDictionary->matches(&fu, maxWordSize, numCodePts,
-                             NULL, lengths.getBuffer(), values.getBuffer(), NULL);
+                             nullptr, lengths.getBuffer(), values.getBuffer(), nullptr);
                              // Note: lengths is filled with code point lengths
-                             //       The NULL parameter is the ignored code unit lengths.
+                             //       The nullptr parameter is the ignored code unit lengths.
 
         // if there are no single character matches found in the dictionary 
         // starting with this character, treat character as a 1-character word 
