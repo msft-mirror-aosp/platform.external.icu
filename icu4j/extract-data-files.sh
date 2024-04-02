@@ -73,12 +73,13 @@ rm -fr      main/core/src/test/resources/com/ibm/icu/dev/data/testdata/
 unzip -q -d main/core/src/test/resources/ main/shared/data/testdata.jar
 rm -fr      main/core/src/test/resources/META-INF
 
-echo "Removing jar files"
-echo "  icudata.jar"
-rm main/shared/data/icudata.jar
-echo "  icutzdata.jar"
-rm main/shared/data/icutzdata.jar
-echo "  testdata.jar"
-rm main/shared/data/testdata.jar
+# Android-changed: Keep the data jar files in AOSP.
+# echo "Removing jar files"
+# echo "  icudata.jar"
+# rm main/shared/data/icudata.jar
+# echo "  icutzdata.jar"
+# rm main/shared/data/icutzdata.jar
+# echo "  testdata.jar"
+# rm main/shared/data/testdata.jar
 
 echo DONE
