@@ -209,10 +209,6 @@ def MakeAndCopyIcuDataFiles(icu_build_dir, copy_icu4c_dat_file_only=False):
   subprocess.check_call(['env', 'ICU_DATA_VER=' + icu4j_data_ver, './extract-data-files.sh'])
   os.chdir(icu_build_dir)
 
-  # The upstream extract-data-files.sh extracts the files, but removed the binary data jar files.
-  # We have to copy them again for the usage in AOSP .bp files.
-  CopyIcu4jDataFiles()
-
   testdata_out_dir = '%s/test/testdata/out' % icu4cDir()
   print('Copying test data to %s ' % testdata_out_dir)
   if os.path.exists(testdata_out_dir):
