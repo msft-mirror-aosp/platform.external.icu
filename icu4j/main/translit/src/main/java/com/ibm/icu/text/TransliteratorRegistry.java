@@ -23,6 +23,7 @@ import java.util.Map;
 import java.util.MissingResourceException;
 import java.util.ResourceBundle;
 import java.util.Set;
+import java.util.function.Supplier;
 
 import com.ibm.icu.impl.ICUData;
 import com.ibm.icu.impl.ICUResourceBundle;
@@ -221,14 +222,39 @@ class TransliteratorRegistry {
     // Entry classes
     //----------------------------------------------------------------------
 
+    // BEGIN Android patch: Lazily load transliterator rules.
     static class ResourceEntry {
-        public String resource;
-        public int direction;
+        private final Supplier<String> resourceSupplier;
+        public final int direction;
+        private String resource;
         public ResourceEntry(String n, int d) {
             resource = n;
             direction = d;
+            resourceSupplier = null;
+        }
+
+        public ResourceEntry(Supplier<String> resourceSupplier, int dir) {
+            this.resourceSupplier = resourceSupplier;
+            direction = dir;
+        }
+
+        public String getResource() {
+            if (resourceSupplier == null) {
+                return resource;
+            }
+
+            synchronized (this) {
+                if (resource != null) {
+                    return resource;
+                }
+
+                String str = resourceSupplier.get();
+                resource = str;
+                return str;
+            }
         }
     }
+    // END Android patch: Lazily load transliterator rules.
 
     // An entry representing a rule in a locale resource bundle
     static class LocaleEntry {
@@ -348,6 +374,15 @@ class TransliteratorRegistry {
                     boolean visible) {
         registerEntry(ID, new ResourceEntry(resourceName, dir), visible);
     }
+
+    // BEGIN Android patch: Lazily load transliterator rules.
+    void put(String ID,
+            Supplier<String> resourceSupplier,
+            int dir,
+            boolean visible) {
+        registerEntry(ID, new ResourceEntry(resourceSupplier, dir), visible);
+    }
+    // END Android patch: Lazily load transliterator rules.
 
     /**
      * Register an ID and an alias ID.  This adds an entry to the
@@ -876,7 +911,9 @@ class TransliteratorRegistry {
             try {
 
                 ResourceEntry re = (ResourceEntry) entry;
-                parser.parse(re.resource, re.direction);
+                // Android patch: Lazily load transliterator rules.
+                // parser.parse(re.resource, re.direction);
+                parser.parse(re.getResource(), re.direction);
 
             } catch (ClassCastException e) {
                 // If we pull a rule from a locale resource bundle it will
