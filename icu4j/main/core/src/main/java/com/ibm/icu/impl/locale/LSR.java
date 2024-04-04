@@ -184,7 +184,12 @@ public final class LSR {
         LSR[] lsrs = new LSR[nums.length];
         for (int i = 0; i < nums.length; ++i) {
             int n = nums[i];
-            lsrs[i] = new LSR(toLanguage(n), toScript(n), toRegion(n, m49), LSR.IMPLICIT_LSR);
+            // Android patch: Save ~1MB zygote heap. http://b/331291118
+            // ~7k LSR instances and ~21k strings are created from this path.
+            String lang = toLanguage(n).intern();
+            String script = toScript(n).intern();
+            String region = toRegion(n, m49).intern();
+            lsrs[i] = new LSR(lang, script, region, LSR.IMPLICIT_LSR);
         }
         return lsrs;
     }
