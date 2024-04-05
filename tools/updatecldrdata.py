@@ -120,6 +120,15 @@ def main():
     os.path.join(icu4j_build_dir, 'main/core/src/test/resources/com/ibm/icu/dev/data/cldr'),
     os.path.join(icu_dir, 'icu4j/main/core/src/test/resources/com/ibm/icu/dev/data/cldr'))
 
+  # Copy the generated localefallback_data.h and LocaleFallbackData.java
+  shutil.copy(
+    os.path.join(icu4c_build_dir, 'source/common/localefallback_data.h'),
+    os.path.join(icu_dir, 'icu4c/source/common/localefallback_data.h'))
+  shutil.copy(
+    os.path.join(icu4j_build_dir,
+                 'main/core/src/main/java/com/ibm/icu/impl/LocaleFallbackData.java'),
+    os.path.join(icu_dir, 'icu4j/main/core/src/main/java/com/ibm/icu/impl/LocaleFallbackData.java'))
+
   print('Look in %s for new data source files' % icu4c_data_source_dir)
   sys.exit(0)
 
