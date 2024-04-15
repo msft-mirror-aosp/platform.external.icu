@@ -3,6 +3,8 @@
 // License & terms of use: http://www.unicode.org/copyright.html
 package android.icu.impl.locale;
 
+import java.util.Map;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Objects;
 
@@ -186,13 +188,17 @@ public final class LSR {
 
     public static LSR[] decodeInts(int[] nums, String[] m49) {
         LSR[] lsrs = new LSR[nums.length];
+
+        // Android patch: Save ~1MB zygote heap. http://b/331291118
+        // ~7k LSR instances and ~21k strings are created from this path.
+        Map<Integer, String> langsCache = new HashMap<>();
+        Map<Integer, String> scriptsCache = new HashMap<>();
+        Map<Integer, String> regionsCache = new HashMap<>();
         for (int i = 0; i < nums.length; ++i) {
             int n = nums[i];
-            // Android patch: Save ~1MB zygote heap. http://b/331291118
-            // ~7k LSR instances and ~21k strings are created from this path.
-            String lang = toLanguage(n).intern();
-            String script = toScript(n).intern();
-            String region = toRegion(n, m49).intern();
+            String lang = langsCache.computeIfAbsent(n, LSR::toLanguage);
+            String script = scriptsCache.computeIfAbsent(n, LSR::toScript);
+            String region = regionsCache.computeIfAbsent(n, encoded -> toRegion(encoded, m49));
             lsrs[i] = new LSR(lang, script, region, LSR.IMPLICIT_LSR);
         }
         return lsrs;
