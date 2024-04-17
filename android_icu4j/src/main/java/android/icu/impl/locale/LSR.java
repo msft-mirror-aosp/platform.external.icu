@@ -3,11 +3,12 @@
 // License & terms of use: http://www.unicode.org/copyright.html
 package android.icu.impl.locale;
 
-import java.util.Map;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Objects;
 
+import android.icu.lang.UCharacter;
+import android.icu.lang.UProperty;
 import android.icu.lang.UScript;
 
 /**
@@ -153,54 +154,91 @@ public final class LSR {
         return (encodeLanguageToInt() + (27*27*27) * encodeRegionToInt(m49)) |
             (encodeScriptToInt() << 24);
     }
-    private static String toLanguage(int encoded) {
-        if (encoded == 0) return "";
-        if (encoded == 1) return "skip";
-        encoded &= 0x00ffffff;
-        encoded %= 27*27*27;
-        StringBuilder res = new StringBuilder(3);
-        res.append((char)('a' + ((encoded % 27) - 1)));
-        res.append((char)('a' + (((encoded / 27 ) % 27) - 1)));
-        if (encoded / (27 * 27) != 0) {
-            res.append((char)('a' + ((encoded / (27 * 27)) - 1)));
+
+    // BEGIN Android patch: Save ~1MB zygote heap. http://b/331291118
+    // ~7k LSR instances and ~21k strings are created from this path.
+    private static class CachedDecoder {
+        private static final String[] DECODED_ZERO =
+                new String[] {/*lang=*/ "", /*script=*/ "", /*region=*/ ""};
+        private static final String[] DECODED_ONE =
+                new String[] {/*lang=*/ "skip", /*script=*/ "script", /*region=*/ ""};
+
+        private final HashMap<Integer, String> langsCache;
+        private final HashMap<Integer, String> scriptsCache;
+        private final HashMap<Integer, String> regionsCache;
+
+        private final String[] m49;
+
+        CachedDecoder(String[] m49) {
+            int estLangCacheCapacity = 556;  // ~= LocaleIDs._languages.length
+            langsCache = new HashMap<>(estLangCacheCapacity);
+            scriptsCache = new HashMap<>(UCharacter.getIntPropertyMaxValue(UProperty.SCRIPT));
+            int estRegionCacheCapacity = 253;  // ~= LocaleIDs._countries.length
+            regionsCache = new HashMap<>(estRegionCacheCapacity);
+            this.m49 = m49;
         }
-        return res.toString();
-    }
-    private static String toScript(int encoded) {
-        if (encoded == 0) return "";
-        if (encoded == 1) return "script";
-        encoded = (encoded >> 24) & 0x000000ff;
-        return UScript.getShortName(encoded);
-    }
-    private static String toRegion(int encoded, String[] m49) {
-        if (encoded == 0 || encoded == 1) return "";
-        encoded &= 0x00ffffff;
-        encoded /= 27 * 27 * 27;
-        encoded %= 27 * 27;
-        if (encoded < 27) {
-            return m49[encoded];
+
+        /**
+         * @return a String[3] object where the first element is a language code, the second element
+         *   is a script code, and the third element is a region code.
+         */
+        String[] decode(int encoded) {
+            if (encoded == 0) {
+                return DECODED_ZERO;
+            }
+            if (encoded == 1) {
+                return DECODED_ONE;
+            }
+
+            int encodedLang = encoded & 0x00ffffff;
+            encodedLang %= 27*27*27;
+            String lang = langsCache.computeIfAbsent(encodedLang, CachedDecoder::toLanguage);
+
+            int encodedScript = (encoded >> 24) & 0x000000ff;
+            String script = scriptsCache.computeIfAbsent(encodedScript, UScript::getShortName);
+
+            int encodedRegion = encoded & 0x00ffffff;
+            encodedRegion /= 27 * 27 * 27;
+            encodedRegion %= 27 * 27;
+
+            String region;
+            if (encodedRegion < 27) {
+                region = m49[encodedRegion];
+            } else {
+                region = regionsCache.computeIfAbsent(encodedRegion, CachedDecoder::toRegion);
+            }
+
+            return new String[] {lang, script, region};
         }
-        StringBuilder res = new StringBuilder(3);
-        res.append((char)('A' + ((encoded % 27) - 1)));
-        res.append((char)('A' + (((encoded / 27) % 27) - 1)));
-        return res.toString();
+
+        private static String toLanguage(int encoded) {
+            StringBuilder res = new StringBuilder(3);
+            res.append((char)('a' + ((encoded % 27) - 1)));
+            res.append((char)('a' + (((encoded / 27 ) % 27) - 1)));
+            if (encoded / (27 * 27) != 0) {
+                res.append((char)('a' + ((encoded / (27 * 27)) - 1)));
+            }
+            return res.toString();
+        }
+
+        private static String toRegion(int encoded) {
+            StringBuilder res = new StringBuilder(3);
+            res.append((char)('A' + ((encoded % 27) - 1)));
+            res.append((char)('A' + (((encoded / 27) % 27) - 1)));
+            return res.toString();
+        }
     }
 
     public static LSR[] decodeInts(int[] nums, String[] m49) {
         LSR[] lsrs = new LSR[nums.length];
 
-        // Android patch: Save ~1MB zygote heap. http://b/331291118
-        // ~7k LSR instances and ~21k strings are created from this path.
-        Map<Integer, String> langsCache = new HashMap<>();
-        Map<Integer, String> scriptsCache = new HashMap<>();
-        Map<Integer, String> regionsCache = new HashMap<>();
+        CachedDecoder decoder = new CachedDecoder(m49);
         for (int i = 0; i < nums.length; ++i) {
-            int n = nums[i];
-            String lang = langsCache.computeIfAbsent(n, LSR::toLanguage);
-            String script = scriptsCache.computeIfAbsent(n, LSR::toScript);
-            String region = regionsCache.computeIfAbsent(n, encoded -> toRegion(encoded, m49));
-            lsrs[i] = new LSR(lang, script, region, LSR.IMPLICIT_LSR);
+            int encoded = nums[i];
+            String[] lsrStrings = decoder.decode(encoded);
+            lsrs[i] = new LSR(lsrStrings[0], lsrStrings[1], lsrStrings[2], LSR.IMPLICIT_LSR);
         }
         return lsrs;
     }
+    // END Android patch: Save ~1MB zygote heap. http://b/331291118
 }
