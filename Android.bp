@@ -41,7 +41,7 @@ license {
         "SPDX-license-identifier-ICU",
         "SPDX-license-identifier-ISC",
         "SPDX-license-identifier-MIT",
-        "SPDX-license-identifier-Unicode-DFS",
+        "SPDX-license-identifier-Unicode-3.0",
         "legacy_unencumbered",
     ],
     license_text: [
