@@ -17,19 +17,6 @@
 #ifndef __UCONFIG_H__
 #define __UCONFIG_H__
 
-// Android patch: Hard code UCONFIG_USE_LOCAL=1 so that ICU will use
-// uconfig_local.h, which allows us to disable use of non-stable and
-// internal APIs in libicu and Android's libandroidicu shim. For more
-// information on this pre-processor variable see the comments below.
-// Also, see http://b/117094880
-
-// To keep updateicudata.py (which uses the ICU make process) working,
-// uconfig_local.h is only included when ANDROID is defined in the
-// platform build system(s), or __ANDROID__ is defined when targeting
-// Android, e.g. NDK build.
-#if defined(ANDROID) || defined(__ANDROID__)
-#define UCONFIG_USE_LOCAL 1
-#endif
 
 /*!
  * \file
@@ -424,6 +411,17 @@
  */
 #ifndef UCONFIG_NO_FORMATTING
 #   define UCONFIG_NO_FORMATTING 0
+#endif
+
+/**
+ * \def UCONFIG_NO_MF2
+ * This switch turns off the experimental MessageFormat 2.0 API.
+ *
+ * @internal ICU 75 technology preview
+ * @deprecated This API is for technology preview only.
+ */
+#ifndef UCONFIG_NO_MF2
+#   define UCONFIG_NO_MF2 0
 #endif
 
 /**

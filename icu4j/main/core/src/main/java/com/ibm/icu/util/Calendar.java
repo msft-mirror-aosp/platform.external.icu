@@ -979,17 +979,13 @@ public abstract class Calendar implements Serializable, Cloneable, Comparable<Ca
      */
     public static final int ORDINAL_MONTH = 23;
 
-    // Android patch: Soft removal the BASE_FIELD_COUNT API on Android.
     /**
      * The number of fields defined by this class.  Subclasses may define
      * addition fields starting with this number.
-     * @removed ICU 58 The numeric value may change over time, see ICU ticket #12420.
+     * @deprecated ICU 58 The numeric value may change over time, see ICU ticket #12420.
      */
     @Deprecated
-    protected static final int BASE_FIELD_COUNT;
-    static {
-        BASE_FIELD_COUNT = 24;
-    }
+    protected static final int BASE_FIELD_COUNT = 24;
 
     /**
      * The maximum number of fields possible.  Subclasses must not define
@@ -1860,10 +1856,13 @@ public abstract class Calendar implements Serializable, Cloneable, Comparable<Ca
         case ISO8601:
             // Only differs week numbering rule from Gregorian
             cal = new GregorianCalendar(zone, locale);
-            String type = locale.getUnicodeLocaleType("fw");
-            // Only set fw to Monday for ISO8601 if there aer no fw keyword.
-            // If there is a fw keyword, the Calendar constructor already set it to the fw value.
-            if (locale.getKeywordValue("fw") == null) {
+            // Based on UTS35 "First Day Overrides"
+            // https://unicode.org/reports/tr35/tr35-dates.html#first-day-overrides
+            // Only set fw to Monday for ISO8601 if there are no fw nor rg keywords.
+            // If there is a fw or rg keywords, the Calendar constructor already set it
+            // to the fw value or based on the rg value.
+            if (locale.getUnicodeLocaleType("fw") == null &&
+                locale.getUnicodeLocaleType("rg") == null) {
                 cal.setFirstDayOfWeek(MONDAY);
             }
             cal.setMinimalDaysInFirstWeek(4);
@@ -3073,14 +3072,9 @@ public abstract class Calendar implements Serializable, Cloneable, Comparable<Ca
             // * Until we have new API per #9393, we temporarily hardcode knowledge of
             //   which calendars have era 0 years that go backwards.
         {
-            boolean era0WithYearsThatGoBackwards = false;
             int era = get(ERA);
-            if (era == 0) {
-                String calType = getType();
-                if (calType.equals("gregorian") || calType.equals("roc") || calType.equals("coptic")) {
-                    amount = -amount;
-                    era0WithYearsThatGoBackwards = true;
-                }
+            if (era == 0 && isEra0CountingBackward()) {
+                amount = -amount;
             }
             int newYear = internalGet(field) + amount;
             if (era > 0 || newYear >= 1) {
@@ -3099,7 +3093,7 @@ public abstract class Calendar implements Serializable, Cloneable, Comparable<Ca
                 // else we are in era 0 with newYear < 1;
                 // calendars with years that go backwards must pin the year value at 0,
                 // other calendars can have years < 0 in era 0
-            } else if (era0WithYearsThatGoBackwards) {
+            } else if (era == 0 && isEra0CountingBackward()) {
                 newYear = 1;
             }
             set(field, newYear);
@@ -3416,11 +3410,8 @@ public abstract class Calendar implements Serializable, Cloneable, Comparable<Ca
             //   also handle YEAR the same way.
         {
             int era = get(ERA);
-            if (era == 0) {
-                String calType = getType();
-                if (calType.equals("gregorian") || calType.equals("roc") || calType.equals("coptic")) {
-                    amount = -amount;
-                }
+            if (era == 0 && isEra0CountingBackward()) {
+                amount = -amount;
             }
         }
         // Fall through into standard handling
@@ -3764,51 +3755,6 @@ public abstract class Calendar implements Serializable, Cloneable, Comparable<Ca
         return result;
     }
 
-    // Android patch (http://b/28832222) start.
-    // Expose method to get format string for java.time.
-    /**
-     * Get the date time format string for the specified values.
-     * This is a copy of {@link #formatHelper(Calendar, ULocale, int, int)} with the following
-     * changes:
-     * <ul>
-     *     <li>Made public, but hidden</li>
-     *     <li>take calendar type string instead of Calendar</li>
-     *     <li>Ignore overrides</li>
-     *     <li>Return format string instead of DateFormat.</li>
-     * </ul>
-     * This is not meant as public API.
-     * @internal
-     */
-    // TODO: Check if calType can be passed via keyword on loc parameter instead.
-    public static String getDateTimeFormatString(ULocale loc, String calType, int dateStyle,
-            int timeStyle) {
-        if (timeStyle < DateFormat.NONE || timeStyle > DateFormat.SHORT) {
-            throw new IllegalArgumentException("Illegal time style " + timeStyle);
-        }
-        if (dateStyle < DateFormat.NONE || dateStyle > DateFormat.SHORT) {
-            throw new IllegalArgumentException("Illegal date style " + dateStyle);
-        }
-
-        PatternData patternData = PatternData.make(loc, calType);
-
-        // Resolve a pattern for the date/time style
-        String pattern = null;
-        if ((timeStyle >= 0) && (dateStyle >= 0)) {
-            pattern = SimpleFormatterImpl.formatRawPattern(
-                    patternData.getDateAtTimePattern(dateStyle), 2, 2,
-                    patternData.patterns[timeStyle],
-                    patternData.patterns[dateStyle + 4]);
-        } else if (timeStyle >= 0) {
-            pattern = patternData.patterns[timeStyle];
-        } else if (dateStyle >= 0) {
-            pattern = patternData.patterns[dateStyle + 4];
-        } else {
-            throw new IllegalArgumentException("No date or time style specified");
-        }
-        return pattern;
-    }
-    // Android patch (http://b/28832222) end.
-
     static class PatternData {
         // TODO make this even more object oriented
         private String[] patterns;
@@ -3836,12 +3782,8 @@ public abstract class Calendar implements Serializable, Cloneable, Comparable<Ca
             }
         }
         private static PatternData make(Calendar cal, ULocale loc) {
-            // Android patch (http://b/28832222) start.
-            return make(loc, cal.getType());
-        }
-        private static PatternData make(ULocale loc, String calType) {
-            // Android patch (http://b/28832222) end.
             // First, try to get a pattern from PATTERN_CACHE
+            String calType = cal.getType();
             String key = loc.getBaseName() + "+" + calType;
             PatternData patternData = null;
             boolean hasHourCycleKeywords = loc.getKeywordValue("rg") != null
@@ -4146,6 +4088,17 @@ public abstract class Calendar implements Serializable, Cloneable, Comparable<Ca
         } else if (fields[field] < min) {
             set(field, min);
         }
+    }
+
+    /**
+     * The year in this calendar is counting from 1 backward if the era is 0.
+     * @return The year in era 0 of this calendar is counting backward from 1.
+     * @internal
+     * @deprecated This API is ICU internal only.
+     */
+    @Deprecated
+    protected boolean isEra0CountingBackward() {
+        return false;
     }
 
     /**
@@ -5912,12 +5865,12 @@ public abstract class Calendar implements Serializable, Cloneable, Comparable<Ca
         }
 
         if (mid == lower) {
-            return Long.valueOf(upper);
+            return upper;
         }
         midOffset = tz.getOffset(mid);
         if (midOffset != upperOffset) {
             if (onUnitTime) {
-                return Long.valueOf(upper);
+                return upper;
             }
             return findPreviousZoneTransitionTime(tz, upperOffset, upper, mid);
         }
@@ -6285,6 +6238,10 @@ public abstract class Calendar implements Serializable, Cloneable, Comparable<Ca
         }
 
         internalSet(EXTENDED_YEAR, year);
+
+        if (year > Long.MAX_VALUE / 400) {
+            throw new IllegalArgumentException("year is too large");
+        }
 
         int month = useMonth ? internalGetMonth(getDefaultMonthInYear(year)) : 0;
 

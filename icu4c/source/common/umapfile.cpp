@@ -236,9 +236,9 @@ typedef HANDLE MemoryMap;
 
         /* get a view of the mapping */
 #if U_PLATFORM != U_PF_HPUX
-        data=mmap(0, length, PROT_READ, MAP_SHARED,  fd, 0);
+        data=mmap(nullptr, length, PROT_READ, MAP_SHARED, fd, 0);
 #else
-        data=mmap(0, length, PROT_READ, MAP_PRIVATE, fd, 0);
+        data=mmap(nullptr, length, PROT_READ, MAP_PRIVATE, fd, 0);
 #endif
         close(fd); /* no longer needed */
         if(data==MAP_FAILED) {
@@ -249,8 +249,7 @@ typedef HANDLE MemoryMap;
         pData->map = (char *)data + length;
         pData->pHeader=(const DataHeader *)data;
         pData->mapAddr = data;
-        // Android-changed: madvise on Android for performance reason.
-#if U_PLATFORM == U_PF_IPHONE || U_PLATFORM == U_PF_ANDROID
+#if U_PLATFORM == U_PF_IPHONE
         posix_madvise(data, length, POSIX_MADV_RANDOM);
 #endif
         return true;
@@ -263,7 +262,7 @@ typedef HANDLE MemoryMap;
             if(munmap(pData->mapAddr, dataLen)==-1) {
             }
             pData->pHeader=nullptr;
-            pData->map=0;
+            pData->map=nullptr;
             pData->mapAddr=nullptr;
         }
     }

@@ -648,9 +648,7 @@ public class TestCharset extends TestFmwk {
                 logln("finish: " + hex(finishArray));
             }
         } catch (CharacterCodingException ex) {
-            // Android patch: Skip tests that fail with customized data.
-            logln(converter + " roundtrip test failed: " + ex.getMessage());
-            // Android patch end.
+            errln(converter + " roundtrip test failed: " + ex.getMessage());
             ex.printStackTrace(System.err);
         }
 
@@ -682,9 +680,7 @@ public class TestCharset extends TestFmwk {
                 }
             } else {
                 if (result.isError()) {
-                    // Android patch: Skip tests that fail with customized data.
-                    logln("Error should not have occurred while encoding HZ.(" + i + ")");
-                    // Android patch end.
+                    errln("Error should not have occurred while encoding HZ.(" + i + ")");
                 }
             }
         }
@@ -833,13 +829,11 @@ public class TestCharset extends TestFmwk {
             } catch (CharacterCodingException ex) {
                 errln("Unexpected CharacterCodingException: " + ex.getMessage());
                 return;
-            // Android patch: Skip tests that fail with customized data.
-            } catch (RuntimeException | CoderMalfunctionError ex) {
+            } catch (RuntimeException ex) {
                 if (!currentlybad) {currentlybad = true; badcount++; logln(""); }
-                logln(converter + " " + ex.getClass().getName() + ": " + ex.getMessage());
+                errln(converter + " " + ex.getClass().getName() + ": " + ex.getMessage());
                 continue outer;
             }
-            // Android patch end.
 
             encoder.onUnmappableCharacter(CodingErrorAction.REPORT);
             encoder.onMalformedInput(CodingErrorAction.REPORT);
@@ -932,16 +926,16 @@ public class TestCharset extends TestFmwk {
 //            offsets.put(0);
 //            offsets.put(1);
 //            char[] buffer = null;
-//            Integer length = new Integer(2);
-//            Integer cp = new Integer(0);
+//            Integer length = 2;
+//            Integer cp = 0;
 //            CoderResult unmap = CoderResult.unmappableForLength(2);
 //            CoderResult malf = CoderResult.malformedForLength(2);
 //            CoderResult under = CoderResult.UNDERFLOW;
 //
 //            // set up error arrays
-//            Integer invalidCharLength = new Integer(1);
-//            Byte subChar1 = new Byte((byte)0);
-//            Byte subChar1_alternate = new Byte((byte)1); // for TO_U_CALLBACK_SUBSTITUTE
+//            Integer invalidCharLength = 1;
+//            Byte subChar1 = (byte)0;
+//            Byte subChar1_alternate = (byte)1; // for TO_U_CALLBACK_SUBSTITUTE
 //
 //            // set up chars and bytes backups and expected values for certain cases
 //            CharBuffer charsBackup = bufferCopy(chars);
@@ -967,14 +961,14 @@ public class TestCharset extends TestFmwk {
 //            // run toUWriteUChars with normal data
 //            Method toUWriteUChars = CharsetDecoderICU.class.getDeclaredMethod("toUWriteUChars", new Class[] { CharsetDecoderICU.class, char[].class, int.class, int.class, CharBuffer.class, IntBuffer.class, int.class});
 //            toUWriteUChars.setAccessible(true);
-//            CoderResult decoderResultExpected1 = (CoderResult)toUWriteUChars.invoke(decoder, new Object[] {decoder, new char[] {0xFFFD}, new Integer(0), new Integer(1), decoderCharsExpected1, decoderOffsetsExpected1, new Integer(bytes.position())});
+//            CoderResult decoderResultExpected1 = (CoderResult)toUWriteUChars.invoke(decoder, new Object[] {decoder, new char[] {0xFFFD}, Integer.valueOf(0), Integer.valueOf(1), decoderCharsExpected1, decoderOffsetsExpected1, Integer.valueOf(bytes.position())});
 //
 //            // reset certain fields
 //            setFieldValue(CharsetDecoderICU.class, "invalidCharLength", decoder, invalidCharLength);
 //            setFieldValue(CharsetICU.class, "subChar1", ((CharsetICU) decoder.charset()), subChar1_alternate);
 //
 //            // run toUWriteUChars again
-//            CoderResult decoderResultExpected2 = (CoderResult)toUWriteUChars.invoke(decoder, new Object[] {decoder, new char[] {0x1A}, new Integer(0), new Integer(1), decoderCharsExpected2, decoderOffsetsExpected2, new Integer(bytes.position())});
+//            CoderResult decoderResultExpected2 = (CoderResult)toUWriteUChars.invoke(decoder, new Object[] {decoder, new char[] {0x1A}, Integer.valueOf(0), Integer.valueOf(1), decoderCharsExpected2, decoderOffsetsExpected2, Integer.valueOf(bytes.position())});
 //
 //            // begin creating the tests array
 //            ArrayList tests = new ArrayList();
@@ -2386,10 +2380,8 @@ public class TestCharset extends TestFmwk {
             if(!result.isError()){
                 byte[] expected = {(byte)0xA9, (byte)0xA5, (byte)0xAF, (byte)0xFE, (byte)0xA2, (byte)0xAE};
                 if(!equals(expected, out.array())){
-                    // Android patch: Skip tests that fail with customized data.
-                    logln("Did not get the expected result for substitution bytes. Got: "+
+                    errln("Did not get the expected result for substitution bytes. Got: "+
                            hex(out.array()));
-                    // Android patch end.
                 }
                 logln("Output: "+  hex(out.array()));
             }else{

@@ -655,54 +655,48 @@ public class DateIntervalFormatTest extends CoreTestFmwk {
 
                 // Thai (default calendar buddhist)
 
-                // Android patch: Force default Gregorian calendar.
-
-                "th", "2550 10 10 10:10:10", "2551 10 10 10:10:10", "EEEEdMMMy", "\\u0E27\\u0E31\\u0E19\\u0E40\\u0E2A\\u0E32\\u0E23\\u0E4C\\u0E17\\u0E35\\u0E48 10 \\u0E15.\\u0E04. 2550 \\u2013 \\u0E27\\u0E31\\u0E19\\u0E2D\\u0E32\\u0E17\\u0E34\\u0E15\\u0E22\\u0E4C\\u0E17\\u0E35\\u0E48 10 \\u0E15.\\u0E04. 2551",
+                "th", "BE 2550 10 10 10:10:10", "BE 2551 10 10 10:10:10", "EEEEdMMMy", "\\u0E27\\u0E31\\u0E19\\u0E1E\\u0E38\\u0E18\\u0E17\\u0E35\\u0E48 10 \\u0E15.\\u0E04. 2550 \\u2013 \\u0E27\\u0E31\\u0E19\\u0E28\\u0E38\\u0E01\\u0E23\\u0E4C\\u0E17\\u0E35\\u0E48 10 \\u0E15.\\u0E04. 2551",
 
 
-                "th", "2550 10 10 10:10:10", "2551 10 10 10:10:10", "dMMM", "10 \\u0E15.\\u0E04. 2550 \\u2013 10 \\u0E15.\\u0E04. 2551",
+                "th", "BE 2550 10 10 10:10:10", "BE 2551 10 10 10:10:10", "dMMM", "10 \\u0E15.\\u0E04. 2550 \\u2013 10 \\u0E15.\\u0E04. 2551",
 
-                "th", "2550 10 10 10:10:10", "2551 10 10 10:10:10", "MMMy", "\\u0E15.\\u0E04. 2550 \\u2013 \\u0E15.\\u0E04. 2551",
-
-
-                "th", "2550 10 10 10:10:10", "2551 10 10 10:10:10", "EdMy", "ส. 10/10/2550 – อา. 10/10/2551",
-
-                "th", "2550 10 10 10:10:10", "2551 10 10 10:10:10", "dMy", "10/10/2550 \\u2013 10/10/2551",
+                "th", "BE 2550 10 10 10:10:10", "BE 2551 10 10 10:10:10", "MMMy", "\\u0E15.\\u0E04. 2550 \\u2013 \\u0E15.\\u0E04. 2551",
 
 
-                "th", "2550 10 10 10:10:10", "2551 10 10 10:10:10", "EdMy", "\\u0E2A. 10/10/2550 \\u2013 \\u0E2D\\u0E32. 10/10/2551",
-                "th", "2550 10 10 10:10:10", "2551 10 10 10:10:10", "My", "10/2550 \\u2013 10/2551",
+                "th", "BE 2550 10 10 10:10:10", "BE 2551 10 10 10:10:10", "EdMy", "\\u0E1E. 10/10/2550 \\u2013 \\u0E28. 10/10/2551",
 
-                "th", "2550 10 10 10:10:10", "2551 10 10 10:10:10", "EdM", "ส. 10/10/2550 – อา. 10/10/2551",
-
-
-                "th", "2550 10 10 10:10:10", "2551 10 10 10:10:10", "y", "2550\\u20132551",
-
-                "th", "2550 10 10 10:10:10", "2551 10 10 10:10:10", "EdM", "\\u0E2A. 10/10/2550 \\u2013 \\u0E2D\\u0E32. 10/10/2551",
-                "th", "2550 10 10 10:10:10", "2551 10 10 10:10:10", "M", "10/2550 \\u2013 10/2551",
+                "th", "BE 2550 10 10 10:10:10", "BE 2551 10 10 10:10:10", "dMy", "10/10/2550 \\u2013 10/10/2551",
 
 
-                "th", "2550 10 10 10:10:10", "2550 11 10 10:10:10", "EEEEdMMMy", "วันเสาร์ที่ 10 ต.ค. – วันอังคารที่ 10 พ.ย. 2550",
+                "th", "BE 2550 10 10 10:10:10", "BE 2551 10 10 10:10:10", "My", "10/2550 \\u2013 10/2551",
+
+                "th", "BE 2550 10 10 10:10:10", "BE 2551 10 10 10:10:10", "EdM", "\\u0E1E. 10/10/2550 \\u2013 \\u0E28. 10/10/2551",
 
 
-                "th", "2550 10 10 10:10:10", "2550 11 10 10:10:10", "dMMM", "10 \\u0E15.\\u0E04. \\u2013 10 \\u0E1E.\\u0E22.",
+                "th", "BE 2550 10 10 10:10:10", "BE 2551 10 10 10:10:10", "y", "2550\\u20132551",
 
-                "th", "2550 10 10 10:10:10", "2550 11 10 10:10:10", "EEEEdMMMy", "\\u0E27\\u0E31\\u0E19\\u0E40\\u0E2A\\u0E32\\u0E23\\u0E4C\\u0E17\\u0E35\\u0E48 10 \\u0E15.\\u0E04. \\u2013 \\u0E27\\u0E31\\u0E19\\u0E2D\\u0E31\\u0E07\\u0E04\\u0E32\\u0E23\\u0E17\\u0E35\\u0E48 10 \\u0E1E.\\u0E22. 2550",
-                "th", "2550 10 10 10:10:10", "2550 11 10 10:10:10", "MMMy", "\\u0E15.\\u0E04.\\u2013\\u0E1E.\\u0E22. 2550",
-
-                "th", "2550 10 10 10:10:10", "2550 11 10 10:10:10", "dM", "10/10 \\u2013 10/11",
-
-                "th", "2550 10 10 10:10:10", "2550 11 10 10:10:10", "My", "10/2550 \\u2013 11/2550",
+                "th", "BE 2550 10 10 10:10:10", "BE 2551 10 10 10:10:10", "M", "10/2550 \\u2013 10/2551",
 
 
-                "th", "2550 10 10 10:10:10", "2550 11 10 10:10:10", "d", "10/10 \\u2013 10/11",
-
-                "th", "2550 10 10 10:10:10", "2550 11 10 10:10:10", "y", "2550",
+                "th", "BE 2550 10 10 10:10:10", "BE 2550 11 10 10:10:10", "EEEEdMMMy", "\\u0E27\\u0E31\\u0E19\\u0E1E\\u0E38\\u0E18\\u0E17\\u0E35\\u0E48 10 \\u0E15.\\u0E04. \\u2013 \\u0E27\\u0E31\\u0E19\\u0E40\\u0E2A\\u0E32\\u0E23\\u0E4C\\u0E17\\u0E35\\u0E48 10 \\u0E1E.\\u0E22. 2550",
 
 
-                "th", "2550 10 10 10:10:10", "2550 11 10 10:10:10", "MMM", "ต.ค. – พ.ย.",
+                "th", "BE 2550 10 10 10:10:10", "BE 2550 11 10 10:10:10", "dMMM", "10 \\u0E15.\\u0E04. \\u2013 10 \\u0E1E.\\u0E22.",
 
-                "th", "2550 10 10 10:10:10", "2550 11 10 10:10:10", "y", "2550",
+                "th", "BE 2550 10 10 10:10:10", "BE 2550 11 10 10:10:10", "MMMy", "\\u0E15.\\u0E04.\\u2013\\u0E1E.\\u0E22. 2550",
+
+                "th", "BE 2550 10 10 10:10:10", "BE 2550 11 10 10:10:10", "dM", "10/10 \\u2013 10/11",
+
+                "th", "BE 2550 10 10 10:10:10", "BE 2550 11 10 10:10:10", "My", "10/2550 \\u2013 11/2550",
+
+
+                "th", "BE 2550 10 10 10:10:10", "BE 2550 11 10 10:10:10", "d", "10/10 \\u2013 10/11",
+
+                "th", "BE 2550 10 10 10:10:10", "BE 2550 11 10 10:10:10", "y", "\\u0e1e.\\u0e28. 2550",
+
+
+                "th", "BE 2550 10 10 10:10:10", "BE 2550 11 10 10:10:10", "MMM", "\u0E15.\u0E04.\u2013\u0E1E.\u0E22.",
+
                 // Tests for Japanese calendar with eras, including new era in 2019 (Heisei 31 through April 30, then new era)
 
                 "en-u-ca-japanese", "H 31 03 15 09:00:00", "H 31 04 15 09:00:00", "GyMMMd", "Mar 15\u2009\u2013\u2009Apr 15, 31 Heisei",
@@ -728,7 +722,6 @@ public class DateIntervalFormatTest extends CoreTestFmwk {
 
                 "ja-u-ca-japanese", "H 31 04 15 09:00:00", DateFormat.JP_ERA_2019_NARROW+" 1 05 15 09:00:00", "GGGGGyMd", "H31/04/15\uFF5E"+DateFormat.JP_ERA_2019_NARROW+"1/05/15",
 
-                // Android patch end.
         };
         expect(DATA, DATA.length);
     }
@@ -1822,7 +1815,7 @@ public class DateIntervalFormatTest extends CoreTestFmwk {
                 String firstPart = patternInfo.getFirstPart();
                 String secondPart = patternInfo.getSecondPart();
                 if (!matches(dateFormatPattern, firstPart, secondPart)) {
-                    if (logKnownIssue("11585", "incompatible pattern between date format and date interval format")) {
+                    if (logKnownIssue("ICU-11585", "incompatible pattern between date format and date interval format")) {
                         logln("For skeleton " + skeleton + "/locale " + locale + ": mismatch between date format «"
                                 + dateFormatPattern + "» and date interval format «" + firstPart + secondPart + "».");
                     } else {
@@ -2500,6 +2493,17 @@ public class DateIntervalFormatTest extends CoreTestFmwk {
         DateFormat df = dif.getDateFormat();
         SimpleDateFormat sdf = (SimpleDateFormat)df;
         assertEquals("Wrong date format", "M/d/r, h:mm\u202Fa", sdf.toPattern());
+
+        // additional tests for the related ICU-22202
+        dif = DateIntervalFormat.getInstance("Lh", ULocale.ENGLISH);
+        df = dif.getDateFormat();
+        sdf = (SimpleDateFormat)df;
+        assertEquals("Wrong date format", "L, h a", sdf.toPattern());
+
+        dif = DateIntervalFormat.getInstance("UH", ULocale.forLanguageTag("en-u-ca-chinese"));
+        df = dif.getDateFormat();
+        sdf = (SimpleDateFormat)df;
+        assertEquals("Wrong date format", "r(U), HH", sdf.toPattern());
     }
 
     @Test

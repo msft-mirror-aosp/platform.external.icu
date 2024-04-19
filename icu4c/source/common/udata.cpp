@@ -111,31 +111,13 @@ static u_atomic_int32_t gHaveTriedToLoadCommonData {0};  //  See extendICUData()
 static UHashtable  *gCommonDataCache = nullptr;  /* Global hash table of opened ICU data files.  */
 static icu::UInitOnce gCommonDataCacheInitOnce {};
 
-// Android-changed: On Android, use our patched version of openCommonData() to load the data,
-//   and do not try to load ICU data from other files.
-#if U_PLATFORM == U_PF_ANDROID
-static UDataFileAccess  gDataFileAccess = UDATA_NO_FILES;
-#elif !defined(ICU_DATA_DIR_WINDOWS)
+#if !defined(ICU_DATA_DIR_WINDOWS)
 static UDataFileAccess  gDataFileAccess = UDATA_DEFAULT_ACCESS;  // Access not synchronized.
                                                                  // Modifying is documented as thread-unsafe.
 #else
 // If we are using the Windows data directory, then look in one spot only.
 static UDataFileAccess  gDataFileAccess = UDATA_NO_FILES;
 #endif
-
-// BEGIN Android-added: Include android/host-linux-specific headers and variables.
-#ifdef ANDROID // if using the AOSP build system, e.g. Soong, but not the normal GNU make used by ./updateicudata.py
-  #if U_PLATFORM == U_PF_ANDROID ||  U_PLATFORM == U_PF_LINUX // if targeting Android or host linux
-    #define AOSP_ICU_INIT 1
-  #endif
-#endif
-
-#ifdef AOSP_ICU_INIT
-  #include "androidicuinit/android_icu_init.h"
-  static icu::UInitOnce gAospInitOnce {};
-#endif
-// END Android-added: Include android/host-linux-specific headers and variables.
-
 
 static UBool U_CALLCONV
 udata_cleanup()
@@ -153,13 +135,6 @@ udata_cleanup()
         gCommonICUDataArray[i] = nullptr;
     }
     gHaveTriedToLoadCommonData = 0;
-
-// BEGIN Android-added: Use specialized libandroidicuinit to unload the data on Android/ART host.
-#ifdef AOSP_ICU_INIT
-    android_icu_cleanup();
-    gAospInitOnce.reset();
-#endif
-// END Android-added: Use specialized libandroidicuinit to unload the data on Android/ART host.
 
     return true;                   /* Everything was cleaned up */
 }
@@ -729,13 +704,6 @@ openCommonData(const char *path,          /*  Path from OpenChoice?          */
 #endif
         }
 
-// BEGIN Android-added: Use specialized libandroidicuinit to load the data on Android/ART host.
-#ifdef AOSP_ICU_INIT // Do nothing on other platforms, e.g. Windows
-        // android_icu_init() is only called once.
-        umtx_initOnce(gAospInitOnce, &android_icu_init);
-#endif // AOSP_ICU_INIT
-// END Android-added: Use specialized libandroidicuinit to load the data on Android/ART host.
-
         /* Add the linked-in data to the list. */
         /*
          * This is where we would check and call weakly linked partial-data-library
@@ -882,12 +850,12 @@ static UBool extendICUData(UErrorCode *pErr)
        UDataMemory_init(&copyPData);
        if(pData != nullptr) {
           UDatamemory_assign(&copyPData, pData);
-          copyPData.map = 0;              /* The mapping for this data is owned by the hash table */
-          copyPData.mapAddr = 0;          /*   which will unmap it when ICU is shut down.         */
-                                          /* CommonICUData is also unmapped when ICU is shut down.*/
-                                          /* To avoid unmapping the data twice, zero out the map  */
-                                          /*   fields in the UDataMemory that we're assigning     */
-                                          /*   to CommonICUData.                                  */
+          copyPData.map = nullptr;     /* The mapping for this data is owned by the hash table */
+          copyPData.mapAddr = nullptr; /*   which will unmap it when ICU is shut down.         */
+                                       /* CommonICUData is also unmapped when ICU is shut down.*/
+                                       /* To avoid unmapping the data twice, zero out the map  */
+                                       /*   fields in the UDataMemory that we're assigning     */
+                                       /*   to CommonICUData.                                  */
 
           didUpdate = /* no longer using this result */
               setCommonICUData(&copyPData,/*  The new common data.                                */

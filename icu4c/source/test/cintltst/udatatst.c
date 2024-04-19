@@ -117,7 +117,7 @@ static void lots_of_mallocs()
 #endif
 
 #if !UCONFIG_NO_FILE_IO && !UCONFIG_NO_LEGACY_CONVERSION
-static void TestUDataOpen(){
+static void TestUDataOpen(void){
     UDataMemory *result;
     UErrorCode status=U_ZERO_ERROR;
     const char* memMap[][2]={
@@ -442,7 +442,7 @@ static const ICU_COMMON_Data_Header gEmptyHeader = {
 };
 
 
-static void TestUDataSetAppData(){
+static void TestUDataSetAppData(void){
 /*    UDataMemory      *dataItem;*/
 
     UErrorCode        status=U_ZERO_ERROR;
@@ -497,7 +497,7 @@ static void TestUDataSetAppData(){
         dataItem = udata_open("appData1", "res", "te_IN", &status); **/
 }
 
-static char *safeGetICUDataDirectory() {
+static char *safeGetICUDataDirectory(void) {
     const char *dataDir = u_getDataDirectory();  /* Returned string vanashes with u_cleanup */
     char *retStr = NULL;
     if (dataDir != NULL) {
@@ -507,7 +507,7 @@ static char *safeGetICUDataDirectory() {
     return retStr;
 }
     
-static void TestUDataFileAccess(){
+static void TestUDataFileAccess(void){
     UErrorCode status;
     char            *icuDataDir;
     icuDataDir = safeGetICUDataDirectory();   /* save icu data dir, so we can put it back
@@ -644,7 +644,7 @@ isAcceptable3(void *context,
 }
 
 #if !UCONFIG_NO_FILE_IO && !UCONFIG_NO_LEGACY_CONVERSION
-static void TestUDataOpenChoiceDemo1() {
+static void TestUDataOpenChoiceDemo1(void) {
     UDataMemory *result;
     UErrorCode status=U_ZERO_ERROR;
 
@@ -708,17 +708,13 @@ static void TestUDataOpenChoiceDemo1() {
     type="typ";
     result=udata_openChoice(fullTestDataPath, type, name[3], isAcceptable1, NULL, &status);
     if(status != U_INVALID_FORMAT_ERROR){
-        // Android-changed: Android does not try to load ICU data from other files. See  gDataFileAccess = UDATA_NO_FILES in udata.cpp.
-        // log_err("FAIL: udata_openChoice() did not fail as expected. name=%s, type=%s, \n errorcode=%s\n", name[3], type, myErrorName(status));
-        log_data_err("FAIL: udata_openChoice() did not fail as expected. name=%s, type=%s, \n errorcode=%s\n", name[3], type, myErrorName(status));
+        log_err("FAIL: udata_openChoice() did not fail as expected. name=%s, type=%s, \n errorcode=%s\n", name[3], type, myErrorName(status));
     }
 
     status=U_USELESS_COLLATOR_ERROR;
     result=udata_openChoice(fullTestDataPath, type, name[3], isAcceptable1, NULL, &status);
     if(status != U_USELESS_COLLATOR_ERROR){
-        // Android-changed: Android does not try to load ICU data from other files. See  gDataFileAccess = UDATA_NO_FILES in udata.cpp.
-        // log_err("FAIL: udata_openChoice() did not fail as expected. name=%s, type=%s, \n errorcode=%s\n", name[3], type, myErrorName(status));
-        log_data_err("FAIL: udata_openChoice() did not fail as expected. name=%s, type=%s, \n errorcode=%s\n", name[3], type, myErrorName(status));
+        log_err("FAIL: udata_openChoice() did not fail as expected. name=%s, type=%s, \n errorcode=%s\n", name[3], type, myErrorName(status));
     }
 }
 
@@ -748,7 +744,7 @@ isAcceptable(void *context,
 
 /* This test checks to see if the isAcceptable function is being called correctly. */
 
-static void TestUDataOpenChoiceDemo2() {
+static void TestUDataOpenChoiceDemo2(void) {
     UDataMemory *result;
     UErrorCode status=U_ZERO_ERROR;
     int i;
@@ -795,7 +791,7 @@ static void TestUDataOpenChoiceDemo2() {
     }
 }
 
-static void TestUDataGetInfo() {
+static void TestUDataGetInfo(void) {
 
     UDataMemory *result;
     /* UDataInfo cf. udata.h */
@@ -872,7 +868,7 @@ static void TestUDataGetInfo() {
     udata_close(result);
 }
 
-static void TestUDataGetMemory() {
+static void TestUDataGetMemory(void) {
 
     UDataMemory *result;
     const int32_t *table=NULL;
@@ -920,7 +916,7 @@ static void TestUDataGetMemory() {
 
 }
 
-static void TestErrorConditions(){
+static void TestErrorConditions(void){
 
     UDataMemory *result=NULL;
     UErrorCode status=U_ZERO_ERROR;
@@ -1037,7 +1033,7 @@ static void TestErrorConditions(){
 }
 
 /* Test whether apps and ICU can each have their own root.res */
-static void TestAppData()
+static void TestAppData(void)
 {
     UResourceBundle *icu, *app;
     UResourceBundle *tmp = NULL;
@@ -1125,7 +1121,7 @@ static void TestAppData()
 }
 #endif
 
-static void TestICUDataName()
+static void TestICUDataName(void)
 {
     UVersionInfo icuVersion;
     char expectDataName[20];
@@ -1635,7 +1631,7 @@ printErrorToString(void *context, const char *fmt, va_list args) {
 
 #if !UCONFIG_NO_FILE_IO && !UCONFIG_NO_LEGACY_CONVERSION
 static void
-TestSwapData() {
+TestSwapData(void) {
     char name[100];
     UDataSwapper *ds;
     UDataMemory *pData;
@@ -1751,7 +1747,7 @@ TestSwapData() {
 }
 #endif
 
-static void PointerTableOfContents() {
+static void PointerTableOfContents(void) {
     UDataMemory      *dataItem;
     UErrorCode        status=U_ZERO_ERROR;
        

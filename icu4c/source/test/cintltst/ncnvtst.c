@@ -140,7 +140,7 @@ void addExtraTests(TestNode** root)
 }
 
 /*test surrogate behaviour*/
-static void TestSurrogateBehaviour(){
+static void TestSurrogateBehaviour(void){
     log_verbose("Testing for SBCS and LATIN_1\n");
     {
         UChar sampleText[] = {0x0031, 0xd801, 0xdc01, 0x0032};
@@ -202,10 +202,6 @@ static void TestSurrogateBehaviour(){
             log_err("u->  not match.\n");
     }
 
-   /* BEGIN android-removed */
-   /* To save space, Android does not build full ISO-2022-CN tables.
-      We skip the tests for ISO-2022-CN. */
-   /* 
     log_verbose("Testing for ISO-2022-cn\n");
     {
         static const UChar    sampleText[] =   { 0x4e00, 0x04e01, 0x0031, 0xd801, 0xdc01, 0x0032};
@@ -227,7 +223,7 @@ static void TestSurrogateBehaviour(){
                                     3,  
                                     5,  };
 
-        // iso-2022-CN  android-change
+        /*iso-2022-CN*/
         if(!convertFromU(sampleText, UPRV_LENGTHOF(sampleText),
                 expected, sizeof(expected), "iso-2022-cn", 0 , true, U_ZERO_ERROR))
             log_err("u-> not match.\n");
@@ -235,8 +231,6 @@ static void TestSurrogateBehaviour(){
                 expected, sizeof(expected), "iso-2022-cn", offsets , true, U_ZERO_ERROR))
             log_err("u-> not match.\n");
     }
-    */
-    /* END android-removed */
 
         log_verbose("Testing for ISO-2022-kr\n");
     {
@@ -340,7 +334,7 @@ static void TestSurrogateBehaviour(){
 }
 
 /*test various error behaviours*/
-static void TestErrorBehaviour(){
+static void TestErrorBehaviour(void){
     log_verbose("Testing for SBCS and LATIN_1\n");
     {
         static const UChar    sampleText[] =   { 0x0031, 0xd801};
@@ -492,11 +486,7 @@ static void TestErrorBehaviour(){
             log_err("u-> iso-2022-jp [UCNV_MBCS] \n");
     }
 
-    /* BEGIN android-removed */
-    /* To save space, Android does not build full ISO-2022-CN tables.
-       We skip the tests for ISO-2022-CN. */
     /*iso-2022-cn*/
-    /*
     log_verbose("Testing for iso-2022-cn\n");
     {
         static const UChar    sampleText[]    = { 0x0031, 0xd801};
@@ -546,8 +536,6 @@ static void TestErrorBehaviour(){
                 expected4MBCS, sizeof(expected4MBCS), "iso-2022-cn", offsets4MBCS, false, U_ZERO_ERROR))
             log_err("u-> iso-2022-cn [UCNV_MBCS] \n");
     }
-    */
-    /* END android-removed */
 
     /*iso-2022-kr*/
     log_verbose("Testing for iso-2022-kr\n");
@@ -645,7 +633,7 @@ static void TestErrorBehaviour(){
 
 #if !UCONFIG_NO_LEGACY_CONVERSION
 /*test different convertToUnicode error behaviours*/
-static void TestToUnicodeErrorBehaviour()
+static void TestToUnicodeErrorBehaviour(void)
 {
     log_verbose("Testing error conditions for DBCS\n");
     {
@@ -677,7 +665,7 @@ static void TestToUnicodeErrorBehaviour()
     }
 }
 
-static void TestGetNextErrorBehaviour(){
+static void TestGetNextErrorBehaviour(void){
    /*Test for unassigned character*/
 #define INPUT_SIZE 1
     static const char input1[INPUT_SIZE]={ 0x70 };
@@ -701,7 +689,7 @@ static void TestGetNextErrorBehaviour(){
 #define MAX_UTF8_LEN 4
 
 /*Regression test for utf8 converter*/
-static void TestRegressionUTF8(){
+static void TestRegressionUTF8(void){
     UChar32 currCh = 0;
     int32_t offset8;
     int32_t offset16;
@@ -771,7 +759,7 @@ static void TestRegressionUTF8(){
 
 #define MAX_UTF32_LEN 1
 
-static void TestRegressionUTF32(){
+static void TestRegressionUTF32(void){
 #if !UCONFIG_ONLY_HTML_CONVERSION
     UChar32 currCh = 0;
     int32_t offset32;
@@ -908,7 +896,7 @@ static void TestRegressionUTF32(){
 }
 
 /*Walk through the available converters*/
-static void TestAvailableConverters(){
+static void TestAvailableConverters(void){
     UErrorCode status=U_ZERO_ERROR;
     UConverter *conv=NULL;
     int32_t i=0;
@@ -925,7 +913,7 @@ static void TestAvailableConverters(){
 
 }
 
-static void TestFlushInternalBuffer(){
+static void TestFlushInternalBuffer(void){
     TestWithBufferSize(MAX_LENGTH, 1);
     TestWithBufferSize(1, 1);
     TestWithBufferSize(1, MAX_LENGTH);
@@ -1604,10 +1592,6 @@ static void TestResetBehaviour(void){
 
     }
 
-    /* BEGIN android-removed */
-    /* To save space, Android does not build full ISO-2022-CN tables.
-       We skip the tests for ISO-2022-CN. */
-    /*
     log_verbose("Testing Reset for ISO-2022-cn\n");
     {
         static const UChar    sampleText[] =   { 0x4e00, 0x04e01, 0x0031, 0xd801, 0xdc01, 0x0032};
@@ -1638,7 +1622,7 @@ static void TestResetBehaviour(void){
                                     };
         static const int32_t offsets1[] =  { 5,7,13,16,17};
 
-        // iso-2022-CN  android-change
+        /*iso-2022-CN*/
         if(!testConvertFromU(sampleText, UPRV_LENGTHOF(sampleText),
                 expected, sizeof(expected), "iso-2022-cn", UCNV_FROM_U_CALLBACK_SUBSTITUTE , NULL, true))
             log_err("u-> not match.\n");
@@ -1651,8 +1635,6 @@ static void TestResetBehaviour(void){
                 offsets1, true))
            log_err("iso-2022-cn -> did not match.\n");
     }
-    */
-    /* END android-removed */
 
         log_verbose("Testing Reset for ISO-2022-kr\n");
     {
@@ -1852,7 +1834,7 @@ doTestTruncated(const char *cnvName, const uint8_t *bytes, int32_t length) {
 }
 
 static void
-TestTruncated() {
+TestTruncated(void) {
     static const struct {
         const char *cnvName;
         uint8_t bytes[8]; /* partial input bytes resulting in no output */
@@ -1902,7 +1884,7 @@ typedef struct NameRange {
 } NameRange;
 
 static void
-TestUnicodeSet() {
+TestUnicodeSet(void) {
     UErrorCode errorCode;
     UConverter *cnv;
     USet *set;

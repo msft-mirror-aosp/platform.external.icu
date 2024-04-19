@@ -688,14 +688,10 @@ public class CalendarRegressionTest extends CoreTestFmwk {
         // Test field disambiguation with a few special hard-coded cases.
         // This shouldn't fail if the above cases aren't failing.
         Object[] DISAM = {
-            new Integer(1998), new Integer(1), new Integer(Calendar.SUNDAY),
-                d[0],
-            new Integer(1998), new Integer(2), new Integer(Calendar.SATURDAY),
-                d[1],
-            new Integer(1998), new Integer(53), new Integer(Calendar.THURSDAY),
-                d[2],
-            new Integer(1998), new Integer(53), new Integer(Calendar.FRIDAY),
-                d[3],
+            1998, 1, Calendar.SUNDAY, d[0],
+            1998, 2, Calendar.SATURDAY, d[1],
+            1998, 53, Calendar.THURSDAY, d[2],
+            1998, 53, Calendar.FRIDAY, d[3],
         };
         testCal.setMinimalDaysInFirstWeek(3);
         testCal.setFirstDayOfWeek(Calendar.SUNDAY);
@@ -739,10 +735,10 @@ public class CalendarRegressionTest extends CoreTestFmwk {
         d[7] = tempcal.getTime();
 
         Object[] ADDROLL = {
-            ADD, new Integer(1), d[0], d[1],
-            ADD, new Integer(1), d[2], d[3],
-            ROLL, new Integer(1), d[4], d[5],
-            ROLL, new Integer(1), d[6], d[7],
+            ADD, 1, d[0], d[1],
+            ADD, 1, d[2], d[3],
+            ROLL, 1, d[4], d[5],
+            ROLL, 1, d[6], d[7],
         };
         testCal.setMinimalDaysInFirstWeek(3);
         testCal.setFirstDayOfWeek(Calendar.SUNDAY);
@@ -1693,9 +1689,9 @@ public class CalendarRegressionTest extends CoreTestFmwk {
         d[5] = tempcal.getTime();
         // Test specific failure reported in bug
         Object[] DATA = {
-            new Integer(1), d[0], new Integer(4), d[1],
-            new Integer(8), d[2], new Integer(-1), d[3],
-            new Integer(-4), d[4], new Integer(-8), d[5],
+            1, d[0], 4, d[1],
+            8, d[2], -1, d[3],
+            -4, d[4], -8, d[5],
         };
         for (int i=0; i<DATA.length; i+=2) {
             cal.clear();
@@ -2158,34 +2154,31 @@ public class CalendarRegressionTest extends CoreTestFmwk {
         Locale loc = new Locale("en", "TH");
         Calendar cal = Calendar.getInstance(loc);
         String calType = cal.getType();
-        // Android patch: Force default Gregorian calendar.
-        if ( !calType.equals("gregorian")) {
-            errln("FAIL: Calendar type for en_TH should still be gregorian");
+        if ( !calType.equals("buddhist")) {
+            errln("FAIL: Calendar type for en_TH should still be buddhist");
         }
-        // Android patch end.
     }
 
     @Test
     public void TestGetKeywordValuesForLocale(){
 
-        // Android patch: Force default Gregorian calendar.
         final String[][] PREFERRED = {
             {"root",        "gregorian"},
             {"und",         "gregorian"},
             {"en_US",       "gregorian"},
             {"en_029",      "gregorian"},
-            {"th_TH",       "gregorian", "buddhist"},
-            {"und_TH",      "gregorian", "buddhist"},
-            {"en_TH",       "gregorian", "buddhist"},
+            {"th_TH",       "buddhist", "gregorian"},
+            {"und_TH",      "buddhist", "gregorian"},
+            {"en_TH",       "buddhist", "gregorian"},
             {"he_IL",       "gregorian", "hebrew", "islamic", "islamic-civil", "islamic-tbla"},
             {"ar_EG",       "gregorian", "coptic", "islamic", "islamic-civil", "islamic-tbla"},
             {"ja",          "gregorian", "japanese"},
             {"ps_Guru_IN",  "gregorian", "indian"},
-            {"th@calendar=gregorian",   "gregorian", "buddhist"},
+            {"th@calendar=gregorian",   "buddhist", "gregorian"},
             {"en@calendar=islamic",     "gregorian"},
             {"zh_TW",       "gregorian", "roc", "chinese"},
-            {"ar_IR",       "gregorian", "persian", "islamic", "islamic-civil", "islamic-tbla"},  // android-changed
-            {"th@rg=SAZZZZ", "gregorian", "islamic-umalqura", "islamic", "islamic-rgsa"},  // android-changed
+            {"ar_IR",       "persian", "gregorian", "islamic", "islamic-civil", "islamic-tbla"},
+            {"th@rg=SAZZZZ", "islamic-umalqura", "gregorian", "islamic", "islamic-rgsa"},
 
             // tests for ICU-22364
             { "zh_CN@rg=TW",           "gregorian", "chinese" }, // invalid subdivision code
@@ -2199,7 +2192,6 @@ public class CalendarRegressionTest extends CoreTestFmwk {
             { "zh_TW@rg=EE130",        "gregorian" }, // three-digit subdivision code
             { "zh_TW@rg=417zzzz",      "gregorian" }, // three-digit region code
         };
-        // Android patch end.
 
         String[] ALL = Calendar.getKeywordValuesForLocale("calendar", ULocale.getDefault(), false);
         HashSet ALLSET = new HashSet();
@@ -2715,5 +2707,17 @@ public class CalendarRegressionTest extends CoreTestFmwk {
                     Calendar.getInstance(Locale.forLanguageTag(localeIds[i])).getFirstDayOfWeek());
         }
     }
+
+    @Test
+    public void TestIslamicUmalquraCalendarSlow() { // ICU-22513
+        Locale loc = new Locale("th@calendar=islamic-umalqura");
+        Calendar cal = Calendar.getInstance(loc);
+        cal.clear();
+        cal.add(Calendar.YEAR, 1229080905);
+        cal.roll(Calendar.WEEK_OF_MONTH, 1499050699);
+        cal.fieldDifference(new Date(0), Calendar.YEAR_WOY);
+
+    }
+
 }
 //eof

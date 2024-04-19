@@ -61,10 +61,10 @@
         <property name="specialsDir" value="${basedir}/../../../icu4c/source/data/xml"/>
 
         <!-- Default value for ICU version (icuver.txt). Update this for each release. -->
-        <property name="icuVersion" value="74.2.0.0"/>
+        <property name="icuVersion" value="75.1.0.0"/>
 
         <!-- Default value for ICU data version (icuver.txt). Update this for each release. -->
-        <property name="icuDataVersion" value="74.2.0.0"/>
+        <property name="icuDataVersion" value="75.1.0.0"/>
 
         <!-- An override for the CLDR version string (icuver.txt and others). This will be
              extracted from the CLDR library used for building the data if not set here. -->
@@ -209,7 +209,7 @@
 
                 // K
                 ka, kab, kam, kde, kea, kgp, khq, ki, kk, kkj, kl, kln, km, kn, ko, kok, ks
-                ks_Deva, ks_IN, ksb, ksf, ksh, ku, kw, kxv, kxv_Deva, kxv_Orya, kxv_Telu, ky
+                ks_Deva, ks_IN, ksb, ksf, ksh, ku, kw, kxv, kxv_Deva, kxv_IN, kxv_Orya, kxv_Telu, ky
 
                 // L
                 lag, lb, lg, lij, lkt, lmo, ln, lo, lrc, lt, lu, luo, luy, lv
@@ -396,24 +396,6 @@
             <!-- <altPath target="//path/to/value[@attr='foo']"
                           source="//path/to/value[@attr='bar']"
                           locales="xx,yy_ZZ"/> -->
-            <!-- Android patch (b/36123938) begin. -->
-            <altPath target="//ldml/localeDisplayNames/territories/territory[@type='FK']"
-                     source="//ldml/localeDisplayNames/territories/territory[@type='FK'][@alt='variant']"/>
-            <altPath target="//ldml/localeDisplayNames/territories/territory[@type='HK']"
-                     source="//ldml/localeDisplayNames/territories/territory[@type='HK'][@alt='short']"/>
-            <altPath target="//ldml/localeDisplayNames/territories/territory[@type='MK']"
-                     source="//ldml/localeDisplayNames/territories/territory[@type='MK'][@alt='variant']"/>
-            <altPath target="//ldml/localeDisplayNames/territories/territory[@type='MO']"
-                     source="//ldml/localeDisplayNames/territories/territory[@type='MO'][@alt='short']"/>
-            <!-- Android patch (b/36123938) end. -->
-            <!-- Android patch (b/8264703) begin. -->
-            <altPath target="//ldml/localeDisplayNames/territories/territory[@type='PS']"
-                     source="//ldml/localeDisplayNames/territories/territory[@type='PS'][@alt='short']"/>
-            <!-- Android patch (b/8264703) end. -->
-            <!-- Android patch (b/21295835) begin. -->
-            <altPath target="//ldml/numbers/currencies/currency[@type='UAH']/symbol"
-                     source="//ldml/numbers/currencies/currency[@type='UAH']/symbol[@alt='variant']"/>
-            <!-- Android patch (b/21295835) end. -->
         </convert>
         
         <generateCode cldrDir="${cldrDir}" cOutDir="${genCCodeDir}" javaOutDir="${genJavaCodeDir}" unless:true="${dontGenCode}" />

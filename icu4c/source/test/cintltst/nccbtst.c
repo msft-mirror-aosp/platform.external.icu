@@ -94,11 +94,7 @@ void addTestConvertErrorCallBack(TestNode** root)
     addTest(root, &TestSkipCallBack,  "tsconv/nccbtst/TestSkipCallBack");
     addTest(root, &TestStopCallBack,  "tsconv/nccbtst/TestStopCallBack");
     addTest(root, &TestSubCallBack,   "tsconv/nccbtst/TestSubCallBack");
-    /* BEGIN android-removed
-       To save space, Android does not build complete CJK conversion tables.
-       We skip the test here.
     addTest(root, &TestSubWithValueCallBack, "tsconv/nccbtst/TestSubWithValueCallBack");
-       END android-removed */
 
 #if !UCONFIG_NO_LEGACY_CONVERSION
     addTest(root, &TestLegalAndOtherCallBack,  "tsconv/nccbtst/TestLegalAndOtherCallBack");
@@ -108,7 +104,7 @@ void addTestConvertErrorCallBack(TestNode** root)
     addTest(root, &TestCallBackFailure,  "tsconv/nccbtst/TestCallBackFailure");
 }
 
-static void TestSkipCallBack()
+static void TestSkipCallBack(void)
 {
     TestSkip(NEW_MAX_BUFFER, NEW_MAX_BUFFER);
     TestSkip(1,NEW_MAX_BUFFER);
@@ -116,7 +112,7 @@ static void TestSkipCallBack()
     TestSkip(NEW_MAX_BUFFER, 1);
 }
 
-static void TestStopCallBack()
+static void TestStopCallBack(void)
 {
     TestStop(NEW_MAX_BUFFER, NEW_MAX_BUFFER);
     TestStop(1,NEW_MAX_BUFFER);
@@ -124,7 +120,7 @@ static void TestStopCallBack()
     TestStop(NEW_MAX_BUFFER, 1);
 }
 
-static void TestSubCallBack()
+static void TestSubCallBack(void)
 {
     TestSub(NEW_MAX_BUFFER, NEW_MAX_BUFFER);
     TestSub(1,NEW_MAX_BUFFER);
@@ -139,7 +135,7 @@ static void TestSubCallBack()
 #endif
 }
 
-static void TestSubWithValueCallBack()
+static void TestSubWithValueCallBack(void)
 {
     TestSubWithValue(NEW_MAX_BUFFER, NEW_MAX_BUFFER);
     TestSubWithValue(1,NEW_MAX_BUFFER);
@@ -148,7 +144,7 @@ static void TestSubWithValueCallBack()
 }
 
 #if !UCONFIG_NO_LEGACY_CONVERSION
-static void TestLegalAndOtherCallBack()
+static void TestLegalAndOtherCallBack(void)
 {
     TestLegalAndOthers(NEW_MAX_BUFFER, NEW_MAX_BUFFER);
     TestLegalAndOthers(1,NEW_MAX_BUFFER);
@@ -156,7 +152,7 @@ static void TestLegalAndOtherCallBack()
     TestLegalAndOthers(NEW_MAX_BUFFER, 1);
 }
 
-static void TestSingleByteCallBack()
+static void TestSingleByteCallBack(void)
 {
     TestSingleByte(NEW_MAX_BUFFER, NEW_MAX_BUFFER);
     TestSingleByte(1,NEW_MAX_BUFFER);

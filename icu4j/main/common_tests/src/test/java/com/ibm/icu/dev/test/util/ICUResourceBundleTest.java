@@ -717,9 +717,8 @@ public final class ICUResourceBundleTest extends CoreTestFmwk {
         }
 
         Set<String> localLangExceptions = new HashSet<>();
-        if (logKnownIssue("cldrbug:17001", "No localized language name for nmg, vmw")) {
+        if (logKnownIssue("ICU-22681", "No localized language name for nmg")) {
             localLangExceptions.add("nmg");
-            localLangExceptions.add("vmw");
         }
 
         for (int i = 0; i < locales.length; ++i) {
@@ -761,7 +760,6 @@ public final class ICUResourceBundleTest extends CoreTestFmwk {
 
     @Test
     public void TestFunctionalEquivalent(){
-       // Android patch: Force default Gregorian calendar.
        String[] calCases = {
        //  avail    locale                              equiv
            "t",     "en_US_POSIX",                      "en@calendar=gregorian",
@@ -769,11 +767,10 @@ public final class ICUResourceBundleTest extends CoreTestFmwk {
            "f",     "ja_JP_TOKYO@calendar=japanese",    "ja@calendar=japanese",
            "t",     "sr@calendar=gregorian",            "sr@calendar=gregorian",
            "t",     "en",                               "en@calendar=gregorian",
-           "t",     "th_TH",                            "th@calendar=gregorian",
+           "t",     "th_TH",                            "th@calendar=buddhist",
            "t",     "th_TH@calendar=gregorian",         "th@calendar=gregorian",
-           "f",     "th_TH_Bangkok",                    "th@calendar=gregorian",
+           "f",     "th_TH_Bangkok",                    "th@calendar=buddhist",
        };
-       // Android patch end.
 
        logln("Testing functional equivalents for calendar...");
        getFunctionalEquivalentTestCases(ICUData.ICU_BASE_NAME,
@@ -803,16 +800,16 @@ public final class ICUResourceBundleTest extends CoreTestFmwk {
             ULocale inLocale = new ULocale(testCases[i+1]);
             ULocale expectLocale = new ULocale(testCases[i+2]);
 
-            logln(new Integer(i/3).toString() + ": " + new Boolean(expectAvail).toString() + "\t\t" +
-                    inLocale.toString() + "\t\t" + expectLocale.toString());
+            logln("" + i/3 + ": " + expectAvail + "\t\t" +
+                    inLocale + "\t\t" + expectLocale);
 
             ULocale equivLocale = ICUResourceBundle.getFunctionalEquivalent(path, cl, resName, keyword, inLocale, isAvail, truncate);
             boolean gotAvail = isAvail[0];
 
             if((gotAvail != expectAvail) || !equivLocale.equals(expectLocale)) {
-                errln(new Integer(i/3).toString() + ":  Error, expected  Equiv=" + new Boolean(expectAvail).toString() + "\t\t" +
-                        inLocale.toString() + "\t\t--> " + expectLocale.toString() + ",  but got " + new Boolean(gotAvail).toString() + " " +
-                        equivLocale.toString());
+                errln("" + i/3 + ":  Error, expected  Equiv=" + expectAvail + "\t\t" +
+                        inLocale + "\t\t--> " + expectLocale + ",  but got " + gotAvail + " " +
+                        equivLocale);
             }
         }
     }
