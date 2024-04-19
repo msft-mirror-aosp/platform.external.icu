@@ -96,7 +96,7 @@ public class SerializationTest extends CoreTestFmwk {
                         .replaceAll("\\|([\\d\\.]+)\\|", "$1")
                         // Naive normalization for `|asBaC12|` to `asBaC12`
                         .replaceAll("\\|([a-zA-Z\\d]+)\\|", "$1")
-                        .replaceAll(" }", "}")
+                        .replaceAll(" \\}", "}")
                         .trim();
         assertEquals("Serialization different from to the initial source", pattern, parsed);
     }
