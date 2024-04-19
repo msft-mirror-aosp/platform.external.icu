@@ -928,7 +928,7 @@ ru{
             "танзанийский шиллинг",
         }
         UAH{
-            "₴",
+            "грн.",
             "украинская гривна",
         }
         UAK{
@@ -1129,9 +1129,6 @@ ru{
         GEL{"ლ"}
         RON{"L"}
         TWD{"NT$"}
-    }
-    Currencies%variant{
-        UAH{"грн."}
     }
     CurrencyPlurals{
         ADP{

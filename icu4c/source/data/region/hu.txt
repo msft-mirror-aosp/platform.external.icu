@@ -112,7 +112,7 @@ hu{
         EZ{"Eurózóna"}
         FI{"Finnország"}
         FJ{"Fidzsi"}
-        FK{"Falkland-szigetek"}
+        FK{"Falkland-szigetek (Malvin-szigetek)"}
         FM{"Mikronézia"}
         FO{"Feröer szigetek"}
         FR{"Franciaország"}
@@ -135,7 +135,7 @@ hu{
         GU{"Guam"}
         GW{"Bissau-Guinea"}
         GY{"Guyana"}
-        HK{"Hongkong KKT"}
+        HK{"Hongkong"}
         HM{"Heard-sziget és McDonald-szigetek"}
         HN{"Honduras"}
         HR{"Horvátország"}
@@ -189,7 +189,7 @@ hu{
         ML{"Mali"}
         MM{"Mianmar"}
         MN{"Mongólia"}
-        MO{"Makaó KKT"}
+        MO{"Makaó"}
         MP{"Északi Mariana-szigetek"}
         MQ{"Martinique"}
         MR{"Mauritánia"}
@@ -224,7 +224,7 @@ hu{
         PM{"Saint-Pierre és Miquelon"}
         PN{"Pitcairn-szigetek"}
         PR{"Puerto Rico"}
-        PS{"Palesztin Autonómia"}
+        PS{"Palesztina"}
         PT{"Portugália"}
         PW{"Palau"}
         PY{"Paraguay"}
@@ -304,9 +304,6 @@ hu{
     }
     Countries%short{
         GB{"UK"}
-        HK{"Hongkong"}
-        MO{"Makaó"}
-        PS{"Palesztina"}
         UN{"ENSZ"}
         US{"USA"}
     }
@@ -314,7 +311,6 @@ hu{
         CD{"Kongó (KDK)"}
         CG{"Kongó (Köztársaság)"}
         CZ{"Cseh Köztársaság"}
-        FK{"Falkland-szigetek (Malvin-szigetek)"}
         NZ{"Aotearoa (Új-Zéland)"}
         SZ{"Eswatini"}
         TL{"Timor-Leste"}

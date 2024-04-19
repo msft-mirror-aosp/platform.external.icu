@@ -112,7 +112,7 @@ vec{
         EZ{"Eurozona"}
         FI{"Finlanda"}
         FJ{"Fiji"}
-        FK{"Ìzole Malvine"}
+        FK{"Ìzole Falkland"}
         FM{"Micronezia"}
         FO{"Ìzole Fàroe"}
         FR{"Fransa"}
@@ -135,7 +135,7 @@ vec{
         GU{"Guam"}
         GW{"Guinèa Bisào"}
         GY{"Guyana"}
-        HK{"RAS de Hong Kong"}
+        HK{"Hong Kong"}
         HM{"Ìzole Heard e McDonald"}
         HN{"Honduras"}
         HR{"Croasia"}
@@ -189,7 +189,7 @@ vec{
         ML{"Mali"}
         MM{"Myanmar (Birmania)"}
         MN{"Mongolia"}
-        MO{"RAS de Macào"}
+        MO{"Macào"}
         MP{"Ìzole Mariane setentrionali"}
         MQ{"Martiniga"}
         MR{"Mauritania"}
@@ -224,7 +224,7 @@ vec{
         PM{"S. Piero e Michelon"}
         PN{"Ìzole Pitcairn"}
         PR{"Portorico"}
-        PS{"Teritori palestinezi"}
+        PS{"Palestina"}
         PT{"Portogalo"}
         PW{"Palàu"}
         PY{"Paraguài"}
@@ -304,9 +304,6 @@ vec{
     }
     Countries%short{
         GB{"UK"}
-        HK{"Hong Kong"}
-        MO{"Macào"}
-        PS{"Palestina"}
         US{"USA"}
     }
     Countries%variant{
@@ -314,7 +311,6 @@ vec{
         CG{"Congo (RC)"}
         CI{"Côte d’Ivoire"}
         CZ{"Repùblega Ceca"}
-        FK{"Ìzole Falkland"}
         NZ{"Aotearóa (Nova Zelanda)"}
         SZ{"Swazilanda"}
         TL{"Timor Leste"}

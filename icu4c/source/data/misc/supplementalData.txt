@@ -1898,8 +1898,8 @@ supplementalData:table(nofallback){
             "islamic-tbla",
         }
         AF{
-            "persian",
             "gregorian",
+            "persian",
             "islamic",
             "islamic-civil",
             "islamic-tbla",
@@ -1998,8 +1998,8 @@ supplementalData:table(nofallback){
             "islamic-tbla",
         }
         IR{
-            "persian",
             "gregorian",
+            "persian",
             "islamic",
             "islamic-civil",
             "islamic-tbla",
@@ -2102,8 +2102,8 @@ supplementalData:table(nofallback){
             "islamic-tbla",
         }
         SA{
-            "islamic-umalqura",
             "gregorian",
+            "islamic-umalqura",
             "islamic",
             "islamic-rgsa",
         }
@@ -2130,8 +2130,8 @@ supplementalData:table(nofallback){
             "islamic-tbla",
         }
         TH{
-            "buddhist",
             "gregorian",
+            "buddhist",
         }
         TJ{
             "gregorian",
@@ -20449,54 +20449,6 @@ supplementalData:table(nofallback){
             "pt_MZ",
             "pt_ST",
             "pt_TL",
-        }
-        root{
-            "az_Arab",
-            "az_Cyrl",
-            "bal_Latn",
-            "blt_Latn",
-            "bm_Nkoo",
-            "bs_Cyrl",
-            "byn_Latn",
-            "cu_Glag",
-            "dje_Arab",
-            "dyo_Arab",
-            "en_Dsrt",
-            "en_Shaw",
-            "ff_Adlm",
-            "ff_Arab",
-            "ha_Arab",
-            "iu_Latn",
-            "kk_Arab",
-            "ks_Deva",
-            "ku_Arab",
-            "kxv_Deva",
-            "kxv_Orya",
-            "kxv_Telu",
-            "ky_Arab",
-            "ky_Latn",
-            "ml_Arab",
-            "mn_Mong",
-            "mni_Mtei",
-            "ms_Arab",
-            "pa_Arab",
-            "sat_Deva",
-            "sd_Deva",
-            "sd_Khoj",
-            "sd_Sind",
-            "shi_Latn",
-            "so_Arab",
-            "sr_Latn",
-            "sw_Arab",
-            "tg_Arab",
-            "ug_Cyrl",
-            "uz_Arab",
-            "uz_Cyrl",
-            "vai_Latn",
-            "wo_Arab",
-            "yo_Arab",
-            "yue_Hans",
-            "zh_Hant",
         }
         zh_Hant_HK{"zh_Hant_MO"}
     }

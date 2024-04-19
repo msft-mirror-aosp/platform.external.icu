@@ -14,7 +14,7 @@ en_CA{
         LC{"Saint Lucia"}
         MF{"Saint Martin"}
         PM{"Saint-Pierre-et-Miquelon"}
-        PS{"Palestinian territories"}
+        PS{"Palestine"}
         SH{"Saint Helena"}
         SJ{"Svalbard and Jan Mayen"}
         ST{"São Tomé and Príncipe"}
@@ -24,8 +24,5 @@ en_CA{
         VC{"Saint Vincent and the Grenadines"}
         VI{"US Virgin Islands"}
         WF{"Wallis and Futuna"}
-    }
-    Countries%short{
-        MO{"Macau"}
     }
 }

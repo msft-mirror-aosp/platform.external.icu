@@ -19,7 +19,6 @@ lrc{
         native{"arabext"}
     }
     calendar{
-        default{"persian"}
         generic{
             intervalFormats{
                 fallback{"{0} – {1}"}
