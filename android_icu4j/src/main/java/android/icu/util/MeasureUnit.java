@@ -1589,6 +1589,7 @@ public class MeasureUnit implements Serializable {
 
     /**
      * Constant for unit of speed: beaufort
+     * @hide unsupported on Android
      */
     public static final MeasureUnit BEAUFORT = MeasureUnit.internalGetInstance("speed", "beaufort");
 
