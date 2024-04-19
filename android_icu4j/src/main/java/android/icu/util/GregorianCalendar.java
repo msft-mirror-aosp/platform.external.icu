@@ -867,6 +867,17 @@ public class GregorianCalendar extends Calendar {
         return "gregorian";
     }
 
+    /**
+     * {@inheritDoc}
+     * @deprecated This API is ICU internal only.
+     * @hide draft / provisional / internal are hidden on Android
+     */
+    @Override
+    @Deprecated
+    protected boolean isEra0CountingBackward() {
+        return true;
+    }
+
     /*
     private static CalendarFactory factory;
     public static CalendarFactory factory() {

@@ -387,6 +387,9 @@ uloc_getDefault(void) __INTRODUCED_IN(31);
 /**
  * Gets the language code for the specified locale.
  *
+ * This function may return with a failure error code for certain kinds of inputs
+ * but does not fully check for well-formed locale IDs / language tags.
+ *
  * @param localeID the locale to get the ISO language code with
  * @param language the language code for localeID
  * @param languageCapacity the size of the language buffer to store the  
@@ -406,6 +409,9 @@ uloc_getLanguage(const char*    localeID,
 
 /**
  * Gets the script code for the specified locale.
+ *
+ * This function may return with a failure error code for certain kinds of inputs
+ * but does not fully check for well-formed locale IDs / language tags.
  *
  * @param localeID the locale to get the ISO language code with
  * @param script the language code for localeID
@@ -427,6 +433,9 @@ uloc_getScript(const char*    localeID,
 /**
  * Gets the  country code for the specified locale.
  *
+ * This function may return with a failure error code for certain kinds of inputs
+ * but does not fully check for well-formed locale IDs / language tags.
+ *
  * @param localeID the locale to get the country code with
  * @param country the country code for localeID
  * @param countryCapacity the size of the country buffer to store the  
@@ -446,6 +455,9 @@ uloc_getCountry(const char*    localeID,
 
 /**
  * Gets the variant code for the specified locale.
+ *
+ * This function may return with a failure error code for certain kinds of inputs
+ * but does not fully check for well-formed locale IDs / language tags.
  *
  * @param localeID the locale to get the variant code with
  * @param variant the variant code for localeID
@@ -467,6 +479,10 @@ uloc_getVariant(const char*    localeID,
 
 /**
  * Gets the full name for the specified locale.
+ *
+ * This function may return with a failure error code for certain kinds of inputs
+ * but does not fully check for well-formed locale IDs / language tags.
+ *
  * Note: This has the effect of 'canonicalizing' the ICU locale ID to
  * a certain extent. Upper and lower case are set as needed.
  * It does NOT map aliased names in any way.
@@ -1123,19 +1139,20 @@ uloc_acceptLanguage(char *result, int32_t resultAvailable,
  *
  * If localeID is already in the maximal form, or there is no data available
  * for maximization, it will be copied to the output buffer.  For example,
- * "und-Zzzz" cannot be maximized, since there is no reasonable maximization.
+ * "sh" cannot be maximized, since there is no reasonable maximization.
  *
  * Examples:
  *
+ * "und_Zzzz" maximizes to "en_Latn_US"
+ *
  * "en" maximizes to "en_Latn_US"
  *
- * "de" maximizes to "de_Latn_US"
+ * "de" maximizes to "de_Latn_DE"
  *
  * "sr" maximizes to "sr_Cyrl_RS"
  *
- * "sh" maximizes to "sr_Latn_RS" (Note this will not reverse.)
+ * "zh_Hani" maximizes to "zh_Hani_CN"
  *
- * "zh_Hani" maximizes to "zh_Hans_CN" (Note this will not reverse.)
  *
  * @param localeID The locale to maximize
  * @param maximizedLocaleID The maximized locale

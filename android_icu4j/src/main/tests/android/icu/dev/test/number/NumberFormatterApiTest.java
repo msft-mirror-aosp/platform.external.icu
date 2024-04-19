@@ -521,6 +521,11 @@ public class NumberFormatterApiTest extends CoreTestFmwk {
                 // Test the priorities
                 {"Test the locale with mu,ms,rg --> mu tag wins", "en-US-u-mu-celsius-ms-ussystem-rg-uszzzz", "celsius", "0", "default", "celsius", "0.0", "0 degrees Celsius"},
                 {"Test the locale with ms,rg --> ms tag wins", "en-US-u-ms-metric-rg-uszzzz", "foot", "1", "default", "foot", "30.0", "30 centimeters"},
+
+                // Test the liklihood of the languages
+                {"Test the region of `en` --> region should be US", "en", "celsius", "1", "default", "fahrenheit", "34.0", "34 degrees Fahrenheit"},
+                {"Test the region of `de` --> region should be DE", "de", "celsius", "1", "default", "celsius", "1.0", "1 Grad Celsius"},
+                {"Test the region of `ar` --> region should be EG", "ar", "celsius", "1", "default", "celsius", "1.0", "١ درجة مئوية"},
         };
 
         int testIndex = 0;
@@ -1657,7 +1662,7 @@ public class NumberFormatterApiTest extends CoreTestFmwk {
                 ULocale.ENGLISH,
                 Double.NEGATIVE_INFINITY,
                 // "-∞ km²");
-                "0 cm²");
+                "0 in²");
 
         // TODO(icu-units#132): Java BigDecimal does not support Inf and NaN, so
         // we get a misleading "0" out of this:
@@ -1669,7 +1674,7 @@ public class NumberFormatterApiTest extends CoreTestFmwk {
                 ULocale.ENGLISH,
                 Double.NaN,
                 // "NaN cm²");
-                "0 cm²");
+                "0 in²");
 
         assertFormatSingle(
                 "Negative numbers: minute-and-second",
@@ -2176,7 +2181,7 @@ public class NumberFormatterApiTest extends CoreTestFmwk {
                 NumberFormatter.with().unit(USD).unitWidth(UnitWidth.NARROW),
                 ULocale.forLanguageTag("en-CA"),
                 5.43,
-                "US$5.43");
+                "$5.43");
 
         assertFormatSingle(
                 "Currency Difference between Narrow and Short (Short Version)",
@@ -5118,7 +5123,7 @@ public class NumberFormatterApiTest extends CoreTestFmwk {
                 NumberFormatter.with().sign(SignDisplay.ACCOUNTING).unit(USD).unitWidth(UnitWidth.NARROW),
                 ULocale.CANADA,
                 -444444,
-                "(US$444,444.00)");
+                "($444,444.00)");
 
         assertFormatSingle(
                 "Sign Accounting Negative Short",
@@ -5398,10 +5403,39 @@ public class NumberFormatterApiTest extends CoreTestFmwk {
     @Test
     public void locale() {
         // Coverage for the locale setters.
-        Assert.assertEquals(NumberFormatter.with().locale(ULocale.ENGLISH), NumberFormatter.with().locale(Locale.ENGLISH));
-        Assert.assertEquals(NumberFormatter.with().locale(ULocale.ENGLISH), NumberFormatter.withLocale(ULocale.ENGLISH));
-        Assert.assertEquals(NumberFormatter.with().locale(ULocale.ENGLISH), NumberFormatter.withLocale(Locale.ENGLISH));
-        Assert.assertNotEquals(NumberFormatter.with().locale(ULocale.ENGLISH), NumberFormatter.with().locale(Locale.FRENCH));
+        Assert.assertEquals(NumberFormatter.with().locale(ULocale.ENGLISH),
+                NumberFormatter.with().locale(Locale.ENGLISH));
+        Assert.assertEquals(NumberFormatter.with().locale(ULocale.ENGLISH),
+                NumberFormatter.withLocale(ULocale.ENGLISH));
+        Assert.assertEquals(NumberFormatter.with().locale(ULocale.ENGLISH),
+                NumberFormatter.withLocale(Locale.ENGLISH));
+        Assert.assertNotEquals(NumberFormatter.with().locale(ULocale.ENGLISH),
+                NumberFormatter.with().locale(Locale.FRENCH));
+
+        LocalizedNumberFormatter lnf1 = NumberFormatter.withLocale(ULocale.ENGLISH).unitWidth(UnitWidth.FULL_NAME)
+                .scale(Scale.powerOfTen(2));
+        LocalizedNumberFormatter lnf2 = NumberFormatter.with()
+                .notation(Notation.compactLong()).locale(ULocale.FRENCH).unitWidth(UnitWidth.FULL_NAME);
+        UnlocalizedNumberFormatter unf1 = lnf1.withoutLocale();
+        UnlocalizedNumberFormatter unf2 = lnf2.withoutLocale();
+
+        assertFormatSingle(
+                "Formatter after withoutLocale A",
+                "unit/meter unit-width-full-name scale/100",
+                "unit/meter unit-width-full-name scale/100",
+                unf1.unit(MeasureUnit.METER),
+                ULocale.ITALY,
+                2,
+                "200 metri");
+
+        assertFormatSingle(
+                "Formatter after withoutLocale B",
+                "compact-long unit/meter unit-width-full-name",
+                "compact-long unit/meter unit-width-full-name",
+                unf2.unit(MeasureUnit.METER),
+                ULocale.JAPAN,
+                2,
+                "2 メートル");
     }
 
     @Test

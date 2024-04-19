@@ -277,8 +277,7 @@ public class TimeZoneFormatTest extends CoreTestFmwk {
                                 }
                             } else {
                                 // Specific or generic: raw offset must be preserved.
-                                if (inOffsets[0] != outOffsets[0] && !(LOCALES[locidx].getName().startsWith("ku") && tzids[tzidx].equals("America/Miquelon")
-                                        && logKnownIssue("CLDR-17024", "TestTimeZoneRoundTrip exhaust. fail with tz=America/Miquelon, locale=ku"))) {
+                                if (inOffsets[0] != outOffsets[0] ) {
                                     if (JDKTZ && tzids[tzidx].startsWith("SystemV/")) {
                                         // JDK uses rule SystemV for these zones while
                                         // ICU handles these zones as aliases of existing time zones
@@ -429,13 +428,6 @@ public class TimeZoneFormatTest extends CoreTestFmwk {
                         continue;
                     }
 
-                    if ((id.equals("America/Miquelon") || id.equals("America/Hermosillo") || id.equals("America/Mazatlan"))
-                            && PATTERNS[patidx].equals("v")
-                            && LOCALES[locidx].getName().startsWith("ku")
-                            && logKnownIssue("CLDR-17024", "TestTimeRoundTrip fail with tz=America/Miquelon, pattern=v, locale=ku")) {
-                        continue;
-                    }
-
                     BasicTimeZone btz = (BasicTimeZone)TimeZone.getTimeZone(id, TimeZone.TIMEZONE_ICU);
                     TimeZone tz = TimeZone.getTimeZone(id);
                     sdf.setTimeZone(tz);
@@ -546,10 +538,10 @@ public class TimeZoneFormatTest extends CoreTestFmwk {
     // These special cases do not round trip time as designed.
     private boolean isSpecialTimeRoundTripCase(ULocale loc, String id, String pattern, long time) {
         final Object[][] EXCLUSIONS = {
-            {null, "Asia/Chita", "zzzz", Long.valueOf(1414252800000L)},
-            {null, "Asia/Chita", "vvvv", Long.valueOf(1414252800000L)},
-            {null, "Asia/Srednekolymsk", "zzzz", Long.valueOf(1414241999999L)},
-            {null, "Asia/Srednekolymsk", "vvvv", Long.valueOf(1414241999999L)},
+            {null, "Asia/Chita", "zzzz", 1414252800000L},
+            {null, "Asia/Chita", "vvvv", 1414252800000L},
+            {null, "Asia/Srednekolymsk", "zzzz", 1414241999999L},
+            {null, "Asia/Srednekolymsk", "vvvv", 1414241999999L},
         };
         boolean isExcluded = false;
         for (Object[] excl : EXCLUSIONS) {

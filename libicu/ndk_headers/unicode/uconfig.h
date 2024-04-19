@@ -427,6 +427,17 @@
 #endif
 
 /**
+ * \def UCONFIG_NO_MF2
+ * This switch turns off the experimental MessageFormat 2.0 API.
+ *
+ * \xrefitem internal "Internal"  "Internal List"  Do not use. This API is for internal use only. ICU 75 technology preview
+ * \xrefitem deprecated "Deprecated" "Deprecated List" This API is for technology preview only.
+ */
+#ifndef UCONFIG_NO_MF2
+#   define UCONFIG_NO_MF2 0
+#endif
+
+/**
  * \def UCONFIG_NO_TRANSLITERATION
  * This switch turns off transliteration.
  *

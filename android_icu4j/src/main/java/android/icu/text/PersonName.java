@@ -16,7 +16,6 @@ import java.util.Set;
  *
  * @see SimplePersonName
  * @hide Only a subset of ICU is exposed in Android
- * @hide draft / provisional / internal are hidden on Android
  */
 public interface PersonName {
     //==============================================================================
@@ -24,32 +23,27 @@ public interface PersonName {
 
     /**
      * Identifiers for the name fields supported by the PersonName object.
-     * @hide draft / provisional / internal are hidden on Android
      */
     enum NameField {
         /**
          * Contains titles such as "Mr.", "Dr." (in English these typically
          * precede the name)
-         * @hide draft / provisional / internal are hidden on Android
          */
         TITLE("title"),
 
         /**
          * The given name.  May contain more than one token.
-         * @hide draft / provisional / internal are hidden on Android
          */
         GIVEN("given"),
 
         /**
          * Additional given names.  (In English, this is usually the "middle name" and
          * may contain more than one word.)
-         * @hide draft / provisional / internal are hidden on Android
          */
         GIVEN2("given2"),
 
         /**
          * The surname.  In Spanish, this is the patronymic surname.
-         * @hide draft / provisional / internal are hidden on Android
          */
         SURNAME("surname"),
 
@@ -57,21 +51,18 @@ public interface PersonName {
          * Additional surnames.  This is only used in a few languages, such as Spanish,
          * where it is the matronymic surname.  (In most languages, multiple surnames all
          * just go in the SURNAME field.)
-         * @hide draft / provisional / internal are hidden on Android
          */
         SURNAME2("surname2"),
 
         /**
          * Generational qualifiers that in English generally follow the actual name,
          * such as "Jr." or "III".
-         * @hide draft / provisional / internal are hidden on Android
          */
         GENERATION("generation"),
 
         /**
          * Professional qualifiers that in English generally follow the actual name,
          * such as "M.D." or "J.D.".
-         * @hide draft / provisional / internal are hidden on Android
          */
         CREDENTIALS("credentials");
 
@@ -83,7 +74,6 @@ public interface PersonName {
 
         /**
          * Returns the NameField's display name.
-         * @hide draft / provisional / internal are hidden on Android
          */
         @Override
         public String toString() {
@@ -108,7 +98,6 @@ public interface PersonName {
 
     /**
      * Identifiers for the name field modifiers supported by the PersonName and PersonNameFormatter objects.
-     * @hide draft / provisional / internal are hidden on Android
      */
     enum FieldModifier {
         /**
@@ -116,7 +105,6 @@ public interface PersonName {
          * if "given" is "James", "given-informal" might be "Jimmy".  Only applied to the "given"
          * field.  If the PersonName object doesn't apply this modifier, PersonNameFormatter just
          * uses the unmodified version of "given".
-         * @hide draft / provisional / internal are hidden on Android
          */
         INFORMAL("informal"),
 
@@ -125,7 +113,6 @@ public interface PersonName {
          * "van den Hul", this requests just the prefixes ("van den").  Only applied to the "surname"
          * field.  If the PersonName object doesn't apply this modifier, PersonNameFormatter
          * assumes there are no prefixes.
-         * @hide draft / provisional / internal are hidden on Android
          */
         PREFIX("prefix"),
 
@@ -134,7 +121,6 @@ public interface PersonName {
          * "van den Hul", this requests just the main word ("Hul").  Only applied to the "surname"
          * field.  If the implementing class doesn't apply this modifier, PersonNameFormatter
          * assumes the entire "surname" field is the "core".
-         * @hide draft / provisional / internal are hidden on Android
          */
         CORE("core"),
 
@@ -142,7 +128,6 @@ public interface PersonName {
          * Requests an initial for the specified field.  PersonNameFormatter will do
          * this algorithmically, but a PersonName object can apply this modifier itself if it wants
          * different initial-generation logic (or stores the initial separately).
-         * @hide draft / provisional / internal are hidden on Android
          */
         INITIAL("initial"),
 
@@ -151,14 +136,12 @@ public interface PersonName {
          * (this usually differs from "initial" in that "initial" often adds a period and "monogram"
          * never does).  PersonNameFormatter will do this algorithmically, but a PersonName object can
          * apply this modifier itself if it wants different monogram-generation logic.
-         * @hide draft / provisional / internal are hidden on Android
          */
         MONOGRAM("monogram"),
 
         /**
          * Requests the field value converted to ALL CAPS.  PersonName objects
          * generally won't need to handle this modifier themselves.
-         * @hide draft / provisional / internal are hidden on Android
          */
         ALL_CAPS("allCaps"),
 
@@ -176,7 +159,6 @@ public interface PersonName {
          * Requests the field value with the first grapheme of each word converted to titlecase.
          * A PersonName object might handle this modifier itself to capitalize words more
          * selectively.
-         * @hide draft / provisional / internal are hidden on Android
          */
         INITIAL_CAP("initialCap"),
 
@@ -204,7 +186,6 @@ public interface PersonName {
 
         /**
          * Returns the FieldModifier's display name.
-         * @hide draft / provisional / internal are hidden on Android
          */
         @Override
         public String toString() {
@@ -213,7 +194,6 @@ public interface PersonName {
 
         /**
          * Returns the appropriate fieldModifier for its display name.
-         * @hide draft / provisional / internal are hidden on Android
          */
         public static FieldModifier forString(String name) {
             for (FieldModifier modifier : values()) {
@@ -227,27 +207,23 @@ public interface PersonName {
 
     /**
      * An enum to specify the preferred field order for the name.
-     * @hide draft / provisional / internal are hidden on Android
      */
     enum PreferredOrder {
         /**
          * Indicates the name has no preferred field order, and that the formatter should deduce the
          * proper field order based on the locales of the name and the formatter.
-         * @hide draft / provisional / internal are hidden on Android
          */
         DEFAULT,
 
         /**
          * Indicates that the name should be formatted in given-first order, even when the formatter
          * would normally guess that it should be formatted in surname-first order.
-         * @hide draft / provisional / internal are hidden on Android
          */
         GIVEN_FIRST,
 
         /**
          * Indicates that the name should be formatted in surname-first order, even when the formatter
          * would normally guess that it should be formatted in given-first order.
-         * @hide draft / provisional / internal are hidden on Android
          */
         SURNAME_FIRST
     }
@@ -259,7 +235,6 @@ public interface PersonName {
      * An implementing class is allowed to return null here to indicate the name's locale is unknown.
      *
      * @return The name's locale, or null if it's not known.
-     * @hide draft / provisional / internal are hidden on Android
      */
     public Locale getNameLocale();
 
@@ -269,7 +244,6 @@ public interface PersonName {
      * and the formatter.  But this can be used to force a particular field order, generally in cases
      * where the deduction logic in PersonNameFormatter would guess wrong.
      * @return The name's preferred field order.
-     * @hide draft / provisional / internal are hidden on Android
      */
     public PreferredOrder getPreferredOrder();
 
@@ -283,7 +257,6 @@ public interface PersonName {
      *                   DIDN'T handle.  This parameter may not be null, and must either be mutable or empty.
      * @return The value of the requested field, optionally modified by some or all of the requested modifiers, or
      * null if the requested field isn't present in the name.
-     * @hide draft / provisional / internal are hidden on Android
      */
     public String getFieldValue(NameField identifier, Set<FieldModifier> modifiers);
 }
