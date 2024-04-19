@@ -56,7 +56,7 @@ java_defaults {
             "-Xep:IdentityBinaryExpression:WARN",
         ],
     },
-    sdk_version: "core_current",
+    sdk_version: "current",
 }
 
 java_library {
@@ -116,6 +116,7 @@ java_test {
     exclude_java_resource_dirs: ["main/localespi/src/test"],
 
     static_libs: [
+        "gson",
         "icu4j",
         "icu4j-testdata",
         "junit-params",
