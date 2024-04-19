@@ -111,6 +111,20 @@ public class MeasureUnit implements Serializable {
     public enum MeasurePrefix {
 
         /**
+         * SI prefix: quetta, 10^30.
+         *
+         * @hide draft / provisional / internal are hidden on Android
+         */
+        QUETTA(30, "quetta", 10),
+
+        /**
+         * SI prefix: ronna, 10^27.
+         *
+         * @hide draft / provisional / internal are hidden on Android
+         */
+        RONNA(27, "ronna", 10),
+
+        /**
          * SI prefix: yotta, 10^24.
          */
         YOTTA(24, "yotta", 10),
@@ -214,6 +228,20 @@ public class MeasureUnit implements Serializable {
          * SI prefix: yocto, 10^-24.
          */
         YOCTO(-24, "yocto", 10),
+
+        /**
+         * SI prefix: ronto, 10^-27.
+         *
+         * @hide draft / provisional / internal are hidden on Android
+         */
+        RONTO(-27, "ronto", 10),
+
+        /**
+         * SI prefix: quecto, 10^-30.
+         *
+         * @hide draft / provisional / internal are hidden on Android
+         */
+        QUECTO(-30, "quecto", 10),
 
         /**
          * IEC binary prefix: kibi, 1024^1.
@@ -1561,7 +1589,6 @@ public class MeasureUnit implements Serializable {
 
     /**
      * Constant for unit of speed: beaufort
-     * @hide draft / provisional / internal are hidden on Android
      */
     public static final MeasureUnit BEAUFORT = MeasureUnit.internalGetInstance("speed", "beaufort");
 

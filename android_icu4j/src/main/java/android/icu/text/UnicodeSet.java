@@ -27,6 +27,7 @@ import android.icu.impl.RuleCharacterIterator;
 import android.icu.impl.SortedSetRelation;
 import android.icu.impl.StringRange;
 import android.icu.impl.UCaseProps;
+import android.icu.impl.UCharacterProperty;
 import android.icu.impl.UPropertyAliases;
 import android.icu.impl.UnicodeSetStringSpan;
 import android.icu.impl.Utility;
@@ -3301,6 +3302,15 @@ public class UnicodeSet extends UnicodeFilter implements Iterable<String>, Compa
         }
     }
 
+    private static final class IdentifierTypeFilter implements Filter {
+        int idType;
+        IdentifierTypeFilter(int idType) { this.idType = idType; }
+        @Override
+        public boolean contains(int c) {
+            return UCharacterProperty.INSTANCE.hasIDType(c, idType);
+        }
+    }
+
     // VersionInfo for unassigned characters
     private static final VersionInfo NO_VERSION = VersionInfo.getInstance(0, 0, 0, 0);
 
@@ -3417,6 +3427,9 @@ public class UnicodeSet extends UnicodeFilter implements Iterable<String>, Compa
         } else if (prop == UProperty.SCRIPT_EXTENSIONS) {
             UnicodeSet inclusions = CharacterPropertiesImpl.getInclusionsForProperty(prop);
             applyFilter(new ScriptExtensionsFilter(value), inclusions);
+        } else if (prop == UProperty.IDENTIFIER_TYPE) {
+            UnicodeSet inclusions = CharacterPropertiesImpl.getInclusionsForProperty(prop);
+            applyFilter(new IdentifierTypeFilter(value), inclusions);
         } else if (0 <= prop && prop < UProperty.BINARY_LIMIT) {
             if (value == 0 || value == 1) {
                 set(CharacterProperties.getBinaryPropertySet(prop));
@@ -3560,6 +3573,10 @@ public class UnicodeSet extends UnicodeFilter implements Iterable<String>, Compa
                 }
                 case UProperty.SCRIPT_EXTENSIONS:
                     v = UCharacter.getPropertyValueEnum(UProperty.SCRIPT, valueAlias);
+                    // fall through to calling applyIntPropertyValue()
+                    break;
+                case UProperty.IDENTIFIER_TYPE:
+                    v = UCharacter.getPropertyValueEnum(p, valueAlias);
                     // fall through to calling applyIntPropertyValue()
                     break;
                 default:
@@ -3853,8 +3870,6 @@ public class UnicodeSet extends UnicodeFilter implements Iterable<String>, Compa
      * <p>This value is an options bit set value for some
      * constructors, applyPattern(), and closeOver().
      * It can be ORed together with other, unrelated options.
-     *
-     * @hide draft / provisional / internal are hidden on Android
      */
     public static final int SIMPLE_CASE_INSENSITIVE = 6;
 

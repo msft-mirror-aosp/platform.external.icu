@@ -1,6 +1,6 @@
 /* GENERATED SOURCE. DO NOT MODIFY. */
 // © 2022 and later: Unicode, Inc. and others.
-// License & terms of use: http://www.unicode.org/copyright.html
+// License & terms of use: https://www.unicode.org/copyright.html
 
 package android.icu.dev.test.message2;
 
@@ -15,8 +15,8 @@ import android.icu.dev.test.CoreTestFmwk;
 import android.icu.message2.FormattedPlaceholder;
 import android.icu.message2.Formatter;
 import android.icu.message2.FormatterFactory;
+import android.icu.message2.MFFunctionRegistry;
 import android.icu.message2.MessageFormatter;
-import android.icu.message2.Mf2FunctionRegistry;
 import android.icu.message2.PlainStringFormattedValue;
 import android.icu.testsharding.MainTestShard;
 
@@ -25,7 +25,7 @@ import android.icu.testsharding.MainTestShard;
  */
 @MainTestShard
 @RunWith(JUnit4.class)
-@SuppressWarnings("javadoc")
+@SuppressWarnings({"static-method", "javadoc"})
 public class CustomFormatterGrammarCaseTest extends CoreTestFmwk {
 
     static class GrammarCasesFormatterFactory implements FormatterFactory {
@@ -45,14 +45,18 @@ public class CustomFormatterGrammarCaseTest extends CoreTestFmwk {
 
             // Romanian naive and incomplete rules, just to make things work for testing.
             private static String getDativeAndGenitive(String value) {
-                if (value.endsWith("ana"))
+                if (value.endsWith("ana")) {
                     return value.substring(0, value.length() - 3) + "nei";
-                if (value.endsWith("ca"))
+                }
+                if (value.endsWith("ca")) {
                     return value.substring(0, value.length() - 2) + "căi";
-                if (value.endsWith("ga"))
+                }
+                if (value.endsWith("ga")) {
                     return value.substring(0, value.length() - 2) + "găi";
-                if (value.endsWith("a"))
+                }
+                if (value.endsWith("a")) {
                     return value.substring(0, value.length() - 1) + "ei";
+                }
                 return "lui " + value;
             }
 
@@ -83,10 +87,9 @@ public class CustomFormatterGrammarCaseTest extends CoreTestFmwk {
                 return new FormattedPlaceholder(toFormat, new PlainStringFormattedValue(result));
             }
         }
-
     }
 
-    static final Mf2FunctionRegistry REGISTRY = Mf2FunctionRegistry.builder()
+    static final MFFunctionRegistry REGISTRY = MFFunctionRegistry.builder()
             .setFormatter("grammarBB", new GrammarCasesFormatterFactory())
             .build();
 
@@ -95,7 +98,7 @@ public class CustomFormatterGrammarCaseTest extends CoreTestFmwk {
         MessageFormatter mf = MessageFormatter.builder()
                 .setFunctionRegistry(REGISTRY)
                 .setLocale(Locale.forLanguageTag("ro"))
-                .setPattern("{Cartea {$owner :grammarBB case=genitive}}")
+                .setPattern("Cartea {$owner :grammarBB case=genitive}")
                 .build();
 
         assertEquals("case - genitive", "Cartea Mariei", mf.formatToString(Args.of("owner", "Maria")));
@@ -106,7 +109,7 @@ public class CustomFormatterGrammarCaseTest extends CoreTestFmwk {
         mf = MessageFormatter.builder()
                 .setFunctionRegistry(REGISTRY)
                 .setLocale(Locale.forLanguageTag("ro"))
-                .setPattern("{M-a sunat {$owner :grammarBB case=nominative}}")
+                .setPattern("M-a sunat {$owner :grammarBB case=nominative}")
                 .build();
 
         assertEquals("case - nominative", "M-a sunat Maria", mf.formatToString(Args.of("owner", "Maria")));
