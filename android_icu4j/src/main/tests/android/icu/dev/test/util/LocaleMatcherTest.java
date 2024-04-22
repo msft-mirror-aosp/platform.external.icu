@@ -25,8 +25,8 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import android.icu.dev.test.CoreTestFmwk;
+import android.icu.impl.locale.LikelySubtags;
 import android.icu.impl.locale.XCldrStub.FileUtilities;
-import android.icu.impl.locale.XLikelySubtags;
 import android.icu.util.LocaleMatcher;
 import android.icu.util.LocaleMatcher.FavorSubtag;
 import android.icu.util.LocalePriorityList;
@@ -871,7 +871,7 @@ public class LocaleMatcherTest extends CoreTestFmwk {
         long start = System.nanoTime();
         for (int i = iterations; i > 0; --i) {
             for (ULocale locale : list) {
-                XLikelySubtags.INSTANCE.makeMaximizedLsrFrom(locale, false);
+                LikelySubtags.INSTANCE.makeMaximizedLsrFrom(locale, false);
             }
         }
         return System.nanoTime() - start;
@@ -1073,7 +1073,7 @@ public class LocaleMatcherTest extends CoreTestFmwk {
                 builder.setFavorSubtag(favor);
             }
             if (!test.threshold.isEmpty()) {
-                int threshold = Integer.valueOf(test.threshold);
+                int threshold = Integer.parseInt(test.threshold);
                 builder.internalSetThresholdDistance(threshold);
             }
             matcher = builder.build();

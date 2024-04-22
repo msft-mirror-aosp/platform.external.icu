@@ -45,11 +45,11 @@ import android.icu.impl.locale.InternalLocaleBuilder;
 import android.icu.impl.locale.KeyTypeData;
 import android.icu.impl.locale.LSR;
 import android.icu.impl.locale.LanguageTag;
+import android.icu.impl.locale.LikelySubtags;
 import android.icu.impl.locale.LocaleExtensions;
 import android.icu.impl.locale.LocaleSyntaxException;
 import android.icu.impl.locale.ParseStatus;
 import android.icu.impl.locale.UnicodeLocaleExtension;
-import android.icu.impl.locale.XLikelySubtags;
 import android.icu.lang.UScript;
 import android.icu.text.LocaleDisplayNames;
 import android.icu.text.LocaleDisplayNames.DialectHandling;
@@ -898,6 +898,22 @@ public final class ULocale implements Serializable, Comparable<ULocale> {
     }
 
     /**
+     * Get region code from a key in locale or null.
+     */
+    private static String getRegionFromKey(ULocale locale, String key) {
+        String region = locale.getKeywordValue(key);
+        if (region != null && region.length() >= 3 && region.length() <= 7) {
+            if (Character.isLetter(region.charAt(0))) {
+                return AsciiUtil.toUpperString(region.substring(0, 2));
+            } else {
+                // assume three-digit region code
+                return region.substring(0, 3);
+            }
+        }
+        return null;
+    }
+
+    /**
      * <strong>[icu]</strong> Get the region to use for supplemental data lookup.
      * Uses
      * (1) any region specified by locale tag "rg"; if none then
@@ -920,17 +936,16 @@ public final class ULocale implements Serializable, Comparable<ULocale> {
     @Deprecated
     public static String getRegionForSupplementalData(
                             ULocale locale, boolean inferRegion) {
-        String region = locale.getKeywordValue("rg");
-        if (region != null && region.length() >= 3 && region.length() <= 7) {
-            if (Character.isLetter(region.charAt(0))) {
-                return AsciiUtil.toUpperString(region.substring(0, 2));
-            } else {
-                // assume three-digit region code
-                return region.substring(0, 3);
-            }
+        String region = getRegionFromKey(locale, "rg");
+        if (region != null) {
+            return region;
         }
         region = locale.getCountry();
         if (region.length() == 0 && inferRegion) {
+            region = getRegionFromKey(locale, "sd");
+            if (region != null) {
+                return region;
+            }
             ULocale maximized = addLikelySubtags(locale);
             region = maximized.getCountry();
         }
@@ -2562,20 +2577,18 @@ public final class ULocale implements Serializable, Comparable<ULocale> {
      *
      * If the provided ULocale instance is already in the maximal form, or there is no
      * data available available for maximization, it will be returned.  For example,
-     * "und-Zzzz" cannot be maximized, since there is no reasonable maximization.
+     * "sh" cannot be maximized, since there is no reasonable maximization.
      * Otherwise, a new ULocale instance with the maximal form is returned.
      *
      * Examples:
      *
      * "en" maximizes to "en_Latn_US"
      *
-     * "de" maximizes to "de_Latn_US"
+     * "de" maximizes to "de_Latn_DE"
      *
      * "sr" maximizes to "sr_Cyrl_RS"
      *
-     * "sh" maximizes to "sr_Latn_RS" (Note this will not reverse.)
-     *
-     * "zh_Hani" maximizes to "zh_Hans_CN" (Note this will not reverse.)
+     * "zh_Hani" maximizes to "zh_Hani_CN"
      *
      * @param loc The ULocale to maximize
      * @return The maximized ULocale instance.
@@ -2592,7 +2605,7 @@ public final class ULocale implements Serializable, Comparable<ULocale> {
             trailing = loc.localeID.substring(trailingIndex);
         }
 
-        LSR max = XLikelySubtags.INSTANCE.makeMaximizedLsrFrom(
+        LSR max = LikelySubtags.INSTANCE.makeMaximizedLsrFrom(
             new ULocale(loc.getLanguage(), loc.getScript(), loc.getCountry()), true);
         String newLocaleID = createTagString(max.language, max.script, max.region,
             trailing);
@@ -2699,7 +2712,7 @@ public final class ULocale implements Serializable, Comparable<ULocale> {
             trailing = loc.localeID.substring(trailingIndex);
         }
 
-        LSR lsr = XLikelySubtags.INSTANCE.minimizeSubtags(
+        LSR lsr = LikelySubtags.INSTANCE.minimizeSubtags(
             loc.getLanguage(), loc.getScript(), loc.getCountry(), fieldToFavor);
         String newLocaleID = createTagString(lsr.language, lsr.script, lsr.region,
             trailing);

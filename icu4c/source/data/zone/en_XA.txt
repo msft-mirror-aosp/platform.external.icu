@@ -45,9 +45,6 @@ en_XA{
         "Europe:London"{
             ld{"[Ɓŕîţîšĥ Šûɱɱéŕ Ţîɱé one two three]"}
         }
-        "Europe:Uzhgorod"{
-            ec{"[Ûžĥĥöŕöð one two]"}
-        }
         "Pacific:Honolulu"{
             sd{"[ĤÐŢ one]"}
             sg{"[ĤŠŢ one]"}
@@ -343,6 +340,11 @@ en_XA{
         "meta:Gilbert_Islands"{
             ls{"[Ĝîļƀéŕţ Îšļåñðš Ţîɱé one two three]"}
         }
+        "meta:Greenland"{
+            ld{"[Ĝŕééñļåñð Šûɱɱéŕ Ţîɱé one two three]"}
+            lg{"[Ĝŕééñļåñð Ţîɱé one two]"}
+            ls{"[Ĝŕééñļåñð Šţåñðåŕð Ţîɱé one two three]"}
+        }
         "meta:Greenland_Eastern"{
             ld{"[Éåšţ Ĝŕééñļåñð Šûɱɱéŕ Ţîɱé one two three]"}
             lg{"[Éåšţ Ĝŕééñļåñð Ţîɱé one two three]"}
@@ -461,9 +463,6 @@ en_XA{
             lg{"[Ṁåçåö Ţîɱé one two]"}
             ls{"[Ṁåçåö Šţåñðåŕð Ţîɱé one two three]"}
         }
-        "meta:Macquarie"{
-            ls{"[Ṁåçǫûåŕîé Îšļåñð Ţîɱé one two three]"}
-        }
         "meta:Magadan"{
             ld{"[Ṁåĝåðåñ Šûɱɱéŕ Ţîɱé one two three]"}
             lg{"[Ṁåĝåðåñ Ţîɱé one two]"}
@@ -488,11 +487,6 @@ en_XA{
         }
         "meta:Mawson"{
             ls{"[Ṁåŵšöñ Ţîɱé one two]"}
-        }
-        "meta:Mexico_Northwest"{
-            ld{"[Ñöŕţĥŵéšţ Ṁéẋîçö Ðåýļîĝĥţ Ţîɱé one two three four]"}
-            lg{"[Ñöŕţĥŵéšţ Ṁéẋîçö Ţîɱé one two three]"}
-            ls{"[Ñöŕţĥŵéšţ Ṁéẋîçö Šţåñðåŕð Ţîɱé one two three four]"}
         }
         "meta:Mexico_Pacific"{
             ld{"[Ṁéẋîçåñ Þåçîƒîç Ðåýļîĝĥţ Ţîɱé one two three four]"}

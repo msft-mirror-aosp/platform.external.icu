@@ -468,6 +468,7 @@ java_test {
         "core-icu4j",
     ],
     static_libs: [
+        "gson",
         "junit",
         "junit-params",
         "tzdata-testing",
