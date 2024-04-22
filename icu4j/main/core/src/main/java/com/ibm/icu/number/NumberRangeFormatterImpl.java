@@ -437,5 +437,4 @@ class NumberRangeFormatterImpl {
         assert mod != null;
         return mod;
     }
-
 }

@@ -880,6 +880,9 @@ public final class UScript {
     /***/
     public static final int NAG_MUNDARI = 199; /* Nagm */
 
+    /** @hide unsupported on Android*/
+    public static final int ARABIC_NASTALIQ = 200; /* Aran */
+
     /**
      * One more than the highest normal UScript code.
      * The highest value is available via UCharacter.getIntPropertyMaxValue(UProperty.SCRIPT).
@@ -888,7 +891,7 @@ public final class UScript {
      * @hide unsupported on Android
      */
     @Deprecated
-    public static final int CODE_LIMIT   = 200;
+    public static final int CODE_LIMIT   = 201;
 
     private static int[] getCodesFromLocale(ULocale locale) {
         // Multi-script languages, equivalent to the LocaleScript data

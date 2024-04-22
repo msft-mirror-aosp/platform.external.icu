@@ -991,7 +991,7 @@ public class DateFormatRegressionTest extends CoreTestFmwk {
             logln(what + "=" + s);
             first = s.charAt(0);
             if(first<kHindiZero || first>(kHindiZero+9)) {
-                errln(what + "- wrong digit,  got " + s + " (integer digit value " + new Integer(first).toString());
+                errln(what + "- wrong digit,  got " + s + " (integer digit value " + Integer.valueOf(first));
             }
         }
 
@@ -1002,7 +1002,7 @@ public class DateFormatRegressionTest extends CoreTestFmwk {
             logln(what + ": " + s);
             first = s.charAt(0);
             if(first<kArabicZero || first>(kArabicZero+9)) {
-                errln(what + " wrong digit, got " + s + " (integer digit value " + new Integer(first).toString());
+                errln(what + " wrong digit, got " + s + " (integer digit value " + Integer.valueOf(first));
             }
         }
 
@@ -1013,7 +1013,7 @@ public class DateFormatRegressionTest extends CoreTestFmwk {
             logln(what + ": " + s);
             first = s.charAt(0);
             if(first<kArabicZero || first>(kArabicZero+9)) {
-                errln(what + " wrong  digit but got " + s + " (integer digit value " + new Integer(first).toString());
+                errln(what + " wrong  digit but got " + s + " (integer digit value " + Integer.valueOf(first));
             }
         }
         {
@@ -1023,7 +1023,7 @@ public class DateFormatRegressionTest extends CoreTestFmwk {
             logln(what + ": " + s);
             first = s.charAt(0);
             if(first<kLatinZero || first>(kLatinZero+9)) {
-                errln(what + " wrong  digit but got " + s + " (integer digit value " + new Integer(first).toString());
+                errln(what + " wrong  digit but got " + s + " (integer digit value " + Integer.valueOf(first));
             }
         }
 
@@ -1034,7 +1034,7 @@ public class DateFormatRegressionTest extends CoreTestFmwk {
             logln(what+ ": " + s);
             first = s.charAt(0);
             if(first<kArabicZero || first>(kArabicZero+9)) {
-                errln(what + " wrong  digit but got " + s + " (integer digit value " + new Integer(first).toString());
+                errln(what + " wrong  digit but got " + s + " (integer digit value " + Integer.valueOf(first));
             }
         }
 
@@ -1045,7 +1045,7 @@ public class DateFormatRegressionTest extends CoreTestFmwk {
             logln(what+ ": " + s);
             first = s.charAt(0);
             if(first<kArabicZero || first>(kArabicZero+9)) {
-                errln(what + " wrong  digit but got " + s + " (integer digit value " + new Integer(first).toString());
+                errln(what + " wrong  digit but got " + s + " (integer digit value " + Integer.valueOf(first));
             }
         }
 
@@ -1056,7 +1056,7 @@ public class DateFormatRegressionTest extends CoreTestFmwk {
             logln(what+ ": " + s);
             first = s.charAt(0);
             if(first<kArabicZero || first>(kArabicZero+9)) {
-                errln(what + " wrong  digit but got " + s + " (integer digit value " + new Integer(first).toString());
+                errln(what + " wrong  digit but got " + s + " (integer digit value " + Integer.valueOf(first));
             }
         }
     }

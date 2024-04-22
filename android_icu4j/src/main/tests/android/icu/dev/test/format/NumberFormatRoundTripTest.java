@@ -150,11 +150,11 @@ public class NumberFormatRoundTripTest extends CoreTestFmwk {
     }
 
     private void _test(NumberFormat fmt, double value) {
-        _test(fmt, new Double(value));
+        _test(fmt, Double.valueOf(value));
     }
 
     private void _test(NumberFormat fmt, long value) {
-        _test(fmt, new Long(value));
+        _test(fmt, Long.valueOf(value));
     }
 
     private void _test(NumberFormat fmt, Number value) {
@@ -166,7 +166,7 @@ public class NumberFormatRoundTripTest extends CoreTestFmwk {
         else
             s = fmt.format(value.longValue());
 
-        Number n = new Double(0);
+        Number n = 0d;
         boolean show = verbose;
         if (DEBUG)
             logln(

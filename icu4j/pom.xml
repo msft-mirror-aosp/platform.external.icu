@@ -8,7 +8,7 @@
 
   <groupId>com.ibm.icu</groupId>
   <artifactId>icu4j-root</artifactId>
-  <version>74.2</version>
+  <version>75.1</version>
   <packaging>pom</packaging>
 
   <name>${proj-title} (${project.artifactId})</name>
@@ -54,16 +54,18 @@
     <maven.compiler.target>1.8</maven.compiler.target>
 
     <maven-central-repo-url>https://oss.sonatype.org</maven-central-repo-url>
+    <maven-central-releases-repo-url>${maven-central-repo-url}/service/local/staging/deploy/maven2</maven-central-releases-repo-url>
     <maven-central-snapshots-repo-url>${maven-central-repo-url}/content/repositories/snapshots</maven-central-snapshots-repo-url>
 
     <junit.version>4.13.2</junit.version>
     <junitparams.version>1.1.1</junitparams.version>
+    <gson.version>2.10.1</gson.version>
 
     <proj-title>International Components for Unicode for Java</proj-title>
     <proj.displayname>${project.artifactId}</proj.displayname>
 
     <!-- Version update! -->
-    <icu.major.version>74</icu.major.version>
+    <icu.major.version>75</icu.major.version>
 
     <!-- Variables used to generate the javadoc -->
     <!-- Version update! -->
@@ -104,7 +106,7 @@
 
   <licenses>
     <license>
-      <name>Unicode/ICU License</name>
+      <name>Unicode-3.0</name>
       <url>https://raw.githubusercontent.com/unicode-org/icu/main/LICENSE</url>
       <distribution>repo</distribution>
     </license>
@@ -235,6 +237,10 @@
         <plugin>
           <artifactId>maven-source-plugin</artifactId>
           <version>3.3.0</version>
+        </plugin>
+        <plugin>
+          <artifactId>maven-gpg-plugin</artifactId>
+          <version>3.1.0</version>
         </plugin>
         <plugin>
           <artifactId>maven-project-info-reports-plugin</artifactId>
@@ -456,6 +462,16 @@
                 </goals>
               </execution>
             </executions>
+            <configuration>
+              <excludes>
+                <exclude>/com/ibm/icu/impl/data/icudt*/**</exclude>
+                <exclude>/com/ibm/icu/impl/duration/impl/data/*.xml</exclude>
+                <exclude>/com/ibm/icu/impl/duration/impl/data/*.xml.escaped</exclude>
+                <exclude>/com/ibm/icu/impl/duration/impl/data/*.txt</exclude>
+                <exclude>/com/ibm/icu/ICUConfig.properties</exclude>
+                <exclude>/**/package.html</exclude>
+              </excludes>
+            </configuration>
           </plugin>
         </plugins>
       </build>
@@ -621,6 +637,43 @@
             <artifactId>maven-compiler-plugin</artifactId>
             <configuration>
               <release>8</release>
+            </configuration>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+
+    <profile>
+      <!-- mvn test -ntp -DskipTests -DskipITs -P errorprone -->
+      <id>errorprone</id>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-compiler-plugin</artifactId>
+            <configuration>
+              <source>${maven.compiler.source}</source>
+              <target>${maven.compiler.target}</target>
+              <encoding>UTF-8</encoding>
+              <!-- Use <compilerArg> to pass flags to errorprone. See https://errorprone.info/docs/flags -->
+              <showWarnings>true</showWarnings>
+              <compilerArgs>
+                <arg>-XDcompilePolicy=simple</arg>
+                <!--
+                  -XepAllErrorsAsWarnings:
+                    If we let errors be errors they fail and stop the build, so we don't get a full report.
+                    So we force them all to be reported as warning.
+                    The drawback is that there are not errors now, they get mixed with the real warnings.
+                -->
+                <arg>-Xplugin:ErrorProne -XepAllErrorsAsWarnings</arg>
+              </compilerArgs>
+              <annotationProcessorPaths>
+                <path>
+                  <groupId>com.google.errorprone</groupId>
+                  <artifactId>error_prone_core</artifactId>
+                  <version>2.25.0</version>
+                </path>
+              </annotationProcessorPaths>
             </configuration>
           </plugin>
         </plugins>

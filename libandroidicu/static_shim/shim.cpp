@@ -56,6 +56,7 @@
 #include <unicode/usearch.h>
 #include <unicode/uset.h>
 #include <unicode/ushape.h>
+#include <unicode/usimplenumberformatter.h>
 #include <unicode/uspoof.h>
 #include <unicode/usprep.h>
 #include <unicode/ustring.h>
