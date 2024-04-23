@@ -3916,7 +3916,7 @@ public class MeasureUnitTest extends CoreTestFmwk {
                 System.out.println("     * Returns by value, unit of " + type + ": " + code + ".");
                 System.out.printf("     * Also see {@link #create%s()}.\n", name);
                 String getterVersion = getVersion(javaName, thisVersion);
-                if (Integer.valueOf(getterVersion) < 64) {
+                if (Integer.parseInt(getterVersion) < 64) {
                     getterVersion = "64";
                 }
                 if (isDraft(javaName)) {
@@ -4623,6 +4623,8 @@ public class MeasureUnitTest extends CoreTestFmwk {
         }
 
         TestCase cases[] = {
+            new TestCase(MeasureUnit.MeasurePrefix.QUECTO, 10, -30),
+            new TestCase(MeasureUnit.MeasurePrefix.RONTO, 10, -27),
             new TestCase(MeasureUnit.MeasurePrefix.YOCTO, 10, -24),
             new TestCase(MeasureUnit.MeasurePrefix.ZEPTO, 10, -21),
             new TestCase(MeasureUnit.MeasurePrefix.ATTO, 10, -18),
@@ -4644,6 +4646,8 @@ public class MeasureUnitTest extends CoreTestFmwk {
             new TestCase(MeasureUnit.MeasurePrefix.EXA, 10, 18),
             new TestCase(MeasureUnit.MeasurePrefix.ZETTA, 10, 21),
             new TestCase(MeasureUnit.MeasurePrefix.YOTTA, 10, 24),
+            new TestCase(MeasureUnit.MeasurePrefix.RONNA, 10, 27),
+            new TestCase(MeasureUnit.MeasurePrefix.QUETTA, 10, 30),
             new TestCase(MeasureUnit.MeasurePrefix.KIBI, 1024, 1),
             new TestCase(MeasureUnit.MeasurePrefix.MEBI, 1024, 2),
             new TestCase(MeasureUnit.MeasurePrefix.GIBI, 1024, 3),
@@ -4671,8 +4675,7 @@ public class MeasureUnitTest extends CoreTestFmwk {
 
             // Prove that all built-in units are parseable, except "generic" temperature
             // (and for now, beaufort units)
-            if (unit == MeasureUnit.GENERIC_TEMPERATURE ||
-                    (unit == MeasureUnit.BEAUFORT && logKnownIssue("CLDR-16327", "beaufort currently not convertible"))) {
+            if (unit == MeasureUnit.GENERIC_TEMPERATURE) {
                 try {
                     MeasureUnit.forIdentifier(unit.getIdentifier());
                     Assert.fail("GENERIC_TEMPERATURE should not be parseable (BEAUFORT also currently non-parseable)");

@@ -20,14 +20,12 @@ import java.util.TreeSet;
  * in a SimplePersonName.  But beyond storing and returning modified field values provided to it by the caller,
  * SimplePersonName relies on the PersonNameFormatter's default handling of field modifiers.
  * @hide Only a subset of ICU is exposed in Android
- * @hide draft / provisional / internal are hidden on Android
  */
 public class SimplePersonName implements PersonName {
     /**
      * A utility class for constructing a SimplePersonName.  Use SimplePersonName.builder()
      * to get a new Builder instance.
      * @hide Only a subset of ICU is exposed in Android
-     * @hide draft / provisional / internal are hidden on Android
      */
     public static class Builder {
         /**
@@ -35,7 +33,6 @@ public class SimplePersonName implements PersonName {
          * @param locale The locale for the new name object.  Can be null, which indicates the
          *               name's locale is unknown.
          * @return This builder.
-         * @hide draft / provisional / internal are hidden on Android
          */
         public Builder setLocale(Locale locale) {
             this.locale = locale;
@@ -46,7 +43,6 @@ public class SimplePersonName implements PersonName {
          * Set the preferred order for the new name object.
          * @param preferredOrder The preferred order for the new name object.
          * @return This builder.
-         * @hide draft / provisional / internal are hidden on Android
          */
         public Builder setPreferredOrder(PreferredOrder preferredOrder) {
             this.preferredOrder = preferredOrder;
@@ -60,7 +56,6 @@ public class SimplePersonName implements PersonName {
          *                  to this field value.  May be null, which is the same as the empty set.
          * @param value The value for this field.
          * @return This builder.
-         * @hide draft / provisional / internal are hidden on Android
          */
         public Builder addField(NameField field,
                                 Collection<FieldModifier> modifiers,
@@ -89,7 +84,6 @@ public class SimplePersonName implements PersonName {
         /**
          * Returns a SimplePersonName with the field values and name locale that were passed to this builder.
          * @return A SimplePersonName with the field values and name locale that were passed to this builder.
-         * @hide draft / provisional / internal are hidden on Android
          */
         public SimplePersonName build() {
             // special-case code for the "surname" field -- if it isn't specified, but "surname-prefix" and
@@ -125,7 +119,6 @@ public class SimplePersonName implements PersonName {
     /**
      * Returns a Builder object that can be used to construct a new SimplePersonName object.
      * @return A Builder object that can be used to construct a new SimplePersonName object.
-     * @hide draft / provisional / internal are hidden on Android
      */
     public static Builder builder() {
         return new Builder();
@@ -143,7 +136,6 @@ public class SimplePersonName implements PersonName {
     /**
      * Returns the locale of the name-- that is, the language or country of origin for the person being named.
      * @return The name's locale, or null if it's unknown.
-     * @hide draft / provisional / internal are hidden on Android
      */
     @Override
     public Locale getNameLocale() {
@@ -154,7 +146,6 @@ public class SimplePersonName implements PersonName {
      * Returns the preferred field order for the name.  This will be DEFAULT, unless the caller sets it to something
      * else using the builder.
      * @return The name's preferred field order.
-     * @hide draft / provisional / internal are hidden on Android
      */
     @Override
     public PreferredOrder getPreferredOrder() { return preferredOrder; }
@@ -170,7 +161,6 @@ public class SimplePersonName implements PersonName {
      *                  was provided at construction time.
      * @return The value of the requested field, optionally modified by some or all of the requested modifiers, or
      * null if the requested field isn't present in the name.
-     * @hide draft / provisional / internal are hidden on Android
      */
     @Override
     public String getFieldValue(NameField nameField, Set<FieldModifier> modifiers) {

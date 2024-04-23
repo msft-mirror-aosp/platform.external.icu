@@ -11,6 +11,7 @@
 package android.icu.lang;
 
 import java.lang.ref.SoftReference;
+import java.util.EnumSet;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Locale;
@@ -3545,6 +3546,56 @@ public final class UCharacter implements ECharacterCategory, ECharacterDirection
         public static final int UPRIGHT = 3;
     }
 
+    /**
+     * Identifier Status constants.
+     * See https://www.unicode.org/reports/tr39/#Identifier_Status_and_Type.
+     *
+     * @see UProperty#IDENTIFIER_STATUS
+     * @hide Only a subset of ICU is exposed in Android
+     * @hide draft / provisional / internal are hidden on Android
+     */
+    public enum IdentifierStatus {
+        /** @hide draft / provisional / internal are hidden on Android*/
+        RESTRICTED,
+        /** @hide draft / provisional / internal are hidden on Android*/
+        ALLOWED,
+    }
+
+    /**
+     * Identifier Type constants.
+     * See https://www.unicode.org/reports/tr39/#Identifier_Status_and_Type.
+     *
+     * @see UProperty#IDENTIFIER_TYPE
+     * @hide Only a subset of ICU is exposed in Android
+     * @hide draft / provisional / internal are hidden on Android
+     */
+    public enum IdentifierType {
+        /** @hide draft / provisional / internal are hidden on Android*/
+        NOT_CHARACTER,
+        /** @hide draft / provisional / internal are hidden on Android*/
+        DEPRECATED,
+        /** @hide draft / provisional / internal are hidden on Android*/
+        DEFAULT_IGNORABLE,
+        /** @hide draft / provisional / internal are hidden on Android*/
+        NOT_NFKC,
+        /** @hide draft / provisional / internal are hidden on Android*/
+        NOT_XID,
+        /** @hide draft / provisional / internal are hidden on Android*/
+        EXCLUSION,
+        /** @hide draft / provisional / internal are hidden on Android*/
+        OBSOLETE,
+        /** @hide draft / provisional / internal are hidden on Android*/
+        TECHNICAL,
+        /** @hide draft / provisional / internal are hidden on Android*/
+        UNCOMMON_USE,
+        /** @hide draft / provisional / internal are hidden on Android*/
+        LIMITED_USE,
+        /** @hide draft / provisional / internal are hidden on Android*/
+        INCLUSION,
+        /** @hide draft / provisional / internal are hidden on Android*/
+        RECOMMENDED,
+    }
+
     // public data members -----------------------------------------------
 
     /**
@@ -4011,6 +4062,47 @@ public final class UCharacter implements ECharacterCategory, ECharacterDirection
     public static boolean isUnicodeIdentifierStart(int ch)
     {
         return hasBinaryProperty(ch, UProperty.ID_START);  // single code point
+    }
+
+    /**
+     * Does the set of Identifier_Type values code point c contain the given type?
+     *
+     * <p>Used for UTS #39 General Security Profile for Identifiers
+     * (https://www.unicode.org/reports/tr39/#General_Security_Profile).
+     *
+     * <p>Each code point maps to a <i>set</i> of UIdentifierType values.
+     *
+     * @param c code point
+     * @param type Identifier_Type to check
+     * @return true if type is in Identifier_Type(c)
+     * @hide draft / provisional / internal are hidden on Android
+     */
+    public static final boolean hasIdentifierType(int c, IdentifierType type) {
+        return UCharacterProperty.INSTANCE.hasIDType(c, type);
+    }
+
+    /**
+     * Writes code point c's Identifier_Type as a set of IdentifierType values and
+     * returns the number of types.
+     * The set is cleared before c's types are added.
+     *
+     * <p>Used for UTS #39 General Security Profile for Identifiers
+     * (https://www.unicode.org/reports/tr39/#General_Security_Profile).
+     *
+     * <p>Each code point maps to a <i>set</i> of IdentifierType values.
+     * There is always at least one type.
+     * Only some of the types can be combined with others,
+     * and usually only a small number of types occur together.
+     * Future versions might add additional types.
+     * See UTS #39 and its data files for details.
+     *
+     * @param c code point
+     * @param types output set
+     * @return number of values in c's Identifier_Type
+     * @hide draft / provisional / internal are hidden on Android
+     */
+    public static final int getIdentifierTypes(int c, EnumSet<IdentifierType> types) {
+        return UCharacterProperty.INSTANCE.getIDTypes(c, types);
     }
 
     /**
