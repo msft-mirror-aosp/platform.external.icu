@@ -1,0 +1,46 @@
+//
+// Copyright (C) 2024 The Android Open Source Project
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//      http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+//
+
+package {
+    default_team: "trendy_team_java_core_libraries",
+    default_visibility: ["//visibility:private"],
+    // See: http://go/android-license-faq
+    // A large-scale-change added 'default_applicable_licenses' to import
+    // all of the 'license_kinds' from "external_icu_license"
+    // to get the below license kinds:
+    //   SPDX-license-identifier-Apache-2.0
+    //   SPDX-license-identifier-BSD
+    //   SPDX-license-identifier-ICU
+    //   SPDX-license-identifier-MIT
+    //   SPDX-license-identifier-Unicode-DFS
+    //   legacy_unencumbered
+    default_applicable_licenses: ["external_icu_license"],
+}
+
+// Small static library used by TwilightService in the system server and WallpaperPicker2 app. To
+// avoid @CorePlaformApi, the system server doesn't use CalendarAstronomer in android.icu.
+// Don't link this in boot classpath or Zygote to avoid class collision with the
+// com.ibm.icu.impl.CalendarAstronomer in the app classloader.
+java_library_static {
+    name: "icu4j_calendar_astronomer",
+    host_supported: false,
+    sdk_version: "core_current",
+    srcs: ["main/java/com/ibm/icu/impl/CalendarAstronomer.java"],
+    visibility: [
+        "//frameworks/base/services/core",
+        "//packages/apps/WallpaperPicker2",
+    ],
+}

@@ -45,9 +45,6 @@ ar_XB{
         "Europe:London"{
             ld{"؜‮British‬؜ ؜‮Summer‬؜ ؜‮Time‬؜"}
         }
-        "Europe:Uzhgorod"{
-            ec{"؜‮Uzhhorod‬؜"}
-        }
         "Pacific:Honolulu"{
             sd{"؜‮HDT‬؜"}
             sg{"؜‮HST‬؜"}
@@ -343,6 +340,11 @@ ar_XB{
         "meta:Gilbert_Islands"{
             ls{"؜‮Gilbert‬؜ ؜‮Islands‬؜ ؜‮Time‬؜"}
         }
+        "meta:Greenland"{
+            ld{"؜‮Greenland‬؜ ؜‮Summer‬؜ ؜‮Time‬؜"}
+            lg{"؜‮Greenland‬؜ ؜‮Time‬؜"}
+            ls{"؜‮Greenland‬؜ ؜‮Standard‬؜ ؜‮Time‬؜"}
+        }
         "meta:Greenland_Eastern"{
             ld{"؜‮East‬؜ ؜‮Greenland‬؜ ؜‮Summer‬؜ ؜‮Time‬؜"}
             lg{"؜‮East‬؜ ؜‮Greenland‬؜ ؜‮Time‬؜"}
@@ -461,9 +463,6 @@ ar_XB{
             lg{"؜‮Macao‬؜ ؜‮Time‬؜"}
             ls{"؜‮Macao‬؜ ؜‮Standard‬؜ ؜‮Time‬؜"}
         }
-        "meta:Macquarie"{
-            ls{"؜‮Macquarie‬؜ ؜‮Island‬؜ ؜‮Time‬؜"}
-        }
         "meta:Magadan"{
             ld{"؜‮Magadan‬؜ ؜‮Summer‬؜ ؜‮Time‬؜"}
             lg{"؜‮Magadan‬؜ ؜‮Time‬؜"}
@@ -488,11 +487,6 @@ ar_XB{
         }
         "meta:Mawson"{
             ls{"؜‮Mawson‬؜ ؜‮Time‬؜"}
-        }
-        "meta:Mexico_Northwest"{
-            ld{"؜‮Northwest‬؜ ؜‮Mexico‬؜ ؜‮Daylight‬؜ ؜‮Time‬؜"}
-            lg{"؜‮Northwest‬؜ ؜‮Mexico‬؜ ؜‮Time‬؜"}
-            ls{"؜‮Northwest‬؜ ؜‮Mexico‬؜ ؜‮Standard‬؜ ؜‮Time‬؜"}
         }
         "meta:Mexico_Pacific"{
             ld{"؜‮Mexican‬؜ ؜‮Pacific‬؜ ؜‮Daylight‬؜ ؜‮Time‬؜"}

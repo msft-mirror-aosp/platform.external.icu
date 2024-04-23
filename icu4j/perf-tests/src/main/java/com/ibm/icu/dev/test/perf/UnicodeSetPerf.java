@@ -8,7 +8,6 @@
 */
 package com.ibm.icu.dev.test.perf;
 import java.util.HashSet;
-import java.util.Iterator;
 
 import com.ibm.icu.text.UnicodeSet;
 import com.ibm.icu.text.UnicodeSetIterator;
@@ -25,7 +24,7 @@ public class UnicodeSetPerf extends PerfTest {
     UnicodeSet testChars;
     UnicodeSetIterator it;
     UnicodeSet us;
-    HashSet hs;
+    HashSet<Integer> hs;
 
     public static void main(String[] args) throws Exception {
         new UnicodeSetPerf().run(args);
@@ -41,7 +40,7 @@ public class UnicodeSetPerf extends PerfTest {
         testChars = new UnicodeSet(pattern);
         it = new UnicodeSetIterator(testChars);
         us = new UnicodeSet();
-        hs = new HashSet();
+        hs = new HashSet<>();
     }
 
     PerfTest.Function testUnicodeSetAdd() {
@@ -72,7 +71,7 @@ public class UnicodeSetPerf extends PerfTest {
                 int n=0;
                 while (it.nextRange()) {
                     for (int cp = it.codepoint; cp <= it.codepointEnd; ++cp) {
-                        hs.add(new Integer(cp));
+                        hs.add(cp);
                         ++n;
                     }
                 }
@@ -108,13 +107,13 @@ public class UnicodeSetPerf extends PerfTest {
         hs.clear();
         it.reset();
         while (it.next()) {
-            hs.add(new Integer(it.codepoint));
+            hs.add(it.codepoint);
         }
         return new PerfTest.Function() {
             public void call() {
                 int temp = 0;
                 for (int cp = 0; cp <= 0x10FFFF; ++cp) {
-                    if (hs.contains(new Integer(cp))) {
+                    if (hs.contains(cp)) {
                         temp += cp;
                     }
                 }
@@ -146,14 +145,13 @@ public class UnicodeSetPerf extends PerfTest {
         hs.clear();
         it.reset();
         while (it.next()) {
-            hs.add(new Integer(it.codepoint));
+            hs.add(it.codepoint);
         }
         return new PerfTest.Function() {
             public void call() {
                 int temp = 0;
-                Iterator itr = hs.iterator();
-                while (itr.hasNext()) {
-                    temp += ((Integer)itr.next()).intValue();
+                for (Integer value : hs) {
+                    temp += value;
                 }
             }
 

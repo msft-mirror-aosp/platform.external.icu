@@ -27,12 +27,12 @@ import android.icu.impl.ICUData;
 import android.icu.impl.ICUResourceBundle;
 import android.icu.impl.UResource;
 import android.icu.impl.locale.LSR;
+import android.icu.impl.locale.LikelySubtags;
 import android.icu.impl.locale.LocaleDistance;
 import android.icu.impl.locale.XCldrStub.Multimap;
 import android.icu.impl.locale.XCldrStub.Predicate;
 import android.icu.impl.locale.XCldrStub.Splitter;
 import android.icu.impl.locale.XCldrStub.TreeMultimap;
-import android.icu.impl.locale.XLikelySubtags;
 import android.icu.util.BytesTrieBuilder;
 import android.icu.util.Output;
 import android.icu.util.ULocale;
@@ -492,7 +492,7 @@ public final class LocaleDistanceBuilder {
         Set<LSR> paradigmLSRs = new LinkedHashSet<>();  // could be TreeSet if LSR were Comparable
         for (String paradigm : paradigms) {
             ULocale pl = new ULocale(paradigm);
-            LSR max = XLikelySubtags.INSTANCE.makeMaximizedLsrFrom(pl, false);
+            LSR max = LikelySubtags.INSTANCE.makeMaximizedLsrFrom(pl, false);
             // Clear the LSR flags to make the data equality test in
             // LocaleDistanceTest happy.
             paradigmLSRs.add(new LSR(max.language, max.script, max.region, LSR.DONT_CARE_FLAGS));
@@ -890,7 +890,7 @@ public final class LocaleDistanceBuilder {
     }
 
     public static final void main(String[] args) throws IOException {
-        XLikelySubtags.Data likelyData = XLikelySubtags.Data.load();
+        LikelySubtags.Data likelyData = LikelySubtags.Data.load();
         LocaleDistance.Data distanceData = build();
         System.out.println("Writing LocaleDistance.Data to " + TXT_PATH + '/' + TXT_FILE_NAME);
         try (PrintWriter out = openWriter()) {

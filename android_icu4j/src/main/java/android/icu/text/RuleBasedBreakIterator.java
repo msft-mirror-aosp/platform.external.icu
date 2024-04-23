@@ -20,8 +20,8 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.nio.ByteBuffer;
 import java.text.CharacterIterator;
-import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.MissingResourceException;
+import java.util.concurrent.ConcurrentLinkedQueue;
 
 import android.icu.impl.CharacterIteration;
 import android.icu.impl.ICUBinary;
