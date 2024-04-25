@@ -434,7 +434,8 @@
  * \xrefitem deprecated "Deprecated" "Deprecated List" This API is for technology preview only.
  */
 #ifndef UCONFIG_NO_MF2
-#   define UCONFIG_NO_MF2 0
+// Android patch: Disable experimental MF2 on Android.
+#   define UCONFIG_NO_MF2 1
 #endif
 
 /**
