@@ -44,7 +44,7 @@ en_XA{
     Languages{
         aa{"[Åƒåŕ one]"}
         ab{"[Åƀķĥåžîåñ one two]"}
-        ace{"[Åçĥîñéšé one two]"}
+        ace{"[Åçéĥñéšé one two]"}
         ach{"[Åçöļî one]"}
         ada{"[Åðåñĝɱé one two]"}
         ady{"[Åðýĝĥé one]"}
@@ -1030,7 +1030,6 @@ en_XA{
             phonebook{"[Þĥöñéƀööķ Šöŕţ Öŕðéŕ one two three]"}
             phonetic{"[Þĥöñéţîç Šöŕţ Öŕðéŕ one two three]"}
             pinyin{"[Þîñýîñ Šöŕţ Öŕðéŕ one two three]"}
-            reformed{"[Ŕéƒöŕɱéð Šöŕţ Öŕðéŕ one two three]"}
             search{"[Ĝéñéŕåļ‐Þûŕþöšé Šéåŕçĥ one two three]"}
             searchjl{"[Šéåŕçĥ Ɓý Ĥåñĝûļ Îñîţîåļ Çöñšöñåñţ one two three four]"}
             standard{"[Šţåñðåŕð Šöŕţ Öŕðéŕ one two three]"}

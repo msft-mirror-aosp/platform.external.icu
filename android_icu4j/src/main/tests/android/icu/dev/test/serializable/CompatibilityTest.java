@@ -201,6 +201,11 @@ public class CompatibilityTest extends CoreTestFmwk
     }
 
     private static final String[][] SKIP_CASES = {
+            // android.icu.message2.Mf2DataModel$OrderedMap was very drafty
+            {"ICU_72.1", "android.icu.message2.Mf2DataModel$OrderedMap"},
+            {"ICU_73.1", "android.icu.message2.Mf2DataModel$OrderedMap"},
+            {"ICU_74.1", "android.icu.message2.Mf2DataModel$OrderedMap"},
+
             // ICU 52+ PluralRules/PluralFormat/CurrencyPluralInfo are not
             // serialization-compatible with previous versions.
             {"ICU_50.1", "android.icu.text.CurrencyPluralInfo"},

@@ -1860,10 +1860,13 @@ public abstract class Calendar implements Serializable, Cloneable, Comparable<Ca
         case ISO8601:
             // Only differs week numbering rule from Gregorian
             cal = new GregorianCalendar(zone, locale);
-            String type = locale.getUnicodeLocaleType("fw");
-            // Only set fw to Monday for ISO8601 if there aer no fw keyword.
-            // If there is a fw keyword, the Calendar constructor already set it to the fw value.
-            if (locale.getKeywordValue("fw") == null) {
+            // Based on UTS35 "First Day Overrides"
+            // https://unicode.org/reports/tr35/tr35-dates.html#first-day-overrides
+            // Only set fw to Monday for ISO8601 if there are no fw nor rg keywords.
+            // If there is a fw or rg keywords, the Calendar constructor already set it
+            // to the fw value or based on the rg value.
+            if (locale.getUnicodeLocaleType("fw") == null &&
+                locale.getUnicodeLocaleType("rg") == null) {
                 cal.setFirstDayOfWeek(MONDAY);
             }
             cal.setMinimalDaysInFirstWeek(4);
@@ -3073,14 +3076,9 @@ public abstract class Calendar implements Serializable, Cloneable, Comparable<Ca
             // * Until we have new API per #9393, we temporarily hardcode knowledge of
             //   which calendars have era 0 years that go backwards.
         {
-            boolean era0WithYearsThatGoBackwards = false;
             int era = get(ERA);
-            if (era == 0) {
-                String calType = getType();
-                if (calType.equals("gregorian") || calType.equals("roc") || calType.equals("coptic")) {
-                    amount = -amount;
-                    era0WithYearsThatGoBackwards = true;
-                }
+            if (era == 0 && isEra0CountingBackward()) {
+                amount = -amount;
             }
             int newYear = internalGet(field) + amount;
             if (era > 0 || newYear >= 1) {
@@ -3099,7 +3097,7 @@ public abstract class Calendar implements Serializable, Cloneable, Comparable<Ca
                 // else we are in era 0 with newYear < 1;
                 // calendars with years that go backwards must pin the year value at 0,
                 // other calendars can have years < 0 in era 0
-            } else if (era0WithYearsThatGoBackwards) {
+            } else if (era == 0 && isEra0CountingBackward()) {
                 newYear = 1;
             }
             set(field, newYear);
@@ -3416,11 +3414,8 @@ public abstract class Calendar implements Serializable, Cloneable, Comparable<Ca
             //   also handle YEAR the same way.
         {
             int era = get(ERA);
-            if (era == 0) {
-                String calType = getType();
-                if (calType.equals("gregorian") || calType.equals("roc") || calType.equals("coptic")) {
-                    amount = -amount;
-                }
+            if (era == 0 && isEra0CountingBackward()) {
+                amount = -amount;
             }
         }
         // Fall through into standard handling
@@ -4146,6 +4141,17 @@ public abstract class Calendar implements Serializable, Cloneable, Comparable<Ca
         } else if (fields[field] < min) {
             set(field, min);
         }
+    }
+
+    /**
+     * The year in this calendar is counting from 1 backward if the era is 0.
+     * @return The year in era 0 of this calendar is counting backward from 1.
+     * @internal
+     * @deprecated This API is ICU internal only.
+     */
+    @Deprecated
+    protected boolean isEra0CountingBackward() {
+        return false;
     }
 
     /**
@@ -5912,12 +5918,12 @@ public abstract class Calendar implements Serializable, Cloneable, Comparable<Ca
         }
 
         if (mid == lower) {
-            return Long.valueOf(upper);
+            return upper;
         }
         midOffset = tz.getOffset(mid);
         if (midOffset != upperOffset) {
             if (onUnitTime) {
-                return Long.valueOf(upper);
+                return upper;
             }
             return findPreviousZoneTransitionTime(tz, upperOffset, upper, mid);
         }
@@ -6285,6 +6291,10 @@ public abstract class Calendar implements Serializable, Cloneable, Comparable<Ca
         }
 
         internalSet(EXTENDED_YEAR, year);
+
+        if (year > Long.MAX_VALUE / 400) {
+            throw new IllegalArgumentException("year is too large");
+        }
 
         int month = useMonth ? internalGetMonth(getDefaultMonthInYear(year)) : 0;
 
