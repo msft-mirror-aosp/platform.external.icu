@@ -1964,9 +1964,7 @@ public class ULocaleTest extends CoreTestFmwk {
                 }, {
                     // ICU-22546
                     "sh",
-                    // Android patch: addLikelySubtags("sh") returns "sh_Latn_RS" on Android
-                    // TODO(b/335896974): Investigate why this patch is needed.
-                    "sh_Latn_RS" // If change, please also update ULocale.java
+                    "sh" // If change, please also update ULocale.java
                 }, {
                     // ICU-22546
                     "zh_Hani",
