@@ -3071,8 +3071,8 @@ LocaleTest::TestAddLikelyAndMinimizeSubtags() {
             "nl"
         }, {
             "und_NO",
-            "no_Latn_NO",
-            "no"
+            "nb_Latn_NO",
+            "nb"
         }, {
             "und_NP",
             "ne_Deva_NP",
@@ -3183,8 +3183,8 @@ LocaleTest::TestAddLikelyAndMinimizeSubtags() {
             "sl"
         }, {
             "und_SJ",
-            "no_Latn_SJ",
-            "no_SJ"
+            "nb_Latn_SJ",
+            "nb_SJ"
         }, {
             "und_SK",
             "sk_Latn_SK",
@@ -4078,9 +4078,7 @@ LocaleTest::TestAddLikelyAndMinimizeSubtags() {
         }, {
             // ICU-22546
             "sh",
-            // Android patch: addLikelySubtags("sh") returns "sh_Latn_RS" on Android
-            // TODO(b/335896974): Investigate why this patch is needed.
-            "sh_Latn_RS",// If change, please also update common/unicode/locid.h
+            "sh",// If change, please also update common/unicode/locid.h
             "sh"
         }, {
             // ICU-22546
