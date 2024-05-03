@@ -1967,9 +1967,7 @@ public class ULocaleTest extends CoreTestFmwk {
                 }, {
                     // ICU-22546
                     "sh",
-                    // Android patch: addLikelySubtags("sh") returns "sh_Latn_RS" on Android
-                    // TODO(b/335896974): Investigate why this patch is needed.
-                    "sh_Latn_RS" // If change, please also update ULocale.java
+                    "sh" // If change, please also update ULocale.java
                 }, {
                     // ICU-22546
                     "zh_Hani",
@@ -3218,8 +3216,8 @@ public class ULocaleTest extends CoreTestFmwk {
                     "nl"
                 }, {
                     "und_NO",
-                    "no_Latn_NO",  // Android patch: Replace nb with no.
-                    "no"
+                    "nb_Latn_NO",
+                    "nb"
                 }, {
                     "und_NP",
                     "ne_Deva_NP",
@@ -3330,8 +3328,8 @@ public class ULocaleTest extends CoreTestFmwk {
                     "sl"
                 }, {
                     "und_SJ",
-                    "no_Latn_SJ",  // Android patch: Replace nb with no.
-                    "no_SJ"
+                    "nb_Latn_SJ",
+                    "nb_SJ"
                 }, {
                     "und_SK",
                     "sk_Latn_SK",
