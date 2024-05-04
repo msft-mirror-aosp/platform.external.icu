@@ -3912,9 +3912,7 @@ const char* const basic_maximize_data[][2] = {
   }, {
     // ICU-22546
     "sh",
-    // Android patch: addLikelySubtags("sh") returns "sh_Latn_RS" on Android
-    // TODO(b/335896974): Investigate why this patch is needed.
-    "sh_Latn_RS" // If change, please also update common/unicode/uloc.h
+    "sh" // If change, please also update common/unicode/uloc.h
   }, {
     // ICU-22546
     "zh_Hani",
@@ -5130,8 +5128,8 @@ const char* const full_data[][3] = {
     "nl"
   }, {
     "und_NO",
-    "no_Latn_NO",  /* Google patch */
-    "no"  /* Google patch */
+    "nb_Latn_NO",
+    "nb"
   }, {
     "und_NP",
     "ne_Deva_NP",
@@ -5246,8 +5244,8 @@ const char* const full_data[][3] = {
     "sl"
   }, {
     "und_SJ",
-    "no_Latn_SJ",  /* Google patch */
-    "no_SJ"  /* Google patch */
+    "nb_Latn_SJ",
+    "nb_SJ"
   }, {
     "und_SK",
     "sk_Latn_SK",

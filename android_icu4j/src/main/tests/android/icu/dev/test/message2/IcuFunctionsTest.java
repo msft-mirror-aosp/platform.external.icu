@@ -10,6 +10,7 @@ import java.util.Date;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
@@ -31,6 +32,8 @@ public class IcuFunctionsTest extends CoreTestFmwk {
                     "exp", new Date(2024 - 1900, 7, 3, 21, 43, 57), // Aug 3, 2024, at 9:43:57 pm
                     "tsOver", "full");
 
+    // Android patch: Disable flaky IcuFunctionsTest. http://b/336912752"
+    @Ignore("b/336912752")
     @Test
     public void test() throws Exception {
         try (Reader reader = TestUtils.jsonReader(JSON_FILE)) {
