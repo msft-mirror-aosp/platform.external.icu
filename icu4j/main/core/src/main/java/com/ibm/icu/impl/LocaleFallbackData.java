@@ -387,6 +387,7 @@ class LocaleFallbackData {
         t.put("jdt", "Cyrl");
         t.put("jee", "Deva");
         t.put("jge", "Geor");
+        t.put("ji", "Hebr");
         t.put("jje", "Hang");
         t.put("jkm", "Mymr");
         t.put("jml", "Deva");
@@ -485,7 +486,6 @@ class LocaleFallbackData {
         t.put("ktb", "Ethi");
         t.put("ktl", "Arab");
         t.put("ktp", "Plrd");
-        t.put("ku_IR", "Arab");
         t.put("ku_LB", "Arab");
         t.put("kuf", "Laoo");
         t.put("kum", "Cyrl");
