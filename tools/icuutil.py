@@ -234,11 +234,10 @@ def CopyIcu4jDataFiles():
       print('Copying %s to %s ...' % (jarfile, icu_jar_data_dir))
       shutil.copy(jarfile, icu_jar_data_dir)
 
-def MakeAndCopyOverlayTzIcuData(icu_build_dir, dest_file):
-  """Makes a .dat file containing just time-zone data.
+def MakeAndCopyIcuTzFiles(icu_build_dir, res_dest_dir):
+  """Makes .res files containing just time zone data.
 
-  The overlay file can be used as an overlay of a full ICU .dat file
-  to provide newer time zone data. Some strings like translated
+  They provide time zone data only: some strings like translated
   time zone names will be missing, but rules will be correct.
   """
 
@@ -264,50 +263,11 @@ def MakeAndCopyOverlayTzIcuData(icu_build_dir, dest_file):
       sys.exit(1)
   icu_package = icu_package_dat[:-4]
 
-  # Create a staging directory to hold the files to go into the overlay .dat
-  res_staging_dir = '%s/overlay_res' % icu_build_dir
-  os.mkdir(res_staging_dir)
-
-  # Copy all the .res files we need from, e.g. ./data/out/build/icudt55l, to the staging directory
+  # Copy all the .res files we need from, e.g. ./data/out/build/icudt55l, to the
+  # destination directory.
   res_src_dir = '%s/data/out/build/%s' % (icu_build_dir, icu_package)
   for tz_res_name in tz_res_names:
-    shutil.copy('%s/%s' % (res_src_dir, tz_res_name), res_staging_dir)
-
-  # Create a .lst file to pass to pkgdata.
-  tz_files_file = '%s/tzdata.lst' % res_staging_dir
-  with open(tz_files_file, "a") as tz_files:
-    for tz_res_name in tz_res_names:
-      tz_files.write('%s\n' % tz_res_name)
-
-  icu_lib_dir = '%s/lib' % icu_build_dir
-  pkg_data_bin = '%s/bin/pkgdata' % icu_build_dir
-
-  # Run pkgdata to create a .dat file.
-  icu_env = os.environ.copy()
-  icu_env["LD_LIBRARY_PATH"] = icu_lib_dir
-
-  # pkgdata treats the .lst file it is given as relative to CWD, and the path also affects the
-  # resource names in the .dat file produced so we change the CWD.
-  os.chdir(res_staging_dir)
-
-  # -F : force rebuilding all data
-  # -m common : create a .dat
-  # -v : verbose
-  # -T . : use "." as a temp dir
-  # -d . : use "." as the dest dir
-  # -p <name> : Set the "data name"
-  p = subprocess.Popen(
-      [pkg_data_bin, '-F', '-m', 'common', '-v', '-T', '.', '-d', '.', '-p',
-          icu_package, tz_files_file],
-      env=icu_env)
-  p.wait()
-  if p.returncode != 0:
-    print('pkgdata failed with status code: %s' % p.returncode)
-
-  # Copy the .dat to the chosen place / name.
-  generated_dat_file = '%s/%s' % (res_staging_dir, icu_package_dat)
-  shutil.copyfile(generated_dat_file, dest_file)
-  print('ICU overlay .dat can be found here: %s' % dest_file)
+    shutil.copy('%s/%s' % (res_src_dir, tz_res_name), res_dest_dir)
 
   # Switch back to the original working cwd.
   os.chdir(original_working_dir)
