@@ -27,9 +27,11 @@
 #include <unicode/udata.h>
 #include <unicode/udateintervalformat.h>
 #include <unicode/udatpg.h>
+#include <unicode/udisplayoptions.h>
 #include <unicode/uenum.h>
 #include <unicode/ufieldpositer.h>
 #include <unicode/uformattable.h>
+#include <unicode/uformattednumber.h>
 #include <unicode/uformattedvalue.h>
 #include <unicode/ugender.h>
 #include <unicode/uidna.h>
@@ -54,6 +56,7 @@
 #include <unicode/usearch.h>
 #include <unicode/uset.h>
 #include <unicode/ushape.h>
+#include <unicode/usimplenumberformatter.h>
 #include <unicode/uspoof.h>
 #include <unicode/usprep.h>
 #include <unicode/ustring.h>

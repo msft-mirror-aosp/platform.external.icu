@@ -1,6 +1,6 @@
 /* GENERATED SOURCE. DO NOT MODIFY. */
 // © 2022 and later: Unicode, Inc. and others.
-// License & terms of use: http://www.unicode.org/copyright.html
+// License & terms of use: https://www.unicode.org/copyright.html
 
 package android.icu.dev.test.message2;
 
@@ -12,11 +12,11 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 
-import android.icu.dev.test.TestFmwk;
+import android.icu.dev.test.CoreTestFmwk;
 import android.icu.message2.FormattedPlaceholder;
 import android.icu.message2.Formatter;
 import android.icu.message2.FormatterFactory;
-import android.icu.message2.Mf2FunctionRegistry;
+import android.icu.message2.MFFunctionRegistry;
 import android.icu.message2.PlainStringFormattedValue;
 import android.icu.testsharding.MainTestShard;
 
@@ -25,8 +25,8 @@ import android.icu.testsharding.MainTestShard;
  */
 @MainTestShard
 @RunWith(JUnit4.class)
-@SuppressWarnings("javadoc")
-public class CustomFormatterPersonTest extends TestFmwk {
+@SuppressWarnings({"static-method", "javadoc"})
+public class CustomFormatterPersonTest extends CoreTestFmwk {
 
     public static class Person {
         final String title;
@@ -45,7 +45,7 @@ public class CustomFormatterPersonTest extends TestFmwk {
         }
     }
 
-    public static class PersonNameFormatterFactory implements FormatterFactory {
+    private static class PersonNameFormatterFactory implements FormatterFactory {
         @Override
         public Formatter createFormatter(Locale locale, Map<String, Object> fixedOptions) {
             return new PersonNameFormatterImpl(fixedOptions.get("formality"), fixedOptions.get("length"));
@@ -95,7 +95,7 @@ public class CustomFormatterPersonTest extends TestFmwk {
         }
     }
 
-    private static final Mf2FunctionRegistry CUSTOM_FUNCTION_REGISTRY = Mf2FunctionRegistry.builder()
+    private static final MFFunctionRegistry CUSTOM_FUNCTION_REGISTRY = MFFunctionRegistry.builder()
             .setFormatter("person", new PersonNameFormatterFactory())
             .setDefaultFormatterNameForType(Person.class, "person")
             .build();
@@ -105,41 +105,39 @@ public class CustomFormatterPersonTest extends TestFmwk {
         Person who = new Person("Mr.", "John", "Doe");
 
         TestUtils.runTestCase(new TestCase.Builder()
-                .pattern("{Hello {$name :person formality=formal}}")
+                .pattern("Hello {$name :person formality=formal}")
                 .arguments(Args.of("name", who))
                 .expected("Hello {$name}")
-                .errors("person function unknown when called without a custom registry")
                 .build());
 
         TestUtils.runTestCase(new TestCase.Builder()
-                .pattern("{Hello {$name :person formality=informal}}")
+                .pattern("Hello {$name :person formality=informal}")
                 .arguments(Args.of("name", who))
                 .expected("Hello {$name}")
-                .errors("person function unknown when called without a custom registry")
                 .build());
 
         TestUtils.runTestCase(CUSTOM_FUNCTION_REGISTRY, new TestCase.Builder()
-                .pattern("{Hello {$name :person formality=formal}}")
+                .pattern("Hello {$name :person formality=formal}")
                 .arguments(Args.of("name", who))
                 .expected("Hello Mr. Doe")
                 .build());
         TestUtils.runTestCase(CUSTOM_FUNCTION_REGISTRY, new TestCase.Builder()
-                .pattern("{Hello {$name :person formality=informal}}")
+                .pattern("Hello {$name :person formality=informal}")
                 .arguments(Args.of("name", who))
                 .expected("Hello John")
                 .build());
         TestUtils.runTestCase(CUSTOM_FUNCTION_REGISTRY, new TestCase.Builder()
-                .pattern("{Hello {$name :person formality=formal length=long}}")
+                .pattern("Hello {$name :person formality=formal length=long}")
                 .arguments(Args.of("name", who))
                 .expected("Hello Mr. John Doe")
                 .build());
         TestUtils.runTestCase(CUSTOM_FUNCTION_REGISTRY, new TestCase.Builder()
-                .pattern("{Hello {$name :person formality=formal length=medium}}")
+                .pattern("Hello {$name :person formality=formal length=medium}")
                 .arguments(Args.of("name", who))
                 .expected("Hello John Doe")
                 .build());
         TestUtils.runTestCase(CUSTOM_FUNCTION_REGISTRY, new TestCase.Builder()
-                .pattern("{Hello {$name :person formality=formal length=short}}")
+                .pattern("Hello {$name :person formality=formal length=short}")
                 .arguments(Args.of("name", who))
                 .expected("Hello Mr. Doe")
                 .build());
@@ -151,26 +149,26 @@ public class CustomFormatterPersonTest extends TestFmwk {
         Person malePerson = new Person("Mr.", "John", "Doe");
         Person unknownPerson = new Person("Mr./Ms.", "Anonymous", "Doe");
         String message = ""
-                + "let $hostName = {$host :person length=long}\n"
-                + "let $guestName = {$guest :person length=long}\n"
-                + "let $guestsOther = {$guestCount :number offset=1}\n"
+                + ".local $hostName = {$host :person length=long}\n"
+                + ".local $guestName = {$guest :person length=long}\n"
+                + ".local $guestsOther = {$guestCount :number icu:offset=1}\n"
               //  + "\n"
-                + "match {$hostGender :gender} {$guestCount :plural}\n"
+                + ".match {$hostGender :icu:gender} {$guestCount :number}\n"
               //  + "\n"
-                + "when female 0 {{$hostName} does not give a party.}\n"
-                + "when female 1 {{$hostName} invites {$guestName} to her party.}\n"
-                + "when female 2 {{$hostName} invites {$guestName} and one other person to her party.}\n"
-                + "when female * {{$hostName} invites {$guestName} and {$guestsOther} other people to her party.}\n"
+                + " female 0 {{{$hostName} does not give a party.}}\n"
+                + " female 1 {{{$hostName} invites {$guestName} to her party.}}\n"
+                + " female 2 {{{$hostName} invites {$guestName} and one other person to her party.}}\n"
+                + " female * {{{$hostName} invites {$guestName} and {$guestsOther} other people to her party.}}\n"
               //  + "\n"
-                + "when male 0 {{$hostName} does not give a party.}\n"
-                + "when male 1 {{$hostName} invites {$guestName} to his party.}\n"
-                + "when male 2 {{$hostName} invites {$guestName} and one other person to his party.}\n"
-                + "when male * {{$hostName} invites {$guestName} and {$guestsOther} other people to his party.}\n"
+                + " male 0 {{{$hostName} does not give a party.}}\n"
+                + " male 1 {{{$hostName} invites {$guestName} to his party.}}\n"
+                + " male 2 {{{$hostName} invites {$guestName} and one other person to his party.}}\n"
+                + " male * {{{$hostName} invites {$guestName} and {$guestsOther} other people to his party.}}\n"
               //  + "\n"
-                + "when * 0 {{$hostName} does not give a party.}\n"
-                + "when * 1 {{$hostName} invites {$guestName} to their party.}\n"
-                + "when * 2 {{$hostName} invites {$guestName} and one other person to their party.}\n"
-                + "when * * {{$hostName} invites {$guestName} and {$guestsOther} other people to their party.}\n";
+                + " * 0 {{{$hostName} does not give a party.}}\n"
+                + " * 1 {{{$hostName} invites {$guestName} to their party.}}\n"
+                + " * 2 {{{$hostName} invites {$guestName} and one other person to their party.}}\n"
+                + " * * {{{$hostName} invites {$guestName} and {$guestsOther} other people to their party.}}\n";
 
         TestUtils.runTestCase(CUSTOM_FUNCTION_REGISTRY, new TestCase.Builder()
                 .pattern(message)

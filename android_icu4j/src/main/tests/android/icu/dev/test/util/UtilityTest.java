@@ -24,6 +24,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 
+import android.icu.dev.test.CoreTestFmwk;
 import android.icu.dev.test.TestFmwk;
 import android.icu.impl.Assert;
 import android.icu.impl.InvalidFormatException;
@@ -39,7 +40,7 @@ import android.icu.testsharding.MainTestShard;
  */
 @MainTestShard
 @RunWith(JUnit4.class)
-public class UtilityTest extends TestFmwk {
+public class UtilityTest extends CoreTestFmwk {
     @Test
     public void TestUnescape() {
         final String input =

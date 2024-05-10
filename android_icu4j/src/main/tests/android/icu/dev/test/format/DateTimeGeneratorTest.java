@@ -27,7 +27,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 
-import android.icu.dev.test.TestFmwk;
+import android.icu.dev.test.CoreTestFmwk;
 import android.icu.impl.PatternTokenizer;
 import android.icu.impl.Utility;
 import android.icu.text.DateFormat;
@@ -46,7 +46,7 @@ import android.icu.testsharding.MainTestShard;
 
 @MainTestShard
 @RunWith(JUnit4.class)
-public class DateTimeGeneratorTest extends TestFmwk {
+public class DateTimeGeneratorTest extends CoreTestFmwk {
     public static boolean GENERATE_TEST_DATA;
     static {
         try {
@@ -410,7 +410,7 @@ public class DateTimeGeneratorTest extends TestFmwk {
         new String[] {"JJmm", "11:58"},
 
         new ULocale("de_DE"),
-        new String[] {"yM", "01/1999"},
+        new String[] {"yM", "1/1999"},
         new String[] {"yMMM", "Jan. 1999"},
         new String[] {"yMd", "13.1.1999"},
         new String[] {"yMMMd", "13. Jan. 1999"},
@@ -505,7 +505,7 @@ public class DateTimeGeneratorTest extends TestFmwk {
         new String[] {"JJmm", "23:58"},
 
         new ULocale("zh_Hans_CN"),
-        new String[] {"yM", "1999\u5E741\u6708"},
+        new String[] {"yM", "1999/1"},
         new String[] {"yMMM", "1999\u5E741\u6708"}, // (fixed expected result per ticket 6872<-6626)
         new String[] {"yMd", "1999/1/13"},
         new String[] {"yMMMd", "1999\u5E741\u670813\u65E5"}, // (fixed expected result per ticket 6872<-6626)
@@ -1841,6 +1841,9 @@ public class DateTimeGeneratorTest extends TestFmwk {
 
             // ICU-21873: Missing aliased values
             "en_001@calendar=islamic", "Ehm", "EEE h:mm\u202Fa",
+
+            // ICU-22575: AvailableFormats not inheriting from root
+            "sv_SE",       "yMd",         "y-MM-dd",
         };
 
         for (int i = 0; i < testCases.length; i += 3) {

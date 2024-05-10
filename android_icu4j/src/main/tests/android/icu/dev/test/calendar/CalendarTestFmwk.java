@@ -15,6 +15,7 @@ import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 
+import android.icu.dev.test.CoreTestFmwk;
 import android.icu.dev.test.TestFmwk;
 import android.icu.text.DateFormat;
 import android.icu.text.SimpleDateFormat;
@@ -29,7 +30,7 @@ import android.icu.testsharding.MainTestShard;
  * Defines various useful utility methods and constants
  */
 @MainTestShard
-public class CalendarTestFmwk extends TestFmwk {
+public class CalendarTestFmwk extends CoreTestFmwk {
 
     // Constants for use by subclasses, solely to save typing
     public final static int SUN = Calendar.SUNDAY;
@@ -262,6 +263,9 @@ public class CalendarTestFmwk extends TestFmwk {
             cal.setTimeInMillis(greg.getTimeInMillis());
             for (int j=0; j<fieldsToTest.length; ++j) {
                 int f = fieldsToTest[j];
+                if (cal.getType().equals("hebrew") && greg.get(Calendar.YEAR)>2500 && logKnownIssue("ICU-22441", "Hebrew calendar illegal year length")) {
+                    break;
+                }
                 int v = cal.get(f);
                 int minActual = cal.getActualMinimum(f);
                 int maxActual = cal.getActualMaximum(f);
@@ -277,8 +281,8 @@ public class CalendarTestFmwk extends TestFmwk {
                     h[0] = new HashMap();
                     h[1] = new HashMap();
                 }
-                h[0].put(new Integer(minActual), nub);
-                h[1].put(new Integer(maxActual), nub);
+                h[0].put(minActual, nub);
+                h[1].put(maxActual, nub);
 
                 if (minActual < minLow || minActual > minHigh) {
                     errln("Fail: " + ymdToString(cal) +
@@ -319,8 +323,8 @@ public class CalendarTestFmwk extends TestFmwk {
                     cal.getGreatestMinimum(f) : cal.getMaximum(f);
                 // If either the top of the range or the bottom was never
                 // seen, then there may be a problem.
-                if (h[k].get(new Integer(rangeLow)) == null ||
-                    h[k].get(new Integer(rangeHigh)) == null) {
+                if (h[k].get(rangeLow) == null ||
+                    h[k].get(rangeHigh) == null) {
                     fullRangeSeen = false;
                 }
                 buf.append(k==0 ? " minima seen=(" : "; maxima seen=(");

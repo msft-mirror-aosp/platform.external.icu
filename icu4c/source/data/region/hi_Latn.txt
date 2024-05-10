@@ -8,6 +8,7 @@ hi_Latn{
         BL{"St. Barthelemy"}
         CI{"Cote d’Ivoire"}
         CW{"Curacao"}
+        IN{"Bharat"}
         KN{"St. Kitts & Nevis"}
         LC{"St. Lucia"}
         MF{"St. Martin"}
@@ -23,5 +24,8 @@ hi_Latn{
     }
     Countries%short{
         US{"America"}
+    }
+    Countries%variant{
+        TR{"Turkiye"}
     }
 }

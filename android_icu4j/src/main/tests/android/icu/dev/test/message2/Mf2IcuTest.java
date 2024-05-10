@@ -1,6 +1,6 @@
 /* GENERATED SOURCE. DO NOT MODIFY. */
 // © 2022 and later: Unicode, Inc. and others.
-// License & terms of use: http://www.unicode.org/copyright.html
+// License & terms of use: https://www.unicode.org/copyright.html
 
 package android.icu.dev.test.message2;
 
@@ -12,7 +12,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 
-import android.icu.dev.test.TestFmwk;
+import android.icu.dev.test.CoreTestFmwk;
 import android.icu.message2.MessageFormatter;
 import android.icu.text.MessageFormat;
 import android.icu.util.Calendar;
@@ -26,13 +26,13 @@ import android.icu.testsharding.MainTestShard;
  */
 @MainTestShard
 @RunWith(JUnit4.class)
-@SuppressWarnings("javadoc")
-public class Mf2IcuTest extends TestFmwk {
+@SuppressWarnings({"static-method", "javadoc"})
+public class Mf2IcuTest extends CoreTestFmwk {
 
     @Test
     public void testSample() {
         MessageFormatter form = MessageFormatter.builder()
-                .setPattern("{There are {$count} files on {$where}}")
+                .setPattern("There are {$count} files on {$where}")
                 .build();
         assertEquals("format", "There are abc files on def",
                 form.formatToString(Args.of("count", "abc", "where", "def")));
@@ -40,13 +40,15 @@ public class Mf2IcuTest extends TestFmwk {
 
     @Test
     public void testStaticFormat() {
-        Map<String, Object> arguments = Args.of("planet", new Integer(7), "when", new Date(871068000000L), "what",
-                "a disturbance in the Force");
+        Map<String, Object> arguments = Args.of(
+                "planet", 7,
+                "when", new Date(871068000000L),
+                "what", "a disturbance in the Force");
 
         assertEquals("format", "At 12:20:00\u202FPM on Aug 8, 1997, there was a disturbance in the Force on planet 7.",
                 MessageFormatter.builder()
-                .setPattern("{At {$when :datetime timestyle=default} on {$when :datetime datestyle=default}, "
-                        + "there was {$what} on planet {$planet :number kind=integer}.}")
+                .setPattern("At {$when :datetime timeStyle=medium} on {$when :datetime dateStyle=medium}, "
+                        + "there was {$what} on planet {$planet :number kind=integer}.")
                 .build()
                 .formatToString(arguments));
     }
@@ -55,12 +57,12 @@ public class Mf2IcuTest extends TestFmwk {
 
     @Test
     public void testSimpleFormat() {
-        Map<String, Object> testArgs1 = Args.of("fileCount", new Integer(0), "diskName", "MyDisk");
-        Map<String, Object> testArgs2 = Args.of("fileCount", new Integer(1), "diskName", "MyDisk");
-        Map<String, Object> testArgs3 = Args.of("fileCount", new Integer(12), "diskName", "MyDisk");
+        Map<String, Object> testArgs1 = Args.of("fileCount", 0, "diskName", "MyDisk");
+        Map<String, Object> testArgs2 = Args.of("fileCount", 1, "diskName", "MyDisk");
+        Map<String, Object> testArgs3 = Args.of("fileCount", 12, "diskName", "MyDisk");
 
         MessageFormatter form = MessageFormatter.builder()
-                .setPattern("{The disk \"{$diskName}\" contains {$fileCount} file(s).}")
+                .setPattern("The disk \"{$diskName}\" contains {$fileCount} file(s).")
                 .build();
 
         assertEquals("format", "The disk \"MyDisk\" contains 0 file(s).", form.formatToString(testArgs1));
@@ -75,9 +77,9 @@ public class Mf2IcuTest extends TestFmwk {
     @Test
     public void testSelectFormatToPattern() {
         String pattern = ""
-                + "match {$userGender :select}\n"
-                + "  when female {{$userName} est all\u00E9e \u00E0 Paris.}"
-                + "  when  *     {{$userName} est all\u00E9 \u00E0 Paris.}"
+                + ".match {$userGender :string}\n"
+                + "  female {{{$userName} est all\u00E9e \u00E0 Paris.}}"
+                + "   *     {{{$userName} est all\u00E9 \u00E0 Paris.}}"
                 ;
 
             MessageFormatter mf = MessageFormatter.builder()
@@ -107,18 +109,32 @@ public class Mf2IcuTest extends TestFmwk {
     public void testMessageFormatDateTimeSkeleton() {
         Date date = new GregorianCalendar(2021, Calendar.NOVEMBER, 23, 16, 42, 55).getTime();
 
-        doTheRealDateTimeSkeletonTesting(date, "{{$when :datetime skeleton=MMMMd}}",
-                Locale.ENGLISH, "November 23");
-        doTheRealDateTimeSkeletonTesting(date, "{{$when :datetime skeleton=yMMMMdjm}}",
-                Locale.ENGLISH, "November 23, 2021 at 4:42\u202FPM");
-        doTheRealDateTimeSkeletonTesting(date, "{{$when :datetime skeleton=(   yMMMMd   )}}",
-                Locale.ENGLISH, "November 23, 2021");
-        doTheRealDateTimeSkeletonTesting(date, "{{$when :datetime skeleton=yMMMMd}}",
-                Locale.FRENCH, "23 novembre 2021");
-        doTheRealDateTimeSkeletonTesting(date, "{Expiration: {$when :datetime skeleton=yMMM}!}",
-                Locale.ENGLISH, "Expiration: Nov 2021!");
-        doTheRealDateTimeSkeletonTesting(date, "{{$when :datetime pattern=('::'yMMMMd)}}",
-                Locale.ENGLISH, "::2021November23"); // pattern
+        doTheRealDateTimeSkeletonTesting(date, "{$when :datetime icu:skeleton=MMMMd}",
+                Locale.forLanguageTag("en"), "November 23");
+        doTheRealDateTimeSkeletonTesting(date, "{$when :datetime icu:skeleton=yMMMMdjm}",
+                Locale.forLanguageTag("en"), "November 23, 2021 at 4:42\u202FPM");
+        doTheRealDateTimeSkeletonTesting(date, "{$when :datetime icu:skeleton=|yMMMMd|}",
+                Locale.forLanguageTag("en"), "November 23, 2021");
+        doTheRealDateTimeSkeletonTesting(date, "{$when :datetime icu:skeleton=yMMMMd}",
+                Locale.forLanguageTag("fr"), "23 novembre 2021");
+        doTheRealDateTimeSkeletonTesting(date, "Expiration: {$when :datetime icu:skeleton=yMMM}!",
+                Locale.forLanguageTag("en"), "Expiration: Nov 2021!");
+    }
+
+    @Test
+    public void testMessageFormatDateTimeOptions() {
+        Date date = new GregorianCalendar(2021, Calendar.NOVEMBER, 23, 16, 42, 55).getTime();
+
+        doTheRealDateTimeSkeletonTesting(date, "{$when :date month=long day=numeric}",
+                Locale.forLanguageTag("en"), "November 23");
+        doTheRealDateTimeSkeletonTesting(date, "{$when :datetime year=numeric month=long day=numeric hour=numeric minute=numeric}",
+                Locale.forLanguageTag("en"), "November 23, 2021 at 4:42\u202FPM");
+        doTheRealDateTimeSkeletonTesting(date, "{$when :date year=numeric month=short day=numeric}",
+                Locale.forLanguageTag("en"), "Nov 23, 2021");
+        doTheRealDateTimeSkeletonTesting(date, "{$when :datetime year=numeric month=long day=numeric}",
+                Locale.forLanguageTag("fr"), "23 novembre 2021");
+        doTheRealDateTimeSkeletonTesting(date, "Expiration: {$when :datetime year=numeric month=short}!",
+                Locale.forLanguageTag("en"), "Expiration: Nov 2021!");
     }
 
     @Test
@@ -132,7 +148,7 @@ public class Mf2IcuTest extends TestFmwk {
         assertEquals("old icu test", "Hello John, today is December 23, 2022.", mf1.format(goodArg));
 
         MessageFormatter mf2 = MessageFormatter.builder()
-                .setPattern("{Hello {$user}, today is {$today :datetime datestyle=long}.}")
+                .setPattern("Hello {$user}, today is {$today :datetime dateStyle=long}.")
                 .build();
         assertEquals("old icu test", "Hello {$user}, today is {$today}.", mf2.formatToString(badArg));
         assertEquals("old icu test", "Hello John, today is December 23, 2022.", mf2.formatToString(goodArg));

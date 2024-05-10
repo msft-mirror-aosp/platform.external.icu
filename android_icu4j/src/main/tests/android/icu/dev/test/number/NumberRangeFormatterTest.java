@@ -4,6 +4,7 @@
 package android.icu.dev.test.number;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -13,7 +14,7 @@ import java.util.Set;
 
 import org.junit.Test;
 
-import android.icu.dev.test.TestFmwk;
+import android.icu.dev.test.CoreTestFmwk;
 import android.icu.dev.test.format.FormattedValueTest;
 import android.icu.impl.ICUData;
 import android.icu.impl.ICUResourceBundle;
@@ -43,7 +44,7 @@ import android.icu.testsharding.MainTestShard;
  *
  */
 @MainTestShard
-public class NumberRangeFormatterTest extends TestFmwk {
+public class NumberRangeFormatterTest extends CoreTestFmwk {
 
     private static final Currency USD = Currency.getInstance("USD");
     private static final Currency CHF = Currency.getInstance("CHF");
@@ -825,6 +826,22 @@ public class NumberRangeFormatterTest extends TestFmwk {
         }
     }
 
+    @Test
+    public void locale() {
+        LocalizedNumberRangeFormatter lnf = NumberRangeFormatter.withLocale(ULocale.ENGLISH)
+            .identityFallback(RangeIdentityFallback.RANGE);
+        UnlocalizedNumberRangeFormatter unf1 = lnf.withoutLocale();
+        UnlocalizedNumberRangeFormatter unf2 = NumberRangeFormatter.with()
+            .identityFallback(RangeIdentityFallback.RANGE)
+            .locale(ULocale.forLanguageTag("ar-EG"))
+            .withoutLocale();
+    
+        FormattedNumberRange res1 = unf1.locale(ULocale.forLanguageTag("bn")).formatRange(5, 5);
+        assertEquals("res1", "\u09EB\u2013\u09EB", res1.toString());
+        FormattedNumberRange res2 = unf2.locale(ULocale.forLanguageTag("ja-JP")).formatRange(5, 5);
+        assertEquals("res2", "5\uFF5E5", res2.toString());
+    }
+
     static final String[] allNSNames = NumberingSystem.getAvailableNames();
 
     private class RangePatternSink extends UResource.Sink {
@@ -953,7 +970,6 @@ public class NumberRangeFormatterTest extends TestFmwk {
         }
 
         {
-            // TODO(CLDR-14111): Add spacing between range separator and sign
             LocalizedNumberRangeFormatter lnrf = NumberRangeFormatter
                 .withLocale(ULocale.forLanguageTag("de-CH"));
             String actual = lnrf.formatRange(2, -3).toString();
@@ -1014,6 +1030,27 @@ public class NumberRangeFormatterTest extends TestFmwk {
         // Note: The error is not thrown until `formatRange` because this is where the
         // formatter object gets built.
         lnrf.formatRange(1, 234);
+    }
+
+    @Test
+    public void test22288_DifferentStartEndSettings() {
+        LocalizedNumberRangeFormatter lnrf = NumberRangeFormatter
+            .withLocale(ULocale.ENGLISH)
+            .collapse(NumberRangeFormatter.RangeCollapse.UNIT)
+            .numberFormatterFirst(
+                NumberFormatter.with()
+                    .unit(Currency.getInstance("USD"))
+                    .unitWidth(UnitWidth.FULL_NAME)
+                    .precision(Precision.integer())
+                    .roundingMode(RoundingMode.FLOOR))
+            .numberFormatterSecond(
+                NumberFormatter.with()
+                    .unit(Currency.getInstance("USD"))
+                    .unitWidth(UnitWidth.FULL_NAME)
+                    .precision(Precision.integer())
+                    .roundingMode(RoundingMode.CEILING));
+        FormattedNumberRange result = lnrf.formatRange(2.5, 2.5);
+        assertEquals("Should format successfully", "2–3 US dollars", result.toString());
     }
 
     static void assertFormatRange(

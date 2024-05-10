@@ -15,6 +15,7 @@
  */
 
 package android.icu.dev.test.timezone;
+
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -28,7 +29,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 
-import android.icu.dev.test.TestFmwk;
+import android.icu.dev.test.CoreTestFmwk;
 import android.icu.text.DateFormat;
 import android.icu.text.SimpleDateFormat;
 import android.icu.util.Calendar;
@@ -40,7 +41,7 @@ import android.icu.testsharding.MainTestShard;
 
 @MainTestShard
 @RunWith(JUnit4.class)
-public class TimeZoneRegressionTest extends TestFmwk {
+public class TimeZoneRegressionTest extends CoreTestFmwk {
     @Test
     public void Test4052967() {
         logln("*** CHECK TIMEZONE AGAINST HOST OS SETTING ***");
@@ -259,8 +260,8 @@ public class TimeZoneRegressionTest extends TestFmwk {
                                     dow,
                                     millis);
         tzRawOffset = testTZ.getRawOffset();
-        tzOffsetFloat = new Float((float)tzOffset/(float)3600000);
-        tzRawOffsetFloat = new Float((float)tzRawOffset/(float)3600000);
+        tzOffsetFloat = (float)tzOffset/3600000f;
+        tzRawOffsetFloat = (float)tzRawOffset/3600000f;
 
         Date testDate = testCal.getTime();
 
@@ -315,7 +316,7 @@ public class TimeZoneRegressionTest extends TestFmwk {
     TimeZone initialZone = TimeZone.getDefault();
         Calendar cal = Calendar.getInstance();
         TimeZone tz = TimeZone.getTimeZone("PST");
-    TimeZone.setDefault(tz);
+        TimeZone.setDefault(tz);
         cal.setTimeZone(tz);
 
         java.util.Calendar tempcal = java.util.Calendar.getInstance();

@@ -13,6 +13,7 @@
 // limitations under the License.
 
 package {
+    default_team: "trendy_team_java_core_libraries",
     // See: http://go/android-license-faq
     // A large-scale-change added 'default_applicable_licenses' to import
     // all of the 'license_kinds' from "external_icu_icu4c_license"
@@ -39,6 +40,7 @@ prebuilt_root_host {
     filename_from_src: true,
     relative_install_path: "com.android.i18n/etc/icu",
     visibility: [
+        "//external/icu/icu4c/source/common",
         "//frameworks/layoutlib",
     ],
     dist: {

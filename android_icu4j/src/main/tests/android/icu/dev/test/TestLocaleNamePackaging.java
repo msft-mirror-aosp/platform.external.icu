@@ -26,7 +26,7 @@ import android.icu.testsharding.MainTestShard;
 
 @MainTestShard
 @RunWith(JUnit4.class)
-public class TestLocaleNamePackaging extends TestFmwk {
+public class TestLocaleNamePackaging extends CoreTestFmwk {
     public TestLocaleNamePackaging() {
     }
 

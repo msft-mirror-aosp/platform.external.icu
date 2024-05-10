@@ -13,14 +13,14 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 
-import android.icu.dev.test.TestFmwk;
+import android.icu.dev.test.CoreTestFmwk;
 import android.icu.impl.CacheValue;
 import android.icu.impl.CacheValue.Strength;
 import android.icu.testsharding.MainTestShard;
 
 @MainTestShard
 @RunWith(JUnit4.class)
-public class CacheTest extends TestFmwk {
+public class CacheTest extends CoreTestFmwk {
     public CacheTest() {}
 
     /** Code coverage for CacheValue. */

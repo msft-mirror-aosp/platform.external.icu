@@ -8,7 +8,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 
-import android.icu.dev.test.TestFmwk;
+import android.icu.dev.test.CoreTestFmwk;
 import android.icu.impl.DontCareFieldPosition;
 import android.icu.text.MeasureFormat;
 import android.icu.util.Currency;
@@ -19,7 +19,7 @@ import android.icu.testsharding.MainTestShard;
 
 @MainTestShard
 @RunWith(JUnit4.class)
-public class MeasureUnitThreadTest extends TestFmwk {
+public class MeasureUnitThreadTest extends CoreTestFmwk {
 
     @Test
     public void MUThreadTest() {

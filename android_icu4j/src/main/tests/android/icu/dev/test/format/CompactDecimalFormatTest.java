@@ -29,7 +29,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 
-import android.icu.dev.test.TestFmwk;
+import android.icu.dev.test.CoreTestFmwk;
 import android.icu.impl.number.DecimalFormatProperties;
 import android.icu.impl.number.PatternStringParser;
 import android.icu.text.CompactDecimalFormat;
@@ -44,7 +44,7 @@ import android.icu.testsharding.MainTestShard;
 
 @MainTestShard
 @RunWith(JUnit4.class)
-public class CompactDecimalFormatTest extends TestFmwk {
+public class CompactDecimalFormatTest extends CoreTestFmwk {
     Object[][] EnglishTestData = {
             // default is 2 digits of accuracy
             {0.0d, "0"},
@@ -402,7 +402,7 @@ public class CompactDecimalFormatTest extends TestFmwk {
     @Test
     public void TestArabicLongStyle() {
         NumberFormat cdf =
-                CompactDecimalFormat.getInstance(new Locale("ar-EG"), CompactStyle.LONG);
+                CompactDecimalFormat.getInstance(new Locale("ar", "EG"), CompactStyle.LONG);
         assertEquals("Arabic Long", "\u061C-\u0665\u066B\u0663 \u0623\u0644\u0641", cdf.format(-5300));
     }
 

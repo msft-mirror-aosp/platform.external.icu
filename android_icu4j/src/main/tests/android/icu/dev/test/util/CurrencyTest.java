@@ -25,7 +25,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 
-import android.icu.dev.test.TestFmwk;
+import android.icu.dev.test.CoreTestFmwk;
 import android.icu.impl.CurrencyData;
 import android.icu.text.CurrencyDisplayNames;
 import android.icu.text.CurrencyMetaInfo;
@@ -46,7 +46,7 @@ import android.icu.testsharding.MainTestShard;
  */
 @MainTestShard
 @RunWith(JUnit4.class)
-public class CurrencyTest extends TestFmwk {
+public class CurrencyTest extends CoreTestFmwk {
     /**
      * Test of basic API.
      */
@@ -229,7 +229,7 @@ public class CurrencyTest extends TestFmwk {
                 "US$",
                 USD.getName(en_CA, Currency.SYMBOL_NAME, isChoiceFormat));
         assertEquals("USD.getName(NARROW_SYMBOL_NAME, en_CA)",
-                "US$",
+                "$",
                 USD.getName(en_CA, Currency.NARROW_SYMBOL_NAME, isChoiceFormat));
         assertEquals("USD.getName(SYMBOL_NAME) in en_NZ",
                 "US$",
@@ -694,6 +694,9 @@ public class CurrencyTest extends TestFmwk {
             { "eo-DE-u-cu-dem", "2000-12-23", "EUR", "DEM" },
             { "en_US", null, "USD" }, // no longer include currencies with tender=false
             { "en_US_Q", null, "USD" }, // no longer include currencies with tender=false
+            { "hr_HR", "2022-12-31", "HRK" },
+            { "hr_HR", "2023-01-01", "EUR", "HRK" },
+            { "hr_HR", "2023-01-16", "EUR" },
         };
 
         DateFormat fmt = new SimpleDateFormat("yyyy-MM-dd", Locale.US);

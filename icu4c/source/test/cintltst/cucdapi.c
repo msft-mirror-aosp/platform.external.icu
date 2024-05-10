@@ -46,7 +46,7 @@ static void assertEqualScripts(const char *msg,
     }
 }
 
-void TestUScriptCodeAPI(){
+void TestUScriptCodeAPI(void){
     int i =0;
     int numErrors =0;
     {
@@ -73,7 +73,9 @@ void TestUScriptCodeAPI(){
         "asfdasd", "5464", "12235",
         /* test the last index */
         "zyyy", "YI",
-        NULL  
+         /* test other cases that are ambiguous (script alias vs language tag) */
+         "han", "mro", "nko", "old-hungarian", "new-tai-lue",
+       NULL  
         };
         UScriptCode expected[] ={
             /* locales should return */
@@ -95,7 +97,10 @@ void TestUScriptCodeAPI(){
             USCRIPT_TAGBANWA, USCRIPT_ARABIC,
             /* bogus names should return invalid code */
             USCRIPT_INVALID_CODE, USCRIPT_INVALID_CODE, USCRIPT_INVALID_CODE,
+            /* test the last index */
             USCRIPT_COMMON, USCRIPT_YI,
+            /* test other cases that are ambiguous (script alias vs language tag) */
+            USCRIPT_HAN, USCRIPT_MRO, USCRIPT_NKO, USCRIPT_OLD_HUNGARIAN, USCRIPT_NEW_TAI_LUE,
         };
 
         UErrorCode err = U_ZERO_ERROR;
@@ -426,6 +431,8 @@ void TestUScriptCodeAPI(){
             "Cypro_Minoan", "Old_Uyghur", "Tangsa", "Toto", "Vithkuqi",
             // new in ICU 72
             "Kawi", "Nag_Mundari",
+            // new in ICU 75
+            "Aran",
         };
         static const char* expectedShort[] = {
             "Bali", "Batk", "Blis", "Brah", "Cham", "Cirt", "Cyrs", "Egyd", "Egyh", "Egyp",
@@ -466,6 +473,8 @@ void TestUScriptCodeAPI(){
             "Cpmn", "Ougr", "Tnsa", "Toto", "Vith",
             // new in ICU 72
             "Kawi", "Nagm",
+            // new in ICU 75
+            "Aran",
         };
         int32_t j = 0;
         if(UPRV_LENGTHOF(expectedLong)!=(USCRIPT_CODE_LIMIT-USCRIPT_BALINESE)) {
@@ -513,7 +522,7 @@ void TestUScriptCodeAPI(){
     }
 }
 
-void TestHasScript() {
+void TestHasScript(void) {
     if(!(
         !uscript_hasScript(0x063f, USCRIPT_COMMON) &&
         uscript_hasScript(0x063f, USCRIPT_ARABIC) &&  /* main Script value */
@@ -573,7 +582,7 @@ static UBool scriptsContain(UScriptCode scripts[], int32_t length, UScriptCode s
     return contain;
 }
 
-void TestGetScriptExtensions() {
+void TestGetScriptExtensions(void) {
     UScriptCode scripts[20];
     int32_t length;
     UErrorCode errorCode;
@@ -661,7 +670,7 @@ void TestGetScriptExtensions() {
     }
 }
 
-void TestScriptMetadataAPI() {
+void TestScriptMetadataAPI(void) {
     /* API & code coverage. More testing in intltest/ucdtest.cpp. */
     UErrorCode errorCode=U_ZERO_ERROR;
     UChar sample[8];
@@ -724,7 +733,7 @@ void TestScriptMetadataAPI() {
     }
 }
 
-void TestBinaryValues() {
+void TestBinaryValues(void) {
     /*
      * Unicode 5.1 explicitly defines binary property value aliases.
      * Verify that they are all recognized.

@@ -22,7 +22,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 
-import android.icu.dev.test.TestFmwk;
+import android.icu.dev.test.CoreTestFmwk;
 import android.icu.dev.test.TestUtil;
 import android.icu.impl.Normalizer2Impl.UTF16Plus;
 import android.icu.impl.Punycode;
@@ -39,7 +39,7 @@ import android.icu.testsharding.MainTestShard;
  */
 @MainTestShard
 @RunWith(JUnit4.class)
-public class UTS46Test extends TestFmwk {
+public class UTS46Test extends CoreTestFmwk {
     public UTS46Test() {
         int commonOptions=
             IDNA.USE_STD3_RULES|IDNA.CHECK_BIDI|
@@ -101,13 +101,6 @@ public class UTS46Test extends TestFmwk {
         not3.nameToASCII(input, result, info);
         if(!UTF16Plus.equal(result, input) || !info.getErrors().equals(EnumSet.of(IDNA.Error.BIDI))) {
             errln("notSTD3.nameToASCII(ASCII-with-space.alef.edu) failed");
-        }
-        // Characters that are canonically equivalent to sequences with non-LDH ASCII.
-        input="a\u2260b\u226Ec\u226Fd";
-        not3.nameToUnicode(input, result, info);
-        if(!UTF16Plus.equal(result, input) || info.hasErrors()) {
-            errln(String.format("notSTD3.nameToUnicode(equiv to non-LDH ASCII) unexpected errors %s string %s",
-                                info.getErrors().toString(), prettify(result.toString())));
         }
     }
 
@@ -297,10 +290,6 @@ public class UTS46Test extends TestFmwk {
         { "\u65E5\u672C\u8A9E\u3002\uFF2A\uFF30", "B",  // Japanese with fullwidth ".jp"
           "\u65E5\u672C\u8A9E.jp", "" },
         { "\u2615", "B", "\u2615", "" },  // Unicode 4.0 HOT BEVERAGE
-        // some characters are disallowed because they are canonically equivalent
-        // to sequences with non-LDH ASCII
-        { "a\u2260b\u226Ec\u226Fd", "B",
-          "a\uFFFDb\uFFFDc\uFFFDd", "UIDNA_ERROR_DISALLOWED" },
         // many deviation characters, test the special mapping code
         { "1.a\u00DF\u200C\u200Db\u200C\u200Dc\u00DF\u00DF\u00DF\u00DFd"+
           "\u03C2\u03C3\u00DF\u00DF\u00DF\u00DF\u00DF\u00DF\u00DF\u00DFe"+

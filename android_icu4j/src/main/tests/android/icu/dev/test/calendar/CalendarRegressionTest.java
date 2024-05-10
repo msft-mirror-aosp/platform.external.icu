@@ -27,6 +27,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 
+import android.icu.dev.test.CoreTestFmwk;
 import android.icu.text.DateFormat;
 import android.icu.text.NumberFormat;
 import android.icu.text.SimpleDateFormat;
@@ -49,14 +50,14 @@ import android.icu.testsharding.MainTestShard;
  */
 @MainTestShard
 @RunWith(JUnit4.class)
-public class CalendarRegressionTest extends android.icu.dev.test.TestFmwk {
+public class CalendarRegressionTest extends CoreTestFmwk {
     static final String[] FIELD_NAME = {
             "ERA", "YEAR", "MONTH", "WEEK_OF_YEAR", "WEEK_OF_MONTH",
             "DAY_OF_MONTH", "DAY_OF_YEAR", "DAY_OF_WEEK",
             "DAY_OF_WEEK_IN_MONTH", "AM_PM", "HOUR", "HOUR_OF_DAY",
             "MINUTE", "SECOND", "MILLISECOND", "ZONE_OFFSET",
             "DST_OFFSET", "YEAR_WOY", "DOW_LOCAL", "EXTENDED_YEAR",
-            "JULIAN_DAY", "MILLISECONDS_IN_DAY"
+            "JULIAN_DAY", "MILLISECONDS_IN_DAY", "IS_LEAP_YEAR", "ORDINAL_MONTH"
         };
 
 
@@ -690,14 +691,10 @@ public class CalendarRegressionTest extends android.icu.dev.test.TestFmwk {
         // Test field disambiguation with a few special hard-coded cases.
         // This shouldn't fail if the above cases aren't failing.
         Object[] DISAM = {
-            new Integer(1998), new Integer(1), new Integer(Calendar.SUNDAY),
-                d[0],
-            new Integer(1998), new Integer(2), new Integer(Calendar.SATURDAY),
-                d[1],
-            new Integer(1998), new Integer(53), new Integer(Calendar.THURSDAY),
-                d[2],
-            new Integer(1998), new Integer(53), new Integer(Calendar.FRIDAY),
-                d[3],
+            1998, 1, Calendar.SUNDAY, d[0],
+            1998, 2, Calendar.SATURDAY, d[1],
+            1998, 53, Calendar.THURSDAY, d[2],
+            1998, 53, Calendar.FRIDAY, d[3],
         };
         testCal.setMinimalDaysInFirstWeek(3);
         testCal.setFirstDayOfWeek(Calendar.SUNDAY);
@@ -741,10 +738,10 @@ public class CalendarRegressionTest extends android.icu.dev.test.TestFmwk {
         d[7] = tempcal.getTime();
 
         Object[] ADDROLL = {
-            ADD, new Integer(1), d[0], d[1],
-            ADD, new Integer(1), d[2], d[3],
-            ROLL, new Integer(1), d[4], d[5],
-            ROLL, new Integer(1), d[6], d[7],
+            ADD, 1, d[0], d[1],
+            ADD, 1, d[2], d[3],
+            ROLL, 1, d[4], d[5],
+            ROLL, 1, d[6], d[7],
         };
         testCal.setMinimalDaysInFirstWeek(3);
         testCal.setFirstDayOfWeek(Calendar.SUNDAY);
@@ -1218,35 +1215,41 @@ public class CalendarRegressionTest extends android.icu.dev.test.TestFmwk {
      */
     @Test
     public void Test4162587() {
-        TimeZone tz = TimeZone.getTimeZone("PST");
-        TimeZone.setDefault(tz);
-        GregorianCalendar cal = new GregorianCalendar(tz);
-        Date d;
+        TimeZone saveZone = TimeZone.getDefault();
 
-        for (int i=0; i<5; ++i) {
-            if (i>0) logln("---");
+        try {
+            TimeZone tz = TimeZone.getTimeZone("PST");
+            TimeZone.setDefault(tz);
+            GregorianCalendar cal = new GregorianCalendar(tz);
+            Date d;
 
-            cal.clear();
-            cal.set(1998, Calendar.APRIL, 5, i, 0);
-            d = cal.getTime();
-            String s0 = d.toString();
-            logln("0 " + i + ": " + s0);
+            for (int i=0; i<5; ++i) {
+                if (i>0) logln("---");
 
-            cal.clear();
-            cal.set(1998, Calendar.APRIL, 4, i+24, 0);
-            d = cal.getTime();
-            String sPlus = d.toString();
-            logln("+ " + i + ": " + sPlus);
+                cal.clear();
+                cal.set(1998, Calendar.APRIL, 5, i, 0);
+                d = cal.getTime();
+                String s0 = d.toString();
+                logln("0 " + i + ": " + s0);
 
-            cal.clear();
-            cal.set(1998, Calendar.APRIL, 6, i-24, 0);
-            d = cal.getTime();
-            String sMinus = d.toString();
-            logln("- " + i + ": " + sMinus);
+                cal.clear();
+                cal.set(1998, Calendar.APRIL, 4, i+24, 0);
+                d = cal.getTime();
+                String sPlus = d.toString();
+                logln("+ " + i + ": " + sPlus);
 
-            if (!s0.equals(sPlus) || !s0.equals(sMinus)) {
-                errln("Fail: All three lines must match");
+                cal.clear();
+                cal.set(1998, Calendar.APRIL, 6, i-24, 0);
+                d = cal.getTime();
+                String sMinus = d.toString();
+                logln("- " + i + ": " + sMinus);
+
+                if (!s0.equals(sPlus) || !s0.equals(sMinus)) {
+                    errln("Fail: All three lines must match");
+                }
             }
+        } finally {
+            TimeZone.setDefault(saveZone);
         }
     }
 
@@ -1424,6 +1427,7 @@ public class CalendarRegressionTest extends android.icu.dev.test.TestFmwk {
                             cal.get(Calendar.SECOND) != fields[5] ||
                             cal.get(Calendar.MILLISECOND) != fields[6]) {
                             errln("Field " + field +
+                                  " " + (op==0 ? "add" : "roll") +
                                   " (" + FIELD_NAME[field] +
                                   ") FAIL, expected " +
                                   fields[0] +
@@ -1688,9 +1692,9 @@ public class CalendarRegressionTest extends android.icu.dev.test.TestFmwk {
         d[5] = tempcal.getTime();
         // Test specific failure reported in bug
         Object[] DATA = {
-            new Integer(1), d[0], new Integer(4), d[1],
-            new Integer(8), d[2], new Integer(-1), d[3],
-            new Integer(-4), d[4], new Integer(-8), d[5],
+            1, d[0], 4, d[1],
+            8, d[2], -1, d[3],
+            -4, d[4], -8, d[5],
         };
         for (int i=0; i<DATA.length; i+=2) {
             cal.clear();
@@ -2179,14 +2183,29 @@ public class CalendarRegressionTest extends android.icu.dev.test.TestFmwk {
             {"th@calendar=gregorian",   "gregorian", "buddhist"},
             {"en@calendar=islamic",     "gregorian"},
             {"zh_TW",       "gregorian", "roc", "chinese"},
-            {"ar_IR",       "gregorian", "persian", "islamic", "islamic-civil", "islamic-tbla"},
-            {"th@rg=SAZZZZ", "gregorian", "islamic-umalqura", "islamic", "islamic-rgsa"},
+            {"ar_IR",       "gregorian", "persian", "islamic", "islamic-civil", "islamic-tbla"},  // android-changed
+            {"th@rg=SAZZZZ", "gregorian", "islamic-umalqura", "islamic", "islamic-rgsa"},  // android-changed
+
+            // tests for ICU-22364
+            { "zh_CN@rg=TW",           "gregorian", "chinese" }, // invalid subdivision code
+            { "zh_CN@rg=TWzzzz",       "gregorian", "roc", "chinese", }, // whole region
+            { "zh_TW@rg=TWxxxx",       "gregorian", "roc", "chinese" }, // invalid subdivision code (ignored)
+            { "zh_TW@rg=ARa",          "gregorian" }, // single-letter subdivision code
+            { "zh_TW@rg=AT1",          "gregorian" }, // single-digit subdivision code
+            { "zh_TW@rg=USca",         "gregorian" }, // two-letter subdivision code
+            { "zh_TW@rg=IT53",         "gregorian" }, // two-digit subdivision code
+            { "zh_TW@rg=AUnsw",        "gregorian" }, // three-letter subdivision code
+            { "zh_TW@rg=EE130",        "gregorian" }, // three-digit subdivision code
+            { "zh_TW@rg=417zzzz",      "gregorian" }, // three-digit region code
         };
         // Android patch end.
 
         String[] ALL = Calendar.getKeywordValuesForLocale("calendar", ULocale.getDefault(), false);
         HashSet ALLSET = new HashSet();
         for (int i = 0; i < ALL.length; i++) {
+            if (ALL[i] == "unknown") {
+                errln("Calendar.getKeywordValuesForLocale should not return \"unknown\"");
+            }
             ALLSET.add(ALL[i]);
         }
 
@@ -2627,6 +2646,26 @@ public class CalendarRegressionTest extends android.icu.dev.test.TestFmwk {
         }
     }
 
+    void VerifyNoAssertWithSetGregorianChange(String timezone) {
+        TimeZone zone = TimeZone.getTimeZone(timezone);
+        GregorianCalendar cal = new GregorianCalendar(zone, Locale.ENGLISH);
+        cal.setTime(new Date());
+        // The beginning of ECMAScript time, namely -(2**53)
+        long startOfTime = -9007199254740992L;
+
+        cal.setGregorianChange(new Date(startOfTime));
+        cal.get(Calendar.ZONE_OFFSET);
+        cal.get(Calendar.DST_OFFSET);
+    }
+
+    @Test
+    public void TestAsiaManilaAfterSetGregorianChange22043() {
+        VerifyNoAssertWithSetGregorianChange("Asia/Manila");
+        for (String id : TimeZone.getAvailableIDs()) {
+            VerifyNoAssertWithSetGregorianChange(id);
+        }
+    }
+
     @Test
     public void TestRespectUExtensionFw() { // ICU-22226
         String[] localeIds = {
@@ -2635,7 +2674,15 @@ public class CalendarRegressionTest extends android.icu.dev.test.TestFmwk {
                 "en-US-u-fw-sun",
                 "en-US-u-fw-mon",
                 "en-US-u-fw-thu",
-                "en-US-u-fw-sat"
+                "en-US-u-fw-sat",
+                // ICU-22434
+                "en-US-u-ca-iso8601-fw-sun",
+                "en-US-u-ca-iso8601-fw-mon",
+                "en-US-u-ca-iso8601-fw-tue",
+                "en-US-u-ca-iso8601-fw-wed",
+                "en-US-u-ca-iso8601-fw-thu",
+                "en-US-u-ca-iso8601-fw-fri",
+                "en-US-u-ca-iso8601-fw-sat",
         };
         int[] expectedValues = {
                 Calendar.SUNDAY,
@@ -2643,7 +2690,15 @@ public class CalendarRegressionTest extends android.icu.dev.test.TestFmwk {
                 Calendar.SUNDAY,
                 Calendar.MONDAY,
                 Calendar.THURSDAY,
-                Calendar.SATURDAY
+                Calendar.SATURDAY,
+                // ICU-22434
+                Calendar.SUNDAY,
+                Calendar.MONDAY,
+                Calendar.TUESDAY,
+                Calendar.WEDNESDAY,
+                Calendar.THURSDAY,
+                Calendar.FRIDAY,
+                Calendar.SATURDAY,
         };
 
         assertEquals(
@@ -2653,10 +2708,23 @@ public class CalendarRegressionTest extends android.icu.dev.test.TestFmwk {
 
         for (int i = 0; i < localeIds.length; i++) {
             assertEquals(
-                    "Calendar.getFirstDayOfWeek() does not seem to respect fw extension u in locale id",
+                    "Calendar.getFirstDayOfWeek() does not seem to respect fw extension u in locale id " +
+                    localeIds[i],
                     expectedValues[i],
                     Calendar.getInstance(Locale.forLanguageTag(localeIds[i])).getFirstDayOfWeek());
         }
     }
+
+    @Test
+    public void TestIslamicUmalquraCalendarSlow() { // ICU-22513
+        Locale loc = new Locale("th@calendar=islamic-umalqura");
+        Calendar cal = Calendar.getInstance(loc);
+        cal.clear();
+        cal.add(Calendar.YEAR, 1229080905);
+        cal.roll(Calendar.WEEK_OF_MONTH, 1499050699);
+        cal.fieldDifference(new Date(0), Calendar.YEAR_WOY);
+
+    }
+
 }
 //eof

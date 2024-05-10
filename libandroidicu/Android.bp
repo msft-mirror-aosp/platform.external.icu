@@ -20,6 +20,7 @@
 // With the exception of a few special cases like host apex build targets,
 // host binaries should use libicuuc + libicui18n directly.
 package {
+    default_team: "trendy_team_java_core_libraries",
     // See: http://go/android-license-faq
     // A large-scale-change added 'default_applicable_licenses' to import
     // all of the 'license_kinds' from "external_icu_license"
@@ -71,9 +72,6 @@ cc_library_shared {
             "1",
         ],
     },
-    cppflags: [
-        "-std=c++11", // Use the same C++ version as libicuuc
-    ],
     cflags: [
         "-Wall",
         "-Werror",
@@ -101,8 +99,6 @@ cc_library_shared {
         "//external/sqlite:__subpackages__",
         "//external/sfntly",
         "//frameworks/av/media/libmedia",
-        // TODO: Remove dependency from /vendor
-        "//vendor:__subpackages__",
     ],
 }
 

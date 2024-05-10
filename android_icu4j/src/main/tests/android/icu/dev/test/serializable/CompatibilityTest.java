@@ -27,7 +27,7 @@ import java.util.jar.JarFile;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import android.icu.dev.test.TestFmwk;
+import android.icu.dev.test.CoreTestFmwk;
 import android.icu.dev.test.serializable.SerializableTestUtility.Handler;
 
 import junitparams.JUnitParamsRunner;
@@ -40,7 +40,7 @@ import android.icu.testsharding.MainTestShard;
  */
 @MainTestShard
 @RunWith(JUnitParamsRunner.class)
-public class CompatibilityTest extends TestFmwk
+public class CompatibilityTest extends CoreTestFmwk
 {
     private static final class FileHolder {
         String className;
@@ -201,6 +201,11 @@ public class CompatibilityTest extends TestFmwk
     }
 
     private static final String[][] SKIP_CASES = {
+            // android.icu.message2.Mf2DataModel$OrderedMap was very drafty
+            {"ICU_72.1", "android.icu.message2.Mf2DataModel$OrderedMap"},
+            {"ICU_73.1", "android.icu.message2.Mf2DataModel$OrderedMap"},
+            {"ICU_74.1", "android.icu.message2.Mf2DataModel$OrderedMap"},
+
             // ICU 52+ PluralRules/PluralFormat/CurrencyPluralInfo are not
             // serialization-compatible with previous versions.
             {"ICU_50.1", "android.icu.text.CurrencyPluralInfo"},

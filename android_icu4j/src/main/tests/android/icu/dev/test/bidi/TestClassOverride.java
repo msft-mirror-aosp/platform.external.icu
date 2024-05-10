@@ -125,7 +125,7 @@ public class TestClassOverride extends BidiFmwk {
         bidi = new Bidi();
         verifyClassifier(bidi);
 
-        classifier = new CustomClassifier(new Integer(TestData.R));
+        classifier = new CustomClassifier(TestData.R);
         bidi.setCustomClassifier(classifier);
         verifyClassifier(bidi);
 

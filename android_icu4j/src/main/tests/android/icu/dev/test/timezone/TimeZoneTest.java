@@ -25,6 +25,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 
+import android.icu.dev.test.CoreTestFmwk;
 import android.icu.dev.test.TestFmwk;
 import android.icu.impl.ICUData;
 import android.icu.impl.TimeZoneAdapter;
@@ -55,7 +56,7 @@ import android.icu.testsharding.MainTestShard;
  */
 @MainTestShard
 @RunWith(JUnit4.class)
-public class TimeZoneTest extends TestFmwk
+public class TimeZoneTest extends CoreTestFmwk
 {
     static final int millisPerHour = 3600000;
 
@@ -204,7 +205,7 @@ public class TimeZoneTest extends TestFmwk
                 if (!isDevelopmentBuild || isJDKTimeZone) {
                     logln("Warning: Expected " + referenceZone +
                             "; got " + currentZone);
-                } else {
+                } else if (!(referenceZone.getID().equals("ART") && logKnownIssue("ICU-22436", "Wrong DST status for time zone ART"))) {
                     errln("Fail: Expected " + referenceZone +
                             "; got " + currentZone);
                 }
@@ -300,6 +301,26 @@ public class TimeZoneTest extends TestFmwk
             "GMT-2:31:123",     "0",            TimeZone.UNKNOWN_ZONE_ID,
             "GMT+3:75",         "0",            TimeZone.UNKNOWN_ZONE_ID,
             "GMT-01010101",     "0",            TimeZone.UNKNOWN_ZONE_ID,
+            "GMT-4E58",         "0",            TimeZone.UNKNOWN_ZONE_ID, // ICU-22637
+            "GMT-4e58",         "0",            TimeZone.UNKNOWN_ZONE_ID, // ICU-22637
+            "GMT-1E01",         "0",            TimeZone.UNKNOWN_ZONE_ID, // ICU-22637
+            "GMT-2E01",         "0",            TimeZone.UNKNOWN_ZONE_ID, // ICU-22637
+            "GMT-2e01",         "0",            TimeZone.UNKNOWN_ZONE_ID, // ICU-22637
+            "GMT-9e02",         "0",            TimeZone.UNKNOWN_ZONE_ID, // ICU-22637
+            "GMT-1e03",         "0",            TimeZone.UNKNOWN_ZONE_ID, // ICU-22637
+            "GMT-2e03",         "0",            TimeZone.UNKNOWN_ZONE_ID, // ICU-22637
+            "GMT-500M",         "0",            TimeZone.UNKNOWN_ZONE_ID, // ICU-22637
+            "GMT-500T",         "0",            TimeZone.UNKNOWN_ZONE_ID, // ICU-22637
+            "GMT-9E00",         "0",            TimeZone.UNKNOWN_ZONE_ID, // ICU-22637
+            "GMT-0X0F",         "0",            TimeZone.UNKNOWN_ZONE_ID, // ICU-22637
+            "GMT-0x0F",         "0",            TimeZone.UNKNOWN_ZONE_ID, // ICU-22637
+            "GMT-0x12",         "0",            TimeZone.UNKNOWN_ZONE_ID, // ICU-22637
+            "GMT-B111",         "0",            TimeZone.UNKNOWN_ZONE_ID, // ICU-22637
+            "GMT-b111",         "0",            TimeZone.UNKNOWN_ZONE_ID, // ICU-22637
+            "GMT-0b11",         "0",            TimeZone.UNKNOWN_ZONE_ID, // ICU-22637
+            "GMT-๑๒",           "-43200",       "GMT-12:00", // ICU-22637
+            "GMT-๑๒:๓๔",        "-45240",       "GMT-12:34", // ICU-22637
+            "GMT+๑๒:๓๔:๕๖",     "45296",        "GMT+12:34:56", // ICU-22637
         };
         for (int i = 0; i < DATA.length; i += 3) {
             String id = DATA[i];
@@ -358,25 +379,25 @@ public class TimeZoneTest extends TestFmwk
         // todo: check to see whether we can test for all of pst, pdt, pt
         Object[] DATA = {
             // z and zzzz
-            Boolean.FALSE, new Integer(TimeZone.SHORT), "PST",
-            Boolean.TRUE,  new Integer(TimeZone.SHORT), "PDT",
-            Boolean.FALSE, new Integer(TimeZone.LONG),  "Pacific Standard Time",
-            Boolean.TRUE,  new Integer(TimeZone.LONG),  "Pacific Daylight Time",
+            Boolean.FALSE, TimeZone.SHORT, "PST",
+            Boolean.TRUE,  TimeZone.SHORT, "PDT",
+            Boolean.FALSE, TimeZone.LONG,  "Pacific Standard Time",
+            Boolean.TRUE,  TimeZone.LONG,  "Pacific Daylight Time",
             // v and vvvv
-            Boolean.FALSE, new Integer(TimeZone.SHORT_GENERIC), "PT",
-            Boolean.TRUE,  new Integer(TimeZone.SHORT_GENERIC), "PT",
-            Boolean.FALSE, new Integer(TimeZone.LONG_GENERIC),  "Pacific Time",
-            Boolean.TRUE,  new Integer(TimeZone.LONG_GENERIC),  "Pacific Time",
+            Boolean.FALSE, TimeZone.SHORT_GENERIC, "PT",
+            Boolean.TRUE,  TimeZone.SHORT_GENERIC, "PT",
+            Boolean.FALSE, TimeZone.LONG_GENERIC,  "Pacific Time",
+            Boolean.TRUE,  TimeZone.LONG_GENERIC,  "Pacific Time",
             // z and ZZZZ
-            Boolean.FALSE, new Integer(TimeZone.SHORT_GMT), "-0800",
-            Boolean.TRUE,  new Integer(TimeZone.SHORT_GMT), "-0700",
-            Boolean.FALSE, new Integer(TimeZone.LONG_GMT),  "GMT-08:00",
-            Boolean.TRUE,  new Integer(TimeZone.LONG_GMT),  "GMT-07:00",
+            Boolean.FALSE, TimeZone.SHORT_GMT, "-0800",
+            Boolean.TRUE,  TimeZone.SHORT_GMT, "-0700",
+            Boolean.FALSE, TimeZone.LONG_GMT,  "GMT-08:00",
+            Boolean.TRUE,  TimeZone.LONG_GMT,  "GMT-07:00",
             // V and VVVV
-            Boolean.FALSE, new Integer(TimeZone.SHORT_COMMONLY_USED), "PST",
-            Boolean.TRUE,  new Integer(TimeZone.SHORT_COMMONLY_USED), "PDT",
-            Boolean.FALSE, new Integer(TimeZone.GENERIC_LOCATION),  "Los Angeles Time",
-            Boolean.TRUE,  new Integer(TimeZone.GENERIC_LOCATION),  "Los Angeles Time",
+            Boolean.FALSE, TimeZone.SHORT_COMMONLY_USED, "PST",
+            Boolean.TRUE,  TimeZone.SHORT_COMMONLY_USED, "PDT",
+            Boolean.FALSE, TimeZone.GENERIC_LOCATION,  "Los Angeles Time",
+            Boolean.TRUE,  TimeZone.GENERIC_LOCATION,  "Los Angeles Time",
         };
 
         for (int i=0; i<DATA.length; i+=3) {
@@ -1380,19 +1401,24 @@ public class TimeZoneTest extends TestFmwk
     @Test
     public void TestZoneMeta() {
         java.util.TimeZone save = java.util.TimeZone.getDefault();
-        java.util.TimeZone newZone = java.util.TimeZone.getTimeZone("GMT-08:00");
-        android.icu.util.TimeZone.setDefault(null);
-        java.util.TimeZone.setDefault(newZone);
-        SimpleTimeZone zone = new SimpleTimeZone(0, "GMT");
-        android.icu.util.TimeZone defaultZone = android.icu.util.TimeZone.getDefault();
-        if(defaultZone==null){
-            errln("TimeZone.getDefault() failed for GMT-08:00");
+        android.icu.util.TimeZone icuTzSave = android.icu.util.TimeZone.getDefault();
+        try {
+            java.util.TimeZone newZone = java.util.TimeZone.getTimeZone("GMT-08:00");
+            android.icu.util.TimeZone.setDefault(null);
+            java.util.TimeZone.setDefault(newZone);
+            SimpleTimeZone zone = new SimpleTimeZone(0, "GMT");
+            android.icu.util.TimeZone defaultZone = android.icu.util.TimeZone.getDefault();
+            if(defaultZone==null){
+                errln("TimeZone.getDefault() failed for GMT-08:00");
+            }
+            if(zone==null){
+                errln("SimpleTimeZone(0, GMT-08:00) failed for GMT-08:00");
+            }
+        } finally {
+            // reset timezones
+            java.util.TimeZone.setDefault(save);
+            android.icu.util.TimeZone.setDefault(icuTzSave);
         }
-        if(zone==null){
-            errln("SimpleTimeZone(0, GMT-08:00) failed for GMT-08:00");
-        }
-        //reset
-        java.util.TimeZone.setDefault(save);
     }
 
     // Copied from the protected constant in TimeZone.
@@ -1560,6 +1586,7 @@ public class TimeZoneTest extends TestFmwk
                 {"America/Thunder_Bay", "America/Toronto"},
                 {"America/Tortola", "America/Puerto_Rico"},
                 {"America/Virgin", "America/Puerto_Rico"},
+                {"America/Yellowknife", "America/Edmonton"},
                 {"Antarctica/DumontDUrville", "Pacific/Port_Moresby"},
                 {"Antarctica/South_Pole", "Antarctica/McMurdo"},
                 {"Antarctica/Syowa", "Asia/Riyadh"},
@@ -1571,7 +1598,6 @@ public class TimeZoneTest extends TestFmwk
                 {"Asia/Muscat", "Asia/Dubai"},
                 {"Asia/Phnom_Penh", "Asia/Bangkok"},
                 {"Asia/Qatar", "Asia/Bahrain"},
-                {"Asia/Urumqi", "Antarctica/Vostok"},
                 {"Asia/Vientiane", "Asia/Bangkok"},
                 {"Atlantic/Jan_Mayen", "Europe/Berlin"},
                 {"Atlantic/Reykjavik", "Africa/Abidjan"},
@@ -1723,6 +1749,7 @@ public class TimeZoneTest extends TestFmwk
     @Test
     public void TestSetDefault() {
         java.util.TimeZone save = java.util.TimeZone.getDefault();
+        TimeZone icuSave = TimeZone.getDefault();
 
         /*
          * America/Caracs (Venezuela) changed the base offset from -4:00 to
@@ -1775,6 +1802,7 @@ public class TimeZoneTest extends TestFmwk
         }
 
         // Restore the original JDK time zone
+        TimeZone.setDefault(icuSave);
         java.util.TimeZone.setDefault(save);
     }
 
@@ -1784,8 +1812,8 @@ public class TimeZoneTest extends TestFmwk
      */
     @Test
     public void TestDisplayNamesMeta() {
-        final Integer TZSHORT = new Integer(TimeZone.SHORT);
-        final Integer TZLONG = new Integer(TimeZone.LONG);
+        final Integer TZSHORT = TimeZone.SHORT;
+        final Integer TZLONG = TimeZone.LONG;
 
         final Object[][] zoneDisplayTestData = {
             //  zone id             locale  summer          format      expected display name
@@ -2384,6 +2412,42 @@ public class TimeZoneTest extends TestFmwk
             assertEquals("getRawOffset() and the raw from getOffset(now, false, offset) should not be different but got",
                          zone.getRawOffset(), raw);
         }
+    }
+
+    @Test
+    public void TestGetIanaID() {
+        final String UNKNOWN = TimeZone.UNKNOWN_ZONE_ID;
+
+        final String[][] TESTDATA = {
+                {"",                    UNKNOWN},
+                {null,                  UNKNOWN},
+                {UNKNOWN,               UNKNOWN},
+                {"America/New_York",    "America/New_York"},
+                {"Asia/Calcutta",       "Asia/Kolkata"},
+                {"Europe/Kiev",         "Europe/Kyiv"},
+                {"Europe/Zaporozhye",   "Europe/Kyiv"},
+                {"Etc/GMT-1",           "Etc/GMT-1"},
+                {"Etc/GMT+20",          UNKNOWN},
+                {"PST8PDT",             "PST8PDT"},
+                {"GMT-08:00",           UNKNOWN},
+        };
+
+        for (String[] test : TESTDATA) {
+            String ianaId = TimeZone.getIanaID(test[0]);
+            assertEquals("IANA ID for " + test[0], test[1], ianaId);
+            if (test[1].equals(UNKNOWN)) {
+                // Calling getIanaID with an IANA ID should return the same
+                String ianaId2 = TimeZone.getIanaID(ianaId);
+                assertEquals("IANA ID for " + ianaId, ianaId, ianaId2);
+            }
+        }
+    }
+    @Test
+    public void TestGMTMinus24ICU22526() {
+        TimeZone tz = TimeZone.getTimeZone("GMT-23:59");
+        GregorianCalendar gc = new GregorianCalendar(tz);
+        gc.setTimeInMillis(123456789);
+        gc.get(GregorianCalendar.MONTH);
     }
 }
 

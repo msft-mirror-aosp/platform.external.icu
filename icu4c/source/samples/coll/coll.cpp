@@ -46,7 +46,7 @@ const char gHelpString[] =
  *    on the command line by the user.
  */
 char const *opt_locale     = "en_US";
-char *opt_rules      = 0;
+char *opt_rules       = nullptr;
 UBool  opt_help       = false;
 UBool  opt_norm       = false;
 UBool  opt_french     = false;
@@ -57,7 +57,7 @@ UBool  opt_case       = false;
 int    opt_level      = 0;
 char const *opt_source     = "abc";
 char const *opt_target     = "abd";
-UCollator * collator  = 0;
+UCollator *collator   = nullptr;
 
 /** 
  * Definitions for the command line options
@@ -82,7 +82,7 @@ OptSpec opts[] = {
     {"-level",       OptSpec::NUM,    &opt_level},
     {"-help",        OptSpec::FLAG,   &opt_help},
     {"-?",           OptSpec::FLAG,   &opt_help},
-    {0, OptSpec::FLAG, 0}
+    {nullptr,        OptSpec::FLAG,   nullptr}
 };
 
 /**  
@@ -93,7 +93,7 @@ UBool processOptions(int argc, const char **argv, OptSpec opts[])
     for (int argNum = 1; argNum < argc; argNum ++) {
         const char *pArgName = argv[argNum];
         OptSpec *pOpt;
-        for (pOpt = opts;  pOpt->name != 0; pOpt ++) {
+        for (pOpt = opts; pOpt->name != nullptr; pOpt++) {
             if (strcmp(pOpt->name, pArgName) == 0) {
                 switch (pOpt->type) {
                 case OptSpec::FLAG:
@@ -128,7 +128,7 @@ UBool processOptions(int argc, const char **argv, OptSpec opts[])
                 break;
             }
         }
-        if (pOpt->name == 0)
+        if (pOpt->name == nullptr)
         {
             fprintf(stderr, "Unrecognized option \"%s\"\n", pArgName);
             return false;
@@ -142,8 +142,8 @@ UBool processOptions(int argc, const char **argv, OptSpec opts[])
  */
 int strcmp() 
 {
-	UChar source[100];
-	UChar target[100];
+	char16_t source[100];
+	char16_t target[100];
 	u_unescape(opt_source, source, 100);
 	u_unescape(opt_target, target, 100);
     UCollationResult result = ucol_strcoll(collator, source, -1, target, -1);
@@ -163,12 +163,12 @@ UBool processCollator()
 {
 	// Set up an ICU collator
     UErrorCode status = U_ZERO_ERROR;
-	UChar rules[100];
+	char16_t rules[100];
 
-    if (opt_rules != 0) {
+    if (opt_rules != nullptr) {
 		u_unescape(opt_rules, rules, 100);
         collator = ucol_openRules(rules, -1, UCOL_OFF, UCOL_TERTIARY, 
-			                  NULL, &status);
+			                  nullptr, &status);
     }
     else {
         collator = ucol_open(opt_locale, &status);

@@ -24,7 +24,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 
-import android.icu.dev.test.TestFmwk;
+import android.icu.dev.test.CoreTestFmwk;
 import android.icu.text.DurationFormat;
 import android.icu.util.Calendar;
 import android.icu.util.ULocale;
@@ -36,7 +36,7 @@ import android.icu.testsharding.MainTestShard;
  */
 @MainTestShard
 @RunWith(JUnit4.class)
-public class ICUDurationTest extends TestFmwk {
+public class ICUDurationTest extends CoreTestFmwk {
     /**
      * Allows us to not depend on javax.xml.datatype.DatatypeFactory.
      * We need just a tiny subset of the Duration API:
@@ -208,7 +208,7 @@ public class ICUDurationTest extends TestFmwk {
             logln("format date from -> " + formatted);
         }
 
-        formatted = df.format(new Long(1000*3600*24*2));
+        formatted = df.format(1000L*3600*24*2);
         expect = "fra due giorni";
         if(!expect.equals(formatted)) {
             errln("Expected " + expect + " but got " + formatted);

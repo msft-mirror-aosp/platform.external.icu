@@ -40,11 +40,11 @@ DataDrivenCalendarTest::~DataDrivenCalendarTest() {
 
 void DataDrivenCalendarTest::runIndexedTest(int32_t index, UBool exec,
         const char* &name, char* /*par */) {
-    if (driver != NULL) {
+    if (driver != nullptr) {
         if (exec) {
             //  logln("Begin ");
         }
-        const DataMap *info= NULL;
+        const DataMap *info= nullptr;
         UErrorCode status= U_ZERO_ERROR;
         TestData *testData = driver->createTestData(index, status);
         if (U_SUCCESS(status)) {
@@ -78,7 +78,7 @@ void DataDrivenCalendarTest::testOps(TestData *testData,
     UDate fromDate = 0; // TODO
     UDate toDate = 0;
     
-    const DataMap *currentCase= NULL;
+    const DataMap *currentCase= nullptr;
     char toCalLoc[256] = "";
 
     // TODO: static strings?
@@ -98,12 +98,12 @@ void DataDrivenCalendarTest::testOps(TestData *testData,
     int n = 0;
     while (testData->nextCase(currentCase, status)) {
         ++n;
-        Calendar *toCalendar= NULL;
-        Calendar *fromCalendar= NULL;
+        Calendar *toCalendar= nullptr;
+        Calendar *fromCalendar= nullptr;
 
         // load parameters
         char theCase[200];
-        sprintf(theCase, "[case %d]", n);
+        snprintf(theCase, sizeof(theCase), "[case %d]", n);
         UnicodeString caseString(theCase, "");
         // build to calendar
         //             Headers { "locale","from","operation","params","to" }
@@ -116,7 +116,7 @@ void DataDrivenCalendarTest::testOps(TestData *testData,
                     + UnicodeString(" - "));
             continue;
         }
-        testSetting.extract(0, testSetting.length(), toCalLoc, (const char*)0);
+        testSetting.extract(0, testSetting.length(), toCalLoc, (const char*)nullptr);
         fromCalendar = Calendar::createInstance(toCalLoc, status);
         if (U_FAILURE(status)) {
             errln(caseString+": Unable to instantiate calendar for "
@@ -367,13 +367,13 @@ void DataDrivenCalendarTest::testConvert(TestData *testData,
         const DataMap *settings, UBool forward) {
     UErrorCode status = U_ZERO_ERROR;
     LocalPointer<Calendar> toCalendar;
-    const DataMap *currentCase= NULL;
+    const DataMap *currentCase= nullptr;
     char toCalLoc[256] = "";
     char fromCalLoc[256] = "";
     // build to calendar
     UnicodeString testSetting = settings->getString("ToCalendar", status);
     if (U_SUCCESS(status)) {
-        testSetting.extract(0, testSetting.length(), toCalLoc, (const char*)0);
+        testSetting.extract(0, testSetting.length(), toCalLoc, (const char*)nullptr);
         toCalendar.adoptInstead(Calendar::createInstance(toCalLoc, status));
         if (U_FAILURE(status)) {
             dataerrln(UnicodeString("Unable to instantiate ToCalendar for ")+testSetting);
@@ -396,7 +396,7 @@ void DataDrivenCalendarTest::testConvert(TestData *testData,
         LocalPointer<Calendar> fromCalendar;
         UnicodeString locale = currentCase->getString("locale", status);
         if (U_SUCCESS(status)) {
-            locale.extract(0, locale.length(), fromCalLoc, (const char*)0); // default codepage.  Invariant codepage doesn't have '@'!
+            locale.extract(0, locale.length(), fromCalLoc, (const char*)nullptr); // default codepage.  Invariant codepage doesn't have '@'!
             fromCalendar.adoptInstead(Calendar::createInstance(fromCalLoc, status));
             if (U_FAILURE(status)) {
                 errln("Unable to instantiate fromCalendar for "+locale);
@@ -445,12 +445,12 @@ void DataDrivenCalendarTest::testConvert(TestData *testData,
 }
 
 void DataDrivenCalendarTest::processTest(TestData *testData) {
-    //Calendar *cal= NULL;
-    //const UChar *arguments= NULL;
+    //Calendar *cal= nullptr;
+    //const char16_t *arguments= nullptr;
     //int32_t argLen = 0;
     char testType[256] = "";
-    const DataMap *settings= NULL;
-    //const UChar *type= NULL;
+    const DataMap *settings= nullptr;
+    //const char16_t *type= nullptr;
     UErrorCode status = U_ZERO_ERROR;
     UnicodeString testSetting;
     int n = 0;

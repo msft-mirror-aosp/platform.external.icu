@@ -13,6 +13,7 @@
 // limitations under the License.
 
 package {
+    default_team: "trendy_team_java_core_libraries",
     default_applicable_licenses: ["external_icu_license"],
 }
 
@@ -40,11 +41,11 @@ license {
         "SPDX-license-identifier-ICU",
         "SPDX-license-identifier-ISC",
         "SPDX-license-identifier-MIT",
-        "SPDX-license-identifier-Unicode-DFS",
+        "SPDX-license-identifier-Unicode-3.0",
         "legacy_unencumbered",
     ],
     license_text: [
-        "NOTICE",
+        "LICENSE",
     ],
 }
 
@@ -53,7 +54,7 @@ filegroup {
     visibility: [
         "//external/icu:__subpackages__",
     ],
-    srcs: ["NOTICE"],
+    srcs: ["LICENSE"],
 }
 
 cc_defaults {
@@ -62,14 +63,12 @@ cc_defaults {
         "-Wall",
         "-Werror",
         // Make all warnings into errors, but ignore a set of warnings used in headers by default.
+        "-Wno-ambiguous-reversed-operator",
+        "-Wno-deprecated-declarations",
         "-Wno-unused-parameter",
         "-Wno-unused-const-variable",
         "-Wno-unneeded-internal-declaration",
-        "-Wno-deprecated-declarations",
-    ],
-    // Upstream requires C++11 as the minimum version.
-    cppflags: [
-        "-std=c++11",
+        "-DUCONFIG_USE_ML_PHRASE_BREAKING=1",
     ],
     target: {
         android: {
@@ -83,4 +82,31 @@ cc_defaults {
             enabled: true,
         },
     },
+}
+
+aconfig_declarations {
+    name: "icu_aconfig_flags",
+    package: "com.android.icu",
+    container: "system",
+    srcs: [
+        "icu.aconfig",
+    ],
+}
+
+java_aconfig_library {
+    name: "icu_aconfig_flags_lib",
+    aconfig_declarations: "icu_aconfig_flags",
+    host_supported: true,
+    // "fake_device_config" is needed for the host.
+    libs: [
+        "fake_device_config",
+        "aconfig-annotations-lib-sdk-none",
+        "unsupportedappusage-sdk-none",
+    ],
+    apex_available: [
+        "//apex_available:platform",
+        "com.android.i18n",
+    ],
+    sdk_version: "none",
+    system_modules: "core-all-system-modules",
 }

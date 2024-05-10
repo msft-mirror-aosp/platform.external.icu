@@ -20,7 +20,7 @@ import org.junit.Assert;
 import org.junit.Ignore;
 import org.junit.Test;
 
-import android.icu.dev.test.TestFmwk;
+import android.icu.dev.test.CoreTestFmwk;
 import android.icu.dev.test.format.FormattedValueTest;
 import android.icu.dev.test.serializable.SerializableTestUtility;
 import android.icu.impl.IllegalIcuArgumentException;
@@ -65,7 +65,7 @@ import android.icu.util.ULocale;
 import android.icu.testsharding.MainTestShard;
 
 @MainTestShard
-public class NumberFormatterApiTest extends TestFmwk {
+public class NumberFormatterApiTest extends CoreTestFmwk {
 
     private static final Currency USD = Currency.getInstance("USD");
     private static final Currency GBP = Currency.getInstance("GBP");
@@ -516,11 +516,16 @@ public class NumberFormatterApiTest extends TestFmwk {
                 // Test the behaviour of the `rg` tag
                 {"Test the locale with rg = UK and without usage", "en-US-u-rg-ukzzzz", "fahrenheit", "0", null, "fahrenheit", "0.0", "0 degrees Fahrenheit"},
                 {"Test the locale with rg = UK and with usage", "en-US-u-rg-ukzzzz", "fahrenheit", "0", "default", "celsius", "-18", "-18 degrees Celsius"},
-                {"Test the locale with rg = UKOI and with usage", "en-US-u-rg-ukoizzzz", "fahrenheit", "0", "default", "celsius", "-18" , "-18 degrees Celsius"},
+                {"Test the locale with rg = UKOI and with usage", "en-US-u-rg-ukoi", "fahrenheit", "0", "default", "celsius", "-18" , "-18 degrees Celsius"},
 
                 // Test the priorities
                 {"Test the locale with mu,ms,rg --> mu tag wins", "en-US-u-mu-celsius-ms-ussystem-rg-uszzzz", "celsius", "0", "default", "celsius", "0.0", "0 degrees Celsius"},
                 {"Test the locale with ms,rg --> ms tag wins", "en-US-u-ms-metric-rg-uszzzz", "foot", "1", "default", "foot", "30.0", "30 centimeters"},
+
+                // Test the liklihood of the languages
+                {"Test the region of `en` --> region should be US", "en", "celsius", "1", "default", "fahrenheit", "34.0", "34 degrees Fahrenheit"},
+                {"Test the region of `de` --> region should be DE", "de", "celsius", "1", "default", "celsius", "1.0", "1 Grad Celsius"},
+                {"Test the region of `ar` --> region should be EG", "ar", "celsius", "1", "default", "celsius", "1.0", "١ درجة مئوية"},
         };
 
         int testIndex = 0;
@@ -1202,7 +1207,7 @@ public class NumberFormatterApiTest extends TestFmwk {
             "Prefix in the denominator: nanogram-per-picobarrel", "unit/nanogram-per-picobarrel",
             "unit/nanogram-per-picobarrel",
             NumberFormatter.with().unit(MeasureUnit.forIdentifier("nanogram-per-picobarrel")),
-            new ULocale("en-ZA"), 2.4, "2,4 ng/pbbl");
+            new ULocale("en-ZA"), 2.4, "2.4 ng/pbbl");
 
         assertFormatSingle("Prefix in the denominator: nanogram-per-picobarrel unit-width-full-name",
                            "unit/nanogram-per-picobarrel unit-width-full-name",
@@ -1210,7 +1215,7 @@ public class NumberFormatterApiTest extends TestFmwk {
                            NumberFormatter.with()
                                .unit(MeasureUnit.forIdentifier("nanogram-per-picobarrel"))
                                .unitWidth(UnitWidth.FULL_NAME),
-                           new ULocale("en-ZA"), 2.4, "2,4 nanograms per picobarrel");
+                           new ULocale("en-ZA"), 2.4, "2.4 nanograms per picobarrel");
 
         // Valid MeasureUnit, but unformattable, because we only have patterns for
         // pow2 and pow3 at this time:
@@ -1232,7 +1237,7 @@ public class NumberFormatterApiTest extends TestFmwk {
             NumberFormatter.with()
                 .unit(MeasureUnit.forIdentifier("kibijoule-foot-per-cubic-gigafurlong-square-second"))
                 .unitWidth(UnitWidth.FULL_NAME),
-            new ULocale("en-ZA"), 2.4, "2,4 kibijoule-feet per cubic gigafurlong-square second");
+            new ULocale("en-ZA"), 2.4, "2.4 kibijoule-feet per cubic gigafurlong-square second");
 
         assertFormatSingle(
             "kibijoule-foot-per-cubic-gigafurlong-square-second unit-width-full-name",
@@ -1253,7 +1258,7 @@ public class NumberFormatterApiTest extends TestFmwk {
             NumberFormatter.with()
                 .unit(MeasureUnit.forIdentifier("kilowatt-hour-per-100-kilometer"))
                 .unitWidth(UnitWidth.FULL_NAME),
-            new ULocale("en-ZA"), 2.4, "2,4 kilowatt-hours per 100 kilometres");
+            new ULocale("en-ZA"), 2.4, "2.4 kilowatt-hours per 100 kilometres");
     }
 
     // TODO: merge these tests into NumberSkeletonTest.java instead of here:
@@ -1456,11 +1461,11 @@ public class NumberFormatterApiTest extends TestFmwk {
                 "unit/meter usage/road",
                 unloc_formatter,
                 new ULocale("en-ZA"),
-                "87\u00A0650 km",
-                "8\u00A0765 km",
+                "87,650 km",
+                "8,765 km",
                 "876 km", // 6.5 rounds down, 7.5 rounds up.
                 "88 km",
-                "8,8 km",
+                "8.8 km",
                 "900 m",
                 "90 m",
                 "9 m",
@@ -1637,14 +1642,14 @@ public class NumberFormatterApiTest extends TestFmwk {
                        .precision(Precision.minMaxSignificantDigits(1, 4))
                        .unitWidth(UnitWidth.FULL_NAME),
                new ULocale("en-ZA"),
-               "8,765E1 square kilometres",
-               "8,765E0 square kilometres",
-               "8,765E1 hectares",
-               "8,765E0 hectares",
-               "8,765E3 square metres",
-               "8,765E2 square metres",
-               "8,765E1 square metres",
-               "8,765E0 square metres",
+               "8.765E1 square kilometres",
+               "8.765E0 square kilometres",
+               "8.765E1 hectares",
+               "8.765E0 hectares",
+               "8.765E3 square metres",
+               "8.765E2 square metres",
+               "8.765E1 square metres",
+               "8.765E0 square metres",
                "0E0 square centimetres");
 
         // TODO(icu-units#132): Java BigDecimal does not support Inf and NaN, so
@@ -1657,7 +1662,7 @@ public class NumberFormatterApiTest extends TestFmwk {
                 ULocale.ENGLISH,
                 Double.NEGATIVE_INFINITY,
                 // "-∞ km²");
-                "0 cm²");
+                "0 in²");
 
         // TODO(icu-units#132): Java BigDecimal does not support Inf and NaN, so
         // we get a misleading "0" out of this:
@@ -1669,7 +1674,7 @@ public class NumberFormatterApiTest extends TestFmwk {
                 ULocale.ENGLISH,
                 Double.NaN,
                 // "NaN cm²");
-                "0 cm²");
+                "0 in²");
 
         assertFormatSingle(
                 "Negative numbers: minute-and-second",
@@ -2054,7 +2059,7 @@ public class NumberFormatterApiTest extends TestFmwk {
                         .precision(Precision.maxSignificantDigits(4)),
                 new ULocale("en-ZA"),
                 321.45, // 0.45 rounds down, 0.55 rounds up.
-                "3,214E2 m");
+                "3.214E2 m");
 
         assertFormatSingle(
                 "Scientific notation with Usage: possible when using a reasonable Precision",
@@ -2067,7 +2072,7 @@ public class NumberFormatterApiTest extends TestFmwk {
                         .unitWidth(UnitWidth.FULL_NAME),
                 new ULocale("en-ZA"),
                 1e20,
-                "1,5E28 kilometres");
+                "1.5E28 kilometres");
     }
 
 
@@ -2176,7 +2181,7 @@ public class NumberFormatterApiTest extends TestFmwk {
                 NumberFormatter.with().unit(USD).unitWidth(UnitWidth.NARROW),
                 ULocale.forLanguageTag("en-CA"),
                 5.43,
-                "US$5.43");
+                "$5.43");
 
         assertFormatSingle(
                 "Currency Difference between Narrow and Short (Short Version)",
@@ -5118,7 +5123,7 @@ public class NumberFormatterApiTest extends TestFmwk {
                 NumberFormatter.with().sign(SignDisplay.ACCOUNTING).unit(USD).unitWidth(UnitWidth.NARROW),
                 ULocale.CANADA,
                 -444444,
-                "(US$444,444.00)");
+                "($444,444.00)");
 
         assertFormatSingle(
                 "Sign Accounting Negative Short",
@@ -5398,10 +5403,39 @@ public class NumberFormatterApiTest extends TestFmwk {
     @Test
     public void locale() {
         // Coverage for the locale setters.
-        Assert.assertEquals(NumberFormatter.with().locale(ULocale.ENGLISH), NumberFormatter.with().locale(Locale.ENGLISH));
-        Assert.assertEquals(NumberFormatter.with().locale(ULocale.ENGLISH), NumberFormatter.withLocale(ULocale.ENGLISH));
-        Assert.assertEquals(NumberFormatter.with().locale(ULocale.ENGLISH), NumberFormatter.withLocale(Locale.ENGLISH));
-        Assert.assertNotEquals(NumberFormatter.with().locale(ULocale.ENGLISH), NumberFormatter.with().locale(Locale.FRENCH));
+        Assert.assertEquals(NumberFormatter.with().locale(ULocale.ENGLISH),
+                NumberFormatter.with().locale(Locale.ENGLISH));
+        Assert.assertEquals(NumberFormatter.with().locale(ULocale.ENGLISH),
+                NumberFormatter.withLocale(ULocale.ENGLISH));
+        Assert.assertEquals(NumberFormatter.with().locale(ULocale.ENGLISH),
+                NumberFormatter.withLocale(Locale.ENGLISH));
+        Assert.assertNotEquals(NumberFormatter.with().locale(ULocale.ENGLISH),
+                NumberFormatter.with().locale(Locale.FRENCH));
+
+        LocalizedNumberFormatter lnf1 = NumberFormatter.withLocale(ULocale.ENGLISH).unitWidth(UnitWidth.FULL_NAME)
+                .scale(Scale.powerOfTen(2));
+        LocalizedNumberFormatter lnf2 = NumberFormatter.with()
+                .notation(Notation.compactLong()).locale(ULocale.FRENCH).unitWidth(UnitWidth.FULL_NAME);
+        UnlocalizedNumberFormatter unf1 = lnf1.withoutLocale();
+        UnlocalizedNumberFormatter unf2 = lnf2.withoutLocale();
+
+        assertFormatSingle(
+                "Formatter after withoutLocale A",
+                "unit/meter unit-width-full-name scale/100",
+                "unit/meter unit-width-full-name scale/100",
+                unf1.unit(MeasureUnit.METER),
+                ULocale.ITALY,
+                2,
+                "200 metri");
+
+        assertFormatSingle(
+                "Formatter after withoutLocale B",
+                "compact-long unit/meter unit-width-full-name",
+                "compact-long unit/meter unit-width-full-name",
+                unf2.unit(MeasureUnit.METER),
+                ULocale.JAPAN,
+                2,
+                "2 メートル");
     }
 
     @Test
@@ -5996,6 +6030,64 @@ public class NumberFormatterApiTest extends TestFmwk {
 
             assertEquals("test unit aliases", testCase.expectedFormat, actualFormat);
         }
+    }
+
+    @Test
+    public void testIssue22378() {
+        class TestCase {
+            final String localeId;
+            final String expectedFormat;
+
+            TestCase(String localeId, String expectedFormat) {
+                this.localeId = localeId;
+                this.expectedFormat = expectedFormat;
+            }
+        }
+
+        // I checked the results before the fix and everything works the same except
+        // "fr-FR-u-mu-fahrenhe" and "fr_FR@mu=fahrenhe"
+        final TestCase [] testCases = {
+                new TestCase("en-US", "73\u00B0F"),
+                new TestCase("en-US-u-mu-fahrenhe", "73\u00B0F"),
+                // WAI. "fahrenheit" is an invalid -u-mu- value, we get the default for en-US
+                new TestCase("en-US-u-mu-fahrenheit", "73\u00B0F"),
+                new TestCase("en-US-u-mu-celsius", "23\u00B0C"),
+                new TestCase("en-US-u-mu-badvalue", "73\u00B0F"),
+                new TestCase("en_US@mu=fahrenhe", "73\u00B0F"),
+                new TestCase("en_US@mu=fahrenheit", "73\u00B0F"),
+                new TestCase("en_US@mu=celsius", "23\u00B0C"),
+                new TestCase("en_US@mu=badvalue", "73\u00B0F"),
+
+                new TestCase("fr-FR", "23\u202F\u00B0C"),
+                new TestCase("fr-FR-u-mu-fahrenhe", "73\u202F\u00B0F"),
+                // WAI. Celsius because "fahrenheit" is an invalid -u-mu- value, we get the default for fr-FR
+                new TestCase("fr-FR-u-mu-fahrenheit", "23\u202F\u00B0C"),
+                new TestCase("fr-FR-u-mu-celsius", "23\u202F\u00B0C"),
+                new TestCase("fr-FR-u-mu-badvalue", "23\u202F\u00B0C"),
+                new TestCase("fr_FR@mu=fahrenhe", "73\u202F\u00B0F"),
+                new TestCase("fr_FR@mu=fahrenheit", "73\u202F\u00B0F"),
+                new TestCase("fr_FR@mu=celsius", "23\u202F\u00B0C"),
+                new TestCase("fr_FR@mu=badvalue", "23\u202F\u00B0C"),
+        };
+
+        final UnlocalizedNumberFormatter formatter = NumberFormatter.with()
+                .usage("weather")
+                .unit(MeasureUnit.CELSIUS);
+        final double value = 23.0;
+
+        for (TestCase testCase : testCases) {
+            String localeId = testCase.localeId;
+            ULocale locale = localeId.contains("@")
+                    ? new ULocale(localeId)
+                    : ULocale.forLanguageTag(localeId);
+            String actualFormat = formatter.locale(locale).format(value).toString();
+            assertEquals("-u-mu- honored (" + localeId + ")", testCase.expectedFormat, actualFormat);
+        }
+
+        String result = formatter.locale(Locale.US).format(value).getOutputUnit().getIdentifier();
+        assertEquals("Testing default -u-mu- for en-US", MeasureUnit.FAHRENHEIT.getIdentifier(), result);
+        result = formatter.locale(Locale.FRANCE).format(value).getOutputUnit().getIdentifier();
+        assertEquals("Testing default -u-mu- for fr-FR", MeasureUnit.CELSIUS.getIdentifier(), result);
     }
 
     static void assertFormatDescending(
