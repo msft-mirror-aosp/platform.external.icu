@@ -16,16 +16,22 @@
 
 package com.android.i18n.test.timezone;
 
-import static com.android.i18n.timezone.ZoneInfoDb.SIZEOF_INDEX_ENTRY;
+import static java.util.stream.Collectors.toList;
+import static java.util.stream.Collectors.toSet;
 
 import android.icu.testsharding.MainTestShard;
-import android.icu.util.TimeZone;
+
 import com.android.i18n.timezone.TimeZoneDataFiles;
 import com.android.i18n.timezone.ZoneInfoData;
 import com.android.i18n.timezone.ZoneInfoDb;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.RandomAccessFile;
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
 import libcore.timezone.testing.ZoneInfoTestHelper;
 
 @MainTestShard
@@ -38,9 +44,12 @@ public class ZoneInfoDbTest extends junit.framework.TestCase {
   // An empty override file should fall back to the default file.
   public void testLoadTzDataWithFallback_emptyOverrideFile() throws Exception {
     String emptyFilePath = makeEmptyFile().getPath();
-    try (ZoneInfoDb data = ZoneInfoDb.loadTzData(TZDATA_FILE);
-         ZoneInfoDb dataWithEmptyOverride =
-                 ZoneInfoDb.loadTzDataWithFallback(emptyFilePath, TZDATA_FILE)) {
+
+    try (AutoCloseableZoneInfoDb db = AutoCloseableZoneInfoDb.loadTzData(TZDATA_FILE);
+         AutoCloseableZoneInfoDb dbWithEmptyOverride =
+                 AutoCloseableZoneInfoDb.loadTzDataWithFallback(emptyFilePath, TZDATA_FILE)) {
+      ZoneInfoDb data = db.getDelegate();
+      ZoneInfoDb dataWithEmptyOverride = dbWithEmptyOverride.getDelegate();
       assertEquals(data.getVersion(), dataWithEmptyOverride.getVersion());
       assertEquals(data.getAvailableIDs().length, dataWithEmptyOverride.getAvailableIDs().length);
     }
@@ -49,9 +58,11 @@ public class ZoneInfoDbTest extends junit.framework.TestCase {
   // A corrupt override file should fall back to the default file.
   public void testLoadTzDataWithFallback_corruptOverrideFile() throws Exception {
     String corruptFilePath = makeCorruptFile().getPath();
-    try (ZoneInfoDb data = ZoneInfoDb.loadTzData(TZDATA_FILE);
-         ZoneInfoDb dataWithCorruptOverride =
-                 ZoneInfoDb.loadTzDataWithFallback(corruptFilePath, TZDATA_FILE)) {
+    try (AutoCloseableZoneInfoDb db = AutoCloseableZoneInfoDb.loadTzData(TZDATA_FILE);
+         AutoCloseableZoneInfoDb dbWithCorruptOverride =
+                 AutoCloseableZoneInfoDb.loadTzDataWithFallback(corruptFilePath, TZDATA_FILE)) {
+      ZoneInfoDb data = db.getDelegate();
+      ZoneInfoDb dataWithCorruptOverride = dbWithCorruptOverride.getDelegate();
       assertEquals(data.getVersion(), dataWithCorruptOverride.getVersion());
       assertEquals(data.getAvailableIDs().length, dataWithCorruptOverride.getAvailableIDs().length);
     }
@@ -60,7 +71,9 @@ public class ZoneInfoDbTest extends junit.framework.TestCase {
   // Given no tzdata files we can use, we should fall back to built-in "GMT".
   public void testLoadTzDataWithFallback_noGoodFile() throws Exception {
     String emptyFilePath = makeEmptyFile().getPath();
-    try (ZoneInfoDb data = ZoneInfoDb.loadTzDataWithFallback(emptyFilePath)) {
+    try (AutoCloseableZoneInfoDb db =
+                 AutoCloseableZoneInfoDb.loadTzDataWithFallback(emptyFilePath)) {
+      ZoneInfoDb data = db.getDelegate();
       assertEquals("missing", data.getVersion());
       assertEquals(1, data.getAvailableIDs().length);
       assertEquals("GMT", data.getAvailableIDs()[0]);
@@ -82,14 +95,37 @@ public class ZoneInfoDbTest extends junit.framework.TestCase {
     content[10] = 'z';
 
     File goodFile = makeTemporaryFile(content);
-    try (ZoneInfoDb dataWithOverride =
-              ZoneInfoDb.loadTzDataWithFallback(goodFile.getPath(), TZDATA_FILE);
-         ZoneInfoDb data = ZoneInfoDb.loadTzData(TZDATA_FILE)) {
-
+    try (AutoCloseableZoneInfoDb dbWithOverride =
+                 AutoCloseableZoneInfoDb.loadTzDataWithFallback(goodFile.getPath(), TZDATA_FILE);
+         AutoCloseableZoneInfoDb db = AutoCloseableZoneInfoDb.loadTzData(TZDATA_FILE)) {
+      ZoneInfoDb dataWithOverride = dbWithOverride.getDelegate();
+      ZoneInfoDb data = db.getDelegate();
       assertEquals("9999z", dataWithOverride.getVersion());
       assertEquals(data.getAvailableIDs().length, dataWithOverride.getAvailableIDs().length);
     } finally {
       goodFile.delete();
+    }
+  }
+
+  public void testGetAvailableIDsWithRawOffset() {
+    ZoneInfoDb zoneInfoDb = ZoneInfoDb.getInstance();
+    String[] allIds = zoneInfoDb.getAvailableIDs();
+    List<ZoneInfoData> allZones = Arrays.stream(allIds)
+            .map(id -> zoneInfoDb.makeZoneInfoData(id))
+            .collect(toList());
+
+    int[] allRawOffsets = allZones.stream()
+            .mapToInt(zone -> zone.getRawOffset())
+            .distinct()
+            .toArray();
+
+    for (int rawOffset : allRawOffsets) {
+      Set<String> ids = new HashSet<>(Arrays.asList(zoneInfoDb.getAvailableIDs(rawOffset)));
+      Set<String> expectedIds = allZones.stream()
+              .filter(zone -> zone.getRawOffset() == rawOffset)
+              .map(zone -> zone.getID())
+              .collect(toSet());
+      assertEquals("zoneInfoDb.getAvailableIDs(" + rawOffset + ")", expectedIds, ids);
     }
   }
 
@@ -108,7 +144,9 @@ public class ZoneInfoDbTest extends junit.framework.TestCase {
     byte[] data = new ZoneInfoTestHelper.TzDataBuilder().initializeToValid().build();
     File testFile = makeTemporaryFile(data);
     try {
-      assertNotNull(ZoneInfoDb.loadTzData(testFile.getPath()));
+      ZoneInfoDb db = ZoneInfoDb.loadTzData(testFile.getPath());
+      assertNotNull(db);
+      db.close();
     } finally {
       testFile.delete();
     }
@@ -128,15 +166,12 @@ public class ZoneInfoDbTest extends junit.framework.TestCase {
     checkInvalidDataDetected(data);
   }
 
-  public void testLoadTzData_zoneTabOutsideFile() throws Exception {
+  public void testLoadTzData_finalOffsetOutsideFile() throws Exception {
     ZoneInfoTestHelper.TzDataBuilder builder =
             new ZoneInfoTestHelper.TzDataBuilder()
                     .initializeToValid();
 
-    // Sections must be in the correct order: section sizing is calculated using them.
-    builder.setIndexOffsetOverride(10);
-    builder.setDataOffsetOverride(10 + SIZEOF_INDEX_ENTRY);
-    builder.setZoneTabOffsetOverride(3000); // This is invalid if it is outside of the file.
+    builder.setFinalOffsetOverride(3000); // This is invalid if it is outside of the file.
 
     byte[] data = builder.build();
     // The zoneTab offset must be outside of the file for this test to be valid.
@@ -153,7 +188,7 @@ public class ZoneInfoDbTest extends junit.framework.TestCase {
     builder.setIndexOffsetOverride(indexOffset);
     int dataOffset = indexOffset + ZoneInfoDb.SIZEOF_INDEX_ENTRY - 1;
     builder.setDataOffsetOverride(dataOffset);
-    builder.setZoneTabOffsetOverride(dataOffset + 40);
+    builder.setFinalOffsetOverride(dataOffset + 40);
 
     byte[] data = builder.build();
     // The zoneTab offset must be outside of the file for this test to be valid.
@@ -216,29 +251,31 @@ public class ZoneInfoDbTest extends junit.framework.TestCase {
   }
 
   // Confirms any caching that exists correctly handles ZoneInfoData mutability.
-  public void testMakeTimeZone_timeZoneMutability() throws Exception {
-    try (ZoneInfoDb data = ZoneInfoDb.loadTzData(TZDATA_FILE)) {
+  public void testMakeTimeZone_timeZoneMutability() {
+    try (AutoCloseableZoneInfoDb db = AutoCloseableZoneInfoDb.loadTzData(TZDATA_FILE)) {
+      ZoneInfoDb data = db.getDelegate();
       String tzId = "Europe/London";
       ZoneInfoData first = data.makeZoneInfoData(tzId);
-      ZoneInfoData second = data.makeZoneInfoData(tzId);
+      ZoneInfoData second = first.createCopyWithRawOffset(3600);
+      // Confirms that makeZoneInfoData(tzId) creates a new different instance.
       assertNotSame(first, second);
 
-      assertTrue(first.hasSameRules(second));
-
-      first.setRawOffset(3600);
       assertFalse(first.getRawOffset() == second.getRawOffset());
+      assertFalse(first.hasSameRules(second));
     }
   }
 
-  public void testMakeTimeZone_notFound() throws Exception {
-    try (ZoneInfoDb data = ZoneInfoDb.loadTzData(TZDATA_FILE)) {
+  public void testMakeTimeZone_notFound() {
+    try (AutoCloseableZoneInfoDb db = AutoCloseableZoneInfoDb.loadTzData(TZDATA_FILE)) {
+      ZoneInfoDb data = db.getDelegate();
       assertNull(data.makeZoneInfoData("THIS_TZ_DOES_NOT_EXIST"));
       assertFalse(data.hasTimeZone("THIS_TZ_DOES_NOT_EXIST"));
     }
   }
 
-  public void testMakeTimeZone_found() throws Exception {
-    try (ZoneInfoDb data = ZoneInfoDb.loadTzData(TZDATA_FILE)) {
+  public void testMakeTimeZone_found() {
+    try (AutoCloseableZoneInfoDb db = AutoCloseableZoneInfoDb.loadTzData(TZDATA_FILE)) {
+      ZoneInfoDb data = db.getDelegate();
       assertNotNull(data.makeZoneInfoData("Europe/London"));
       assertTrue(data.hasTimeZone("Europe/London"));
     }
@@ -258,5 +295,39 @@ public class ZoneInfoDbTest extends junit.framework.TestCase {
     fos.write(content);
     fos.close();
     return f;
+  }
+
+
+  /**
+   * Helper class to auto close {@link ZoneInfoDb} with try-with-resource during testing.
+   */
+  private static class AutoCloseableZoneInfoDb implements AutoCloseable {
+
+    private final ZoneInfoDb delegate;
+
+    public static AutoCloseableZoneInfoDb loadTzData(String path) {
+      ZoneInfoDb zoneInfoDb = ZoneInfoDb.loadTzData(path);
+      assertNotNull(zoneInfoDb);
+      return new AutoCloseableZoneInfoDb(zoneInfoDb);
+    }
+
+    public static AutoCloseableZoneInfoDb loadTzDataWithFallback(String... paths) {
+      ZoneInfoDb zoneInfoDb = ZoneInfoDb.loadTzDataWithFallback(paths);
+      assertNotNull(zoneInfoDb);
+      return new AutoCloseableZoneInfoDb(zoneInfoDb);
+    }
+
+    private AutoCloseableZoneInfoDb(ZoneInfoDb zoneInfoDb) {
+      delegate = zoneInfoDb;
+    }
+
+    public ZoneInfoDb getDelegate() {
+      return delegate;
+    }
+
+    @Override
+    public void close() {
+      delegate.close();
+    }
   }
 }
