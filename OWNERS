@@ -10,3 +10,5 @@ libcore-bugs-triage@google.com
 # g2.corp.android-icu-maintainers@google.com
 # android-libcore-team+review@google.com
 
+per-file *ravenwood* = file:platform/frameworks/base:/ravenwood/OWNERS
+per-file *Ravenwood* = file:platform/frameworks/base:/ravenwood/OWNERS
