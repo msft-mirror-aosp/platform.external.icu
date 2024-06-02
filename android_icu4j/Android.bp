@@ -162,7 +162,7 @@ java_library {
     dxflags: ["--core-library"],
 }
 
-// Java library for use on host, e.g. by robolectric.
+// Java library for use on host, e.g. by ravenwood, robolectric.
 java_library {
     name: "core-icu4j-for-host",
     visibility: [
@@ -170,6 +170,7 @@ java_library {
         "//external/robolectric",
         "//external/robolectric-shadows",
         "//frameworks/layoutlib",
+        "//frameworks/base/ravenwood:__subpackages__",
         "//packages/modules/RuntimeI18n/apex",
     ],
     static_libs: [
