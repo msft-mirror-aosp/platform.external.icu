@@ -16,11 +16,21 @@
 
 package com.android.i18n.test.timezone;
 
+import static com.android.i18n.timezone.TzDataSetVersion.CURRENT_FORMAT_MAJOR_VERSION;
+import static com.android.i18n.timezone.TzDataSetVersion.CURRENT_FORMAT_MINOR_VERSION;
+
+import static java.lang.invoke.MethodType.methodType;
+
+import android.icu.platform.AndroidDataFiles;
 import android.icu.testsharding.MainTestShard;
-import junit.framework.TestCase;
 
 import com.android.i18n.timezone.TzDataSetVersion;
 import com.android.i18n.timezone.TzDataSetVersion.TzDataSetException;
+
+import junit.framework.TestCase;
+
+import java.lang.invoke.MethodHandle;
+import java.lang.invoke.MethodHandles;
 
 @MainTestShard
 public class TzDataSetVersionTest extends TestCase {
@@ -98,6 +108,32 @@ public class TzDataSetVersionTest extends TestCase {
                 TzDataSetVersion.currentFormatMajorVersion(),
                 TzDataSetVersion.currentFormatMinorVersion() - 1);
         assertFalse(TzDataSetVersion.isCompatibleWithThisDevice(olderMinor));
+    }
+
+    public void testConsistency() {
+        String msg = "Major versions in TzDataSetVersion and AndroidDataFiles differ";
+        assertEquals(msg, CURRENT_FORMAT_MAJOR_VERSION, AndroidDataFiles.CURRENT_MAJOR_VERSION);
+    }
+
+    public void testFormatLength() throws Throwable {
+        int versionLengthField =
+                (int) MethodHandles.privateLookupIn(TzDataSetVersion.class, MethodHandles.lookup())
+                        .findStaticGetter(
+                                TzDataSetVersion.class,
+                                "FORMAT_VERSION_STRING_LENGTH",
+                                int.class)
+                        .invoke();
+
+        // Using method handles to not increase API surface.
+        MethodHandle TO_FORMAT_VERSION_MH =
+                MethodHandles.privateLookupIn(TzDataSetVersion.class, MethodHandles.lookup())
+                        .findStatic(
+                                TzDataSetVersion.class,
+                                "toFormatVersionString",
+                                methodType(String.class, int.class, int.class));
+        String formatVersion = (String) TO_FORMAT_VERSION_MH.invoke(CURRENT_FORMAT_MAJOR_VERSION,
+                CURRENT_FORMAT_MINOR_VERSION);
+        assertEquals(versionLengthField, formatVersion.length());
     }
 
     private TzDataSetVersion createTzDataSetVersion(int majorFormatVersion, int minorFormatVersion)
