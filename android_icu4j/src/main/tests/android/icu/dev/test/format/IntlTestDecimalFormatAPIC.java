@@ -28,7 +28,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 
-import android.icu.dev.test.TestFmwk;
+import android.icu.dev.test.CoreTestFmwk;
 import android.icu.text.CurrencyPluralInfo;
 import android.icu.text.DecimalFormat;
 import android.icu.text.DecimalFormatSymbols;
@@ -41,11 +41,12 @@ import android.icu.testsharding.MainTestShard;
 // verifies that it works on a basic level.
 @MainTestShard
 @RunWith(JUnit4.class)
-public class IntlTestDecimalFormatAPIC extends TestFmwk {
+public class IntlTestDecimalFormatAPIC extends CoreTestFmwk {
 
     // This test checks various generic API methods in DecimalFormat to achieve 100% API coverage.
     @Test
     public void TestAPI() {
+        Locale startLocale = Locale.getDefault();
 
         logln("DecimalFormat API test---");
         logln("");
@@ -253,6 +254,7 @@ public class IntlTestDecimalFormatAPIC extends TestFmwk {
         //            errln("ERROR: Couldn't create a DecimalFormat");
         //        }
 
+        Locale.setDefault(startLocale);
     }
 
     @Test
@@ -306,8 +308,8 @@ public class IntlTestDecimalFormatAPIC extends TestFmwk {
     @Test
     public void testFormatToCharacterIterator() {
 
-        Number number = new Double(350.76);
-        Number negativeNumber = new Double(-350.76);
+        Number number = 350.76d;
+        Number negativeNumber = -350.76d;
 
         Locale us = Locale.US;
 
@@ -340,12 +342,12 @@ public class IntlTestDecimalFormatAPIC extends TestFmwk {
                 getNegativeCurrencyVectorUS());
 
         // test multiple grouping separators
-        number = new Long(100300400);
+        number = 100300400L;
         t_Format(11, number, NumberFormat.getNumberInstance(us),
                 getNumberVector2US());
 
         // test 0
-        number = new Long(0);
+        number = 0L;
         t_Format(12, number, NumberFormat.getNumberInstance(us),
                 getZeroVector());
     }
@@ -509,7 +511,7 @@ public class IntlTestDecimalFormatAPIC extends TestFmwk {
 
 //         called from support_messageformat tests
         public FieldContainer(int start, int end, AttributedCharacterIterator.Attribute attribute, int value) {
-        this(start, end, attribute, new Integer(value));
+        this(start, end, attribute, Integer.valueOf(value));
         }
 
 //         called from support_messageformat tests

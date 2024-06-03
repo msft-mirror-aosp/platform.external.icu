@@ -33,7 +33,6 @@ public final class ICUResourceBundleCollationTest extends TestFmwk {
 
     @Test
     public void TestFunctionalEquivalent(){
-       // Android patch: Add exceptions for big5han and gb2312han in genrb.
        String[] collCases = {
        // note: in ICU 64, empty locales are shown as available for collation
        //  avail   locale                               equiv
@@ -53,19 +52,19 @@ public final class ICUResourceBundleCollationTest extends TestFmwk {
            "f",     "zh_MO",                            "zh@collation=stroke", /* alias of zh_Hant_MO */
            "t",     "zh_Hant_MO",                       "zh@collation=stroke",
            "f",     "zh_TW_STROKE",                     "zh@collation=stroke",
-       //  "f",     "zh_TW_STROKE@collation=big5han",   "zh@collation=big5han",
+           "f",     "zh_TW_STROKE@collation=zhuyin",    "zh@collation=zhuyin",
            "f",     "sv_CN@calendar=japanese",          "sv",
            "t",     "sv@calendar=japanese",             "sv",
-       //  "f",     "zh_TW@collation=big5han",          "zh@collation=big5han", /* alias of zh_Hant_TW */
-       //  "t",     "zh_Hant_TW@collation=big5han",     "zh@collation=big5han",
-       //  "f",     "zh_TW@collation=gb2312han",        "zh@collation=gb2312han", /* alias of zh_Hant_TW */
-       //  "t",     "zh_Hant_TW@collation=gb2312han",   "zh@collation=gb2312han",
-       //  "f",     "zh_CN@collation=big5han",          "zh@collation=big5han", /* alias of zh_Hans_CN */
-       //  "t",     "zh_Hans_CN@collation=big5han",     "zh@collation=big5han",
-       //  "f",     "zh_CN@collation=gb2312han",        "zh@collation=gb2312han", /* alias of zh_Hans_CN */
-       //  "t",     "zh_Hans_CN@collation=gb2312han",   "zh@collation=gb2312han",
-       //  "t",     "zh@collation=big5han",             "zh@collation=big5han",
-       //  "t",     "zh@collation=gb2312han",           "zh@collation=gb2312han",
+           "f",     "zh_TW@collation=zhuyin",           "zh@collation=zhuyin", /* alias of zh_Hant_TW */
+           "t",     "zh_Hant_TW@collation=zhuyin",      "zh@collation=zhuyin",
+           "f",     "zh_TW@collation=unihan",           "zh@collation=unihan", /* alias of zh_Hant_TW */
+           "t",     "zh_Hant_TW@collation=unihan",      "zh@collation=unihan",
+           "f",     "zh_CN@collation=zhuyin",           "zh@collation=zhuyin", /* alias of zh_Hans_CN */
+           "t",     "zh_Hans_CN@collation=zhuyin",      "zh@collation=zhuyin",
+           "f",     "zh_CN@collation=unihan",           "zh@collation=unihan", /* alias of zh_Hans_CN */
+           "t",     "zh_Hans_CN@collation=unihan",      "zh@collation=unihan",
+           "t",     "zh@collation=zhuyin",              "zh@collation=zhuyin",
+           "t",     "zh@collation=unihan",              "zh@collation=unihan",
            "t",     "hi@collation=standard",            "hi",
            "f",     "hi_AU@collation=standard;currency=CHF;calendar=buddhist",  "hi",
            "f",     "sv_SE@collation=pinyin",           "sv", /* bug 4582 tests */
@@ -77,7 +76,6 @@ public final class ICUResourceBundleCollationTest extends TestFmwk {
            "f",     "nl_NL@collation=stroke",           "root",
            "f",     "nl_NL_EEXT@collation=stroke",      "root",
        };
-       // Android patch end.
 
        logln("Testing functional equivalents for collation...");
        getFunctionalEquivalentTestCases(ICUData.ICU_COLLATION_BASE_NAME,
@@ -134,7 +132,7 @@ public final class ICUResourceBundleCollationTest extends TestFmwk {
         logln("Testing getting collation values:");
         kwVals = ICUResourceBundle.getKeywordValues(ICUData.ICU_COLLATION_BASE_NAME,COLLATION_RESNAME);
         for(n=0;n<kwVals.length;n++) {
-            logln(new Integer(n).toString() + ": " + kwVals[n]);
+            logln(Integer.valueOf(n).toString() + ": " + kwVals[n]);
             if(DEFAULT_NAME.equals(kwVals[n])) {
                 errln("getKeywordValues for collation returned 'default' in the list.");
             } else if(STANDARD_NAME.equals(kwVals[n])) {
@@ -152,6 +150,70 @@ public final class ICUResourceBundleCollationTest extends TestFmwk {
         } else {
             logln("'standard' was found as a collation keyword.");
         }
+    }
+
+    @Test
+    public void TestGetFunctionalEquivalentVariantLengthWithinLimit() {
+        String valid =
+            "_" +
+            "_12345678" +
+            "_12345678" +
+            "_12345678" +
+            "_12345678" +
+            "_12345678" +
+            "_12345678" +
+            "_12345678" +
+            "_12345678" +
+            "_12345678" +
+            "_12345678" +
+            "_12345678" +
+            "_12345678" +
+            "_12345678" +
+            "_12345678" +
+            "_12345678" +
+            "_12345678" +
+            "_12345678" +
+            "_12345678" +
+            "_12345678" +
+            "_12345678";
+
+        ULocale equivLocale = ICUResourceBundle.getFunctionalEquivalent(
+            ICUData.ICU_BASE_NAME, ICUResourceBundle.ICU_DATA_CLASS_LOADER,
+            "calendar", "calendar", new ULocale(valid), new boolean[1], false);
+        ULocale localeExpected = new ULocale("_@calendar=gregorian");
+        if(!equivLocale.equals(localeExpected)) {
+            errln("Get unexpected locale:" + equivLocale.toString() +
+                " while expecting " + localeExpected.toString());
+        }
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void TestGetFunctionalEquivalentVariantLengthOverLimit() {
+        String invalid =
+            "_" +
+            "_12345678" +
+            "_12345678" +
+            "_12345678" +
+            "_12345678" +
+            "_12345678" +
+            "_12345678" +
+            "_12345678" +
+            "_12345678" +
+            "_12345678" +
+            "_12345678" +
+            "_12345678" +
+            "_12345678" +
+            "_12345678" +
+            "_12345678" +
+            "_12345678" +
+            "_12345678" +
+            "_12345678" +
+            "_12345678" +
+            "_12345678" +
+            "_12345678X";  // One character too long.
+        ULocale equivLocale2 = ICUResourceBundle.getFunctionalEquivalent(
+            ICUData.ICU_BASE_NAME, ICUResourceBundle.ICU_DATA_CLASS_LOADER,
+            "calendar", "calendar", new ULocale(invalid), new boolean[1], false);
     }
 
     @Test
@@ -174,16 +236,16 @@ public final class ICUResourceBundleCollationTest extends TestFmwk {
             ULocale inLocale = new ULocale(testCases[i+1]);
             ULocale expectLocale = new ULocale(testCases[i+2]);
 
-            logln(new Integer(i/3).toString() + ": " + new Boolean(expectAvail).toString() + "\t\t" +
-                    inLocale.toString() + "\t\t" + expectLocale.toString());
+            logln("" + i/3 + ": " + expectAvail + "\t\t" +
+                    inLocale + "\t\t" + expectLocale);
 
             ULocale equivLocale = ICUResourceBundle.getFunctionalEquivalent(path, cl, resName, keyword, inLocale, isAvail, truncate);
             boolean gotAvail = isAvail[0];
 
             if((gotAvail != expectAvail) || !equivLocale.equals(expectLocale)) {
-                errln(new Integer(i/3).toString() + ":  Error, expected  Equiv=" + new Boolean(expectAvail).toString() + "\t\t" +
-                        inLocale.toString() + "\t\t--> " + expectLocale.toString() + ",  but got " + new Boolean(gotAvail).toString() + " " +
-                        equivLocale.toString());
+                errln("" + i/3 + ":  Error, expected  Equiv=" + expectAvail + "\t\t" +
+                        inLocale + "\t\t--> " + expectLocale + ",  but got " + gotAvail + " " +
+                        equivLocale);
             }
         }
     }

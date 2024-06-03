@@ -41,7 +41,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 
-import android.icu.dev.test.TestFmwk;
+import android.icu.dev.test.CoreTestFmwk;
 import android.icu.impl.ICUData;
 import android.icu.impl.ICUResourceBundle;
 import android.icu.text.ChineseDateFormat;
@@ -71,13 +71,14 @@ import android.icu.testsharding.MainTestShard;
 
 @MainTestShard
 @RunWith(JUnit4.class)
-public class DateFormatTest extends TestFmwk {
+public class DateFormatTest extends CoreTestFmwk {
     /**
      * Verify that patterns have the correct values and could produce the
      * the DateFormat instances that contain the correct localized patterns.
      */
     @Test
     public void TestPatterns() {
+
         final String[][] EXPECTED = {
                 {DateFormat.YEAR, "y","en","y"},
 
@@ -2467,13 +2468,13 @@ public class DateFormatTest extends TestFmwk {
         sym.equals(null);
 
         sym = new ChineseDateFormatSymbols();
-        sym = new ChineseDateFormatSymbols(new Locale("en_US"));
+        sym = new ChineseDateFormatSymbols(new Locale("en", "US"));
         try{
-            sym = new ChineseDateFormatSymbols(null, new Locale("en_US"));
+            sym = new ChineseDateFormatSymbols(null, new Locale("en", "US"));
             errln("ChineseDateFormatSymbols(Calender, Locale) was suppose to return a null " +
                     "pointer exception for a null paramater.");
         } catch(Exception e){}
-        sym = new ChineseDateFormatSymbols(new ChineseCalendar(), new Locale("en_US"));
+        sym = new ChineseDateFormatSymbols(new ChineseCalendar(), new Locale("en", "US"));
         try{
             sym = new ChineseDateFormatSymbols(null, new ULocale("en_US"));
             errln("ChineseDateFormatSymbols(Calender, ULocale) was suppose to return a null " +
@@ -2489,7 +2490,7 @@ public class DateFormatTest extends TestFmwk {
 
         f.format((Object)cal, buf, pos);
         f.format((Object)now, buf, pos);
-        f.format(new Long(now.getTime()), buf, pos);
+        f.format(now.getTime(), buf, pos);
         try {
             f.format("Howdy", buf, pos);
         }
@@ -2770,10 +2771,10 @@ public class DateFormatTest extends TestFmwk {
                 logln("time zone ex3 ok");
             }
             catch (Exception e) {
-                // hmmm... this shouldn't happen.  don't want to exit this
-                // fn with timezone improperly set, so just in case
-                TimeZone.setDefault(oldtz);
+                // hmmm... this shouldn't happen.
                 throw new IllegalStateException(e.getMessage());
+            } finally {
+                TimeZone.setDefault(oldtz);
             }
         }
 
@@ -3175,12 +3176,12 @@ public class DateFormatTest extends TestFmwk {
         String ES_MX_DATA[] = {
             "yyyy MM dd",
 
-            "QQQQ y",  "fp", "1970 01 01", "1.er trimestre 1970", "1970 01 01",
+            "QQQQ y",  "fp", "1970 01 01", "1.º trimestre 1970", "1970 01 01",
             "QQQ y",   "fp", "1970 01 01", "T1 1970",             "1970 01 01",
             "QQQQQ y", "fp", "1970 01 01", "1 1970",              "1970 01 01",
-            "qqqq",    "fp", "1970 01 01", "1.er trimestre",      "1970 01 01",
+            "qqqq",    "fp", "1970 01 01", "1.º trimestre",      "1970 01 01",
             "qqq",     "fp", "1970 01 01", "T1",                  "1970 01 01",
-            "qqqqq",   "fp", "1970 01 01", "1T",                  "1970 01 01",
+            "qqqqq",   "fp", "1970 01 01", "1",                  "1970 01 01",
         };
 
         expect(EN_DATA, new Locale("en", "", ""));
@@ -3621,7 +3622,7 @@ public class DateFormatTest extends TestFmwk {
             errln("FAIL: Date must be accepted by formatToCharacterIterator");
         }
 
-        Number num = new Long(d.getTime());
+        Number num = d.getTime();
         try {
             acit = df.formatToCharacterIterator(num);
             if (acit == null) {
@@ -4013,8 +4014,8 @@ public class DateFormatTest extends TestFmwk {
         try{
             @SuppressWarnings("unused")
             DateFormat df = DateFormat.getPatternInstance("");
-            df = DateFormat.getPatternInstance("", new Locale("en_US"));
-            df = DateFormat.getPatternInstance(null, "", new Locale("en_US"));
+            df = DateFormat.getPatternInstance("", new Locale("en", "US"));
+            df = DateFormat.getPatternInstance(null, "", new Locale("en", "US"));
         } catch(Exception e) {
             errln("DateFormat.getPatternInstance is not suppose to return an exception, got: " + e.toString());
             //e.printStackTrace();
@@ -5628,5 +5629,106 @@ public class DateFormatTest extends TestFmwk {
         pos.setIndex(0);
         df.parse("2021-", cal, pos);
         assertTrue("Success parsing '2021-'", pos.getIndex() == 0);
+    }
+
+    @Test
+    public void TestNumericFieldStrictParse() {
+        // regression test for ICU-22337, ICU-22259
+        class NumericFieldStrictParseItem {
+            public String localeID;
+            public String pattern;
+            public String text;
+            public int    pos;
+            public int    field1;
+            public int    value1;
+            public int    field2; // -1 to skip
+            public int    value2;
+            public NumericFieldStrictParseItem(String locID, String pat, String txt, int p, int f1, int v1, int f2, int v2) {
+                localeID = locID;
+                pattern  = pat;
+                text     = txt;
+                pos    = p;
+                field1 = f1;
+                value1 = v1;
+                field2 = f2;
+                value2 = v2;
+            }
+        };
+
+        final NumericFieldStrictParseItem[] items = {
+            //                              locale   pattern       text        pos field1          value1            field2       value2
+            // Ticket #22337
+            new NumericFieldStrictParseItem("en_US", "MM/dd/yyyy", "1/1/2023",  8, Calendar.MONTH, Calendar.JANUARY, Calendar.DATE, 1),
+            // Ticket #22259
+            new NumericFieldStrictParseItem("en_US", "dd-MM-uuuu", "1-01-2023", 9, Calendar.MONTH, Calendar.JANUARY, Calendar.DATE, 1),
+            new NumericFieldStrictParseItem("en_US", "dd-MM-uuuu", "01-01-223", 9, Calendar.DATE,  1,     Calendar.EXTENDED_YEAR, 223),
+        };
+
+        for (NumericFieldStrictParseItem item : items) {
+            ULocale locale = new ULocale(item.localeID);
+            SimpleDateFormat sdfmt = new SimpleDateFormat(item.pattern, locale);
+            Calendar cal = Calendar.getInstance(TimeZone.GMT_ZONE, locale);
+            cal.clear();
+            ParsePosition ppos = new ParsePosition(0);
+            sdfmt.setLenient(false);
+            sdfmt.parse(item.text, cal, ppos);
+            if (ppos.getIndex() != item.pos) {
+                errln("error: SimpleDateFormat.parse locale " + item.localeID + " pattern " + item.pattern + ": expected pos " +
+                        item.pos + ", got " + ppos.getIndex() + ", errIndex " + ppos.getErrorIndex());
+                continue;
+            }
+            if (item.field1 >= 0) {
+                int value = cal.get(item.field1);
+                if (value != item.value1) {
+                    errln("error: Calendar.get locale " + item.localeID + " pattern " + item.pattern + " field "
+                            + item.field1 + ": expected value " + item.value1 + ", got " + value );
+                }
+            }
+            if (item.field2 >= 0) {
+                int value = cal.get(item.field2);
+                if (value != item.value2) {
+                    errln("error: Calendar.get locale " + item.localeID + " pattern " + item.pattern + " field "
+                            + item.field2 + ": expected value " + item.value2 + ", got " + value );
+                }
+            }
+        }
+    }
+
+    @Test
+    public void TestHourCycle() {
+        final Date DATE = new Date(-845601268000L); // March 16, 1943 at 3:45 PM
+
+        final String[][] TEST_CASES = new String[][] {
+            // test some locales for which we have data
+            { "en-us", "Tuesday, March 16, 1943 at 3:45:32\u202fPM" },
+            { "en-ca", "Tuesday, March 16, 1943 at 3:45:32\u202fp.m." },
+            { "en-gb", "Tuesday 16 March 1943 at 15:45:32" },
+            { "en-au", "Tuesday 16 March 1943 at 3:45:32\u202fpm" },
+            // test a couple locales for which we don't have specific locale files (we should still get the correct hour cycle)
+            { "en-co", "Tuesday, March 16, 1943 at 3:45:32\u202fPM" },
+            { "en-mx", "Tuesday, March 16, 1943 at 3:45:32 PM" },
+            // test that the rg subtag does the right thing
+            { "en-us-u-rg-gbzzzz", "Tuesday, March 16, 1943 at 15:45:32" },
+            { "en-us-u-rg-cazzzz", "Tuesday, March 16, 1943 at 3:45:32\u202fPM" },
+            { "en-ca-u-rg-uszzzz", "Tuesday, March 16, 1943 at 3:45:32\u202fp.m." },
+            { "en-gb-u-rg-uszzzz", "Tuesday 16 March 1943 at 3:45:32\u202fpm" },
+            { "en-gb-u-rg-cazzzz", "Tuesday 16 March 1943 at 3:45:32\u202fpm" },
+            { "en-gb-u-rg-auzzzz", "Tuesday 16 March 1943 at 3:45:32\u202fpm" },
+            // test that the hc ("hours") subtag does the right thing
+            { "en-us-u-hc-h23", "Tuesday, March 16, 1943 at 15:45:32" },
+            { "en-gb-u-hc-h12", "Tuesday 16 March 1943 at 3:45:32\u202fpm" },
+            // test that the rg and hc subtags do the right thing when used together
+            { "en-us-u-rg-gbzzzz-hc-h12", "Tuesday, March 16, 1943 at 3:45:32\u202fPM" },
+            { "en-gb-u-rg-uszzzz-hc-h23", "Tuesday 16 March 1943 at 15:45:32" },
+        };
+
+        for (String[] testCase : TEST_CASES) {
+            Locale locale = Locale.forLanguageTag(testCase[0]);
+            DateFormat df = DateFormat.getDateTimeInstance(DateFormat.FULL, DateFormat.MEDIUM, locale);
+            df.setTimeZone(TimeZone.getTimeZone("America/Los_Angeles"));
+
+            String actualResult = df.format(DATE);
+            assertEquals("Wrong result for " + locale, testCase[1], actualResult);
+        }
     }
 }

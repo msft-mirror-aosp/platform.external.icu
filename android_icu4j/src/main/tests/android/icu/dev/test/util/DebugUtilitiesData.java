@@ -14,7 +14,7 @@ import android.icu.testsharding.MainTestShard;
 
 @MainTestShard
 public class DebugUtilitiesData extends Object {
-    public static final String ICU4C_VERSION="72.1";
+    public static final String ICU4C_VERSION="75.1";
     public static final int UDebugEnumType = 0;
     public static final int UCalendarDateFields = 1;
     public static final int UCalendarMonths = 2;
@@ -65,6 +65,7 @@ public class DebugUtilitiesData extends Object {
            "JULIAN_DAY", /* 20 */ 
            "MILLISECONDS_IN_DAY", /* 21 */ 
            "IS_LEAP_MONTH", /* 22 */ 
+           //"ORDINAL_MONTH", /* 23 */ 
         },
         /* UCalendarMonths, 2 */
         { 
@@ -146,6 +147,7 @@ public class DebugUtilitiesData extends Object {
            android.icu.util.Calendar.JULIAN_DAY, /* 20 */
            android.icu.util.Calendar.MILLISECONDS_IN_DAY, /* 21 */
            android.icu.util.ChineseCalendar.IS_LEAP_MONTH, /* 22 */
+           //android.icu.util.Calendar.ORDINAL_MONTH, /* 23 */
         },
         /* UCalendarMonths, 2 */
         { 

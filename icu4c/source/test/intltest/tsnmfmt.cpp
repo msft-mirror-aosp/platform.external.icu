@@ -162,14 +162,14 @@ IntlTestNumberFormat::testFormat(/* char* par */)
     if (U_FAILURE(fStatus))
     { 
         dataerrln((UnicodeString)"**** FAIL: createXxxInstance failed. - " + u_errorName(fStatus));
-        if (fFormat != 0)
+        if (fFormat != nullptr)
             errln("**** FAIL: Non-null format returned by createXxxInstance upon failure.");
         delete fFormat;
-        fFormat = 0;
+        fFormat = nullptr;
         return;
     }
-                    
-    if (fFormat == 0)
+
+    if (fFormat == nullptr)
     {
         errln((UnicodeString)"**** FAIL: Null format returned by createXxxInstance.");
         return;
@@ -178,7 +178,7 @@ IntlTestNumberFormat::testFormat(/* char* par */)
     UnicodeString str;
 
     // Assume it's a DecimalFormat and get some info
-    DecimalFormat *s = (DecimalFormat*)fFormat;
+    DecimalFormat *s = dynamic_cast<DecimalFormat*>(fFormat);
     logln((UnicodeString)"  Pattern " + s->toPattern(str));
 
 #if U_PF_OS390 <= U_PLATFORM && U_PLATFORM <= U_PF_OS400
@@ -422,7 +422,7 @@ void IntlTestNumberFormat::monsterTest(/* char* par */)
     const char *SEP = "============================================================\n";
     int32_t count;
     const Locale* allLocales = NumberFormat::getAvailableLocales(count);
-    Locale* locales = (Locale*)allLocales;
+    Locale* locales = const_cast<Locale*>(allLocales);
     Locale quickLocales[6];
     if (allLocales && count)
     {

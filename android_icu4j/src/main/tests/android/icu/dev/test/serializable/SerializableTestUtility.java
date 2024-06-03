@@ -40,7 +40,7 @@ import android.icu.impl.TimeZoneAdapter;
 import android.icu.impl.URLHandler;
 import android.icu.math.BigDecimal;
 import android.icu.math.MathContext;
-import android.icu.message2.Mf2DataModel;
+import android.icu.message2.MFParseException;
 import android.icu.util.AnnualTimeZoneRule;
 import android.icu.util.Calendar;
 import android.icu.util.Currency;
@@ -766,25 +766,12 @@ public class SerializableTestUtility {
         }
     }
 
-    private static class Mf2DataModelOrderedMapHandler implements Handler {
+    private static class MFParseExceptionHandler extends ExceptionHandlerBase {
         @Override
         public Object[] getTestObjects() {
-            Mf2DataModel.OrderedMap<String, Object> mapWithContent = new Mf2DataModel.OrderedMap<>();
-            mapWithContent.put("number", Double.valueOf(3.1416));
-            mapWithContent.put("date", new Date(1664582400000L /* 20221001T000000Z */));
-            mapWithContent.put("string", "testing");
-            return new Mf2DataModel.OrderedMap[] {
-                    new Mf2DataModel.OrderedMap(),
-                    mapWithContent
+            return new MFParseException[] {
+                    new MFParseException("test", 42)
             };
-        }
-
-        @Override
-        public boolean hasSameBehavior(Object a, Object b) {
-            // OrderedMap extends LinkedHashMap, without adding any functionality, nothing to test.
-            Mf2DataModel.OrderedMap ra = (Mf2DataModel.OrderedMap)a;
-            Mf2DataModel.OrderedMap rb = (Mf2DataModel.OrderedMap)b;
-            return ra.equals(rb);
         }
     }
 
@@ -885,7 +872,7 @@ public class SerializableTestUtility {
         map.put("android.icu.util.ICUCloneNotSupportedException", new ICUCloneNotSupportedExceptionHandler());
         map.put("android.icu.util.ICUInputTooLongException", new ICUInputTooLongExceptionHandler());
 
-        map.put("android.icu.message2.Mf2DataModel$OrderedMap", new Mf2DataModelOrderedMapHandler());
+        map.put("android.icu.message2.MFParseException", new MFParseExceptionHandler());
     }
 
     /*

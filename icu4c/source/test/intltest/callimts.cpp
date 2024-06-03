@@ -109,7 +109,7 @@ CalendarLimitTest::TestCalendarExtremeLimit()
        return;
     }
     fmt->adoptCalendar(cal);
-    ((SimpleDateFormat*) fmt)->applyPattern("HH:mm:ss.SSS Z, EEEE, MMMM d, yyyy G");
+    (dynamic_cast<SimpleDateFormat*>(fmt))->applyPattern("HH:mm:ss.SSS Z, EEEE, MMMM d, yyyy G");
 
 
     // This test used to test the algorithmic limits of the dates that
@@ -191,7 +191,7 @@ struct {
 }  // anonymous name space
 
 void
-CalendarLimitTest::TestLimits(void) {
+CalendarLimitTest::TestLimits() {
     gTestCaseIterator.reset();
 
     ThreadPool<CalendarLimitTest> threads(this, threadCount, &CalendarLimitTest::TestLimitsThread);
@@ -301,7 +301,7 @@ CalendarLimitTest::doTheoreticalLimitsTest(Calendar& cal, UBool leapMonth) {
 void
 CalendarLimitTest::doLimitsTest(Calendar& cal, UDate startDate, int32_t endTime) {
     int32_t testTime = quick ? ( endTime / 40 ) : endTime;
-    doLimitsTest(cal, NULL /*default fields*/, startDate, testTime);
+    doLimitsTest(cal, nullptr /*default fields*/, startDate, testTime);
 }
 
 void
@@ -347,7 +347,7 @@ CalendarLimitTest::doLimitsTest(Calendar& cal,
     }
     logln((UnicodeString)"Start: " + startDate);
 
-    if (fieldsToTest == NULL) {
+    if (fieldsToTest == nullptr) {
         fieldsToTest = FIELDS;
     }
 
@@ -416,50 +416,19 @@ CalendarLimitTest::doLimitsTest(Calendar& cal,
                       ", actual_min=" + minActual);
             }
             if (maxActual < maxLow || maxActual > maxHigh) {
-                if ( uprv_strcmp(cal.getType(), "chinese") == 0 &&
-                        testMillis >= 1802044800000.0 &&
-                     logKnownIssue("12620", "chinese calendar failures for some actualMax tests")) {
-                    logln((UnicodeString)"KnownFail: [" + cal.getType() + "] " +
-                          ymdToString(cal, ymd) +
-                          " Range for max of " + FIELD_NAME[f] + "(" + f +
-                          ")=" + maxLow + ".." + maxHigh +
-                          ", actual_max=" + maxActual);
-                } else {
-                    errln((UnicodeString)"Fail: [" + cal.getType() + "] " +
-                          ymdToString(cal, ymd) +
-                          " Range for max of " + FIELD_NAME[f] + "(" + f +
-                          ")=" + maxLow + ".." + maxHigh +
-                          ", actual_max=" + maxActual);
-                }
+                errln((UnicodeString)"Fail: [" + cal.getType() + "] " +
+                      ymdToString(cal, ymd) +
+                      " Range for max of " + FIELD_NAME[f] + "(" + f +
+                      ")=" + maxLow + ".." + maxHigh +
+                      ", actual_max=" + maxActual);
             }
             if (v < minActual || v > maxActual) {
-                // timebomb per #9967, fix with #9972
-                if ( uprv_strcmp(cal.getType(), "dangi") == 0 &&
-                        testMillis >= 1865635198000.0  &&
-                     logKnownIssue("9972", "as per #9967")) { // Feb 2029 gregorian, end of dangi 4361
-                    logln((UnicodeString)"KnownFail: [" + cal.getType() + "] " +
-                          ymdToString(cal, ymd) +
-                          " " + FIELD_NAME[f] + "(" + f + ")=" + v +
-                          ", actual=" + minActual + ".." + maxActual +
-                          ", allowed=(" + minLow + ".." + minHigh + ")..(" +
-                          maxLow + ".." + maxHigh + ")");
-                } else if ( uprv_strcmp(cal.getType(), "chinese") == 0 &&
-                        testMillis >= 1832544000000.0 &&
-                     logKnownIssue("12620", "chinese calendar failures for some actualMax tests")) {
-                    logln((UnicodeString)"KnownFail: [" + cal.getType() + "] " +
-                          ymdToString(cal, ymd) +
-                          " " + FIELD_NAME[f] + "(" + f + ")=" + v +
-                          ", actual=" + minActual + ".." + maxActual +
-                          ", allowed=(" + minLow + ".." + minHigh + ")..(" +
-                          maxLow + ".." + maxHigh + ")");
-                } else {
-                    errln((UnicodeString)"Fail: [" + cal.getType() + "] " +
-                          ymdToString(cal, ymd) +
-                          " " + FIELD_NAME[f] + "(" + f + ")=" + v +
-                          ", actual=" + minActual + ".." + maxActual +
-                          ", allowed=(" + minLow + ".." + minHigh + ")..(" +
-                          maxLow + ".." + maxHigh + ")");
-                }
+                errln((UnicodeString)"Fail: [" + cal.getType() + "] " +
+                      ymdToString(cal, ymd) +
+                      " " + FIELD_NAME[f] + "(" + f + ")=" + v +
+                      ", actual=" + minActual + ".." + maxActual +
+                      ", allowed=(" + minLow + ".." + minHigh + ")..(" +
+                      maxLow + ".." + maxHigh + ")");
             }
         }
         greg.add(UCAL_DAY_OF_YEAR, 1, status);

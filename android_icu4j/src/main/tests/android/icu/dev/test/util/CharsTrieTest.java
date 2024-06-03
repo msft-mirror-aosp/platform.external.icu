@@ -19,7 +19,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 
-import android.icu.dev.test.TestFmwk;
+import android.icu.dev.test.CoreTestFmwk;
 import android.icu.text.UnicodeSet;
 import android.icu.util.BytesTrie;
 import android.icu.util.CharsTrie;
@@ -29,7 +29,7 @@ import android.icu.testsharding.MainTestShard;
 
 @MainTestShard
 @RunWith(JUnit4.class)
-public class CharsTrieTest extends TestFmwk {
+public class CharsTrieTest extends CoreTestFmwk {
     public CharsTrieTest() {}
 
     // All test functions have a TestNN prefix where NN is a double-digit number.

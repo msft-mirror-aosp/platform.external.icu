@@ -16,7 +16,6 @@
 #include "mutex.h"
 #include <float.h>
 #include "gregoimp.h" // Math
-#include "astro.h" // CalendarAstronomer
 #include "uhash.h"
 
 // Debugging
@@ -81,6 +80,7 @@ static const int32_t LIMITS[UCAL_FIELD_COUNT][4] = {
     {/*N/A*/-1,/*N/A*/-1,/*N/A*/-1,/*N/A*/-1}, // JULIAN_DAY
     {/*N/A*/-1,/*N/A*/-1,/*N/A*/-1,/*N/A*/-1}, // MILLISECONDS_IN_DAY
     {/*N/A*/-1,/*N/A*/-1,/*N/A*/-1,/*N/A*/-1}, // IS_LEAP_MONTH
+    {        0,        0,       11,       11}, // ORDINAL_MONTH
 };
 
 static const int32_t INDIAN_ERA_START  = 78;
@@ -108,7 +108,7 @@ static UBool isGregorianLeap(int32_t year)
  * @param eyear  The year in Saka Era
  * @param month  The month(0-based) in Indian calendar
  */
-int32_t IndianCalendar::handleGetMonthLength(int32_t eyear, int32_t month) const {
+int32_t IndianCalendar::handleGetMonthLength(int32_t eyear, int32_t month, UErrorCode& /* status */) const {
    if (month < 0 || month > 11) {
       eyear += ClockMath::floorDivide(month, 12, &month);
    }
@@ -203,14 +203,20 @@ static double IndianToJD(int32_t year, int32_t month, int32_t date) {
  * @param eyear The year in Indian Calendar measured from Saka Era (78 AD).
  * @param month The month in Indian calendar
  */
-int32_t IndianCalendar::handleComputeMonthStart(int32_t eyear, int32_t month, UBool /* useMonth */ ) const {
+int64_t IndianCalendar::handleComputeMonthStart(int32_t eyear, int32_t month, UBool /* useMonth */, UErrorCode& status) const {
+   if (U_FAILURE(status)) {
+       return 0;
+   }
 
    //month is 0 based; converting it to 1-based 
    int32_t imonth;
 
     // If the month is out of range, adjust it into range, and adjust the extended year accordingly
    if (month < 0 || month > 11) {
-      eyear += (int32_t)ClockMath::floorDivide(month, 12, &month);
+      if (uprv_add32_overflow(eyear, ClockMath::floorDivide(month, 12, &month), &eyear)) {
+          status = U_ILLEGAL_ARGUMENT_ERROR;
+          return 0;
+      }
    }
 
    if(month == 12){
@@ -219,16 +225,19 @@ int32_t IndianCalendar::handleComputeMonthStart(int32_t eyear, int32_t month, UB
        imonth = month + 1; 
    }
    
-   double jd = IndianToJD(eyear ,imonth, 1);
+   int64_t jd = IndianToJD(eyear ,imonth, 1);
 
-   return (int32_t)jd;
+   return jd;
 }
 
 //-------------------------------------------------------------------------
 // Functions for converting from milliseconds to field values
 //-------------------------------------------------------------------------
 
-int32_t IndianCalendar::handleGetExtendedYear() {
+int32_t IndianCalendar::handleGetExtendedYear(UErrorCode& status) {
+    if (U_FAILURE(status)) {
+        return 0;
+    }
     int32_t year;
 
     if (newerField(UCAL_EXTENDED_YEAR, UCAL_YEAR) == UCAL_EXTENDED_YEAR) {
@@ -294,79 +303,33 @@ void IndianCalendar::handleComputeFields(int32_t julianDay, UErrorCode&  /* stat
    internalSet(UCAL_EXTENDED_YEAR, IndianYear);
    internalSet(UCAL_YEAR, IndianYear);
    internalSet(UCAL_MONTH, IndianMonth);
+   internalSet(UCAL_ORDINAL_MONTH, IndianMonth);
    internalSet(UCAL_DAY_OF_MONTH, IndianDayOfMonth);
    internalSet(UCAL_DAY_OF_YEAR, yday + 1); // yday is 0-based
 }    
 
-UBool
-IndianCalendar::inDaylightTime(UErrorCode& status) const
+constexpr uint32_t kIndianRelatedYearDiff = 79;
+
+int32_t IndianCalendar::getRelatedYear(UErrorCode &status) const
 {
-    // copied from GregorianCalendar
-    if (U_FAILURE(status) || !getTimeZone().useDaylightTime()) {
-        return false;
+    int32_t year = get(UCAL_EXTENDED_YEAR, status);
+    if (U_FAILURE(status)) {
+        return 0;
     }
-
-    // Force an update of the state of the Calendar.
-    ((IndianCalendar*)this)->complete(status); // cast away const
-
-    return (UBool)(U_SUCCESS(status) ? (internalGet(UCAL_DST_OFFSET) != 0) : false);
-}
-
-
-/**
- * The system maintains a static default century start date and Year.  They are
- * initialized the first time they are used.  Once the system default century date
- * and year are set, they do not change.
- */
-static UDate           gSystemDefaultCenturyStart       = DBL_MIN;
-static int32_t         gSystemDefaultCenturyStartYear   = -1;
-static icu::UInitOnce  gSystemDefaultCenturyInit        {};
-
-
-UBool IndianCalendar::haveDefaultCentury() const
-{
-    return true;
-}
-
-static void U_CALLCONV
-initializeSystemDefaultCentury()
-{
-    // initialize systemDefaultCentury and systemDefaultCenturyYear based
-    // on the current time.  They'll be set to 80 years before
-    // the current time.
-    UErrorCode status = U_ZERO_ERROR;
-
-    IndianCalendar calendar ( Locale ( "@calendar=Indian" ), status);
-    if ( U_SUCCESS ( status ) ) {
-        calendar.setTime ( Calendar::getNow(), status );
-        calendar.add ( UCAL_YEAR, -80, status );
-
-        UDate    newStart = calendar.getTime ( status );
-        int32_t  newYear  = calendar.get ( UCAL_YEAR, status );
-
-        gSystemDefaultCenturyStart = newStart;
-        gSystemDefaultCenturyStartYear = newYear;
+    if (uprv_add32_overflow(year, kIndianRelatedYearDiff, &year)) {
+        status = U_ILLEGAL_ARGUMENT_ERROR;
+        return 0;
     }
-    // We have no recourse upon failure.
+    return year;
 }
 
-
-UDate
-IndianCalendar::defaultCenturyStart() const
+void IndianCalendar::setRelatedYear(int32_t year)
 {
-    // lazy-evaluate systemDefaultCenturyStart
-    umtx_initOnce(gSystemDefaultCenturyInit, &initializeSystemDefaultCentury);
-    return gSystemDefaultCenturyStart;
+    // set extended year
+    set(UCAL_EXTENDED_YEAR, year - kIndianRelatedYearDiff);
 }
 
-int32_t
-IndianCalendar::defaultCenturyStartYear() const
-{
-    // lazy-evaluate systemDefaultCenturyStartYear
-    umtx_initOnce(gSystemDefaultCenturyInit, &initializeSystemDefaultCentury);
-    return    gSystemDefaultCenturyStartYear;
-}
-
+IMPL_SYSTEM_DEFAULT_CENTURY(IndianCalendar, "@calendar=indian")
 
 UOBJECT_DEFINE_RTTI_IMPLEMENTATION(IndianCalendar)
 

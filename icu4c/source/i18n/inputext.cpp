@@ -30,11 +30,11 @@ InputText::InputText(UErrorCode &status)
                                                  //   removed if appropriate.
       fByteStats(NEW_ARRAY(int16_t, 256)),       // byte frequency statistics for the input text.
                                                  //   Value is percent, not absolute.
-      fDeclaredEncoding(0),
-      fRawInput(0),
+      fDeclaredEncoding(nullptr),
+      fRawInput(nullptr),
       fRawLength(0)
 {
-    if (fInputBytes == NULL || fByteStats == NULL) {
+    if (fInputBytes == nullptr || fByteStats == nullptr) {
         status = U_MEMORY_ALLOCATION_ERROR;
     }
 }
@@ -70,7 +70,7 @@ void InputText::setDeclaredEncoding(const char* encoding, int32_t len)
 
 UBool InputText::isSet() const 
 {
-    return fRawInput != NULL;
+    return fRawInput != nullptr;
 }
 
 /**

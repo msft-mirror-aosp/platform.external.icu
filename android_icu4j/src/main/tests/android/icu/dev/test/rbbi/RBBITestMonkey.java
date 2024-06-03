@@ -10,10 +10,6 @@
 package android.icu.dev.test.rbbi;
 
 
-// Monkey testing of RuleBasedBreakIterator.
-//    The old, original monkey test. TODO: remove
-//    The new monkey test is class RBBIMonkeyTest.
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -23,7 +19,11 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 
-import android.icu.dev.test.TestFmwk;
+// Monkey testing of RuleBasedBreakIterator.
+//    The old, original monkey test. TODO: remove
+//    The new monkey test is class RBBIMonkeyTest.
+
+import android.icu.dev.test.CoreTestFmwk;
 import android.icu.lang.UCharacter;
 import android.icu.lang.UProperty;
 import android.icu.text.BreakIterator;
@@ -45,7 +45,7 @@ import android.icu.testsharding.MainTestShard;
  */
 @MainTestShard
 @RunWith(JUnit4.class)
-public class RBBITestMonkey extends TestFmwk {
+public class RBBITestMonkey extends CoreTestFmwk {
     //
     //     class RBBIMonkeyKind
     //
@@ -751,6 +751,13 @@ public class RBBITestMonkey extends TestFmwk {
         XUnicodeSet fOP30;
         XUnicodeSet fCP30;
         XUnicodeSet fExtPictUnassigned;
+        XUnicodeSet fAK;
+        XUnicodeSet fAP;
+        XUnicodeSet fAS;
+        XUnicodeSet fVF;
+        XUnicodeSet fVI;
+        XUnicodeSet fPi;
+        XUnicodeSet fPf;
 
         StringBuffer  fText;
         int           fOrigPositions;
@@ -805,6 +812,14 @@ public class RBBITestMonkey extends TestFmwk {
             fOP30  = new XUnicodeSet("[\\p{Line_break=OP}-[\\p{ea=F}\\p{ea=W}\\p{ea=H}]]");
             fCP30  = new XUnicodeSet("[\\p{Line_break=CP}-[\\p{ea=F}\\p{ea=W}\\p{ea=H}]]");
             fExtPictUnassigned = new XUnicodeSet("[\\p{Extended_Pictographic}&\\p{Cn}]");
+            fAK = new XUnicodeSet("[\\p{Line_Break=AK}]");
+            fAP = new XUnicodeSet("[\\p{Line_Break=AP}]");
+            fAS = new XUnicodeSet("[\\p{Line_Break=AS}]");
+            fVF = new XUnicodeSet("[\\p{Line_Break=VF}]");
+            fVI = new XUnicodeSet("[\\p{Line_Break=VI}]");
+
+            fPi = new XUnicodeSet("[\\p{Pi}]");
+            fPf = new XUnicodeSet("[\\p{Pf}]");
 
             // Remove dictionary characters.
             // The monkey test reference implementation of line break does not replicate the dictionary behavior,
@@ -866,6 +881,11 @@ public class RBBITestMonkey extends TestFmwk {
             fSets.add(fOP30);   fClassNames.add("OP30");
             fSets.add(fCP30);   fClassNames.add("CP30");
             fSets.add(fExtPictUnassigned); fClassNames.add("fExtPictUnassigned");
+            fSets.add(fAK); fClassNames.add("AK");
+            fSets.add(fAP); fClassNames.add("AP");
+            fSets.add(fAS); fClassNames.add("AS");
+            fSets.add(fVF); fClassNames.add("VF");
+            fSets.add(fVI); fClassNames.add("VI");
         }
 
         @Override
@@ -1098,32 +1118,67 @@ public class RBBITestMonkey extends TestFmwk {
                     continue;
                 }
 
+                // Same as LB 14, scan backward for
+                // (sot | BK | CR | LF | NL | OP CM*| QU CM* | GL CM* | SP) [\p{Pi}&QU] CM* SP*.
+                tPos = prevPos;
+                // SP* (with the aforementioned Twist).
+                if (fSP.contains(prevChar)) {
+                    while (tPos > 0 && fSP.contains(UTF16.charAt(fText, tPos))) {
+                        tPos = moveIndex32(fText, tPos, -1);
+                    }
+                }
+                // CM*.
+                while (tPos > 0 && fCM.contains(UTF16.charAt(fText, tPos))) {
+                    tPos = moveIndex32(fText, tPos, -1);
+                }
+                // [\p{Pi}&QU].
+                if (fPi.contains(UTF16.charAt(fText, tPos)) && fQU.contains(UTF16.charAt(fText, tPos))) {
+                    if (tPos == 0) {
+                        setAppliedRule(pos, "LB 15a sot [\\p{Pi}&QU] SP* ×");
+                        continue;
+                    } else {
+                        tPos = moveIndex32(fText, tPos, -1);
+                        if (fBK.contains(UTF16.charAt(fText, tPos)) || fCR.contains(UTF16.charAt(fText, tPos)) ||
+                            fLF.contains(UTF16.charAt(fText, tPos)) || fNL.contains(UTF16.charAt(fText, tPos)) ||
+                            fSP.contains(UTF16.charAt(fText, tPos)) || fZW.contains(UTF16.charAt(fText, tPos))) {
+                            setAppliedRule(pos, "LB 15a (BK | CR | LF | NL | SP | ZW) [\\p{Pi}&QU] SP* ×");
+                            continue;
+                        }
+                    }
+                    // CM*.
+                    while (tPos > 0 && fCM.contains(UTF16.charAt(fText, tPos))) {
+                        tPos = moveIndex32(fText, tPos, -1);
+                    }
+                    if (fOP.contains(UTF16.charAt(fText, tPos)) || fQU.contains(UTF16.charAt(fText, tPos)) ||
+                        fGL.contains(UTF16.charAt(fText, tPos))) {
+                        setAppliedRule(pos, "LB 15a (OP | QU | GL) [\\p{Pi}&QU] SP* ×");
+                        continue;
+                    }
+                }
+
+                if (fPf.contains(thisChar) && fQU.contains(thisChar)) {
+                    int nextChar = (nextPos < fText.length())? UTF16.charAt(fText, nextPos): 0;
+                    if (nextPos == fText.length() || fSP.contains(nextChar) || fGL.contains(nextChar) ||
+                        fWJ.contains(nextChar) || fCL.contains(nextChar) || fQU.contains(nextChar) ||
+                        fCP.contains(nextChar) || fEX.contains(nextChar) || fIS.contains(nextChar) ||
+                        fSY.contains(nextChar) || fBK.contains(nextChar) || fCR.contains(nextChar) ||
+                        fLF.contains(nextChar) || fNL.contains(nextChar) || fZW.contains(nextChar)) {
+                        setAppliedRule(pos, "LB 15b × [\\p{Pf}&QU] ( SP | GL | WJ | CL | QU | CP | EX | IS | SY | BK | CR | LF | NL | ZW | eot)");
+                        continue;
+                    }
+                }
+
                 if (nextPos < fText.length()) {
                     int nextChar = fText.codePointAt(nextPos);
                     if (fSP.contains(prevChar) && fIS.contains(thisChar) && fNU.contains(nextChar)) {
-                        setAppliedRule(pos, "LB 14a Break before an IS that begins a number and follows a space");
+                        setAppliedRule(pos, "LB 15c Break before an IS that begins a number and follows a space");
                         break;
                     }
                 }
 
                 if (fIS.contains(thisChar)) {
-                    setAppliedRule(pos, "LB 14b Do not break before numeric separators, even after spaces");
+                    setAppliedRule(pos, "LB 15d Do not break before numeric separators, even after spaces");
                     continue;
-                }
-
-                if (fOP.contains(thisChar)) {
-                    // Scan backwards from prevChar to see if it is preceded by QU CM* SP*
-                    tPos = prevPos;
-                    while (tPos > 0 && fSP.contains(UTF16.charAt(fText, tPos))) {
-                        tPos = moveIndex32(fText, tPos, -1);
-                    }
-                    while (tPos > 0 && fCM.contains(UTF16.charAt(fText, tPos))) {
-                        tPos = moveIndex32(fText, tPos, -1);
-                    }
-                    if (fQU.contains(UTF16.charAt(fText, tPos))) {
-                        setAppliedRule(pos, "LB 15  QU SP* x OP");
-                        continue;
-                    }
                 }
 
                 if (fNS.contains(thisChar)) {
@@ -1283,6 +1338,37 @@ public class RBBITestMonkey extends TestFmwk {
                 if ((fAL.contains(prevChar) || fHL.contains(prevChar)) && (fAL.contains(thisChar) || fHL.contains(thisChar))) {
                     setAppliedRule(pos, "LB 28  Do not break between alphabetics");
                     continue;
+                }
+
+                if (fAP.contains(prevChar) &&
+                    (fAK.contains(thisChar) || thisChar == '◌' || fAS.contains(thisChar))) {
+                    setAppliedRule(pos, "LB 28a.1  AP x (AK | ◌ | AS)");
+                    continue;
+                }
+
+                if ((fAK.contains(prevChar) || prevChar == '◌' || fAS.contains(prevChar)) &&
+                    (fVF.contains(thisChar) || fVI.contains(thisChar))) {
+                    setAppliedRule(pos, "LB 28a.2  (AK | ◌ | AS) x (VF | VI)");
+                    continue;
+                }
+
+                if ((fAK.contains(prevCharX2) || prevCharX2 == '◌' || fAS.contains(prevCharX2)) &&
+                    fVI.contains(prevChar) &&
+                    (fAK.contains(thisChar) || thisChar == '◌')) {
+                    setAppliedRule(pos, "LB 28a.3  (AK | ◌ | AS) VI x (AK | ◌)");
+                    continue;
+                }
+
+                if (nextPos < fText.length()) {
+                    // note: UnicodeString::char32At(length) returns ffff, not distinguishable
+                    //       from a legit ffff noncharacter. So test length separately.
+                    int nextChar = UTF16.charAt(fText, nextPos);
+                    if ((fAK.contains(prevChar) || prevChar == '◌' || fAS.contains(prevChar)) &&
+                        (fAK.contains(thisChar) || thisChar == '◌' || fAS.contains(thisChar)) &&
+                        fVF.contains(nextChar)) {
+                        setAppliedRule(pos, "LB 28a.4  (AK | ◌ | AS) x (AK | ◌ | AS) VF");
+                        continue;
+                    }
                 }
 
                 if (fIS.contains(prevChar) && (fAL.contains(thisChar) || fHL.contains(thisChar))) {
@@ -2367,4 +2453,3 @@ public class RBBITestMonkey extends TestFmwk {
         RunMonkey(rtbi, m, "sent", seed, loopCount);
     }
 }
-

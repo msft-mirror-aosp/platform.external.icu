@@ -343,7 +343,7 @@ void addTestNewConvert(TestNode** root)
 
 static void setNuConvTestName(const char *codepage, const char *direction)
 {
-    sprintf(gNuConvTestName, "[Testing %s %s Unicode, InputBufSiz=%d, OutputBufSiz=%d]",
+    snprintf(gNuConvTestName, sizeof(gNuConvTestName), "[Testing %s %s Unicode, InputBufSiz=%d, OutputBufSiz=%d]",
         codepage,
         direction,
         (int)gInBufferSize,
@@ -455,8 +455,8 @@ static ETestConvertResult testConvertFromU( const UChar *source, int sourceLen, 
       junk[0] = 0;
       offset_str[0] = 0;
       for(ptr = junkout;ptr<targ;ptr++) {
-        sprintf(junk + strlen(junk), "0x%02x, ", (int)(0xFF & *ptr));
-        sprintf(offset_str + strlen(offset_str), "0x%02x, ", (int)(0xFF & junokout[ptr-junkout]));
+        snprintf(junk + strlen(junk), sizeof(junk)-strlen(junk), "0x%02x, ", (int)(0xFF & *ptr));
+        snprintf(offset_str + strlen(offset_str), sizeof(offset_str)-strlen(offset_str), "0x%02x, ", (int)(0xFF & junokout[ptr-junkout]));
       }
       
       log_verbose(junk);
@@ -618,8 +618,8 @@ static ETestConvertResult testConvertToU( const uint8_t *source, int sourcelen, 
 
         for(ptr = junkout;ptr<targ;ptr++)
         {
-            sprintf(junk + strlen(junk), "0x%04x, ", (0xFFFF) & (unsigned int)*ptr);
-            sprintf(offset_str + strlen(offset_str), "0x%04x, ", (0xFFFF) & (unsigned int)junokout[ptr-junkout]);
+            snprintf(junk + strlen(junk), sizeof(junk)-strlen(junk), "0x%04x, ", (0xFFFF) & (unsigned int)*ptr);
+            snprintf(offset_str + strlen(offset_str), sizeof(offset_str)-strlen(offset_str), "0x%04x, ", (0xFFFF) & (unsigned int)junokout[ptr-junkout]);
         }
 
         log_verbose(junk);
@@ -1256,7 +1256,7 @@ static void TestNewConvertWithBufferSizes(int32_t outsize, int32_t insize )
     }
 }
 
-static void TestCoverageMBCS(){
+static void TestCoverageMBCS(void){
 #if 0
     UErrorCode status = U_ZERO_ERROR;
     const char *directory = loadTestData(&status);
@@ -1370,7 +1370,7 @@ static void TestConverterType(const char *convName, UConverterType convType) {
     ucnv_close(myConverter);
 }
 
-static void TestConverterTypesAndStarters()
+static void TestConverterTypesAndStarters(void)
 {
 #if !UCONFIG_NO_LEGACY_CONVERSION
     UConverter* myConverter;
@@ -1513,7 +1513,7 @@ TestAmbiguousConverter(UConverter *cnv) {
     }
 }
 
-static void TestAmbiguous()
+static void TestAmbiguous(void)
 {
     UErrorCode status = U_ZERO_ERROR;
     UConverter *ascii_cnv = 0, *sjis_cnv = 0, *cnv;
@@ -1603,7 +1603,7 @@ static void TestAmbiguous()
 }
 
 static void
-TestSignatureDetection(){
+TestSignatureDetection(void){
     /* with null terminated strings */
     {
         static const char* data[] = {
@@ -1816,7 +1816,7 @@ TestSignatureDetection(){
     }
 }
 
-static void TestUTF7() {
+static void TestUTF7(void) {
     /* test input */
     static const uint8_t in[]={
         /* H - +Jjo- - ! +- +2AHcAQ */
@@ -1859,7 +1859,7 @@ static void TestUTF7() {
     ucnv_close(cnv);
 }
 
-static void TestIMAP() {
+static void TestIMAP(void) {
     /* test input */
     static const uint8_t in[]={
         /* H - &Jjo- - ! &- &2AHcAQ- \ */
@@ -1902,7 +1902,7 @@ static void TestIMAP() {
     ucnv_close(cnv);
 }
 
-static void TestUTF8() {
+static void TestUTF8(void) {
     /* test input */
     static const uint8_t in[]={
         0x61,
@@ -1967,7 +1967,7 @@ static void TestUTF8() {
     ucnv_close(cnv);
 }
 
-static void TestCESU8() {
+static void TestCESU8(void) {
     /* test input */
     static const uint8_t in[]={
         0x61,
@@ -2038,7 +2038,7 @@ static void TestCESU8() {
     ucnv_close(cnv);
 }
 
-static void TestUTF16() {
+static void TestUTF16(void) {
     /* test input */
     static const uint8_t in1[]={
         0xfe, 0xff, 0x4e, 0x00, 0xfe, 0xff
@@ -2096,7 +2096,7 @@ static void TestUTF16() {
     ucnv_close(cnv);
 }
 
-static void TestUTF16BE() {
+static void TestUTF16BE(void) {
     /* test input */
     static const uint8_t in[]={
         0x00, 0x61,
@@ -2152,7 +2152,7 @@ static void TestUTF16BE() {
 }
 
 static void
-TestUTF16LE() {
+TestUTF16LE(void) {
     /* test input */
     static const uint8_t in[]={
         0x61, 0x00,
@@ -2206,7 +2206,7 @@ TestUTF16LE() {
     ucnv_close(cnv);
 }
 
-static void TestUTF32() {
+static void TestUTF32(void) {
     /* test input */
     static const uint8_t in1[]={
         0x00, 0x00, 0xfe, 0xff,   0x00, 0x10, 0x0f, 0x00,   0x00, 0x00, 0xfe, 0xff
@@ -2265,7 +2265,7 @@ static void TestUTF32() {
 }
 
 static void
-TestUTF32BE() {
+TestUTF32BE(void) {
     /* test input */
     static const uint8_t in[]={
         0x00, 0x00, 0x00, 0x61,
@@ -2336,7 +2336,7 @@ TestUTF32BE() {
 }
 
 static void
-TestUTF32LE() {
+TestUTF32LE(void) {
     /* test input */
     static const uint8_t in[]={
         0x61, 0x00, 0x00, 0x00,
@@ -2407,7 +2407,7 @@ TestUTF32LE() {
 }
 
 static void
-TestLATIN1() {
+TestLATIN1(void) {
     /* test input */
     static const uint8_t in[]={
        0x61,
@@ -2535,7 +2535,7 @@ TestLATIN1() {
 }
 
 static void
-TestSBCS() {
+TestSBCS(void) {
     /* test input */
     static const uint8_t in[]={ 0x61, 0xc0, 0x80, 0xe0, 0xf0, 0xf4};
     /* expected test results */
@@ -2570,7 +2570,7 @@ TestSBCS() {
 }
 
 static void
-TestDBCS() {
+TestDBCS(void) {
     /* test input */
     static const uint8_t in[]={
         0x44, 0x6a,
@@ -2617,7 +2617,7 @@ TestDBCS() {
 }
 
 static void
-TestMBCS() {
+TestMBCS(void) {
     /* test input */
     static const uint8_t in[]={
         0x01,
@@ -2670,7 +2670,7 @@ TestMBCS() {
 
 #if !UCONFIG_NO_LEGACY_CONVERSION && !UCONFIG_NO_FILE_IO
 static void
-TestICCRunout() {
+TestICCRunout(void) {
 /*    { "ibm-1363", :bin{ a2aea2 }, "\u00a1\u001a", :intvector{ 0, 2 }, :int{1}, :int{0}, "\", "?", :bin{""} } */
 
     const char *cnvName = "ibm-1363";
@@ -3077,7 +3077,7 @@ static int TestJitterbug930(const char* enc){
 }
 
 static void
-TestHZ() {
+TestHZ(void) {
     /* test input */
     static const uint16_t in[]={
             0x3000, 0x3001, 0x3002, 0x00B7, 0x02C9, 0x02C7, 0x00A8, 0x3003, 0x3005, 0x2014,
@@ -3160,7 +3160,7 @@ cleanup:
 }
 
 static void
-TestISCII(){
+TestISCII(void){
         /* test input */
     static const uint16_t in[]={
         /* test full range of Devanagari */
@@ -3303,7 +3303,7 @@ TestISCII(){
 }
 
 static void
-TestISO_2022_JP() {
+TestISO_2022_JP(void) {
     /* test input */
     static const uint16_t in[]={
         0x0041,/*0x00E9,*/0x3000, 0x3001, 0x3002, 0x0020, 0x000D, 0x000A,
@@ -3616,7 +3616,7 @@ TestRoundTrippingAllUTF(void){
 }
 
 static void
-TestSCSU() {
+TestSCSU(void) {
 
     static const uint16_t germanUTF16[]={
         0x00d6, 0x006c, 0x0020, 0x0066, 0x006c, 0x0069, 0x0065, 0x00df, 0x0074
@@ -3795,7 +3795,7 @@ TestSCSU() {
 }
 
 #if !UCONFIG_NO_LEGACY_CONVERSION
-static void TestJitterbug2346(){
+static void TestJitterbug2346(void){
     char source[] = { 0x1b,0x24,0x42,0x3d,0x45,0x1b,0x28,0x4a,0x0d,0x0a,
                       0x1b,0x24,0x42,0x3d,0x45,0x1b,0x28,0x4a,0x0d,0x0a};
     uint16_t expected[] = {0x91CD,0x000D,0x000A,0x91CD,0x000D,0x000A};    
@@ -3844,7 +3844,7 @@ static void TestJitterbug2346(){
 }
 
 static void
-TestISO_2022_JP_1() {
+TestISO_2022_JP_1(void) {
     /* test input */
     static const uint16_t in[]={
         0x3000, 0x3001, 0x3002, 0x0020, 0xFF0E, 0x30FB, 0xFF1A, 0xFF1B, 0x000D, 0x000A,
@@ -3927,7 +3927,7 @@ TestISO_2022_JP_1() {
 }
 
 static void
-TestISO_2022_JP_2() {
+TestISO_2022_JP_2(void) {
     /* test input */
     static const uint16_t in[]={
         0x00A8, 0x3003, 0x3005, 0x2015, 0xFF5E, 0x2016, 0x2026, 0x2018, 0x000D, 0x000A,
@@ -4021,7 +4021,7 @@ cleanup:
 }
 
 static void
-TestISO_2022_KR() {
+TestISO_2022_KR(void) {
     /* test input */
     static const uint16_t in[]={
                     0x9F4B,0x9F4E,0x9F52,0x9F5F,0x9F61,0x9F67,0x9F6A,0x000A,0x000D
@@ -4103,7 +4103,7 @@ cleanup:
 }
 
 static void
-TestISO_2022_KR_1() {
+TestISO_2022_KR_1(void) {
     /* test input */
     static const uint16_t in[]={
                     0x9F4B,0x9F4E,0x9F52,0x9F5F,0x9F61,0x9F67,0x9F6A,0x000A,0x000D
@@ -4185,7 +4185,7 @@ cleanup:
     free(offsets);
 }
 
-static void TestJitterbug2411(){
+static void TestJitterbug2411(void){
     static const char* source = "\x1b\x24\x29\x43\x6b\x6b\x6e\x6e\x6a\x68\x70\x6f\x69\x75\x79\x71\x77\x65\x68\x67\x0A"
                          "\x1b\x24\x29\x43\x6a\x61\x73\x64\x66\x6a\x61\x73\x64\x66\x68\x6f\x69\x75\x79\x1b\x24\x29\x43";
     UConverter* kr=NULL, *kr1=NULL;
@@ -4223,7 +4223,7 @@ static void TestJitterbug2411(){
 }
 
 static void
-TestJIS(){
+TestJIS(void){
     /* From Unicode moved to testdata/conversion.txt */
     /*To Unicode*/
     {
@@ -4494,7 +4494,7 @@ cleanup:
 #endif
 
 static void
-TestISO_2022_CN() {
+TestISO_2022_CN(void) {
     /* test input */
     static const uint16_t in[]={
          /* jitterbug 951 */
@@ -4666,7 +4666,7 @@ static void TestJitterbug6175(void) {
 }
 
 static void
-TestEBCDIC_STATEFUL() {
+TestEBCDIC_STATEFUL(void) {
     /* test input */
     static const uint8_t in[]={
         0x61,
@@ -4733,7 +4733,7 @@ TestEBCDIC_STATEFUL() {
 }
 
 static void
-TestGB18030() {
+TestGB18030(void) {
     /* test input */
     static const uint8_t in[]={
         0x24,
@@ -4789,7 +4789,7 @@ TestGB18030() {
 }
 
 static void
-TestLMBCS() {
+TestLMBCS(void) {
     /* LMBCS-1 string */
     static const uint8_t pszLMBCS[]={
         0x61,
@@ -5350,7 +5350,7 @@ TestLMBCS() {
 }
 
 
-static void TestJitterbug255()
+static void TestJitterbug255(void)
 {
     static const uint8_t testBytes[] = { 0x95, 0xcf, 0x8a, 0xb7, 0x0d, 0x0a, 0x00 };
     const char *testBuffer = (const char *)testBytes;
@@ -5376,7 +5376,7 @@ static void TestJitterbug255()
     ucnv_close(cnv);
 }
 
-static void TestEBCDICUS4XML()
+static void TestEBCDICUS4XML(void)
 {
     UChar unicodes_x[] = {0x0000, 0x0000, 0x0000, 0x0000};
     static const UChar toUnicodeMaps_x[] = {0x000A, 0x000A, 0x000D, 0x0000};
@@ -5416,7 +5416,7 @@ static void TestEBCDICUS4XML()
 
 #if !UCONFIG_NO_COLLATION
 
-static void TestJitterbug981(){
+static void TestJitterbug981(void){
     const UChar* rules;
     int32_t rules_length, target_cap, bytes_needed, buff_size;
     UErrorCode status = U_ZERO_ERROR;
@@ -5471,7 +5471,7 @@ static void TestJitterbug981(){
 #endif
 
 #if !UCONFIG_NO_LEGACY_CONVERSION
-static void TestJitterbug1293(){
+static void TestJitterbug1293(void){
     static const UChar src[] = {0x30DE, 0x30A4, 0x5E83, 0x544A, 0x30BF, 0x30A4, 0x30D7,0x000};
     char target[256];
     UErrorCode status = U_ZERO_ERROR;
@@ -5500,7 +5500,7 @@ static void TestJitterbug1293(){
 }
 #endif
 
-static void TestJB5275_1(){
+static void TestJB5275_1(void){
 
     static const char* data = "\x3B\xB3\x0A" /* Easy characters */
                                 "\xC0\xE9\xBF\xE9\xE8\xD8\x0A" /* Gurmukhi test */
@@ -5548,7 +5548,7 @@ static void TestJB5275_1(){
     ucnv_close(conv);
 }
 
-static void TestJB5275(){
+static void TestJB5275(void){
     static const char* data = 
     /* "\xEF\x42\xEF\x41\xA4\xD5\xE5\xB3\xEA\x0A"  unsupported sequence \xEF\x41 */
     /* "\xEF\x42\xEF\x41\xD4\xDA\xB3\xE8\xEA\x0A"  unsupported sequence \xEF\x41  */
@@ -5597,7 +5597,7 @@ static void TestJB5275(){
 }
 
 static void
-TestIsFixedWidth() {
+TestIsFixedWidth(void) {
     UErrorCode status = U_ZERO_ERROR;
     UConverter *cnv = NULL;
     int32_t i;

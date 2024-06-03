@@ -29,7 +29,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 
-import android.icu.dev.test.TestFmwk;
+import android.icu.dev.test.CoreTestFmwk;
 import android.icu.text.DateFormat;
 import android.icu.text.SimpleDateFormat;
 import android.icu.util.ULocale;
@@ -37,7 +37,7 @@ import android.icu.testsharding.MainTestShard;
 
 @MainTestShard
 @RunWith(JUnit4.class)
-public class IntlTestDateFormat extends TestFmwk {
+public class IntlTestDateFormat extends CoreTestFmwk {
     // Values in milliseconds (== Date)
     private static final long ONESECOND = 1000;
     private static final long ONEMINUTE = 60 * ONESECOND;

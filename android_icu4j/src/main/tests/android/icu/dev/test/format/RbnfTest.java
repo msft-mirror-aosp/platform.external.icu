@@ -18,7 +18,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 
-import android.icu.dev.test.TestFmwk;
+import android.icu.dev.test.CoreTestFmwk;
 import android.icu.math.BigDecimal;
 import android.icu.text.DecimalFormat;
 import android.icu.text.DecimalFormatSymbols;
@@ -34,7 +34,7 @@ import android.icu.testsharding.MainTestShard;
  */
 @MainTestShard
 @RunWith(JUnit4.class)
-public class RbnfTest extends TestFmwk {
+public class RbnfTest extends CoreTestFmwk {
     static String fracRules =
         "%main:\n" +
         // this rule formats the number if it's 1 or more.  It formats
@@ -365,11 +365,52 @@ public class RbnfTest extends TestFmwk {
 
         doTest(formatter, testData, true);
 
+        String[][] fractionalTestData = {
+                { "1234", "20:34" },
+                { "1234.2", "20:34" },
+                { "1234.7", "20:35" }
+        };
+        doTest(formatter, fractionalTestData, false);
+
         String[][] testDataLenient = {
                 { "2-51-33", "10,293" },
         };
 
         doParsingTest(formatter, testDataLenient, true);
+    }
+
+    @Test
+    public void TestDFRounding() {
+        // test for ICU-22611
+        RuleBasedNumberFormat nf;
+
+        // no decimal places
+        nf = new RuleBasedNumberFormat("1000/1000: <##K<;", Locale.US);
+        assertEquals("-1K", nf.format(-1400));
+        assertEquals("-2K", nf.format(-1900));
+        assertEquals("1K", nf.format(1400));
+        assertEquals("2K", nf.format(1900));
+
+        // 1 decimal place
+        nf = new RuleBasedNumberFormat("1000/1000: <##.0K<;", Locale.US);
+        assertEquals("-1.4K", nf.format(-1440));
+        assertEquals("1.9K", nf.format(1890));
+
+        // with modulus substitution
+        nf = new RuleBasedNumberFormat("1000/1000: <##<K>##>; -x: ->>;", Locale.US);
+        assertEquals("-1K400", nf.format(-1400));
+        assertEquals("-1K900", nf.format(-1900));
+        assertEquals("1K400", nf.format(1400));
+        assertEquals("1K900", nf.format(1900));
+
+        // no decimal places, but with rounding mode set to ROUND_FLOOR
+        nf = new RuleBasedNumberFormat("1000/1000: <##K<;", Locale.US);
+        nf.setMaximumFractionDigits(0);
+        nf.setRoundingMode(BigDecimal.ROUND_FLOOR);
+        assertEquals("-2K", nf.format(-1400));
+        assertEquals("-2K", nf.format(-1900));
+        assertEquals("1K", nf.format(1400));
+        assertEquals("1K", nf.format(1900));
     }
 
     /**
@@ -547,6 +588,7 @@ public class RbnfTest extends TestFmwk {
                 { "200", "zwei\u00ADhundert" },
                 { "579", "f\u00fcnf\u00ADhundert\u00ADneun\u00ADund\u00ADsiebzig" },
                 { "1,000", "ein\u00ADtausend" },
+                { "1,101", "ein\u00adtausend\u00adein\u00adhundert\u00adeins" },
                 { "2,000", "zwei\u00ADtausend" },
                 { "3,004", "drei\u00ADtausend\u00ADvier" },
                 { "4,567", "vier\u00ADtausend\u00ADf\u00fcnf\u00ADhundert\u00ADsieben\u00ADund\u00ADsechzig" },
@@ -562,6 +604,23 @@ public class RbnfTest extends TestFmwk {
         };
 
         doParsingTest(formatter, testDataLenient, true);
+
+        String[][] testDataYear = {
+                { "101", "ein\u00adhundert\u00adeins" },
+                { "900", "neun\u00adhundert" },
+                { "1,001", "ein\u00adtausend\u00adeins" },
+                { "1,100", "elf\u00adhundert" },
+                { "1,101", "elf\u00adhundert\u00adeins" },
+                { "1,234", "zw\u00f6lf\u00adhundert\u00advier\u00adund\u00addrei\u00dfig" },
+                { "2,001", "zwei\u00adtausend\u00adeins" },
+                { "10,001", "zehn\u00adtausend\u00adeins" },
+                { "-100", "minus ein\u00adhundert" },
+                { "12.34", "12,3" },
+        };
+
+        formatter.setDefaultRuleSet("%spellout-numbering-year");
+        logln("testing year rules");
+        doTest(formatter, testDataYear, false);
     }
 
     /**
@@ -1312,7 +1371,7 @@ public class RbnfTest extends TestFmwk {
         // Tests when "if (!(that instanceof RuleBasedNumberFormat))" is true
         RuleBasedNumberFormat rbnf = new RuleBasedNumberFormat("dummy");
         if (rbnf.equals("dummy") ||
-                rbnf.equals(new Character('a')) ||
+                rbnf.equals('a') ||
                 rbnf.equals(new Object()) ||
                 rbnf.equals(-1) ||
                 rbnf.equals(0) ||

@@ -13,12 +13,14 @@ package android.icu.dev.test.lang;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.util.Arrays;
+import java.util.EnumSet;
 import java.util.Locale;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 
+import android.icu.dev.test.CoreTestFmwk;
 import android.icu.dev.test.TestFmwk;
 import android.icu.dev.test.TestUtil;
 import android.icu.impl.Norm2AllModes;
@@ -28,6 +30,8 @@ import android.icu.impl.UCharacterName;
 import android.icu.impl.Utility;
 import android.icu.lang.CharacterProperties;
 import android.icu.lang.UCharacter;
+import android.icu.lang.UCharacter.IdentifierStatus;
+import android.icu.lang.UCharacter.IdentifierType;
 import android.icu.lang.UCharacterCategory;
 import android.icu.lang.UCharacterDirection;
 import android.icu.lang.UCharacterEnums;
@@ -52,14 +56,14 @@ import android.icu.testsharding.MainTestShard;
 */
 @MainTestShard
 @RunWith(JUnit4.class)
-public final class UCharacterTest extends TestFmwk
+public final class UCharacterTest extends CoreTestFmwk
 {
     // private variables =============================================
 
     /**
      * Expected Unicode version.
      */
-    private final VersionInfo VERSION_ = VersionInfo.getInstance(15);
+    private final VersionInfo VERSION_ = VersionInfo.getInstance(15, 1);
 
     // constructor ===================================================
 
@@ -626,15 +630,14 @@ public final class UCharacterTest extends TestFmwk
     @Test
     public void TestIdentifier()
     {
-        int unicodeidstart[] = {0x0250, 0x0000e2, 0x000061};
-        int nonunicodeidstart[] = {0x2000, 0x00000a, 0x002019};
-        int unicodeidpart[] = {0x005f, 0x000032, 0x000045};
-        int nonunicodeidpart[] = {0x2030, 0x0000a3, 0x000020};
+        int unicodeidstart[] = {0x0250, 0x0000e2, 0x000061, 0x001885, 0x00212e, 0x00309b};
+        int nonunicodeidstart[] = {0x2000, 0x00000a, 0x002019, 0x002e2f};
+        int unicodeidpart[] = {0x005f, 0x000032, 0x000045, 0x001886, 0x00212e, 0x00309c};
+        int nonunicodeidpart[] = {0x2030, 0x0000a3, 0x000020, 0x002019, 0x002e2f};
         int idignore[] = {0x0006, 0x0010, 0x206b};
         int nonidignore[] = {0x0075, 0x0000a3, 0x000061};
 
-        int size = unicodeidstart.length;
-        for (int i = 0; i < size; i ++)
+        for (int i = 0; i < unicodeidstart.length; i ++)
         {
             if (!UCharacter.isUnicodeIdentifierStart(unicodeidstart[i]))
             {
@@ -642,6 +645,9 @@ public final class UCharacterTest extends TestFmwk
                     " expected to be a unicode identifier start character");
                 break;
             }
+        }
+        for (int i = 0; i < nonunicodeidstart.length; i ++)
+        {
             if (UCharacter.isUnicodeIdentifierStart(nonunicodeidstart[i]))
             {
                 errln("FAIL \\u" + hex(nonunicodeidstart[i]) +
@@ -649,12 +655,18 @@ public final class UCharacterTest extends TestFmwk
                         "character");
                 break;
             }
+        }
+        for (int i = 0; i < unicodeidpart.length; i ++)
+        {
             if (!UCharacter.isUnicodeIdentifierPart(unicodeidpart[i]))
             {
                 errln("FAIL \\u" + hex(unicodeidpart[i]) +
                     " expected to be a unicode identifier part character");
                 break;
             }
+        }
+        for (int i = 0; i < nonunicodeidpart.length; i ++)
+        {
             if (UCharacter.isUnicodeIdentifierPart(nonunicodeidpart[i]))
             {
                 errln("FAIL \\u" + hex(nonunicodeidpart[i]) +
@@ -662,23 +674,24 @@ public final class UCharacterTest extends TestFmwk
                         "character");
                 break;
             }
+         }
+        for (int i = 0; i < idignore.length; i ++)
+        {
             if (!UCharacter.isIdentifierIgnorable(idignore[i]))
             {
                 errln("FAIL \\u" + hex(idignore[i]) +
                         " expected to be a ignorable unicode character");
                 break;
             }
+        }
+        for (int i = 0; i < nonidignore.length; i ++)
+        {
             if (UCharacter.isIdentifierIgnorable(nonidignore[i]))
             {
                 errln("FAIL \\u" + hex(nonidignore[i]) +
                     " expected not to be a ignorable unicode character");
                 break;
             }
-            logln("Ok    \\u" + hex(unicodeidstart[i]) + " and \\u" +
-                    hex(nonunicodeidstart[i]) + " and \\u" +
-                    hex(unicodeidpart[i]) + " and \\u" +
-                    hex(nonunicodeidpart[i]) + " and \\u" +
-                    hex(idignore[i]) + " and \\u" + hex(nonidignore[i]));
         }
     }
 
@@ -2408,8 +2421,8 @@ public final class UCharacterTest extends TestFmwk
             { 0x4e07, UCharacter.NumericType.NUMERIC, 10000. },
             { 0x12432, UCharacter.NumericType.NUMERIC, 216000. },
             { 0x12433, UCharacter.NumericType.NUMERIC, 432000. },
-            { 0x4ebf, UCharacter.NumericType.NUMERIC, 100000000. },
-            { 0x5146, UCharacter.NumericType.NUMERIC, 1000000000000. },
+            { 0x5146, UCharacter.NumericType.NUMERIC, 1_000_000. },
+            { 0x4ebf, UCharacter.NumericType.NUMERIC, 100_000_000. },
             { -1, UCharacter.NumericType.NONE, UCharacter.NO_NUMERIC_VALUE },
             { 0x61, UCharacter.NumericType.NONE, UCharacter.NO_NUMERIC_VALUE, 10. },
             { 0x3000, UCharacter.NumericType.NONE, UCharacter.NO_NUMERIC_VALUE },
@@ -3035,16 +3048,16 @@ public final class UCharacterTest extends TestFmwk
         //      UTF16.CODEPOINT_MIN_VALUE to UTF16.CODEPOINT_MAX_VALUE inclusively
         //      to obtain the value to go through the else statement.
         int[] valid_values =
-            {3058,3442,4988,8558,8559,8574,8575,8576,8577,8578,8583,8584,19975,
-             20159,20191,20740,20806,21315,33836,38433,65819,65820,65821,65822,
-             65823,65824,65825,65826,65827,65828,65829,65830,65831,65832,65833,
-             65834,65835,65836,65837,65838,65839,65840,65841,65842,65843,65861,
-             65862,65863,65868,65869,65870,65875,65876,65877,65878,65899,65900,
-             65901,65902,65903,65904,65905,65906,66378,68167};
+            {0xBF2,0xD72,0x137C,0x216E,0x216F,0x217E,0x217F,0x2180,0x2181,0x2182,0x2187,0x2188,0x4E07,
+            0x4EBF,0x4EDF,0x5104,0x5146,0x5343,0x842C,0x9621,0x1011B,0x1011C,0x1011D,0x1011E,
+            0x1011F,0x10120,0x10121,0x10122,0x10123,0x10124,0x10125,0x10126,0x10127,0x10128,0x10129,
+            0x1012A,0x1012B,0x1012C,0x1012D,0x1012E,0x1012F,0x10130,0x10131,0x10132,0x10133,0x10145,
+            0x10146,0x10147,0x1014C,0x1014D,0x1014E,0x10153,0x10154,0x10155,0x10156,0x1016B,0x1016C,
+            0x1016D,0x1016E,0x1016F,0x10170,0x10171,0x10172,0x1034A,0x10A47};
 
         int[] results =
             {1000,1000,10000,500,1000,500,1000,1000,5000,10000,50000,100000,
-             10000,100000000,1000,100000000,-2,1000,10000,1000,300,400,500,
+             10000,100000000,1000,100000000,1000000,1000,10000,1000,300,400,500,
              600,700,800,900,1000,2000,3000,4000,5000,6000,7000,8000,9000,
              10000,20000,30000,40000,50000,60000,70000,80000,90000,500,5000,
              50000,500,1000,5000,500,1000,10000,50000,300,500,500,500,500,500,
@@ -3887,5 +3900,318 @@ public final class UCharacterTest extends TestFmwk
             assertEquals("int property later range value at " + Utility.hex(end),
                     UCharacter.getIntPropertyValue(end, prop), range.getValue());
         }
+    }
+
+    private static final String getPropName(int property, int nameChoice) {
+        try {
+            return UCharacter.getPropertyName(property, nameChoice);
+        } catch(IllegalArgumentException e) {
+            return "null";
+        }
+    }
+
+    private static final String getValueName(int property, int value, int nameChoice) {
+        try {
+            return UCharacter.getPropertyValueName(property, value, nameChoice);
+        } catch(IllegalArgumentException e) {
+            return "null";
+        }
+    }
+
+    @Test
+    public void TestPropertyNames() {
+        // Test names of certain properties & values.
+        // The UProperty.NameChoice is really an integer with only a couple of named constants.
+        int prop = UProperty.WHITE_SPACE;
+        final int SHORT = UProperty.NameChoice.SHORT;
+        final int LONG = UProperty.NameChoice.LONG;
+        assertEquals("White_Space: index -1", "null", getPropName(prop, -1));
+        assertEquals("White_Space: short", "WSpace", getPropName(prop, SHORT));
+        assertEquals("White_Space: long", "White_Space", getPropName(prop, LONG));
+        assertEquals("White_Space: index 2", "space", getPropName(prop, 2));
+        assertEquals("White_Space: index 3", "null", getPropName(prop, 3));
+
+        prop = UProperty.SIMPLE_CASE_FOLDING;
+        assertEquals("Simple_Case_Folding: index -1", "null", getPropName(prop, -1));
+        assertEquals("Simple_Case_Folding: short", "scf", getPropName(prop, SHORT));
+        assertEquals("Simple_Case_Folding: long", "Simple_Case_Folding", getPropName(prop, LONG));
+        assertEquals("Simple_Case_Folding: index 2", "sfc", getPropName(prop, 2));
+        assertEquals("Simple_Case_Folding: index 3", "null", getPropName(prop, 3));
+
+        prop = UProperty.CASED;
+        assertEquals("Cased=Y: index -1", "null", getValueName(prop, 1, -1));
+        assertEquals("Cased=Y: short", "Y", getValueName(prop, 1, SHORT));
+        assertEquals("Cased=Y: long", "Yes", getValueName(prop, 1, LONG));
+        assertEquals("Cased=Y: index 2", "T", getValueName(prop, 1, 2));
+        assertEquals("Cased=Y: index 3", "True", getValueName(prop, 1, 3));
+        assertEquals("Cased=Y: index 4", "null", getValueName(prop, 1, 4));
+
+        prop = UProperty.DECOMPOSITION_TYPE;
+        int value = UCharacter.DecompositionType.NOBREAK;
+        assertEquals("dt=Nb: index -1", "null", getValueName(prop, value, -1));
+        assertEquals("dt=Nb: short", "Nb", getValueName(prop, value, SHORT));
+        assertEquals("dt=Nb: long", "Nobreak", getValueName(prop, value, LONG));
+        assertEquals("dt=Nb: index 2", "nb", getValueName(prop, value, 2));
+        assertEquals("dt=Nb: index 3", "null", getValueName(prop, value, 3));
+
+        // Canonical_Combining_Class:
+        // The UCD inserts the numeric values in the second filed of its
+        // PropertyValueAliases.txt lines.
+        // In ICU, we don't treat these as names,
+        // they are just the numeric values returned by u_getCombiningClass().
+        // We return the real short and long names for the usual choice constants.
+        prop = UProperty.CANONICAL_COMBINING_CLASS;
+        assertEquals("ccc=230: index -1", "null", getValueName(prop, 230, -1));
+        assertEquals("ccc=230: short", "A", getValueName(prop, 230, SHORT));
+        assertEquals("ccc=230: long", "Above", getValueName(prop, 230, LONG));
+        assertEquals("ccc=230: index 2", "null", getValueName(prop, 230, 2));
+
+        prop = UProperty.GENERAL_CATEGORY;
+        value = UCharacterCategory.DECIMAL_DIGIT_NUMBER;
+        assertEquals("gc=Nd: index -1", "null", getValueName(prop, value, -1));
+        assertEquals("gc=Nd: short", "Nd", getValueName(prop, value, SHORT));
+        assertEquals("gc=Nd: long", "Decimal_Number", getValueName(prop, value, LONG));
+        assertEquals("gc=Nd: index 2", "digit", getValueName(prop, value, 2));
+        assertEquals("gc=Nd: index 3", "null", getValueName(prop, value, 3));
+
+        prop = UProperty.GENERAL_CATEGORY_MASK;
+        final int U_GC_P_MASK =
+                (1 << UCharacterCategory.DASH_PUNCTUATION) |
+                (1 << UCharacterCategory.START_PUNCTUATION) |
+                (1 << UCharacterCategory.END_PUNCTUATION) |
+                (1 << UCharacterCategory.CONNECTOR_PUNCTUATION) |
+                (1 << UCharacterCategory.OTHER_PUNCTUATION) |
+                (1 << UCharacterCategory.INITIAL_PUNCTUATION) |
+                (1 << UCharacterCategory.FINAL_PUNCTUATION);
+        value = U_GC_P_MASK;
+        assertEquals("gc=P mask: index -1", "null", getValueName(prop, value, -1));
+        assertEquals("gc=P mask: short", "P", getValueName(prop, value, SHORT));
+        assertEquals("gc=P mask: long", "Punctuation", getValueName(prop, value, LONG));
+        assertEquals("gc=P mask: index 2", "punct", getValueName(prop, value, 2));
+        assertEquals("gc=P mask: index 3", "null", getValueName(prop, value, 3));
+    }
+
+    @Test
+    public void TestIDSUnaryOperator() {
+        // New in Unicode 15.1 for just two characters.
+        final int IDSU = UProperty.IDS_UNARY_OPERATOR;
+        assertFalse("U+2FFC IDSU", UCharacter.hasBinaryProperty(0x2ffc, IDSU));
+        assertFalse("U+2FFD IDSU", UCharacter.hasBinaryProperty(0x2ffd, IDSU));
+        assertTrue("U+2FFE IDSU", UCharacter.hasBinaryProperty(0x2ffe, IDSU));
+        assertTrue("U+2FFF IDSU", UCharacter.hasBinaryProperty(0x2fff, IDSU));
+        assertFalse("U+3000 IDSU", UCharacter.hasBinaryProperty(0x3000, IDSU));
+        assertFalse("U+3001 IDSU", UCharacter.hasBinaryProperty(0x3001, IDSU));
+
+        // Property name works and gets the correct set.
+        UnicodeSet idsu = new UnicodeSet("[:IDS_Unary_Operator:]");
+        assertEquals("IDSU set number of characters", 2, idsu.size());
+        assertFalse("idsu.contains(U+2FFD)", idsu.contains(0x2ffd));
+        assertTrue("idsu.contains(U+2FFE)", idsu.contains(0x2ffe));
+        assertTrue("idsu.contains(U+2FFF)", idsu.contains(0x2fff));
+        assertFalse("idsu.contains(U+3000)", idsu.contains(0x3000));
+    }
+
+    private static final boolean isMathStart(int c) {
+        return UCharacter.hasBinaryProperty(c, UProperty.ID_COMPAT_MATH_START);
+    }
+
+    private static final boolean isMathContinue(int c) {
+        return UCharacter.hasBinaryProperty(c, UProperty.ID_COMPAT_MATH_CONTINUE);
+    }
+
+    @Test
+    public void TestIDCompatMath() {
+        assertFalse("U+00B1 UCHAR_ID_COMPAT_MATH_CONTINUE", isMathContinue(0xb1));
+        assertTrue("U+00B2 UCHAR_ID_COMPAT_MATH_CONTINUE", isMathContinue(0xb2));
+        assertTrue("U+00B3 UCHAR_ID_COMPAT_MATH_CONTINUE", isMathContinue(0xb3));
+        assertFalse("U+00B4 UCHAR_ID_COMPAT_MATH_CONTINUE", isMathContinue(0xb4));
+        assertFalse("U+207F UCHAR_ID_COMPAT_MATH_CONTINUE", isMathContinue(0x207f));
+        assertTrue("U+2080 UCHAR_ID_COMPAT_MATH_CONTINUE", isMathContinue(0x2080));
+        assertTrue("U+208E UCHAR_ID_COMPAT_MATH_CONTINUE", isMathContinue(0x208e));
+        assertFalse("U+208F UCHAR_ID_COMPAT_MATH_CONTINUE", isMathContinue(0x208f));
+        assertFalse("U+2201 UCHAR_ID_COMPAT_MATH_CONTINUE", isMathContinue(0x2201));
+        assertTrue("U+2202 UCHAR_ID_COMPAT_MATH_CONTINUE", isMathContinue(0x2202));
+        assertTrue("U+1D6C1 UCHAR_ID_COMPAT_MATH_CONTINUE", isMathContinue(0x1D6C1));
+        assertTrue("U+1D7C3 UCHAR_ID_COMPAT_MATH_CONTINUE", isMathContinue(0x1D7C3));
+        assertFalse("U+1D7C4 UCHAR_ID_COMPAT_MATH_CONTINUE", isMathContinue(0x1D7C4));
+
+        assertFalse("U+00B2 UCHAR_ID_COMPAT_MATH_START", isMathStart(0xb2));
+        assertFalse("U+2080 UCHAR_ID_COMPAT_MATH_START", isMathStart(0x2080));
+        assertFalse("U+2201 UCHAR_ID_COMPAT_MATH_START", isMathStart(0x2201));
+        assertTrue("U+2202 UCHAR_ID_COMPAT_MATH_START", isMathStart(0x2202));
+        assertTrue("U+1D6C1 UCHAR_ID_COMPAT_MATH_START", isMathStart(0x1D6C1));
+        assertTrue("U+1D7C3 UCHAR_ID_COMPAT_MATH_START", isMathStart(0x1D7C3));
+        assertFalse("U+1D7C4 UCHAR_ID_COMPAT_MATH_START", isMathStart(0x1D7C4));
+
+        // Property names work and get the correct sets.
+        UnicodeSet idcmStart = new UnicodeSet("[:ID_Compat_Math_Start:]");
+        UnicodeSet idcmContinue = new UnicodeSet("[:ID_Compat_Math_Continue:]");
+        assertEquals("ID_Compat_Math_Start set number of characters", 13, idcmStart.size());
+        assertEquals("ID_Compat_Math_Continue set number of characters", 43, idcmContinue.size());
+        assertTrue("ID_Compat_Math_Start is a subset of ID_Compat_Math_Continue",
+            idcmContinue.containsAll(idcmStart));
+        assertFalse("idcmContinue.contains(U+207F)", idcmContinue.contains(0x207f));
+        assertTrue("idcmContinue.contains(U+2080)", idcmContinue.contains(0x2080));
+        assertTrue("idcmContinue.contains(U+208E)", idcmContinue.contains(0x208e));
+        assertFalse("idcmContinue.contains(U+208F)", idcmContinue.contains(0x208f));
+        assertFalse("idcmStart.contains(U+2201)", idcmStart.contains(0x2201));
+        assertTrue("idcmStart.contains(U+2202)", idcmStart.contains(0x2202));
+        assertTrue("idcmStart.contains(U+1D7C3)", idcmStart.contains(0x1D7C3));
+        assertFalse("idcmStart.contains(U+1D7C4)", idcmStart.contains(0x1D7C4));
+    }
+
+    private static final IdentifierStatus[] ID_STATUS_VALUES = IdentifierStatus.values();
+
+    private static IdentifierStatus getIDStatus(int c) {
+        int idStatusInt = UCharacter.getIntPropertyValue(c, UProperty.IDENTIFIER_STATUS);
+        return ID_STATUS_VALUES[idStatusInt];
+    }
+
+    @Test
+    public void TestIDStatus() {
+        assertEquals("ID_Status(slash)=Restricted", IdentifierStatus.RESTRICTED, getIDStatus(0x2F));
+        assertEquals("ID_Status(digit 0)=Allowed", IdentifierStatus.ALLOWED, getIDStatus(0x30));
+        assertEquals("ID_Status(colon)=Allowed", IdentifierStatus.ALLOWED, getIDStatus(0x3A));
+        assertEquals("ID_Status(semicolon)=Restricted", IdentifierStatus.RESTRICTED, getIDStatus(0x3B));
+        assertEquals("ID_Status(Greek small alpha)=Allowed", IdentifierStatus.ALLOWED, getIDStatus(0x03B1));
+        assertEquals("ID_Status(Greek small archaic koppa)=Restricted", IdentifierStatus.RESTRICTED, getIDStatus(0x03D9));
+        assertEquals("ID_Status(Hangul syllable)=Allowed", IdentifierStatus.ALLOWED, getIDStatus(0xAC00));
+        assertEquals("ID_Status(surrogate)=Restricted", IdentifierStatus.RESTRICTED, getIDStatus(0xD800));
+        assertEquals("ID_Status(Arabic tail fragment)=Restricted", IdentifierStatus.RESTRICTED, getIDStatus(0xFE73));
+        assertEquals("ID_Status(Hentaigana ko-3)=Restricted", IdentifierStatus.RESTRICTED, getIDStatus(0x1B03A));
+        assertEquals("ID_Status(Katakana small ko)=Allowed", IdentifierStatus.ALLOWED, getIDStatus(0x1B155));
+        assertEquals("ID_Status(U+2EE5D)=Allowed", IdentifierStatus.ALLOWED, getIDStatus(0x2EE5D));
+        assertEquals("ID_Status(U+10FFFF)=Restricted", IdentifierStatus.RESTRICTED, getIDStatus(0x10FFFF));
+
+        // Property names work and get the correct sets.
+        UnicodeSet idStatus = new UnicodeSet("[:Identifier_Status=Allowed:]");
+        // Unicode 15.1: 112778 Allowed characters; normally grows over time
+        assertTrue("Allowed number of characters", idStatus.size() >= 112778);
+        assertFalse("Allowed.contains(slash)", idStatus.contains(0x2F));
+        assertTrue("Allowed.contains(digit 0)", idStatus.contains(0x30));
+        assertTrue("Allowed.contains(colon)", idStatus.contains(0x3A));
+        assertFalse("Allowed.contains(semicolon)", idStatus.contains(0x3B));
+        assertTrue("Allowed.contains(Greek small alpha)", idStatus.contains(0x03B1));
+        assertFalse("Allowed.contains(Greek small archaic koppa)", idStatus.contains(0x03D9));
+        assertTrue("Allowed.contains(Hangul syllable)", idStatus.contains(0xAC00));
+        assertFalse("Allowed.contains(surrogate)", idStatus.contains(0xD800));
+        assertFalse("Allowed.contains(Arabic tail fragment)", idStatus.contains(0xFE73));
+        assertFalse("Allowed.contains(Hentaigana ko-3)", idStatus.contains(0x1B03A));
+        assertTrue("Allowed.contains(Katakana small ko)", idStatus.contains(0x1B155));
+        assertTrue("Allowed.contains(U+2EE5D)", idStatus.contains(0x2EE5D));
+        assertFalse("Allowed.contains(U+10FFFF)", idStatus.contains(0x10FFFF));
+    }
+
+    private static final IdentifierType[] ID_TYPE_VALUES = IdentifierType.values();
+
+    private EnumSet<IdentifierType> getIDTypes(int c) {
+        EnumSet<IdentifierType> types =
+                EnumSet.of(IdentifierType.NOT_CHARACTER, IdentifierType.RECOMMENDED);
+        int length = UCharacter.getIdentifierTypes(c, types);
+        assertEquals(
+                String.format("getIdentifierTypes(U+%04x) length vs. set.size()", c),
+                length, types.size());
+        // Check that hasIdentifierType() agrees.
+        for (IdentifierType t : ID_TYPE_VALUES) {
+            boolean expected = types.contains(t);
+            boolean actual = UCharacter.hasIdentifierType(c, t);
+            assertEquals(
+                    String.format("getIdentifierTypes(U+%04x).contains(%s) vs. hasIdentifierType()",
+                            c, t),
+                    expected, actual);
+        }
+        return types;
+    }
+
+    @Test
+    public void TestIDType() {
+        // Note: Types other than Recommended and Inclusion may well change over time.
+        assertEquals("ID_Type(slash)", EnumSet.of(IdentifierType.NOT_XID), getIDTypes(0x2F));
+        assertEquals("ID_Type(digit 0)", EnumSet.of(IdentifierType.RECOMMENDED), getIDTypes(0x30));
+        assertEquals("ID_Type(colon)", EnumSet.of(IdentifierType.INCLUSION), getIDTypes(0x3A));
+        assertEquals("ID_Type(semicolon)", EnumSet.of(IdentifierType.NOT_XID), getIDTypes(0x3B));
+        assertEquals("ID_Type(Greek small alpha)",
+                EnumSet.of(IdentifierType.RECOMMENDED), getIDTypes(0x03B1));
+        assertEquals("ID_Type(Greek small archaic koppa)",
+                EnumSet.of(IdentifierType.OBSOLETE), getIDTypes(0x03D9));
+        assertEquals("ID_Type(Hangul syllable)",
+                EnumSet.of(IdentifierType.RECOMMENDED), getIDTypes(0xAC00));
+        assertEquals("ID_Type(surrogate)",
+                EnumSet.of(IdentifierType.NOT_CHARACTER), getIDTypes(0xD800));
+        assertEquals("ID_Type(Arabic tail fragment)",
+                EnumSet.of(IdentifierType.TECHNICAL), getIDTypes(0xFE73));
+        assertEquals("ID_Type(Linear B syllable)",
+                EnumSet.of(IdentifierType.EXCLUSION), getIDTypes(0x10000));
+        assertEquals("ID_Type(Hentaigana ko-3)",
+                EnumSet.of(IdentifierType.OBSOLETE), getIDTypes(0x1B03A));
+        assertEquals("ID_Type(Katakana small ko)",
+                EnumSet.of(IdentifierType.RECOMMENDED), getIDTypes(0x1B155));
+        assertEquals("ID_Type(U+2EE5D)",
+                EnumSet.of(IdentifierType.RECOMMENDED), getIDTypes(0x2EE5D));
+        assertEquals("ID_Type(U+10FFFF)",
+                EnumSet.of(IdentifierType.NOT_CHARACTER), getIDTypes(0x10FFFF));
+
+        assertEquals("ID_Type(CYRILLIC THOUSANDS SIGN)",
+                EnumSet.of(IdentifierType.NOT_XID, IdentifierType.OBSOLETE),
+                getIDTypes(0x0482));
+        assertEquals("ID_Type(SYRIAC FEMININE DOT)",
+                EnumSet.of(IdentifierType.TECHNICAL, IdentifierType.LIMITED_USE),
+                getIDTypes(0x0740));
+        assertEquals("ID_Type(NKO LETTER JONA JA)",
+                EnumSet.of(IdentifierType.OBSOLETE, IdentifierType.LIMITED_USE),
+                getIDTypes(0x07E8));
+        assertEquals("ID_Type(SYRIAC END OF PARAGRAPH)",
+                EnumSet.of(IdentifierType.NOT_XID, IdentifierType.LIMITED_USE),
+                getIDTypes(0x0700));
+        assertEquals("ID_Type(LATIN SMALL LETTER EZH)=",
+                EnumSet.of(IdentifierType.TECHNICAL, IdentifierType.UNCOMMON_USE),
+                getIDTypes(0x0292));
+        assertEquals("ID_Type(MUSICAL SYMBOL KIEVAN C CLEF)",
+                EnumSet.of(IdentifierType.NOT_XID, IdentifierType.TECHNICAL,
+                        IdentifierType.UNCOMMON_USE),
+                getIDTypes(0x1D1DE));
+        assertEquals("ID_Type(MRO LETTER TA)",
+                EnumSet.of(IdentifierType.EXCLUSION, IdentifierType.UNCOMMON_USE),
+                getIDTypes(0x16A40));
+        assertEquals("ID_Type(GREEK MUSICAL LEIMMA)",
+                EnumSet.of(IdentifierType.NOT_XID, IdentifierType.OBSOLETE),
+                getIDTypes(0x1D245));
+
+        // Property names work and get the correct sets.
+        UnicodeSet rec = new UnicodeSet("[:Identifier_Type=Recommended:]");
+        UnicodeSet incl = new UnicodeSet("[:Identifier_Type=Inclusion:]");
+        UnicodeSet limited = new UnicodeSet("[:Identifier_Type=Limited_Use:]");
+        UnicodeSet uncommon = new UnicodeSet("[:Identifier_Type=Uncommon_Use:]");
+        UnicodeSet notChar = new UnicodeSet("[:Identifier_Type=Not_Character:]");
+        // Unicode 15.1 set sizes; normally grows over time except Not_Character shrinks
+        assertTrue("Recommended number of characters", rec.size() >= 112761);
+        assertTrue("Inclusion number of characters", incl.size() >= 17);
+        assertTrue("Limited_Use number of characters", limited.size() >= 5268);
+        assertTrue("Uncommon_Use number of characters", uncommon.size() >= 398);
+        assertTrue("Not_Character number of characters",
+                   800000 <= notChar.size() && notChar.size() <= 964293);
+        assertFalse("Recommended.contains(slash)", rec.contains(0x2F));
+        assertTrue("Recommended.contains(digit 0)", rec.contains(0x30));
+        assertTrue("Inclusion.contains(colon)", incl.contains(0x3A));
+        assertTrue("Recommended.contains(U+2EE5D)", rec.contains(0x2EE5D));
+        assertTrue("Limited_Use.contains(SYRIAC FEMININE DOT)", limited.contains(0x0740));
+        assertTrue("Limited_Use.contains(NKO LETTER JONA JA)", limited.contains(0x7E8));
+        assertTrue("Not_Character.contains(surrogate)", notChar.contains(0xd800));
+        assertTrue("Not_Character.contains(U+10FFFF)", notChar.contains(0x10FFFF));
+        assertTrue("Uncommon_Use.contains(LATIN SMALL LETTER EZH)", uncommon.contains(0x0292));
+        assertTrue("Uncommon_Use.contains(MUSICAL SYMBOL KIEVAN C CLEF)", uncommon.contains(0x1D1DE));
+
+        // More mutually exclusive types, including some otherwise combinable ones.
+        UnicodeSet dep = new UnicodeSet("[:Identifier_Type=Deprecated:]");
+        UnicodeSet di = new UnicodeSet("[:Identifier_Type=Default_Ignorable:]");
+        UnicodeSet notNFKC = new UnicodeSet("[:Identifier_Type=Not_NFKC:]");
+        UnicodeSet excl = new UnicodeSet("[:Identifier_Type=Exclusion:]");
+        UnicodeSet allExclusive = new UnicodeSet();
+        allExclusive.addAll(rec).addAll(incl).addAll(limited).addAll(excl).
+                addAll(notNFKC).addAll(di).addAll(dep).addAll(notChar);
+        assertEquals("num chars in mutually exclusive types",
+                rec.size() + incl.size() + limited.size() + excl.size() +
+                    notNFKC.size() + di.size() + dep.size() + notChar.size(),
+                allExclusive.size());
     }
 }
