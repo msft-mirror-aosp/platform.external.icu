@@ -61,9 +61,7 @@ public final class TzDataSetVersion {
      * version to 1 when doing so.
      */
     // @VisibleForTesting : Keep this inline-able: it is used from CTS tests.
-    // LINT.IfChange
     public static final int CURRENT_FORMAT_MAJOR_VERSION = 8; // Android V
-    // LINT.ThenChange(external/icu/android_icu4j/src/main/java/android/icu/platform/AndroidDataFiles.java)
 
     /**
      * Returns the major tz data format version supported by this device.
@@ -88,8 +86,12 @@ public final class TzDataSetVersion {
         return CURRENT_FORMAT_MINOR_VERSION;
     }
 
-    /** The full major + minor tz data format version's length for this device. */
-    private static final int FORMAT_VERSION_STRING_LENGTH = 7;
+    /** The full major + minor tz data format version for this device. */
+    private static final String FULL_CURRENT_FORMAT_VERSION_STRING =
+            toFormatVersionString(CURRENT_FORMAT_MAJOR_VERSION, CURRENT_FORMAT_MINOR_VERSION);
+
+    private static final int FORMAT_VERSION_STRING_LENGTH =
+            FULL_CURRENT_FORMAT_VERSION_STRING.length();
     private static final Pattern FORMAT_VERSION_PATTERN = Pattern.compile("(\\d{3})\\.(\\d{3})");
 
     /** A pattern that matches the IANA rules value of a rules update. e.g. "2016g" */
