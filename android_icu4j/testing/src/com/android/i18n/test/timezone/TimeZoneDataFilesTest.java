@@ -53,13 +53,19 @@ public class TimeZoneDataFilesTest {
         String icuDataPath = AndroidDataFiles.generateIcuDataPath();
 
         String[] paths = icuDataPath.split(":");
-        assertEquals(2, paths.length);
+        assertEquals(3, paths.length);
 
-        String tzdataModulePath = paths[0];
+        String versionedTzdataModulePath = paths[0];
+        assertTrue(versionedTzdataModulePath + " invalid",
+                versionedTzdataModulePath.startsWith(System.getenv(ANDROID_TZDATA_ROOT_ENV)));
+        assertTrue(versionedTzdataModulePath + " should be versioned",
+                versionedTzdataModulePath.contains("versioned"));
+
+        String tzdataModulePath = paths[1];
         assertTrue(tzdataModulePath + " invalid",
                 tzdataModulePath.startsWith(System.getenv(ANDROID_TZDATA_ROOT_ENV)));
 
-        String runtimeModulePath = paths[1];
+        String runtimeModulePath = paths[2];
         assertTrue(runtimeModulePath + " invalid",
                 runtimeModulePath.startsWith(System.getenv(ANDROID_I18N_ROOT_ENV)));
         assertTrue(runtimeModulePath + " invalid", runtimeModulePath.contains("/etc/icu"));
