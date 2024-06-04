@@ -48,8 +48,7 @@ public final class TimeZoneDataFiles {
     }
 
     public static String getTimeZoneModuleTzFile(String fileName) {
-        return getTimeZoneModuleFile("tz/versioned/"
-                + TzDataSetVersion.currentFormatMajorVersion() + "/" + fileName);
+        return getTimeZoneModuleFile("tz/" + fileName);
     }
 
     // Remove from CorePlatformApi when all users in platform code are removed. http://b/123398797

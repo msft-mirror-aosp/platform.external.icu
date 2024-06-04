@@ -48,13 +48,11 @@ import java.util.stream.Stream;
 public class AndroidDataFilesTest {
 
     private static final Set<String> TZDATA_RES_FILES =
-            Stream.of(
-                    "/apex/com.android.tzdata/etc/tz/versioned/%d/icu/metaZones.res",
-                    "/apex/com.android.tzdata/etc/tz/versioned/%d/icu/windowsZones.res",
-                    "/apex/com.android.tzdata/etc/tz/versioned/%d/icu/zoneinfo64.res",
-                    "/apex/com.android.tzdata/etc/tz/versioned/%d/icu/timezoneTypes.res")
-                .map(path -> path.formatted(AndroidDataFiles.CURRENT_MAJOR_VERSION))
-                .collect(toSet());
+            Set.of(
+                    "/apex/com.android.tzdata/etc/icu/metaZones.res",
+                    "/apex/com.android.tzdata/etc/icu/windowsZones.res",
+                    "/apex/com.android.tzdata/etc/icu/zoneinfo64.res",
+                    "/apex/com.android.tzdata/etc/icu/timezoneTypes.res");
 
     private static final String ICU_DAT_PATH =
         "/apex/com.android.i18n/etc/icu/icudt" + VersionInfo.ICU_VERSION.getMajor() + "l.dat";
