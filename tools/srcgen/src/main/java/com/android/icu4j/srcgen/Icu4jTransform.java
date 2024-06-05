@@ -34,6 +34,7 @@ import com.google.currysrc.api.process.ast.BodyDeclarationLocators;
 import com.google.currysrc.api.process.ast.TypeLocator;
 import com.google.currysrc.processors.AddAnnotation;
 import com.google.currysrc.processors.AddDefaultConstructor;
+import com.google.currysrc.processors.AnnotationInfo;
 import com.google.currysrc.processors.HidePublicClasses;
 import com.google.currysrc.processors.InsertHeader;
 import com.google.currysrc.processors.ModifyQualifiedNames;
@@ -155,6 +156,15 @@ public class Icu4jTransform {
       "android.icu.text.DecimalFormatSymbols",
       "android.icu.text.DisplayContext",
       "android.icu.text.DisplayContext$Type",
+      "android.icu.text.DisplayOptions",
+      "android.icu.text.DisplayOptions$Builder",
+      "android.icu.text.DisplayOptions$Capitalization",
+      "android.icu.text.DisplayOptions$DisplayLength",
+      "android.icu.text.DisplayOptions$GrammaticalCase",
+      "android.icu.text.DisplayOptions$NameStyle",
+      "android.icu.text.DisplayOptions$NounClass",
+      "android.icu.text.DisplayOptions$PluralCategory",
+      "android.icu.text.DisplayOptions$SubstituteHandling",
       "android.icu.text.Edits",
       "android.icu.text.Edits$Iterator",
       "android.icu.text.FormattedValue",
@@ -783,6 +793,11 @@ public class Icu4jTransform {
       "type:android.icu.text.Collator$CollatorFactory",
       "type:android.icu.text.NumberFormat$NumberFormatFactory",
       "type:android.icu.text.NumberFormat$SimpleNumberFormatFactory",
+
+      // TODO: Remove the below list when the next window for new Android API opens
+      "field:android.icu.lang.UScript#ARABIC_NASTALIQ",
+      "field:android.icu.text.UnicodeSet#SIMPLE_CASE_INSENSITIVE",
+      "field:android.icu.util.MeasureUnit#BEAUFORT",
   };
 
   /**
@@ -893,6 +908,7 @@ public class Icu4jTransform {
     private static final String SOURCE_CODE_HEADER = "/* GENERATED SOURCE. DO NOT MODIFY. */\n";
     private static final String COMMAND_USAGE = "Usage: " + Icu4jTransform.class.getCanonicalName()
             + " [--hide-non-allowlisted-api <allowlisted-api-file>]"
+            + " [--flagged-api-list <flagged-api-file>]"
             + " <source-dir>+ <target-dir> <core-platform-api-file> <intra-core-api-file>"
             + " <unsupported-app-usage-file>";
 
@@ -901,18 +917,24 @@ public class Icu4jTransform {
     private final BasicOutputSourceFileGenerator outputSourceFileGenerator;
 
     public Icu4jRules(String[] args) {
-      if (args.length < 3) {
-        throw new IllegalArgumentException(COMMAND_USAGE);
-      }
       Path allowlistedApiPath = null;
       if ("--hide-non-allowlisted-api".equals(args[0])) {
         allowlistedApiPath = Paths.get(args[1]);
-        if (args.length < 6) {
-          throw new IllegalArgumentException(COMMAND_USAGE);
-        }
         String[] newArgs = new String[args.length - 2];
         System.arraycopy(args, 2, newArgs, 0, args.length - 2);
         args = newArgs;
+      }
+
+      Path flaggedApiListPath = null;
+      if ("--flagged-api-list".equals(args[0])) {
+        flaggedApiListPath = Paths.get(args[1]);
+        String[] newArgs = new String[args.length - 2];
+        System.arraycopy(args, 2, newArgs, 0, args.length - 2);
+        args = newArgs;
+      }
+
+      if (args.length < 5) {
+          throw new IllegalArgumentException(COMMAND_USAGE);
       }
 
       // Extract the source directories.
@@ -933,7 +955,7 @@ public class Icu4jTransform {
       }
 
       rules = createTransformRules(corePlatformApiFile, intraCoreApiFile,
-          unsupportedAppUsageFile, allowlistedApiPath);
+          unsupportedAppUsageFile, allowlistedApiPath, flaggedApiListPath);
       outputSourceFileGenerator = Icu4jTransformRules.createOutputFileGenerator(targetDir);
     }
 
@@ -972,7 +994,7 @@ public class Icu4jTransform {
     private static List<Rule> createTransformRules(Path corePlatformApiFile,
             Path intraCoreApiFile,
             Path unsupportedAppUsagePath,
-            Path allowlistedApiPath) {
+            Path allowlistedApiPath, Path flaggedApiListPath) {
       // The rules needed to repackage source code that declares or references com.ibm.icu code
       // so it references android.icu instead.
       Rule[] repackageRules = getRepackagingRules();
@@ -1030,7 +1052,7 @@ public class Icu4jTransform {
           createOptionalRule(AddAnnotation.markerAnnotationFromFlatFile(
               "libcore.api.CorePlatformApi", corePlatformApiFile)),
 
-          // AST change: Add CorePlatformApi to specified classes and members
+          // AST change: Add IntraCoreApi to specified classes and members
           createOptionalRule(AddAnnotation.markerAnnotationFromFlatFile(
               "libcore.api.IntraCoreApi", intraCoreApiFile)),
 
@@ -1048,6 +1070,10 @@ public class Icu4jTransform {
 
       List<Rule> rulesList = Lists.newArrayList(repackageRules);
       rulesList.addAll(Arrays.asList(apiDocsRules));
+      if (flaggedApiListPath != null) {
+          // AST change: Add FlaggedApi to specified classes and members
+          rulesList.add(createFlaggedApiRule(flaggedApiListPath));
+      }
       return rulesList;
     }
 
@@ -1121,4 +1147,14 @@ public class Icu4jTransform {
     return createOptionalRule(new HideNonAllowlistedDeclarations(bodyDeclarationLocators,
             "@hide Hide new API in Android temporarily"));
   }
+
+  private static Rule createFlaggedApiRule(Path flaggedApiListPath) {
+      return createOptionalRule(AddAnnotation.markerAnnotationWithPropertyFromFlatFile(
+              "android.annotation.FlaggedApi",
+              "value",
+              String.class,
+              new AnnotationInfo.Placeholder("com.android.icu.Flags.FLAG_ICU_V_API"),
+              flaggedApiListPath));
+  }
+
 }

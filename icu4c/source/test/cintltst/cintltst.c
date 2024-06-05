@@ -316,7 +316,7 @@ void ctest_setICU_DATA() {
  *    The ICU data directory must be preserved across these operations.
  *    Here is a helper function to assist with that.
  */
-static char *safeGetICUDataDirectory() {
+static char *safeGetICUDataDirectory(void) {
     const char *dataDir = u_getDataDirectory();  /* Returned string vanashes with u_cleanup */
     char *retStr = NULL;
     if (dataDir != NULL) {
@@ -326,7 +326,7 @@ static char *safeGetICUDataDirectory() {
     return retStr;
 }
 
-UBool ctest_resetICU() {
+UBool ctest_resetICU(void) {
     UErrorCode   status = U_ZERO_ERROR;
     char         *dataDir = safeGetICUDataDirectory();
 
@@ -495,7 +495,7 @@ void *ctst_malloc(size_t size) {
 }
 
 #ifdef CTST_LEAK_CHECK
-static void ctst_freeAll() {
+static void ctst_freeAll(void) {
     int i;
     if(ctst_free == false) { /* only free up to the allocated mark */
         for(i=0; i<ctst_allocated; i++) {

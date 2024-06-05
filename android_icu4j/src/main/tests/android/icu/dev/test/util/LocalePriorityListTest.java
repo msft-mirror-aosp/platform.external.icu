@@ -16,7 +16,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 
-import android.icu.dev.test.TestFmwk;
+import android.icu.dev.test.CoreTestFmwk;
 import android.icu.util.LocalePriorityList;
 import android.icu.util.ULocale;
 import android.icu.testsharding.MainTestShard;
@@ -27,7 +27,7 @@ import android.icu.testsharding.MainTestShard;
  */
 @MainTestShard
 @RunWith(JUnit4.class)
-public class LocalePriorityListTest extends TestFmwk {
+public class LocalePriorityListTest extends CoreTestFmwk {
     @Test
     public void testLanguagePriorityList() {
         final String expected = "af, en, fr";

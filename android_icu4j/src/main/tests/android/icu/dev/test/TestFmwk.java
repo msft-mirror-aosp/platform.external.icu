@@ -17,14 +17,12 @@ import java.util.Arrays;
 import java.util.Locale;
 import java.util.Properties;
 import java.util.Random;
+import java.util.TimeZone;
 
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Assert;
 import org.junit.Before;
-
-import android.icu.util.TimeZone;
-import android.icu.util.ULocale;
 
 /**
  * TestFmwk is a base class for tests that can be run conveniently from the
@@ -41,12 +39,12 @@ abstract public class TestFmwk extends AbstractTestLog {
     /**
      * The default time zone for all of our tests. Used in @Before
      */
-    private final static TimeZone defaultTimeZone = TimeZone.getTimeZone("America/Los_Angeles");
+    protected final static TimeZone defaultTimeZone = TimeZone.getTimeZone("America/Los_Angeles");
 
     /**
      * The default locale used for all of our tests. Used in @Before
      */
-    private final static Locale defaultLocale = Locale.US;
+    protected final static Locale defaultLocale = Locale.US;
 
     private static final String EXHAUSTIVENESS = "ICU.exhaustive";
     private static final int DEFAULT_EXHAUSTIVENESS = 0;
@@ -89,6 +87,9 @@ abstract public class TestFmwk extends AbstractTestLog {
      * Because JUnit does not guarantee the order of multiple Before
      * methods, TestFmwk implementation class should override this
      * method, instead of annotating Before.
+     *
+     * <p>Any implementation of the override should be sure to call
+     * super.localTestInitialize().
      */
     protected void localTestInitialize() {
     }
@@ -97,6 +98,9 @@ abstract public class TestFmwk extends AbstractTestLog {
      * This method is called at the beginning of {@link #testTeardown()}.
      * TestFmwk implementation class should override this method, instead
      * of annotating After.
+     *
+     * <p>Any implementation of the override should be sure to call
+     * super.localTestTeardown().
      */
     protected void localTestTeardown() {
     }
@@ -222,19 +226,6 @@ abstract public class TestFmwk extends AbstractTestLog {
     protected static int getIntProperty(String key, int defVal, int maxVal) {
         return getParams().getIntProperty(key, defVal, maxVal);
     }
-
-    protected static TimeZone safeGetTimeZone(String id) {
-        TimeZone tz = TimeZone.getTimeZone(id);
-        if (tz == null) {
-            // should never happen
-            errln("FAIL: TimeZone.getTimeZone(" + id + ") => null");
-        }
-        if (!tz.getID().equals(id)) {
-            warnln("FAIL: TimeZone.getTimeZone(" + id + ") => " + tz.getID());
-        }
-        return tz;
-    }
-
 
     // Utility Methods
 
@@ -407,7 +398,7 @@ abstract public class TestFmwk extends AbstractTestLog {
             if (s == null) {
                 return defVal;
             }
-            return (maxVal == -1) ? Integer.valueOf(s) : Math.max(Integer.valueOf(s), maxVal);
+            return (maxVal == -1) ? Integer.parseInt(s) : Math.max(Integer.parseInt(s), maxVal);
         }
 
         public long getLongProperty(String key, long defVal) {
@@ -415,7 +406,7 @@ abstract public class TestFmwk extends AbstractTestLog {
             if (s == null) {
                 return defVal;
             }
-            return Long.valueOf(s);
+            return Long.parseLong(s);
         }
 
         public int getInclusion() {
@@ -483,6 +474,9 @@ abstract public class TestFmwk extends AbstractTestLog {
      * Check the given array to see that all the locales in the expected array
      * are present.
      *
+     * @param <T>
+     *            the type of the objects to check, must have a toString method,
+     *            so anything will do
      * @param msg
      *            string message, for log output
      * @param array
@@ -491,27 +485,7 @@ abstract public class TestFmwk extends AbstractTestLog {
      *            array of locales names we expect to see, or null
      * @return the length of 'array'
      */
-    protected static int checkArray(String msg, Locale array[], String expected[]) {
-        String strs[] = new String[array.length];
-        for (int i = 0; i < array.length; ++i) {
-            strs[i] = array[i].toString();
-        }
-        return checkArray(msg, strs, expected);
-    }
-
-    /**
-     * Check the given array to see that all the locales in the expected array
-     * are present.
-     *
-     * @param msg
-     *            string message, for log output
-     * @param array
-     *            array of locales to check
-     * @param expected
-     *            array of locales names we expect to see, or null
-     * @return the length of 'array'
-     */
-    protected static int checkArray(String msg, ULocale array[], String expected[]) {
+    protected static <T> int checkArray(String msg, T array[], String expected[]) {
         String strs[] = new String[array.length];
         for (int i = 0; i < array.length; ++i) {
             strs[i] = array[i].toString();
@@ -768,5 +742,4 @@ abstract public class TestFmwk extends AbstractTestLog {
 //            System.out.println();
 //        }
     }
-
 }

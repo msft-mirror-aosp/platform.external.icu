@@ -20,6 +20,8 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
+import static java.util.stream.Collectors.toSet;
+
 import android.icu.platform.AndroidDataFiles;
 import android.icu.testsharding.MainTestShard;
 import android.icu.util.VersionInfo;
@@ -45,8 +47,22 @@ import java.util.stream.Stream;
 @RunWith(JUnit4.class)
 public class AndroidDataFilesTest {
 
-    private static final String TZDATA_DAT_PATH =
-        "/apex/com.android.tzdata/etc/icu/icu_tzdata.dat";
+    private static final Set<String> TZDATA_RES_FILES =
+            Stream.of(
+                    "/apex/com.android.tzdata/etc/tz/versioned/%d/icu/metaZones.res",
+                    "/apex/com.android.tzdata/etc/tz/versioned/%d/icu/windowsZones.res",
+                    "/apex/com.android.tzdata/etc/tz/versioned/%d/icu/zoneinfo64.res",
+                    "/apex/com.android.tzdata/etc/tz/versioned/%d/icu/timezoneTypes.res")
+                .map(path -> path.formatted(AndroidDataFiles.CURRENT_MAJOR_VERSION))
+                .collect(toSet());
+
+    private static final Set<String> TZDATA_RES_FILES_AT_OLD_LOCATION =
+            Stream.of(
+                    "/apex/com.android.tzdata/etc/icu/metaZones.res",
+                    "/apex/com.android.tzdata/etc/icu/windowsZones.res",
+                    "/apex/com.android.tzdata/etc/icu/zoneinfo64.res",
+                    "/apex/com.android.tzdata/etc/icu/timezoneTypes.res")
+                .collect(toSet());
 
     private static final String ICU_DAT_PATH =
         "/apex/com.android.i18n/etc/icu/icudt" + VersionInfo.ICU_VERSION.getMajor() + "l.dat";
@@ -62,20 +78,30 @@ public class AndroidDataFilesTest {
         String path = AndroidDataFiles.generateIcuDataPath();
 
         String[] dataDirs = path.split(":");
-        // List all readable".dat" files in the directories.
-        Set<String> datFiles = Arrays.stream(dataDirs)
+        // List all readable ".dat" and ".res" files in the directories.
+        Set<String> icuFiles = Arrays.stream(dataDirs)
                 .filter((dir) -> dir != null && !dir.isEmpty())
                 .map((dir) -> new File(dir))
                 .filter((f) -> f.canRead() && f.isDirectory())
                 .map((f) -> f.listFiles())
                 .filter((files) -> files != null)
                 .flatMap(files -> Stream.of(files))
-                .filter((f) -> f != null && f.canRead() && f.getName().endsWith(".dat"))
+                .filter((f) -> f != null && f.canRead() && isIcuFile(f))
                 .map(f -> f.getPath())
-                .collect(Collectors.toSet());
+                .collect(toSet());
 
-        assertContains(datFiles, TZDATA_DAT_PATH);
-        assertContains(datFiles, ICU_DAT_PATH);
+        assertTrue(containsAllResFiles(icuFiles));
+
+        assertContains(icuFiles, ICU_DAT_PATH);
+    }
+
+    private static boolean containsAllResFiles(Set<String> existingFiles) {
+        return existingFiles.containsAll(TZDATA_RES_FILES)
+               || existingFiles.containsAll(TZDATA_RES_FILES_AT_OLD_LOCATION);
+    }
+
+    private static boolean isIcuFile(File file) {
+        return file.getName().endsWith(".res") || file.getName().endsWith(".dat");
     }
 
     private static void assertContains(Set<String> set, String member) {
@@ -110,15 +136,6 @@ public class AndroidDataFilesTest {
         assertNull(getData.invoke(icuDat, "timezoneTypes.res"));
         assertNull(getData.invoke(icuDat, "windowsZones.res"));
         assertNull(getData.invoke(icuDat, "zoneinfo64.res"));
-
-        ByteBuffer tzDatBuffer = mmapPath(TZDATA_DAT_PATH);
-        assertTrue((Boolean) validate.invoke(null, tzDatBuffer));
-        Object tzDat = constructor.newInstance(TZDATA_DAT_PATH, tzDatBuffer);
-        assertNull(getData.invoke(tzDat, "root.res"));
-        assertNotNull(getData.invoke(tzDat, "metaZones.res"));
-        assertNotNull(getData.invoke(tzDat, "timezoneTypes.res"));
-        assertNotNull(getData.invoke(tzDat, "windowsZones.res"));
-        assertNotNull(getData.invoke(tzDat, "zoneinfo64.res"));
     }
 
     private static ByteBuffer mmapPath(String path) throws IOException {

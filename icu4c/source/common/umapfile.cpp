@@ -147,7 +147,7 @@ typedef HANDLE MemoryMap;
         // Convert from UTF-8 string to UTF-16 string.
         wchar_t utf16Path[MAX_PATH];
         int32_t pathUtf16Len = 0;
-        u_strFromUTF8(reinterpret_cast<UChar*>(utf16Path), static_cast<int32_t>(UPRV_LENGTHOF(utf16Path)), &pathUtf16Len, path, -1, status);
+        u_strFromUTF8(reinterpret_cast<char16_t*>(utf16Path), static_cast<int32_t>(UPRV_LENGTHOF(utf16Path)), &pathUtf16Len, path, -1, status);
 
         if (U_FAILURE(*status)) {
             return false;
@@ -171,7 +171,7 @@ typedef HANDLE MemoryMap;
             return false;
         }
 
-        // Note: We use NULL/nullptr for lpAttributes parameter below.
+        // Note: We use nullptr/nullptr for lpAttributes parameter below.
         // This means our handle cannot be inherited and we will get the default security descriptor.
         /* create an unnamed Windows file-mapping object for the specified file */
         map = CreateFileMappingW(file, nullptr, PAGE_READONLY, 0, 0, nullptr);
@@ -236,9 +236,9 @@ typedef HANDLE MemoryMap;
 
         /* get a view of the mapping */
 #if U_PLATFORM != U_PF_HPUX
-        data=mmap(0, length, PROT_READ, MAP_SHARED,  fd, 0);
+        data=mmap(nullptr, length, PROT_READ, MAP_SHARED, fd, 0);
 #else
-        data=mmap(0, length, PROT_READ, MAP_PRIVATE, fd, 0);
+        data=mmap(nullptr, length, PROT_READ, MAP_PRIVATE, fd, 0);
 #endif
         close(fd); /* no longer needed */
         if(data==MAP_FAILED) {
@@ -249,7 +249,8 @@ typedef HANDLE MemoryMap;
         pData->map = (char *)data + length;
         pData->pHeader=(const DataHeader *)data;
         pData->mapAddr = data;
-#if U_PLATFORM == U_PF_IPHONE
+        // Android-changed: madvise on Android for performance reason.
+#if U_PLATFORM == U_PF_IPHONE || U_PLATFORM == U_PF_ANDROID
         posix_madvise(data, length, POSIX_MADV_RANDOM);
 #endif
         return true;
@@ -262,7 +263,7 @@ typedef HANDLE MemoryMap;
             if(munmap(pData->mapAddr, dataLen)==-1) {
             }
             pData->pHeader=nullptr;
-            pData->map=0;
+            pData->map=nullptr;
             pData->mapAddr=nullptr;
         }
     }

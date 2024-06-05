@@ -35,7 +35,7 @@ if [ -n "$SRCGEN_TOOL" ]; then
     SRCGEN_TOOL_BINARY=${SRCGEN_TOOL}
 else
     source $(dirname $BASH_SOURCE)/common.sh
-    SRCGEN_TOOL_BINARY="${ANDROID_HOST_OUT}/bin/android_icu4j_srcgen_binary -JXint"
+    SRCGEN_TOOL_BINARY="${ANDROID_HOST_OUT}/bin/android_icu4j_srcgen_binary"
 fi
 
 if [ -n "$GEN_DIR" ]; then
@@ -45,6 +45,7 @@ fi
 
 ALLOWLIST_API_FILE=${ICU_SRCGEN_DIR}/allowlisted-public-api.txt
 CORE_PLATFORM_API_FILE=${ICU_SRCGEN_DIR}/core-platform-api.txt
+FLAGGED_API_FILE=${ICU_SRCGEN_DIR}/flagged-api-list.txt
 INTRA_CORE_API_FILE=${ICU_SRCGEN_DIR}/intra-core-api.txt
 UNSUPPORTED_APP_USAGE_FILE=${ICU_SRCGEN_DIR}/unsupported-app-usage.json
 
@@ -60,16 +61,21 @@ mkdir -p ${DEST_RESOURCE_DIR}
 # Generate the source code needed by Android.
 # Branches used for testing new versions of ICU will have have the ${ALLOWLIST_API_FILE} file
 # that prevents new (stable) APIs being added to the Android public SDK API. The file should
-# not exist on "normal" release branches and master.
+# not exist on "normal" release branches and main.
 ICU4J_BASE_COMMAND="${SRCGEN_TOOL_BINARY} Icu4jTransform"
 if [ -e "${ALLOWLIST_API_FILE}" ]; then
   ICU4J_BASE_COMMAND+=" --hide-non-allowlisted-api ${ALLOWLIST_API_FILE}"
 fi
-${ICU4J_BASE_COMMAND} ${INPUT_DIRS} ${DEST_SRC_DIR} ${CORE_PLATFORM_API_FILE} ${INTRA_CORE_API_FILE} ${UNSUPPORTED_APP_USAGE_FILE}
+if [ -e "${FLAGGED_API_FILE}" ]; then
+  ICU4J_BASE_COMMAND+=" --flagged-api-list ${FLAGGED_API_FILE}"
+fi
+
+${ICU4J_BASE_COMMAND} ${INPUT_JAVA_DIRS} ${DEST_SRC_DIR} ${CORE_PLATFORM_API_FILE} ${INTRA_CORE_API_FILE} ${UNSUPPORTED_APP_USAGE_FILE}
 
 # Copy / transform the resources needed by the android_icu4j code.
-for INPUT_DIR in ${INPUT_DIRS}; do
-  RESOURCES=$(find ${INPUT_DIR} -type f | egrep -v '(\.java|\/package\.html|\/ICUConfig\.properties)' || true )
+for INPUT_DIR in ${INPUT_RESOURCE_DIRS}; do
+  # android_icu4j uses .dat file, not .res files in icudt*
+  RESOURCES=$(find ${INPUT_DIR} -type f -not -path "${INPUT_DIR}/com/ibm/icu/impl/data/icudt*"| egrep -v '(\/package\.html|\/ICUConfig\.properties)' || true )
   for RESOURCE in ${RESOURCES}; do
     SOURCE_DIR=$(dirname ${RESOURCE})
     RELATIVE_SOURCE_DIR=$(echo ${SOURCE_DIR} | sed "s,${INPUT_DIR}/,,")
@@ -82,7 +88,7 @@ done
 
 # Create the ICUConfig.properties for Android.
 mkdir -p ${ANDROID_ICU4J_DIR}/resources/android/icu
-sed 's,com.ibm.icu,android.icu,' ${ANDROID_BUILD_TOP}/external/icu/icu4j/main/classes/core/src/com/ibm/icu/ICUConfig.properties > ${ANDROID_ICU4J_DIR}/resources/android/icu/ICUConfig.properties
+sed 's,com.ibm.icu,android.icu,' ${ANDROID_BUILD_TOP}/external/icu/icu4j/main/core/src/main/resources/com/ibm/icu/ICUConfig.properties > ${ANDROID_ICU4J_DIR}/resources/android/icu/ICUConfig.properties
 
 # Clean out previous generated sample code.
 SAMPLE_DEST_DIR=${ANDROID_ICU4J_DIR}/src/samples/java
@@ -108,8 +114,7 @@ unzip ${ICU4J_DIR}/main/shared/data/testdata.jar com/ibm/icu/* -d ${TESTDATA_DIR
 
 echo Processing test code
 # Create the android_icu4j test code
-ALL_TEST_INPUT_DIRS="${TEST_INPUT_DIRS} ${TESTDATA_DIR}"
-${SRCGEN_TOOL_BINARY} Icu4jTestsTransform ${ALL_TEST_INPUT_DIRS} ${TEST_DEST_DIR}
+${SRCGEN_TOOL_BINARY} Icu4jTestsTransform ${TEST_INPUT_JAVA_DIRS} ${TEST_DEST_DIR}
 # Apply line-based javadoc patches
 if [ "$APPLY_DOC_PATCH" -eq "1" ]; then
     ${ANDROID_BUILD_TOP}/external/icu/tools/srcgen/javadoc_patches/apply_patches.sh
@@ -117,8 +122,9 @@ fi
 
 # Copy the data files.
 echo Copying test data
-for INPUT_DIR in ${ALL_TEST_INPUT_DIRS}; do
-  RESOURCES=$(find ${INPUT_DIR} -type f | egrep -v '(\.java|com\.ibm\.icu.*\.dat|/package\.html)' || true )
+ALL_TEST_RESOURCE_INPUT_DIRS="${TEST_INPUT_RESOURCE_DIRS} ${TESTDATA_DIR}"
+for INPUT_DIR in ${ALL_TEST_RESOURCE_INPUT_DIRS}; do
+  RESOURCES=$(find ${INPUT_DIR} -type f | egrep -v '(com\.ibm\.icu.*\.dat|/package\.html)' || true )
   for RESOURCE in ${RESOURCES}; do
     SOURCE_DIR=$(dirname ${RESOURCE})
     RELATIVE_SOURCE_DIR=$(echo ${SOURCE_DIR} | sed "s,${INPUT_DIR}/,,")
@@ -131,7 +137,7 @@ done
 
 echo Repackaging serialized test data
 # Excludes JavaTimeZone.dat files as they depend on sun.util.calendar.ZoneInfo
-for INPUT_DIR in ${ALL_TEST_INPUT_DIRS}; do
+for INPUT_DIR in ${ALL_TEST_RESOURCE_INPUT_DIRS}; do
   RESOURCES=$(find ${INPUT_DIR} -type f | egrep '(/com\.ibm\.icu.*\.dat)' | egrep -v "JavaTimeZone.dat" || true )
   for RESOURCE in ${RESOURCES}; do
     SOURCE_DIR=$(dirname ${RESOURCE})

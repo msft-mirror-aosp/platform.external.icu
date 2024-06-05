@@ -23,6 +23,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 
+import android.icu.dev.test.CoreTestFmwk;
 import android.icu.dev.test.TestFmwk;
 import android.icu.impl.number.DecimalQuantity;
 import android.icu.text.DecimalFormat;
@@ -42,7 +43,7 @@ import android.icu.testsharding.MainTestShard;
  */
 @MainTestShard
 @RunWith(JUnit4.class)
-public class PluralFormatUnitTest extends TestFmwk {
+public class PluralFormatUnitTest extends CoreTestFmwk {
     @Test
     public void TestConstructor() {
         // Test correct formatting of numbers.
@@ -86,7 +87,7 @@ public class PluralFormatUnitTest extends TestFmwk {
             String result = numberFmt.format(n*n);
             for (int k = 0; k < plFmts.length; ++k) {
                 sb.delete(0, sb.length());
-                String pfResult = plFmts[k].format(Long.valueOf(n*n), sb, ignore).toString();
+                String pfResult = plFmts[k].format((long)(n*n), sb, ignore).toString();
                 TestFmwk.assertEquals("PluralFormat's output is not as expected", result, pfResult);
             }
         }
@@ -308,7 +309,7 @@ public class PluralFormatUnitTest extends TestFmwk {
         MessageFormat pfmt = new MessageFormat("The disk ''{0}'' contains {1, plural,  one {one ''''{1, number, #.0}'''' widget} other {# widgets}}.");
         logln("");
         for (int i = 0; i < 3; ++i) {
-            args[1] = new Integer(i);
+            args[1] = i;
             logln(pfmt.format(args));
         }
         /* ICU 4.8 returns null instead of a choice/plural/select Format object

@@ -19,7 +19,7 @@ import org.junit.runners.JUnit4;
 import android.icu.dev.impl.number.DecimalQuantity_64BitBCD;
 import android.icu.dev.impl.number.DecimalQuantity_ByteArrayBCD;
 import android.icu.dev.impl.number.DecimalQuantity_SimpleStorage;
-import android.icu.dev.test.TestFmwk;
+import android.icu.dev.test.CoreTestFmwk;
 import android.icu.impl.FormattedStringBuilder;
 import android.icu.impl.number.DecimalFormatProperties;
 import android.icu.impl.number.DecimalQuantity;
@@ -39,7 +39,7 @@ import android.icu.testsharding.MainTestShard;
 
 @MainTestShard
 @RunWith(JUnit4.class)
-public class DecimalQuantityTest extends TestFmwk {
+public class DecimalQuantityTest extends CoreTestFmwk {
 
     @Ignore
     @Test

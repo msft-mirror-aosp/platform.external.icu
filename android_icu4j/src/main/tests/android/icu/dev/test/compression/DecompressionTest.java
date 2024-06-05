@@ -13,13 +13,13 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 
-import android.icu.dev.test.TestFmwk;
+import android.icu.dev.test.CoreTestFmwk;
 import android.icu.text.UnicodeDecompressor;
 import android.icu.testsharding.MainTestShard;
 
 @MainTestShard
 @RunWith(JUnit4.class)
-public class DecompressionTest extends TestFmwk {
+public class DecompressionTest extends CoreTestFmwk {
     /** Print out a segment of a character array, if in verbose mode */
     private void log(char [] chars, int start, int count) {
         log("|");

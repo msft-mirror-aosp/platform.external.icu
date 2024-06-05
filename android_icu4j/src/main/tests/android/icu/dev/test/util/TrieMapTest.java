@@ -9,6 +9,7 @@
  */
 package android.icu.dev.test.util;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -25,6 +26,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 
+import android.icu.dev.test.CoreTestFmwk;
 import android.icu.dev.test.TestFmwk;
 import android.icu.dev.test.util.TrieMap.Style;
 import android.icu.dev.util.Timer;
@@ -33,7 +35,6 @@ import android.icu.impl.Row.R3;
 import android.icu.impl.Utility;
 import android.icu.lang.UCharacter;
 import android.icu.lang.UScript;
-import android.icu.text.DecimalFormat;
 import android.icu.text.UnicodeSet;
 import android.icu.util.StringTrieBuilder.Option;
 import android.icu.util.ULocale;
@@ -41,7 +42,7 @@ import android.icu.testsharding.MainTestShard;
 
 @MainTestShard
 @RunWith(JUnit4.class)
-public class TrieMapTest extends TestFmwk {
+public class TrieMapTest extends CoreTestFmwk {
     static final boolean SHORT = false;
     static final boolean HACK_TO_MAKE_TESTS_PASS = false;
     static final int MASK = 0x3;

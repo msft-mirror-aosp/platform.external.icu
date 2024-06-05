@@ -111,7 +111,7 @@ IntlTestDateFormat::testLocale(/*char* par, */const Locale& locale, const Unicod
 
 void IntlTestDateFormat::testFormat(/* char* par */)
 {
-    if (fFormat == 0)
+    if (fFormat == nullptr)
     {
         dataerrln("FAIL: DateFormat creation failed");
         return;
@@ -140,7 +140,7 @@ void
 IntlTestDateFormat::describeTest()
 {
     // Assume it's a SimpleDateFormat and get some info
-    SimpleDateFormat *s = (SimpleDateFormat*)fFormat;
+    SimpleDateFormat *s = dynamic_cast<SimpleDateFormat*>(fFormat);
     UnicodeString str;
     logln(fTestName + " Pattern " + s->toPattern(str));
 }

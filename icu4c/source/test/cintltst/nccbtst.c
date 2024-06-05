@@ -77,7 +77,7 @@ static void printUSeqErr(const UChar* a, int len)
 
 static void setNuConvTestName(const char *codepage, const char *direction)
 {
-    sprintf(gNuConvTestName, "[testing %s %s Unicode, InputBufSiz=%d, OutputBufSiz=%d]",
+    snprintf(gNuConvTestName, sizeof(gNuConvTestName), "[testing %s %s Unicode, InputBufSiz=%d, OutputBufSiz=%d]",
             codepage,
             direction,
             (int)gInBufferSize,
@@ -108,7 +108,7 @@ void addTestConvertErrorCallBack(TestNode** root)
     addTest(root, &TestCallBackFailure,  "tsconv/nccbtst/TestCallBackFailure");
 }
 
-static void TestSkipCallBack()
+static void TestSkipCallBack(void)
 {
     TestSkip(NEW_MAX_BUFFER, NEW_MAX_BUFFER);
     TestSkip(1,NEW_MAX_BUFFER);
@@ -116,7 +116,7 @@ static void TestSkipCallBack()
     TestSkip(NEW_MAX_BUFFER, 1);
 }
 
-static void TestStopCallBack()
+static void TestStopCallBack(void)
 {
     TestStop(NEW_MAX_BUFFER, NEW_MAX_BUFFER);
     TestStop(1,NEW_MAX_BUFFER);
@@ -124,7 +124,7 @@ static void TestStopCallBack()
     TestStop(NEW_MAX_BUFFER, 1);
 }
 
-static void TestSubCallBack()
+static void TestSubCallBack(void)
 {
     TestSub(NEW_MAX_BUFFER, NEW_MAX_BUFFER);
     TestSub(1,NEW_MAX_BUFFER);
@@ -139,7 +139,7 @@ static void TestSubCallBack()
 #endif
 }
 
-static void TestSubWithValueCallBack()
+static void TestSubWithValueCallBack(void)
 {
     TestSubWithValue(NEW_MAX_BUFFER, NEW_MAX_BUFFER);
     TestSubWithValue(1,NEW_MAX_BUFFER);
@@ -148,7 +148,7 @@ static void TestSubWithValueCallBack()
 }
 
 #if !UCONFIG_NO_LEGACY_CONVERSION
-static void TestLegalAndOtherCallBack()
+static void TestLegalAndOtherCallBack(void)
 {
     TestLegalAndOthers(NEW_MAX_BUFFER, NEW_MAX_BUFFER);
     TestLegalAndOthers(1,NEW_MAX_BUFFER);
@@ -156,7 +156,7 @@ static void TestLegalAndOtherCallBack()
     TestLegalAndOthers(NEW_MAX_BUFFER, 1);
 }
 
-static void TestSingleByteCallBack()
+static void TestSingleByteCallBack(void)
 {
     TestSingleByte(NEW_MAX_BUFFER, NEW_MAX_BUFFER);
     TestSingleByte(1,NEW_MAX_BUFFER);
@@ -2759,8 +2759,8 @@ UBool testConvertFromUnicode(const UChar *source, int sourceLen,  const uint8_t 
         offset_str[0] = 0;
         for(p = junkout;p<targ;p++)
         {
-            sprintf(junk + strlen(junk), "0x%02x, ", (0xFF) & (unsigned int)*p);
-            sprintf(offset_str + strlen(offset_str), "0x%02x, ", (0xFF) & (unsigned int)junokout[p-junkout]);
+            snprintf(junk + strlen(junk), sizeof(junk)-strlen(junk), "0x%02x, ", (0xFF) & (unsigned int)*p);
+            snprintf(offset_str + strlen(offset_str), sizeof(offset_str) - strlen(offset_str), "0x%02x, ", (0xFF) & (unsigned int)junokout[p-junkout]);
         }
 
         log_verbose(junk);
@@ -2955,8 +2955,8 @@ UBool testConvertToUnicode( const uint8_t *source, int sourcelen, const UChar *e
 
         for(p = junkout;p<targ;p++)
         {
-            sprintf(junk + strlen(junk), "0x%04x, ", (0xFFFF) & (unsigned int)*p);
-            sprintf(offset_str + strlen(offset_str), "0x%04x, ", (0xFFFF) & (unsigned int)junokout[p-junkout]);
+            snprintf(junk + strlen(junk), sizeof(junk)-strlen(junk), "0x%04x, ", (0xFFFF) & (unsigned int)*p);
+            snprintf(offset_str + strlen(offset_str), sizeof(offset_str)-strlen(offset_str), "0x%04x, ", (0xFFFF) & (unsigned int)junokout[p-junkout]);
         }
 
         log_verbose(junk);
@@ -3133,8 +3133,8 @@ UBool testConvertFromUnicodeWithContext(const UChar *source, int sourceLen,  con
         offset_str[0] = 0;
         for(p = junkout;p<targ;p++)
         {
-            sprintf(junk + strlen(junk), "0x%02x, ", (0xFF) & (unsigned int)*p);
-            sprintf(offset_str + strlen(offset_str), "0x%02x, ", (0xFF) & (unsigned int)junokout[p-junkout]);
+            snprintf(junk + strlen(junk), sizeof(junk)-strlen(junk), "0x%02x, ", (0xFF) & (unsigned int)*p);
+            snprintf(offset_str + strlen(offset_str), sizeof(offset_str)-strlen(offset_str), "0x%02x, ", (0xFF) & (unsigned int)junokout[p-junkout]);
         }
 
         log_verbose(junk);
@@ -3312,8 +3312,8 @@ UBool testConvertToUnicodeWithContext( const uint8_t *source, int sourcelen, con
 
         for(p = junkout;p<targ;p++)
         {
-            sprintf(junk + strlen(junk), "0x%04x, ", (0xFFFF) & (unsigned int)*p);
-            sprintf(offset_str + strlen(offset_str), "0x%04x, ", (0xFFFF) & (unsigned int)junokout[p-junkout]);
+            snprintf(junk + strlen(junk), sizeof(junk)-strlen(junk), "0x%04x, ", (0xFFFF) & (unsigned int)*p);
+            snprintf(offset_str + strlen(offset_str), sizeof(offset_str)-strlen(offset_str), "0x%04x, ", (0xFFFF) & (unsigned int)junokout[p-junkout]);
         }
 
         log_verbose(junk);

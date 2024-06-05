@@ -13,6 +13,7 @@
 // limitations under the License.
 
 package {
+    default_team: "trendy_team_java_core_libraries",
     // See: http://go/android-license-faq
     // A large-scale-change added 'default_applicable_licenses' to import
     // all of the 'license_kinds' from "external_icu_icu4c_license"
@@ -35,9 +36,11 @@ cc_defaults {
     cflags: [
         "-Wno-deprecated-declarations",
         "-Wno-missing-field-initializers",
+        "-Wno-tautological-undefined-compare",
         "-Wno-unused-function",
         "-Wno-unused-parameter",
         "-Wno-unused-variable",
+        "-DUCONFIG_USE_ML_PHRASE_BREAKING=1",
     ],
     shared_libs: [
         "libicu_cts_stub",
@@ -49,6 +52,7 @@ cc_defaults {
 
     static_libs: [
         "libicuctest",
+        "libicuio",
         "libicutoolutil",
     ],
     target: {

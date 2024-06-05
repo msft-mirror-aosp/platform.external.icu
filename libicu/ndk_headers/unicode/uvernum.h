@@ -53,7 +53,7 @@
  *  This value will change in the subsequent releases of ICU
  *  \xrefitem stable "Stable" "Stable List" ICU 2.4
  */
-#define U_ICU_VERSION_MAJOR_NUM 72
+#define U_ICU_VERSION_MAJOR_NUM 75
 
 /** The current ICU minor version as an integer.
  *  This value will change in the subsequent releases of ICU
@@ -79,7 +79,7 @@
  *  This value will change in the subsequent releases of ICU
  *  \xrefitem stable "Stable" "Stable List" ICU 2.6
  */
-#define U_ICU_VERSION_SUFFIX _72
+#define U_ICU_VERSION_SUFFIX _75
 
 /**
  * \def U_DEF2_ICU_ENTRY_POINT_RENAME
@@ -132,7 +132,7 @@
  *  This value will change in the subsequent releases of ICU
  *  \xrefitem stable "Stable" "Stable List" ICU 2.4
  */
-#define U_ICU_VERSION "72.1"
+#define U_ICU_VERSION "75.1"
 
 /**
  * The current ICU library major version number as a string, for library name suffixes.
@@ -145,13 +145,13 @@
  *
  * \xrefitem stable "Stable" "Stable List" ICU 2.6
  */
-#define U_ICU_VERSION_SHORT "72"
+#define U_ICU_VERSION_SHORT "75"
 
 #ifndef U_HIDE_INTERNAL_API
 /** Data version in ICU4C.
  * \xrefitem internal "Internal"  "Internal List"  Do not use. This API is for internal use only. ICU 4.4 Internal Use Only
  **/
-#define U_ICU_DATA_VERSION "72.1"
+#define U_ICU_DATA_VERSION "75.1"
 #endif  /* U_HIDE_INTERNAL_API */
 
 /*===========================================================================

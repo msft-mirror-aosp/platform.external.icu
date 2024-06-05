@@ -43,7 +43,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 
-import android.icu.dev.test.TestFmwk;
+import android.icu.dev.test.CoreTestFmwk;
 import android.icu.dev.test.serializable.SerializableTestUtility;
 import android.icu.dev.util.CollectionUtilities;
 import android.icu.impl.Relation;
@@ -76,7 +76,7 @@ import android.icu.testsharding.MainTestShard;
  */
 @MainTestShard
 @RunWith(JUnit4.class)
-public class PluralRulesTest extends TestFmwk {
+public class PluralRulesTest extends CoreTestFmwk {
 
     PluralRulesFactory factory = PluralRulesFactory.NORMAL;
 
@@ -1241,7 +1241,7 @@ public class PluralRulesTest extends TestFmwk {
     // for the scientific exponent operand `e` and compact notation.
     /**
      * Test the proper plural rule keyword selection given an input number that is
-     * already formatted into scientific notation. This exercises the `e` plural operand
+     * already formatted into scientific notation. This exercises the {@code e} plural operand
      * for the formatted number.
      */
     @Test
@@ -1295,7 +1295,7 @@ public class PluralRulesTest extends TestFmwk {
 
     /**
      * Test the proper plural rule keyword selection given an input number that is
-     * already formatted into compact notation. This exercises the `c` plural operand
+     * already formatted into compact notation. This exercises the {@code c} plural operand
      * for the formatted number.
      */
     @Test
@@ -1715,6 +1715,8 @@ public class PluralRulesTest extends TestFmwk {
 
     @Test
     public void testBug20264() {
+        Locale startLocale = Locale.getDefault();
+
         String expected = "1.23400";
         FixedDecimal fd = new FixedDecimal(1.234, 5, 2);
         assertEquals("FixedDecimal toString", expected, fd.toString());
@@ -1722,6 +1724,8 @@ public class PluralRulesTest extends TestFmwk {
         assertEquals("FixedDecimal toString", expected, fd.toString());
         Locale.setDefault(Locale.GERMAN);
         assertEquals("FixedDecimal toString", expected, fd.toString());
+
+        Locale.setDefault(startLocale);
     }
 
     @Test
@@ -1755,5 +1759,12 @@ public class PluralRulesTest extends TestFmwk {
         PluralRules xyz = PluralRules.forLocale(new ULocale("xyz"));
         form = xyz.select(range);
         assertEquals("Fallback form", "other", form);
+    }
+    @Test
+    public void test22638LongNumberValue() {
+        PluralRules test = PluralRules.createRules(
+            "g:c%4422322222232222222222232222222322222223222222232222222322222223" +
+            "2222222322222232222222322222223222232222222222222322222223222222");
+        assertEquals("Long number value should get null", null, test);
     }
 }

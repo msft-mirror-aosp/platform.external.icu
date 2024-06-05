@@ -44,7 +44,7 @@ en_XA{
     Languages{
         aa{"[Åƒåŕ one]"}
         ab{"[Åƀķĥåžîåñ one two]"}
-        ace{"[Åçĥîñéšé one two]"}
+        ace{"[Åçéĥñéšé one two]"}
         ach{"[Åçöļî one]"}
         ada{"[Åðåñĝɱé one two]"}
         ady{"[Åðýĝĥé one]"}
@@ -111,6 +111,7 @@ en_XA{
         bjn{"[Ɓåñĵåŕ one]"}
         bkm{"[Ķöɱ one]"}
         bla{"[Šîķšîķá one two]"}
+        blo{"[Åñîî one]"}
         blt{"[Ţåî Ðåɱ one two]"}
         bm{"[Ɓåɱƀåŕå one two]"}
         bn{"[Ɓåñĝļå one]"}
@@ -273,6 +274,7 @@ en_XA{
         hdn{"[Ñöŕţĥéŕñ Ĥåîðå one two]"}
         he{"[Ĥéƀŕéŵ one]"}
         hi{"[Ĥîñðî one]"}
+        hi_Latn{"[Ĥîñðî (Ļåţîñ) one two]"}
         hif{"[Ƒîĵî Ĥîñðî one two]"}
         hil{"[Ĥîļîĝåýñöñ one two]"}
         hit{"[Ĥîţţîţé one two]"}
@@ -365,6 +367,7 @@ en_XA{
         kv{"[Ķöɱî one]"}
         kw{"[Çöŕñîšĥ one two]"}
         kwk{"[Ķŵåķʼŵåļå one two]"}
+        kxv{"[Ķûṽî one]"}
         ky{"[Ķýŕĝýž one]"}
         la{"[Ļåţîñ one]"}
         lad{"[Ļåðîñö one]"}
@@ -419,7 +422,7 @@ en_XA{
         mgo{"[Ṁéţåʼ one]"}
         mh{"[Ṁåŕšĥåļļéšé one two]"}
         mi{"[Ṁāöŕî one]"}
-        mic{"[Ṁî'ķɱåǫ one two]"}
+        mic{"[Ṁî'ķɱåŵ one two]"}
         min{"[Ṁîñåñĝķåƀåû one two]"}
         mk{"[Ṁåçéðöñîåñ one two]"}
         ml{"[Ṁåļåýåļåɱ one two]"}
@@ -664,6 +667,7 @@ en_XA{
         vi{"[Ṽîéţñåɱéšé one two]"}
         vls{"[Ŵéšţ Ƒļéɱîšĥ one two]"}
         vmf{"[Ṁåîñ‐Ƒŕåñçöñîåñ one two three]"}
+        vmw{"[Ṁåķĥûŵå one two]"}
         vo{"[Ṽöļåþüķ one two]"}
         vot{"[Ṽöţîç one]"}
         vro{"[Ṽõŕö one]"}
@@ -679,6 +683,7 @@ en_XA{
         xal{"[Ķåļɱýķ one]"}
         xh{"[Ẋĥöšå one]"}
         xmf{"[Ṁîñĝŕéļîåñ one two]"}
+        xnr{"[Ķåñĝŕî one]"}
         xog{"[Šöĝå one]"}
         yao{"[Ýåö one]"}
         yap{"[Ýåþéšé one]"}
@@ -958,14 +963,14 @@ en_XA{
             gregorian{"[Ĝŕéĝöŕîåñ Çåļéñðåŕ one two three]"}
             hebrew{"[Ĥéƀŕéŵ Çåļéñðåŕ one two three]"}
             indian{"[Îñðîåñ Ñåţîöñåļ Çåļéñðåŕ one two three]"}
-            islamic{"[Îšļåɱîç Çåļéñðåŕ one two three]"}
-            islamic-civil{"[Îšļåɱîç Çåļéñðåŕ (ţåƀûļåŕ، çîṽîļ éþöçĥ) one two three four five]"}
-            islamic-rgsa{"[Îšļåɱîç Çåļéñðåŕ (Šåûðî Åŕåƀîå، šîĝĥţîñĝ) one two three four five]"}
+            islamic{"[Ĥîĵŕî Çåļéñðåŕ one two]"}
+            islamic-civil{"[Ĥîĵŕî Çåļéñðåŕ (ţåƀûļåŕ، çîṽîļ éþöçĥ) one two three four five]"}
+            islamic-rgsa{"[Ĥîĵŕî Çåļéñðåŕ (Šåûðî Åŕåƀîå، šîĝĥţîñĝ) one two three four five]"}
             islamic-tbla{
-                "[Îšļåɱîç Çåļéñðåŕ (ţåƀûļåŕ، åšţŕöñöɱîçåļ éþöçĥ) one two three four f"
-                "ive]"
+                "[Ĥîĵŕî Çåļéñðåŕ (ţåƀûļåŕ، åšţŕöñöɱîçåļ éþöçĥ) one two three four fiv"
+                "e]"
             }
-            islamic-umalqura{"[Îšļåɱîç Çåļéñðåŕ (Ûɱɱ åļ‐Ǫûŕå) one two three four]"}
+            islamic-umalqura{"[Ĥîĵŕî Çåļéñðåŕ (Ûɱɱ åļ‐Ǫûŕå) one two three four]"}
             iso8601{"[ÎŠÖ‐⑧⑥⓪① Çåļéñðåŕ one two three]"}
             japanese{"[Ĵåþåñéšé Çåļéñðåŕ one two three]"}
             persian{"[Þéŕšîåñ Çåļéñðåŕ one two three]"}
@@ -1025,7 +1030,6 @@ en_XA{
             phonebook{"[Þĥöñéƀööķ Šöŕţ Öŕðéŕ one two three]"}
             phonetic{"[Þĥöñéţîç Šöŕţ Öŕðéŕ one two three]"}
             pinyin{"[Þîñýîñ Šöŕţ Öŕðéŕ one two three]"}
-            reformed{"[Ŕéƒöŕɱéð Šöŕţ Öŕðéŕ one two three]"}
             search{"[Ĝéñéŕåļ‐Þûŕþöšé Šéåŕçĥ one two three]"}
             searchjl{"[Šéåŕçĥ Ɓý Ĥåñĝûļ Îñîţîåļ Çöñšöñåñţ one two three four]"}
             standard{"[Šţåñðåŕð Šöŕţ Öŕðéŕ one two three]"}
@@ -1412,6 +1416,8 @@ en_XA{
         compatibility{"[{0} — çöɱþåţîƀîļîţý one two three]"}
         enclosed{"[{0} — éñçļöšéð one two]"}
         extended{"[{0} — éẋţéñðéð one two]"}
+        facing-left{"[{0} ƒåçîñĝ ļéƒţ one two three]"}
+        facing-right{"[{0} ƒåçîñĝ ŕîĝĥţ one two three]"}
         historic{"[{0} — ĥîšţöŕîç one two]"}
         miscellaneous{"[{0} — ɱîšçéļļåñéöûš one two three]"}
         other{"[{0} — öţĥéŕ one two]"}

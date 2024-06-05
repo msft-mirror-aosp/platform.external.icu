@@ -44,6 +44,8 @@ void TestJpnCalAddSetNextEra(void);
 void TestUcalOpenBufferRead(void);
 void TestGetTimeZoneOffsetFromLocal(void);
 
+void TestFWWithISO8601(void);
+
 void addCalTest(TestNode** root);
 
 void addCalTest(TestNode** root)
@@ -68,6 +70,8 @@ void addCalTest(TestNode** root)
     addTest(root, &TestJpnCalAddSetNextEra, "tsformat/ccaltst/TestJpnCalAddSetNextEra");
     addTest(root, &TestUcalOpenBufferRead, "tsformat/ccaltst/TestUcalOpenBufferRead");
     addTest(root, &TestGetTimeZoneOffsetFromLocal, "tsformat/ccaltst/TestGetTimeZoneOffsetFromLocal");
+    addTest(root, &TestFWWithISO8601, "tsformat/ccaltst/TestFWWithISO8601");
+    addTest(root, &TestGetIanaTimeZoneID, "tstformat/ccaltst/TestGetIanaTimeZoneID");
 }
 
 /* "GMT" */
@@ -97,7 +101,10 @@ static const UCalGetTypeTest ucalGetTypeTests[] = {
     { "fr_CH",                   UCAL_DEFAULT,   "gregorian" },
     { "fr_SA",                   UCAL_DEFAULT,   "gregorian" },  // android-changed
     { "fr_CH@rg=sazzzz",         UCAL_DEFAULT,   "gregorian" },  // android-changed
+    { "fr_CH@rg=sa14",           UCAL_DEFAULT,   "gregorian" },  // android-changed
     { "fr_CH@calendar=japanese;rg=sazzzz", UCAL_DEFAULT, "japanese" },
+    { "fr_CH@rg=twcyi",          UCAL_DEFAULT,   "gregorian" }, // test for ICU-22364
+    { "fr_CH@rg=ugw",            UCAL_DEFAULT,   "gregorian" }, // test for ICU-22364
     { "fr_TH@rg=SA",             UCAL_DEFAULT,   "gregorian"  }, /* ignore malformed rg tag */  // android-changed
     { "th@rg=SA",                UCAL_DEFAULT,   "gregorian"  }, /* ignore malformed rg tag */  // android-changed
     { "",                        UCAL_GREGORIAN, "gregorian" },
@@ -105,7 +112,7 @@ static const UCalGetTypeTest ucalGetTypeTests[] = {
     { NULL, 0, NULL } /* terminator */
 };    
     
-static void TestCalendar()
+static void TestCalendar(void)
 {
     UCalendar *caldef = 0, *caldef2 = 0, *calfr = 0, *calit = 0, *calfrclone = 0;
     UEnumeration* uenum = NULL;
@@ -520,7 +527,7 @@ static void TestCalendar()
 /*------------------------------------------------------*/
 /*Testing the getMillis, setMillis, setDate and setDateTime functions extensively*/
 
-static void TestGetSetDateAPI()
+static void TestGetSetDateAPI(void)
 {
     UCalendar *caldef = 0, *caldef2 = 0, *caldef3 = 0;
     UChar tzID[4];
@@ -788,7 +795,7 @@ static void TestGetSetDateAPI()
 /**
  * Confirm the functioning of the calendar field related functions.
  */
-static void TestFieldGetSet()
+static void TestFieldGetSet(void)
 {
     UCalendar *cal = 0;
     UChar tzID[4];
@@ -948,7 +955,7 @@ static const TransitionItem transitionItems[] = {
 /**
  * Execute adding and rolling in Calendar extensively,
  */
-static void TestAddRollExtensive()
+static void TestAddRollExtensive(void)
 {
     const TransitionItem * itemPtr;
     UCalendar *cal = 0;
@@ -1142,7 +1149,7 @@ static void TestAddRollExtensive()
 
 /*------------------------------------------------------ */
 /*Testing the Limits for various Fields of Calendar*/
-static void TestGetLimits()
+static void TestGetLimits(void)
 {
     UCalendar *cal = 0;
     int32_t min, max, gr_min, le_max, ac_min, ac_max, val;
@@ -1238,7 +1245,7 @@ static void TestGetLimits()
  * Test that the days of the week progress properly when add is called repeatedly
  * for increments of 24 days.
  */
-static void TestDOWProgression()
+static void TestDOWProgression(void)
 {
     int32_t initialDOW, DOW, newDOW, expectedDOW;
     UCalendar *cal = 0;
@@ -1304,7 +1311,7 @@ static void TestDOWProgression()
 /**
  * Confirm that the offset between local time and GMT behaves as expected.
  */
-static void TestGMTvsLocal()
+static void TestGMTvsLocal(void)
 {
     log_verbose("\nTesting the offset between the GMT and local time\n");
     testZones(1999, 1, 1, 12, 0, 0);
@@ -1544,7 +1551,7 @@ static void verify2(const char* msg, UCalendar* c, UDateFormat* dat, int32_t yea
         
 }
 
-void TestGregorianChange() {
+void TestGregorianChange(void) {
     static const UChar utc[] = { 0x45, 0x74, 0x63, 0x2f, 0x47, 0x4d, 0x54, 0 }; /* "Etc/GMT" */
     const int32_t dayMillis = 86400 * INT64_C(1000);    /* 1 day = 86400 seconds */
     UCalendar *cal;
@@ -1554,6 +1561,24 @@ void TestGregorianChange() {
     /* Test ucal_setGregorianChange() on a Gregorian calendar. */
     errorCode = U_ZERO_ERROR;
     cal = ucal_open(utc, -1, "", UCAL_GREGORIAN, &errorCode);
+    if(U_FAILURE(errorCode)) {
+        log_data_err("ucal_open(UTC) failed: %s - (Are you missing data?)\n", u_errorName(errorCode));
+        return;
+    }
+    ucal_setGregorianChange(cal, -365 * (dayMillis * (UDate)1), &errorCode);
+    if(U_FAILURE(errorCode)) {
+        log_err("ucal_setGregorianChange(1969) failed: %s\n", u_errorName(errorCode));
+    } else {
+        date = ucal_getGregorianChange(cal, &errorCode);
+        if(U_FAILURE(errorCode) || date != -365 * (dayMillis * (UDate)1)) {
+            log_err("ucal_getGregorianChange() failed: %s, date = %f\n", u_errorName(errorCode), date);
+        }
+    }
+    ucal_close(cal);
+    /* Test ucal_setGregorianChange() on a iso8601 calendar and it should work
+     * as Gregorian. */
+    errorCode = U_ZERO_ERROR;
+    cal = ucal_open(utc, -1, "en@calendar=iso8601", UCAL_TRADITIONAL, &errorCode);
     if(U_FAILURE(errorCode)) {
         log_data_err("ucal_open(UTC) failed: %s - (Are you missing data?)\n", u_errorName(errorCode));
         return;
@@ -1590,8 +1615,8 @@ void TestGregorianChange() {
     ucal_close(cal);
 }
 
-static void TestGetKeywordValuesForLocale() {
-#define PREFERRED_SIZE 16
+static void TestGetKeywordValuesForLocale(void) {
+#define PREFERRED_SIZE 26
 #define MAX_NUMBER_OF_KEYWORDS 5
     const char *PREFERRED[PREFERRED_SIZE][MAX_NUMBER_OF_KEYWORDS+1] = {
             { "root",        "gregorian", NULL, NULL, NULL, NULL },
@@ -1610,8 +1635,20 @@ static void TestGetKeywordValuesForLocale() {
             { "zh_TW",       "gregorian", "roc", "chinese", NULL, NULL },
             { "ar_IR",       "gregorian", "persian", "islamic", "islamic-civil", "islamic-tbla" },  // android-changed
             { "th@rg=SAZZZZ", "gregorian", "islamic-umalqura", "islamic", "islamic-rgsa", NULL },  // android-changed
+
+            // tests for ICU-22364
+            { "zh_CN@rg=TW",           "gregorian", "chinese", NULL, NULL, NULL }, // invalid subdivision code
+            { "zh_CN@rg=TWzzzz",       "gregorian", "roc", "chinese", NULL, NULL }, // whole region
+            { "zh_TW@rg=TWxxxx",       "gregorian", "roc", "chinese", NULL, NULL }, // invalid subdivision code (ignored)
+            { "zh_TW@rg=ARa",          "gregorian", NULL, NULL, NULL, NULL }, // single-letter subdivision code
+            { "zh_TW@rg=AT1",          "gregorian", NULL, NULL, NULL, NULL }, // single-digit subdivision code
+            { "zh_TW@rg=USca",         "gregorian", NULL, NULL, NULL, NULL }, // two-letter subdivision code
+            { "zh_TW@rg=IT53",         "gregorian", NULL, NULL, NULL, NULL }, // two-digit subdivision code
+            { "zh_TW@rg=AUnsw",        "gregorian", NULL, NULL, NULL, NULL }, // three-letter subdivision code
+            { "zh_TW@rg=EE130",        "gregorian", NULL, NULL, NULL, NULL }, // three-digit subdivision code
+            { "zh_TW@rg=417zzzz",      "gregorian", NULL, NULL, NULL, NULL }, // three-digit region code
     };
-    const int32_t EXPECTED_SIZE[PREFERRED_SIZE] = { 1, 1, 1, 1, 2, 2, 2, 5, 5, 2, 2, 2, 1, 3, 5, 4 };
+    const int32_t EXPECTED_SIZE[PREFERRED_SIZE] = { 1, 1, 1, 1, 2, 2, 2, 5, 5, 2, 2, 2, 1, 3, 5, 4, 2, 3, 3, 1, 1, 1, 1, 1, 1, 1 };
     UErrorCode status = U_ZERO_ERROR;
     int32_t i, size, j;
     UEnumeration *all, *pref;
@@ -1691,7 +1728,7 @@ static void TestGetKeywordValuesForLocale() {
 
 /*
  * Weekend tests, ported from
- * icu4j/trunk/main/tests/core/src/com/ibm/icu/dev/test/calendar/IBMCalendarTest.java
+ * icu4j/main/core/src/test/java/com/ibm/icu/dev/test/calendar/IBMCalendarTest.java
  * and extended a bit. Notes below from IBMCalendarTest.java ...
  * This test tests for specific locale data. This is probably okay
  * as far as US data is concerned, but if the Arabic/Yemen data
@@ -1779,7 +1816,7 @@ static const UChar logDateFormat[] = { 0x0045,0x0045,0x0045,0x0020,0x004D,0x004D
                                        0x0073,0x0073,0x002E,0x0053,0x0053,0x0053,0 }; /* "EEE MMM dd yyyy G HH:mm:ss.SSS" */
 enum { kFormattedDateMax = 2*UPRV_LENGTHOF(logDateFormat) };
 
-static void TestWeekend() {
+static void TestWeekend(void) {
     const TestWeekendDatesList * testDatesPtr = testDates;
     const TestDaysOfWeekList *   testDaysPtr = testDays;
     int32_t count, subCount;
@@ -1919,7 +1956,7 @@ static const TFDItem tfdItems[] = {
     { NULL,        NULL,           0.0,               0.0,              false,    0,   0,     0,      0,        0,          0 }  /* terminator */
 };
 
-void TestFieldDifference() {
+void TestFieldDifference(void) {
     const TFDItem * tfdItemPtr;
     for (tfdItemPtr = tfdItems; tfdItemPtr->timezone != NULL; tfdItemPtr++) {
         UErrorCode status = U_ZERO_ERROR;
@@ -1994,7 +2031,7 @@ void TestFieldDifference() {
     }
 }
 
-void TestAmbiguousWallTime() {
+void TestAmbiguousWallTime(void) {
     UErrorCode status = U_ZERO_ERROR;
     UChar tzID[32];
     UCalendar* ucal;
@@ -2125,7 +2162,7 @@ static const EraTestItem eraTestItems[] = {
 
 static const UChar zoneGMT[] = { 0x47,0x4D,0x54,0 };
 
-void TestAddRollEra0AndEraBounds() {
+void TestAddRollEra0AndEraBounds(void) {
     const EraTestItem * eraTestItemPtr;
     for (eraTestItemPtr = eraTestItems; eraTestItemPtr->locale != NULL; eraTestItemPtr++) {
         UErrorCode status = U_ZERO_ERROR;
@@ -2348,7 +2385,7 @@ static const TZTransitionItem tzTransitionItems[] = {
     { NULL,                 NULL,             0,         0, 0, false, false } /* terminator */
 };
 
-void TestGetTZTransition() {
+void TestGetTZTransition(void) {
     UErrorCode status = U_ZERO_ERROR;
     UCalendar * ucal = ucal_open(zoneGMT, -1, "en", UCAL_GREGORIAN, &status);
     if ( U_SUCCESS(status) ) {
@@ -2418,7 +2455,7 @@ static const UChar sBogusWithVariantCharacters[] = /* Bogus with Variant charact
     {0x48,0xE8,0x2113,0x2113,0xF4,0x20,0x57,0xF4,0x159,0x2113,0x3B4,0x00};
 #endif
 
-void TestGetWindowsTimeZoneID() {
+void TestGetWindowsTimeZoneID(void) {
     UErrorCode status;
     UChar winID[64];
     int32_t len;
@@ -2452,7 +2489,7 @@ void TestGetWindowsTimeZoneID() {
     }
 }
 
-void TestGetTimeZoneIDByWindowsID() {
+void TestGetTimeZoneIDByWindowsID(void) {
     UErrorCode status;
     UChar tzID[64];
     int32_t len;
@@ -2506,7 +2543,7 @@ void TestGetTimeZoneIDByWindowsID() {
 
 // The following currently assumes that Reiwa is the last known/valid era.
 // Filed ICU-20551 to generalize this when we have more time...
-void TestJpnCalAddSetNextEra() {
+void TestJpnCalAddSetNextEra(void) {
     UErrorCode status = U_ZERO_ERROR;
     UCalendar *jCal = ucal_open(NULL, 0, "ja_JP@calendar=japanese", UCAL_DEFAULT, &status);
     if ( U_FAILURE(status) ) {
@@ -2551,7 +2588,7 @@ void TestJpnCalAddSetNextEra() {
     }
 }
 
-void TestUcalOpenBufferRead() {
+void TestUcalOpenBufferRead(void) {
     // ICU-21004: The issue shows under valgrind or as an Address Sanitizer failure.
     UErrorCode status = U_ZERO_ERROR;
     // string length: 157 + 1 + 100 = 258
@@ -2565,7 +2602,7 @@ void TestUcalOpenBufferRead() {
  * Testing ucal_getTimeZoneOffsetFromLocal
  */
 void
-TestGetTimeZoneOffsetFromLocal() {
+TestGetTimeZoneOffsetFromLocal(void) {
     static const UChar utc[] = u"Etc/GMT";
 
     const int32_t HOUR = 60*60*1000;
@@ -2774,6 +2811,84 @@ TestGetTimeZoneOffsetFromLocal() {
         }
     }
     ucal_close(cal);
+}
+
+void
+TestFWWithISO8601(void) {
+    /* UCAL_SUNDAY is 1, UCAL_MONDAY is 2, ..., UCAL_SATURDAY is 7 */
+    const char* LOCALES[] = {
+        "",
+        "en-u-ca-iso8601-fw-sun",
+        "en-u-ca-iso8601-fw-mon",
+        "en-u-ca-iso8601-fw-tue",
+        "en-u-ca-iso8601-fw-wed",
+        "en-u-ca-iso8601-fw-thu",
+        "en-u-ca-iso8601-fw-fri",
+        "en-u-ca-iso8601-fw-sat",
+    };
+    for (int32_t i = UCAL_SUNDAY; i <= UCAL_SATURDAY; i++) {
+        const char* locale = LOCALES[i];
+        UErrorCode status = U_ZERO_ERROR;
+        UCalendar* cal = ucal_open(0, 0, locale, UCAL_TRADITIONAL, &status);
+        if(U_FAILURE(status)){
+            log_data_err("FAIL: error in ucal_open caldef : %s\n - (Are you missing data?)", u_errorName(status));
+        }
+        int32_t actual = ucal_getAttribute(cal, UCAL_FIRST_DAY_OF_WEEK);
+        if (i != actual) {
+            log_err("ERROR: ucal_getAttribute(\"%s\", UCAL_FIRST_DAY_OF_WEEK) should be %d but get %d\n",
+                    locale, i, actual);
+        }
+        ucal_close(cal);
+    }
+}
+
+void
+TestGetIanaTimeZoneID(void) {
+    const UChar* UNKNOWN = u"Etc/Unknown";
+    typedef struct {
+        const UChar* id;
+        const UChar* expected;
+    } IanaTimeZoneIDTestData;
+    
+    const IanaTimeZoneIDTestData TESTDATA[] = {
+        {u"",                   UNKNOWN},
+        {0,                     UNKNOWN},
+        {UNKNOWN,               UNKNOWN},
+        {u"America/New_York",   u"America/New_York"},
+        {u"Asia/Calcutta",      u"Asia/Kolkata"},
+        {u"Europe/Kiev",        u"Europe/Kyiv"},
+        {u"Europe/Zaporozhye",  u"Europe/Kyiv"},
+        {u"Etc/GMT-1",          u"Etc/GMT-1"},
+        {u"Etc/GMT+20",         UNKNOWN},
+        {u"PST8PDT",            u"PST8PDT"},
+        {u"GMT-08:00",          UNKNOWN},
+        {0,                     0}
+    };
+
+    for (int32_t i = 0; TESTDATA[i].expected != 0; i++) {
+        UErrorCode sts = U_ZERO_ERROR;
+        UChar ianaID[128];
+        int32_t ianaLen = 0;
+
+        ianaLen = ucal_getIanaTimeZoneID(TESTDATA[i].id, -1, ianaID, sizeof(ianaID), &sts);
+
+        if (u_strcmp(TESTDATA[i].expected, UNKNOWN) == 0) {
+            if (sts != U_ILLEGAL_ARGUMENT_ERROR) {
+                log_err("Expected U_ILLEGAL_ERROR: TESTDATA[%d]", i);
+            }
+        } else {
+            if (u_strlen(TESTDATA[i].expected) != ianaLen || u_strncmp(TESTDATA[i].expected, ianaID, ianaLen) != 0) {
+                log_err("Error: TESTDATA[%d]", i);
+            }
+            // Calling ucal_getIanaTimeZoneID with an IANA ID should return the same
+            UChar ianaID2[128];
+            int32_t ianaLen2 = 0;
+            ianaLen2 = ucal_getIanaTimeZoneID(ianaID, ianaLen, ianaID2, sizeof(ianaID2), &sts);
+            if (U_FAILURE(sts) || ianaLen != ianaLen2 || u_strncmp(ianaID, ianaID2, ianaLen) != 0) {
+                    log_err("Error: IANA ID for IANA ID %s", ianaID);
+                }
+        }
+    }
 }
 
 #endif /* #if !UCONFIG_NO_FORMATTING */

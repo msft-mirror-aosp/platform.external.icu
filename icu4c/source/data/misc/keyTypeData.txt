@@ -8,6 +8,9 @@ keyTypeData:table(nofallback){
         }
         tz:alias{"/ICUDATA/timezoneTypes/bcpTypeAlias/tz"}
     }
+    ianaMap{
+        timezone:alias{"/ICUDATA/timezoneTypes/ianaMap/timezone"}
+    }
     keyInfo{
         deprecated{
             kh{"true"}
@@ -71,6 +74,7 @@ keyTypeData:table(nofallback){
         deprecated{
             co{
                 direct{"true"}
+                reformed{"true"}
             }
         }
     }
@@ -442,6 +446,7 @@ keyTypeData:table(nofallback){
             xbc{""}
             xbd{""}
             xcd{""}
+            xcg{""}
             xdr{""}
             xeu{""}
             xfo{""}

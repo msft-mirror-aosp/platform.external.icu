@@ -9,7 +9,7 @@ import java.util.ArrayList;
 
 import org.junit.Test;
 
-import android.icu.dev.test.TestFmwk;
+import android.icu.dev.test.CoreTestFmwk;
 import android.icu.dev.test.TestUtil;
 import android.icu.number.LocalizedNumberFormatter;
 import android.icu.number.NumberFormatter;
@@ -21,7 +21,7 @@ import android.icu.testsharding.MainTestShard;
  *
  */
 @MainTestShard
-public class NumberPermutationTest extends TestFmwk {
+public class NumberPermutationTest extends CoreTestFmwk {
 
     static final String[] kSkeletonParts = {
         // Notation
