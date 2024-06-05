@@ -38,13 +38,28 @@ public class AndroidDataFiles {
     public static final String ANDROID_I18N_ROOT_ENV = "ANDROID_I18N_ROOT";
     public static final String ANDROID_TZDATA_ROOT_ENV = "ANDROID_TZDATA_ROOT";
 
+    /**
+     * This is identical to
+     * {@link com.android.i18n.timezone.TzDataSetVersion#CURRENT_FORMAT_MAJOR_VERSION}, but because
+     * dependency is in the opposite direction we can't refer to that field from this class.
+     * TzDataSetVersionTest ensures that their values are the same.
+     */
     // VisibleForTesting
-    public static String getTimeZoneModuleIcuFile(String fileName) {
+    // LINT.IfChange
+    public static final int CURRENT_MAJOR_VERSION = 8;
+    // LINT.ThenChange(external/icu/android_icu4j/libcore_bridge/src/java/com/android/i18n/timezone/TzDataSetVersion.java)
+
+    // VisibleForTesting
+    public static String getTimeZoneModuleIcuFileAtOldLocation(String fileName) {
         return getTimeZoneModuleFile("icu/" + fileName);
     }
 
     private static String getTimeZoneModuleFile(String fileName) {
         return System.getenv(ANDROID_TZDATA_ROOT_ENV) + "/etc/" + fileName;
+    }
+
+    private static String getTimeZoneModuleIcuFile(String fileName) {
+        return getTimeZoneModuleFile("tz/versioned/" + CURRENT_MAJOR_VERSION + "/icu/" + fileName);
     }
 
     // VisibleForTesting
@@ -64,7 +79,13 @@ public class AndroidDataFiles {
 
         // ICU should look for a mounted time zone module file in /apex. This is used for
         // (optional) time zone data that can be updated with an APEX file.
-        String timeZoneModuleIcuDataPath = getTimeZoneModuleIcuFile("");
+        paths.add(getTimeZoneModuleIcuFile(""));
+
+        // TODO (b/319103072): remove this path once prebuilts are updated.
+        // Starting from V content of the tzdata module is versioned so it can be used across
+        // multiple Android releases. timeZoneModuleIcuDataPath will be removed once all prebuilts
+        // are updated. Production tzdata6 won't have ICU files under etc/icu.
+        String timeZoneModuleIcuDataPath = getTimeZoneModuleIcuFileAtOldLocation("");
         paths.add(timeZoneModuleIcuDataPath);
 
         // ICU should always look in the i18n module path as this is where most of the data
