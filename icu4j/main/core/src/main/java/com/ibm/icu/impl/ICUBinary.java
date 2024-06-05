@@ -20,6 +20,7 @@ import java.nio.ByteOrder;
 import java.nio.channels.FileChannel;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.MissingResourceException;
 import java.util.Set;
@@ -279,7 +280,8 @@ public final class ICUBinary {
         }
     }
 
-    private static final List<DataFile> icuDataFiles = new ArrayList<>();
+    // Android-changed: make icuDataFiles immutable and assign value exactly once.
+    private static final List<DataFile> icuDataFiles;
 
     static {
         // BEGIN Android-changed: Initialize ICU data file paths.
@@ -293,9 +295,15 @@ public final class ICUBinary {
             dataPath = AndroidDataFiles.generateIcuDataPath();
         }
         // END Android-changed: Initialize ICU data file paths.
+        // BEGIN Android-changed: make icuDataFiles immutable and assign value exactly once.
         if (dataPath != null) {
-            addDataFilesFromPath(dataPath, icuDataFiles);
+            List<DataFile> resolvedFiles = new ArrayList<>();
+            addDataFilesFromPath(dataPath, resolvedFiles);
+            icuDataFiles = Collections.unmodifiableList(resolvedFiles);
+        } else {
+            icuDataFiles = Collections.emptyList();
         }
+        // END Android-changed: make icuDataFiles immutable and assign value exactly once.
     }
 
     private static void addDataFilesFromPath(String dataPath, List<DataFile> files) {
@@ -318,7 +326,8 @@ public final class ICUBinary {
                 path = path.substring(0, path.length() - 1);
             }
             if (path.length() != 0) {
-                addDataFilesFromFolder(new File(path), new StringBuilder(), icuDataFiles);
+                // Android-changed: pass `files` argument and not icuDataFiles.
+                addDataFilesFromFolder(new File(path), new StringBuilder(), files);
             }
             if (sepIndex < 0) {
                 break;
