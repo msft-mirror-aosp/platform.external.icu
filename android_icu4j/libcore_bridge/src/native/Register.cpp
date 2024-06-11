@@ -53,6 +53,7 @@ jint JNI_OnLoad(JavaVM* vm, void*) {
     REGISTER(register_com_android_icu_util_CaseMapperNative);
     REGISTER(register_com_android_icu_util_Icu4cMetadata);
     REGISTER(register_com_android_icu_util_LocaleNative);
+    REGISTER(register_com_android_icu_util_UResourceBundleNative);
     REGISTER(register_com_android_icu_util_regex_PatternNative);
     REGISTER(register_com_android_icu_util_regex_MatcherNative);
     REGISTER(register_com_android_icu_util_charset_NativeConverter);
