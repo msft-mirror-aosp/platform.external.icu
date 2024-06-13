@@ -127,11 +127,6 @@ class IcuRegistration final {
   IcuRegistration();
 
   static bool pathExists(const std::string& path);
-  // TODO (b/319103072): remove this method once prebuilts are updated.
-  // Production tzdata6 will have versioned files only. Keeping this method while there are
-  // prebuilts which have ICU file(s) under /etc/icu and not /etc/tz/versioned/*/icu directory in
-  // the tzdata APEX.
-  static std::string getPreVTimeZoneModulePath();
   static std::string getTimeZoneModulePath();
   static std::string getI18nModulePath();
 
