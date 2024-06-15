@@ -19,6 +19,7 @@ package com.android.libcore.java.text;
 import static org.junit.Assert.assertEquals;
 
 import android.icu.testsharding.MainTestShard;
+import android.icu.util.VersionInfo;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -42,6 +43,10 @@ public class NumberFormatTest {
     // See http://b/162744366.
     @Test
     public void testMonetarySeparator() {
+        // Skip this test on U or lower due to a change in j.t.DecimalFormat. b/346454577
+        if (VersionInfo.ICU_VERSION.getMajor() < 75) {
+            return;
+        }
         Locale locale = Locale.forLanguageTag("en-BE");
         DecimalFormat df = (DecimalFormat) NumberFormat.getCurrencyInstance(locale);
         DecimalFormatSymbols dfs = df.getDecimalFormatSymbols();
