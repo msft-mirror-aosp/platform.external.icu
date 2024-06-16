@@ -47,21 +47,12 @@ public final class TimeZoneDataFiles {
      */
     // VisibleForTesting
     public static String[] getTimeZoneFilePaths(String fileName) {
-        return new String[] {
-                // TODO(b/319103072) There should be only versioned path.
-                getTimeZoneModuleTzFile(fileName),
-                getVersionedTimeZoneModuleTzFile(fileName) };
+        return new String[] { getTimeZoneModuleTzFile(fileName) };
     }
 
-    // TODO(b/319103072) This should be removed once prebuilts are updated.
-    public static String getVersionedTimeZoneModuleTzFile(String fileName) {
+    public static String getTimeZoneModuleTzFile(String fileName) {
         return getTimeZoneModuleFile("tz/versioned/"
                 + TzDataSetVersion.currentFormatMajorVersion() + "/" + fileName);
-    }
-
-    // TODO(b/319103072) This method should read from versioned directory.
-    public static String getTimeZoneModuleTzFile(String fileName) {
-        return getTimeZoneModuleFile("tz/" + fileName);
     }
 
     // Remove from CorePlatformApi when all users in platform code are removed. http://b/123398797
