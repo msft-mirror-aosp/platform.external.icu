@@ -27,6 +27,8 @@ import android.icu.text.DecimalFormatSymbols;
 import android.icu.util.TimeZone;
 import android.icu.util.ULocale;
 
+import com.android.icu.util.UResourceBundleNative;
+
 import dalvik.annotation.compat.VersionCodes;
 
 /**
@@ -85,6 +87,10 @@ public final class ZygoteHooks {
         // It's in the end of preload because preload and ICU4J initialization should succeed
         // without this property. Otherwise, it indicates that the Android patch is not working.
         System.setProperty(PROP_ICUBINARY_DATA_PATH, AndroidDataFiles.generateIcuDataPath());
+
+        // Cache the timezone bundles, e.g. metaZones.res, in Zygote due to app compat.
+        // http://b/339899412
+        UResourceBundleNative.cacheTimeZoneBundles();
     }
 
     /**
