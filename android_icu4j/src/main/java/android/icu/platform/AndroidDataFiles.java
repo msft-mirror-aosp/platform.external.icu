@@ -49,11 +49,6 @@ public class AndroidDataFiles {
     public static final int CURRENT_MAJOR_VERSION = 8;
     // LINT.ThenChange(external/icu/android_icu4j/libcore_bridge/src/java/com/android/i18n/timezone/TzDataSetVersion.java)
 
-    // VisibleForTesting
-    public static String getTimeZoneModuleIcuFileAtOldLocation(String fileName) {
-        return getTimeZoneModuleFile("icu/" + fileName);
-    }
-
     private static String getTimeZoneModuleFile(String fileName) {
         return System.getenv(ANDROID_TZDATA_ROOT_ENV) + "/etc/" + fileName;
     }
@@ -72,20 +67,14 @@ public class AndroidDataFiles {
     }
 
     public static String generateIcuDataPath() {
-        List<String> paths = new ArrayList<>(3);
+        List<String> paths = new ArrayList<>(2);
 
         // Note: This logic below should match the logic in IcuRegistration.cpp in external/icu/
         // to ensure consistent behavior between ICU4C and ICU4J.
 
         // ICU should look for a mounted time zone module file in /apex. This is used for
-        // (optional) time zone data that can be updated with an APEX file.
-        paths.add(getTimeZoneModuleIcuFile(""));
-
-        // TODO (b/319103072): remove this path once prebuilts are updated.
-        // Starting from V content of the tzdata module is versioned so it can be used across
-        // multiple Android releases. timeZoneModuleIcuDataPath will be removed once all prebuilts
-        // are updated. Production tzdata6 won't have ICU files under etc/icu.
-        String timeZoneModuleIcuDataPath = getTimeZoneModuleIcuFileAtOldLocation("");
+        // time zone data that can be updated with an APEX file.
+        String timeZoneModuleIcuDataPath = getTimeZoneModuleIcuFile("");
         paths.add(timeZoneModuleIcuDataPath);
 
         // ICU should always look in the i18n module path as this is where most of the data
