@@ -216,24 +216,19 @@ IcuRegistration::IcuRegistration() {
   // If it does, map it so we use its data in preference to later ones.
   // However, I18N apex is not expected to have the time zone data resources.
   // http://b/171542040
-  std::string tzModulePath = getTimeZoneModulePath();
-  std::string tzIcuDataPath = tzModulePath + "icu_tzdata.dat";
+  std::string tzIcuDataPath = getTimeZoneModulePath();
   if (pathExists(tzIcuDataPath)) {
-    AICU_LOGD("Time zone APEX ICU file found: %s", tzIcuDataPath.c_str());
-    icu_datamap_from_tz_module_ = impl::IcuDataMap::Create(tzIcuDataPath);
-    if (icu_datamap_from_tz_module_ == nullptr) {
-      AICU_LOGW("TZ module .dat file %s exists but could not be loaded. Skipping.",
-          tzIcuDataPath.c_str());
-    }
-  } else {
     UErrorCode status = U_ZERO_ERROR;
-    u_setTimeZoneFilesDirectory(tzModulePath.c_str(), &status);
+    u_setTimeZoneFilesDirectory(tzIcuDataPath.c_str(), &status);
     if (U_SUCCESS(status)) {
-      AICU_LOGD("u_setTimeZoneFilesDirectory(\"%s\") succeeded. ", tzModulePath.c_str());
+      AICU_LOGD("u_setTimeZoneFilesDirectory(\"%s\") succeeded. ", tzIcuDataPath.c_str());
     } else {
       AICU_LOGE("u_setTimeZoneFilesDirectory(\"%s\") failed: %s",
-          tzModulePath.c_str(), u_errorName(status));
+          tzIcuDataPath.c_str(), u_errorName(status));
     }
+  } else {
+    AICU_LOGE("IcuRegistration: no time zone files were found. %s does not exist.",
+        tzIcuDataPath.c_str());
   }
 
   // Use the ICU data files that shipped with the i18n module for everything
@@ -259,8 +254,11 @@ bool IcuRegistration::pathExists(const std::string& path) {
   return stat(path.c_str(), &sb) == 0;
 }
 
-// Returns a string containing the expected path of the /apex tz
-// module ICU data directory
+// Identical to TzDataSetVersion#CURRENT_MAJOR_FORMAT_VERSION.
+// LINT.IfChange
+static const std::string CURRENT_MAJOR_FORMAT_VERSION = "8";
+// LINT.ThenChange(external/icu/android_icu4j/libcore_bridge/src/java/com/android/i18n/timezone/TzDataSetVersion.java)
+
 std::string IcuRegistration::getTimeZoneModulePath() {
   const char* tzdataModulePathPrefix = getenv("ANDROID_TZDATA_ROOT");
   if (tzdataModulePathPrefix == NULL) {
@@ -270,7 +268,7 @@ std::string IcuRegistration::getTimeZoneModulePath() {
 
   std::string tzdataModulePath;
   tzdataModulePath = tzdataModulePathPrefix;
-  tzdataModulePath += "/etc/icu/";
+  tzdataModulePath += "/etc/tz/versioned/" + CURRENT_MAJOR_FORMAT_VERSION + "/icu";
   return tzdataModulePath;
 }
 
