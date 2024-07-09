@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<issues format="6" by="lint 8.4.0-alpha08" type="baseline" client="" dependencies="true" name="" variant="all" version="8.4.0-alpha08">
+
+    <issue
+        id="FlaggedApi"
+        message="Field `APPROXIMATELY_SIGN` is a flagged API and should be inside an `if (Flags.icuVApi())` check (or annotate the surrounding method `getFieldForType` with `@FlaggedApi(Flags.FLAG_ICU_V_API) to transfer requirement to caller`)"
+        errorLine1="            return NumberFormat.Field.APPROXIMATELY_SIGN;"
+        errorLine2="                                      ~~~~~~~~~~~~~~~~~~">
+        <location
+            file="external/icu/android_icu4j/src/main/java/android/icu/impl/number/AffixUtils.java"
+            line="282"
+            column="39"/>
+    </issue>
+
+    <issue
+        id="FlaggedApi"
+        message="Method `setDateTimeFormat()` is a flagged API and should be inside an `if (Flags.icuVApi())` check (or annotate the surrounding method `setDateTimeFromCalendar` with `@FlaggedApi(Flags.FLAG_ICU_V_API) to transfer requirement to caller`)"
+        errorLine1="            setDateTimeFormat(style, dateTimeFormat);"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="external/icu/android_icu4j/src/main/java/android/icu/text/DateTimePatternGenerator.java"
+            line="315"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="FlaggedApi"
+        message="Method `getDateTimeFormat()` is a flagged API and should be inside an `if (Flags.icuVApi())` check (or annotate the surrounding method `getBestPattern` with `@FlaggedApi(Flags.FLAG_ICU_V_API) to transfer requirement to caller`)"
+        errorLine1="                getDateTimeFormat(style), 2, 2, timePattern, datePattern);"
+        errorLine2="                ~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="external/icu/android_icu4j/src/main/java/android/icu/text/DateTimePatternGenerator.java"
+            line="702"
+            column="17"/>
+    </issue>
+
+    <issue
+        id="FlaggedApi"
+        message="Method `setDateTimeFormat()` is a flagged API and should be inside an `if (Flags.icuVApi())` check (or annotate the surrounding method `setDateTimeFormat` with `@FlaggedApi(Flags.FLAG_ICU_V_API) to transfer requirement to caller`)"
+        errorLine1="            setDateTimeFormat(style, dateTimeFormat);"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="external/icu/android_icu4j/src/main/java/android/icu/text/DateTimePatternGenerator.java"
+            line="1048"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="FlaggedApi"
+        message="Method `getDateTimeFormat()` is a flagged API and should be inside an `if (Flags.icuVApi())` check (or annotate the surrounding method `getDateTimeFormat` with `@FlaggedApi(Flags.FLAG_ICU_V_API) to transfer requirement to caller`)"
+        errorLine1="        return getDateTimeFormat(DateFormat.MEDIUM);"
+        errorLine2="               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="external/icu/android_icu4j/src/main/java/android/icu/text/DateTimePatternGenerator.java"
+            line="1063"
+            column="16"/>
+    </issue>
+
+    <issue
+        id="FlaggedApi"
+        message="Field `UNICODE_15_1` is a flagged API and should be inside an `if (Flags.icuVApi())` check (or annotate the surrounding method `?` with `@FlaggedApi(Flags.FLAG_ICU_V_API) to transfer requirement to caller`)"
+        errorLine1="        UNICODE_15_1   = getInstance(15, 1, 0, 0);"
+        errorLine2="        ~~~~~~~~~~~~">
+        <location
+            file="external/icu/android_icu4j/src/main/java/android/icu/util/VersionInfo.java"
+            line="528"
+            column="9"/>
+    </issue>
+
+    <issue
+        id="FlaggedApi"
+        message="Field `UNICODE_15_1` is a flagged API and should be inside an `if (Flags.icuVApi())` check (or annotate the surrounding method `?` with `@FlaggedApi(Flags.FLAG_ICU_V_API) to transfer requirement to caller`)"
+        errorLine1="        UNICODE_VERSION = UNICODE_15_1;"
+        errorLine2="                          ~~~~~~~~~~~~">
+        <location
+            file="external/icu/android_icu4j/src/main/java/android/icu/util/VersionInfo.java"
+            line="532"
+            column="27"/>
+    </issue>
+
+</issues>
