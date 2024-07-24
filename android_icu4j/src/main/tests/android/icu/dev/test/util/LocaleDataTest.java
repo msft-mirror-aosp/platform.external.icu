@@ -17,7 +17,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 
-import android.icu.dev.test.TestFmwk;
+import android.icu.dev.test.CoreTestFmwk;
 import android.icu.impl.ICUResourceBundle;
 import android.icu.lang.UScript;
 import android.icu.text.UnicodeSet;
@@ -35,7 +35,7 @@ import android.icu.testsharding.MainTestShard;
  */
 @MainTestShard
 @RunWith(JUnit4.class)
-public class LocaleDataTest extends TestFmwk{
+public class LocaleDataTest extends CoreTestFmwk{
     private ULocale[] availableLocales = null;
 
     public LocaleDataTest(){
@@ -206,6 +206,12 @@ public class LocaleDataTest extends TestFmwk{
         int equalCount = 0;
         for(int i=0; i<availableLocales.length; i++){
             ULocale locale = availableLocales[i];
+            // BEGIN Android-added: Exclude pseudo locales since they are not present in CLDR data.
+            if ("XA".equals(locale.getCountry()) || "XB".equals(locale.getCountry())) {
+                // skip pseudo-locales
+                continue;
+            }
+            // END Android-added: Exclude pseudo locales since they are not present in CLDR data.
             int[] scriptCodes = UScript.getCode(locale);
             if (scriptCodes==null) {
                 // I hate the JDK's solution for deprecated language codes.
@@ -277,6 +283,12 @@ public class LocaleDataTest extends TestFmwk{
         HashSet  testedExemplars = new HashSet();
         for(int i=0; i<availableLocales.length; i++){
             ULocale locale = availableLocales[i];
+            // BEGIN Android-added: Exclude pseudo locales since they are not present in CLDR data.
+            if ("XA".equals(locale.getCountry()) || "XB".equals(locale.getCountry())) {
+                // skip pseudo-locales
+                continue;
+            }
+            // END Android-added: Exclude pseudo locales since they are not present in CLDR data.
             LocaleData ld = LocaleData.getInstance(locale);
             int[] scriptCodes = UScript.getCode(locale);
             if (scriptCodes==null) {

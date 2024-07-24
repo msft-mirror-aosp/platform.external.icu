@@ -115,7 +115,9 @@ en_XA{
             10p-2{"[çéñţî{0} one two]"}
             10p-21{"[žéþţö{0} one two]"}
             10p-24{"[ýöçţö{0} one two]"}
+            10p-27{"[ŕöñţö{0} one two]"}
             10p-3{"[ɱîļļî{0} one two]"}
+            10p-30{"[ǫûéçţö{0} one two]"}
             10p-6{"[ɱîçŕö{0} one two]"}
             10p-9{"[ñåñö{0} one two]"}
             10p1{"[ðéķå{0} one two]"}
@@ -125,7 +127,9 @@ en_XA{
             10p2{"[ĥéçţö{0} one two]"}
             10p21{"[žéţţå{0} one two]"}
             10p24{"[ýöţţå{0} one two]"}
+            10p27{"[ŕöññå{0} one two]"}
             10p3{"[ķîļö{0} one two]"}
+            10p30{"[ǫûéţţå{0} one two]"}
             10p6{"[ɱéĝå{0} one two]"}
             10p9{"[ĝîĝå{0} one two]"}
             per{"[{0} þéŕ {1} one two]"}
@@ -342,6 +346,7 @@ en_XA{
                 dnam{"[ǫûåŕţéŕš one two]"}
                 one{"[{0} ǫûåŕţéŕ one two]"}
                 other{"[{0} ǫûåŕţéŕš one two]"}
+                per{"[{0}⁄ǫ one]"}
             }
             second{
                 dnam{"[šéçöñðš one two]"}
@@ -775,6 +780,11 @@ en_XA{
                 one{"[{0} ƀåŕ one two]"}
                 other{"[{0} ƀåŕš one two]"}
             }
+            gasoline-energy-density{
+                dnam{"[öƒ ĝåšöļîñé éǫûîṽåļéñţ one two three]"}
+                one{"[{0} öƒ ĝåšöļîñé éǫûîṽåļéñţ one two three]"}
+                other{"[{0} öƒ ĝåšöļîñé éǫûîṽåļéñţ one two three]"}
+            }
             hectopascal{
                 dnam{"[ĥéçţöþåšçåļš one two]"}
                 one{"[{0} ĥéçţöþåšçåļ one two three]"}
@@ -817,6 +827,11 @@ en_XA{
             }
         }
         speed{
+            beaufort{
+                dnam{"[Ɓéåûƒöŕţ one two]"}
+                one{"[Ɓéåûƒöŕţ {0} one two]"}
+                other{"[Ɓéåûƒöŕţ {0} one two]"}
+            }
             kilometer-per-hour{
                 dnam{"[ķîļöɱéţéŕš þéŕ ĥöûŕ one two three]"}
                 one{"[{0} ķîļöɱéţéŕ þéŕ ĥöûŕ one two three]"}
@@ -1148,7 +1163,64 @@ en_XA{
             }
         }
         compound{
+            1024p1{"[Ķî{0} one]"}
+            1024p2{"[Ṁî{0} one]"}
+            1024p3{"[Ĝî{0} one]"}
+            1024p4{"[Ţî{0} one]"}
+            1024p5{"[Þî{0} one]"}
+            1024p6{"[Éî{0} one]"}
+            1024p7{"[Žî{0} one]"}
+            1024p8{"[Ýî{0} one]"}
+            10p-1{"[ð{0} one]"}
+            10p-12{"[þ{0} one]"}
+            10p-15{"[ƒ{0} one]"}
+            10p-18{"[å{0} one]"}
+            10p-2{"[ç{0} one]"}
+            10p-21{"[ž{0} one]"}
+            10p-24{"[ý{0} one]"}
+            10p-27{"[ŕ{0} one]"}
+            10p-3{"[ɱ{0} one]"}
+            10p-30{"[ǫ{0} one]"}
+            10p-6{"[μ{0} one]"}
+            10p-9{"[ñ{0} one]"}
+            10p1{"[ðå{0} one]"}
+            10p12{"[Ţ{0} one]"}
+            10p15{"[Þ{0} one]"}
+            10p18{"[É{0} one]"}
+            10p2{"[ĥ{0} one]"}
+            10p21{"[Ž{0} one]"}
+            10p24{"[Ý{0} one]"}
+            10p27{"[Ŕ{0} one]"}
+            10p3{"[ķ{0} one]"}
+            10p30{"[Ǫ{0} one]"}
+            10p6{"[Ṁ{0} one]"}
+            10p9{"[Ĝ{0} one]"}
             per{"[{0}⁄{1} one two]"}
+            power2{
+                one{
+                    _{
+                        _{"[{0}² one]"}
+                    }
+                }
+                other{
+                    _{
+                        _{"[{0}² one]"}
+                    }
+                }
+            }
+            power3{
+                one{
+                    _{
+                        _{"[{0}³ one]"}
+                    }
+                }
+                other{
+                    _{
+                        _{"[{0}³ one]"}
+                    }
+                }
+            }
+            times{"[{0}⋅{1} one two]"}
         }
         concentr{
             item{
@@ -1337,6 +1409,7 @@ en_XA{
                 dnam{"[ǫţŕ one]"}
                 one{"[{0} ǫţŕ one two]"}
                 other{"[{0} ǫţŕš one two]"}
+                per{"[{0}⁄ǫ one]"}
             }
             second{
                 dnam{"[šéçš one]"}
@@ -1466,6 +1539,11 @@ en_XA{
             }
         }
         graphics{
+            dot{
+                dnam{"[ðöţš one]"}
+                one{"[{0} ðöţ one two]"}
+                other{"[{0} ðöţš one two]"}
+            }
             dot-per-centimeter{
                 dnam{"[ðþçɱ one]"}
                 one{"[{0} ðþçɱ one two]"}
@@ -1518,6 +1596,11 @@ en_XA{
                 dnam{"[ðɱ one]"}
                 one{"[{0} ðɱ one]"}
                 other{"[{0} ðɱ one]"}
+            }
+            earth-radius{
+                dnam{"[éåŕţĥ ŕåðîûš one two]"}
+                one{"[{0} Ŕ⊕ one]"}
+                other{"[{0} Ŕ⊕ one]"}
             }
             fathom{
                 dnam{"[ƒåţĥöɱš one two]"}
@@ -1615,6 +1698,16 @@ en_XA{
             }
         }
         light{
+            candela{
+                dnam{"[çåñðéļå one two]"}
+                one{"[{0} çð one]"}
+                other{"[{0} çð one]"}
+            }
+            lumen{
+                dnam{"[ļûɱéñ one]"}
+                one{"[{0} ļɱ one]"}
+                other{"[{0} ļɱ one]"}
+            }
             lux{
                 dnam{"[ļûẋ one]"}
                 one{"[{0} ļẋ one]"}
@@ -1643,7 +1736,9 @@ en_XA{
                 other{"[{0} Ṁ⊕ one]"}
             }
             grain{
-                other{"[{0} ĝŕåîñ one two]"}
+                dnam{"[ĝŕåîñš one]"}
+                one{"[{0} ĝŕ one]"}
+                other{"[{0} ĝŕ one]"}
             }
             gram{
                 dnam{"[ĝŕåɱš one]"}
@@ -1748,6 +1843,11 @@ en_XA{
                 one{"[{0} ƀåŕ one two]"}
                 other{"[{0} ƀåŕ one two]"}
             }
+            gasoline-energy-density{
+                dnam{"[ĝåš‐éǫûîṽ one two]"}
+                one{"[{0} ĝåš‐éǫûîṽ one two]"}
+                other{"[{0} ĝåš‐éǫûîṽ one two]"}
+            }
             hectopascal{
                 dnam{"[ĥÞå one]"}
                 one{"[{0} ĥÞå one two]"}
@@ -1790,6 +1890,11 @@ en_XA{
             }
         }
         speed{
+            beaufort{
+                dnam{"[Ɓƒţ one]"}
+                one{"[Ɓ {0} one]"}
+                other{"[Ɓ {0} one]"}
+            }
             kilometer-per-hour{
                 dnam{"[ķɱ⁄ĥöûŕ one two]"}
                 one{"[{0} ķɱ⁄ĥ one two]"}
@@ -1821,6 +1926,11 @@ en_XA{
                 dnam{"[ðéĝ· Ƒ one]"}
                 one{"[{0}°Ƒ one]"}
                 other{"[{0}°Ƒ one]"}
+            }
+            generic{
+                dnam{"[ðéĝ· ţéɱþ· one two]"}
+                one{"[{0}° one]"}
+                other{"[{0}° one]"}
             }
             kelvin{
                 dnam{"[Ķ one]"}
@@ -1865,6 +1975,7 @@ en_XA{
                 dnam{"[çɱ³ one]"}
                 one{"[{0} çɱ³ one two]"}
                 other{"[{0} çɱ³ one two]"}
+                per{"[{0}⁄çɱ³ one two]"}
             }
             cubic-foot{
                 dnam{"[ƒééţ³ one]"}
@@ -1885,6 +1996,7 @@ en_XA{
                 dnam{"[ɱ³ one]"}
                 one{"[{0} ɱ³ one]"}
                 other{"[{0} ɱ³ one]"}
+                per{"[{0}⁄ɱ³ one]"}
             }
             cubic-mile{
                 dnam{"[ɱî³ one]"}
@@ -1912,19 +2024,24 @@ en_XA{
                 other{"[{0} ðĻ one]"}
             }
             dessert-spoon{
-                dnam{"[ðšţšþñ one]"}
-                other{"[{0} ðšţšþñ one two]"}
+                dnam{"[ðéššéŕţ šþööñš one two]"}
+                one{"[{0} ðšþ one two]"}
+                other{"[{0} ðšþ one two]"}
             }
             dessert-spoon-imperial{
-                dnam{"[ðšţšþñ Îɱþ one two]"}
-                other{"[{0} ðšţšþñ Îɱþ one two]"}
+                dnam{"[Îɱþ· ðéššéŕţ šþööñš one two three]"}
+                one{"[{0} ðšþ‐Îɱþ· one two]"}
+                other{"[{0} ðšþ‐Îɱþ· one two]"}
             }
             dram{
-                dnam{"[ðŕåɱ ƒļûîð one two]"}
-                other{"[{0} ðŕåɱ ƒļ one two]"}
+                dnam{"[ðŕåɱš one]"}
+                one{"[{0} ðŕåɱ one two]"}
+                other{"[{0} ðŕåɱš one two]"}
             }
             drop{
-                other{"[{0} ðŕöþ one two]"}
+                dnam{"[ðŕöþš one]"}
+                one{"[{0} ðŕ one]"}
+                other{"[{0} ðŕðŕöþš one two]"}
             }
             fluid-ounce{
                 dnam{"[ƒļ öž one]"}
@@ -1946,7 +2063,7 @@ en_XA{
                 dnam{"[Îɱþ· ĝåļ one two]"}
                 one{"[{0} ĝåļ Îɱþ· one two]"}
                 other{"[{0} ĝåļ Îɱþ· one two]"}
-                per{"[{0}⁄ĝåļ Îɱþ· one two]"}
+                per{"[{0}⁄ĝåļÎɱþ one two]"}
             }
             hectoliter{
                 dnam{"[ĥĻ one]"}
@@ -1954,7 +2071,9 @@ en_XA{
                 other{"[{0} ĥĻ one]"}
             }
             jigger{
-                other{"[{0} ĵîĝĝéŕ one two]"}
+                dnam{"[ĵîĝĝéŕš one two]"}
+                one{"[{0} ĵîĝĝéŕ one two]"}
+                other{"[{0} ĵîĝĝéŕš one two]"}
             }
             liter{
                 dnam{"[ļîţéŕš one]"}
@@ -1973,7 +2092,9 @@ en_XA{
                 other{"[{0} ɱĻ one]"}
             }
             pinch{
-                other{"[{0} þîñçĥ one two]"}
+                dnam{"[þîñçĥéš one two]"}
+                one{"[{0} þñ one]"}
+                other{"[{0} þñ one]"}
             }
             pint{
                 dnam{"[þîñţš one]"}
@@ -1991,8 +2112,9 @@ en_XA{
                 other{"[{0} ǫţ one]"}
             }
             quart-imperial{
-                dnam{"[ǫţ Îɱþ one]"}
-                other{"[{0} ǫţ Îɱþ· one two]"}
+                dnam{"[Îɱþ· ǫûåŕţš one two]"}
+                one{"[{0} ǫţ‐Îɱþ· one two]"}
+                other{"[{0} ǫţ‐Îɱþ· one two]"}
             }
             tablespoon{
                 dnam{"[ţƀšþ one]"}

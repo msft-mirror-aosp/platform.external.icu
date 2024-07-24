@@ -253,6 +253,36 @@ ar_XB{
                         "؜‮Twelfth‬؜ ؜‮Month‬؜",
                     }
                 }
+                stand-alone{
+                    abbreviated{
+                        "؜‮Mo‬؜1",
+                        "؜‮Mo‬؜2",
+                        "؜‮Mo‬؜3",
+                        "؜‮Mo‬؜4",
+                        "؜‮Mo‬؜5",
+                        "؜‮Mo‬؜6",
+                        "؜‮Mo‬؜7",
+                        "؜‮Mo‬؜8",
+                        "؜‮Mo‬؜9",
+                        "؜‮Mo‬؜10",
+                        "؜‮Mo‬؜11",
+                        "؜‮Mo‬؜12",
+                    }
+                    wide{
+                        "؜‮First‬؜ ؜‮Month‬؜",
+                        "؜‮Second‬؜ ؜‮Month‬؜",
+                        "؜‮Third‬؜ ؜‮Month‬؜",
+                        "؜‮Fourth‬؜ ؜‮Month‬؜",
+                        "؜‮Fifth‬؜ ؜‮Month‬؜",
+                        "؜‮Sixth‬؜ ؜‮Month‬؜",
+                        "؜‮Seventh‬؜ ؜‮Month‬؜",
+                        "؜‮Eighth‬؜ ؜‮Month‬؜",
+                        "؜‮Ninth‬؜ ؜‮Month‬؜",
+                        "؜‮Tenth‬؜ ؜‮Month‬؜",
+                        "؜‮Eleventh‬؜ ؜‮Month‬؜",
+                        "؜‮Twelfth‬؜ ؜‮Month‬؜",
+                    }
+                }
             }
         }
         generic{
@@ -633,6 +663,35 @@ ar_XB{
                         "؜‮Saturday‬؜",
                     }
                 }
+                stand-alone{
+                    abbreviated{
+                        "؜‮Sun‬؜",
+                        "؜‮Mon‬؜",
+                        "؜‮Tue‬؜",
+                        "؜‮Wed‬؜",
+                        "؜‮Thu‬؜",
+                        "؜‮Fri‬؜",
+                        "؜‮Sat‬؜",
+                    }
+                    short{
+                        "؜‮Su‬؜",
+                        "؜‮Mo‬؜",
+                        "؜‮Tu‬؜",
+                        "؜‮We‬؜",
+                        "؜‮Th‬؜",
+                        "؜‮Fr‬؜",
+                        "؜‮Sa‬؜",
+                    }
+                    wide{
+                        "؜‮Sunday‬؜",
+                        "؜‮Monday‬؜",
+                        "؜‮Tuesday‬؜",
+                        "؜‮Wednesday‬؜",
+                        "؜‮Thursday‬؜",
+                        "؜‮Friday‬؜",
+                        "؜‮Saturday‬؜",
+                    }
+                }
             }
             dayPeriod{
                 format{
@@ -873,23 +932,51 @@ ar_XB{
                 }
                 stand-alone{
                     abbreviated{
-                        "Jan",
-                        "Feb",
-                        "Mar",
-                        "Apr",
-                        "May",
-                        "Jun",
-                        "Jul",
-                        "Aug",
+                        "؜‮Jan‬؜",
+                        "؜‮Feb‬؜",
+                        "؜‮Mar‬؜",
+                        "؜‮Apr‬؜",
+                        "؜‮May‬؜",
+                        "؜‮Jun‬؜",
+                        "؜‮Jul‬؜",
+                        "؜‮Aug‬؜",
                         "؜‮Sep‬؜",
-                        "Oct",
-                        "Nov",
-                        "Dec",
+                        "؜‮Oct‬؜",
+                        "؜‮Nov‬؜",
+                        "؜‮Dec‬؜",
+                    }
+                    wide{
+                        "؜‮January‬؜",
+                        "؜‮February‬؜",
+                        "؜‮March‬؜",
+                        "؜‮April‬؜",
+                        "؜‮May‬؜",
+                        "؜‮June‬؜",
+                        "؜‮July‬؜",
+                        "؜‮August‬؜",
+                        "؜‮September‬؜",
+                        "؜‮October‬؜",
+                        "؜‮November‬؜",
+                        "؜‮December‬؜",
                     }
                 }
             }
             quarters{
                 format{
+                    abbreviated{
+                        "؜‮Q‬؜1",
+                        "؜‮Q‬؜2",
+                        "؜‮Q‬؜3",
+                        "؜‮Q‬؜4",
+                    }
+                    wide{
+                        "1؜‮st‬؜ ؜‮quarter‬؜",
+                        "2؜‮nd‬؜ ؜‮quarter‬؜",
+                        "3؜‮rd‬؜ ؜‮quarter‬؜",
+                        "4؜‮th‬؜ ؜‮quarter‬؜",
+                    }
+                }
+                stand-alone{
                     abbreviated{
                         "؜‮Q‬؜1",
                         "؜‮Q‬؜2",
@@ -1019,15 +1106,190 @@ ar_XB{
                     y{"d MMM y – d MMM y"}
                 }
             }
+            monthNames{
+                format{
+                    abbreviated{
+                        "؜‮Tishri‬؜",
+                        "؜‮Heshvan‬؜",
+                        "؜‮Kislev‬؜",
+                        "؜‮Tevet‬؜",
+                        "؜‮Shevat‬؜",
+                        "؜‮Adar‬؜ ؜‮I‬؜",
+                        "؜‮Adar‬؜",
+                        "؜‮Nisan‬؜",
+                        "؜‮Iyar‬؜",
+                        "؜‮Sivan‬؜",
+                        "؜‮Tamuz‬؜",
+                        "؜‮Av‬؜",
+                        "؜‮Elul‬؜",
+                        "؜‮Adar‬؜ ؜‮II‬؜",
+                    }
+                }
+                stand-alone{
+                    abbreviated{
+                        "؜‮Tishri‬؜",
+                        "؜‮Heshvan‬؜",
+                        "؜‮Kislev‬؜",
+                        "؜‮Tevet‬؜",
+                        "؜‮Shevat‬؜",
+                        "؜‮Adar‬؜ ؜‮I‬؜",
+                        "؜‮Adar‬؜",
+                        "؜‮Nisan‬؜",
+                        "؜‮Iyar‬؜",
+                        "؜‮Sivan‬؜",
+                        "؜‮Tamuz‬؜",
+                        "؜‮Av‬؜",
+                        "؜‮Elul‬؜",
+                        "؜‮Adar‬؜ ؜‮II‬؜",
+                    }
+                    wide{
+                        "؜‮Tishri‬؜",
+                        "؜‮Heshvan‬؜",
+                        "؜‮Kislev‬؜",
+                        "؜‮Tevet‬؜",
+                        "؜‮Shevat‬؜",
+                        "؜‮Adar‬؜ ؜‮I‬؜",
+                        "؜‮Adar‬؜",
+                        "؜‮Nisan‬؜",
+                        "؜‮Iyar‬؜",
+                        "؜‮Sivan‬؜",
+                        "؜‮Tamuz‬؜",
+                        "؜‮Av‬؜",
+                        "؜‮Elul‬؜",
+                        "؜‮Adar‬؜ ؜‮II‬؜",
+                    }
+                }
+            }
+        }
+        indian{
+            monthNames{
+                format{
+                    abbreviated{
+                        "؜‮Chaitra‬؜",
+                        "؜‮Vaisakha‬؜",
+                        "؜‮Jyaistha‬؜",
+                        "؜‮Asadha‬؜",
+                        "؜‮Sravana‬؜",
+                        "؜‮Bhadra‬؜",
+                        "؜‮Asvina‬؜",
+                        "؜‮Kartika‬؜",
+                        "؜‮Agrahayana‬؜",
+                        "؜‮Pausa‬؜",
+                        "؜‮Magha‬؜",
+                        "؜‮Phalguna‬؜",
+                    }
+                }
+                stand-alone{
+                    abbreviated{
+                        "؜‮Chaitra‬؜",
+                        "؜‮Vaisakha‬؜",
+                        "؜‮Jyaistha‬؜",
+                        "؜‮Asadha‬؜",
+                        "؜‮Sravana‬؜",
+                        "؜‮Bhadra‬؜",
+                        "؜‮Asvina‬؜",
+                        "؜‮Kartika‬؜",
+                        "؜‮Agrahayana‬؜",
+                        "؜‮Pausa‬؜",
+                        "؜‮Magha‬؜",
+                        "؜‮Phalguna‬؜",
+                    }
+                    wide{
+                        "؜‮Chaitra‬؜",
+                        "؜‮Vaisakha‬؜",
+                        "؜‮Jyaistha‬؜",
+                        "؜‮Asadha‬؜",
+                        "؜‮Sravana‬؜",
+                        "؜‮Bhadra‬؜",
+                        "؜‮Asvina‬؜",
+                        "؜‮Kartika‬؜",
+                        "؜‮Agrahayana‬؜",
+                        "؜‮Pausa‬؜",
+                        "؜‮Magha‬؜",
+                        "؜‮Phalguna‬؜",
+                    }
+                }
+            }
         }
         islamic{
+            DateTimePatterns{
+                "h:mm:ss a zzzz",
+                "h:mm:ss a z",
+                "h:mm:ss a",
+                "h:mm a",
+                "EEEE, MMMM d, y G",
+                "MMMM d, y G",
+                "MMM d, y G",
+                "M/d/y GGGGG",
+                "{1}, {0}",
+                "{1}, {0}",
+                "{1}, {0}",
+                "{1}, {0}",
+                "{1}, {0}",
+            }
             availableFormats{
+                E{"ccc"}
+                Ed{"d E"}
+                Gy{"y G"}
+                GyMMM{"MMM y G"}
+                GyMMMEd{"E, MMM d, y G"}
+                GyMMMd{"MMM d, y G"}
+                GyMd{"M/d/y GGGGG"}
+                M{"L"}
                 MEd{"E, M/d"}
+                MMM{"LLL"}
                 MMMEd{"E, MMM d"}
+                MMMMd{"MMMM d"}
+                MMMd{"MMM d"}
+                Md{"M/d"}
+                d{"d"}
+                y{"y G"}
+                yyyy{"y G"}
+                yyyyM{"M/y GGGGG"}
+                yyyyMEd{"E, M/d/y GGGGG"}
+                yyyyMMM{"MMM y G"}
+                yyyyMMMEd{"E, MMM d, y G"}
+                yyyyMMMM{"MMMM y G"}
+                yyyyMMMd{"MMM d, y G"}
+                yyyyMd{"M/d/y GGGGG"}
+                yyyyQQQ{"QQQ y G"}
+                yyyyQQQQ{"QQQQ y G"}
             }
             eras{
                 abbreviated{
                     "؜‮AH‬؜",
+                }
+            }
+            monthNames{
+                stand-alone{
+                    abbreviated{
+                        "؜‮Muh‬؜.",
+                        "؜‮Saf‬؜.",
+                        "؜‮Rab‬؜. ؜‮I‬؜",
+                        "؜‮Rab‬؜. ؜‮II‬؜",
+                        "؜‮Jum‬؜. ؜‮I‬؜",
+                        "؜‮Jum‬؜. ؜‮II‬؜",
+                        "؜‮Raj‬؜.",
+                        "؜‮Sha‬؜.",
+                        "؜‮Ram‬؜.",
+                        "؜‮Shaw‬؜.",
+                        "؜‮Dhuʻl‬؜-؜‮Q‬؜.",
+                        "؜‮Dhuʻl‬؜-؜‮H‬؜.",
+                    }
+                    wide{
+                        "؜‮Muharram‬؜",
+                        "؜‮Safar‬؜",
+                        "؜‮Rabiʻ‬؜ ؜‮I‬؜",
+                        "؜‮Rabiʻ‬؜ ؜‮II‬؜",
+                        "؜‮Jumada‬؜ ؜‮I‬؜",
+                        "؜‮Jumada‬؜ ؜‮II‬؜",
+                        "؜‮Rajab‬؜",
+                        "؜‮Shaʻban‬؜",
+                        "؜‮Ramadan‬؜",
+                        "؜‮Shawwal‬؜",
+                        "؜‮Dhuʻl‬؜-؜‮Qiʻdah‬؜",
+                        "؜‮Dhuʻl‬؜-؜‮Hijjah‬؜",
+                    }
                 }
             }
         }
@@ -1182,6 +1444,11 @@ ar_XB{
         }
         day-short{
             dn{"؜‮day‬؜"}
+            relative{
+                "-1"{"؜‮yesterday‬؜"}
+                "0"{"؜‮today‬؜"}
+                "1"{"؜‮tomorrow‬؜"}
+            }
             relativeTime{
                 future{
                     one{"؜‮in‬؜ {0} ؜‮day‬؜"}
@@ -1639,6 +1906,7 @@ ar_XB{
                 "0"{"؜‮this‬؜ ؜‮wk‬؜."}
                 "1"{"؜‮next‬؜ ؜‮wk‬؜."}
             }
+            relativePeriod{"؜‮the‬؜ ؜‮week‬؜ ؜‮of‬؜ {0}"}
             relativeTime{
                 future{
                     one{"؜‮in‬؜ {0} ؜‮wk‬؜."}
@@ -1719,7 +1987,10 @@ ar_XB{
             start{"{0}, {1}"}
         }
         or-short{
+            2{"{0} ؜‮or‬؜ {1}"}
             end{"{0}, ؜‮or‬؜ {1}"}
+            middle{"{0}, {1}"}
+            start{"{0}, {1}"}
         }
         standard{
             2{"{0} ؜‮and‬؜ {1}"}

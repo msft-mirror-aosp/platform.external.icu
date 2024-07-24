@@ -1147,7 +1147,7 @@ public class FormatHandler
                 // reproduced since formatToCharacterIterator was introduced,
                 // up to ICU 4.0.
 
-                AttributedCharacterIterator aci = formats[0].formatToCharacterIterator(new Double(12.345D));
+                AttributedCharacterIterator aci = formats[0].formatToCharacterIterator(12.345d);
                 if (aci == null) {} // NOP - for resolving 'Unused local variable' warning.
             }
             return formats;
@@ -1746,7 +1746,7 @@ public class FormatHandler
         {
             CurrencyPluralInfo currencyPluralInfo[] = {
                 new CurrencyPluralInfo(), new CurrencyPluralInfo(new ULocale("en_US")),
-                CurrencyPluralInfo.getInstance(), CurrencyPluralInfo.getInstance(new Locale("en_US")),
+                CurrencyPluralInfo.getInstance(), CurrencyPluralInfo.getInstance(new Locale("en", "US")),
                 CurrencyPluralInfo.getInstance(new ULocale("en_US"))
             };
             for(int i=0; i<currencyPluralInfo.length; i++){
@@ -1785,7 +1785,7 @@ public class FormatHandler
         {
             MessageFormat mfa = (MessageFormat) a;
             MessageFormat mfb = (MessageFormat) b;
-            Object arguments[] = {new Integer(123456)};
+            Object arguments[] = {123456};
 
             return mfa.format(arguments) != mfb.format(arguments);
         }

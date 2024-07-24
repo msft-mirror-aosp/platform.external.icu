@@ -7,7 +7,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 
-import android.icu.dev.test.TestFmwk;
+import android.icu.dev.test.CoreTestFmwk;
 import android.icu.impl.CalType;
 import android.icu.impl.EraRules;
 import android.icu.util.Calendar;
@@ -21,7 +21,7 @@ import android.icu.testsharding.MainTestShard;
  */
 @MainTestShard
 @RunWith(JUnit4.class)
-public class EraRulesTest extends TestFmwk {
+public class EraRulesTest extends CoreTestFmwk {
     @Test
     public void testAPIs() {
         for (CalType calType : CalType.values()) {

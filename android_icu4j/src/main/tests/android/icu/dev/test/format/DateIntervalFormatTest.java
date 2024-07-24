@@ -30,7 +30,9 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 
+import android.icu.dev.test.CoreTestFmwk;
 import android.icu.dev.test.TestFmwk;
+import android.icu.impl.DontCareFieldPosition;
 import android.icu.impl.Utility;
 import android.icu.text.ConstrainedFieldPosition;
 import android.icu.text.DateFormat;
@@ -38,6 +40,7 @@ import android.icu.text.DateIntervalFormat;
 import android.icu.text.DateIntervalFormat.FormattedDateInterval;
 import android.icu.text.DateIntervalInfo;
 import android.icu.text.DateIntervalInfo.PatternInfo;
+import android.icu.text.DateTimePatternGenerator;
 import android.icu.text.DisplayContext;
 import android.icu.text.SimpleDateFormat;
 import android.icu.util.Calendar;
@@ -50,7 +53,7 @@ import android.icu.testsharding.MainTestShard;
 
 @MainTestShard
 @RunWith(JUnit4.class)
-public class DateIntervalFormatTest extends TestFmwk {
+public class DateIntervalFormatTest extends CoreTestFmwk {
 
     /**
      *
@@ -465,7 +468,7 @@ public class DateIntervalFormatTest extends TestFmwk {
 
                 "zh", "CE 2007 11 10 10:10:10", "CE 2007 11 20 10:10:10", "dM", "11/10 \\u2013 11/20",
 
-                "zh", "CE 2007 11 10 10:10:10", "CE 2007 11 20 10:10:10", "My", "2007\u5E7411\u6708",
+                "zh", "CE 2007 11 10 10:10:10", "CE 2007 11 20 10:10:10", "My", "2007/11",
                 "zh", "CE 2007 11 10 10:10:10", "CE 2007 11 20 10:10:10", "EdM", "11/10\\u5468\\u516d\\u81f311/20\\u5468\\u4e8c",
 
                 "zh", "CE 2007 11 10 10:10:10", "CE 2007 11 20 10:10:10", "d", "10\\u201320\\u65e5",
@@ -486,21 +489,21 @@ public class DateIntervalFormatTest extends TestFmwk {
 
                 "zh", "CE 2007 01 10 10:00:10", "CE 2007 01 10 14:10:10", "hm", "\\u4e0a\\u534810:00\\u81f3\\u4e0b\\u53482:10",
 
-                "zh", "CE 2007 01 10 10:00:10", "CE 2007 01 10 14:10:10", "hmv", "\\u6D1B\\u6749\\u77F6\\u65F6\\u95F4 \\u4E0A\\u534810:00\\u81F3\\u4E0B\\u53482:10",
+                "zh", "CE 2007 01 10 10:00:10", "CE 2007 01 10 14:10:10", "hmv", "\\u6D1B\\u6749\\u77F6\\u65F6\\u95F4\\u4E0A\\u534810:00\\u81F3\\u4E0B\\u53482:10",
 
-                "zh", "CE 2007 01 10 10:00:10", "CE 2007 01 10 14:10:10", "hmz", "GMT-8 \\u4e0a\\u534810:00\\u81f3\\u4e0b\\u53482:10",
+                "zh", "CE 2007 01 10 10:00:10", "CE 2007 01 10 14:10:10", "hmz", "GMT-8\\u4e0a\\u534810:00\\u81f3\\u4e0b\\u53482:10",
 
                 "zh", "CE 2007 01 10 10:00:10", "CE 2007 01 10 14:10:10", "h", "\\u4e0a\\u534810\\u65F6\\u81f3\\u4e0b\\u53482\\u65f6",
 
-                "zh", "CE 2007 01 10 10:00:10", "CE 2007 01 10 14:10:10", "hv", "\\u6D1B\\u6749\\u77F6\\u65F6\\u95F4 \\u4E0A\\u534810\\u65F6\\u81F3\\u4E0B\\u53482\\u65F6",
+                "zh", "CE 2007 01 10 10:00:10", "CE 2007 01 10 14:10:10", "hv", "\\u6D1B\\u6749\\u77F6\\u65F6\\u95F4\\u4E0A\\u534810\\u65F6\\u81F3\\u4E0B\\u53482\\u65F6",
 
-                "zh", "CE 2007 01 10 10:00:10", "CE 2007 01 10 14:10:10", "hz", "GMT-8 \\u4e0a\\u534810\\u65F6\\u81f3\\u4e0b\\u53482\\u65f6",
+                "zh", "CE 2007 01 10 10:00:10", "CE 2007 01 10 14:10:10", "hz", "GMT-8\\u4e0a\\u534810\\u65F6\\u81f3\\u4e0b\\u53482\\u65f6",
 
                 "zh", "CE 2007 01 10 10:00:10", "CE 2007 01 10 10:20:10", "dMMMM", "1\\u670810\\u65e5", // (fixed expected result per ticket 6872<-6626)
 
                 "zh", "CE 2007 01 10 10:00:10", "CE 2007 01 10 10:20:10", "hm", "\\u4e0a\\u534810:00\\u81f310:20",
 
-                "zh", "CE 2007 01 10 10:00:10", "CE 2007 01 10 10:20:10", "hmv", "\\u6D1B\\u6749\\u77F6\\u65F6\\u95F4 \\u4E0A\\u534810:00\\u81F310:20",
+                "zh", "CE 2007 01 10 10:00:10", "CE 2007 01 10 10:20:10", "hmv", "\\u6D1B\\u6749\\u77F6\\u65F6\\u95F4\\u4E0A\\u534810:00\\u81F310:20",
 
                 "zh", "CE 2007 01 10 10:00:10", "CE 2007 01 10 10:20:10", "h", "\\u4e0a\\u534810\\u65f6",
 
@@ -554,15 +557,15 @@ public class DateIntervalFormatTest extends TestFmwk {
 
                 "de", "CE 2007 10 10 10:10:10", "CE 2007 11 10 10:10:10", "EEEEdMMM", "Mittwoch, 10. Okt.\\u2009\\u2013\\u2009Samstag, 10. Nov.",
 
-                "de", "CE 2007 10 10 10:10:10", "CE 2007 11 10 10:10:10", "EdMy", "Mi., 10.10. \\u2013 Sa., 10.11.2007",
+                "de", "CE 2007 10 10 10:10:10", "CE 2007 11 10 10:10:10", "EdMy", "Mi., 10.10.\\u2009\\u2013\\u2009Sa., 10.11.2007",
 
-                "de", "CE 2007 10 10 10:10:10", "CE 2007 11 10 10:10:10", "dM", "10.10. \\u2013 10.11.",
+                "de", "CE 2007 10 10 10:10:10", "CE 2007 11 10 10:10:10", "dM", "10.10.\\u2009\\u2013\\u200910.11.",
 
                 "de", "CE 2007 10 10 10:10:10", "CE 2007 11 10 10:10:10", "My", "10/2007\\u2009\\u2013\\u200911/2007",
 
-                "de", "CE 2007 10 10 10:10:10", "CE 2007 11 10 10:10:10", "EdM", "Mi., 10.10. \\u2013 Sa., 10.11.",
+                "de", "CE 2007 10 10 10:10:10", "CE 2007 11 10 10:10:10", "EdM", "Mi., 10.10.\\u2009\\u2013\\u2009Sa., 10.11.",
 
-                "de", "CE 2007 10 10 10:10:10", "CE 2007 11 10 10:10:10", "d", "10.10. \\u2013 10.11.",
+                "de", "CE 2007 10 10 10:10:10", "CE 2007 11 10 10:10:10", "d", "10.10.\\u2009\\u2013\\u200910.11.",
 
 
                 "de", "CE 2007 10 10 10:10:10", "CE 2007 11 10 10:10:10", "M", "10–11",
@@ -575,7 +578,7 @@ public class DateIntervalFormatTest extends TestFmwk {
 
                 "de", "CE 2007 10 10 10:10:10", "CE 2007 11 10 10:10:10", "hms", "10.10.2007, 10:10:10\\u202FAM\\u2009\\u2013\\u200910.11.2007, 10:10:10\\u202FAM",
 
-                "de", "CE 2007 11 10 10:10:10", "CE 2007 11 20 10:10:10", "EEEEdMMMy", "Samstag, 10. \\u2013 Dienstag, 20. Nov. 2007",
+                "de", "CE 2007 11 10 10:10:10", "CE 2007 11 20 10:10:10", "EEEEdMMMy", "Samstag, 10.\\u2009\\u2013\\u2009Dienstag, 20. Nov. 2007",
 
                 "de", "CE 2007 11 10 10:10:10", "CE 2007 11 20 10:10:10", "dMMMy", "10.\\u201320. Nov. 2007",
 
@@ -583,9 +586,9 @@ public class DateIntervalFormatTest extends TestFmwk {
 
                 "de", "CE 2007 11 10 10:10:10", "CE 2007 11 20 10:10:10", "MMMy", "Nov. 2007",
 
-                "de", "CE 2007 11 10 10:10:10", "CE 2007 11 20 10:10:10", "EEEEdMMM", "Samstag, 10. \\u2013 Dienstag, 20. Nov.",
+                "de", "CE 2007 11 10 10:10:10", "CE 2007 11 20 10:10:10", "EEEEdMMM", "Samstag, 10.\\u2009\\u2013\\u2009Dienstag, 20. Nov.",
 
-                "de", "CE 2007 11 10 10:10:10", "CE 2007 11 20 10:10:10", "EdMy", "Sa., 10. \\u2013 Di., 20.11.2007",
+                "de", "CE 2007 11 10 10:10:10", "CE 2007 11 20 10:10:10", "EdMy", "Sa., 10.\\u2009\\u2013\\u2009Di., 20.11.2007",
 
                 "de", "CE 2007 11 10 10:10:10", "CE 2007 11 20 10:10:10", "dMy", "10.\\u201320.11.2007",
 
@@ -593,7 +596,7 @@ public class DateIntervalFormatTest extends TestFmwk {
 
                 "de", "CE 2007 11 10 10:10:10", "CE 2007 11 20 10:10:10", "My", "11/2007",
 
-                "de", "CE 2007 11 10 10:10:10", "CE 2007 11 20 10:10:10", "EdM", "Sa., 10. \\u2013 Di., 20.11.",
+                "de", "CE 2007 11 10 10:10:10", "CE 2007 11 20 10:10:10", "EdM", "Sa., 10.\\u2009\\u2013\\u2009Di., 20.11.",
 
                 "de", "CE 2007 11 10 10:10:10", "CE 2007 11 20 10:10:10", "d", "10.\\u201320.",
 
@@ -1017,16 +1020,16 @@ public class DateIntervalFormatTest extends TestFmwk {
         };
 
         final DateIntervalContextItem[] testItems = {
-           new DateIntervalContextItem( "cs", "MMMEd", DisplayContext.CAPITALIZATION_NONE,                      60*day, "po 27. 9. – pá 26. 11." ),
+           new DateIntervalContextItem( "cs", "MMMEd", DisplayContext.CAPITALIZATION_NONE,                      60*day, "po 27. 9.\u2009–\u2009pá 26. 11." ),
            new DateIntervalContextItem( "cs", "yMMMM", DisplayContext.CAPITALIZATION_NONE,                      60*day, "září–listopad 2010" ),
            new DateIntervalContextItem( "cs", "yMMMM", DisplayContext.CAPITALIZATION_NONE,                       1*day, "září 2010" ),
-           new DateIntervalContextItem( "cs", "MMMEd", DisplayContext.CAPITALIZATION_FOR_BEGINNING_OF_SENTENCE, 60*day, "Po 27. 9. – pá 26. 11." ),
+           new DateIntervalContextItem( "cs", "MMMEd", DisplayContext.CAPITALIZATION_FOR_BEGINNING_OF_SENTENCE, 60*day, "Po 27. 9.\u2009–\u2009pá 26. 11." ),
            new DateIntervalContextItem( "cs", "yMMMM", DisplayContext.CAPITALIZATION_FOR_BEGINNING_OF_SENTENCE, 60*day, "Září–listopad 2010" ),
            new DateIntervalContextItem( "cs", "yMMMM", DisplayContext.CAPITALIZATION_FOR_BEGINNING_OF_SENTENCE,  1*day, "Září 2010" ),
-           new DateIntervalContextItem( "cs", "MMMEd", DisplayContext.CAPITALIZATION_FOR_UI_LIST_OR_MENU,       60*day, "Po 27. 9. – pá 26. 11." ),
+           new DateIntervalContextItem( "cs", "MMMEd", DisplayContext.CAPITALIZATION_FOR_UI_LIST_OR_MENU,       60*day, "Po 27. 9.\u2009–\u2009pá 26. 11." ),
            new DateIntervalContextItem( "cs", "yMMMM", DisplayContext.CAPITALIZATION_FOR_UI_LIST_OR_MENU,       60*day, "Září–listopad 2010" ),
            new DateIntervalContextItem( "cs", "yMMMM", DisplayContext.CAPITALIZATION_FOR_UI_LIST_OR_MENU,        1*day, "Září 2010" ),
-           new DateIntervalContextItem( "cs", "MMMEd", DisplayContext.CAPITALIZATION_FOR_STANDALONE,            60*day, "po 27. 9. – pá 26. 11." ),
+           new DateIntervalContextItem( "cs", "MMMEd", DisplayContext.CAPITALIZATION_FOR_STANDALONE,            60*day, "po 27. 9.\u2009–\u2009pá 26. 11." ),
            new DateIntervalContextItem( "cs", "yMMMM", DisplayContext.CAPITALIZATION_FOR_STANDALONE,            60*day, "září–listopad 2010" ),
            new DateIntervalContextItem( "cs", "yMMMM", DisplayContext.CAPITALIZATION_FOR_STANDALONE,             1*day, "září 2010" ),
         };
@@ -1603,7 +1606,7 @@ public class DateIntervalFormatTest extends TestFmwk {
         dateIntervalFormat.setTimeZone(from.getTimeZone());
         // Month names are default (English), format is Catalan
         assertEquals("Wrong date interval",
-                "January de 2000\u2009–\u2009February de 2001", dateIntervalFormat.format(interval));
+                "January del 2000\u2009–\u2009February del 2001", dateIntervalFormat.format(interval));
     }
 
     @Test
@@ -1619,7 +1622,7 @@ public class DateIntervalFormatTest extends TestFmwk {
         dateIntervalFormat.setTimeZone(from.getTimeZone());
         // Month names are German, format is Catalan
         assertEquals("Wrong date interval",
-                "Januar de 2000\u2009–\u2009Februar de 2001", dateIntervalFormat.format(interval));
+                "Januar del 2000\u2009–\u2009Februar del 2001", dateIntervalFormat.format(interval));
     }
 
     @Test(expected = UnsupportedOperationException.class)
@@ -1822,7 +1825,7 @@ public class DateIntervalFormatTest extends TestFmwk {
                 String firstPart = patternInfo.getFirstPart();
                 String secondPart = patternInfo.getSecondPart();
                 if (!matches(dateFormatPattern, firstPart, secondPart)) {
-                    if (logKnownIssue("11585", "incompatible pattern between date format and date interval format")) {
+                    if (logKnownIssue("ICU-11585", "incompatible pattern between date format and date interval format")) {
                         logln("For skeleton " + skeleton + "/locale " + locale + ": mismatch between date format «"
                                 + dateFormatPattern + "» and date interval format «" + firstPart + secondPart + "».");
                     } else {
@@ -2251,13 +2254,13 @@ public class DateIntervalFormatTest extends TestFmwk {
     public void testTicket20707() {
         TimeZone tz = TimeZone.getTimeZone("UTC");
         Locale locales[] = {
-            new Locale("en-u-hc-h24"),
-            new Locale("en-u-hc-h23"),
-            new Locale("en-u-hc-h12"),
-            new Locale("en-u-hc-h11"),
-            new Locale("en"),
-            new Locale("en-u-hc-h25"),
-            new Locale("hi-IN-u-hc-h11")
+            Locale.forLanguageTag("en-u-hc-h24"),
+            Locale.forLanguageTag("en-u-hc-h23"),
+            Locale.forLanguageTag("en-u-hc-h12"),
+            Locale.forLanguageTag("en-u-hc-h11"),
+            Locale.forLanguageTag("en"),
+            Locale.forLanguageTag("en-u-hc-h25"),
+            Locale.forLanguageTag("hi-IN-u-hc-h11")
         };
 
         // Clomuns: hh, HH, kk, KK, jj, JJs, CC
@@ -2491,7 +2494,7 @@ public class DateIntervalFormatTest extends TestFmwk {
                      formatted.toString());
         verifyFields(formatted, expectedFields);
     }
-    
+
     @Test
     public void testTicket21939() {
         // the test here is just to check that this particular skeleton doesn't
@@ -2500,5 +2503,94 @@ public class DateIntervalFormatTest extends TestFmwk {
         DateFormat df = dif.getDateFormat();
         SimpleDateFormat sdf = (SimpleDateFormat)df;
         assertEquals("Wrong date format", "M/d/r, h:mm\u202Fa", sdf.toPattern());
+
+        // additional tests for the related ICU-22202
+        dif = DateIntervalFormat.getInstance("Lh", ULocale.ENGLISH);
+        df = dif.getDateFormat();
+        sdf = (SimpleDateFormat)df;
+        assertEquals("Wrong date format", "L, h a", sdf.toPattern());
+
+        dif = DateIntervalFormat.getInstance("UH", ULocale.forLanguageTag("en-u-ca-chinese"));
+        df = dif.getDateFormat();
+        sdf = (SimpleDateFormat)df;
+        assertEquals("Wrong date format", "r(U), HH", sdf.toPattern());
+    }
+
+    @Test
+    public void testTicket20710_FieldIdentity() {
+        DateIntervalFormat dtifmt = DateIntervalFormat.getInstance("eeeeMMMddyyhhmma", new ULocale("de-CH"));
+        Calendar calendar1 = Calendar.getInstance(TimeZone.getTimeZone("CET"));
+        calendar1.setTimeInMillis(1563235200000l);
+        Calendar calendar2 = Calendar.getInstance(TimeZone.getTimeZone("CET"));
+        calendar2.setTimeInMillis(1564235200000l);
+
+        {
+            FormattedDateInterval fv = dtifmt.formatToValue(calendar1, calendar2);
+            ConstrainedFieldPosition cfp = new ConstrainedFieldPosition();
+            cfp.constrainClass(DateIntervalFormat.SpanField.class);
+            assertTrue("Span field should be in non-identity formats", fv.nextPosition(cfp));
+        }
+        {
+            FormattedDateInterval fv = dtifmt.formatToValue(calendar1, calendar1);
+            ConstrainedFieldPosition cfp = new ConstrainedFieldPosition();
+            cfp.constrainClass(DateIntervalFormat.SpanField.class);
+            assertFalse("Span field should not be in identity formats", fv.nextPosition(cfp));
+        }
+    }
+
+    @Test
+    public void testTicket20710_IntervalIdentity() {
+        boolean quick = getExhaustiveness() <= 5;
+
+        String timeZone = "PST";
+        ULocale[] locales = ULocale.getAvailableLocales();
+        String[] skeletons = {
+            "EEEEMMMMdyhmmssazzzz",
+            "EEEEMMMMdyhhmmssazzzz",
+            "EEEEMMMMddyyyyhhmmssvvvva",
+            "EEEEMMMMddhmszza",
+            "EEMMMMddyyhhzza",
+            "eeeeMMMddyyhhmma",
+            "MMddyyyyhhmmazzzz",
+            "hhmmazzzz",
+            "hmmssazzzz",
+            "hhmmsszzzz",
+            "MMddyyyyhhmmzzzz"
+        };
+
+        ULocale[] quickLocales = {
+            new ULocale("en"),
+            new ULocale("es"),
+            new ULocale("sr"),
+            new ULocale("zh"),
+        };
+        if (quick) {
+            locales = quickLocales;
+        }
+
+        for (int i = 0; i < locales.length; i++) {
+            ULocale locale = locales[i];
+            DateTimePatternGenerator gen = DateTimePatternGenerator.getInstance(locale);
+            Calendar calendar = Calendar.getInstance(TimeZone.getTimeZone(timeZone));
+            calendar.setTimeInMillis(1563235200000l);
+            for (String skeleton : skeletons) {
+                DateIntervalFormat dtifmt = DateIntervalFormat.getInstance(skeleton, locale);
+
+                FieldPosition pos = DontCareFieldPosition.INSTANCE;
+                StringBuffer resultIntervalFormat = new StringBuffer();
+                dtifmt.format(calendar, calendar, resultIntervalFormat, pos);
+
+                String pattern = gen.getBestPattern(skeleton);
+                SimpleDateFormat dateFormat = new SimpleDateFormat(pattern, locale);
+
+                StringBuffer resultDateFormat = new StringBuffer();
+                dateFormat.format(calendar, resultDateFormat, pos);
+                assertEquals(
+                    "DateIntervalFormat should fall back to DateFormat in the identity format",
+                    resultDateFormat.toString(),
+                    resultIntervalFormat.toString()
+                );
+            }
+        }
     }
 }

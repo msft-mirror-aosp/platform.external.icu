@@ -597,6 +597,8 @@ public class ICUService extends ICUNotifier {
                         Factory f = lIter.previous();
                         f.updateVisibleIDs(mutableMap);
                     }
+                    // Capture the return value in a local variable.
+                    // Avoids returning an idcache value changed by another thread (could be null after clearCaches()).
                     Map<String, Factory> result = Collections.unmodifiableMap(mutableMap);
                     this.idcache = result;
                     return result;

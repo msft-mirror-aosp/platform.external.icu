@@ -253,6 +253,36 @@ en_XA{
                         "[Ţŵéļƒţĥ Ṁöñţĥ one two]",
                     }
                 }
+                stand-alone{
+                    abbreviated{
+                        "[Ṁö① one]",
+                        "[Ṁö② one]",
+                        "[Ṁö③ one]",
+                        "[Ṁö④ one]",
+                        "[Ṁö⑤ one]",
+                        "[Ṁö⑥ one]",
+                        "[Ṁö⑦ one]",
+                        "[Ṁö⑧ one]",
+                        "[Ṁö⑨ one]",
+                        "[Ṁö①⓪ one]",
+                        "[Ṁö①① one]",
+                        "[Ṁö①② one]",
+                    }
+                    wide{
+                        "[Ƒîŕšţ Ṁöñţĥ one two]",
+                        "[Šéçöñð Ṁöñţĥ one two]",
+                        "[Ţĥîŕð Ṁöñţĥ one two]",
+                        "[Ƒöûŕţĥ Ṁöñţĥ one two]",
+                        "[Ƒîƒţĥ Ṁöñţĥ one two]",
+                        "[Šîẋţĥ Ṁöñţĥ one two]",
+                        "[Šéṽéñţĥ Ṁöñţĥ one two]",
+                        "[Éîĝĥţĥ Ṁöñţĥ one two]",
+                        "[Ñîñţĥ Ṁöñţĥ one two]",
+                        "[Ţéñţĥ Ṁöñţĥ one two]",
+                        "[Éļéṽéñţĥ Ṁöñţĥ one two]",
+                        "[Ţŵéļƒţĥ Ṁöñţĥ one two]",
+                    }
+                }
             }
         }
         generic{
@@ -274,8 +304,8 @@ en_XA{
             DateTimePatterns%atTime{
                 "[{1} 'åţ' {0} 'one' 'two']",
                 "[{1} 'åţ' {0} 'one' 'two']",
-                "{1}, {0}",
-                "{1}, {0}",
+                "[{1}, {0} 'one' 'two']",
+                "[{1}, {0} 'one' 'two']",
             }
             DateTimeSkeletons{
                 "ahmmsszzzz",
@@ -522,8 +552,8 @@ en_XA{
             DateTimePatterns%atTime{
                 "[{1} 'åţ' {0} 'one' 'two']",
                 "[{1} 'åţ' {0} 'one' 'two']",
-                "{1}, {0}",
-                "{1}, {0}",
+                "[{1}, {0} 'one' 'two']",
+                "[{1}, {0} 'one' 'two']",
             }
             DateTimeSkeletons{
                 "[ahmmsszzzz 'one' 'two']",
@@ -605,6 +635,35 @@ en_XA{
             }
             dayNames{
                 format{
+                    abbreviated{
+                        "[Šûñ one]",
+                        "[Ṁöñ one]",
+                        "[Ţûé one]",
+                        "[Ŵéð one]",
+                        "[Ţĥû one]",
+                        "[Ƒŕî one]",
+                        "[Šåţ one]",
+                    }
+                    short{
+                        "[Šû one]",
+                        "[Ṁö one]",
+                        "[Ţû one]",
+                        "[Ŵé one]",
+                        "[Ţĥ one]",
+                        "[Ƒŕ one]",
+                        "[Šå one]",
+                    }
+                    wide{
+                        "[Šûñðåý one]",
+                        "[Ṁöñðåý one]",
+                        "[Ţûéšðåý one two]",
+                        "[Ŵéðñéšðåý one two]",
+                        "[Ţĥûŕšðåý one two]",
+                        "[Ƒŕîðåý one]",
+                        "[Šåţûŕðåý one two]",
+                    }
+                }
+                stand-alone{
                     abbreviated{
                         "[Šûñ one]",
                         "[Ṁöñ one]",
@@ -873,23 +932,51 @@ en_XA{
                 }
                 stand-alone{
                     abbreviated{
-                        "Jan",
-                        "Feb",
-                        "Mar",
-                        "Apr",
-                        "May",
-                        "Jun",
-                        "Jul",
-                        "Aug",
+                        "[Ĵåñ one]",
+                        "[Ƒéƀ one]",
+                        "[Ṁåŕ one]",
+                        "[Åþŕ one]",
+                        "[Ṁåý one]",
+                        "[Ĵûñ one]",
+                        "[Ĵûļ one]",
+                        "[Åûĝ one]",
                         "[Šéþ one]",
-                        "Oct",
-                        "Nov",
-                        "Dec",
+                        "[Öçţ one]",
+                        "[Ñöṽ one]",
+                        "[Ðéç one]",
+                    }
+                    wide{
+                        "[Ĵåñûåŕý one two]",
+                        "[Ƒéƀŕûåŕý one two]",
+                        "[Ṁåŕçĥ one]",
+                        "[Åþŕîļ one]",
+                        "[Ṁåý one]",
+                        "[Ĵûñé one]",
+                        "[Ĵûļý one]",
+                        "[Åûĝûšţ one]",
+                        "[Šéþţéɱƀéŕ one two]",
+                        "[Öçţöƀéŕ one two]",
+                        "[Ñöṽéɱƀéŕ one two]",
+                        "[Ðéçéɱƀéŕ one two]",
                     }
                 }
             }
             quarters{
                 format{
+                    abbreviated{
+                        "[Ǫ① one]",
+                        "[Ǫ② one]",
+                        "[Ǫ③ one]",
+                        "[Ǫ④ one]",
+                    }
+                    wide{
+                        "[①šţ ǫûåŕţéŕ one two]",
+                        "[②ñð ǫûåŕţéŕ one two]",
+                        "[③ŕð ǫûåŕţéŕ one two]",
+                        "[④ţĥ ǫûåŕţéŕ one two]",
+                    }
+                }
+                stand-alone{
                     abbreviated{
                         "[Ǫ① one]",
                         "[Ǫ② one]",
@@ -1019,15 +1106,190 @@ en_XA{
                     y{"[d MMM y – d MMM y 'one' 'two' 'three']"}
                 }
             }
+            monthNames{
+                format{
+                    abbreviated{
+                        "[Ţîšĥŕî one]",
+                        "[Ĥéšĥṽåñ one two]",
+                        "[Ķîšļéṽ one]",
+                        "[Ţéṽéţ one]",
+                        "[Šĥéṽåţ one]",
+                        "[Åðåŕ Î one]",
+                        "[Åðåŕ one]",
+                        "[Ñîšåñ one]",
+                        "[Îýåŕ one]",
+                        "[Šîṽåñ one]",
+                        "[Ţåɱûž one]",
+                        "[Åṽ one]",
+                        "[Éļûļ one]",
+                        "[Åðåŕ ÎÎ one two]",
+                    }
+                }
+                stand-alone{
+                    abbreviated{
+                        "[Ţîšĥŕî one]",
+                        "[Ĥéšĥṽåñ one two]",
+                        "[Ķîšļéṽ one]",
+                        "[Ţéṽéţ one]",
+                        "[Šĥéṽåţ one]",
+                        "[Åðåŕ Î one]",
+                        "[Åðåŕ one]",
+                        "[Ñîšåñ one]",
+                        "[Îýåŕ one]",
+                        "[Šîṽåñ one]",
+                        "[Ţåɱûž one]",
+                        "[Åṽ one]",
+                        "[Éļûļ one]",
+                        "[Åðåŕ ÎÎ one two]",
+                    }
+                    wide{
+                        "[Ţîšĥŕî one]",
+                        "[Ĥéšĥṽåñ one two]",
+                        "[Ķîšļéṽ one]",
+                        "[Ţéṽéţ one]",
+                        "[Šĥéṽåţ one]",
+                        "[Åðåŕ Î one]",
+                        "[Åðåŕ one]",
+                        "[Ñîšåñ one]",
+                        "[Îýåŕ one]",
+                        "[Šîṽåñ one]",
+                        "[Ţåɱûž one]",
+                        "[Åṽ one]",
+                        "[Éļûļ one]",
+                        "[Åðåŕ ÎÎ one two]",
+                    }
+                }
+            }
+        }
+        indian{
+            monthNames{
+                format{
+                    abbreviated{
+                        "[Çĥåîţŕå one two]",
+                        "[Ṽåîšåķĥå one two]",
+                        "[Ĵýåîšţĥå one two]",
+                        "[Åšåðĥå one]",
+                        "[Šŕåṽåñå one two]",
+                        "[Ɓĥåðŕå one]",
+                        "[Åšṽîñå one]",
+                        "[Ķåŕţîķå one two]",
+                        "[Åĝŕåĥåýåñå one two]",
+                        "[Þåûšå one]",
+                        "[Ṁåĝĥå one]",
+                        "[Þĥåļĝûñå one two]",
+                    }
+                }
+                stand-alone{
+                    abbreviated{
+                        "[Çĥåîţŕå one two]",
+                        "[Ṽåîšåķĥå one two]",
+                        "[Ĵýåîšţĥå one two]",
+                        "[Åšåðĥå one]",
+                        "[Šŕåṽåñå one two]",
+                        "[Ɓĥåðŕå one]",
+                        "[Åšṽîñå one]",
+                        "[Ķåŕţîķå one two]",
+                        "[Åĝŕåĥåýåñå one two]",
+                        "[Þåûšå one]",
+                        "[Ṁåĝĥå one]",
+                        "[Þĥåļĝûñå one two]",
+                    }
+                    wide{
+                        "[Çĥåîţŕå one two]",
+                        "[Ṽåîšåķĥå one two]",
+                        "[Ĵýåîšţĥå one two]",
+                        "[Åšåðĥå one]",
+                        "[Šŕåṽåñå one two]",
+                        "[Ɓĥåðŕå one]",
+                        "[Åšṽîñå one]",
+                        "[Ķåŕţîķå one two]",
+                        "[Åĝŕåĥåýåñå one two]",
+                        "[Þåûšå one]",
+                        "[Ṁåĝĥå one]",
+                        "[Þĥåļĝûñå one two]",
+                    }
+                }
+            }
         }
         islamic{
+            DateTimePatterns{
+                "h:mm:ss a zzzz",
+                "h:mm:ss a z",
+                "h:mm:ss a",
+                "h:mm a",
+                "[EEEE, MMMM d, y G 'one' 'two' 'three']",
+                "[MMMM d, y G 'one' 'two']",
+                "[MMM d, y G 'one' 'two']",
+                "[M/d/y GGGGG 'one' 'two']",
+                "{1}, {0}",
+                "{1}, {0}",
+                "{1}, {0}",
+                "{1}, {0}",
+                "{1}, {0}",
+            }
             availableFormats{
+                E{"[ccc 'one']"}
+                Ed{"[d E 'one']"}
+                Gy{"[y G 'one']"}
+                GyMMM{"[MMM y G 'one' 'two']"}
+                GyMMMEd{"[E, MMM d, y G 'one' 'two']"}
+                GyMMMd{"[MMM d, y G 'one' 'two']"}
+                GyMd{"[M/d/y GGGGG 'one' 'two']"}
+                M{"[L 'one']"}
                 MEd{"[E, M/d 'one']"}
+                MMM{"[LLL 'one']"}
                 MMMEd{"[E, MMM d 'one' 'two']"}
+                MMMMd{"[MMMM d 'one']"}
+                MMMd{"[MMM d 'one']"}
+                Md{"[M/d 'one']"}
+                d{"[d 'one']"}
+                y{"[y G 'one']"}
+                yyyy{"[y G 'one']"}
+                yyyyM{"[M/y GGGGG 'one' 'two']"}
+                yyyyMEd{"[E, M/d/y GGGGG 'one' 'two']"}
+                yyyyMMM{"[MMM y G 'one' 'two']"}
+                yyyyMMMEd{"[E, MMM d, y G 'one' 'two']"}
+                yyyyMMMM{"[MMMM y G 'one' 'two']"}
+                yyyyMMMd{"[MMM d, y G 'one' 'two']"}
+                yyyyMd{"[M/d/y GGGGG 'one' 'two']"}
+                yyyyQQQ{"[QQQ y G 'one' 'two']"}
+                yyyyQQQQ{"[QQQQ y G 'one' 'two']"}
             }
             eras{
                 abbreviated{
                     "[ÅĤ one]",
+                }
+            }
+            monthNames{
+                stand-alone{
+                    abbreviated{
+                        "[Ṁûĥ· one]",
+                        "[Šåƒ· one]",
+                        "[Ŕåƀ· Î one]",
+                        "[Ŕåƀ· ÎÎ one two]",
+                        "[Ĵûɱ· Î one]",
+                        "[Ĵûɱ· ÎÎ one two]",
+                        "[Ŕåĵ· one]",
+                        "[Šĥå· one]",
+                        "[Ŕåɱ· one]",
+                        "[Šĥåŵ· one]",
+                        "[Ðĥûʻļ‐Ǫ· one two]",
+                        "[Ðĥûʻļ‐Ĥ· one two]",
+                    }
+                    wide{
+                        "[Ṁûĥåŕŕåɱ one two]",
+                        "[Šåƒåŕ one]",
+                        "[Ŕåƀîʻ Î one two]",
+                        "[Ŕåƀîʻ ÎÎ one two]",
+                        "[Ĵûɱåðå Î one two]",
+                        "[Ĵûɱåðå ÎÎ one two]",
+                        "[Ŕåĵåƀ one]",
+                        "[Šĥåʻƀåñ one two]",
+                        "[Ŕåɱåðåñ one two]",
+                        "[Šĥåŵŵåļ one two]",
+                        "[Ðĥûʻļ‐Ǫîʻðåĥ one two]",
+                        "[Ðĥûʻļ‐Ĥîĵĵåĥ one two]",
+                    }
                 }
             }
         }
@@ -1182,6 +1444,11 @@ en_XA{
         }
         day-short{
             dn{"[ðåý one]"}
+            relative{
+                "-1"{"[ýéšţéŕðåý one two]"}
+                "0"{"[ţöðåý one]"}
+                "1"{"[ţöɱöŕŕöŵ one two]"}
+            }
             relativeTime{
                 future{
                     one{"[îñ {0} ðåý one two]"}
@@ -1639,6 +1906,7 @@ en_XA{
                 "0"{"[ţĥîš ŵķ· one two]"}
                 "1"{"[ñéẋţ ŵķ· one two]"}
             }
+            relativePeriod{"[ţĥé ŵééķ öƒ {0} one two three]"}
             relativeTime{
                 future{
                     one{"[îñ {0} ŵķ· one two]"}
@@ -1719,7 +1987,10 @@ en_XA{
             start{"[{0}، {1} one two]"}
         }
         or-short{
+            2{"[{0} öŕ {1} one two]"}
             end{"[{0}، öŕ {1} one two]"}
+            middle{"[{0}، {1} one two]"}
+            start{"[{0}، {1} one two]"}
         }
         standard{
             2{"[{0} åñð {1} one two]"}

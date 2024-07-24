@@ -15,7 +15,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 
-import android.icu.dev.test.TestFmwk;
+import android.icu.dev.test.CoreTestFmwk;
 import android.icu.impl.breakiter.DictionaryBreakEngine;
 import android.icu.impl.breakiter.LSTMBreakEngine;
 import android.icu.lang.UScript;
@@ -31,7 +31,7 @@ import android.icu.testsharding.MainTestShard;
  */
 @MainTestShard
 @RunWith(JUnit4.class)
-public class LSTMBreakEngineTest extends TestFmwk {
+public class LSTMBreakEngineTest extends CoreTestFmwk {
 
     private static final ClassLoader testLoader = LSTMBreakEngineTest.class.getClassLoader();
 

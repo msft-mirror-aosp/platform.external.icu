@@ -1,6 +1,6 @@
 /* GENERATED SOURCE. DO NOT MODIFY. */
 // © 2022 and later: Unicode, Inc. and others.
-// License & terms of use: http://www.unicode.org/copyright.html
+// License & terms of use: https://www.unicode.org/copyright.html
 
 package android.icu.dev.test.message2;
 
@@ -13,12 +13,12 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 
-import android.icu.dev.test.TestFmwk;
+import android.icu.dev.test.CoreTestFmwk;
 import android.icu.message2.FormattedPlaceholder;
 import android.icu.message2.Formatter;
 import android.icu.message2.FormatterFactory;
+import android.icu.message2.MFFunctionRegistry;
 import android.icu.message2.MessageFormatter;
-import android.icu.message2.Mf2FunctionRegistry;
 import android.icu.message2.PlainStringFormattedValue;
 import android.icu.testsharding.MainTestShard;
 
@@ -30,8 +30,8 @@ import android.icu.testsharding.MainTestShard;
  */
 @MainTestShard
 @RunWith(JUnit4.class)
-@SuppressWarnings("javadoc")
-public class CustomFormatterMessageRefTest extends TestFmwk {
+@SuppressWarnings({"static-method", "javadoc"})
+public class CustomFormatterMessageRefTest extends CoreTestFmwk {
 
     static class ResourceManagerFactory implements FormatterFactory {
 
@@ -43,6 +43,7 @@ public class CustomFormatterMessageRefTest extends TestFmwk {
         static class ResourceManagerFactoryImpl implements Formatter {
             final Map<String, Object> options;
 
+            @SuppressWarnings("unused")
             ResourceManagerFactoryImpl(Locale locale, Map<String, Object> options) {
                 this.options = options;
             }
@@ -59,8 +60,8 @@ public class CustomFormatterMessageRefTest extends TestFmwk {
                     Properties props = (Properties) oProps;
                     Object msg = props.get(toFormat.toString());
                     MessageFormatter mf = MessageFormatter.builder()
-                        .setPattern(msg.toString())
-                        .build();
+                            .setPattern(msg.toString())
+                            .build();
                     result = mf.formatToString(options);
                 }
                 return new FormattedPlaceholder(toFormat, new PlainStringFormattedValue(result));
@@ -73,17 +74,17 @@ public class CustomFormatterMessageRefTest extends TestFmwk {
         }
     }
 
-    static final Mf2FunctionRegistry REGISTRY = Mf2FunctionRegistry.builder()
+    static final MFFunctionRegistry REGISTRY = MFFunctionRegistry.builder()
             .setFormatter("msgRef", new ResourceManagerFactory())
             .build();
 
     static final Properties PROPERTIES = new Properties();
 
     @BeforeClass
-    static public void beforeClass() {
-        PROPERTIES.put("firefox", "match {$gcase :select} when genitive {Firefoxin} when * {Firefox}");
-        PROPERTIES.put("chrome", "match {$gcase :select} when genitive {Chromen} when * {Chrome}");
-        PROPERTIES.put("safari", "match {$gcase :select} when genitive {Safarin} when * {Safari}");
+    public static void beforeClass() {
+        PROPERTIES.put("firefox", ".match {$gcase :string} genitive {{Firefoxin}} * {{Firefox}}");
+        PROPERTIES.put("chrome", ".match {$gcase :string} genitive {{Chromen}} * {{Chrome}}");
+        PROPERTIES.put("safari", ".match {$gcase :string} genitive {{Safarin}} * {{Safari}}");
     }
 
     @Test
@@ -110,11 +111,11 @@ public class CustomFormatterMessageRefTest extends TestFmwk {
 
         MessageFormatter mf1 = MessageFormatter.builder()
                 .setFunctionRegistry(REGISTRY)
-                .setPattern("{Please start {$browser :msgRef gcase=genitive resbundle=$res}}")
+                .setPattern("Please start {$browser :msgRef gcase=genitive resbundle=$res}")
                 .build();
         MessageFormatter mf2 = MessageFormatter.builder()
                 .setFunctionRegistry(REGISTRY)
-                .setPattern("{Please start {$browser :msgRef resbundle=$res}}")
+                .setPattern("Please start {$browser :msgRef resbundle=$res}")
                 .build();
 
         browser.replace(0, browser.length(), "firefox");

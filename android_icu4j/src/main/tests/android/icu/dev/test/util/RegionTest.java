@@ -21,7 +21,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 
-import android.icu.dev.test.TestFmwk;
+import android.icu.dev.test.CoreTestFmwk;
 import android.icu.util.Region;
 import android.icu.util.Region.RegionType;
 import android.icu.testsharding.MainTestShard;
@@ -33,7 +33,7 @@ import android.icu.testsharding.MainTestShard;
 
 @MainTestShard
 @RunWith(JUnit4.class)
-public class RegionTest extends TestFmwk {
+public class RegionTest extends CoreTestFmwk {
     String[][] knownRegions = {
             //   Code  , Numeric , Parent, Type, Containing Continent
             { "001", "001", null , "WORLD", null },
@@ -429,7 +429,7 @@ public class RegionTest extends TestFmwk {
             String inputID = data[0];
             String expectedID = data[1];
             Region.RegionType expectedType = Region.RegionType.valueOf(data[2]);
-            Region r = Region.getInstance(Integer.valueOf(inputID));
+            Region r = Region.getInstance(Integer.parseInt(inputID));
             if ( !expectedID.equals(r.toString())) {
                 errln("Unexpected region ID for Region.getInstance(" + inputID + "); Expected: " + expectedID + " Got: " + r.toString());
             }
@@ -583,7 +583,7 @@ public class RegionTest extends TestFmwk {
         // territories are one and the same.
         Set<Region> availableTerritories = Region.getAvailable(RegionType.TERRITORY);
         Region world = Region.getInstance("001");
-        Set<Region> containedInWorld = world.getContainedRegions(RegionType.TERRITORY);
+        Set<Region> containedInWorld = world.getContainedRegions(RegionType.TERRITORY); // unmodifiable
         if ( !availableTerritories.equals(containedInWorld) ) {
             errln("Available territories and all territories contained in world should be the same set.\n" +
                     "Available          = " + availableTerritories.toString() + "\n" +

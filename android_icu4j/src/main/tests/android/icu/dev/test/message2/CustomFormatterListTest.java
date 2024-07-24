@@ -1,6 +1,6 @@
 /* GENERATED SOURCE. DO NOT MODIFY. */
 // © 2022 and later: Unicode, Inc. and others.
-// License & terms of use: http://www.unicode.org/copyright.html
+// License & terms of use: https://www.unicode.org/copyright.html
 
 package android.icu.dev.test.message2;
 
@@ -13,11 +13,11 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 
-import android.icu.dev.test.TestFmwk;
+import android.icu.dev.test.CoreTestFmwk;
 import android.icu.message2.FormattedPlaceholder;
 import android.icu.message2.Formatter;
 import android.icu.message2.FormatterFactory;
-import android.icu.message2.Mf2FunctionRegistry;
+import android.icu.message2.MFFunctionRegistry;
 import android.icu.message2.PlainStringFormattedValue;
 import android.icu.text.ListFormatter;
 import android.icu.text.ListFormatter.Type;
@@ -29,8 +29,8 @@ import android.icu.testsharding.MainTestShard;
  */
 @MainTestShard
 @RunWith(JUnit4.class)
-@SuppressWarnings("javadoc")
-public class CustomFormatterListTest extends TestFmwk {
+@SuppressWarnings({"static-method", "javadoc"})
+public class CustomFormatterListTest extends CoreTestFmwk {
 
     static class ListFormatterFactory implements FormatterFactory {
 
@@ -74,26 +74,22 @@ public class CustomFormatterListTest extends TestFmwk {
         }
     }
 
-    static final Mf2FunctionRegistry REGISTRY = Mf2FunctionRegistry.builder()
+    static final MFFunctionRegistry REGISTRY = MFFunctionRegistry.builder()
             .setFormatter("listformat", new ListFormatterFactory())
             .build();
 
     @Test
     public void test() {
-        String [] progLanguages = {
-                "C/C++",
-                "Java",
-                "Python"
-        };
+        String[] progLanguages = {"C/C++", "Java", "Python"};
 
         TestUtils.runTestCase(REGISTRY, new TestCase.Builder()
-                .pattern("{I know {$languages :listformat type=AND}!}")
+                .pattern("I know {$languages :listformat type=AND}!")
                 .arguments(Args.of("languages", progLanguages))
                 .expected("I know C/C++, Java, and Python!")
                 .build());
 
         TestUtils.runTestCase(REGISTRY, new TestCase.Builder()
-                .pattern("{You are allowed to use {$languages :listformat type=OR}!}")
+                .pattern("You are allowed to use {$languages :listformat type=OR}!")
                 .arguments(Args.of("languages", Arrays.asList(progLanguages)))
                 .expected("You are allowed to use C/C++, Java, or Python!")
                 .build());

@@ -33,6 +33,7 @@
 #include "dtfmapts.h"       // DateFormatAPI
 #include "dtfmttst.h"       // DateFormatTest
 #include "tmsgfmt.h"        // TestMessageFormat
+#include "messageformat2test.h" // TestMessageFormat2
 #include "dtfmrgts.h"       // DateFormatRegressionTest
 #include "msfmrgts.h"       // MessageFormatRegressionTest
 #include "miscdtfm.h"       // DateFormatMiscTests
@@ -94,7 +95,7 @@ extern IntlTest *createDisplayOptionsTest();
 void IntlTestFormat::runIndexedTest( int32_t index, UBool exec, const char* &name, char* par )
 {
     // for all format tests, always set default Locale and TimeZone to ENGLISH and PST.
-    TimeZone* saveDefaultTimeZone = NULL;
+    TimeZone* saveDefaultTimeZone = nullptr;
     Locale  saveDefaultLocale = Locale::getDefault();
     if (exec) {
         saveDefaultTimeZone = TimeZone::createDefault();
@@ -287,6 +288,9 @@ void IntlTestFormat::runIndexedTest( int32_t index, UBool exec, const char* &nam
             callTest(*test, par);
           }
           break;
+#if !UCONFIG_NO_MF2
+        TESTCLASS(60,TestMessageFormat2);
+#endif
         default: name = ""; break; //needed to end loop
     }
     if (exec) {

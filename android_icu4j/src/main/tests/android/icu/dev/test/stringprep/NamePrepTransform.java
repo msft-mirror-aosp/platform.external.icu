@@ -190,7 +190,7 @@ public class NamePrepTransform {
             try {
                 Class cls = Class.forName("android.icu.text.Transliterator");
                 Method createMethod = cls.getMethod("createFromRules", String.class, String.class, Integer.TYPE);
-                translitInstance = createMethod.invoke(null, id, rule, Integer.valueOf(direction));
+                translitInstance = createMethod.invoke(null, id, rule, direction);
                 translitMethod = cls.getMethod("transliterate", String.class);
             } catch (Throwable e) {
                 return false;

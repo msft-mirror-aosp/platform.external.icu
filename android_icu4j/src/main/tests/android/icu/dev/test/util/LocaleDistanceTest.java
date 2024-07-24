@@ -12,7 +12,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 
-import android.icu.dev.test.TestFmwk;
+import android.icu.dev.test.CoreTestFmwk;
 import android.icu.dev.tool.locale.LocaleDistanceBuilder;
 import android.icu.impl.locale.LocaleDistance;
 import android.icu.util.LocaleMatcher;
@@ -29,7 +29,7 @@ import android.icu.testsharding.MainTestShard;
  */
 @MainTestShard
 @RunWith(JUnit4.class)
-public class LocaleDistanceTest extends TestFmwk {
+public class LocaleDistanceTest extends CoreTestFmwk {
     private static final boolean REFORMAT = false; // set to true to get a reformatted data file listed
 
     private LocaleDistance localeDistance = LocaleDistance.INSTANCE;

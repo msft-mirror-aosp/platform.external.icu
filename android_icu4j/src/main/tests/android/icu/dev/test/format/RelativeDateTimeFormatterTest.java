@@ -15,7 +15,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 
-import android.icu.dev.test.TestFmwk;
+import android.icu.dev.test.CoreTestFmwk;
 import android.icu.math.BigDecimal;
 import android.icu.text.DisplayContext;
 import android.icu.text.NumberFormat;
@@ -32,7 +32,7 @@ import android.icu.testsharding.MainTestShard;
 
 @MainTestShard
 @RunWith(JUnit4.class)
-public class RelativeDateTimeFormatterTest extends TestFmwk {
+public class RelativeDateTimeFormatterTest extends CoreTestFmwk {
     @Test
     public void TestRelativeDateWithQuantity() {
         Object[][] data = {

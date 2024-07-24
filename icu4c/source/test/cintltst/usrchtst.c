@@ -22,7 +22,7 @@
 #include "unicode/ustring.h"
 #include "ccolltst.h"
 #include "cmemory.h"
-#include "usrchdat.c"
+#include "usrchdat.inc"
 #include "unicode/ubrk.h"
 
 static UBool      TOCLOSE_ = true;
@@ -148,7 +148,7 @@ static char *toCharString(const UChar* unichars)
             *temp ++ = (char)ch;
         }
         else {
-            sprintf(temp, "\\u%04x", ch);
+            snprintf(temp, sizeof(result) - (temp-result),  "\\u%04x", ch);
             temp += 6; /* \uxxxx */
         }
     }

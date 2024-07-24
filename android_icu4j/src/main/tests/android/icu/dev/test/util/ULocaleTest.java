@@ -17,11 +17,13 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
@@ -31,9 +33,8 @@ import java.util.regex.Pattern;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.junit.runners.JUnit4;
 
-import android.icu.dev.test.TestFmwk;
+import android.icu.dev.test.CoreTestFmwk;
 import android.icu.dev.test.TestUtil;
 import android.icu.dev.test.TestUtil.JavaVendor;
 import android.icu.text.DateFormat;
@@ -54,11 +55,14 @@ import android.icu.util.ULocale.Category;
 import android.icu.util.ULocale.Minimize;
 import android.icu.util.UResourceBundle;
 import android.icu.util.VersionInfo;
+
+import junitparams.JUnitParamsRunner;
+import junitparams.Parameters;
 import android.icu.testsharding.MainTestShard;
 
 @MainTestShard
-@RunWith(JUnit4.class)
-public class ULocaleTest extends TestFmwk {
+@RunWith(JUnitParamsRunner.class)
+public class ULocaleTest extends CoreTestFmwk {
 
     // Ticket #8078 and #11674
     private static final boolean JAVA7_OR_LATER =
@@ -1251,6 +1255,31 @@ public class ULocaleTest extends TestFmwk {
                 new Item("en", NM_DIA, CAP_MID, LEN_FU, SUB_SU, "mo",     "Romanian" ),
                 new Item("ro", NM_STD, CAP_MID, LEN_FU, SUB_SU, "mo",     "română" ),
                 new Item("ro", NM_STD, CAP_MID, LEN_FU, SUB_SU, "mo_MD",  "română (Republica Moldova)" ),
+                 // https://unicode-org.atlassian.net/browse/ICU-10297:
+                new Item("zh",      NM_DIA, CAP_MID, LEN_FU, SUB_SU, "ar_001", "现代标准阿拉伯语" ),
+                new Item("zh",      NM_DIA, CAP_MID, LEN_FU, SUB_SU, "nl_BE",  "弗拉芒语" ),
+                new Item("zh",      NM_DIA, CAP_MID, LEN_FU, SUB_SU, "ro_MD",  "摩尔多瓦语" ),
+                new Item("zh",      NM_DIA, CAP_MID, LEN_FU, SUB_SU, "en_AU",  "澳大利亚英语" ),
+                new Item("zh",      NM_DIA, CAP_MID, LEN_FU, SUB_SU, "en_CA",  "加拿大英语" ),
+                new Item("zh",      NM_DIA, CAP_MID, LEN_FU, SUB_SU, "en_GB",  "英国英语" ),
+                new Item("zh",      NM_DIA, CAP_MID, LEN_FU, SUB_SU, "en_US",  "美国英语" ),
+                new Item("zh",      NM_DIA, CAP_MID, LEN_FU, SUB_SU, "es_419", "拉丁美洲西班牙语" ),
+                new Item("zh",      NM_DIA, CAP_MID, LEN_FU, SUB_SU, "es_ES",  "欧洲西班牙语" ),
+                new Item("zh",      NM_DIA, CAP_MID, LEN_FU, SUB_SU, "es_MX",  "墨西哥西班牙语" ),
+                new Item("zh",      NM_DIA, CAP_MID, LEN_FU, SUB_SU, "fr_CA",  "加拿大法语" ),
+                new Item("zh",      NM_DIA, CAP_MID, LEN_FU, SUB_SU, "fr_CH",  "瑞士法语" ),
+                new Item("zh_Hant", NM_DIA, CAP_MID, LEN_FU, SUB_SU, "ar_001", "現代標準阿拉伯文" ),
+                new Item("zh_Hant", NM_DIA, CAP_MID, LEN_FU, SUB_SU, "nl_BE",  "法蘭德斯文" ),
+                new Item("zh_Hant", NM_DIA, CAP_MID, LEN_FU, SUB_SU, "ro_MD",  "摩爾多瓦文" ),
+                new Item("zh_Hant", NM_DIA, CAP_MID, LEN_FU, SUB_SU, "en_AU",  "英文（澳洲）" ),
+                new Item("zh_Hant", NM_DIA, CAP_MID, LEN_FU, SUB_SU, "en_CA",  "英文（加拿大）" ),
+                new Item("zh_Hant", NM_DIA, CAP_MID, LEN_FU, SUB_SU, "en_GB",  "英文（英國）" ),
+                new Item("zh_Hant", NM_DIA, CAP_MID, LEN_FU, SUB_SU, "en_US",  "英文（美國）" ),
+                new Item("zh_Hant", NM_DIA, CAP_MID, LEN_FU, SUB_SU, "es_419", "西班牙文（拉丁美洲）" ),
+                new Item("zh_Hant", NM_DIA, CAP_MID, LEN_FU, SUB_SU, "es_ES",  "西班牙文（西班牙）" ),
+                new Item("zh_Hant", NM_DIA, CAP_MID, LEN_FU, SUB_SU, "es_MX",  "西班牙文（墨西哥）" ),
+                new Item("zh_Hant", NM_DIA, CAP_MID, LEN_FU, SUB_SU, "fr_CA",  "法文（加拿大）" ),
+                new Item("zh_Hant", NM_DIA, CAP_MID, LEN_FU, SUB_SU, "fr_CH",  "法文（瑞士）" ),
             };
             for (Item item: items) {
                 ULocale locale = new ULocale(item.displayLocale);
@@ -1629,8 +1658,8 @@ public class ULocaleTest extends TestFmwk {
         h[0].put("stroke", "Stroke Order");
         h[0].put("japanese", "Japanese Calendar");
         h[0].put("buddhist", "Buddhist Calendar");
-        h[0].put("islamic", "Islamic Calendar");
-        h[0].put("islamic-civil", "Islamic Calendar (tabular, civil epoch)" );
+        h[0].put("islamic", "Hijri Calendar");
+        h[0].put("islamic-civil", "Hijri Calendar (tabular, civil epoch)" );
         h[0].put("hebrew", "Hebrew Calendar");
         h[0].put("chinese", "Chinese Calendar");
         h[0].put("gregorian", "Gregorian Calendar" );
@@ -1645,8 +1674,8 @@ public class ULocaleTest extends TestFmwk {
         h[1].put("traditional", "\u4F20\u7EDF\u6392\u5E8F");
         h[1].put("japanese", "\u65E5\u672C\u65E5\u5386");
         h[1].put("buddhist", "\u4F5B\u5386");
-        h[1].put("islamic", "\u4F0A\u65AF\u5170\u65E5\u5386");
-        h[1].put("islamic-civil", "\u4F0A\u65AF\u5170\u5E0C\u5409\u6765\u65E5\u5386");
+        h[1].put("islamic", "伊斯兰历");
+        h[1].put("islamic-civil", "伊斯兰希吉来日历");
         h[1].put("hebrew", "\u5E0C\u4F2F\u6765\u65E5\u5386");
         h[1].put("chinese", "\u519C\u5386");
         h[1].put("gregorian", "\u516C\u5386");
@@ -1708,7 +1737,7 @@ public class ULocaleTest extends TestFmwk {
             } else {
                 errln("#" + i + ": locale: expected " + expectLocale + " but got " + n);
             }
-            Boolean actualBoolean = Boolean.valueOf(r[0]);
+            Boolean actualBoolean = r[0];
             if(expectBoolean.equals(actualBoolean)) {
                 logln("#" + i + ": fallback: OK.");
             } else {
@@ -1739,7 +1768,7 @@ public class ULocaleTest extends TestFmwk {
             } else {
                 errln("#" + i + ": expected " + expectLocale + " but got " + n.toString());
             }
-            Boolean actualBoolean = Boolean.valueOf(r[0]);
+            Boolean actualBoolean = r[0];
             if(expectBoolean.equals(actualBoolean)) {
                 logln("#" + i + ": fallback: OK.");
             } else {
@@ -1891,6 +1920,89 @@ public class ULocaleTest extends TestFmwk {
                 }, {
                     "zzz",
                     ""
+                }, {
+                    // ICU-22547
+                    // unicode_language_id = "root" |
+                    //   (unicode_language_subtag (sep unicode_script_subtag)?  | unicode_script_subtag)
+                    //     (sep unicode_region_subtag)?  (sep unicode_variant_subtag)* ;
+                    // so "aaaa" is a well-formed unicode_language_id
+                    "aaaa",
+                    "aaaa",
+                }, {
+                    // ICU-22727
+                    // unicode_language_subtag = alpha{2,3} | alpha{5,8};
+                    // so "bbbbb", "cccccc", "ddddddd", "eeeeeeee" are
+                    // well-formed unicode_language_subtag and therefore
+                    // well-formed unicode_language_id
+                    "bbbbb",
+                    "bbbbb",
+                }, {
+                    // ICU-22727
+                    "cccccc",
+                    "cccccc",
+                }, {
+                    // ICU-22727
+                    "ddddddd",
+                    "ddddddd",
+                }, {
+                    // ICU-22727
+                    "eeeeeeee",
+                    "eeeeeeee",
+                }, {
+                    // ICU-22546
+                    "und-Zzzz",
+                    "en_Latn_US" // If change, please also update ULocale.java
+                }, {
+                    // ICU-22546
+                    "en",
+                    "en_Latn_US" // If change, please also update ULocale.java
+                }, {
+                    // ICU-22546
+                    "de",
+                    "de_Latn_DE" // If change, please also update ULocale.java
+                }, {
+                    // ICU-22546
+                    "sr",
+                    "sr_Cyrl_RS" // If change, please also update ULocale.java
+                }, {
+                    // ICU-22546
+                    "sh",
+                    "sh" // If change, please also update ULocale.java
+                }, {
+                    // ICU-22546
+                    "zh_Hani",
+                    "zh_Hani_CN" // If change, please also update ULocale.java
+                }, {
+                    // ICU-22545 & ICU-22742
+                    "en_XA",
+                    "en_Latn_XA",
+                }, {
+                    // ICU-22545 & ICU-22742
+                    "ar_XB",
+                    "ar_Arab_XB",
+                }, {
+                    // ICU-22545 & ICU-22742
+                    "ru_XC",
+                    "ru_Cyrl_XC",
+                }, {
+                    // ICU-22742
+                    "en_PSACCENT",
+                    "en_Latn_US_PSACCENT",
+                }, {
+                    "ar_PSBIDI",
+                    "ar_Arab_EG_PSBIDI",
+                }, {
+                    "ru_PSCRACK",
+                    "ru_Cyrl_RU_PSCRACK",
+                }, {
+                    "ar_PSACCENT",
+                    "ar_Arab_EG_PSACCENT",
+                }, {
+                    "ru_PSBIDI",
+                    "ru_Cyrl_RU_PSBIDI",
+                }, {
+                    "en_PSCRACK",
+                    "en_Latn_US_PSCRACK",
                 }
         };
 
@@ -1923,7 +2035,7 @@ public class ULocaleTest extends TestFmwk {
                     "de__POSIX_1901"
                 }, {
                     "und",
-                    ""
+                    "en"
                 }
         };
 
@@ -2316,7 +2428,7 @@ public class ULocaleTest extends TestFmwk {
                     "pa_PK"
                 }, {
                     "pap",
-                    "pap_Latn_AW",
+                    "pap_Latn_CW",
                     "pap"
                 }, {
                     "pau",
@@ -2736,8 +2848,8 @@ public class ULocaleTest extends TestFmwk {
                     "am"
                 }, {
                     "und_Ethi_ER",
-                    "am_Ethi_ER",
-                    "am_ER"
+                    "ti_Ethi_ER",
+                    "ti_ER"
                 }, {
                     "und_FI",
                     "fi_Latn_FI",
@@ -3104,8 +3216,8 @@ public class ULocaleTest extends TestFmwk {
                     "nl"
                 }, {
                     "und_NO",
-                    "no_Latn_NO",  // Android patch: Replace nb with no.
-                    "no"
+                    "nb_Latn_NO",
+                    "nb"
                 }, {
                     "und_NP",
                     "ne_Deva_NP",
@@ -3216,8 +3328,8 @@ public class ULocaleTest extends TestFmwk {
                     "sl"
                 }, {
                     "und_SJ",
-                    "no_Latn_SJ",  // Android patch: Replace nb with no.
-                    "no_SJ"
+                    "nb_Latn_SJ",
+                    "nb_SJ"
                 }, {
                     "und_SK",
                     "sk_Latn_SK",
@@ -3468,8 +3580,8 @@ public class ULocaleTest extends TestFmwk {
                     "zh_HK"
                 }, {
                     "und_AQ",
-                    "_Latn_AQ",
-                    "_AQ"
+                    "en_Latn_AQ",
+                    "en_AQ"
                 }, {
                     "und_Zzzz",
                     "en_Latn_US",
@@ -3492,8 +3604,8 @@ public class ULocaleTest extends TestFmwk {
                     "zh_HK"
                 }, {
                     "und_Zzzz_AQ",
-                    "_Latn_AQ",
-                    "_AQ"
+                    "en_Latn_AQ",
+                    "en_AQ"
                 }, {
                     "und_Latn",
                     "en_Latn_US",
@@ -3512,12 +3624,12 @@ public class ULocaleTest extends TestFmwk {
                     "trv"
                 }, {
                     "und_Latn_HK",
-                    "zh_Latn_HK",
-                    "zh_Latn_HK"
+                    "en_Latn_HK",
+                    "en_HK"
                 }, {
                     "und_Latn_AQ",
-                    "_Latn_AQ",
-                    "_AQ"
+                    "en_Latn_AQ",
+                    "en_AQ"
                 }, {
                     "und_Hans",
                     "zh_Hans_CN",
@@ -3588,8 +3700,8 @@ public class ULocaleTest extends TestFmwk {
                     "zh_Moon_HK"
                 }, {
                     "und_Moon_AQ",
-                    "_Moon_AQ",
-                    "_Moon_AQ"
+                    "en_Moon_AQ",
+                    "en_Moon_AQ"
                 }, {
                     "es",
                     "es_Latn_ES",
@@ -4013,7 +4125,7 @@ public class ULocaleTest extends TestFmwk {
                 }, {
                     "aae_Latn_IT",
                     "aae_Latn_IT",
-                    "aae_Latn_IT"
+                    "aae"
                 }, {
                     "aae_Thai_CO",
                     "aae_Thai_CO",
@@ -4021,7 +4133,7 @@ public class ULocaleTest extends TestFmwk {
                 }, {
                     "und_CW",
                     "pap_Latn_CW",
-                    "pap_CW"
+                    "pap"
                 }, {
                     "zh_Hant",
                     "zh_Hant_TW",
@@ -4044,8 +4156,8 @@ public class ULocaleTest extends TestFmwk {
                     "es_419"
                 }, {
                     "und_150",
-                    "ru_Cyrl_RU",
-                    "ru"
+                    "en_Latn_150",
+                    "en_150"
                 }, {
                     "und_AT",
                     "de_Latn_AT",
@@ -4099,7 +4211,7 @@ public class ULocaleTest extends TestFmwk {
 
         cldrVersion = LocaleData.getCLDRVersion();
 
-        TestFmwk.logln("uloc_getCLDRVersion() returned: '"+cldrVersion+"'");
+        logln("uloc_getCLDRVersion() returned: '"+cldrVersion+"'");
 
         // why isn't this public for tests somewhere?
         final ClassLoader testLoader = ICUResourceBundleTest.class.getClassLoader();
@@ -4268,7 +4380,7 @@ public class ULocaleTest extends TestFmwk {
 
     @Test
     public void TestForLanguageTag() {
-        final Integer NOERROR = Integer.valueOf(-1);
+        final Integer NOERROR = -1;
 
         final Object[][] langtag_to_locale = {
                 {"en",                  "en",                   NOERROR},
@@ -4276,24 +4388,24 @@ public class ULocaleTest extends TestFmwk {
                 {"und-us",              "_US",                  NOERROR},
                 {"und-latn",            "_Latn",                NOERROR},
                 {"en-us-posix",         "en_US_POSIX",          NOERROR},
-                {"de-de_euro",          "de",                   Integer.valueOf(3)},
+                {"de-de_euro",          "de",                   3},
                 {"kok-in",              "kok_IN",               NOERROR},
-                {"123",                 "",                     Integer.valueOf(0)},
-                {"en_us",               "",                     Integer.valueOf(0)},
-                {"en-latn-x",           "en_Latn",              Integer.valueOf(8)},
+                {"123",                 "",                     0},
+                {"en_us",               "",                     0},
+                {"en-latn-x",           "en_Latn",              8},
                 {"art-lojban",          "jbo",                  NOERROR},
                 {"zh-hakka",            "hak",                  NOERROR},
                 {"zh-cmn-CH",           "cmn_CH",               NOERROR},
                 {"xxx-yy",              "xxx_YY",               NOERROR},
                 {"fr-234",              "fr_234",               NOERROR},
                 {"i-default",           "en@x=i-default",       NOERROR},
-                {"i-test",              "",                     Integer.valueOf(0)},
-                {"ja-jp-jp",            "ja_JP",                Integer.valueOf(6)},
+                {"i-test",              "",                     0},
+                {"ja-jp-jp",            "ja_JP",                6},
                 {"bogus",               "bogus",                NOERROR},
-                {"boguslang",           "",                     Integer.valueOf(0)},
+                {"boguslang",           "",                     0},
                 {"EN-lATN-us",          "en_Latn_US",           NOERROR},
                 {"und-variant-1234",    "__1234_VARIANT",       NOERROR}, /* ICU-20478 */
-                {"und-varzero-var1-vartwo", "__VARZERO",        Integer.valueOf(12)},
+                {"und-varzero-var1-vartwo", "__VARZERO",        12},
                 {"en-u-ca-gregory",     "en@calendar=gregorian",    NOERROR},
                 {"en-U-cu-USD",         "en@currency=usd",      NOERROR},
                 {"en-us-u-va-posix",    "en_US_POSIX",          NOERROR},
@@ -4308,8 +4420,8 @@ public class ULocaleTest extends TestFmwk {
                 {"en-us-u-tz-usnyc",    "en_US@timezone=America/New_York",      NOERROR},
                 {"und-a-abc-def",       "@a=abc-def",           NOERROR},
                 {"zh-u-ca-chinese-x-u-ca-chinese",  "zh@calendar=chinese;x=u-ca-chinese",   NOERROR},
-                {"fr--FR",              "fr",                   Integer.valueOf(3)},
-                {"fr-",                 "fr",                   Integer.valueOf(3)},
+                {"fr--FR",              "fr",                   3},
+                {"fr-",                 "fr",                   3},
                 {"x-elmer",             "@x=elmer",             NOERROR},
                 {"en-US-u-attr1-attr2-ca-gregory", "en_US@attribute=attr1-attr2;calendar=gregorian",    NOERROR},
                 {"sr-u-kn",             "sr@colnumeric=yes",    NOERROR},
@@ -4317,7 +4429,7 @@ public class ULocaleTest extends TestFmwk {
                 {"en-u-attr2-attr1-kn-kb",  "en@attribute=attr1-attr2;colbackwards=yes;colnumeric=yes", NOERROR},
                 {"ja-u-ijkl-efgh-abcd-ca-japanese-xx-yyy-zzz-kn",   "ja@attribute=abcd-efgh-ijkl;calendar=japanese;colnumeric=yes;xx=yyy-zzz",  NOERROR},
                 {"de-u-xc-xphonebk-co-phonebk-ca-buddhist-mo-very-lo-extensi-xd-that-de-should-vc-probably-xz-killthebuffer",
-                    "de@calendar=buddhist;collation=phonebook;de=should;lo=extensi;mo=very;vc=probably;xc=xphonebk;xd=that;xz=yes", Integer.valueOf(92)},
+                    "de@calendar=buddhist;collation=phonebook;de=should;lo=extensi;mo=very;vc=probably;xc=xphonebk;xd=that;xz=yes", 92},
                 /* #12761 */
                 {"en-a-bar-u-baz",      "en@a=bar;attribute=baz",   NOERROR},
                 {"en-a-bar-u-baz-x-u-foo",  "en@a=bar;attribute=baz;x=u-foo",   NOERROR},
@@ -4326,10 +4438,10 @@ public class ULocaleTest extends TestFmwk {
                 {"en-a-bar-u-ca-islamic-civil-x-u-foo", "en@a=bar;calendar=islamic-civil;x=u-foo",  NOERROR},
                 {"en-a-bar-u-baz-ca-islamic-civil-x-u-foo", "en@a=bar;attribute=baz;calendar=islamic-civil;x=u-foo",    NOERROR},
                 /* #20098 */
-                {"hant-cmn-cn", "hant", Integer.valueOf(5)},
+                {"hant-cmn-cn", "hant", 5},
                 {"zh-cmn-TW", "cmn_TW", NOERROR},
-                {"zh-x_t-ab", "zh", Integer.valueOf(3)},
-                {"zh-hans-cn-u-ca-x_t-u", "zh_Hans_CN@calendar=yes",  Integer.valueOf(16)},
+                {"zh-x_t-ab", "zh", 3},
+                {"zh-hans-cn-u-ca-x_t-u", "zh_Hans_CN@calendar=yes",  16},
                 /* #20140 dupe keys in U-extension */
                 {"zh-u-ca-chinese-ca-gregory", "zh@calendar=chinese", NOERROR},
                 {"zh-u-ca-gregory-co-pinyin-ca-chinese", "zh@calendar=gregorian;collation=pinyin", NOERROR},
@@ -4472,7 +4584,7 @@ public class ULocaleTest extends TestFmwk {
 
             for (int i = 0; i < nExtensions; i++) {
                 String kstr = testcase[i/2 + 1];
-                String ext = loc.getExtension(Character.valueOf(kstr.charAt(0)));
+                String ext = loc.getExtension(kstr.charAt(0));
                 if (ext == null || !ext.equals(testcase[i/2 + 2])) {
                     errln("Incorrect extension value: key="
                             + kstr + ", returned=" + ext + ", expected=" + testcase[i/2 + 2]
@@ -5368,9 +5480,66 @@ public class ULocaleTest extends TestFmwk {
 
     }
 
+
+    @Test
+    public void TestVariantLengthWithinLimit() {
+        String valid =
+            "_" +
+            "_12345678" +
+            "_12345678" +
+            "_12345678" +
+            "_12345678" +
+            "_12345678" +
+            "_12345678" +
+            "_12345678" +
+            "_12345678" +
+            "_12345678" +
+            "_12345678" +
+            "_12345678" +
+            "_12345678" +
+            "_12345678" +
+            "_12345678" +
+            "_12345678" +
+            "_12345678" +
+            "_12345678" +
+            "_12345678" +
+            "_12345678" +
+            "_12345678";
+
+        ULocale locale = new ULocale(valid);
+        Assert.assertEquals(valid.substring(2), locale.getVariant());
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void TestVariantLengthOverLimit() {
+        String invalid =
+            "_" +
+            "_12345678" +
+            "_12345678" +
+            "_12345678" +
+            "_12345678" +
+            "_12345678" +
+            "_12345678" +
+            "_12345678" +
+            "_12345678" +
+            "_12345678" +
+            "_12345678" +
+            "_12345678" +
+            "_12345678" +
+            "_12345678" +
+            "_12345678" +
+            "_12345678" +
+            "_12345678" +
+            "_12345678" +
+            "_12345678" +
+            "_12345678" +
+            "_12345678X";  // One character too long.
+        ULocale locale = new ULocale(invalid);
+    }
+
     @Test
     public void TestLocaleCanonicalizationFromFile() throws IOException {
-        BufferedReader testFile = TestUtil.getDataReader("unicode/localeCanonicalization.txt");
+        BufferedReader testFile = TestUtil.getDataReader("cldr/localeIdentifiers/localeCanonicalization.txt");
         try {
             String line;
             while ((line = testFile.readLine()) != null) {
@@ -5392,5 +5561,179 @@ public class ULocaleTest extends TestFmwk {
             testFile.close();
         }
 
+    }
+
+    private static final class TestCase implements Cloneable {
+        private static final String ENDL = System.getProperties().getProperty("line.separator");
+
+        int lineNr = 0;
+
+        String source = "";
+        String addLikely = "";
+        String removeFavorScript = "";
+        String removeFavorRegion = "";
+
+        @Override
+        public TestCase clone() throws CloneNotSupportedException {
+            return (TestCase) super.clone();
+        }
+
+        @Override
+        public String toString() {
+            return (new StringBuilder(source))
+                .append(";")
+                .append(addLikely)
+                .append(";")
+                .append(removeFavorScript)
+                .append(";")
+                .append(removeFavorRegion)
+                .toString();
+        }
+    }
+    static List<TestCase> readLikelySubtagsTestCases() throws Exception {
+        List<TestCase> tests = new ArrayList<>();
+        TestCase test = new TestCase();
+        BufferedReader testFile = TestUtil.getDataReader("cldr/localeIdentifiers/likelySubtags.txt");
+        try {
+            String line;
+            while ((line = testFile.readLine()) != null) {
+                if (line.startsWith("#")) continue;
+                String [] fields = line.split("[ \t]?;[ \t]?");
+                if (fields.length < 2) continue;
+                test.source = fields[0];
+                test.addLikely = fields[1];
+                test.removeFavorScript = (fields.length < 3) || fields[2].isEmpty() ? test.addLikely : fields[2];
+                test.removeFavorRegion = (fields.length < 4) || fields[3].isEmpty() ? test.removeFavorScript : fields[3];
+                tests.add(test.clone());
+            }
+        } finally {
+            testFile.close();
+        }
+        return tests;
+    }
+
+    // ICU-22742, test addLikelySubtags with pseudo-locales
+    @Test
+    public void TestPseudoLocales() {
+        // input locale tag, expected locale tag
+        String[][] testCases = new String[][] {
+                // language + region, en
+                { "en-XA", "en-Latn-XA" },
+                { "en-XB", "en-Latn-XB" },
+                { "en-XC", "en-Latn-XC" },
+
+                // language + region, ar
+                { "ar-XA", "ar-Arab-XA" },
+                { "ar-XB", "ar-Arab-XB" },
+                { "ar-XC", "ar-Arab-XC" },
+
+                // language + region, something other than en, ar
+                { "ru-XA", "ru-Cyrl-XA" },
+                { "el-XB", "el-Grek-XB" },
+
+                // undefined language - region
+                { "und-XA", "en-Latn-XA" },
+                { "und-XB", "en-Latn-XB" },
+                { "und-XC", "en-Latn-XC" },
+
+                // language + script + region
+                { "und-Latn-XA", "en-Latn-XA" },
+                { "und-Latn-XB", "en-Latn-XB" },
+                { "und-Latn-XC", "en-Latn-XC" },
+                { "und-Arab-XA", "ar-Arab-XA" },
+                { "und-Arab-XB", "ar-Arab-XB" },
+                { "und-Arab-XC", "ar-Arab-XC" },
+                { "und-Cyrl-XA", "ru-Cyrl-XA" },
+                { "und-Grek-XB", "el-Grek-XB" },
+
+                // Make sure the script is not damaged, when correct
+                { "ru-Cyrl-XA", "ru-Cyrl-XA" },
+                { "el-Grek-XB", "el-Grek-XB" },
+
+                // Make sure the script is not damaged, even if it is wrong
+                { "ru-Grek-XA", "ru-Grek-XA" },
+                { "el-Cyrl-XB", "el-Cyrl-XB" },
+
+                // PS Variants
+                { "en-XA-PSACCENT", "en-Latn-XA-psaccent" },
+                { "en-XA-PSBIDI", "en-Latn-XA-psbidi" },
+                { "en-XA-PSCRACK", "en-Latn-XA-pscrack" },
+                { "ar-XB-PSACCENT", "ar-Arab-XB-psaccent" },
+                { "ar-XB-PSBIDI", "ar-Arab-XB-psbidi" },
+                { "ar-XB-PSCRACK", "ar-Arab-XB-pscrack" },
+                { "en-XC-PSACCENT", "en-Latn-XC-psaccent" },
+                { "en-XC-PSBIDI", "en-Latn-XC-psbidi" },
+                { "en-XC-PSCRACK", "en-Latn-XC-pscrack" },
+
+                { "en-US-PSACCENT", "en-Latn-US-psaccent" },
+                { "en-US-PSBIDI", "en-Latn-US-psbidi" },
+                { "en-US-PSCRACK", "en-Latn-US-pscrack" },
+                { "ar-EG-PSACCENT", "ar-Arab-EG-psaccent" },
+                { "ar-EG-PSBIDI", "ar-Arab-EG-psbidi" },
+                { "ar-EG-PSCRACK", "ar-Arab-EG-pscrack" },
+
+                { "en-PSACCENT", "en-Latn-US-psaccent" },
+                { "en-PSBIDI", "en-Latn-US-psbidi" },
+                { "en-PSCRACK", "en-Latn-US-pscrack" },
+                { "ar-PSACCENT", "ar-Arab-EG-psaccent" },
+                { "ar-PSBIDI", "ar-Arab-EG-psbidi" },
+                { "ar-PSCRACK", "ar-Arab-EG-pscrack" },
+
+                { "und-US-PSACCENT", "en-Latn-US-psaccent" },
+                { "und-US-PSBIDI", "en-Latn-US-psbidi" },
+                { "und-US-PSCRACK", "en-Latn-US-pscrack" },
+                { "und-EG-PSACCENT", "ar-Arab-EG-psaccent" },
+                { "und-EG-PSBIDI", "ar-Arab-EG-psbidi" },
+                { "und-EG-PSCRACK", "ar-Arab-EG-pscrack" },
+
+                { "und-PSACCENT", "en-Latn-US-psaccent" },
+                { "und-PSBIDI", "en-Latn-US-psbidi" },
+                { "und-PSCRACK", "en-Latn-US-pscrack" },
+                { "und-PSACCENT", "en-Latn-US-psaccent" },
+                { "und-PSBIDI", "en-Latn-US-psbidi" },
+                { "und-PSCRACK", "en-Latn-US-pscrack" },
+        };
+        String extensions = "-u-nu-Deva-hc-h23-fw-mon-mu-celsius-x-something-more";
+
+        for (String[] testCase : testCases) {
+            String inputTag = testCase[0];
+            String expectedTag = testCase[1];
+            ULocale result = ULocale.addLikelySubtags(ULocale.forLanguageTag(inputTag));
+            ULocale expected = ULocale.forLanguageTag(expectedTag);
+            assertEquals("pseudo-locales(" + inputTag + ")", expected, result);
+
+            // Make sure this also works with extensions. Kind of hacky...
+            result = ULocale.addLikelySubtags(ULocale.forLanguageTag(inputTag + extensions));
+            expected = ULocale.forLanguageTag(expectedTag + extensions);
+            assertEquals("pseudo-locales(" + inputTag + ")", expected, result);
+        }
+    }
+
+    @Test
+    @Parameters(method = "readLikelySubtagsTestCases")
+    public void likelySubtagsDataDriven(TestCase test) {
+        ULocale l = ULocale.forLanguageTag(test.source);
+
+        if (test.addLikely.equals("FAIL")) {
+            assertEquals("addLikelySubtags(" + test.source + ") should be unchanged",
+                l, ULocale.addLikelySubtags(l));
+        } else {
+            assertEquals("addLikelySubtags(" + test.source + ")",
+                test.addLikely, ULocale.addLikelySubtags(l).toLanguageTag());
+        }
+        if (test.removeFavorRegion.equals("FAIL")) {
+            assertEquals("minimizeSubtags(" + test.source + ") should be unchanged",
+                l, ULocale.minimizeSubtags(l));
+        } else {
+            assertEquals("minimizeSubtags(" + test.source + ")",
+                test.removeFavorRegion, ULocale.minimizeSubtags(l).toLanguageTag());
+        }
+        if (test.removeFavorScript.equals("FAIL")) {
+            assertEquals("minimizeSubtags(" + test.source + ") - FAVOR_SCRIPT should be unchanged",
+                l, ULocale.minimizeSubtags(l, ULocale.Minimize.FAVOR_SCRIPT));
+        } else {
+            assertEquals("minimizeSubtags(" + test.source + ") - FAVOR_SCRIPT",
+                test.removeFavorScript, ULocale.minimizeSubtags(l, ULocale.Minimize.FAVOR_SCRIPT).toLanguageTag());
+        }
     }
 }

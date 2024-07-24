@@ -19,6 +19,7 @@ package com.android.libcore.java.text;
 import static org.junit.Assert.assertEquals;
 
 import android.icu.testsharding.MainTestShard;
+import android.icu.util.VersionInfo;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -42,6 +43,10 @@ public class NumberFormatTest {
     // See http://b/162744366.
     @Test
     public void testMonetarySeparator() {
+        // Skip this test on U or lower due to a change in j.t.DecimalFormat. b/346454577
+        if (VersionInfo.ICU_VERSION.getMajor() < 75) {
+            return;
+        }
         Locale locale = Locale.forLanguageTag("en-BE");
         DecimalFormat df = (DecimalFormat) NumberFormat.getCurrencyInstance(locale);
         DecimalFormatSymbols dfs = df.getDecimalFormatSymbols();
@@ -49,10 +54,9 @@ public class NumberFormatTest {
         // below assert statement.
         assertEquals('.', dfs.getGroupingSeparator());
         assertEquals(',', dfs.getDecimalSeparator());
-        // TODO(b/322774673): Re-enable this test in 24Q3.
-        // assertEquals('.', dfs.getMonetaryDecimalSeparator());
-        // assertEquals(',', dfs.getMonetaryGroupingSeparator());
+        assertEquals('.', dfs.getMonetaryDecimalSeparator());
+        assertEquals(',', dfs.getMonetaryGroupingSeparator());
         // Assert that the separators in DecimalFormatSymbols are used.
-        // assertEquals("€9,876.66",df.format(9876.66));
+        assertEquals("€9,876.66",df.format(9876.66));
     }
 }

@@ -18,6 +18,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 
+import android.icu.dev.test.CoreTestFmwk;
 import android.icu.dev.test.TestFmwk;
 import android.icu.dev.test.TestUtil;
 import android.icu.dev.test.TestUtil.JavaVendor;
@@ -103,7 +104,7 @@ import android.icu.testsharding.MainTestShard;
 
 @MainTestShard
 @RunWith(JUnit4.class)
-public class DiagBigDecimalTest extends TestFmwk {
+public class DiagBigDecimalTest extends CoreTestFmwk {
     private static final android.icu.math.BigDecimal zero = android.icu.math.BigDecimal.ZERO;
     private static final android.icu.math.BigDecimal one = android.icu.math.BigDecimal.ONE;
     private static final android.icu.math.BigDecimal two = new android.icu.math.BigDecimal(2);
@@ -2920,15 +2921,15 @@ public class DiagBigDecimalTest extends TestFmwk {
         java.lang.String val;
         // 1999.03.07 Infinities no longer errors
         val = "-1";
-        TestFmwk.assertTrue("dov001", ((new android.icu.math.BigDecimal(val)).doubleValue()) == ((new java.lang.Double(val)).doubleValue()));
+        TestFmwk.assertTrue("dov001", ((new android.icu.math.BigDecimal(val)).doubleValue()) == ((Double.valueOf(val)).doubleValue()));
         val = "-0.1";
-        TestFmwk.assertTrue("dov002", ((new android.icu.math.BigDecimal(val)).doubleValue()) == ((new java.lang.Double(val)).doubleValue()));
+        TestFmwk.assertTrue("dov002", ((new android.icu.math.BigDecimal(val)).doubleValue()) == ((Double.valueOf(val)).doubleValue()));
         val = "0";
-        TestFmwk.assertTrue("dov003", ((new android.icu.math.BigDecimal(val)).doubleValue()) == ((new java.lang.Double(val)).doubleValue()));
+        TestFmwk.assertTrue("dov003", ((new android.icu.math.BigDecimal(val)).doubleValue()) == ((Double.valueOf(val)).doubleValue()));
         val = "0.1";
-        TestFmwk.assertTrue("dov004", ((new android.icu.math.BigDecimal(val)).doubleValue()) == ((new java.lang.Double(val)).doubleValue()));
+        TestFmwk.assertTrue("dov004", ((new android.icu.math.BigDecimal(val)).doubleValue()) == ((Double.valueOf(val)).doubleValue()));
         val = "1";
-        TestFmwk.assertTrue("dov005", ((new android.icu.math.BigDecimal(val)).doubleValue()) == ((new java.lang.Double(val)).doubleValue()));
+        TestFmwk.assertTrue("dov005", ((new android.icu.math.BigDecimal(val)).doubleValue()) == ((Double.valueOf(val)).doubleValue()));
         val = "1e1000";
         TestFmwk.assertTrue("dov006", ((new android.icu.math.BigDecimal(val)).doubleValue()) == java.lang.Double.POSITIVE_INFINITY);
         val = "-1e1000";
@@ -2959,23 +2960,23 @@ public class DiagBigDecimalTest extends TestFmwk {
         java.lang.String val;
         // 1999.03.07 Infinities no longer errors
         val = "-1";
-        TestFmwk.assertTrue("flv001", ((new android.icu.math.BigDecimal(val)).floatValue()) == ((new java.lang.Float(val)).floatValue()));
+        TestFmwk.assertTrue("flv001", ((new android.icu.math.BigDecimal(val)).floatValue()) == (Float.valueOf(val).floatValue()));
         val = "-0.1";
-        TestFmwk.assertTrue("flv002", ((new android.icu.math.BigDecimal(val)).floatValue()) == ((new java.lang.Float(val)).floatValue()));
+        TestFmwk.assertTrue("flv002", ((new android.icu.math.BigDecimal(val)).floatValue()) == (Float.valueOf(val).floatValue()));
         val = "0";
-        TestFmwk.assertTrue("flv003", ((new android.icu.math.BigDecimal(val)).floatValue()) == ((new java.lang.Float(val)).floatValue()));
+        TestFmwk.assertTrue("flv003", ((new android.icu.math.BigDecimal(val)).floatValue()) == (Float.valueOf(val).floatValue()));
         val = "0.1";
-        TestFmwk.assertTrue("flv004", ((new android.icu.math.BigDecimal(val)).floatValue()) == ((new java.lang.Float(val)).floatValue()));
+        TestFmwk.assertTrue("flv004", ((new android.icu.math.BigDecimal(val)).floatValue()) == (Float.valueOf(val).floatValue()));
         val = "1";
-        TestFmwk.assertTrue("flv005", ((new android.icu.math.BigDecimal(val)).floatValue()) == ((new java.lang.Float(val)).floatValue()));
+        TestFmwk.assertTrue("flv005", ((new android.icu.math.BigDecimal(val)).floatValue()) == (Float.valueOf(val).floatValue()));
         val = "1e200";
-        TestFmwk.assertTrue("flv006", ((new android.icu.math.BigDecimal(val)).floatValue()) == java.lang.Float.POSITIVE_INFINITY);
+        TestFmwk.assertTrue("flv006", ((new android.icu.math.BigDecimal(val)).floatValue()) == Float.POSITIVE_INFINITY);
         val = "-1e200";
-        TestFmwk.assertTrue("flv007", ((new android.icu.math.BigDecimal(val)).floatValue()) == java.lang.Float.NEGATIVE_INFINITY);
+        TestFmwk.assertTrue("flv007", ((new android.icu.math.BigDecimal(val)).floatValue()) == Float.NEGATIVE_INFINITY);
         val = "1e1000";
-        TestFmwk.assertTrue("flv008", ((new android.icu.math.BigDecimal(val)).floatValue()) == java.lang.Float.POSITIVE_INFINITY);
+        TestFmwk.assertTrue("flv008", ((new android.icu.math.BigDecimal(val)).floatValue()) == Float.POSITIVE_INFINITY);
         val = "-1e1000";
-        TestFmwk.assertTrue("flv009", ((new android.icu.math.BigDecimal(val)).floatValue()) == java.lang.Float.NEGATIVE_INFINITY);
+        TestFmwk.assertTrue("flv009", ((new android.icu.math.BigDecimal(val)).floatValue()) == Float.NEGATIVE_INFINITY);
     }
 
     /* ----------------------------------------------------------------- */
