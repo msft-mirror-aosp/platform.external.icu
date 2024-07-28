@@ -6,5 +6,10 @@
     {
       "name": "minikin_tests"
     }
+  ],
+  "postsubmit": [
+    {
+      "name": "CtsIcuTestCasesRavenwood"
+    }
   ]
 }
