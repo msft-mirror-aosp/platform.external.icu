@@ -297,6 +297,12 @@ java_sdk_library {
     lint: {
         warning_checks: ["SuspiciousIndentation"],
     },
+
+    // This module's output stubs contain apis defined in "i18n.module.public.api.stubs",
+    // but adding "i18n.module.public.api" as a dependency of this module leads to circular
+    // dependency and requires further bootstrapping. Thus, disable stubs generation from the
+    // api signature files and generate stubs from the source Java files instead.
+    build_from_text_stub: false,
 }
 
 // Referenced implicitly from i18n.module.intra.core.api.
