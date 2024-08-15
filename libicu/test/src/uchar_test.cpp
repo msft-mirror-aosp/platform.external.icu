@@ -31,3 +31,13 @@ TEST(Icu4cUCharTest, test_u_toupper) {
   ASSERT_EQ(U'1', u_toupper(U'1'));
   ASSERT_EQ(U'Ë', u_toupper(U'ë'));
 }
+
+TEST(Icu4cUCharTest, test_u_charFromName) {
+  UErrorCode err;
+  ASSERT_EQ(0x0020, u_charFromName(U_UNICODE_CHAR_NAME, "SPACE", &err));
+  ASSERT_EQ(0x0061, u_charFromName(U_UNICODE_CHAR_NAME, "LATIN SMALL LETTER A", &err));
+  ASSERT_EQ(0x0042, u_charFromName(U_UNICODE_CHAR_NAME, "LATIN CAPITAL LETTER B", &err));
+  ASSERT_EQ(0x00a2, u_charFromName(U_UNICODE_CHAR_NAME, "CENT SIGN", &err));
+  ASSERT_EQ(0xffe5, u_charFromName(U_UNICODE_CHAR_NAME, "FULLWIDTH YEN SIGN", &err));
+  ASSERT_EQ(0x3401, u_charFromName(U_UNICODE_CHAR_NAME, "CJK UNIFIED IDEOGRAPH-3401", &err));
+}

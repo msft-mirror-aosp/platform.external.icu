@@ -45,6 +45,7 @@ public class TimeZoneDataFilesTest {
 
         assertTrue(paths[0].startsWith(System.getenv(ANDROID_TZDATA_ROOT_ENV)));
         assertTrue(paths[0].endsWith("/foo"));
+        assertTrue(paths[0].contains("versioned"));
     }
 
     // http://b/34867424
@@ -55,9 +56,11 @@ public class TimeZoneDataFilesTest {
         String[] paths = icuDataPath.split(":");
         assertEquals(2, paths.length);
 
-        String tzdataModulePath = paths[0];
-        assertTrue(tzdataModulePath + " invalid",
-                tzdataModulePath.startsWith(System.getenv(ANDROID_TZDATA_ROOT_ENV)));
+        String versionedTzdataModulePath = paths[0];
+        assertTrue(versionedTzdataModulePath + " invalid",
+                versionedTzdataModulePath.startsWith(System.getenv(ANDROID_TZDATA_ROOT_ENV)));
+        assertTrue(versionedTzdataModulePath + " should be versioned",
+                versionedTzdataModulePath.contains("versioned"));
 
         String runtimeModulePath = paths[1];
         assertTrue(runtimeModulePath + " invalid",
