@@ -2014,6 +2014,11 @@ units:table(nofallback){
                         unit{"mile-per-hour"}
                     }
                 }
+                JP{
+                    {
+                        unit{"meter-per-second"}
+                    }
+                }
                 KR{
                     {
                         unit{"meter-per-second"}
