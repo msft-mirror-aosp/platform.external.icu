@@ -30,6 +30,10 @@ package {
     default_applicable_licenses: ["external_icu_license"],
 }
 
+build = [
+    "Ravenwood.bp",
+]
+
 //==========================================================
 // build repackaged ICU for target
 //
@@ -293,6 +297,12 @@ java_sdk_library {
     lint: {
         warning_checks: ["SuspiciousIndentation"],
     },
+
+    // This module's output stubs contain apis defined in "i18n.module.public.api.stubs",
+    // but adding "i18n.module.public.api" as a dependency of this module leads to circular
+    // dependency and requires further bootstrapping. Thus, disable stubs generation from the
+    // api signature files and generate stubs from the source Java files instead.
+    build_from_text_stub: false,
 }
 
 // Referenced implicitly from i18n.module.intra.core.api.
@@ -452,15 +462,10 @@ java_sdk_library {
 // repackaged android.icu classes and methods and not just the ones available
 // through the Android API.
 //==========================================================
-java_test {
-    name: "android-icu4j-tests",
+java_defaults {
+    name: "android-icu4j-tests-default",
     visibility: [
         "//cts/tests/tests/icu",
-    ],
-
-    srcs: [
-        "src/main/tests/**/*.java",
-        "testing/src/**/*.java",
     ],
     java_resource_dirs: [
         "src/main/tests",
@@ -492,4 +497,40 @@ java_test {
             "-Xep:ComparableType:WARN",
         ],
     },
+}
+
+java_test {
+    name: "android-icu4j-tests",
+    defaults: ["android-icu4j-tests-default"],
+    visibility: [
+        "//cts/tests/tests/icu",
+    ],
+    srcs: [
+        "src/main/tests/**/*.java",
+        "testing/src/**/*.java",
+    ],
+}
+
+// Equivalent to android-icu4j-tests, excluding the tests under testing/.
+// We run this as ICU CTS on Ravenwood, where the testing/ tests won't pass due to lack of
+// libcore.
+java_test {
+    name: "android-icu4j-tests-core-only",
+    defaults: ["android-icu4j-tests-default"],
+    visibility: [
+        "//cts/tests/tests/icu",
+    ],
+    srcs: [
+        "src/main/tests/**/*.java",
+        "testing/src/android/icu/testsharding/**/*.java",
+    ],
+    // TODO(b/340889954) Un-excluide the excluded tests.
+    exclude_srcs: [
+        // This class has a "known-failure", which we can't exclude on Ravenwood without
+        // modifying this file, so let's just exclude the whole class for now.
+        "src/main/tests/android/icu/dev/test/format/NumberFormatRegressionTest.java",
+
+        // This test takes too much time and hits the timeout.
+        "src/main/tests/android/icu/dev/test/rbbi/RBBIMonkeyTest.java",
+    ],
 }
