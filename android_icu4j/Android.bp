@@ -142,6 +142,7 @@ java_library {
     name: "core-icu4j",
     defaults: ["libcore_icu_bridge_defaults"],
     visibility: [
+        "//art/tools/fuzzer",
         "//packages/modules/RuntimeI18n/apex",
     ],
     apex_available: [
