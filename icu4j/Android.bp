@@ -181,11 +181,10 @@ java_library {
     jarjar_rules: "liblayout-jarjar-rules.txt",
 }
 
-// Compatibility alias until references to icu4j-host are removed
-//
-// When converting .mk files to .bp files do not change the visibility of this
-// module, instead replace usages of this with icu4j
 java_library_host {
     name: "icu4j-host",
     static_libs: ["icu4j"],
+    visibility: [
+        "//vendor:__subpackages__",
+    ],
 }
