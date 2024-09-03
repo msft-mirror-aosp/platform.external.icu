@@ -5602,7 +5602,9 @@ void CalendarTest::TestFirstDayOfWeek() {
 
     // Test -u-rg- value
     verifyFirstDayOfWeek("en-MV-u-ca-iso8601-rg-mvzzzz-sd-usca", UCAL_FRIDAY);
-    verifyFirstDayOfWeek("en-MV-u-ca-iso8601-rg-aezzzz-sd-usca", UCAL_SATURDAY);
+    // Android-changed: the first week day in UAE is Monday.
+    // verifyFirstDayOfWeek("en-MV-u-ca-iso8601-rg-aezzzz-sd-usca", UCAL_SATURDAY);
+    verifyFirstDayOfWeek("en-MV-u-ca-iso8601-rg-aezzzz-sd-usca", UCAL_MONDAY);
     verifyFirstDayOfWeek("en-MV-u-ca-iso8601-rg-uszzzz-sd-usca", UCAL_SUNDAY);
     verifyFirstDayOfWeek("en-MV-u-ca-iso8601-rg-gbzzzz-sd-usca", UCAL_MONDAY);
 
@@ -5613,13 +5615,17 @@ void CalendarTest::TestFirstDayOfWeek() {
 
     // Test Region Tags only
     verifyFirstDayOfWeek("en-MV", UCAL_FRIDAY);
-    verifyFirstDayOfWeek("en-AE", UCAL_SATURDAY);
+    // Android-changed: the first week day in UAE is Monday.
+    // verifyFirstDayOfWeek("en-AE", UCAL_SATURDAY);
+    verifyFirstDayOfWeek("en-AE", UCAL_MONDAY);
     verifyFirstDayOfWeek("en-US", UCAL_SUNDAY);
     verifyFirstDayOfWeek("dv-GB", UCAL_MONDAY);
 
     // Test -u-sd-
     verifyFirstDayOfWeek("en-u-sd-mv00", UCAL_FRIDAY);
-    verifyFirstDayOfWeek("en-u-sd-aeaj", UCAL_SATURDAY);
+    // Android-changed: the first week day in UAE is Monday.
+    // verifyFirstDayOfWeek("en-u-sd-aeaj", UCAL_SATURDAY);
+    verifyFirstDayOfWeek("en-u-sd-aeaj", UCAL_MONDAY);
     verifyFirstDayOfWeek("en-u-sd-usca", UCAL_SUNDAY);
     verifyFirstDayOfWeek("dv-u-sd-gbsct", UCAL_MONDAY);
 
@@ -5629,8 +5635,11 @@ void CalendarTest::TestFirstDayOfWeek() {
     // und_Thaa => dv_Thaa_MV => Friday
     verifyFirstDayOfWeek("und-Thaa", UCAL_FRIDAY);
 
+    // Android-changed: the first week day in UAE is Monday.
     // ssh => ssh_Arab_AE => Saturday
-    verifyFirstDayOfWeek("ssh", UCAL_SATURDAY);
+    // verifyFirstDayOfWeek("ssh", UCAL_SATURDAY);
+    // ssh => ssh_Arab_AE => Monday
+    verifyFirstDayOfWeek("ssh", UCAL_MONDAY);
     // wbl_Arab => wbl_Arab_AF => Saturday
     verifyFirstDayOfWeek("wbl-Arab", UCAL_SATURDAY);
 
