@@ -6,5 +6,11 @@
     {
       "name": "minikin_tests"
     }
+  ],
+  "ravenwood-postsubmit": [
+    {
+      "name": "CtsIcuTestCasesRavenwood",
+      "host": true
+    }
   ]
 }
