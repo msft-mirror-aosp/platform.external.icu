@@ -27,6 +27,7 @@ import android.icu.text.DecimalFormatSymbols;
 import android.icu.util.TimeZone;
 import android.icu.util.ULocale;
 
+import com.android.icu.util.LocaleNative;
 import com.android.icu.util.UResourceBundleNative;
 
 import dalvik.annotation.compat.VersionCodes;
@@ -91,6 +92,12 @@ public final class ZygoteHooks {
         // Cache the timezone bundles, e.g. metaZones.res, in Zygote due to app compat.
         // http://b/339899412
         UResourceBundleNative.cacheTimeZoneBundles();
+
+        // The UI library minikin on Android calls uloc_forLanguageTag with an Unicode extension
+        // specifying the line breaking strictness. Parsing the extension requires loading
+        // the key map from keyTypeData.txt. Let's cache the map in Zygote because
+        // many app processes use minikin to render texts. http://b/355467371
+        LocaleNative.cacheUnicodeExtensionSubtagsKeyMap();
     }
 
     /**
