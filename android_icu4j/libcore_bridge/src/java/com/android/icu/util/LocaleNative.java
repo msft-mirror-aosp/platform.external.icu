@@ -17,7 +17,7 @@
 package com.android.icu.util;
 
 import android.icu.util.ULocale;
-
+import dalvik.annotation.optimization.FastNative;
 import java.util.Locale;
 import libcore.api.IntraCoreApi;
 
@@ -125,4 +125,7 @@ public final class LocaleNative {
 
     private static native String getDisplayScriptNative(String targetLanguageTag,
         String languageTag);
+
+    @FastNative
+    public static native void cacheUnicodeExtensionSubtagsKeyMap();
 }
