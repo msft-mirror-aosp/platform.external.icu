@@ -30,10 +30,6 @@ package {
     default_applicable_licenses: ["external_icu_license"],
 }
 
-build = [
-    "Ravenwood.bp",
-]
-
 //==========================================================
 // build repackaged ICU for target
 //
@@ -375,6 +371,15 @@ filegroup {
     name: "stable.i18n.module.platform.api-incompatibilities.api.public.latest",
     srcs: [
         "api/stable_platform/last-incompatibilities.txt",
+    ],
+}
+
+// Used by ravenwood for processing
+filegroup {
+    name: "icu-ravenwood-policies",
+    visibility: ["//frameworks/base/ravenwood"],
+    srcs: [
+        "icu-ravenwood-policies.txt",
     ],
 }
 
