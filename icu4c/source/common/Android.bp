@@ -116,13 +116,6 @@ cc_library {
                 enabled: false,
             },
         },
-        windows_x86_64: {
-            dist: {
-                targets: ["layoutlib"],
-                dir: "layoutlib_native/windows",
-                tag: "stripped_all",
-            },
-        },
     },
     header_libs: ["libicuuc_headers"],
     export_header_lib_headers: ["libicuuc_headers"],
