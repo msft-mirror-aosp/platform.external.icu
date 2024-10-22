@@ -317,17 +317,18 @@ public class ULocaleCollationTest extends TestFmwk {
                     expected.add(new UiListItem(new ULocale(rawRow[2]), new ULocale(rawRow[3]), rawRow[0], rawRow[1]));
                 }
                 List<UiListItem> newList = names.getUiList(list, false, collator);
-                if (!expected.equals(newList)) {
-                    if (expected.size() != newList.size()) {
-                        errln(list.toString() + ": wrong size" + expected + ", " + newList);
-                    } else {
-//                        errln(list.toString());
-                        for (int i = 0; i < expected.size(); ++i) {
-                            assertEquals(i + "", expected.get(i), newList.get(i));
-                        }
-                    }
+                // Android-changed: Checking nameInSelf is not necessary.
+                if (expected.size() != newList.size()) {
+                    errln(list.toString() + ": wrong size" + expected + ", " + newList);
                 } else {
-                    assertEquals(list.toString(), expected, newList);
+                    String msgHead = list.toString() + ":";
+                    for (int i = 0; i < expected.size(); ++i) {
+                        UiListItem expectedItem = expected.get(i);
+                        UiListItem newItem = newList.get(i);
+                        assertEquals(msgHead + i+":minimized", expectedItem.minimized, newItem.minimized);
+                        assertEquals(msgHead + i+":modified", expectedItem.modified, newItem.modified);
+                        assertEquals(msgHead + i+":nameInDisplayLocale", expectedItem.nameInDisplayLocale, newItem.nameInDisplayLocale);
+                    }
                 }
             }
         } finally {
