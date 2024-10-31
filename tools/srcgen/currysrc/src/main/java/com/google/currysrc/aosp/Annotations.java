@@ -19,6 +19,7 @@ import com.google.currysrc.api.process.Processor;
 import com.google.currysrc.api.process.ast.BodyDeclarationLocators;
 import com.google.currysrc.processors.AddAnnotation;
 import com.google.currysrc.processors.AnnotationInfo.AnnotationClass;
+import com.google.currysrc.processors.AnnotationInfo.Placeholder;
 import java.io.IOException;
 import java.nio.file.Path;
 
@@ -76,6 +77,17 @@ public final class Annotations {
       return AddAnnotation.fromJsonFile(annotationClass, unsupportedAppUsagePath);
     } catch (IOException e) {
       throw new IllegalStateException("Could not read JSON from " + unsupportedAppUsagePath, e);
+    }
+  }
+
+  public static AddAnnotation addFlaggedApi(Path flaggedApiPath) {
+    AnnotationClass annotationClass = new AnnotationClass(
+        "android.annotation.FlaggedApi")
+        .addProperty("value", Placeholder.class);
+    try {
+      return AddAnnotation.fromJsonFile(annotationClass, flaggedApiPath);
+    } catch (IOException e) {
+      throw new IllegalStateException("Could not read JSON from " + flaggedApiPath, e);
     }
   }
 }
