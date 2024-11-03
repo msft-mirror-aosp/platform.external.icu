@@ -126,6 +126,13 @@ public class RepackagingTransform {
             .withRequiredArg()
             .withValuesConvertedBy(PATH_CONVERTER);
 
+    OptionSpec<Path> flaggedApiFileOption =
+        optionParser.accepts("flagged-api-file",
+            "json file containing body declaration identifiers and flag value for those members"
+                + " that should receive the @FlaggedApi annotation during transformation.")
+            .withRequiredArg()
+            .withValuesConvertedBy(PATH_CONVERTER);
+
     OptionSpec<Integer> tabSizeOption = optionParser.accepts("tab-size",
         "the number of spaces that represent a single tabulation; set to the default indent used in"
             + " the transformed code otherwise the transformed code may be incorrectly formatted")
@@ -238,6 +245,14 @@ public class RepackagingTransform {
       if (unsupportedAppUsageFile != null) {
         // AST Change: Add UnsupportedAppUsage to specified class members.
         AddAnnotation processor = Annotations.addUnsupportedAppUsage(unsupportedAppUsageFile);
+        processor.setListener(changeLog.asAddAnnotationListener());
+        ruleBuilder.add(createOptionalRule(processor));
+      }
+
+      Path flaggedApiFile = optionSet.valueOf(flaggedApiFileOption);
+      if (flaggedApiFile != null) {
+        // AST Change: Add FlaggedApi to specified class members.
+        AddAnnotation processor = Annotations.addFlaggedApi(flaggedApiFile);
         processor.setListener(changeLog.asAddAnnotationListener());
         ruleBuilder.add(createOptionalRule(processor));
       }
