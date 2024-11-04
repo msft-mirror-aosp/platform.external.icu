@@ -394,5 +394,17 @@
   {
     "@location": "field:android.icu.util.VersionInfo#UNICODE_15_1",
     "value": "com.android.icu.Flags.FLAG_ICU_V_API"
+  },
+  {
+    "@location": "field:android.icu.lang.UScript#ARABIC_NASTALIQ",
+    "value": "com.android.icu.Flags.FLAG_ICU_25Q2_API"
+  },
+  {
+    "@location": "field:android.icu.text.UnicodeSet#SIMPLE_CASE_INSENSITIVE",
+    "value": "com.android.icu.Flags.FLAG_ICU_25Q2_API"
+  },
+  {
+    "@location": "field:android.icu.util.MeasureUnit#BEAUFORT",
+    "value": "com.android.icu.Flags.FLAG_ICU_25Q2_API"
   }
 ]
