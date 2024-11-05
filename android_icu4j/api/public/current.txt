@@ -1388,6 +1388,7 @@ package android.icu.lang {
     field public static final int AHOM = 161; // 0xa1
     field public static final int ANATOLIAN_HIEROGLYPHS = 156; // 0x9c
     field public static final int ARABIC = 2; // 0x2
+    field @FlaggedApi("com.android.icu.icu_25q2_api") public static final int ARABIC_NASTALIQ = 200; // 0xc8
     field public static final int ARMENIAN = 3; // 0x3
     field public static final int AVESTAN = 117; // 0x75
     field public static final int BALINESE = 62; // 0x3e
@@ -4040,6 +4041,7 @@ package android.icu.text {
     field public static final int IGNORE_SPACE = 1; // 0x1
     field public static final int MAX_VALUE = 1114111; // 0x10ffff
     field public static final int MIN_VALUE = 0; // 0x0
+    field @FlaggedApi("com.android.icu.icu_25q2_api") public static final int SIMPLE_CASE_INSENSITIVE = 6; // 0x6
   }
 
   public enum UnicodeSet.ComparisonStyle {
@@ -4657,6 +4659,7 @@ package android.icu.util {
     field public static final android.icu.util.MeasureUnit ARC_SECOND;
     field public static final android.icu.util.MeasureUnit ASTRONOMICAL_UNIT;
     field public static final android.icu.util.MeasureUnit ATMOSPHERE;
+    field @FlaggedApi("com.android.icu.icu_25q2_api") public static final android.icu.util.MeasureUnit BEAUFORT;
     field public static final android.icu.util.MeasureUnit BIT;
     field public static final android.icu.util.MeasureUnit BUSHEL;
     field public static final android.icu.util.MeasureUnit BYTE;
