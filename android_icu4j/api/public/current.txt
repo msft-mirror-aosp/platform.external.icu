@@ -1294,6 +1294,9 @@ package android.icu.lang {
     field public static final int IDEOGRAPHIC = 17; // 0x11
     field public static final int IDS_BINARY_OPERATOR = 18; // 0x12
     field public static final int IDS_TRINARY_OPERATOR = 19; // 0x13
+    field @FlaggedApi("com.android.icu.icu_25q2_api") public static final int IDS_UNARY_OPERATOR = 72; // 0x48
+    field @FlaggedApi("com.android.icu.icu_25q2_api") public static final int ID_COMPAT_MATH_CONTINUE = 74; // 0x4a
+    field @FlaggedApi("com.android.icu.icu_25q2_api") public static final int ID_COMPAT_MATH_START = 73; // 0x49
     field public static final int ID_CONTINUE = 15; // 0xf
     field public static final int ID_START = 16; // 0x10
     field public static final int INDIC_POSITIONAL_CATEGORY = 4118; // 0x1016
@@ -1757,12 +1760,14 @@ package android.icu.number {
     method public android.icu.number.FormattedNumber format(Number);
     method public android.icu.number.FormattedNumber format(android.icu.util.Measure);
     method public java.text.Format toFormat();
+    method @FlaggedApi("com.android.icu.icu_25q2_api") public android.icu.number.UnlocalizedNumberFormatter withoutLocale();
   }
 
   public class LocalizedNumberRangeFormatter extends android.icu.number.NumberRangeFormatterSettings<android.icu.number.LocalizedNumberRangeFormatter> {
     method public android.icu.number.FormattedNumberRange formatRange(int, int);
     method public android.icu.number.FormattedNumberRange formatRange(double, double);
     method public android.icu.number.FormattedNumberRange formatRange(Number, Number);
+    method @FlaggedApi("com.android.icu.icu_25q2_api") public android.icu.number.UnlocalizedNumberRangeFormatter withoutLocale();
   }
 
   public class Notation {
@@ -3292,6 +3297,7 @@ package android.icu.text {
     method public static android.icu.text.Normalizer2 getNFDInstance();
     method public static android.icu.text.Normalizer2 getNFKCCasefoldInstance();
     method public static android.icu.text.Normalizer2 getNFKCInstance();
+    method @FlaggedApi("com.android.icu.icu_25q2_api") public static android.icu.text.Normalizer2 getNFKCSimpleCasefoldInstance();
     method public static android.icu.text.Normalizer2 getNFKDInstance();
     method public String getRawDecomposition(int);
     method public abstract boolean hasBoundaryAfter(int);
@@ -4177,6 +4183,7 @@ package android.icu.util {
     method public int getRepeatedWallTimeOption();
     method public int getSkippedWallTimeOption();
     method protected final int getStamp(int);
+    method @FlaggedApi("com.android.icu.icu_25q2_api") public String getTemporalMonthCode();
     method public final java.util.Date getTime();
     method public long getTimeInMillis();
     method public android.icu.util.TimeZone getTimeZone();
@@ -4196,6 +4203,7 @@ package android.icu.util {
     method protected abstract int handleGetLimit(int, int);
     method protected int handleGetMonthLength(int, int);
     method protected int handleGetYearLength(int);
+    method @FlaggedApi("com.android.icu.icu_25q2_api") public boolean inTemporalLeapYear();
     method protected final int internalGet(int);
     method protected final int internalGet(int, int);
     method protected final long internalGetTimeInMillis();
@@ -4225,6 +4233,7 @@ package android.icu.util {
     method public void setMinimalDaysInFirstWeek(int);
     method public void setRepeatedWallTimeOption(int);
     method public void setSkippedWallTimeOption(int);
+    method @FlaggedApi("com.android.icu.icu_25q2_api") public void setTemporalMonthCode(String);
     method public final void setTime(java.util.Date);
     method public void setTimeInMillis(long);
     method public void setTimeZone(android.icu.util.TimeZone);
@@ -4286,6 +4295,7 @@ package android.icu.util {
     field protected static final int ONE_MINUTE = 60000; // 0xea60
     field protected static final int ONE_SECOND = 1000; // 0x3e8
     field protected static final long ONE_WEEK = 604800000L; // 0x240c8400L
+    field @FlaggedApi("com.android.icu.icu_25q2_api") public static final int ORDINAL_MONTH = 23; // 0x17
     field public static final int PM = 1; // 0x1
     field protected static final int RESOLVE_REMAP = 32; // 0x20
     field public static final int SATURDAY = 7; // 0x7
@@ -4696,6 +4706,7 @@ package android.icu.util {
     field public static final android.icu.util.MeasureUnit FURLONG;
     field public static final android.icu.util.MeasureUnit GALLON;
     field public static final android.icu.util.MeasureUnit GALLON_IMPERIAL;
+    field @FlaggedApi("com.android.icu.icu_25q2_api") public static final android.icu.util.MeasureUnit GASOLINE_ENERGY_DENSITY;
     field public static final android.icu.util.MeasureUnit GENERIC_TEMPERATURE;
     field public static final android.icu.util.MeasureUnit GIGABIT;
     field public static final android.icu.util.MeasureUnit GIGABYTE;
@@ -4910,6 +4921,7 @@ package android.icu.util {
     method public static android.icu.util.TimeZone getFrozenTimeZone(String);
     method public String getID();
     method public static String getIDForWindowsID(String, String);
+    method @FlaggedApi("com.android.icu.icu_25q2_api") public static String getIanaID(String);
     method public abstract int getOffset(int, int, int, int, int, int);
     method public int getOffset(long);
     method public void getOffset(long, boolean, int[]);
