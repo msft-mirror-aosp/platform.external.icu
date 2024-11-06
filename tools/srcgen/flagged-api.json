@@ -1,398 +1,90 @@
 [
   {
-    "@location": "method:android.icu.number.FormattedNumber#getNounClass()",
-    "value": "com.android.icu.Flags.FLAG_ICU_V_API"
+    "@location": "field:android.icu.lang.UScript#ARABIC_NASTALIQ",
+    "value": "com.android.icu.Flags.FLAG_ICU_25Q2_API"
   },
   {
-    "@location": "method:android.icu.number.NumberFormatterSettings#displayOptions(DisplayOptions)",
-    "value": "com.android.icu.Flags.FLAG_ICU_V_API"
+    "@location": "field:android.icu.text.UnicodeSet#SIMPLE_CASE_INSENSITIVE",
+    "value": "com.android.icu.Flags.FLAG_ICU_25Q2_API"
   },
   {
-    "@location": "method:android.icu.text.DateTimePatternGenerator#setDateTimeFormat(int,String)",
-    "value": "com.android.icu.Flags.FLAG_ICU_V_API"
+    "@location": "field:android.icu.util.MeasureUnit#BEAUFORT",
+    "value": "com.android.icu.Flags.FLAG_ICU_25Q2_API"
   },
   {
-    "@location": "method:android.icu.text.DateTimePatternGenerator#getDateTimeFormat(int)",
-    "value": "com.android.icu.Flags.FLAG_ICU_V_API"
+    "@location": "field:android.icu.lang.UProperty#IDS_UNARY_OPERATOR",
+    "value": "com.android.icu.Flags.FLAG_ICU_25Q2_API"
   },
   {
-    "@location": "type:android.icu.text.DisplayOptions",
-    "value": "com.android.icu.Flags.FLAG_ICU_V_API"
+    "@location": "field:android.icu.lang.UProperty#ID_COMPAT_MATH_CONTINUE",
+    "value": "com.android.icu.Flags.FLAG_ICU_25Q2_API"
   },
   {
-    "@location": "method:android.icu.text.DisplayOptions#builder()",
-    "value": "com.android.icu.Flags.FLAG_ICU_V_API"
+    "@location": "field:android.icu.lang.UProperty#ID_COMPAT_MATH_START",
+    "value": "com.android.icu.Flags.FLAG_ICU_25Q2_API"
   },
   {
-    "@location": "method:android.icu.text.DisplayOptions#copyToBuilder()",
-    "value": "com.android.icu.Flags.FLAG_ICU_V_API"
+    "@location": "method:android.icu.number.LocalizedNumberFormatter#withoutLocale()",
+    "value": "com.android.icu.Flags.FLAG_ICU_25Q2_API"
   },
   {
-    "@location": "method:android.icu.text.DisplayOptions#getGrammaticalCase()",
-    "value": "com.android.icu.Flags.FLAG_ICU_V_API"
+    "@location": "method:android.icu.number.LocalizedNumberRangeFormatter#withoutLocale()",
+    "value": "com.android.icu.Flags.FLAG_ICU_25Q2_API"
   },
   {
-    "@location": "method:android.icu.text.DisplayOptions#getNounClass()",
-    "value": "com.android.icu.Flags.FLAG_ICU_V_API"
+    "@location": "method:android.icu.text.Normalizer2#getNFKCSimpleCasefoldInstance()",
+    "value": "com.android.icu.Flags.FLAG_ICU_25Q2_API"
   },
   {
-    "@location": "method:android.icu.text.DisplayOptions#getPluralCategory()",
-    "value": "com.android.icu.Flags.FLAG_ICU_V_API"
+    "@location": "field:android.icu.util.Calendar#ORDINAL_MONTH",
+    "value": "com.android.icu.Flags.FLAG_ICU_25Q2_API"
   },
   {
-    "@location": "method:android.icu.text.DisplayOptions#getCapitalization()",
-    "value": "com.android.icu.Flags.FLAG_ICU_V_API"
+    "@location": "method:android.icu.util.Calendar#getTemporalMonthCode()",
+    "value": "com.android.icu.Flags.FLAG_ICU_25Q2_API"
   },
   {
-    "@location": "method:android.icu.text.DisplayOptions#getNameStyle()",
-    "value": "com.android.icu.Flags.FLAG_ICU_V_API"
+    "@location": "method:android.icu.util.Calendar#inTemporalLeapYear()",
+    "value": "com.android.icu.Flags.FLAG_ICU_25Q2_API"
   },
   {
-    "@location": "method:android.icu.text.DisplayOptions#getDisplayLength()",
-    "value": "com.android.icu.Flags.FLAG_ICU_V_API"
+    "@location": "method:android.icu.util.Calendar#setTemporalMonthCode(String)",
+    "value": "com.android.icu.Flags.FLAG_ICU_25Q2_API"
   },
   {
-    "@location": "method:android.icu.text.DisplayOptions#getSubstituteHandling()",
-    "value": "com.android.icu.Flags.FLAG_ICU_V_API"
+    "@location": "method:android.icu.util.ChineseCalendar#getTemporalMonthCode()",
+    "value": "com.android.icu.Flags.FLAG_ICU_25Q2_API"
   },
   {
-    "@location": "type:android.icu.text.DisplayOptions$Builder",
-    "value": "com.android.icu.Flags.FLAG_ICU_V_API"
+    "@location": "method:android.icu.util.ChineseCalendar#inTemporalLeapYear()",
+    "value": "com.android.icu.Flags.FLAG_ICU_25Q2_API"
   },
   {
-    "@location": "method:android.icu.text.DisplayOptions$Builder#setGrammaticalCase(GrammaticalCase)",
-    "value": "com.android.icu.Flags.FLAG_ICU_V_API"
+    "@location": "method:android.icu.util.ChineseCalendar#setTemporalMonthCode(String)",
+    "value": "com.android.icu.Flags.FLAG_ICU_25Q2_API"
   },
   {
-    "@location": "method:android.icu.text.DisplayOptions$Builder#setNounClass(NounClass)",
-    "value": "com.android.icu.Flags.FLAG_ICU_V_API"
+    "@location": "method:android.icu.util.HebrewCalendar#getTemporalMonthCode()",
+    "value": "com.android.icu.Flags.FLAG_ICU_25Q2_API"
   },
   {
-    "@location": "method:android.icu.text.DisplayOptions$Builder#setPluralCategory(PluralCategory)",
-    "value": "com.android.icu.Flags.FLAG_ICU_V_API"
+    "@location": "method:android.icu.util.HebrewCalendar#inTemporalLeapYear()",
+    "value": "com.android.icu.Flags.FLAG_ICU_25Q2_API"
   },
   {
-    "@location": "method:android.icu.text.DisplayOptions$Builder#setCapitalization(Capitalization)",
-    "value": "com.android.icu.Flags.FLAG_ICU_V_API"
+    "@location": "method:android.icu.util.HebrewCalendar#setTemporalMonthCode(String)",
+    "value": "com.android.icu.Flags.FLAG_ICU_25Q2_API"
   },
   {
-    "@location": "method:android.icu.text.DisplayOptions$Builder#setNameStyle(NameStyle)",
-    "value": "com.android.icu.Flags.FLAG_ICU_V_API"
+    "@location": "method:android.icu.util.IslamicCalendar#inTemporalLeapYear()",
+    "value": "com.android.icu.Flags.FLAG_ICU_25Q2_API"
   },
   {
-    "@location": "method:android.icu.text.DisplayOptions$Builder#setDisplayLength(DisplayLength)",
-    "value": "com.android.icu.Flags.FLAG_ICU_V_API"
+    "@location": "field:android.icu.util.MeasureUnit#GASOLINE_ENERGY_DENSITY",
+    "value": "com.android.icu.Flags.FLAG_ICU_25Q2_API"
   },
   {
-    "@location": "method:android.icu.text.DisplayOptions$Builder#setSubstituteHandling(SubstituteHandling)",
-    "value": "com.android.icu.Flags.FLAG_ICU_V_API"
-  },
-  {
-    "@location": "method:android.icu.text.DisplayOptions$Builder#build()",
-    "value": "com.android.icu.Flags.FLAG_ICU_V_API"
-  },
-  {
-    "@location": "type:android.icu.text.DisplayOptions$NounClass",
-    "value": "com.android.icu.Flags.FLAG_ICU_V_API"
-  },
-  {
-    "@location": "enumConstant:android.icu.text.DisplayOptions$NounClass#UNDEFINED",
-    "value": "com.android.icu.Flags.FLAG_ICU_V_API"
-  },
-  {
-    "@location": "enumConstant:android.icu.text.DisplayOptions$NounClass#OTHER",
-    "value": "com.android.icu.Flags.FLAG_ICU_V_API"
-  },
-  {
-    "@location": "enumConstant:android.icu.text.DisplayOptions$NounClass#NEUTER",
-    "value": "com.android.icu.Flags.FLAG_ICU_V_API"
-  },
-  {
-    "@location": "enumConstant:android.icu.text.DisplayOptions$NounClass#FEMININE",
-    "value": "com.android.icu.Flags.FLAG_ICU_V_API"
-  },
-  {
-    "@location": "enumConstant:android.icu.text.DisplayOptions$NounClass#MASCULINE",
-    "value": "com.android.icu.Flags.FLAG_ICU_V_API"
-  },
-  {
-    "@location": "enumConstant:android.icu.text.DisplayOptions$NounClass#ANIMATE",
-    "value": "com.android.icu.Flags.FLAG_ICU_V_API"
-  },
-  {
-    "@location": "enumConstant:android.icu.text.DisplayOptions$NounClass#INANIMATE",
-    "value": "com.android.icu.Flags.FLAG_ICU_V_API"
-  },
-  {
-    "@location": "enumConstant:android.icu.text.DisplayOptions$NounClass#PERSONAL",
-    "value": "com.android.icu.Flags.FLAG_ICU_V_API"
-  },
-  {
-    "@location": "enumConstant:android.icu.text.DisplayOptions$NounClass#COMMON",
-    "value": "com.android.icu.Flags.FLAG_ICU_V_API"
-  },
-  {
-    "@location": "field:android.icu.text.DisplayOptions$NounClass#VALUES",
-    "value": "com.android.icu.Flags.FLAG_ICU_V_API"
-  },
-  {
-    "@location": "method:android.icu.text.DisplayOptions$NounClass#getIdentifier()",
-    "value": "com.android.icu.Flags.FLAG_ICU_V_API"
-  },
-  {
-    "@location": "method:android.icu.text.DisplayOptions$NounClass#fromIdentifier(String)",
-    "value": "com.android.icu.Flags.FLAG_ICU_V_API"
-  },
-  {
-    "@location": "type:android.icu.text.DisplayOptions$NameStyle",
-    "value": "com.android.icu.Flags.FLAG_ICU_V_API"
-  },
-  {
-    "@location": "enumConstant:android.icu.text.DisplayOptions$NameStyle#UNDEFINED",
-    "value": "com.android.icu.Flags.FLAG_ICU_V_API"
-  },
-  {
-    "@location": "enumConstant:android.icu.text.DisplayOptions$NameStyle#STANDARD_NAMES",
-    "value": "com.android.icu.Flags.FLAG_ICU_V_API"
-  },
-  {
-    "@location": "enumConstant:android.icu.text.DisplayOptions$NameStyle#DIALECT_NAMES",
-    "value": "com.android.icu.Flags.FLAG_ICU_V_API"
-  },
-  {
-    "@location": "field:android.icu.text.DisplayOptions$NameStyle#VALUES",
-    "value": "com.android.icu.Flags.FLAG_ICU_V_API"
-  },
-  {
-    "@location": "type:android.icu.text.DisplayOptions$SubstituteHandling",
-    "value": "com.android.icu.Flags.FLAG_ICU_V_API"
-  },
-  {
-    "@location": "enumConstant:android.icu.text.DisplayOptions$SubstituteHandling#UNDEFINED",
-    "value": "com.android.icu.Flags.FLAG_ICU_V_API"
-  },
-  {
-    "@location": "enumConstant:android.icu.text.DisplayOptions$SubstituteHandling#SUBSTITUTE",
-    "value": "com.android.icu.Flags.FLAG_ICU_V_API"
-  },
-  {
-    "@location": "enumConstant:android.icu.text.DisplayOptions$SubstituteHandling#NO_SUBSTITUTE",
-    "value": "com.android.icu.Flags.FLAG_ICU_V_API"
-  },
-  {
-    "@location": "field:android.icu.text.DisplayOptions$SubstituteHandling#VALUES",
-    "value": "com.android.icu.Flags.FLAG_ICU_V_API"
-  },
-  {
-    "@location": "type:android.icu.text.DisplayOptions$DisplayLength",
-    "value": "com.android.icu.Flags.FLAG_ICU_V_API"
-  },
-  {
-    "@location": "enumConstant:android.icu.text.DisplayOptions$DisplayLength#UNDEFINED",
-    "value": "com.android.icu.Flags.FLAG_ICU_V_API"
-  },
-  {
-    "@location": "enumConstant:android.icu.text.DisplayOptions$DisplayLength#LENGTH_FULL",
-    "value": "com.android.icu.Flags.FLAG_ICU_V_API"
-  },
-  {
-    "@location": "enumConstant:android.icu.text.DisplayOptions$DisplayLength#LENGTH_SHORT",
-    "value": "com.android.icu.Flags.FLAG_ICU_V_API"
-  },
-  {
-    "@location": "field:android.icu.text.DisplayOptions$DisplayLength#VALUES",
-    "value": "com.android.icu.Flags.FLAG_ICU_V_API"
-  },
-  {
-    "@location": "type:android.icu.text.DisplayOptions$Capitalization",
-    "value": "com.android.icu.Flags.FLAG_ICU_V_API"
-  },
-  {
-    "@location": "enumConstant:android.icu.text.DisplayOptions$Capitalization#UNDEFINED",
-    "value": "com.android.icu.Flags.FLAG_ICU_V_API"
-  },
-  {
-    "@location": "enumConstant:android.icu.text.DisplayOptions$Capitalization#BEGINNING_OF_SENTENCE",
-    "value": "com.android.icu.Flags.FLAG_ICU_V_API"
-  },
-  {
-    "@location": "enumConstant:android.icu.text.DisplayOptions$Capitalization#MIDDLE_OF_SENTENCE",
-    "value": "com.android.icu.Flags.FLAG_ICU_V_API"
-  },
-  {
-    "@location": "enumConstant:android.icu.text.DisplayOptions$Capitalization#STANDALONE",
-    "value": "com.android.icu.Flags.FLAG_ICU_V_API"
-  },
-  {
-    "@location": "enumConstant:android.icu.text.DisplayOptions$Capitalization#UI_LIST_OR_MENU",
-    "value": "com.android.icu.Flags.FLAG_ICU_V_API"
-  },
-  {
-    "@location": "field:android.icu.text.DisplayOptions$Capitalization#VALUES",
-    "value": "com.android.icu.Flags.FLAG_ICU_V_API"
-  },
-  {
-    "@location": "type:android.icu.text.DisplayOptions$PluralCategory",
-    "value": "com.android.icu.Flags.FLAG_ICU_V_API"
-  },
-  {
-    "@location": "enumConstant:android.icu.text.DisplayOptions$PluralCategory#UNDEFINED",
-    "value": "com.android.icu.Flags.FLAG_ICU_V_API"
-  },
-  {
-    "@location": "enumConstant:android.icu.text.DisplayOptions$PluralCategory#ZERO",
-    "value": "com.android.icu.Flags.FLAG_ICU_V_API"
-  },
-  {
-    "@location": "enumConstant:android.icu.text.DisplayOptions$PluralCategory#ONE",
-    "value": "com.android.icu.Flags.FLAG_ICU_V_API"
-  },
-  {
-    "@location": "enumConstant:android.icu.text.DisplayOptions$PluralCategory#TWO",
-    "value": "com.android.icu.Flags.FLAG_ICU_V_API"
-  },
-  {
-    "@location": "enumConstant:android.icu.text.DisplayOptions$PluralCategory#FEW",
-    "value": "com.android.icu.Flags.FLAG_ICU_V_API"
-  },
-  {
-    "@location": "enumConstant:android.icu.text.DisplayOptions$PluralCategory#MANY",
-    "value": "com.android.icu.Flags.FLAG_ICU_V_API"
-  },
-  {
-    "@location": "enumConstant:android.icu.text.DisplayOptions$PluralCategory#OTHER",
-    "value": "com.android.icu.Flags.FLAG_ICU_V_API"
-  },
-  {
-    "@location": "field:android.icu.text.DisplayOptions$PluralCategory#VALUES",
-    "value": "com.android.icu.Flags.FLAG_ICU_V_API"
-  },
-  {
-    "@location": "method:android.icu.text.DisplayOptions$PluralCategory#getIdentifier()",
-    "value": "com.android.icu.Flags.FLAG_ICU_V_API"
-  },
-  {
-    "@location": "method:android.icu.text.DisplayOptions$PluralCategory#fromIdentifier(String)",
-    "value": "com.android.icu.Flags.FLAG_ICU_V_API"
-  },
-  {
-    "@location": "type:android.icu.text.DisplayOptions$GrammaticalCase",
-    "value": "com.android.icu.Flags.FLAG_ICU_V_API"
-  },
-  {
-    "@location": "enumConstant:android.icu.text.DisplayOptions$GrammaticalCase#UNDEFINED",
-    "value": "com.android.icu.Flags.FLAG_ICU_V_API"
-  },
-  {
-    "@location": "enumConstant:android.icu.text.DisplayOptions$GrammaticalCase#ABLATIVE",
-    "value": "com.android.icu.Flags.FLAG_ICU_V_API"
-  },
-  {
-    "@location": "enumConstant:android.icu.text.DisplayOptions$GrammaticalCase#ACCUSATIVE",
-    "value": "com.android.icu.Flags.FLAG_ICU_V_API"
-  },
-  {
-    "@location": "enumConstant:android.icu.text.DisplayOptions$GrammaticalCase#COMITATIVE",
-    "value": "com.android.icu.Flags.FLAG_ICU_V_API"
-  },
-  {
-    "@location": "enumConstant:android.icu.text.DisplayOptions$GrammaticalCase#DATIVE",
-    "value": "com.android.icu.Flags.FLAG_ICU_V_API"
-  },
-  {
-    "@location": "enumConstant:android.icu.text.DisplayOptions$GrammaticalCase#ERGATIVE",
-    "value": "com.android.icu.Flags.FLAG_ICU_V_API"
-  },
-  {
-    "@location": "enumConstant:android.icu.text.DisplayOptions$GrammaticalCase#GENITIVE",
-    "value": "com.android.icu.Flags.FLAG_ICU_V_API"
-  },
-  {
-    "@location": "enumConstant:android.icu.text.DisplayOptions$GrammaticalCase#INSTRUMENTAL",
-    "value": "com.android.icu.Flags.FLAG_ICU_V_API"
-  },
-  {
-    "@location": "enumConstant:android.icu.text.DisplayOptions$GrammaticalCase#LOCATIVE",
-    "value": "com.android.icu.Flags.FLAG_ICU_V_API"
-  },
-  {
-    "@location": "enumConstant:android.icu.text.DisplayOptions$GrammaticalCase#LOCATIVE_COPULATIVE",
-    "value": "com.android.icu.Flags.FLAG_ICU_V_API"
-  },
-  {
-    "@location": "enumConstant:android.icu.text.DisplayOptions$GrammaticalCase#NOMINATIVE",
-    "value": "com.android.icu.Flags.FLAG_ICU_V_API"
-  },
-  {
-    "@location": "enumConstant:android.icu.text.DisplayOptions$GrammaticalCase#OBLIQUE",
-    "value": "com.android.icu.Flags.FLAG_ICU_V_API"
-  },
-  {
-    "@location": "enumConstant:android.icu.text.DisplayOptions$GrammaticalCase#PREPOSITIONAL",
-    "value": "com.android.icu.Flags.FLAG_ICU_V_API"
-  },
-  {
-    "@location": "enumConstant:android.icu.text.DisplayOptions$GrammaticalCase#SOCIATIVE",
-    "value": "com.android.icu.Flags.FLAG_ICU_V_API"
-  },
-  {
-    "@location": "enumConstant:android.icu.text.DisplayOptions$GrammaticalCase#VOCATIVE",
-    "value": "com.android.icu.Flags.FLAG_ICU_V_API"
-  },
-  {
-    "@location": "field:android.icu.text.DisplayOptions$GrammaticalCase#VALUES",
-    "value": "com.android.icu.Flags.FLAG_ICU_V_API"
-  },
-  {
-    "@location": "method:android.icu.text.DisplayOptions$GrammaticalCase#getIdentifier()",
-    "value": "com.android.icu.Flags.FLAG_ICU_V_API"
-  },
-  {
-    "@location": "method:android.icu.text.DisplayOptions$GrammaticalCase#fromIdentifier(String)",
-    "value": "com.android.icu.Flags.FLAG_ICU_V_API"
-  },
-  {
-    "@location": "field:android.icu.text.NumberFormat$Field#APPROXIMATELY_SIGN",
-    "value": "com.android.icu.Flags.FLAG_ICU_V_API"
-  },
-  {
-    "@location": "field:android.icu.util.MeasureUnit#QUARTER",
-    "value": "com.android.icu.Flags.FLAG_ICU_V_API"
-  },
-  {
-    "@location": "field:android.icu.util.MeasureUnit#TONNE",
-    "value": "com.android.icu.Flags.FLAG_ICU_V_API"
-  },
-  {
-    "@location": "field:android.icu.lang.UCharacter$LineBreak#AKSARA",
-    "value": "com.android.icu.Flags.FLAG_ICU_V_API"
-  },
-  {
-    "@location": "field:android.icu.lang.UCharacter$LineBreak#AKSARA_PREBASE",
-    "value": "com.android.icu.Flags.FLAG_ICU_V_API"
-  },
-  {
-    "@location": "field:android.icu.lang.UCharacter$LineBreak#AKSARA_START",
-    "value": "com.android.icu.Flags.FLAG_ICU_V_API"
-  },
-  {
-    "@location": "field:android.icu.lang.UCharacter$LineBreak#VIRAMA",
-    "value": "com.android.icu.Flags.FLAG_ICU_V_API"
-  },
-  {
-    "@location": "field:android.icu.lang.UCharacter$LineBreak#VIRAMA_FINAL",
-    "value": "com.android.icu.Flags.FLAG_ICU_V_API"
-  },
-  {
-    "@location": "field:android.icu.lang.UCharacter$UnicodeBlock#CJK_UNIFIED_IDEOGRAPHS_EXTENSION_I",
-    "value": "com.android.icu.Flags.FLAG_ICU_V_API"
-  },
-  {
-    "@location": "field:android.icu.lang.UCharacter$UnicodeBlock#CJK_UNIFIED_IDEOGRAPHS_EXTENSION_I_ID",
-    "value": "com.android.icu.Flags.FLAG_ICU_V_API"
-  },
-  {
-    "@location": "field:android.icu.util.VersionInfo#UNICODE_15_1",
-    "value": "com.android.icu.Flags.FLAG_ICU_V_API"
+    "@location": "method:android.icu.util.TimeZone#getIanaID(String)",
+    "value": "com.android.icu.Flags.FLAG_ICU_25Q2_API"
   }
 ]
