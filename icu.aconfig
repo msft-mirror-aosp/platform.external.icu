@@ -32,3 +32,13 @@ flag {
     # ICU is used before SettingsProvider starts
     is_fixed_read_only: true
 }
+
+flag {
+    namespace: "core_libraries"
+    name: "icu_25q2_api"
+    is_exported: true
+    description: "This flag controls whether exposing new APIs in 25Q2"
+    bug: "374966838"
+    # ICU is used before SettingsProvider starts
+    is_fixed_read_only: true
+}
