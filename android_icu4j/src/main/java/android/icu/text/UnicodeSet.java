@@ -3870,9 +3870,8 @@ public class UnicodeSet extends UnicodeFilter implements Iterable<String>, Compa
      * <p>This value is an options bit set value for some
      * constructors, applyPattern(), and closeOver().
      * It can be ORed together with other, unrelated options.
-     *
-     * @hide unsupported on Android
      */
+    @android.annotation.FlaggedApi(com.android.icu.Flags.FLAG_ICU_25Q2_API)
     public static final int SIMPLE_CASE_INSENSITIVE = 6;
 
     private static final int CASE_MASK = CASE_INSENSITIVE | ADD_CASE_MAPPINGS;
