@@ -880,7 +880,8 @@ public final class UScript {
     /***/
     public static final int NAG_MUNDARI = 199; /* Nagm */
 
-    /** @hide unsupported on Android*/
+    /***/
+    @android.annotation.FlaggedApi(com.android.icu.Flags.FLAG_ICU_25Q2_API)
     public static final int ARABIC_NASTALIQ = 200; /* Aran */
 
     /**

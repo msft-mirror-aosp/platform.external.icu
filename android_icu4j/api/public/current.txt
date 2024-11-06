@@ -370,9 +370,9 @@ package android.icu.lang {
   }
 
   public static interface UCharacter.LineBreak {
-    field @FlaggedApi("com.android.icu.icu_v_api") public static final int AKSARA = 43; // 0x2b
-    field @FlaggedApi("com.android.icu.icu_v_api") public static final int AKSARA_PREBASE = 44; // 0x2c
-    field @FlaggedApi("com.android.icu.icu_v_api") public static final int AKSARA_START = 45; // 0x2d
+    field public static final int AKSARA = 43; // 0x2b
+    field public static final int AKSARA_PREBASE = 44; // 0x2c
+    field public static final int AKSARA_START = 45; // 0x2d
     field public static final int ALPHABETIC = 2; // 0x2
     field public static final int AMBIGUOUS = 1; // 0x1
     field public static final int BREAK_AFTER = 4; // 0x4
@@ -414,8 +414,8 @@ package android.icu.lang {
     field public static final int SPACE = 26; // 0x1a
     field public static final int SURROGATE = 25; // 0x19
     field public static final int UNKNOWN = 0; // 0x0
-    field @FlaggedApi("com.android.icu.icu_v_api") public static final int VIRAMA = 47; // 0x2f
-    field @FlaggedApi("com.android.icu.icu_v_api") public static final int VIRAMA_FINAL = 46; // 0x2e
+    field public static final int VIRAMA = 47; // 0x2f
+    field public static final int VIRAMA_FINAL = 46; // 0x2e
     field public static final int WORD_JOINER = 30; // 0x1e
     field public static final int ZWJ = 42; // 0x2a
     field public static final int ZWSPACE = 28; // 0x1c
@@ -572,8 +572,8 @@ package android.icu.lang {
     field public static final int CJK_UNIFIED_IDEOGRAPHS_EXTENSION_G_ID = 302; // 0x12e
     field public static final android.icu.lang.UCharacter.UnicodeBlock CJK_UNIFIED_IDEOGRAPHS_EXTENSION_H;
     field public static final int CJK_UNIFIED_IDEOGRAPHS_EXTENSION_H_ID = 322; // 0x142
-    field @FlaggedApi("com.android.icu.icu_v_api") public static final android.icu.lang.UCharacter.UnicodeBlock CJK_UNIFIED_IDEOGRAPHS_EXTENSION_I;
-    field @FlaggedApi("com.android.icu.icu_v_api") public static final int CJK_UNIFIED_IDEOGRAPHS_EXTENSION_I_ID = 328; // 0x148
+    field public static final android.icu.lang.UCharacter.UnicodeBlock CJK_UNIFIED_IDEOGRAPHS_EXTENSION_I;
+    field public static final int CJK_UNIFIED_IDEOGRAPHS_EXTENSION_I_ID = 328; // 0x148
     field public static final int CJK_UNIFIED_IDEOGRAPHS_ID = 71; // 0x47
     field public static final android.icu.lang.UCharacter.UnicodeBlock COMBINING_DIACRITICAL_MARKS;
     field public static final android.icu.lang.UCharacter.UnicodeBlock COMBINING_DIACRITICAL_MARKS_EXTENDED;
@@ -1294,6 +1294,9 @@ package android.icu.lang {
     field public static final int IDEOGRAPHIC = 17; // 0x11
     field public static final int IDS_BINARY_OPERATOR = 18; // 0x12
     field public static final int IDS_TRINARY_OPERATOR = 19; // 0x13
+    field @FlaggedApi("com.android.icu.icu_25q2_api") public static final int IDS_UNARY_OPERATOR = 72; // 0x48
+    field @FlaggedApi("com.android.icu.icu_25q2_api") public static final int ID_COMPAT_MATH_CONTINUE = 74; // 0x4a
+    field @FlaggedApi("com.android.icu.icu_25q2_api") public static final int ID_COMPAT_MATH_START = 73; // 0x49
     field public static final int ID_CONTINUE = 15; // 0xf
     field public static final int ID_START = 16; // 0x10
     field public static final int INDIC_POSITIONAL_CATEGORY = 4118; // 0x1016
@@ -1388,6 +1391,7 @@ package android.icu.lang {
     field public static final int AHOM = 161; // 0xa1
     field public static final int ANATOLIAN_HIEROGLYPHS = 156; // 0x9c
     field public static final int ARABIC = 2; // 0x2
+    field @FlaggedApi("com.android.icu.icu_25q2_api") public static final int ARABIC_NASTALIQ = 200; // 0xc8
     field public static final int ARMENIAN = 3; // 0x3
     field public static final int AVESTAN = 117; // 0x75
     field public static final int BALINESE = 62; // 0x3e
@@ -1716,7 +1720,7 @@ package android.icu.number {
   public class FormattedNumber implements android.icu.text.FormattedValue {
     method public <A extends java.lang.Appendable> A appendTo(A);
     method public char charAt(int);
-    method @FlaggedApi("com.android.icu.icu_v_api") public android.icu.text.DisplayOptions.NounClass getNounClass();
+    method public android.icu.text.DisplayOptions.NounClass getNounClass();
     method public android.icu.util.MeasureUnit getOutputUnit();
     method public int length();
     method public boolean nextPosition(android.icu.text.ConstrainedFieldPosition);
@@ -1756,12 +1760,14 @@ package android.icu.number {
     method public android.icu.number.FormattedNumber format(Number);
     method public android.icu.number.FormattedNumber format(android.icu.util.Measure);
     method public java.text.Format toFormat();
+    method @FlaggedApi("com.android.icu.icu_25q2_api") public android.icu.number.UnlocalizedNumberFormatter withoutLocale();
   }
 
   public class LocalizedNumberRangeFormatter extends android.icu.number.NumberRangeFormatterSettings<android.icu.number.LocalizedNumberRangeFormatter> {
     method public android.icu.number.FormattedNumberRange formatRange(int, int);
     method public android.icu.number.FormattedNumberRange formatRange(double, double);
     method public android.icu.number.FormattedNumberRange formatRange(Number, Number);
+    method @FlaggedApi("com.android.icu.icu_25q2_api") public android.icu.number.UnlocalizedNumberRangeFormatter withoutLocale();
   }
 
   public class Notation {
@@ -1825,7 +1831,7 @@ package android.icu.number {
 
   public abstract class NumberFormatterSettings<T extends android.icu.number.NumberFormatterSettings<?>> {
     method public T decimal(android.icu.number.NumberFormatter.DecimalSeparatorDisplay);
-    method @FlaggedApi("com.android.icu.icu_v_api") public T displayOptions(android.icu.text.DisplayOptions);
+    method public T displayOptions(android.icu.text.DisplayOptions);
     method public T grouping(android.icu.number.NumberFormatter.GroupingStrategy);
     method public T integerWidth(android.icu.number.IntegerWidth);
     method public T notation(android.icu.number.Notation);
@@ -2625,7 +2631,7 @@ package android.icu.text {
     method public String getBestPattern(String);
     method public String getBestPattern(String, int);
     method public String getDateTimeFormat();
-    method @FlaggedApi("com.android.icu.icu_v_api") public String getDateTimeFormat(int);
+    method public String getDateTimeFormat(int);
     method public String getDecimal();
     method public android.icu.text.DateFormat.HourCycle getDefaultHourCycle();
     method public static android.icu.text.DateTimePatternGenerator getEmptyInstance();
@@ -2641,7 +2647,7 @@ package android.icu.text {
     method public void setAppendItemFormat(int, String);
     method public void setAppendItemName(int, String);
     method public void setDateTimeFormat(String);
-    method @FlaggedApi("com.android.icu.icu_v_api") public void setDateTimeFormat(int, String);
+    method public void setDateTimeFormat(int, String);
     method public void setDecimal(String);
     field public static final int DAY = 7; // 0x7
     field public static final int DAYPERIOD = 10; // 0xa
@@ -2867,106 +2873,106 @@ package android.icu.text {
     enum_constant public static final android.icu.text.DisplayContext.Type SUBSTITUTE_HANDLING;
   }
 
-  @FlaggedApi("com.android.icu.icu_v_api") public final class DisplayOptions {
-    method @FlaggedApi("com.android.icu.icu_v_api") public static android.icu.text.DisplayOptions.Builder builder();
-    method @FlaggedApi("com.android.icu.icu_v_api") public android.icu.text.DisplayOptions.Builder copyToBuilder();
-    method @FlaggedApi("com.android.icu.icu_v_api") public android.icu.text.DisplayOptions.Capitalization getCapitalization();
-    method @FlaggedApi("com.android.icu.icu_v_api") public android.icu.text.DisplayOptions.DisplayLength getDisplayLength();
-    method @FlaggedApi("com.android.icu.icu_v_api") public android.icu.text.DisplayOptions.GrammaticalCase getGrammaticalCase();
-    method @FlaggedApi("com.android.icu.icu_v_api") public android.icu.text.DisplayOptions.NameStyle getNameStyle();
-    method @FlaggedApi("com.android.icu.icu_v_api") public android.icu.text.DisplayOptions.NounClass getNounClass();
-    method @FlaggedApi("com.android.icu.icu_v_api") public android.icu.text.DisplayOptions.PluralCategory getPluralCategory();
-    method @FlaggedApi("com.android.icu.icu_v_api") public android.icu.text.DisplayOptions.SubstituteHandling getSubstituteHandling();
+  public final class DisplayOptions {
+    method public static android.icu.text.DisplayOptions.Builder builder();
+    method public android.icu.text.DisplayOptions.Builder copyToBuilder();
+    method public android.icu.text.DisplayOptions.Capitalization getCapitalization();
+    method public android.icu.text.DisplayOptions.DisplayLength getDisplayLength();
+    method public android.icu.text.DisplayOptions.GrammaticalCase getGrammaticalCase();
+    method public android.icu.text.DisplayOptions.NameStyle getNameStyle();
+    method public android.icu.text.DisplayOptions.NounClass getNounClass();
+    method public android.icu.text.DisplayOptions.PluralCategory getPluralCategory();
+    method public android.icu.text.DisplayOptions.SubstituteHandling getSubstituteHandling();
   }
 
-  @FlaggedApi("com.android.icu.icu_v_api") public static class DisplayOptions.Builder {
-    method @FlaggedApi("com.android.icu.icu_v_api") public android.icu.text.DisplayOptions build();
-    method @FlaggedApi("com.android.icu.icu_v_api") public android.icu.text.DisplayOptions.Builder setCapitalization(android.icu.text.DisplayOptions.Capitalization);
-    method @FlaggedApi("com.android.icu.icu_v_api") public android.icu.text.DisplayOptions.Builder setDisplayLength(android.icu.text.DisplayOptions.DisplayLength);
-    method @FlaggedApi("com.android.icu.icu_v_api") public android.icu.text.DisplayOptions.Builder setGrammaticalCase(android.icu.text.DisplayOptions.GrammaticalCase);
-    method @FlaggedApi("com.android.icu.icu_v_api") public android.icu.text.DisplayOptions.Builder setNameStyle(android.icu.text.DisplayOptions.NameStyle);
-    method @FlaggedApi("com.android.icu.icu_v_api") public android.icu.text.DisplayOptions.Builder setNounClass(android.icu.text.DisplayOptions.NounClass);
-    method @FlaggedApi("com.android.icu.icu_v_api") public android.icu.text.DisplayOptions.Builder setPluralCategory(android.icu.text.DisplayOptions.PluralCategory);
-    method @FlaggedApi("com.android.icu.icu_v_api") public android.icu.text.DisplayOptions.Builder setSubstituteHandling(android.icu.text.DisplayOptions.SubstituteHandling);
+  public static class DisplayOptions.Builder {
+    method public android.icu.text.DisplayOptions build();
+    method public android.icu.text.DisplayOptions.Builder setCapitalization(android.icu.text.DisplayOptions.Capitalization);
+    method public android.icu.text.DisplayOptions.Builder setDisplayLength(android.icu.text.DisplayOptions.DisplayLength);
+    method public android.icu.text.DisplayOptions.Builder setGrammaticalCase(android.icu.text.DisplayOptions.GrammaticalCase);
+    method public android.icu.text.DisplayOptions.Builder setNameStyle(android.icu.text.DisplayOptions.NameStyle);
+    method public android.icu.text.DisplayOptions.Builder setNounClass(android.icu.text.DisplayOptions.NounClass);
+    method public android.icu.text.DisplayOptions.Builder setPluralCategory(android.icu.text.DisplayOptions.PluralCategory);
+    method public android.icu.text.DisplayOptions.Builder setSubstituteHandling(android.icu.text.DisplayOptions.SubstituteHandling);
   }
 
-  @FlaggedApi("com.android.icu.icu_v_api") public enum DisplayOptions.Capitalization {
-    enum_constant @FlaggedApi("com.android.icu.icu_v_api") public static final android.icu.text.DisplayOptions.Capitalization BEGINNING_OF_SENTENCE;
-    enum_constant @FlaggedApi("com.android.icu.icu_v_api") public static final android.icu.text.DisplayOptions.Capitalization MIDDLE_OF_SENTENCE;
-    enum_constant @FlaggedApi("com.android.icu.icu_v_api") public static final android.icu.text.DisplayOptions.Capitalization STANDALONE;
-    enum_constant @FlaggedApi("com.android.icu.icu_v_api") public static final android.icu.text.DisplayOptions.Capitalization UI_LIST_OR_MENU;
-    enum_constant @FlaggedApi("com.android.icu.icu_v_api") public static final android.icu.text.DisplayOptions.Capitalization UNDEFINED;
-    field @FlaggedApi("com.android.icu.icu_v_api") public static final java.util.List<android.icu.text.DisplayOptions.Capitalization> VALUES;
+  public enum DisplayOptions.Capitalization {
+    enum_constant public static final android.icu.text.DisplayOptions.Capitalization BEGINNING_OF_SENTENCE;
+    enum_constant public static final android.icu.text.DisplayOptions.Capitalization MIDDLE_OF_SENTENCE;
+    enum_constant public static final android.icu.text.DisplayOptions.Capitalization STANDALONE;
+    enum_constant public static final android.icu.text.DisplayOptions.Capitalization UI_LIST_OR_MENU;
+    enum_constant public static final android.icu.text.DisplayOptions.Capitalization UNDEFINED;
+    field public static final java.util.List<android.icu.text.DisplayOptions.Capitalization> VALUES;
   }
 
-  @FlaggedApi("com.android.icu.icu_v_api") public enum DisplayOptions.DisplayLength {
-    enum_constant @FlaggedApi("com.android.icu.icu_v_api") public static final android.icu.text.DisplayOptions.DisplayLength LENGTH_FULL;
-    enum_constant @FlaggedApi("com.android.icu.icu_v_api") public static final android.icu.text.DisplayOptions.DisplayLength LENGTH_SHORT;
-    enum_constant @FlaggedApi("com.android.icu.icu_v_api") public static final android.icu.text.DisplayOptions.DisplayLength UNDEFINED;
-    field @FlaggedApi("com.android.icu.icu_v_api") public static final java.util.List<android.icu.text.DisplayOptions.DisplayLength> VALUES;
+  public enum DisplayOptions.DisplayLength {
+    enum_constant public static final android.icu.text.DisplayOptions.DisplayLength LENGTH_FULL;
+    enum_constant public static final android.icu.text.DisplayOptions.DisplayLength LENGTH_SHORT;
+    enum_constant public static final android.icu.text.DisplayOptions.DisplayLength UNDEFINED;
+    field public static final java.util.List<android.icu.text.DisplayOptions.DisplayLength> VALUES;
   }
 
-  @FlaggedApi("com.android.icu.icu_v_api") public enum DisplayOptions.GrammaticalCase {
-    method @FlaggedApi("com.android.icu.icu_v_api") public static android.icu.text.DisplayOptions.GrammaticalCase fromIdentifier(String);
-    method @FlaggedApi("com.android.icu.icu_v_api") public String getIdentifier();
-    enum_constant @FlaggedApi("com.android.icu.icu_v_api") public static final android.icu.text.DisplayOptions.GrammaticalCase ABLATIVE;
-    enum_constant @FlaggedApi("com.android.icu.icu_v_api") public static final android.icu.text.DisplayOptions.GrammaticalCase ACCUSATIVE;
-    enum_constant @FlaggedApi("com.android.icu.icu_v_api") public static final android.icu.text.DisplayOptions.GrammaticalCase COMITATIVE;
-    enum_constant @FlaggedApi("com.android.icu.icu_v_api") public static final android.icu.text.DisplayOptions.GrammaticalCase DATIVE;
-    enum_constant @FlaggedApi("com.android.icu.icu_v_api") public static final android.icu.text.DisplayOptions.GrammaticalCase ERGATIVE;
-    enum_constant @FlaggedApi("com.android.icu.icu_v_api") public static final android.icu.text.DisplayOptions.GrammaticalCase GENITIVE;
-    enum_constant @FlaggedApi("com.android.icu.icu_v_api") public static final android.icu.text.DisplayOptions.GrammaticalCase INSTRUMENTAL;
-    enum_constant @FlaggedApi("com.android.icu.icu_v_api") public static final android.icu.text.DisplayOptions.GrammaticalCase LOCATIVE;
-    enum_constant @FlaggedApi("com.android.icu.icu_v_api") public static final android.icu.text.DisplayOptions.GrammaticalCase LOCATIVE_COPULATIVE;
-    enum_constant @FlaggedApi("com.android.icu.icu_v_api") public static final android.icu.text.DisplayOptions.GrammaticalCase NOMINATIVE;
-    enum_constant @FlaggedApi("com.android.icu.icu_v_api") public static final android.icu.text.DisplayOptions.GrammaticalCase OBLIQUE;
-    enum_constant @FlaggedApi("com.android.icu.icu_v_api") public static final android.icu.text.DisplayOptions.GrammaticalCase PREPOSITIONAL;
-    enum_constant @FlaggedApi("com.android.icu.icu_v_api") public static final android.icu.text.DisplayOptions.GrammaticalCase SOCIATIVE;
-    enum_constant @FlaggedApi("com.android.icu.icu_v_api") public static final android.icu.text.DisplayOptions.GrammaticalCase UNDEFINED;
-    enum_constant @FlaggedApi("com.android.icu.icu_v_api") public static final android.icu.text.DisplayOptions.GrammaticalCase VOCATIVE;
-    field @FlaggedApi("com.android.icu.icu_v_api") public static final java.util.List<android.icu.text.DisplayOptions.GrammaticalCase> VALUES;
+  public enum DisplayOptions.GrammaticalCase {
+    method public static android.icu.text.DisplayOptions.GrammaticalCase fromIdentifier(String);
+    method public String getIdentifier();
+    enum_constant public static final android.icu.text.DisplayOptions.GrammaticalCase ABLATIVE;
+    enum_constant public static final android.icu.text.DisplayOptions.GrammaticalCase ACCUSATIVE;
+    enum_constant public static final android.icu.text.DisplayOptions.GrammaticalCase COMITATIVE;
+    enum_constant public static final android.icu.text.DisplayOptions.GrammaticalCase DATIVE;
+    enum_constant public static final android.icu.text.DisplayOptions.GrammaticalCase ERGATIVE;
+    enum_constant public static final android.icu.text.DisplayOptions.GrammaticalCase GENITIVE;
+    enum_constant public static final android.icu.text.DisplayOptions.GrammaticalCase INSTRUMENTAL;
+    enum_constant public static final android.icu.text.DisplayOptions.GrammaticalCase LOCATIVE;
+    enum_constant public static final android.icu.text.DisplayOptions.GrammaticalCase LOCATIVE_COPULATIVE;
+    enum_constant public static final android.icu.text.DisplayOptions.GrammaticalCase NOMINATIVE;
+    enum_constant public static final android.icu.text.DisplayOptions.GrammaticalCase OBLIQUE;
+    enum_constant public static final android.icu.text.DisplayOptions.GrammaticalCase PREPOSITIONAL;
+    enum_constant public static final android.icu.text.DisplayOptions.GrammaticalCase SOCIATIVE;
+    enum_constant public static final android.icu.text.DisplayOptions.GrammaticalCase UNDEFINED;
+    enum_constant public static final android.icu.text.DisplayOptions.GrammaticalCase VOCATIVE;
+    field public static final java.util.List<android.icu.text.DisplayOptions.GrammaticalCase> VALUES;
   }
 
-  @FlaggedApi("com.android.icu.icu_v_api") public enum DisplayOptions.NameStyle {
-    enum_constant @FlaggedApi("com.android.icu.icu_v_api") public static final android.icu.text.DisplayOptions.NameStyle DIALECT_NAMES;
-    enum_constant @FlaggedApi("com.android.icu.icu_v_api") public static final android.icu.text.DisplayOptions.NameStyle STANDARD_NAMES;
-    enum_constant @FlaggedApi("com.android.icu.icu_v_api") public static final android.icu.text.DisplayOptions.NameStyle UNDEFINED;
-    field @FlaggedApi("com.android.icu.icu_v_api") public static final java.util.List<android.icu.text.DisplayOptions.NameStyle> VALUES;
+  public enum DisplayOptions.NameStyle {
+    enum_constant public static final android.icu.text.DisplayOptions.NameStyle DIALECT_NAMES;
+    enum_constant public static final android.icu.text.DisplayOptions.NameStyle STANDARD_NAMES;
+    enum_constant public static final android.icu.text.DisplayOptions.NameStyle UNDEFINED;
+    field public static final java.util.List<android.icu.text.DisplayOptions.NameStyle> VALUES;
   }
 
-  @FlaggedApi("com.android.icu.icu_v_api") public enum DisplayOptions.NounClass {
-    method @FlaggedApi("com.android.icu.icu_v_api") public static android.icu.text.DisplayOptions.NounClass fromIdentifier(String);
-    method @FlaggedApi("com.android.icu.icu_v_api") public String getIdentifier();
-    enum_constant @FlaggedApi("com.android.icu.icu_v_api") public static final android.icu.text.DisplayOptions.NounClass ANIMATE;
-    enum_constant @FlaggedApi("com.android.icu.icu_v_api") public static final android.icu.text.DisplayOptions.NounClass COMMON;
-    enum_constant @FlaggedApi("com.android.icu.icu_v_api") public static final android.icu.text.DisplayOptions.NounClass FEMININE;
-    enum_constant @FlaggedApi("com.android.icu.icu_v_api") public static final android.icu.text.DisplayOptions.NounClass INANIMATE;
-    enum_constant @FlaggedApi("com.android.icu.icu_v_api") public static final android.icu.text.DisplayOptions.NounClass MASCULINE;
-    enum_constant @FlaggedApi("com.android.icu.icu_v_api") public static final android.icu.text.DisplayOptions.NounClass NEUTER;
-    enum_constant @FlaggedApi("com.android.icu.icu_v_api") public static final android.icu.text.DisplayOptions.NounClass OTHER;
-    enum_constant @FlaggedApi("com.android.icu.icu_v_api") public static final android.icu.text.DisplayOptions.NounClass PERSONAL;
-    enum_constant @FlaggedApi("com.android.icu.icu_v_api") public static final android.icu.text.DisplayOptions.NounClass UNDEFINED;
-    field @FlaggedApi("com.android.icu.icu_v_api") public static final java.util.List<android.icu.text.DisplayOptions.NounClass> VALUES;
+  public enum DisplayOptions.NounClass {
+    method public static android.icu.text.DisplayOptions.NounClass fromIdentifier(String);
+    method public String getIdentifier();
+    enum_constant public static final android.icu.text.DisplayOptions.NounClass ANIMATE;
+    enum_constant public static final android.icu.text.DisplayOptions.NounClass COMMON;
+    enum_constant public static final android.icu.text.DisplayOptions.NounClass FEMININE;
+    enum_constant public static final android.icu.text.DisplayOptions.NounClass INANIMATE;
+    enum_constant public static final android.icu.text.DisplayOptions.NounClass MASCULINE;
+    enum_constant public static final android.icu.text.DisplayOptions.NounClass NEUTER;
+    enum_constant public static final android.icu.text.DisplayOptions.NounClass OTHER;
+    enum_constant public static final android.icu.text.DisplayOptions.NounClass PERSONAL;
+    enum_constant public static final android.icu.text.DisplayOptions.NounClass UNDEFINED;
+    field public static final java.util.List<android.icu.text.DisplayOptions.NounClass> VALUES;
   }
 
-  @FlaggedApi("com.android.icu.icu_v_api") public enum DisplayOptions.PluralCategory {
-    method @FlaggedApi("com.android.icu.icu_v_api") public static android.icu.text.DisplayOptions.PluralCategory fromIdentifier(String);
-    method @FlaggedApi("com.android.icu.icu_v_api") public String getIdentifier();
-    enum_constant @FlaggedApi("com.android.icu.icu_v_api") public static final android.icu.text.DisplayOptions.PluralCategory FEW;
-    enum_constant @FlaggedApi("com.android.icu.icu_v_api") public static final android.icu.text.DisplayOptions.PluralCategory MANY;
-    enum_constant @FlaggedApi("com.android.icu.icu_v_api") public static final android.icu.text.DisplayOptions.PluralCategory ONE;
-    enum_constant @FlaggedApi("com.android.icu.icu_v_api") public static final android.icu.text.DisplayOptions.PluralCategory OTHER;
-    enum_constant @FlaggedApi("com.android.icu.icu_v_api") public static final android.icu.text.DisplayOptions.PluralCategory TWO;
-    enum_constant @FlaggedApi("com.android.icu.icu_v_api") public static final android.icu.text.DisplayOptions.PluralCategory UNDEFINED;
-    enum_constant @FlaggedApi("com.android.icu.icu_v_api") public static final android.icu.text.DisplayOptions.PluralCategory ZERO;
-    field @FlaggedApi("com.android.icu.icu_v_api") public static final java.util.List<android.icu.text.DisplayOptions.PluralCategory> VALUES;
+  public enum DisplayOptions.PluralCategory {
+    method public static android.icu.text.DisplayOptions.PluralCategory fromIdentifier(String);
+    method public String getIdentifier();
+    enum_constant public static final android.icu.text.DisplayOptions.PluralCategory FEW;
+    enum_constant public static final android.icu.text.DisplayOptions.PluralCategory MANY;
+    enum_constant public static final android.icu.text.DisplayOptions.PluralCategory ONE;
+    enum_constant public static final android.icu.text.DisplayOptions.PluralCategory OTHER;
+    enum_constant public static final android.icu.text.DisplayOptions.PluralCategory TWO;
+    enum_constant public static final android.icu.text.DisplayOptions.PluralCategory UNDEFINED;
+    enum_constant public static final android.icu.text.DisplayOptions.PluralCategory ZERO;
+    field public static final java.util.List<android.icu.text.DisplayOptions.PluralCategory> VALUES;
   }
 
-  @FlaggedApi("com.android.icu.icu_v_api") public enum DisplayOptions.SubstituteHandling {
-    enum_constant @FlaggedApi("com.android.icu.icu_v_api") public static final android.icu.text.DisplayOptions.SubstituteHandling NO_SUBSTITUTE;
-    enum_constant @FlaggedApi("com.android.icu.icu_v_api") public static final android.icu.text.DisplayOptions.SubstituteHandling SUBSTITUTE;
-    enum_constant @FlaggedApi("com.android.icu.icu_v_api") public static final android.icu.text.DisplayOptions.SubstituteHandling UNDEFINED;
-    field @FlaggedApi("com.android.icu.icu_v_api") public static final java.util.List<android.icu.text.DisplayOptions.SubstituteHandling> VALUES;
+  public enum DisplayOptions.SubstituteHandling {
+    enum_constant public static final android.icu.text.DisplayOptions.SubstituteHandling NO_SUBSTITUTE;
+    enum_constant public static final android.icu.text.DisplayOptions.SubstituteHandling SUBSTITUTE;
+    enum_constant public static final android.icu.text.DisplayOptions.SubstituteHandling UNDEFINED;
+    field public static final java.util.List<android.icu.text.DisplayOptions.SubstituteHandling> VALUES;
   }
 
   public final class Edits {
@@ -3291,6 +3297,7 @@ package android.icu.text {
     method public static android.icu.text.Normalizer2 getNFDInstance();
     method public static android.icu.text.Normalizer2 getNFKCCasefoldInstance();
     method public static android.icu.text.Normalizer2 getNFKCInstance();
+    method @FlaggedApi("com.android.icu.icu_25q2_api") public static android.icu.text.Normalizer2 getNFKCSimpleCasefoldInstance();
     method public static android.icu.text.Normalizer2 getNFKDInstance();
     method public String getRawDecomposition(int);
     method public abstract boolean hasBoundaryAfter(int);
@@ -3390,7 +3397,7 @@ package android.icu.text {
 
   public static class NumberFormat.Field extends java.text.Format.Field {
     ctor protected NumberFormat.Field(String);
-    field @FlaggedApi("com.android.icu.icu_v_api") public static final android.icu.text.NumberFormat.Field APPROXIMATELY_SIGN;
+    field public static final android.icu.text.NumberFormat.Field APPROXIMATELY_SIGN;
     field public static final android.icu.text.NumberFormat.Field COMPACT;
     field public static final android.icu.text.NumberFormat.Field CURRENCY;
     field public static final android.icu.text.NumberFormat.Field DECIMAL_SEPARATOR;
@@ -4040,6 +4047,7 @@ package android.icu.text {
     field public static final int IGNORE_SPACE = 1; // 0x1
     field public static final int MAX_VALUE = 1114111; // 0x10ffff
     field public static final int MIN_VALUE = 0; // 0x0
+    field @FlaggedApi("com.android.icu.icu_25q2_api") public static final int SIMPLE_CASE_INSENSITIVE = 6; // 0x6
   }
 
   public enum UnicodeSet.ComparisonStyle {
@@ -4175,6 +4183,7 @@ package android.icu.util {
     method public int getRepeatedWallTimeOption();
     method public int getSkippedWallTimeOption();
     method protected final int getStamp(int);
+    method @FlaggedApi("com.android.icu.icu_25q2_api") public String getTemporalMonthCode();
     method public final java.util.Date getTime();
     method public long getTimeInMillis();
     method public android.icu.util.TimeZone getTimeZone();
@@ -4194,6 +4203,7 @@ package android.icu.util {
     method protected abstract int handleGetLimit(int, int);
     method protected int handleGetMonthLength(int, int);
     method protected int handleGetYearLength(int);
+    method @FlaggedApi("com.android.icu.icu_25q2_api") public boolean inTemporalLeapYear();
     method protected final int internalGet(int);
     method protected final int internalGet(int, int);
     method protected final long internalGetTimeInMillis();
@@ -4223,6 +4233,7 @@ package android.icu.util {
     method public void setMinimalDaysInFirstWeek(int);
     method public void setRepeatedWallTimeOption(int);
     method public void setSkippedWallTimeOption(int);
+    method @FlaggedApi("com.android.icu.icu_25q2_api") public void setTemporalMonthCode(String);
     method public final void setTime(java.util.Date);
     method public void setTimeInMillis(long);
     method public void setTimeZone(android.icu.util.TimeZone);
@@ -4284,6 +4295,7 @@ package android.icu.util {
     field protected static final int ONE_MINUTE = 60000; // 0xea60
     field protected static final int ONE_SECOND = 1000; // 0x3e8
     field protected static final long ONE_WEEK = 604800000L; // 0x240c8400L
+    field @FlaggedApi("com.android.icu.icu_25q2_api") public static final int ORDINAL_MONTH = 23; // 0x17
     field public static final int PM = 1; // 0x1
     field protected static final int RESOLVE_REMAP = 32; // 0x20
     field public static final int SATURDAY = 7; // 0x7
@@ -4657,6 +4669,7 @@ package android.icu.util {
     field public static final android.icu.util.MeasureUnit ARC_SECOND;
     field public static final android.icu.util.MeasureUnit ASTRONOMICAL_UNIT;
     field public static final android.icu.util.MeasureUnit ATMOSPHERE;
+    field @FlaggedApi("com.android.icu.icu_25q2_api") public static final android.icu.util.MeasureUnit BEAUFORT;
     field public static final android.icu.util.MeasureUnit BIT;
     field public static final android.icu.util.MeasureUnit BUSHEL;
     field public static final android.icu.util.MeasureUnit BYTE;
@@ -4693,6 +4706,7 @@ package android.icu.util {
     field public static final android.icu.util.MeasureUnit FURLONG;
     field public static final android.icu.util.MeasureUnit GALLON;
     field public static final android.icu.util.MeasureUnit GALLON_IMPERIAL;
+    field @FlaggedApi("com.android.icu.icu_25q2_api") public static final android.icu.util.MeasureUnit GASOLINE_ENERGY_DENSITY;
     field public static final android.icu.util.MeasureUnit GENERIC_TEMPERATURE;
     field public static final android.icu.util.MeasureUnit GIGABIT;
     field public static final android.icu.util.MeasureUnit GIGABYTE;
@@ -4782,7 +4796,7 @@ package android.icu.util {
     field public static final android.icu.util.MeasureUnit POUND;
     field public static final android.icu.util.MeasureUnit POUND_PER_SQUARE_INCH;
     field public static final android.icu.util.MeasureUnit QUART;
-    field @FlaggedApi("com.android.icu.icu_v_api") public static final android.icu.util.MeasureUnit QUARTER;
+    field public static final android.icu.util.MeasureUnit QUARTER;
     field public static final android.icu.util.MeasureUnit RADIAN;
     field public static final android.icu.util.MeasureUnit REVOLUTION_ANGLE;
     field public static final android.icu.util.TimeUnit SECOND;
@@ -4799,7 +4813,7 @@ package android.icu.util {
     field public static final android.icu.util.MeasureUnit TERABIT;
     field public static final android.icu.util.MeasureUnit TERABYTE;
     field public static final android.icu.util.MeasureUnit TON;
-    field @FlaggedApi("com.android.icu.icu_v_api") public static final android.icu.util.MeasureUnit TONNE;
+    field public static final android.icu.util.MeasureUnit TONNE;
     field public static final android.icu.util.MeasureUnit VOLT;
     field public static final android.icu.util.MeasureUnit WATT;
     field public static final android.icu.util.TimeUnit WEEK;
@@ -4907,6 +4921,7 @@ package android.icu.util {
     method public static android.icu.util.TimeZone getFrozenTimeZone(String);
     method public String getID();
     method public static String getIDForWindowsID(String, String);
+    method @FlaggedApi("com.android.icu.icu_25q2_api") public static String getIanaID(String);
     method public abstract int getOffset(int, int, int, int, int, int);
     method public int getOffset(long);
     method public void getOffset(long, boolean, int[]);
@@ -5156,7 +5171,7 @@ package android.icu.util {
     field public static final android.icu.util.VersionInfo UNICODE_13_0;
     field public static final android.icu.util.VersionInfo UNICODE_14_0;
     field public static final android.icu.util.VersionInfo UNICODE_15_0;
-    field @FlaggedApi("com.android.icu.icu_v_api") public static final android.icu.util.VersionInfo UNICODE_15_1;
+    field public static final android.icu.util.VersionInfo UNICODE_15_1;
     field public static final android.icu.util.VersionInfo UNICODE_1_0;
     field public static final android.icu.util.VersionInfo UNICODE_1_0_1;
     field public static final android.icu.util.VersionInfo UNICODE_1_1_0;
