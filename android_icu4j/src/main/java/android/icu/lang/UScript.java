@@ -884,6 +884,29 @@ public final class UScript {
     @android.annotation.FlaggedApi(com.android.icu.Flags.FLAG_ICU_25Q2_API)
     public static final int ARABIC_NASTALIQ = 200; /* Aran */
 
+    /***/
+    @android.annotation.FlaggedApi(com.android.icu.Flags.FLAG_ICU_25Q2_API)
+    public static final int GARAY = 201; /* Gara */
+    /***/
+    @android.annotation.FlaggedApi(com.android.icu.Flags.FLAG_ICU_25Q2_API)
+    public static final int GURUNG_KHEMA = 202; /* Gukh */
+    /***/
+    @android.annotation.FlaggedApi(com.android.icu.Flags.FLAG_ICU_25Q2_API)
+    public static final int KIRAT_RAI = 203; /* Krai */
+    /***/
+    @android.annotation.FlaggedApi(com.android.icu.Flags.FLAG_ICU_25Q2_API)
+    public static final int OL_ONAL = 204; /* Onao */
+    /***/
+    @android.annotation.FlaggedApi(com.android.icu.Flags.FLAG_ICU_25Q2_API)
+    public static final int SUNUWAR = 205; /* Sunu */
+    /***/
+    @android.annotation.FlaggedApi(com.android.icu.Flags.FLAG_ICU_25Q2_API)
+    public static final int TODHRI = 206; /* Todr */
+    /***/
+    @android.annotation.FlaggedApi(com.android.icu.Flags.FLAG_ICU_25Q2_API)
+    public static final int TULU_TIGALARI = 207; /* Tutg */
+
+
     /**
      * One more than the highest normal UScript code.
      * The highest value is available via UCharacter.getIntPropertyMaxValue(UProperty.SCRIPT).
