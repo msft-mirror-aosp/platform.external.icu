@@ -242,6 +242,7 @@ package android.icu.lang {
     field public static final int OTHER = 0; // 0x0
     field public static final int PURE_KILLER = 26; // 0x1a
     field public static final int REGISTER_SHIFTER = 27; // 0x1b
+    field @FlaggedApi("com.android.icu.icu_25q2_api") public static final int REORDERING_KILLER = 36; // 0x24
     field public static final int SYLLABLE_MODIFIER = 28; // 0x1c
     field public static final int TONE_LETTER = 29; // 0x1d
     field public static final int TONE_MARK = 30; // 0x1e
@@ -281,6 +282,7 @@ package android.icu.lang {
     field public static final int HETH = 18; // 0x12
     field public static final int KAF = 19; // 0x13
     field public static final int KAPH = 20; // 0x14
+    field @FlaggedApi("com.android.icu.icu_25q2_api") public static final int KASHMIRI_YEH = 104; // 0x68
     field public static final int KHAPH = 52; // 0x34
     field public static final int KNOTTED_HEH = 21; // 0x15
     field public static final int LAM = 22; // 0x16
@@ -640,6 +642,8 @@ package android.icu.lang {
     field public static final android.icu.lang.UCharacter.UnicodeBlock EARLY_DYNASTIC_CUNEIFORM;
     field public static final int EARLY_DYNASTIC_CUNEIFORM_ID = 257; // 0x101
     field public static final android.icu.lang.UCharacter.UnicodeBlock EGYPTIAN_HIEROGLYPHS;
+    field @FlaggedApi("com.android.icu.icu_25q2_api") public static final android.icu.lang.UCharacter.UnicodeBlock EGYPTIAN_HIEROGLYPHS_EXTENDED_A;
+    field @FlaggedApi("com.android.icu.icu_25q2_api") public static final int EGYPTIAN_HIEROGLYPHS_EXTENDED_A_ID = 329; // 0x149
     field public static final int EGYPTIAN_HIEROGLYPHS_ID = 194; // 0xc2
     field public static final android.icu.lang.UCharacter.UnicodeBlock EGYPTIAN_HIEROGLYPH_FORMAT_CONTROLS;
     field public static final int EGYPTIAN_HIEROGLYPH_FORMAT_CONTROLS_ID = 292; // 0x124
@@ -667,6 +671,8 @@ package android.icu.lang {
     field public static final int ETHIOPIC_ID = 31; // 0x1f
     field public static final android.icu.lang.UCharacter.UnicodeBlock ETHIOPIC_SUPPLEMENT;
     field public static final int ETHIOPIC_SUPPLEMENT_ID = 134; // 0x86
+    field @FlaggedApi("com.android.icu.icu_25q2_api") public static final android.icu.lang.UCharacter.UnicodeBlock GARAY;
+    field @FlaggedApi("com.android.icu.icu_25q2_api") public static final int GARAY_ID = 330; // 0x14a
     field public static final android.icu.lang.UCharacter.UnicodeBlock GENERAL_PUNCTUATION;
     field public static final int GENERAL_PUNCTUATION_ID = 40; // 0x28
     field public static final android.icu.lang.UCharacter.UnicodeBlock GEOMETRIC_SHAPES;
@@ -697,6 +703,8 @@ package android.icu.lang {
     field public static final int GUNJALA_GONDI_ID = 284; // 0x11c
     field public static final android.icu.lang.UCharacter.UnicodeBlock GURMUKHI;
     field public static final int GURMUKHI_ID = 17; // 0x11
+    field @FlaggedApi("com.android.icu.icu_25q2_api") public static final android.icu.lang.UCharacter.UnicodeBlock GURUNG_KHEMA;
+    field @FlaggedApi("com.android.icu.icu_25q2_api") public static final int GURUNG_KHEMA_ID = 331; // 0x14b
     field public static final android.icu.lang.UCharacter.UnicodeBlock HALFWIDTH_AND_FULLWIDTH_FORMS;
     field public static final int HALFWIDTH_AND_FULLWIDTH_FORMS_ID = 87; // 0x57
     field public static final android.icu.lang.UCharacter.UnicodeBlock HANGUL_COMPATIBILITY_JAMO;
@@ -777,6 +785,8 @@ package android.icu.lang {
     field public static final int KHOJKI_ID = 229; // 0xe5
     field public static final android.icu.lang.UCharacter.UnicodeBlock KHUDAWADI;
     field public static final int KHUDAWADI_ID = 230; // 0xe6
+    field @FlaggedApi("com.android.icu.icu_25q2_api") public static final android.icu.lang.UCharacter.UnicodeBlock KIRAT_RAI;
+    field @FlaggedApi("com.android.icu.icu_25q2_api") public static final int KIRAT_RAI_ID = 332; // 0x14c
     field public static final android.icu.lang.UCharacter.UnicodeBlock LAO;
     field public static final int LAO_ID = 26; // 0x1a
     field public static final android.icu.lang.UCharacter.UnicodeBlock LATIN_1_SUPPLEMENT;
@@ -886,6 +896,8 @@ package android.icu.lang {
     field public static final int MYANMAR_EXTENDED_A_ID = 182; // 0xb6
     field public static final android.icu.lang.UCharacter.UnicodeBlock MYANMAR_EXTENDED_B;
     field public static final int MYANMAR_EXTENDED_B_ID = 238; // 0xee
+    field @FlaggedApi("com.android.icu.icu_25q2_api") public static final android.icu.lang.UCharacter.UnicodeBlock MYANMAR_EXTENDED_C;
+    field @FlaggedApi("com.android.icu.icu_25q2_api") public static final int MYANMAR_EXTENDED_C_ID = 333; // 0x14d
     field public static final int MYANMAR_ID = 28; // 0x1c
     field public static final android.icu.lang.UCharacter.UnicodeBlock NABATAEAN;
     field public static final int NABATAEAN_ID = 239; // 0xef
@@ -928,6 +940,8 @@ package android.icu.lang {
     field public static final int OLD_UYGHUR_ID = 315; // 0x13b
     field public static final android.icu.lang.UCharacter.UnicodeBlock OL_CHIKI;
     field public static final int OL_CHIKI_ID = 157; // 0x9d
+    field @FlaggedApi("com.android.icu.icu_25q2_api") public static final android.icu.lang.UCharacter.UnicodeBlock OL_ONAL;
+    field @FlaggedApi("com.android.icu.icu_25q2_api") public static final int OL_ONAL_ID = 334; // 0x14e
     field public static final android.icu.lang.UCharacter.UnicodeBlock OPTICAL_CHARACTER_RECOGNITION;
     field public static final int OPTICAL_CHARACTER_RECOGNITION_ID = 50; // 0x32
     field public static final android.icu.lang.UCharacter.UnicodeBlock ORIYA;
@@ -1004,6 +1018,8 @@ package android.icu.lang {
     field public static final int SUNDANESE_ID = 155; // 0x9b
     field public static final android.icu.lang.UCharacter.UnicodeBlock SUNDANESE_SUPPLEMENT;
     field public static final int SUNDANESE_SUPPLEMENT_ID = 219; // 0xdb
+    field @FlaggedApi("com.android.icu.icu_25q2_api") public static final android.icu.lang.UCharacter.UnicodeBlock SUNUWAR;
+    field @FlaggedApi("com.android.icu.icu_25q2_api") public static final int SUNUWAR_ID = 335; // 0x14f
     field public static final android.icu.lang.UCharacter.UnicodeBlock SUPERSCRIPTS_AND_SUBSCRIPTS;
     field public static final int SUPERSCRIPTS_AND_SUBSCRIPTS_ID = 41; // 0x29
     field public static final android.icu.lang.UCharacter.UnicodeBlock SUPPLEMENTAL_ARROWS_A;
@@ -1030,6 +1046,8 @@ package android.icu.lang {
     field public static final int SYMBOLS_AND_PICTOGRAPHS_EXTENDED_A_ID = 298; // 0x12a
     field public static final android.icu.lang.UCharacter.UnicodeBlock SYMBOLS_FOR_LEGACY_COMPUTING;
     field public static final int SYMBOLS_FOR_LEGACY_COMPUTING_ID = 306; // 0x132
+    field @FlaggedApi("com.android.icu.icu_25q2_api") public static final android.icu.lang.UCharacter.UnicodeBlock SYMBOLS_FOR_LEGACY_COMPUTING_SUPPLEMENT;
+    field @FlaggedApi("com.android.icu.icu_25q2_api") public static final int SYMBOLS_FOR_LEGACY_COMPUTING_SUPPLEMENT_ID = 336; // 0x150
     field public static final android.icu.lang.UCharacter.UnicodeBlock SYRIAC;
     field public static final int SYRIAC_ID = 13; // 0xd
     field public static final android.icu.lang.UCharacter.UnicodeBlock SYRIAC_SUPPLEMENT;
@@ -1074,10 +1092,14 @@ package android.icu.lang {
     field public static final int TIFINAGH_ID = 144; // 0x90
     field public static final android.icu.lang.UCharacter.UnicodeBlock TIRHUTA;
     field public static final int TIRHUTA_ID = 251; // 0xfb
+    field @FlaggedApi("com.android.icu.icu_25q2_api") public static final android.icu.lang.UCharacter.UnicodeBlock TODHRI;
+    field @FlaggedApi("com.android.icu.icu_25q2_api") public static final int TODHRI_ID = 337; // 0x151
     field public static final android.icu.lang.UCharacter.UnicodeBlock TOTO;
     field public static final int TOTO_ID = 317; // 0x13d
     field public static final android.icu.lang.UCharacter.UnicodeBlock TRANSPORT_AND_MAP_SYMBOLS;
     field public static final int TRANSPORT_AND_MAP_SYMBOLS_ID = 207; // 0xcf
+    field @FlaggedApi("com.android.icu.icu_25q2_api") public static final android.icu.lang.UCharacter.UnicodeBlock TULU_TIGALARI;
+    field @FlaggedApi("com.android.icu.icu_25q2_api") public static final int TULU_TIGALARI_ID = 338; // 0x152
     field public static final android.icu.lang.UCharacter.UnicodeBlock UGARITIC;
     field public static final int UGARITIC_ID = 120; // 0x78
     field public static final android.icu.lang.UCharacter.UnicodeBlock UNIFIED_CANADIAN_ABORIGINAL_SYLLABICS;
@@ -1433,6 +1455,7 @@ package android.icu.lang {
     field public static final int ELYMAIC = 185; // 0xb9
     field public static final int ESTRANGELO_SYRIAC = 95; // 0x5f
     field public static final int ETHIOPIC = 11; // 0xb
+    field @FlaggedApi("com.android.icu.icu_25q2_api") public static final int GARAY = 201; // 0xc9
     field public static final int GEORGIAN = 12; // 0xc
     field public static final int GLAGOLITIC = 56; // 0x38
     field public static final int GOTHIC = 13; // 0xd
@@ -1441,6 +1464,7 @@ package android.icu.lang {
     field public static final int GUJARATI = 15; // 0xf
     field public static final int GUNJALA_GONDI = 179; // 0xb3
     field public static final int GURMUKHI = 16; // 0x10
+    field @FlaggedApi("com.android.icu.icu_25q2_api") public static final int GURUNG_KHEMA = 202; // 0xca
     field public static final int HAN = 17; // 0x11
     field public static final int HANGUL = 18; // 0x12
     field public static final int HANIFI_ROHINGYA = 182; // 0xb6
@@ -1472,6 +1496,7 @@ package android.icu.lang {
     field public static final int KHOJKI = 157; // 0x9d
     field public static final int KHUDAWADI = 145; // 0x91
     field public static final int KHUTSURI = 72; // 0x48
+    field @FlaggedApi("com.android.icu.icu_25q2_api") public static final int KIRAT_RAI = 203; // 0xcb
     field public static final int KOREAN = 119; // 0x77
     field public static final int KPELLE = 138; // 0x8a
     field public static final int LANNA = 106; // 0x6a
@@ -1530,6 +1555,7 @@ package android.icu.lang {
     field public static final int OLD_SOUTH_ARABIAN = 133; // 0x85
     field public static final int OLD_UYGHUR = 194; // 0xc2
     field public static final int OL_CHIKI = 109; // 0x6d
+    field @FlaggedApi("com.android.icu.icu_25q2_api") public static final int OL_ONAL = 204; // 0xcc
     field public static final int ORIYA = 31; // 0x1f
     field public static final int ORKHON = 88; // 0x58
     field public static final int OSAGE = 171; // 0xab
@@ -1558,6 +1584,7 @@ package android.icu.lang {
     field public static final int SORA_SOMPENG = 152; // 0x98
     field public static final int SOYOMBO = 176; // 0xb0
     field public static final int SUNDANESE = 113; // 0x71
+    field @FlaggedApi("com.android.icu.icu_25q2_api") public static final int SUNUWAR = 205; // 0xcd
     field public static final int SYLOTI_NAGRI = 58; // 0x3a
     field public static final int SYMBOLS = 129; // 0x81
     field public static final int SYMBOLS_EMOJI = 174; // 0xae
@@ -1577,8 +1604,10 @@ package android.icu.lang {
     field public static final int TIBETAN = 39; // 0x27
     field public static final int TIFINAGH = 60; // 0x3c
     field public static final int TIRHUTA = 158; // 0x9e
+    field @FlaggedApi("com.android.icu.icu_25q2_api") public static final int TODHRI = 206; // 0xce
     field public static final int TOTO = 196; // 0xc4
     field public static final int TRADITIONAL_HAN = 74; // 0x4a
+    field @FlaggedApi("com.android.icu.icu_25q2_api") public static final int TULU_TIGALARI = 207; // 0xcf
     field public static final int UCAS = 40; // 0x28
     field public static final int UGARITIC = 53; // 0x35
     field public static final int UNKNOWN = 103; // 0x67
@@ -5172,6 +5201,7 @@ package android.icu.util {
     field public static final android.icu.util.VersionInfo UNICODE_14_0;
     field public static final android.icu.util.VersionInfo UNICODE_15_0;
     field public static final android.icu.util.VersionInfo UNICODE_15_1;
+    field @FlaggedApi("com.android.icu.icu_25q2_api") public static final android.icu.util.VersionInfo UNICODE_16_0;
     field public static final android.icu.util.VersionInfo UNICODE_1_0;
     field public static final android.icu.util.VersionInfo UNICODE_1_0_1;
     field public static final android.icu.util.VersionInfo UNICODE_1_1_0;
