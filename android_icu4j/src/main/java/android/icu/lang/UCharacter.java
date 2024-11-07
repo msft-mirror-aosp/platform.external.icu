@@ -1124,6 +1124,39 @@ public final class UCharacter implements ECharacterCategory, ECharacterDirection
         /***/
         public static final int CJK_UNIFIED_IDEOGRAPHS_EXTENSION_I_ID = 328; /*[2EBF0]*/
 
+        // New blocks in Unicode 16.0
+
+        /***/
+        @android.annotation.FlaggedApi(com.android.icu.Flags.FLAG_ICU_25Q2_API)
+        public static final int EGYPTIAN_HIEROGLYPHS_EXTENDED_A_ID = 329; /*[13460]*/
+        /***/
+        @android.annotation.FlaggedApi(com.android.icu.Flags.FLAG_ICU_25Q2_API)
+        public static final int GARAY_ID = 330; /*[10D40]*/
+        /***/
+        @android.annotation.FlaggedApi(com.android.icu.Flags.FLAG_ICU_25Q2_API)
+        public static final int GURUNG_KHEMA_ID = 331; /*[16100]*/
+        /***/
+        @android.annotation.FlaggedApi(com.android.icu.Flags.FLAG_ICU_25Q2_API)
+        public static final int KIRAT_RAI_ID = 332; /*[16D40]*/
+        /***/
+        @android.annotation.FlaggedApi(com.android.icu.Flags.FLAG_ICU_25Q2_API)
+        public static final int MYANMAR_EXTENDED_C_ID = 333; /*[116D0]*/
+        /***/
+        @android.annotation.FlaggedApi(com.android.icu.Flags.FLAG_ICU_25Q2_API)
+        public static final int OL_ONAL_ID = 334; /*[1E5D0]*/
+        /***/
+        @android.annotation.FlaggedApi(com.android.icu.Flags.FLAG_ICU_25Q2_API)
+        public static final int SUNUWAR_ID = 335; /*[11BC0]*/
+        /***/
+        @android.annotation.FlaggedApi(com.android.icu.Flags.FLAG_ICU_25Q2_API)
+        public static final int SYMBOLS_FOR_LEGACY_COMPUTING_SUPPLEMENT_ID = 336; /*[1CC00]*/
+        /***/
+        @android.annotation.FlaggedApi(com.android.icu.Flags.FLAG_ICU_25Q2_API)
+        public static final int TODHRI_ID = 337; /*[105C0]*/
+        /***/
+        @android.annotation.FlaggedApi(com.android.icu.Flags.FLAG_ICU_25Q2_API)
+        public static final int TULU_TIGALARI_ID = 338; /*[11380]*/
+
         /**
          * One more than the highest normal UnicodeBlock value.
          * The highest value is available via UCharacter.getIntPropertyMaxValue(UProperty.BLOCK).
@@ -2396,6 +2429,46 @@ public final class UCharacter implements ECharacterCategory, ECharacterDirection
                 new UnicodeBlock("CJK_UNIFIED_IDEOGRAPHS_EXTENSION_I",
                         CJK_UNIFIED_IDEOGRAPHS_EXTENSION_I_ID); /*[2EBF0]*/
 
+        // New blocks in Unicode 16.0
+
+        /***/
+        @android.annotation.FlaggedApi(com.android.icu.Flags.FLAG_ICU_25Q2_API)
+        public static final UnicodeBlock EGYPTIAN_HIEROGLYPHS_EXTENDED_A =
+                new UnicodeBlock("EGYPTIAN_HIEROGLYPHS_EXTENDED_A",
+                        EGYPTIAN_HIEROGLYPHS_EXTENDED_A_ID);
+        /***/
+        @android.annotation.FlaggedApi(com.android.icu.Flags.FLAG_ICU_25Q2_API)
+        public static final UnicodeBlock GARAY = new UnicodeBlock("GARAY", GARAY_ID);
+        /***/
+        @android.annotation.FlaggedApi(com.android.icu.Flags.FLAG_ICU_25Q2_API)
+        public static final UnicodeBlock GURUNG_KHEMA =
+                new UnicodeBlock("GURUNG_KHEMA", GURUNG_KHEMA_ID);
+        /***/
+        @android.annotation.FlaggedApi(com.android.icu.Flags.FLAG_ICU_25Q2_API)
+        public static final UnicodeBlock KIRAT_RAI = new UnicodeBlock("KIRAT_RAI", KIRAT_RAI_ID);
+        /***/
+        @android.annotation.FlaggedApi(com.android.icu.Flags.FLAG_ICU_25Q2_API)
+        public static final UnicodeBlock MYANMAR_EXTENDED_C =
+                new UnicodeBlock("MYANMAR_EXTENDED_C", MYANMAR_EXTENDED_C_ID);
+        /***/
+        @android.annotation.FlaggedApi(com.android.icu.Flags.FLAG_ICU_25Q2_API)
+        public static final UnicodeBlock OL_ONAL = new UnicodeBlock("OL_ONAL", OL_ONAL_ID);
+        /***/
+        @android.annotation.FlaggedApi(com.android.icu.Flags.FLAG_ICU_25Q2_API)
+        public static final UnicodeBlock SUNUWAR = new UnicodeBlock("SUNUWAR", SUNUWAR_ID);
+        /***/
+        @android.annotation.FlaggedApi(com.android.icu.Flags.FLAG_ICU_25Q2_API)
+        public static final UnicodeBlock SYMBOLS_FOR_LEGACY_COMPUTING_SUPPLEMENT =
+                new UnicodeBlock("SYMBOLS_FOR_LEGACY_COMPUTING_SUPPLEMENT",
+                        SYMBOLS_FOR_LEGACY_COMPUTING_SUPPLEMENT_ID);
+        /***/
+        @android.annotation.FlaggedApi(com.android.icu.Flags.FLAG_ICU_25Q2_API)
+        public static final UnicodeBlock TODHRI = new UnicodeBlock("TODHRI", TODHRI_ID);
+        /***/
+        @android.annotation.FlaggedApi(com.android.icu.Flags.FLAG_ICU_25Q2_API)
+        public static final UnicodeBlock TULU_TIGALARI =
+                new UnicodeBlock("TULU_TIGALARI", TULU_TIGALARI_ID);
+
         /**
          */
         public static final UnicodeBlock INVALID_CODE
@@ -2518,7 +2591,11 @@ public final class UCharacter implements ECharacterCategory, ECharacterDirection
         {
             super(name);
             m_id_ = id;
-            if (id >= 0) {
+            // Android-changed: Avoid leaking flagged UnicodeBlock until ICU 76 data is integrated.
+            // Without the Unicode 16.0 database, UCharacter.UnicodeBlock.forName(name) is broken if
+            // the new faked UnicodeBlock is stored in this global BLOCKS_ array, See b/320357773.
+            // if (id >= 0) {
+            if (id >= 0 && id < BLOCKS_.length) {
                 BLOCKS_[id] = this;
             }
         }
@@ -2942,6 +3019,9 @@ public final class UCharacter implements ECharacterCategory, ECharacterDirection
         public static final int THIN_YEH = 102;
         /***/
         public static final int VERTICAL_TAIL = 103;
+        /***/
+        @android.annotation.FlaggedApi(com.android.icu.Flags.FLAG_ICU_25Q2_API)
+        public static final int KASHMIRI_YEH = 104;
 
         /**
          * One more than the highest normal JoiningGroup value.
@@ -3521,6 +3601,9 @@ public final class UCharacter implements ECharacterCategory, ECharacterDirection
         public static final int VOWEL_DEPENDENT = 34;
         /***/
         public static final int VOWEL_INDEPENDENT = 35;
+        /***/
+        @android.annotation.FlaggedApi(com.android.icu.Flags.FLAG_ICU_25Q2_API)
+        public static final int REORDERING_KILLER = 36;
     }
 
     /**
