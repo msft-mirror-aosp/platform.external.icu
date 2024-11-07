@@ -181,6 +181,11 @@ public final class VersionInfo implements Comparable<VersionInfo>
      * Unicode 15.1 version
      */
     public static final VersionInfo UNICODE_15_1;
+    /**
+     * Unicode 16.0 version
+     */
+    @android.annotation.FlaggedApi(com.android.icu.Flags.FLAG_ICU_25Q2_API)
+    public static final VersionInfo UNICODE_16_0;
 
     /**
      * ICU4J current release version
@@ -525,6 +530,7 @@ public final class VersionInfo implements Comparable<VersionInfo>
         UNICODE_14_0   = getInstance(14, 0, 0, 0);
         UNICODE_15_0   = getInstance(15, 0, 0, 0);
         UNICODE_15_1   = getInstance(15, 1, 0, 0);
+        UNICODE_16_0   = getInstance(16, 0, 0, 0);
 
         ICU_VERSION   = getInstance(75, 1, 0, 0);
         ICU_DATA_VERSION = ICU_VERSION;
