@@ -17,14 +17,6 @@ container: "system"
 
 flag {
     namespace: "core_libraries"
-    name: "icu74"
-    description: "This flag is deprecated. Use icu_v_api flag instead."
-    bug: "312171264"
-}
-
-
-flag {
-    namespace: "core_libraries"
     name: "icu_v_api"
     is_exported: true
     description: "This flag controls whether exposing ICU 74 APIs and implementation"
