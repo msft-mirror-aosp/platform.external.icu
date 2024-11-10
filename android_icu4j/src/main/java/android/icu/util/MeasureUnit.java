@@ -1102,7 +1102,6 @@ public class MeasureUnit implements Serializable {
     /**
      * Constant for unit of duration: quarter
      */
-    @android.annotation.FlaggedApi(com.android.icu.Flags.FLAG_ICU_V_API)
     public static final MeasureUnit QUARTER = MeasureUnit.internalGetInstance("duration", "quarter");
 
     /**
@@ -1494,7 +1493,6 @@ public class MeasureUnit implements Serializable {
     /**
      * Constant for unit of mass: tonne
      */
-    @android.annotation.FlaggedApi(com.android.icu.Flags.FLAG_ICU_V_API)
     public static final MeasureUnit TONNE = MeasureUnit.internalGetInstance("mass", "tonne");
 
     /**
@@ -1540,8 +1538,8 @@ public class MeasureUnit implements Serializable {
 
     /**
      * Constant for unit of pressure: gasoline-energy-density
-     * @hide draft / provisional / internal are hidden on Android
      */
+    @android.annotation.FlaggedApi(com.android.icu.Flags.FLAG_ICU_25Q2_API)
     public static final MeasureUnit GASOLINE_ENERGY_DENSITY = MeasureUnit.internalGetInstance("pressure", "gasoline-energy-density");
 
     /**
@@ -1589,8 +1587,8 @@ public class MeasureUnit implements Serializable {
 
     /**
      * Constant for unit of speed: beaufort
-     * @hide unsupported on Android
      */
+    @android.annotation.FlaggedApi(com.android.icu.Flags.FLAG_ICU_25Q2_API)
     public static final MeasureUnit BEAUFORT = MeasureUnit.internalGetInstance("speed", "beaufort");
 
     /**

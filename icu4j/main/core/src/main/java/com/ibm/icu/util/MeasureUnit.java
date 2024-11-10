@@ -1745,7 +1745,7 @@ public class MeasureUnit implements Serializable {
 
     /**
      * Constant for unit of pressure: gasoline-energy-density
-     * @draft ICU 74
+     * @stable ICU 74
      */
     public static final MeasureUnit GASOLINE_ENERGY_DENSITY = MeasureUnit.internalGetInstance("pressure", "gasoline-energy-density");
 
