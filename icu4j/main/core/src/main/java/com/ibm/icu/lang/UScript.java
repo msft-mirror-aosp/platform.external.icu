@@ -1068,6 +1068,22 @@ public final class UScript {
     /** @stable ICU 75 */
     public static final int ARABIC_NASTALIQ = 200; /* Aran */
 
+    /** @stable ICU 76 */
+    public static final int GARAY = 201; /* Gara */
+    /** @stable ICU 76 */
+    public static final int GURUNG_KHEMA = 202; /* Gukh */
+    /** @stable ICU 76 */
+    public static final int KIRAT_RAI = 203; /* Krai */
+    /** @stable ICU 76 */
+    public static final int OL_ONAL = 204; /* Onao */
+    /** @stable ICU 76 */
+    public static final int SUNUWAR = 205; /* Sunu */
+    /** @stable ICU 76 */
+    public static final int TODHRI = 206; /* Todr */
+    /** @stable ICU 76 */
+    public static final int TULU_TIGALARI = 207; /* Tutg */
+
+
     /**
      * One more than the highest normal UScript code.
      * The highest value is available via UCharacter.getIntPropertyMaxValue(UProperty.SCRIPT).
