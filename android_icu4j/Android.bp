@@ -97,18 +97,18 @@ java_library_static {
     name: "core-repackaged-icu4j",
     installable: false,
     srcs: [":android_icu4j_repackaged_src_files"],
+    // The resource files are generated in the downstream branch master-icu-dev.
+    java_resource_dirs: ["resources"],
     libs: [
         "unsupportedappusage",
         // Need framework-api-annotations-lib for @FlaggedApi.
         // Put framework-api-annotations into libs to avoid exposing the definition of framework's
         // annotations from ICU (wrong place) instead of framework (correct place).
         "framework-annotations-lib",
-        // We only need the aconfig library for @FlaggedApi. We can move it to static_libs
-        // if we need it for flagging features in the future.
+    ],
+    static_libs: [
         "icu_aconfig_flags_lib",
     ],
-    // The resource files are generated in the downstream branch master-icu-dev.
-    java_resource_dirs: ["resources"],
 
     sdk_version: "none",
     system_modules: "art-module-public-api-stubs-system-modules",
@@ -154,6 +154,9 @@ java_library {
     installable: true,
     hostdex: false,
 
+    libs: [
+        "framework-annotations-lib",
+    ],
     static_libs: ["core-repackaged-icu4j"],
 
     // It is important that core-icu4j is restricted to only use stable APIs from the ART module
@@ -419,6 +422,10 @@ java_sdk_library {
         "--show-single-annotation libcore.api.CorePlatformApi ",
     ],
 
+    libs: [
+        "icu_aconfig_flags_lib",
+    ],
+
     // Don't copy any output files to the dist.
     no_dist: true,
 
@@ -514,6 +521,15 @@ java_test {
     srcs: [
         "src/main/tests/**/*.java",
         "testing/src/**/*.java",
+    ],
+    libs: [
+        "icu_aconfig_flags_lib",
+    ],
+    static_libs: [
+        "flag-junit",
+        "junit",
+        "platform-parametric-runner-lib",
+        "platform-test-annotations",
     ],
 }
 
