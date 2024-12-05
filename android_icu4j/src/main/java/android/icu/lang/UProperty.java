@@ -531,25 +531,22 @@ public interface UProperty
     /**
      * Binary property IDS_Unary_Operator.
      * For programmatic determination of Ideographic Description Sequences.
-     *
-     * @hide draft / provisional / internal are hidden on Android
      */
+    @android.annotation.FlaggedApi(com.android.icu.Flags.FLAG_ICU_25Q2_API)
     public static final int IDS_UNARY_OPERATOR = 72;
 
     /**
      * Binary property ID_Compat_Math_Start.
      * <p>Used in mathematical identifier profile in UAX #31.
-     *
-     * @hide draft / provisional / internal are hidden on Android
      */
+    @android.annotation.FlaggedApi(com.android.icu.Flags.FLAG_ICU_25Q2_API)
     public static final int ID_COMPAT_MATH_START = 73;
 
     /**
      * Binary property ID_Compat_Math_Continue.
      * <p>Used in mathematical identifier profile in UAX #31.
-     *
-     * @hide draft / provisional / internal are hidden on Android
      */
+    @android.annotation.FlaggedApi(com.android.icu.Flags.FLAG_ICU_25Q2_API)
     public static final int ID_COMPAT_MATH_CONTINUE = 74;
 
     /**

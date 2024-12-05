@@ -101,7 +101,7 @@ java_aconfig_library {
     libs: [
         "fake_device_config",
         "aconfig-annotations-lib-sdk-none",
-        "aconfig_storage_reader_java_none",
+        "aconfig_storage_stub_none",
         "unsupportedappusage-sdk-none",
     ],
     apex_available: [
