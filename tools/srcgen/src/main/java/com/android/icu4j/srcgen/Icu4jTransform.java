@@ -793,11 +793,6 @@ public class Icu4jTransform {
       "type:android.icu.text.Collator$CollatorFactory",
       "type:android.icu.text.NumberFormat$NumberFormatFactory",
       "type:android.icu.text.NumberFormat$SimpleNumberFormatFactory",
-
-      // TODO: Remove the below list when the next window for new Android API opens
-      "field:android.icu.lang.UScript#ARABIC_NASTALIQ",
-      "field:android.icu.text.UnicodeSet#SIMPLE_CASE_INSENSITIVE",
-      "field:android.icu.util.MeasureUnit#BEAUFORT",
   };
 
   /**
@@ -908,7 +903,7 @@ public class Icu4jTransform {
     private static final String SOURCE_CODE_HEADER = "/* GENERATED SOURCE. DO NOT MODIFY. */\n";
     private static final String COMMAND_USAGE = "Usage: " + Icu4jTransform.class.getCanonicalName()
             + " [--hide-non-allowlisted-api <allowlisted-api-file>]"
-            + " [--flagged-api-list <flagged-api-file>]"
+            + " [--flagged-api <flagged-api-file>]"
             + " <source-dir>+ <target-dir> <core-platform-api-file> <intra-core-api-file>"
             + " <unsupported-app-usage-file>";
 
@@ -926,7 +921,7 @@ public class Icu4jTransform {
       }
 
       Path flaggedApiListPath = null;
-      if ("--flagged-api-list".equals(args[0])) {
+      if ("--flagged-api".equals(args[0])) {
         flaggedApiListPath = Paths.get(args[1]);
         String[] newArgs = new String[args.length - 2];
         System.arraycopy(args, 2, newArgs, 0, args.length - 2);
@@ -1072,7 +1067,7 @@ public class Icu4jTransform {
       rulesList.addAll(Arrays.asList(apiDocsRules));
       if (flaggedApiListPath != null) {
           // AST change: Add FlaggedApi to specified classes and members
-          rulesList.add(createFlaggedApiRule(flaggedApiListPath));
+          rulesList.add(createOptionalRule(Annotations.addFlaggedApi(flaggedApiListPath)));
       }
       return rulesList;
     }
@@ -1147,14 +1142,4 @@ public class Icu4jTransform {
     return createOptionalRule(new HideNonAllowlistedDeclarations(bodyDeclarationLocators,
             "@hide Hide new API in Android temporarily"));
   }
-
-  private static Rule createFlaggedApiRule(Path flaggedApiListPath) {
-      return createOptionalRule(AddAnnotation.markerAnnotationWithPropertyFromFlatFile(
-              "android.annotation.FlaggedApi",
-              "value",
-              String.class,
-              new AnnotationInfo.Placeholder("com.android.icu.Flags.FLAG_ICU_V_API"),
-              flaggedApiListPath));
-  }
-
 }
