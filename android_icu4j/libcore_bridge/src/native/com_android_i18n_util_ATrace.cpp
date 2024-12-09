@@ -36,6 +36,7 @@ static JNINativeMethod gMethods[] = {
   NATIVE_METHOD(ATrace, nativeTraceBegin, "(Ljava/lang/String;)V"),
   NATIVE_METHOD(ATrace, nativeTraceEnd, "()V"),
 };
+
 void register_com_android_i18n_util_ATrace(JNIEnv* env) {
   jniRegisterNativeMethods(env, "com/android/i18n/util/ATrace", gMethods, NELEM(gMethods));
 }
