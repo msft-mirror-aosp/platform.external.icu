@@ -97,8 +97,8 @@ cc_library_shared {
         "//external/libxml2",
         "//external/robolectric/nativeruntime/external/sqlite/android",
         "//external/sqlite:__subpackages__",
-        "//external/sfntly",
         "//frameworks/av/media/libmedia",
+        "//frameworks/base/ravenwood:__subpackages__",
     ],
 }
 

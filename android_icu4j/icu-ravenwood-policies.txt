@@ -1,0 +1,4 @@
+# Ravenwood policy file to expose APIs under android.icu, (which is under src/main/java)
+# We do not expose APIs under com.android, which is under libcore_bridge.
+
+package android.icu keepclass

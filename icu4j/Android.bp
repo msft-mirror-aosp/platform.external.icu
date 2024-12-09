@@ -69,6 +69,7 @@ java_library {
         "//external/robolectric-shadows/shadows/framework",
         "//external/robolectric/robolectric",
         "//external/robolectric/shadows/framework",
+        "//frameworks/base/ravenwood:__subpackages__",
         "//system/timezone/input_tools/android/telephonylookup_generator",
         "//system/timezone/input_tools/android/tzlookup_generator",
     ],
@@ -152,13 +153,14 @@ java_import {
     jars: ["main/shared/data/testdata.jar"],
 }
 
-// LayoutLib (frameworks/layoutlib) and robolectric need JarJar'd versions of
-// the icudata and icutzdata, so add rules for it.
+// LayoutLib (frameworks/layoutlib), ravewnwood and robolectric need
+// JarJar'd versions of the icudata and icutzdata, so add rules for it.
 java_library {
     name: "icu4j-icudata-jarjar",
     visibility: [
         "//external/robolectric-shadows",
         "//external/robolectric",
+        "//frameworks/base/ravenwood:__subpackages__",
         "//frameworks/layoutlib",
     ],
     defaults: ["icu4j-defaults"],
@@ -171,6 +173,7 @@ java_library {
     visibility: [
         "//external/robolectric-shadows",
         "//external/robolectric",
+        "//frameworks/base/ravenwood:__subpackages__",
         "//frameworks/layoutlib",
     ],
     defaults: ["icu4j-defaults"],
@@ -178,11 +181,10 @@ java_library {
     jarjar_rules: "liblayout-jarjar-rules.txt",
 }
 
-// Compatibility alias until references to icu4j-host are removed
-//
-// When converting .mk files to .bp files do not change the visibility of this
-// module, instead replace usages of this with icu4j
 java_library_host {
     name: "icu4j-host",
     static_libs: ["icu4j"],
+    visibility: [
+        "//vendor:__subpackages__",
+    ],
 }

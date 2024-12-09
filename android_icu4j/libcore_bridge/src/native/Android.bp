@@ -29,6 +29,10 @@ package {
 cc_library_shared {
     name: "libicu_jni",
     host_supported: true,
+    visibility: [
+        "//art/tools/ahat",
+        "//packages/modules/RuntimeI18n/apex",
+    ],
     header_libs: ["jni_headers"],
     shared_libs: [
         "libbase",
@@ -37,6 +41,7 @@ cc_library_shared {
         "liblog",
         "libnativehelper",
     ],
+    static_libs: ["libcutils"],
     srcs: [
         "*.cpp",
     ],
