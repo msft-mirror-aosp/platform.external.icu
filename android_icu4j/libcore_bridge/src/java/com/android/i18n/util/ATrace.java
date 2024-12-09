@@ -26,15 +26,18 @@ import java.util.Objects;
  * @hide
  */
 public class ATrace {
+
     public static void traceBegin(String event) {
         Objects.requireNonNull(event);
         nativeTraceBegin(event);
     }
+
     public static void traceEnd() {
         nativeTraceEnd();
     }
 
     private static native void nativeTraceBegin(String methodName);
+
     private static native void nativeTraceEnd();
 
 }
