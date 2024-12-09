@@ -41,6 +41,7 @@ cc_library_shared {
         "liblog",
         "libnativehelper",
     ],
+    static_libs: ["libcutils"],
     srcs: [
         "*.cpp",
     ],
