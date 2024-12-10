@@ -505,6 +505,21 @@ typedef enum UScriptCode {
       /** \xrefitem stable "Stable" "Stable List" ICU 75 */
       USCRIPT_ARABIC_NASTALIQ               = 200, /* Aran */
 
+      /** \xrefitem stable "Stable" "Stable List" ICU 76 */
+      USCRIPT_GARAY                         = 201, /* Gara */
+      /** \xrefitem stable "Stable" "Stable List" ICU 76 */
+      USCRIPT_GURUNG_KHEMA                  = 202, /* Gukh */
+      /** \xrefitem stable "Stable" "Stable List" ICU 76 */
+      USCRIPT_KIRAT_RAI                     = 203, /* Krai */
+      /** \xrefitem stable "Stable" "Stable List" ICU 76 */
+      USCRIPT_OL_ONAL                       = 204, /* Onao */
+      /** \xrefitem stable "Stable" "Stable List" ICU 76 */
+      USCRIPT_SUNUWAR                       = 205, /* Sunu */
+      /** \xrefitem stable "Stable" "Stable List" ICU 76 */
+      USCRIPT_TODHRI                        = 206, /* Todr */
+      /** \xrefitem stable "Stable" "Stable List" ICU 76 */
+      USCRIPT_TULU_TIGALARI                 = 207, /* Tutg */
+
 #ifndef U_HIDE_DEPRECATED_API
     /**
      * One more than the highest normal UScriptCode value.
@@ -512,7 +527,7 @@ typedef enum UScriptCode {
      *
      * \xrefitem deprecated "Deprecated" "Deprecated List" ICU 58 The numeric value may change over time, see ICU ticket #12420.
      */
-    USCRIPT_CODE_LIMIT    = 201
+    USCRIPT_CODE_LIMIT    = 208
 #endif  // U_HIDE_DEPRECATED_API
 } UScriptCode;
 
