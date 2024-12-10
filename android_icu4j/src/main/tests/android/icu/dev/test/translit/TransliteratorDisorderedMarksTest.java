@@ -4,6 +4,8 @@
 
 package android.icu.dev.test.translit;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Map.Entry;
 
 import org.junit.AfterClass;
@@ -12,7 +14,6 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import android.icu.dev.test.TestFmwk;
-import android.icu.dev.util.UnicodeMap;
 import android.icu.text.CanonicalIterator;
 import android.icu.text.Normalizer2;
 import android.icu.text.Transliterator;
@@ -61,8 +62,8 @@ public class TransliteratorDisorderedMarksTest extends TestFmwk {
         //        logln("NFKD Source: " + nfkdSource.toPattern(false));
         //        logln("NFKD Target: " + nfkdTarget.toPattern(false));
 
-        UnicodeMap<UnicodeSet> leadToTrail = new UnicodeMap();
-        UnicodeMap<UnicodeSet> leadToSources = new UnicodeMap();
+        Map<Integer, UnicodeSet> leadToTrail = new HashMap<>();
+        Map<Integer, UnicodeSet> leadToSources = new HashMap<>();
         UnicodeSet nonStarters = new UnicodeSet("[:^ccc=0:]").freeze();
         CanonicalIterator can = new CanonicalIterator("");
 
@@ -104,8 +105,8 @@ public class TransliteratorDisorderedMarksTest extends TestFmwk {
         }
 
 
-        for (Entry<String, UnicodeSet> x : leadToSources.entrySet()) {
-            String lead = x.getKey();
+        for (Entry<Integer, UnicodeSet> x : leadToSources.entrySet()) {
+            Integer lead = x.getKey();
             UnicodeSet sources = x.getValue();
             UnicodeSet trailSet = leadToTrail.get(lead);
             for (String source : sources) {
