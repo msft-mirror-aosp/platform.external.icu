@@ -468,7 +468,15 @@ hi{
             }
         }
         gregorian{
+            AmPmMarkers{
+                "am",
+                "pm",
+            }
             AmPmMarkersAbbr{
+                "am",
+                "pm",
+            }
+            AmPmMarkersNarrow{
                 "am",
                 "pm",
             }
@@ -590,6 +598,20 @@ hi{
                         afternoon1{"दोपहर"}
                         evening1{"शाम"}
                         midnight{"मध्यरात्रि"}
+                        morning1{"सुबह"}
+                        night1{"रात"}
+                    }
+                    narrow{
+                        afternoon1{"दोपहर"}
+                        evening1{"शाम"}
+                        midnight{"m"}
+                        morning1{"सुबह"}
+                        night1{"रात"}
+                    }
+                    wide{
+                        afternoon1{"दोपहर"}
+                        evening1{"शाम"}
+                        midnight{"midnight"}
                         morning1{"सुबह"}
                         night1{"रात"}
                     }

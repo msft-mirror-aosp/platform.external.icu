@@ -112,7 +112,7 @@ ku{
         EZ{"Herêma Ewroyê"}
         FI{"Fînlenda"}
         FJ{"Fîjî"}
-        FK{"Giravên Falklandê"}
+        FK{"Giravên Falklandê (Giravên Malvînê)"}
         FM{"Mîkronezya"}
         FO{"Giravên Faroeyê"}
         FR{"Fransa"}
@@ -135,7 +135,7 @@ ku{
         GU{"Guam"}
         GW{"Gîne-Bissau"}
         GY{"Guyana"}
-        HK{"Hong Konga HîT ya Çînê"}
+        HK{"Hong Kong"}
         HM{"Giravên Heard û MacDonaldê"}
         HN{"Hondûras"}
         HR{"Xirwatistan"}
@@ -189,7 +189,7 @@ ku{
         ML{"Malî"}
         MM{"Myanmar (Bûrma)"}
         MN{"Moxolistan"}
-        MO{"Makaoya Hît ya Çînê"}
+        MO{"Makao"}
         MP{"Giravên Bakurê Marianan"}
         MQ{"Martînîk"}
         MR{"Morîtanya"}
@@ -224,7 +224,7 @@ ku{
         PM{"Saint-Pierre û Miquelon"}
         PN{"Giravên Pitcairnê"}
         PR{"Porto Rîko"}
-        PS{"Herêmên Filîstînî"}
+        PS{"Filistîn"}
         PT{"Portûgal"}
         PW{"Palau"}
         PY{"Paragûay"}
@@ -304,16 +304,12 @@ ku{
     }
     Countries%short{
         GB{"QY"}
-        HK{"Hong Kong"}
-        MO{"Makao"}
-        PS{"Filistîn"}
         US{"DYA"}
     }
     Countries%variant{
         CD{"Kongo (KDK)"}
         CG{"Kongo (Komar)"}
         CI{"Perava Ivoryê"}
-        FK{"Giravên Falklandê (Giravên Malvînê)"}
         NZ{"Aoteroaya Zelandaya Nû"}
         SZ{"Swazîlenda"}
         TL{"Tîmora Rojhilat"}

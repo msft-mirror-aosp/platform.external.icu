@@ -112,7 +112,7 @@ ig{
         EZ{"Gburugburu Euro"}
         FI{"Finland"}
         FJ{"Fiji"}
-        FK{"Falkland Islands"}
+        FK{"Falkland Islands (Islas Malvinas)"}
         FM{"Micronesia"}
         FO{"Faroe Islands"}
         FR{"France"}
@@ -135,7 +135,7 @@ ig{
         GU{"Guam"}
         GW{"Guinea-Bissau"}
         GY{"Guyana"}
-        HK{"Hong Kong SAR China"}
+        HK{"Hong Kong"}
         HM{"Agwaetiti Heard na Agwaetiti McDonald"}
         HN{"Honduras"}
         HR{"Croatia"}
@@ -189,7 +189,7 @@ ig{
         ML{"Mali"}
         MM{"Myanmar (Burma)"}
         MN{"Mongolia"}
-        MO{"Macao SAR China"}
+        MO{"Macao"}
         MP{"Agwaetiti Northern Mariana"}
         MQ{"Martinique"}
         MR{"Mauritania"}
@@ -224,7 +224,7 @@ ig{
         PM{"St. Pierre & Miquelon"}
         PN{"Agwaetiti Pitcairn"}
         PR{"Puerto Rico"}
-        PS{"Mpaghara ndị Palestine"}
+        PS{"Palestine"}
         PT{"Portugal"}
         PW{"Palau"}
         PY{"Paraguay"}
@@ -304,16 +304,12 @@ ig{
     }
     Countries%short{
         GB{"UK"}
-        HK{"Hong Kong"}
-        MO{"Macao"}
-        PS{"Palestine"}
     }
     Countries%variant{
         CD{"Congo (DRC)"}
         CG{"Congo (Republik)"}
         CI{"Ivory Coast"}
         CZ{"Czech Republik"}
-        FK{"Falkland Islands (Islas Malvinas)"}
         NZ{"Aotearoa New Zealand"}
         SZ{"Swaziland"}
         TL{"East Timor"}

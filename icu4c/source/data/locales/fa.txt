@@ -279,7 +279,6 @@ fa{
                 }
             }
         }
-        default{"persian"}
         ethiopic{
             monthNames{
                 format{

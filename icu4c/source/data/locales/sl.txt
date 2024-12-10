@@ -278,7 +278,7 @@ sl{
                 "EEEE, dd. MMMM y G",
                 "dd. MMMM y G",
                 "d. MMM y G",
-                "d. MM. yy GGGGG",
+                "d. M. yy GGGGG",
                 "{1} {0}",
                 "{1} {0}",
                 "{1} {0}",
@@ -299,7 +299,7 @@ sl{
                 "GyMMMMEEEEdd",
                 "GyMMMMdd",
                 "GyMMMd",
-                "GGGGGyyMMd",
+                "GGGGGyyMd",
             }
             availableFormats{
                 EBhm{"E, h:mm B"}
@@ -499,7 +499,7 @@ sl{
                 "yMMMMEEEEdd",
                 "yMMMMdd",
                 "yMMMd",
-                "yyMMd",
+                "yyMd",
             }
             availableFormats{
                 EHm{"E, HH:mm"}

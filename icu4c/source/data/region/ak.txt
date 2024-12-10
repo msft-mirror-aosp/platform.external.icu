@@ -111,7 +111,7 @@ ak{
         EZ{"Yuropu Fam"}
         FI{"Finland"}
         FJ{"Figyi"}
-        FK{"Fɔkman Aeland"}
+        FK{"Fɔkman Aeland (Islas Maivinas)"}
         FM{"Maekronehyia"}
         FO{"Faro Aeland"}
         FR{"Franse"}
@@ -134,7 +134,7 @@ ak{
         GU{"Guam"}
         GW{"Gini Bisaw"}
         GY{"Gayana"}
-        HK{"Hɔnkɔn Kyaena"}
+        HK{"Hɔnkɔn"}
         HM{"Heard ne McDonald Supɔ"}
         HN{"Hɔnduras"}
         HR{"Krowehyia"}
@@ -188,7 +188,7 @@ ak{
         ML{"Mali"}
         MM{"Mayaama (Bɛɛma)"}
         MN{"Mɔngolia"}
-        MO{"Makaw Kyaena"}
+        MO{"Makaw"}
         MP{"Mariana Atifi Fam Aeland"}
         MQ{"Matinik"}
         MR{"Mɔretenia"}
@@ -301,15 +301,10 @@ ak{
     Countries%chagos{
         IO{"Kyagɔso Akyipalego"}
     }
-    Countries%short{
-        HK{"Hɔnkɔn"}
-        MO{"Makaw"}
-    }
     Countries%variant{
         CD{"DR Kongo"}
         CG{"Kongo Man"}
         CZ{"Kyɛk Man"}
-        FK{"Fɔkman Aeland (Islas Maivinas)"}
         NZ{"Ziland Foforɔ a ɛwɔ Awotiarua"}
         TL{"Timɔ Apueiɛ"}
     }

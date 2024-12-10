@@ -134,7 +134,7 @@ ha{
         GU{"Guam"}
         GW{"Gini Bisau"}
         GY{"Guyana"}
-        HK{"Babban Yankin Mulkin Hong Kong na Ƙasar Sin"}
+        HK{"Hong Kong"}
         HM{"Tsibirin Heard da McDonald"}
         HN{"Yankin Honduras"}
         HR{"Kurowaishiya"}
@@ -188,7 +188,7 @@ ha{
         ML{"Mali"}
         MM{"Burma, Miyamar"}
         MN{"Mangoliya"}
-        MO{"Babban Yankin Mulkin Macao na Ƙasar Sin"}
+        MO{"Macao"}
         MP{"Tsibiran Mariyana Na Arewa"}
         MQ{"Martinik"}
         MR{"Moritaniya"}
@@ -223,7 +223,7 @@ ha{
         PM{"San Piyar da Mikelan"}
         PN{"Tsibiran Pitcairn"}
         PR{"Porto Riko"}
-        PS{"Yankunan Palasɗinu"}
+        PS{"Palasɗinu"}
         PT{"Portugal"}
         PW{"Palau"}
         PY{"Faragwai"}
@@ -297,11 +297,6 @@ ha{
         ZM{"Zambiya"}
         ZW{"Zimbabuwe"}
         ZZ{"Yanki da ba a sani ba"}
-    }
-    Countries%short{
-        HK{"Hong Kong"}
-        MO{"Macao"}
-        PS{"Palasɗinu"}
     }
     Countries%variant{
         CD{"Kongo (DRC)"}

@@ -223,7 +223,7 @@ wo{
         PM{"Saŋ Peer ak Mikeloŋ"}
         PN{"Duni Pitkayirn"}
         PR{"Porto Riko"}
-        PS{"réew yu Palestine"}
+        PS{"Palestine"}
         PT{"Portigaal"}
         PW{"Palaw"}
         PY{"Paraguwe"}
@@ -297,9 +297,6 @@ wo{
         ZM{"Sàmbi"}
         ZW{"Simbabwe"}
         ZZ{"Gox buñ xamul"}
-    }
-    Countries%short{
-        PS{"Palestine"}
     }
     Countries%variant{
         TL{"Timor oriental"}

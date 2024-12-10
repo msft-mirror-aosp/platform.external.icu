@@ -112,7 +112,7 @@ fo{
         EZ{"Evrasona"}
         FI{"Finnland"}
         FJ{"Fiji"}
-        FK{"Falklandsoyggjar"}
+        FK{"Falklandsoyggjar (Islas Malvinas)"}
         FM{"Mikronesiasamveldið"}
         FO{"Føroyar"}
         FR{"Frakland"}
@@ -135,7 +135,7 @@ fo{
         GU{"Guam"}
         GW{"Guinea-Bissau"}
         GY{"Gujana"}
-        HK{"Hong Kong SAR Kina"}
+        HK{"Hong Kong"}
         HM{"Heard og McDonaldoyggjar"}
         HN{"Honduras"}
         HR{"Kroatia"}
@@ -189,7 +189,7 @@ fo{
         ML{"Mali"}
         MM{"Myanmar (Burma)"}
         MN{"Mongolia"}
-        MO{"Makao SAR Kina"}
+        MO{"Makao"}
         MP{"Norðaru Mariuoyggjar"}
         MQ{"Martinique"}
         MR{"Móritania"}
@@ -224,7 +224,7 @@ fo{
         PM{"Saint Pierre & Miquelon"}
         PN{"Pitcairnoyggjar"}
         PR{"Puerto Riko"}
-        PS{"Palestinskt landøki"}
+        PS{"Palestina"}
         PT{"Portugal"}
         PW{"Palau"}
         PY{"Paraguai"}
@@ -304,13 +304,9 @@ fo{
     }
     Countries%short{
         GB{"UK"}
-        HK{"Hong Kong"}
-        MO{"Makao"}
-        PS{"Palestina"}
         US{"USA"}
     }
     Countries%variant{
-        FK{"Falklandsoyggjar (Islas Malvinas)"}
         NZ{"Aotearoa Nýsæland"}
         SZ{"Svasiland"}
     }

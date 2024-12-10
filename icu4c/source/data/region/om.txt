@@ -111,7 +111,7 @@ om{
         EZ{"Zooniiyuuroo"}
         FI{"Fiinlaand"}
         FJ{"Fiijii"}
-        FK{"Odoloota Faalklaand"}
+        FK{"Odoloota Faalklaand (Islaas Malviinas)"}
         FM{"Maayikirooneeshiyaa"}
         FO{"Odoloota Fafo’ee"}
         FR{"Faransaay"}
@@ -134,7 +134,7 @@ om{
         GU{"Guwama"}
         GW{"Giinii-Bisaawoo"}
         GY{"Guyaanaa"}
-        HK{"Hoong Koong SAR Chaayinaa"}
+        HK{"Hoong Koong"}
         HM{"Odoloota Herdii fi MaakDoonaald"}
         HN{"Hondurus"}
         HR{"Kirooshiyaa"}
@@ -188,7 +188,7 @@ om{
         ML{"Maalii"}
         MM{"Maayinaamar (Burma)"}
         MN{"Mongoliyaa"}
-        MO{"Maka’oo SAR Chaayinaa"}
+        MO{"Maka’oo"}
         MP{"Odola Maariyaanaa Kaabaa"}
         MQ{"Martinikuwee"}
         MR{"Mawuritaaniyaa"}
@@ -223,7 +223,7 @@ om{
         PM{"Ql. Piyeeree fi Mikuyelon"}
         PN{"Odoloota Pitikaayirin"}
         PR{"Poortaar Riikoo"}
-        PS{"Daangaawwan Paalestaayin"}
+        PS{"Paalestaayin"}
         PT{"Poorchugaal"}
         PW{"Palaawu"}
         PY{"Paaraguwaay"}
@@ -303,9 +303,6 @@ om{
     }
     Countries%short{
         GB{"UK"}
-        HK{"Hoong Koong"}
-        MO{"Maka’oo"}
-        PS{"Paalestaayin"}
         US{"US"}
     }
     Countries%variant{
@@ -313,7 +310,6 @@ om{
         CG{"Koongoo (Rippaabilik)"}
         CI{"Ayivoorii Koost"}
         CZ{"Cheek Rippaablik"}
-        FK{"Odoloota Faalklaand (Islaas Malviinas)"}
         NZ{"Awoteyarowa Neewu Zilaand"}
         SZ{"Siwaazilaand"}
         TL{"Tiimoor Bahaa"}
