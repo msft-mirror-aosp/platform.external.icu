@@ -187,7 +187,10 @@ public class UTS46Test extends CoreTestFmwk {
         // Unicode 15.1 UTS #46 deprecated transitional processing.
         // ICU 76 changed IDNA.DEFAULT to set the nontransitional options.
         IDNA forZero = IDNA.getUTS46Instance(0);
-        IDNA forDefault = IDNA.getUTS46Instance(IDNA.DEFAULT);
+        // Android-changed: ICU 76+ uses 0x30, but Android prefers not to change an API constant.
+        // IDNA forDefault = IDNA.getUTS46Instance(IDNA.DEFAULT);
+        IDNA forDefault = IDNA.getUTS46Instance(
+                IDNA.NONTRANSITIONAL_TO_ASCII | IDNA.NONTRANSITIONAL_TO_UNICODE);
         StringBuilder result = new StringBuilder();
         IDNA.Info info = new IDNA.Info();
         forZero.labelToUnicode("Fⓤßẞ", result, info);

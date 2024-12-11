@@ -54,18 +54,12 @@ import android.icu.impl.UTS46;
  * @author Ram Viswanadha, Markus Scherer
  */
 public abstract class IDNA {
+    // Android-changed: ICU 76+ uses 0x30, but Android prefers not to change an API constant.
     /**
-     * Default options value: UTS #46 nontransitional processing.
-     * For use in static worker and factory methods.
-     *
-     * <p>Since ICU 76, this is the same as
-     * {@link #NONTRANSITIONAL_TO_ASCII} | {@link #NONTRANSITIONAL_TO_UNICODE},
-     * corresponding to Unicode 15.1 UTS #46 deprecating transitional processing.
-     * (These options are ignored by the IDNA2003 implementation.)
-     *
-     * <p>Before ICU 76, this constant did not set any of the options.
+     * Default options value: None of the other options are set.
      */
-    public static final int DEFAULT = 0x30;
+    // public static final int DEFAULT = 0x30;
+    public static final int DEFAULT = 0;
     /**
      * Option to allow unassigned code points in domain names and labels.
      * For use in static worker and factory methods.
