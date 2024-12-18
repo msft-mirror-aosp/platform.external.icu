@@ -425,6 +425,9 @@ en_XA{
             lg{"[Þéţŕöþåṽļöṽšķ‐Ķåɱçĥåţšķî Ţîɱé one two three four]"}
             ls{"[Þéţŕöþåṽļöṽšķ‐Ķåɱçĥåţšķî Šţåñðåŕð Ţîɱé one two three four five]"}
         }
+        "meta:Kazakhstan"{
+            ls{"[Ķåžåķĥšţåñ Ţîɱé one two three]"}
+        }
         "meta:Kazakhstan_Eastern"{
             ls{"[Éåšţ Ķåžåķĥšţåñ Ţîɱé one two three]"}
         }
