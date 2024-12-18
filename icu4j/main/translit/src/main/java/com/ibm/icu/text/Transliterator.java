@@ -18,7 +18,6 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.MissingResourceException;
 import java.util.Objects;
-import java.util.function.Supplier;
 
 import com.ibm.icu.impl.ICUData;
 import com.ibm.icu.impl.ICUResourceBundle;
@@ -2186,18 +2185,7 @@ public abstract class Transliterator implements StringTransform  {
             if (type.equals("file") || type.equals("internal")) {
                 // Rest of line is <resource>:<encoding>:<direction>
                 //                pos       colon      c2
-                // BEGIN Android patch: Lazily load transliterator rules.
-                // String resString = res.getString("resource");
-                int rowIndex = row;
-                Supplier<String> resSupplier = () -> {
-                    // Avoid capturing UResourceBundle objects, but read the resource string
-                    // with the captured row ID.
-                    UResourceBundle rootBund = UResourceBundle.getBundleInstance(
-                            ICUData.ICU_TRANSLIT_BASE_NAME, ROOT);
-                    UResourceBundle transIDsBund = rootBund.get(RB_RULE_BASED_IDS);
-                    UResourceBundle thisBund = transIDsBund.get(rowIndex).get(0);
-                    return thisBund.getString("resource");
-                };
+                String resString = res.getString("resource");
                 int dir;
                 String direction = res.getString("direction");
                 switch (direction.charAt(0)) {
@@ -2211,10 +2199,9 @@ public abstract class Transliterator implements StringTransform  {
                     throw new RuntimeException("Can't parse direction: " + direction);
                 }
                 registry.put(ID,
-                             resSupplier, // resource
+                             resString, // resource
                              dir,
                              !type.equals("internal"));
-                // END Android patch: Lazily load transliterator rules.
             } else if (type.equals("alias")) {
                 //'alias'; row[2]=createInstance argument
                 String resString = res.getString();

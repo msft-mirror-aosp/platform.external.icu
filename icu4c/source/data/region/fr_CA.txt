@@ -17,8 +17,9 @@ fr_CA{
         BZ{"Bélize"}
         CC{"îles Cocos (Keeling)"}
         CK{"îles Cook"}
+        CP{"île Clipperton"}
         CX{"île Christmas"}
-        FK{"îles Falkland (Malouines)"}
+        FK{"îles Malouines"}
         FO{"îles Féroé"}
         HM{"îles Heard et McDonald"}
         IC{"îles Canaries"}
@@ -50,6 +51,7 @@ fr_CA{
         IO{"archipel Chagos"}
     }
     Countries%variant{
+        FK{"îles Falkland (Malouines)"}
         TL{"Timor oriental"}
     }
 }

@@ -111,31 +111,13 @@ static u_atomic_int32_t gHaveTriedToLoadCommonData {0};  //  See extendICUData()
 static UHashtable  *gCommonDataCache = nullptr;  /* Global hash table of opened ICU data files.  */
 static icu::UInitOnce gCommonDataCacheInitOnce {};
 
-// Android-changed: On Android, use our patched version of openCommonData() to load the data,
-//   and do not try to load ICU data from other files.
-#if U_PLATFORM == U_PF_ANDROID
-static UDataFileAccess  gDataFileAccess = UDATA_NO_FILES;
-#elif !defined(ICU_DATA_DIR_WINDOWS)
+#if !defined(ICU_DATA_DIR_WINDOWS)
 static UDataFileAccess  gDataFileAccess = UDATA_DEFAULT_ACCESS;  // Access not synchronized.
                                                                  // Modifying is documented as thread-unsafe.
 #else
 // If we are using the Windows data directory, then look in one spot only.
 static UDataFileAccess  gDataFileAccess = UDATA_NO_FILES;
 #endif
-
-// BEGIN Android-added: Include android/host-linux-specific headers and variables.
-#ifdef ANDROID // if using the AOSP build system, e.g. Soong, but not the normal GNU make used by ./updateicudata.py
-  #if U_PLATFORM == U_PF_ANDROID ||  U_PLATFORM == U_PF_LINUX // if targeting Android or host linux
-    #define AOSP_ICU_INIT 1
-  #endif
-#endif
-
-#ifdef AOSP_ICU_INIT
-  #include "androidicuinit/android_icu_init.h"
-  static icu::UInitOnce gAospInitOnce {};
-#endif
-// END Android-added: Include android/host-linux-specific headers and variables.
-
 
 static UBool U_CALLCONV
 udata_cleanup()
@@ -153,13 +135,6 @@ udata_cleanup()
         gCommonICUDataArray[i] = nullptr;
     }
     gHaveTriedToLoadCommonData = 0;
-
-// BEGIN Android-added: Use specialized libandroidicuinit to unload the data on Android/ART host.
-#ifdef AOSP_ICU_INIT
-    android_icu_cleanup();
-    gAospInitOnce.reset();
-#endif
-// END Android-added: Use specialized libandroidicuinit to unload the data on Android/ART host.
 
     return true;                   /* Everything was cleaned up */
 }
@@ -299,7 +274,7 @@ typedef struct DataCacheElement {
  *         here for each entry.
  */
 static void U_CALLCONV DataCacheElement_deleter(void *pDCEl) {
-    DataCacheElement *p = (DataCacheElement *)pDCEl;
+    DataCacheElement* p = static_cast<DataCacheElement*>(pDCEl);
     udata_close(p->item);              /* unmaps storage */
     uprv_free(p->name);                /* delete the hash key string. */
     uprv_free(pDCEl);                  /* delete 'this'          */
@@ -341,7 +316,7 @@ static UDataMemory *udata_findCachedData(const char *path, UErrorCode &err)
 
     baseName = findBasename(path);   /* Cache remembers only the base name, not the full path. */
     umtx_lock(nullptr);
-    el = (DataCacheElement *)uhash_get(htable, baseName);
+    el = static_cast<DataCacheElement*>(uhash_get(htable, baseName));
     umtx_unlock(nullptr);
     if (el != nullptr) {
         retVal = el->item;
@@ -369,7 +344,7 @@ static UDataMemory *udata_cacheDataItem(const char *path, UDataMemory *item, UEr
     /* Create a new DataCacheElement - the thingy we store in the hash table -
      * and copy the supplied path and UDataMemoryItems into it.
      */
-    newElement = (DataCacheElement *)uprv_malloc(sizeof(DataCacheElement));
+    newElement = static_cast<DataCacheElement*>(uprv_malloc(sizeof(DataCacheElement)));
     if (newElement == nullptr) {
         *pErr = U_MEMORY_ALLOCATION_ERROR;
         return nullptr;
@@ -382,8 +357,8 @@ static UDataMemory *udata_cacheDataItem(const char *path, UDataMemory *item, UEr
     UDatamemory_assign(newElement->item, item);
 
     baseName = findBasename(path);
-    nameLen = (int32_t)uprv_strlen(baseName);
-    newElement->name = (char *)uprv_malloc(nameLen+1);
+    nameLen = static_cast<int32_t>(uprv_strlen(baseName));
+    newElement->name = static_cast<char*>(uprv_malloc(nameLen + 1));
     if (newElement->name == nullptr) {
         *pErr = U_MEMORY_ALLOCATION_ERROR;
         uprv_free(newElement->item);
@@ -395,7 +370,7 @@ static UDataMemory *udata_cacheDataItem(const char *path, UDataMemory *item, UEr
     /* Stick the new DataCacheElement into the hash table.
     */
     umtx_lock(nullptr);
-    oldValue = (DataCacheElement *)uhash_get(htable, path);
+    oldValue = static_cast<DataCacheElement*>(uhash_get(htable, path));
     if (oldValue != nullptr) {
         subErr = U_USING_DEFAULT_WARNING;
     }
@@ -494,13 +469,13 @@ UDataPathIterator::UDataPathIterator(const char *inPath, const char *pkg,
 
     /** Item **/
     basename = findBasename(item);
-    basenameLen = (int32_t)uprv_strlen(basename);
+    basenameLen = static_cast<int32_t>(uprv_strlen(basename));
 
     /** Item path **/
     if(basename == item) {
         nextPath = path;
     } else {
-        itemPath.append(item, (int32_t)(basename-item), *pErrorCode);
+        itemPath.append(item, static_cast<int32_t>(basename - item), *pErrorCode);
         nextPath = itemPath.data();
     }
 #ifdef UDATA_DEBUG
@@ -556,16 +531,16 @@ const char *UDataPathIterator::next(UErrorCode *pErrorCode)
 
         if(nextPath == itemPath.data()) { /* we were processing item's path. */
             nextPath = path; /* start with regular path next tm. */
-            pathLen = (int32_t)uprv_strlen(currentPath);
+            pathLen = static_cast<int32_t>(uprv_strlen(currentPath));
         } else {
             /* fix up next for next time */
             nextPath = uprv_strchr(currentPath, U_PATH_SEP_CHAR);
             if(nextPath == nullptr) {
                 /* segment: entire path */
-                pathLen = (int32_t)uprv_strlen(currentPath); 
+                pathLen = static_cast<int32_t>(uprv_strlen(currentPath));
             } else {
                 /* segment: until next segment */
-                pathLen = (int32_t)(nextPath - currentPath);
+                pathLen = static_cast<int32_t>(nextPath - currentPath);
                 /* skip divider */
                 nextPath ++;
             }
@@ -729,13 +704,6 @@ openCommonData(const char *path,          /*  Path from OpenChoice?          */
 #endif
         }
 
-// BEGIN Android-added: Use specialized libandroidicuinit to load the data on Android/ART host.
-#ifdef AOSP_ICU_INIT // Do nothing on other platforms, e.g. Windows
-        // android_icu_init() is only called once.
-        umtx_initOnce(gAospInitOnce, &android_icu_init);
-#endif // AOSP_ICU_INIT
-// END Android-added: Use specialized libandroidicuinit to load the data on Android/ART host.
-
         /* Add the linked-in data to the list. */
         /*
          * This is where we would check and call weakly linked partial-data-library
@@ -808,17 +776,6 @@ openCommonData(const char *path,          /*  Path from OpenChoice?          */
     if (U_FAILURE(*pErrorCode)) {
         return nullptr;
     }
-
-#if defined(OS390_STUBDATA) && defined(OS390BATCH)
-    if (!UDataMemory_isLoaded(&tData)) {
-        char ourPathBuffer[1024];
-        /* One more chance, for extendCommonData() */
-        uprv_strncpy(ourPathBuffer, path, 1019);
-        ourPathBuffer[1019]=0;
-        uprv_strcat(ourPathBuffer, ".dat");
-        uprv_mapFile(&tData, ourPathBuffer, pErrorCode);
-    }
-#endif
 
     if (U_FAILURE(*pErrorCode)) {
         return nullptr;
@@ -1263,7 +1220,7 @@ doOpenChoice(const char *path, const char *type, const char *name,
                 if(isICUData) {
                     pkgName.append(U_ICUDATA_NAME, *pErrorCode);
                 } else {
-                    pkgName.append(path, (int32_t)(treeChar-path), *pErrorCode);
+                    pkgName.append(path, static_cast<int32_t>(treeChar - path), *pErrorCode);
                     if (first == nullptr) {
                         /*
                         This user data has no path, but there is a tree name.

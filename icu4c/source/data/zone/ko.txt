@@ -678,9 +678,6 @@ ko{
         "Asia:Chita"{
             ec{"치타"}
         }
-        "Asia:Choibalsan"{
-            ec{"초이발산"}
-        }
         "Asia:Colombo"{
             ec{"콜롬보"}
         }
@@ -1445,11 +1442,6 @@ ko{
             lg{"중국 시간"}
             ls{"중국 표준시"}
         }
-        "meta:Choibalsan"{
-            ld{"초이발산 하계 표준시"}
-            lg{"초이발산 시간"}
-            ls{"초이발산 표준시"}
-        }
         "meta:Christmas"{
             ls{"크리스마스섬 시간"}
         }
@@ -1613,6 +1605,9 @@ ko{
             lg{"페트로파블롭스크-캄차츠키 시간"}
             ls{"페트로파블롭스크-캄차츠키 표준시"}
         }
+        "meta:Kazakhstan"{
+            ls{"카자흐스탄 시간"}
+        }
         "meta:Kazakhstan_Eastern"{
             ls{"동부 카자흐스탄 시간"}
         }
@@ -1620,9 +1615,9 @@ ko{
             ls{"서부 카자흐스탄 시간"}
         }
         "meta:Korea"{
-            ld{"한국 하계 표준시"}
-            lg{"한국 시간"}
-            ls{"한국 표준시"}
+            ld{"대한민국 하계 표준시"}
+            lg{"대한민국 시간"}
+            ls{"대한민국 표준시"}
         }
         "meta:Kosrae"{
             ls{"코스라에섬 시간"}

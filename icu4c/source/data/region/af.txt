@@ -3,7 +3,7 @@
 // Generated using tools/cldr/cldr-to-icu/build-icu-data.xml
 af{
     Countries{
-        001{"Wêreld"}
+        001{"wêreld"}
         002{"Afrika"}
         003{"Noord-Amerika"}
         005{"Suid-Amerika"}
@@ -76,7 +76,7 @@ af{
         CC{"Kokoseilande"}
         CD{"Demokratiese Republiek van die Kongo"}
         CF{"Sentraal-Afrikaanse Republiek"}
-        CG{"Kongo - Brazzaville"}
+        CG{"Kongo-Brazzaville"}
         CH{"Switserland"}
         CI{"Ivoorkus"}
         CK{"Cookeilande"}
@@ -111,7 +111,7 @@ af{
         EZ{"Eurosone"}
         FI{"Finland"}
         FJ{"Fidji"}
-        FK{"Falklandeilande (Malvinas)"}
+        FK{"Falklandeilande"}
         FM{"Mikronesië"}
         FO{"Faroëreilande"}
         FR{"Frankryk"}
@@ -134,7 +134,7 @@ af{
         GU{"Guam"}
         GW{"Guinee-Bissau"}
         GY{"Guyana"}
-        HK{"Hongkong"}
+        HK{"Hongkong SAS China"}
         HM{"Heardeiland en McDonaldeilande"}
         HN{"Honduras"}
         HR{"Kroasië"}
@@ -188,7 +188,7 @@ af{
         ML{"Mali"}
         MM{"Mianmar (Birma)"}
         MN{"Mongolië"}
-        MO{"Macau"}
+        MO{"Macau SAS China"}
         MP{"Noord-Mariane-eilande"}
         MQ{"Martinique"}
         MR{"Mauritanië"}
@@ -223,7 +223,7 @@ af{
         PM{"Sint Pierre en Miquelon"}
         PN{"Pitcairneilande"}
         PR{"Puerto Rico"}
-        PS{"Palestina"}
+        PS{"Palestynse Grondgebiede"}
         PT{"Portugal"}
         PW{"Palau"}
         PY{"Paraguay"}
@@ -300,12 +300,16 @@ af{
     }
     Countries%short{
         GB{"VK"}
+        HK{"Hongkong"}
+        MO{"Macau"}
+        PS{"Palestina"}
         UN{"VN"}
         US{"VSA"}
     }
     Countries%variant{
         CD{"Kongo (DRK)"}
-        CG{"Kongo (Republiek die)"}
+        CG{"Kongo (Republiek)"}
         CZ{"Tsjeggiese Republiek"}
+        FK{"Falklandeilande (Malvinas)"}
     }
 }

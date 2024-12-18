@@ -173,15 +173,28 @@ public class DateTimePatternGenerator implements Freezable<DateTimePatternGenera
 
     private void addICUPatterns(PatternInfo returnInfo, ULocale uLocale) {
         // first load with the ICU patterns
-        for (int i = DateFormat.FULL; i <= DateFormat.SHORT; ++i) {
-            SimpleDateFormat df = (SimpleDateFormat) DateFormat.getDateInstance(i, uLocale);
-            addPattern(df.toPattern(), false, returnInfo);
-            df = (SimpleDateFormat) DateFormat.getTimeInstance(i, uLocale);
-            addPattern(df.toPattern(), false, returnInfo);
+        ICUResourceBundle rb = (ICUResourceBundle) UResourceBundle.getBundleInstance(ICUData.ICU_BASE_NAME, uLocale);
+        String calendarTypeToUse = getCalendarTypeToUse(uLocale);
+        // TODO: See ICU-22867
+        ICUResourceBundle dateTimePatterns = rb.getWithFallback("calendar/" + calendarTypeToUse + "/DateTimePatterns");
+        if (dateTimePatterns.getType() != UResourceBundle.ARRAY || dateTimePatterns.getSize() < 8) {
+            throw new MissingResourceException("Resource in wrong format", "ICUResourceBundle", "calendar/" + calendarTypeToUse + "/DateTimePatterns");
+        }
+        for (int i = 0; i < 8; i++) { // no constants available for the resource indexes
+            String pattern;
+            UResourceBundle patternRes = dateTimePatterns.get(i);
 
-            if (i == DateFormat.SHORT) {
-                consumeShortTimePattern(df.toPattern(), returnInfo);
+            switch (patternRes.getType()) {
+                case UResourceBundle.STRING:
+                    pattern = patternRes.getString();
+                    break;
+                case UResourceBundle.ARRAY:
+                    pattern = patternRes.getString(0);
+                    break;
+                default:
+                    throw new MissingResourceException("Resource in wrong format", "ICUResourceBundle", "calendar/" + calendarTypeToUse + "/DateTimePatterns");
             }
+            addPattern(pattern, false, returnInfo);
         }
     }
 
@@ -630,44 +643,16 @@ public class DateTimePatternGenerator implements Freezable<DateTimePatternGenera
         return getBestPattern(skeleton, null, options);
     }
 
-    // BEGIN Android-added: http://b/170233598 Allow duplicate fields
-    /**
-     * Return the best pattern matching the input skeleton. It is guaranteed to
-     * have all of the fields in the skeleton.
-     *
-     * @param skeleton The skeleton is a pattern containing only the variable fields.
-     *            For example, "MMMdd" and "mmhh" are skeletons.
-     * @param options MATCH_xxx options for forcing the length of specified fields in
-     *            the returned pattern to match those in the skeleton (when this would
-     *            not happen otherwise). For default behavior, use MATCH_NO_OPTIONS.
-     * @param allowDuplicateFields allows duplicated field in the skeleton
-     * @return Best pattern matching the input skeleton (and options).
-     * @internal
-     */
-    public String getBestPattern(String skeleton, int options, boolean allowDuplicateFields) {
-        return getBestPattern(skeleton, null, options, allowDuplicateFields);
-    }
-
-    private String getBestPattern(String skeleton, DateTimeMatcher skipMatcher, int options) {
-        return getBestPattern(skeleton, skipMatcher, options, false);
-    }
-    // END Android-added: http://b/170233598 Allow duplicate fields
-
     /*
      * getBestPattern which takes optional skip matcher
      */
-    // Android-changed: http://b/170233598 Allow duplicate fields
-    // private String getBestPattern(String skeleton, DateTimeMatcher skipMatcher, int options) {
-    private String getBestPattern(String skeleton, DateTimeMatcher skipMatcher, int options,
-            boolean allowDuplicateFields) {
+    private String getBestPattern(String skeleton, DateTimeMatcher skipMatcher, int options) {
         EnumSet<DTPGflags> flags = EnumSet.noneOf(DTPGflags.class);
         // Replace hour metacharacters 'j', 'C', and 'J', set flags as necessary
         String skeletonMapped = mapSkeletonMetacharacters(skeleton, flags);
         String datePattern, timePattern;
         synchronized(this) {
-            // Android-changed: http://b/170233598 Allow duplicate fields
-            // current.set(skeletonMapped, fp, false);
-            current.set(skeletonMapped, fp, allowDuplicateFields);
+            current.set(skeletonMapped, fp, false);
             PatternWithMatcher bestWithMatcher = getBestRaw(current, -1, _distanceInfo, skipMatcher);
             if (_distanceInfo.missingFieldMask == 0 && _distanceInfo.extraFieldMask == 0) {
                 // we have a good item. Adjust the field types

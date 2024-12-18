@@ -915,11 +915,6 @@ static void VerifyTranslation(void) {
         USet * mergedExemplarSet = NULL;
         errorCode=U_ZERO_ERROR;
         currLoc = uloc_getAvailable(locIndex);
-        // BEGIN Android patch: Android enables pesudolocales, but they don't pass this test. http://b/145129186
-        if (strcmp("en_XA", currLoc) == 0 || strcmp("ar_XB", currLoc) == 0) {
-            continue;
-        }
-        // END Android patch: Android enables pesudolocales, but they don't pass this test. http://b/145129186
         currentLocale = ures_open(NULL, currLoc, &errorCode);
         if(errorCode != U_ZERO_ERROR) {
             if(U_SUCCESS(errorCode)) {
@@ -1021,6 +1016,10 @@ static void VerifyTranslation(void) {
                         log_knownIssue("CLDR-17203", "Some day names in kxv(_Deva)? use chars not in exemplars")) {
                     end = 0;
                 }
+                if (uprv_strncmp(currLoc,"ak",2) == 0 &&  
+                        log_knownIssue("CLDR-17852", "Some month names in ax(_GH) use chars not in exemplars")) {
+                    end = 0;
+                }                
 
                 for (idx = 0; idx < end; idx++) {
                     const UChar *fromBundleStr = ures_getStringByIndex(resArray, idx, &langSize, &errorCode);
@@ -1062,6 +1061,10 @@ static void VerifyTranslation(void) {
                         log_knownIssue("CLDR-17203", "Some month names in kxv(_Deva)? use chars not in exemplars")) {
                     end = 0;
                 }
+                if (uprv_strncmp(currLoc,"ak",2) == 0 &&  
+                        log_knownIssue("CLDR-17852", "Some month names in ax(_GH) use chars not in exemplars")) {
+                    end = 0;
+                }  
 
                 for (idx = 0; idx < end; idx++) {
                     const UChar *fromBundleStr = ures_getStringByIndex(resArray, idx, &langSize, &errorCode);
@@ -1218,11 +1221,6 @@ static void TestExemplarSet(void){
             if (uset_containsSome(exemplarSet, unassignedSet)) {
                 log_err("ExemplarSet contains unassigned characters for locale : %s\n", locale);
             }
-            // BEGIN Android-added: Exclude pseudo locales since they are not present in CLDR data.
-            if (strcmp(locale, "en_XA") == 0 || strcmp(locale, "ar_XB") == 0) {
-                continue;
-            }
-            // END Android-added: Exclude pseudo locales since they are not present in CLDR data.
             codeLen = uscript_getCode(locale, code, 8, &ec);
             if (strcmp(locale, "yi") == 0 && codeLen > 0 && log_knownIssue("11217", "Fix result of uscript_getCode for yi: USCRIPT_YI -> USCRIPT_HEBREW")) {
                 code[0] = USCRIPT_HEBREW;

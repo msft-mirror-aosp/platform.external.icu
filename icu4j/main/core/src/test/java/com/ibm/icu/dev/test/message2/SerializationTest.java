@@ -19,14 +19,12 @@ public class SerializationTest extends CoreTestFmwk {
     @Test
     public void test() throws Exception {
         String[] testStrings = {
-            "Hello {$count &something}",
             "Hello world!",
             "{{.Hello world!}}",
             "Hello {userName}",
             "Hello {$userName}",
             "Hello {|-12345.12+e10|}",
             "Hello {$count :something max=10 min=1.1416 opt1=someString opt2=|a b \\| c| @a1 @a2=|| @a3=|str|}",
-            "Hello {$count &something}",
             ".input {$a :number} {{Hello world!}}",
             ".local $b = {$a :number} {{Hello world!}}",
             ".local $c = {1 :number} {{Hello {userName}}}",
@@ -43,12 +41,12 @@ public class SerializationTest extends CoreTestFmwk {
                     + "1   {{You got the gold medal}}\n"
                     + "2   {{You got the silver medal}}\n"
                     + "3   {{You got the bronze medal}}\n"
-                    + "few {{You fininshed in the {$place}rd place}}\n",
+                    + "few {{You fininshed in the {$place}rd place}}",
             ".match {$fileCount :number} {$folderCount :number}\n"
                     + "*   *   {{You deleted {$fileCount} files in {$folderCount} folders}}\n"
                     + "one one {{You deleted {$fileCount} file in {$folderCount} folder}}\n"
                     + "one *   {{You deleted {$fileCount} file in {$folderCount} folders}}\n"
-                    + "*   one {{You deleted {$fileCount} files in {$folderCount} folder}}\n",
+                    + "*   one {{You deleted {$fileCount} files in {$folderCount} folder}}",
             "{$count :number minimumFractionDigits=2} dollars",
             "{$count :number minimumFractionDigits=3} dollars",
             "{|3.1415| :number minimumFractionDigits=5} dollars",
@@ -57,7 +55,6 @@ public class SerializationTest extends CoreTestFmwk {
                     + ".match {$c}\n"
                     + "one {{{$c} dollar}}\n"
                     + "*   {{{$c} dollars}}",
-            ".local $c = {$count} .foobar |asd asd asd asd| {$bar1} {$bar2} {$bar3} .local $b = {$bar} {{Foo bar}}\n",
             ".local $c = {1 :number minimumFractionDigits=2}\n"
                     + ".match {$c}\n"
                     + "one {{{$c} dollar}}\n"
@@ -99,7 +96,7 @@ public class SerializationTest extends CoreTestFmwk {
                         .replaceAll("\\|([\\d\\.]+)\\|", "$1")
                         // Naive normalization for `|asBaC12|` to `asBaC12`
                         .replaceAll("\\|([a-zA-Z\\d]+)\\|", "$1")
-                        .replaceAll(" \\}", "}")
+                        .replaceAll(" }", "}")
                         .trim();
         assertEquals("Serialization different from to the initial source", pattern, parsed);
     }

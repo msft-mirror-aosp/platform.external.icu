@@ -24,7 +24,6 @@ import java.util.List;
 import java.util.MissingResourceException;
 import java.util.Set;
 
-import com.ibm.icu.platform.AndroidDataFiles;
 import com.ibm.icu.util.ICUUncheckedIOException;
 import com.ibm.icu.util.VersionInfo;
 
@@ -221,15 +220,11 @@ public final class ICUBinary {
         abstract void addBaseNamesInFolder(String folder, String suffix, Set<String> names);
     }
 
-    // BEGIN Android-changed: Map file only once during ICUBinary initialization. Attempt to fix
-    // some apps not seeing metazones.res file. See b/339899412.
     private static final class SingleDataFile extends DataFile {
-        private final ByteBuffer bytes;
         private final File path;
 
         SingleDataFile(String item, File path) {
             super(item);
-            this.bytes = mapFile(path);
             this.path = path;
         }
         @Override
@@ -240,13 +235,12 @@ public final class ICUBinary {
         @Override
         ByteBuffer getData(String requestedPath) {
             if (requestedPath.equals(itemPath)) {
-                return bytes.duplicate();
+                return mapFile(path);
             } else {
                 return null;
             }
         }
-    // END Android-changed: Map file only once during ICUBinary initialization. Attempt to fix
-    // some apps not seeing metazones.res files in b/339899412.
+
         @Override
         void addBaseNamesInFolder(String folder, String suffix, Set<String> names) {
             if (itemPath.length() > folder.length() + suffix.length() &&
@@ -287,17 +281,8 @@ public final class ICUBinary {
     private static final List<DataFile> icuDataFiles = new ArrayList<>();
 
     static {
-        // BEGIN Android-changed: Initialize ICU data file paths.
-        /*
         // Normally com.ibm.icu.impl.ICUBinary.dataPath.
         String dataPath = ICUConfig.get(ICUBinary.class.getName() + ".dataPath");
-        */
-        String dataPath = null;
-        // Only when runs after repackaging ICU4J. Otherwise the jar should have the ICU resources.
-        if (ICUBinary.class.getName().startsWith("android.icu")) {
-            dataPath = AndroidDataFiles.generateIcuDataPath();
-        }
-        // END Android-changed: Initialize ICU data file paths.
         if (dataPath != null) {
             addDataFilesFromPath(dataPath, icuDataFiles);
         }

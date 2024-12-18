@@ -973,6 +973,71 @@ static void addAllTests(TestNode **root)
 #endif
 }
 
+/* returns the path to icu/source/data/out */
+static const char *ctest_dataOutDir()
+{
+    static const char *dataOutDir = nullptr;
+
+    if(dataOutDir) {
+        return dataOutDir;
+    }
+
+    /* U_TOPBUILDDIR is set by the makefiles on UNIXes when building cintltst and intltst
+    //              to point to the top of the build hierarchy, which may or
+    //              may not be the same as the source directory, depending on
+    //              the configure options used.  At any rate,
+    //              set the data path to the built data from this directory.
+    //              The value is complete with quotes, so it can be used
+    //              as-is as a string constant.
+    */
+#if defined (U_TOPBUILDDIR)
+    {
+        dataOutDir = U_TOPBUILDDIR "data" U_FILE_SEP_STRING "out" U_FILE_SEP_STRING;
+    }
+#else
+
+    /* On Windows, the file name obtained from __FILE__ includes a full path.
+     *             This file is "wherever\icu\source\test\cintltst\cintltst.c"
+     *             Change to    "wherever\icu\source\data"
+     */
+    {
+        static char p[sizeof(__FILE__) + 20];
+        char *pBackSlash;
+        int i;
+
+        strcpy(p, __FILE__);
+        /* We want to back over three '\' chars.                            */
+        /*   Only Windows should end up here, so looking for '\' is safe.   */
+        for (i=1; i<=3; i++) {
+            pBackSlash = strrchr(p, U_FILE_SEP_CHAR);
+            if (pBackSlash != nullptr) {
+                *pBackSlash = 0;        /* Truncate the string at the '\'   */
+            }
+        }
+
+        if (pBackSlash != nullptr) {
+            /* We found and truncated three names from the path.
+             *  Now append "source\data" and set the environment
+             */
+            strcpy(pBackSlash, U_FILE_SEP_STRING "data" U_FILE_SEP_STRING "out" U_FILE_SEP_STRING);
+            dataOutDir = p;
+        }
+        else {
+            /* __FILE__ on MSVC7 does not contain the directory */
+            FILE *file = fopen(".." U_FILE_SEP_STRING ".." U_FILE_SEP_STRING "data" U_FILE_SEP_STRING "Makefile.in", "r");
+            if (file) {
+                fclose(file);
+                dataOutDir = ".." U_FILE_SEP_STRING ".." U_FILE_SEP_STRING "data" U_FILE_SEP_STRING "out" U_FILE_SEP_STRING;
+            }
+            else {
+                dataOutDir = ".." U_FILE_SEP_STRING".." U_FILE_SEP_STRING".." U_FILE_SEP_STRING "data" U_FILE_SEP_STRING "out" U_FILE_SEP_STRING;
+            }
+        }
+    }
+#endif
+
+    return dataOutDir;
+}
 
 /*  ctest_setICU_DATA  - if the ICU_DATA environment variable is not already
  *                       set, try to deduce the directory in which ICU was built,
@@ -1050,12 +1115,12 @@ int main(int argc, char* argv[])
     u_cleanup();
 
     endTime = uprv_getUTCtime();
-    diffTime = (int32_t)(endTime - startTime);
+    diffTime = static_cast<int32_t>(endTime - startTime);
     printf("Elapsed Time: %02d:%02d:%02d.%03d\n",
-        (int)((diffTime%U_MILLIS_PER_DAY)/U_MILLIS_PER_HOUR),
-        (int)((diffTime%U_MILLIS_PER_HOUR)/U_MILLIS_PER_MINUTE),
-        (int)((diffTime%U_MILLIS_PER_MINUTE)/U_MILLIS_PER_SECOND),
-        (int)(diffTime%U_MILLIS_PER_SECOND));
+        (diffTime % U_MILLIS_PER_DAY) / U_MILLIS_PER_HOUR,
+        (diffTime % U_MILLIS_PER_HOUR) / U_MILLIS_PER_MINUTE,
+        (diffTime % U_MILLIS_PER_MINUTE) / U_MILLIS_PER_SECOND,
+        diffTime % U_MILLIS_PER_SECOND);
 
     return nerrors;
 }

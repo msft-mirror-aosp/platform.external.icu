@@ -45,6 +45,7 @@ void TestUcalOpenBufferRead(void);
 void TestGetTimeZoneOffsetFromLocal(void);
 
 void TestFWWithISO8601(void);
+void TestFWwithRGSD(void);
 
 void addCalTest(TestNode** root);
 
@@ -71,6 +72,7 @@ void addCalTest(TestNode** root)
     addTest(root, &TestUcalOpenBufferRead, "tsformat/ccaltst/TestUcalOpenBufferRead");
     addTest(root, &TestGetTimeZoneOffsetFromLocal, "tsformat/ccaltst/TestGetTimeZoneOffsetFromLocal");
     addTest(root, &TestFWWithISO8601, "tsformat/ccaltst/TestFWWithISO8601");
+    addTest(root, &TestFWwithRGSD, "tsformat/ccaltst/TestFWwithRGSD");
     addTest(root, &TestGetIanaTimeZoneID, "tstformat/ccaltst/TestGetIanaTimeZoneID");
 }
 
@@ -95,18 +97,18 @@ static const UCalGetTypeTest ucalGetTypeTests[] = {
     { "en_US",                   UCAL_GREGORIAN, "gregorian" },
     { "ja_JP@calendar=japanese", UCAL_DEFAULT,   "japanese"  },
     { "th_TH",                   UCAL_GREGORIAN, "gregorian" },
-    { "th_TH",                   UCAL_DEFAULT,   "gregorian"  },  // android-changed
+    { "th_TH",                   UCAL_DEFAULT,   "buddhist"  },
     { "th-TH-u-ca-gregory",      UCAL_DEFAULT,   "gregorian" },
     { "ja_JP@calendar=japanese", UCAL_GREGORIAN, "gregorian" },
     { "fr_CH",                   UCAL_DEFAULT,   "gregorian" },
-    { "fr_SA",                   UCAL_DEFAULT,   "gregorian" },  // android-changed
-    { "fr_CH@rg=sazzzz",         UCAL_DEFAULT,   "gregorian" },  // android-changed
-    { "fr_CH@rg=sa14",           UCAL_DEFAULT,   "gregorian" },  // android-changed
+    { "fr_SA",                   UCAL_DEFAULT,   "gregorian" },
+    { "fr_CH@rg=sazzzz",         UCAL_DEFAULT,   "gregorian" },
+    { "fr_CH@rg=sa14",           UCAL_DEFAULT,   "gregorian" },
     { "fr_CH@calendar=japanese;rg=sazzzz", UCAL_DEFAULT, "japanese" },
     { "fr_CH@rg=twcyi",          UCAL_DEFAULT,   "gregorian" }, // test for ICU-22364
     { "fr_CH@rg=ugw",            UCAL_DEFAULT,   "gregorian" }, // test for ICU-22364
-    { "fr_TH@rg=SA",             UCAL_DEFAULT,   "gregorian"  }, /* ignore malformed rg tag */  // android-changed
-    { "th@rg=SA",                UCAL_DEFAULT,   "gregorian"  }, /* ignore malformed rg tag */  // android-changed
+    { "fr_TH@rg=SA",             UCAL_DEFAULT,   "buddhist"  }, /* ignore malformed rg tag */
+    { "th@rg=SA",                UCAL_DEFAULT,   "buddhist"  }, /* ignore malformed rg tag */
     { "",                        UCAL_GREGORIAN, "gregorian" },
     { NULL,                      UCAL_GREGORIAN, "gregorian" },
     { NULL, 0, NULL } /* terminator */
@@ -1377,7 +1379,7 @@ static void testZones(int32_t yr, int32_t mo, int32_t dt, int32_t hr, int32_t mn
         log_err("ucal_get() failed: %s\n", u_errorName(status));
         goto cleanup;
     }
-    temp=(double)((double)offset / 1000.0 / 60.0 / 60.0);
+    temp = (double)offset / 1000.0 / 60.0 / 60.0;
     /*printf("offset for %s %f hr\n", austrdup(myDateFormat(datfor, date1)), temp);*/
        
     utc = ((ucal_get(cal, UCAL_HOUR_OF_DAY, &status) * 60 +
@@ -1616,25 +1618,25 @@ void TestGregorianChange(void) {
 }
 
 static void TestGetKeywordValuesForLocale(void) {
-#define PREFERRED_SIZE 26
+#define PREFERRED_SIZE 25
 #define MAX_NUMBER_OF_KEYWORDS 5
     const char *PREFERRED[PREFERRED_SIZE][MAX_NUMBER_OF_KEYWORDS+1] = {
             { "root",        "gregorian", NULL, NULL, NULL, NULL },
             { "und",         "gregorian", NULL, NULL, NULL, NULL },
             { "en_US",       "gregorian", NULL, NULL, NULL, NULL },
             { "en_029",      "gregorian", NULL, NULL, NULL, NULL },
-            { "th_TH",       "gregorian", "buddhist", NULL, NULL, NULL },  // android-changed
-            { "und_TH",      "gregorian", "buddhist", NULL, NULL, NULL },  // android-changed
-            { "en_TH",       "gregorian", "buddhist", NULL, NULL, NULL },  // android-changed
+            { "th_TH",       "buddhist", "gregorian", NULL, NULL, NULL },
+            { "und_TH",      "buddhist", "gregorian", NULL, NULL, NULL },
+            { "en_TH",       "buddhist", "gregorian", NULL, NULL, NULL },
             { "he_IL",       "gregorian", "hebrew", "islamic", "islamic-civil", "islamic-tbla" },
             { "ar_EG",       "gregorian", "coptic", "islamic", "islamic-civil", "islamic-tbla" },
             { "ja",          "gregorian", "japanese", NULL, NULL, NULL },
             { "ps_Guru_IN",  "gregorian", "indian", NULL, NULL, NULL },
-            { "th@calendar=gregorian", "gregorian", "buddhist", NULL, NULL, NULL },  // android-changed
+            { "th@calendar=gregorian", "buddhist", "gregorian", NULL, NULL, NULL },
             { "en@calendar=islamic",   "gregorian", NULL, NULL, NULL, NULL },
             { "zh_TW",       "gregorian", "roc", "chinese", NULL, NULL },
-            { "ar_IR",       "gregorian", "persian", "islamic", "islamic-civil", "islamic-tbla" },  // android-changed
-            { "th@rg=SAZZZZ", "gregorian", "islamic-umalqura", "islamic", "islamic-rgsa", NULL },  // android-changed
+            { "ar_IR",       "persian", "gregorian", "islamic", "islamic-civil", "islamic-tbla" },
+            { "th@rg=SAZZZZ", "gregorian", "islamic-umalqura", "islamic", "islamic-rgsa", NULL },
 
             // tests for ICU-22364
             { "zh_CN@rg=TW",           "gregorian", "chinese", NULL, NULL, NULL }, // invalid subdivision code
@@ -1646,9 +1648,8 @@ static void TestGetKeywordValuesForLocale(void) {
             { "zh_TW@rg=IT53",         "gregorian", NULL, NULL, NULL, NULL }, // two-digit subdivision code
             { "zh_TW@rg=AUnsw",        "gregorian", NULL, NULL, NULL, NULL }, // three-letter subdivision code
             { "zh_TW@rg=EE130",        "gregorian", NULL, NULL, NULL, NULL }, // three-digit subdivision code
-            { "zh_TW@rg=417zzzz",      "gregorian", NULL, NULL, NULL, NULL }, // three-digit region code
     };
-    const int32_t EXPECTED_SIZE[PREFERRED_SIZE] = { 1, 1, 1, 1, 2, 2, 2, 5, 5, 2, 2, 2, 1, 3, 5, 4, 2, 3, 3, 1, 1, 1, 1, 1, 1, 1 };
+    const int32_t EXPECTED_SIZE[PREFERRED_SIZE] = { 1, 1, 1, 1, 2, 2, 2, 5, 5, 2, 2, 2, 1, 3, 5, 4, 2, 3, 3, 1, 1, 1, 1, 1, 1 };
     UErrorCode status = U_ZERO_ERROR;
     int32_t i, size, j;
     UEnumeration *all, *pref;
@@ -1688,7 +1689,7 @@ static void TestGetKeywordValuesForLocale(void) {
             }
             
             if (!matchPref) {
-                log_err("FAIL: Preferred values for locale \"%s\" does not match expected.\n", loc);
+                log_err("FAIL: Preferred values for locale (%d) \"%s\" does not match expected.\n", i, loc);
                 break;
             }
             uenum_close(pref);
@@ -2837,6 +2838,66 @@ TestFWWithISO8601(void) {
         if (i != actual) {
             log_err("ERROR: ucal_getAttribute(\"%s\", UCAL_FIRST_DAY_OF_WEEK) should be %d but get %d\n",
                     locale, i, actual);
+        }
+        ucal_close(cal);
+    }
+}
+
+void
+TestFWwithRGSD(void) {
+    typedef struct {
+        const char* locale;
+        int32_t first_day_of_week;
+        int32_t minimal_days;
+    } TestData;
+    const TestData TESTDATA[] = {
+        // Region subtag is missing, so add likely subtags to get region.
+        {"en", UCAL_SUNDAY, 1},
+
+        // Explicit region subtag "US" is present.
+        {"en-US", UCAL_SUNDAY, 1},
+
+        // Explicit region subtag "DE" is present.
+        {"en-DE", UCAL_MONDAY, 4},
+
+        // Explicit region subtag "DE" is present, but there's also a valid
+        // region override to use "US".
+        {"en-DE-u-rg-uszzzz", UCAL_SUNDAY, 1},
+
+        // Explicit region subtag "DE" is present. The region override should be
+        // ignored, because "AA" is not a valid region.
+        {"en-DE-u-rg-aazzzz", UCAL_MONDAY, 4},
+
+        // Explicit region subtag "DE" is present. The region override should be
+        // ignored, because "001" is a macroregion.
+        {"en-DE-u-rg-001zzz", UCAL_MONDAY, 4},
+
+        // Region subtag is missing. The region override should be ignored, because
+        // "AA" is not a valid region.
+        {"en-u-rg-aazzzz", UCAL_SUNDAY, 1},
+
+        // Region subtag is missing. The region override should be ignored, because
+        // "001" is a macroregion.
+        {"en-u-rg-001zzz", UCAL_SUNDAY, 1},
+
+        {NULL, 0, 0},
+    };
+    for (int32_t i = 0; TESTDATA[i].locale != NULL; i++) {
+        UErrorCode status = U_ZERO_ERROR;
+        UCalendar* cal = ucal_open(NULL, 0, TESTDATA[i].locale, UCAL_DEFAULT, &status);
+        if (U_FAILURE(status)) {
+            log_err("ucal_open failed: TESTDATA[%d].locale = '%s'\n", i, TESTDATA[i].locale);
+            continue;
+        }
+        int32_t first_day_Of_week = ucal_getAttribute(cal, UCAL_FIRST_DAY_OF_WEEK);
+        if (first_day_Of_week != TESTDATA[i].first_day_of_week) {
+            log_err("First day of week of '%s' is %d but expected to be %d\n", TESTDATA[i].locale,
+                    first_day_Of_week, TESTDATA[i].first_day_of_week);
+        }
+        int32_t minimal_days = ucal_getAttribute(cal, UCAL_MINIMAL_DAYS_IN_FIRST_WEEK);
+        if (minimal_days != TESTDATA[i].minimal_days) {
+            log_err("Minimal days of a week of '%s' is %d but expected to be %d\n", TESTDATA[i].locale,
+                    minimal_days, TESTDATA[i].minimal_days);
         }
         ucal_close(cal);
     }

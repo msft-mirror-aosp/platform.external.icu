@@ -1399,11 +1399,6 @@ static void TestIllegalArgumentWhenNoDataWithNoSubstitute(void)
 /* test for uloc_getISOLanguages, uloc_getISOCountries */
 static void TestISOFunctions(void)
 {
-    // Android-changed: Skip this test on Android because we allow extra languages added on devices.
-    if (true) {
-        return;
-    }
-
     const char* const* str=uloc_getISOLanguages();
     const char* const* str1=uloc_getISOCountries();
     const char* test;
@@ -6206,6 +6201,11 @@ static void TestLikelySubtags(void)
         UErrorCode status = U_ZERO_ERROR;
         const char* const minimal = full_data[i][0];
         const char* const maximal = full_data[i][1];
+
+        if (uprv_strcmp(minimal, "und_Hant_CN") == 0 &&
+                log_knownIssue("CLDR-17908", "und_Hant_CN changed expected result for Likely Subtags")) {
+            continue;
+        }
 
         /* const int32_t length = */
             uloc_addLikelySubtags(

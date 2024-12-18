@@ -14,6 +14,11 @@ ps{
     ExemplarCharactersNumbers{"[\u200E \\- ‑ , ٫ ٬ . % ٪ ‰ ؉ + − 0۰ 1۱ 2۲ 3۳ 4۴ 5۵ 6۶ 7۷ 8۸ 9۹]"}
     ExemplarCharactersPunctuation{"[، ; \\: ! ۔ '‘ ( ) \\[ \\] \\{ \\} /]"}
     NumberElements{
+        arab{
+            symbols{
+                exponential{"^"}
+            }
+        }
         arabext{
             symbols{
                 timeSeparator{":"}
@@ -139,6 +144,7 @@ ps{
         native{"arabext"}
     }
     calendar{
+        default{"persian"}
         generic{
             DateTimePatterns{
                 "H:mm:ss (zzzz)",
@@ -284,14 +290,6 @@ ps{
                         am{"غ.م."}
                         pm{"غ.و."}
                     }
-                    narrow{
-                        am{"غ.م."}
-                        pm{"غ.و."}
-                    }
-                    wide{
-                        am{"غ.م."}
-                        pm{"غ.و."}
-                    }
                 }
             }
             eras{
@@ -430,7 +428,7 @@ ps{
                         "صفر",
                         "ربيع",
                         "ربيع II",
-                        "جماد ۱",
+                        "جماد",
                         "جماد ۲",
                         "رجب",
                         "شعبان",
@@ -607,7 +605,13 @@ ps{
             dn{"ورځ شېبه"}
         }
         era{
-            dn{"پېر"}
+            dn{"دور"}
+        }
+        era-narrow{
+            dn{"دور"}
+        }
+        era-short{
+            dn{"دور"}
         }
         fri{
             relative{
@@ -1092,10 +1096,10 @@ ps{
                 "[%％﹪ ٪]",
                 "[‰ ؉]",
                 "[\$＄﹩]",
-                "[£ ₤]",
+                "[£￡ ₤]",
                 "[¥￥]",
                 "[₩￦]",
-                "[₹ ₨ {Rp} {Rs}]",
+                "[₹ {Rp} {Rs}₨]",
             }
         }
         number{
