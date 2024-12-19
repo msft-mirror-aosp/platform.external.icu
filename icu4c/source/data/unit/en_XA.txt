@@ -342,6 +342,12 @@ en_XA{
                 one{"[{0} ñåñöšéçöñð one two]"}
                 other{"[{0} ñåñöšéçöñðš one two three]"}
             }
+            night{
+                dnam{"[ñîĝĥţš one]"}
+                one{"[{0} ñîĝĥţ one two]"}
+                other{"[{0} ñîĝĥţš one two]"}
+                per{"[{0} þéŕ ñîĝĥţ one two]"}
+            }
             quarter{
                 dnam{"[ǫûåŕţéŕš one two]"}
                 one{"[{0} ǫûåŕţéŕ one two]"}
@@ -841,6 +847,11 @@ en_XA{
                 dnam{"[ķñöţš one]"}
                 one{"[{0} ķñöţ one two]"}
                 other{"[{0} ķñöţš one two]"}
+            }
+            light-speed{
+                dnam{"[ļîĝĥţ one]"}
+                one{"[{0} ļîĝĥţ one two]"}
+                other{"[{0} ļîĝĥţ one two]"}
             }
             meter-per-second{
                 dnam{"[ɱéţéŕš þéŕ šéçöñð one two three]"}
@@ -1405,6 +1416,12 @@ en_XA{
                 one{"[{0} ñš one]"}
                 other{"[{0} ñš one]"}
             }
+            night{
+                dnam{"[ñîĝĥţš one]"}
+                one{"[{0} ñîĝĥţ one two]"}
+                other{"[{0} ñîĝĥţš one two]"}
+                per{"[{0}⁄ñîĝĥţ one two]"}
+            }
             quarter{
                 dnam{"[ǫţŕ one]"}
                 one{"[{0} ǫţŕ one two]"}
@@ -1904,6 +1921,11 @@ en_XA{
                 dnam{"[ķñ one]"}
                 one{"[{0} ķñ one]"}
                 other{"[{0} ķñ one]"}
+            }
+            light-speed{
+                dnam{"[ļîĝĥţ one]"}
+                one{"[{0} ļîĝĥţ one two]"}
+                other{"[{0} ļîĝĥţ one two]"}
             }
             meter-per-second{
                 dnam{"[ɱéţéŕš⁄šéç one two]"}

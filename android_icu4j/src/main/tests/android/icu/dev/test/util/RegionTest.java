@@ -14,6 +14,7 @@
 
 package android.icu.dev.test.util;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
 
@@ -22,9 +23,14 @@ import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 
 import android.icu.dev.test.CoreTestFmwk;
+import android.icu.impl.ICUData;
+import android.icu.impl.ICUResourceBundle;
 import android.icu.util.Region;
 import android.icu.util.Region.RegionType;
+import android.icu.util.ULocale;
+import android.icu.util.UResourceBundle;
 import android.icu.testsharding.MainTestShard;
+
 
 /**
  * @test
@@ -628,6 +634,67 @@ public class RegionTest extends CoreTestFmwk {
             } catch (IllegalArgumentException ex) {
                 errln("Known region " + groupingCode + " was not recognized");
             }
+        }
+    }
+
+    public static class MutableRegionValidateMap extends ULocale.RegionValidateMap {
+        public MutableRegionValidateMap() {
+            Arrays.fill(map, 0);
+        }
+        public void add(String region) {
+            int index = value(region);
+            if (index >= 0) {
+                map[index / 32] |= (1 << (index % 32));
+            }
+        }
+        public int[] data() {
+            return map;
+        }
+    }
+
+    @Test
+    public void TestGetRegionForSupplementalDataMatch() {
+        UResourceBundle supplementalData = UResourceBundle.getBundleInstance(ICUData.ICU_BASE_NAME,"supplementalData", ICUResourceBundle.ICU_DATA_CLASS_LOADER);
+        UResourceBundle idValidity = supplementalData.get("idValidity");
+        UResourceBundle subdivisions = idValidity.get("subdivision");
+        UResourceBundle unknown = subdivisions.get("unknown");
+        MutableRegionValidateMap prefab = new MutableRegionValidateMap();
+        for ( String r : unknown.getStringArray()) {
+            prefab.add(r.substring(0, 2));
+        }
+        if (!ULocale.RegionValidateMap.BUILTIN.equals(prefab)) {
+            int[] data = prefab.data();
+            System.out.println("Please update the following in main/core/src/main/java/android/icu/util/ULocale.java");
+            System.out.print("        static int[] gValidRegionMap = {");
+            for (int i = 0; i < data.length; i++) {
+                if (i % 4 == 0) {
+                    System.out.print("\n    ");
+                }
+                System.out.printf("0x%08x, ", data[i]);
+            }
+            System.out.println("\n};");
+            errln("ULocale.RegionValidateMap.BUILTIN inconsistent with supplementalData)");
+        }
+        MutableRegionValidateMap prefab2 = new MutableRegionValidateMap();
+        char[] code = new char[2];
+        for (code[0] = 'A'; code[0] <= 'Z'; code[0]++) {
+            for (code[1] = 'A'; code[1] <= 'Z'; code[1]++) {
+                String str = new String(code);
+                try {
+                    Region r = Region.getInstance(str);
+                    // The Region code successfully created by Region.getInstance with
+                    // type URGN_TERRITORY. Notice the r.toString() may not be the
+                    // same as the same as the one passing into getInstance.
+                    if (r.getType() == Region.RegionType.TERRITORY) {
+                        prefab2.add(r.toString());
+                    }
+                } catch (Exception e) {
+                    // noop
+                }
+            }
+        }
+        if (!ULocale.RegionValidateMap.BUILTIN.equals(prefab2)) {
+            errln("ULocale.RegionValidateMap.BUILTIN inconsistent with Region.getInstance()");
         }
     }
 }

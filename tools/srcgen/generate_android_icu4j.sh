@@ -75,7 +75,7 @@ ${ICU4J_BASE_COMMAND} ${INPUT_JAVA_DIRS} ${DEST_SRC_DIR} ${CORE_PLATFORM_API_FIL
 # Copy / transform the resources needed by the android_icu4j code.
 for INPUT_DIR in ${INPUT_RESOURCE_DIRS}; do
   # android_icu4j uses .dat file, not .res files in icudt*
-  RESOURCES=$(find ${INPUT_DIR} -type f -not -path "${INPUT_DIR}/com/ibm/icu/impl/data/icudt*"| egrep -v '(\/package\.html|\/ICUConfig\.properties)' || true )
+  RESOURCES=$(find ${INPUT_DIR} -type f -not -path "${INPUT_DIR}/com/ibm/icu/impl/data/icudata/*"| egrep -v '(\/package\.html|\/ICUConfig\.properties)' || true )
   for RESOURCE in ${RESOURCES}; do
     SOURCE_DIR=$(dirname ${RESOURCE})
     RELATIVE_SOURCE_DIR=$(echo ${SOURCE_DIR} | sed "s,${INPUT_DIR}/,,")

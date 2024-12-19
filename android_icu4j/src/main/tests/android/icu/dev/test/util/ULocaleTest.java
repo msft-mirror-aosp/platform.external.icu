@@ -1234,7 +1234,6 @@ public class ULocaleTest extends CoreTestFmwk {
                 new Item("en", NM_STD, CAP_MID, LEN_FU, SUB_SU, "ur@numbers=arabext", "Urdu (Extended Arabic-Indic Digits)"),
                 new Item("en", NM_STD, CAP_MID, LEN_SH, SUB_SU, "ur@numbers=arabext", "Urdu (X Arabic-Indic Digits)"),
                 new Item("af", NM_STD, CAP_NON, LEN_FU, SUB_NO, "aa", "Afar"),
-                new Item("cs", NM_STD, CAP_NON, LEN_FU, SUB_NO, "vai", "vai"),
                 // https://unicode-org.atlassian.net/browse/ICU-20870:
                 new Item("en", NM_STD, CAP_MID, LEN_FU, SUB_SU, "fa_AF",  "Persian (Afghanistan)" ),
                 new Item("en", NM_STD, CAP_MID, LEN_FU, SUB_SU, "prs",    "Dari" ),
@@ -1675,7 +1674,7 @@ public class ULocaleTest extends CoreTestFmwk {
         h[1].put("japanese", "\u65E5\u672C\u65E5\u5386");
         h[1].put("buddhist", "\u4F5B\u5386");
         h[1].put("islamic", "伊斯兰历");
-        h[1].put("islamic-civil", "伊斯兰希吉来日历");
+        h[1].put("islamic-civil", "表格式伊斯兰历（民用纪元）");
         h[1].put("hebrew", "\u5E0C\u4F2F\u6765\u65E5\u5386");
         h[1].put("chinese", "\u519C\u5386");
         h[1].put("gregorian", "\u516C\u5386");
@@ -3663,9 +3662,9 @@ public class ULocaleTest extends CoreTestFmwk {
                     "zh_Hant_TW",
                     "zh_TW"
                 }, {
-                    "und_Hant_CN",
-                    "zh_Hant_CN",
-                    "zh_Hant_CN"
+                  "und_Hant_CN",
+                  "yue_Hant_CN",
+                  "yue_Hant_CN"
                 }, {
                     "und_Hant_TW",
                     "zh_Hant_TW",
@@ -5718,9 +5717,14 @@ public class ULocaleTest extends CoreTestFmwk {
             assertEquals("addLikelySubtags(" + test.source + ") should be unchanged",
                 l, ULocale.addLikelySubtags(l));
         } else {
-            assertEquals("addLikelySubtags(" + test.source + ")",
-                test.addLikely, ULocale.addLikelySubtags(l).toLanguageTag());
-        }
+            if ( ( test.source.equals("und-Latn-MU") || test.source.equals("und-Latn-RS") || test.source.equals("und-Latn-SL")
+                || test.source.equals("und-Latn-TK") || test.source.equals("und-Latn-ZM") )
+                && logKnownIssue("CLDR-18002", "Incorrect Likely Subtags for some entries modified in CLDR 46") ) {
+                    return;
+                }
+              assertEquals("addLikelySubtags(" + test.source + ")",
+                  test.addLikely, ULocale.addLikelySubtags(l).toLanguageTag());
+              }
         if (test.removeFavorRegion.equals("FAIL")) {
             assertEquals("minimizeSubtags(" + test.source + ") should be unchanged",
                 l, ULocale.minimizeSubtags(l));
