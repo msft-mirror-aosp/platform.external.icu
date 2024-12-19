@@ -12,7 +12,9 @@ import org.junit.runners.JUnit4;
 import com.ibm.icu.dev.test.CoreTestFmwk;
 
 @SuppressWarnings({"static-method", "javadoc"})
-@RunWith(JUnit4.class)
+// Android-removed: Disable MF2 tests until it's enabled on Android.
+// The test fails due to missing json file bundled in CtsIcuTestCases.
+// @RunWith(JUnit4.class)
 public class CoreTest extends CoreTestFmwk {
     private static final String[] JSON_FILES = {"alias-selector-annotations.json",
                                                 "duplicate-declarations.json",
@@ -46,7 +48,8 @@ public class CoreTest extends CoreTestFmwk {
                                                 "unsupported-statements.json",
                                                 "valid-tests.json"};
 
-    @Test
+    // Android-removed: Disable MF2 tests until it's enabled on Android.
+    // @Test
     public void test() throws Exception {
         for (String jsonFile : JSON_FILES) {
             try (Reader reader = TestUtils.jsonReader(jsonFile)) {
