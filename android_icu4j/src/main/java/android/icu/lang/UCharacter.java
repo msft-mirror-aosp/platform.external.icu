@@ -1165,7 +1165,7 @@ public final class UCharacter implements ECharacterCategory, ECharacterDirection
          * @hide unsupported on Android
          */
         @Deprecated
-        public static final int COUNT = 329;
+        public static final int COUNT = 339;
 
         // blocks objects ---------------------------------------------------
 
@@ -2591,11 +2591,7 @@ public final class UCharacter implements ECharacterCategory, ECharacterDirection
         {
             super(name);
             m_id_ = id;
-            // Android-changed: Avoid leaking flagged UnicodeBlock until ICU 76 data is integrated.
-            // Without the Unicode 16.0 database, UCharacter.UnicodeBlock.forName(name) is broken if
-            // the new faked UnicodeBlock is stored in this global BLOCKS_ array, See b/320357773.
-            // if (id >= 0) {
-            if (id >= 0 && id < BLOCKS_.length) {
+            if (id >= 0) {
                 BLOCKS_[id] = this;
             }
         }
@@ -3019,6 +3015,7 @@ public final class UCharacter implements ECharacterCategory, ECharacterDirection
         public static final int THIN_YEH = 102;
         /***/
         public static final int VERTICAL_TAIL = 103;
+
         /***/
         @android.annotation.FlaggedApi(com.android.icu.Flags.FLAG_ICU_25Q2_API)
         public static final int KASHMIRI_YEH = 104;
@@ -3031,7 +3028,7 @@ public final class UCharacter implements ECharacterCategory, ECharacterDirection
          * @hide unsupported on Android
          */
         @Deprecated
-        public static final int COUNT = 104;
+        public static final int COUNT = 105;
     }
 
     /**
@@ -3604,6 +3601,25 @@ public final class UCharacter implements ECharacterCategory, ECharacterDirection
         /***/
         @android.annotation.FlaggedApi(com.android.icu.Flags.FLAG_ICU_25Q2_API)
         public static final int REORDERING_KILLER = 36;
+    }
+
+    /**
+     * Indic Conjunct Break constants.
+     * See https://unicode.org/reports/tr44/#Indic_Conjunct_Break
+     *
+     * @see UProperty#INDIC_CONJUNCT_BREAK
+     * @hide Only a subset of ICU is exposed in Android
+     * @hide draft / provisional / internal are hidden on Android
+     */
+    public enum IndicConjunctBreak {
+        /** @hide draft / provisional / internal are hidden on Android*/
+        NONE,
+        /** @hide draft / provisional / internal are hidden on Android*/
+        CONSONANT,
+        /** @hide draft / provisional / internal are hidden on Android*/
+        EXTEND,
+        /** @hide draft / provisional / internal are hidden on Android*/
+        LINKER,
     }
 
     /**

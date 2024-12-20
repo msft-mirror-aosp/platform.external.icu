@@ -455,12 +455,12 @@ static ETestConvertResult testConvertFromU( const UChar *source, int sourceLen, 
       junk[0] = 0;
       offset_str[0] = 0;
       for(ptr = junkout;ptr<targ;ptr++) {
-        snprintf(junk + strlen(junk), sizeof(junk)-strlen(junk), "0x%02x, ", (int)(0xFF & *ptr));
-        snprintf(offset_str + strlen(offset_str), sizeof(offset_str)-strlen(offset_str), "0x%02x, ", (int)(0xFF & junokout[ptr-junkout]));
+        snprintf(junk + strlen(junk), sizeof(junk) - strlen(junk), "0x%02x, ", (0xFF & *ptr));
+        snprintf(offset_str + strlen(offset_str), sizeof(offset_str) - strlen(offset_str), "0x%02x, ", (0xFF & junokout[ptr - junkout]));
       }
       
       log_verbose(junk);
-      printSeq((const uint8_t *)expect, expectLen);
+      printSeq(expect, expectLen);
       if ( checkOffsets ) {
         log_verbose("\nOffsets:");
         log_verbose(offset_str);
@@ -2803,7 +2803,7 @@ TestSmallTargetBuffer(const uint16_t* source, const UChar* sourceLimit,UConverte
     ucnv_reset(cnv);
     for(;--i>0; ){
         uSource = (UChar*) source;
-        uSourceLimit=(const UChar*)sourceLimit;
+        uSourceLimit = sourceLimit;
         cTarget = cBuf;
         uTarget = uBuf;
         cSource = cBuf;
@@ -2998,7 +2998,7 @@ TestGetNextUChar2022(UConverter* cnv, const char* source, const char* limit,
             }else{
                 exC = *r;
             }
-            if(c!=(uint32_t)(exC))
+            if (c != exC)
                 log_err("%s ucnv_getNextUChar() Expected:  \\u%04X Got:  \\u%04X \n",message,(uint32_t) (*r),c);
         }
         r++;
@@ -5089,7 +5089,7 @@ TestLMBCS(void) {
       pUniIn = uniString;
       ucnv_toUnicode (cnv01us,
                         &pUniIn, pUniIn + 1,
-                        &pLMBCSOut, (const char *)(pLMBCSOut + 3),
+                        &pLMBCSOut, pLMBCSOut + 3,
                         NULL, 1, &errorCode);
       if (U_FAILURE(errorCode) || pLMBCSOut != (const char *)lmbcsString+3 || pUniIn != uniString+1 || uniString[0] != 0xFF6E)
       {
@@ -5190,14 +5190,14 @@ TestLMBCS(void) {
          pUIn--;
          
          errorCode=U_ZERO_ERROR;
-         ucnv_toUnicode(cnv, &pUOut,pUOut+1,(const char **)&pLIn,(const char *)(pLIn-1),off,false, &errorCode);
+         ucnv_toUnicode(cnv, &pUOut, pUOut + 1, &pLIn, pLIn - 1, off, false, &errorCode);
          if (errorCode != U_ILLEGAL_ARGUMENT_ERROR)
          {
             log_err("Unexpected Error on negative source request to ucnv_toUnicode: %s\n", u_errorName(errorCode));
          }
          errorCode=U_ZERO_ERROR;
 
-         uniChar = ucnv_getNextUChar(cnv, (const char **)&pLIn, (const char *)(pLIn-1), &errorCode);
+         uniChar = ucnv_getNextUChar(cnv, &pLIn, pLIn - 1, &errorCode);
          if (errorCode != U_ILLEGAL_ARGUMENT_ERROR)
          {
             log_err("Unexpected Error on negative source request to ucnv_getNextUChar: %s\n", u_errorName(errorCode));
@@ -5205,7 +5205,7 @@ TestLMBCS(void) {
          errorCode=U_ZERO_ERROR;
 
          /* 0 byte source request - no error, no pointer movement */
-         ucnv_toUnicode(cnv, &pUOut,pUOut+1,(const char **)&pLIn,(const char *)pLIn,off,false, &errorCode);
+         ucnv_toUnicode(cnv, &pUOut, pUOut + 1, &pLIn, pLIn, off, false, &errorCode);
          ucnv_fromUnicode(cnv, &pLOut,pLOut+1,&pUIn,pUIn,off,false, &errorCode);
          if(U_FAILURE(errorCode)) {
             log_err("0 byte source request: unexpected error: %s\n", u_errorName(errorCode));
@@ -5215,7 +5215,7 @@ TestLMBCS(void) {
               log_err("Unexpected pointer move in 0 byte source request \n");
          }
          /*0 byte source request - GetNextUChar : error & value == fffe or ffff */
-         uniChar = ucnv_getNextUChar(cnv, (const char **)&pLIn, (const char *)pLIn, &errorCode);
+         uniChar = ucnv_getNextUChar(cnv, &pLIn, pLIn, &errorCode);
          if (errorCode != U_INDEX_OUTOFBOUNDS_ERROR)
          {
             log_err("Unexpected Error on 0-byte source request to ucnv_getnextUChar: %s\n", u_errorName(errorCode));
@@ -5257,7 +5257,7 @@ TestLMBCS(void) {
          pUOut = UOut;
 
          ucnv_setToUCallBack(cnv, UCNV_TO_U_CALLBACK_STOP, NULL, NULL, NULL, &errorCode);
-         ucnv_toUnicode(cnv, &pUOut,pUOut+UPRV_LENGTHOF(UOut),(const char **)&pLIn,(const char *)(pLIn+5),off,true, &errorCode);
+         ucnv_toUnicode(cnv, &pUOut, pUOut + UPRV_LENGTHOF(UOut), &pLIn, pLIn + 5, off, true, &errorCode);
          if (UOut[0] != 0xD801 || errorCode != U_TRUNCATED_CHAR_FOUND || pUOut != UOut + 1 || pLIn != LIn + 5)
          {
             log_err("Unexpected results on chopped low surrogate\n");
@@ -5271,7 +5271,7 @@ TestLMBCS(void) {
          errorCode = U_ZERO_ERROR;
          pUOut = UOut;
 
-         ucnv_toUnicode(cnv, &pUOut,pUOut+UPRV_LENGTHOF(UOut),(const char **)&pLIn,(const char *)(pLIn+3),off,true, &errorCode);
+         ucnv_toUnicode(cnv, &pUOut, pUOut + UPRV_LENGTHOF(UOut), &pLIn, pLIn + 3, off, true, &errorCode);
          if (UOut[0] != 0xD801 || U_FAILURE(errorCode) || pUOut != UOut + 1 || pLIn != LIn + 3)
          {
             log_err("Unexpected results on chopped at surrogate boundary \n");
@@ -5288,7 +5288,7 @@ TestLMBCS(void) {
          errorCode = U_ZERO_ERROR;
          pUOut = UOut;
 
-         ucnv_toUnicode(cnv, &pUOut,pUOut+UPRV_LENGTHOF(UOut),(const char **)&pLIn,(const char *)(pLIn+6),off,true, &errorCode);
+         ucnv_toUnicode(cnv, &pUOut, pUOut + UPRV_LENGTHOF(UOut), &pLIn, pLIn + 6, off, true, &errorCode);
          if (UOut[0] != 0xD801 || UOut[1] != 0xC9D0 || U_FAILURE(errorCode) || pUOut != UOut + 2 || pLIn != LIn + 6)
          {
             log_err("Unexpected results after unpaired surrogate plus valid Unichar \n");
@@ -5305,7 +5305,7 @@ TestLMBCS(void) {
          errorCode = U_ZERO_ERROR;
          pUOut = UOut;
 
-         ucnv_toUnicode(cnv, &pUOut,pUOut+UPRV_LENGTHOF(UOut),(const char **)&pLIn,(const char *)(pLIn+5),off,true, &errorCode);
+         ucnv_toUnicode(cnv, &pUOut, pUOut + UPRV_LENGTHOF(UOut), &pLIn, pLIn + 5, off, true, &errorCode);
          if (UOut[0] != 0xD801 || errorCode != U_TRUNCATED_CHAR_FOUND || pUOut != UOut + 1 || pLIn != LIn + 5)
          {
             log_err("Unexpected results after unpaired surrogate plus chopped Unichar \n");
@@ -5322,7 +5322,7 @@ TestLMBCS(void) {
          errorCode = U_ZERO_ERROR;
          pUOut = UOut;
 
-         ucnv_toUnicode(cnv, &pUOut,pUOut+UPRV_LENGTHOF(UOut),(const char **)&pLIn,(const char *)(pLIn+5),off,true, &errorCode);
+         ucnv_toUnicode(cnv, &pUOut, pUOut + UPRV_LENGTHOF(UOut), &pLIn, pLIn + 5, off, true, &errorCode);
          if (UOut[0] != 0xD801 || UOut[1] != 0x1B || U_FAILURE(errorCode) || pUOut != UOut + 2 || pLIn != LIn + 5)
          {
             log_err("Unexpected results after unpaired surrogate plus valid non-Unichar\n");
@@ -5338,7 +5338,7 @@ TestLMBCS(void) {
          errorCode = U_ZERO_ERROR;
          pUOut = UOut;
 
-         ucnv_toUnicode(cnv, &pUOut,pUOut+UPRV_LENGTHOF(UOut),(const char **)&pLIn,(const char *)(pLIn+4),off,true, &errorCode);
+         ucnv_toUnicode(cnv, &pUOut, pUOut + UPRV_LENGTHOF(UOut), &pLIn, pLIn + 4, off, true, &errorCode);
 
          if (UOut[0] != 0xD801 || errorCode != U_TRUNCATED_CHAR_FOUND || pUOut != UOut + 1 || pLIn != LIn + 4)
          {
@@ -5395,7 +5395,7 @@ static void TestEBCDICUS4XML(void)
         log_data_err("Failed to open the converter for EBCDIC-XML-US.\n");
         return;
     }
-    ucnv_toUnicode(cnv, &unicodes, unicodes+3, (const char**)&newLines, newLines+3, NULL, true, &status);
+    ucnv_toUnicode(cnv, &unicodes, unicodes + 3, &newLines, newLines + 3, NULL, true, &status);
     if (U_FAILURE(status) || memcmp(unicodes_x, toUnicodeMaps, sizeof(UChar)*3) != 0) {
         log_err("To Unicode conversion failed in EBCDICUS4XML test. %s\n",
             u_errorName(status));
@@ -5403,7 +5403,7 @@ static void TestEBCDICUS4XML(void)
         printUSeqErr(toUnicodeMaps, 3);
     }
     status = U_ZERO_ERROR;
-    ucnv_fromUnicode(cnv, &target, target+3, (const UChar**)&toUnicodeMaps, toUnicodeMaps+3, NULL, true, &status);
+    ucnv_fromUnicode(cnv, &target, target + 3, &toUnicodeMaps, toUnicodeMaps + 3, NULL, true, &status);
     if (U_FAILURE(status) || memcmp(target_x, fromUnicodeMaps, sizeof(char)*3) != 0) {
         log_err("From Unicode conversion failed in EBCDICUS4XML test. %s\n",
             u_errorName(status));

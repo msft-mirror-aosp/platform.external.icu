@@ -245,11 +245,6 @@ en_XA{
             lg{"[Çĥîñå Ţîɱé one two]"}
             ls{"[Çĥîñå Šţåñðåŕð Ţîɱé one two three]"}
         }
-        "meta:Choibalsan"{
-            ld{"[Çĥöîƀåļšåñ Šûɱɱéŕ Ţîɱé one two three]"}
-            lg{"[Çĥöîƀåļšåñ Ţîɱé one two three]"}
-            ls{"[Çĥöîƀåļšåñ Šţåñðåŕð Ţîɱé one two three]"}
-        }
         "meta:Christmas"{
             ls{"[Çĥŕîšţɱåš Îšļåñð Ţîɱé one two three]"}
         }

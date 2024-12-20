@@ -24,6 +24,7 @@ import java.util.Comparator;
 import java.util.EnumSet;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
 import java.util.List;
@@ -45,7 +46,6 @@ import org.junit.runners.JUnit4;
 
 import android.icu.dev.test.CoreTestFmwk;
 import android.icu.dev.test.serializable.SerializableTestUtility;
-import android.icu.dev.util.CollectionUtilities;
 import android.icu.impl.Relation;
 import android.icu.impl.Utility;
 import android.icu.impl.number.DecimalQuantity;
@@ -1508,12 +1508,31 @@ public class PluralRulesTest extends CoreTestFmwk {
         }
     };
 
+    private static final Comparator<Collection<StandardPluralCategories>> STDPLURALCATEG_COLLECTION_COMPARATOR = (o1, o2) -> {
+        int diff = o1.size() - o2.size();
+        if (diff != 0) {
+            return diff;
+        }
+        Iterator<StandardPluralCategories> iterator1 = o1.iterator();
+        Iterator<StandardPluralCategories> iterator2 = o2.iterator();
+        while (true) {
+            // We already know they have the same length, we tested if first thing.
+            if (!iterator1.hasNext() || !iterator2.hasNext()) {
+                // At the end of both iterators, and everything was equal until here.
+                return 0;
+            }
+            diff = iterator1.next().compareTo(iterator2.next());
+            if (diff != 0) {
+                return diff;
+            }
+        }
+    };
+
     private void generateLOCALE_SNAPSHOT() {
-        Comparator c = new CollectionUtilities.CollectionComparator<>();
         Relation<Set<StandardPluralCategories>, PluralRules> setsToRules = Relation.of(
-                new TreeMap<Set<StandardPluralCategories>, Set<PluralRules>>(c), TreeSet.class, PLURAL_RULE_COMPARATOR);
+                new TreeMap<>(STDPLURALCATEG_COLLECTION_COMPARATOR), TreeSet.class, PLURAL_RULE_COMPARATOR);
         Relation<PluralRules, ULocale> data = Relation.of(
-                new TreeMap<PluralRules, Set<ULocale>>(PLURAL_RULE_COMPARATOR), TreeSet.class);
+                new TreeMap<>(PLURAL_RULE_COMPARATOR), TreeSet.class);
         for (ULocale locale : PluralRules.getAvailableULocales()) {
             PluralRules pr = PluralRules.forLocale(locale);
             EnumSet<StandardPluralCategories> set = getCanonicalSet(pr.getKeywords());
@@ -1526,7 +1545,8 @@ public class PluralRulesTest extends CoreTestFmwk {
             System.out.println("\n        // " + set);
             for (PluralRules rule : rules) {
                 Set<ULocale> locales = data.get(rule);
-                System.out.print("        \"" + CollectionUtilities.join(locales, ","));
+                String toShow = locales.stream().map(ULocale::toString).collect(Collectors.joining(","));
+                System.out.print("        \"" + toShow);
                 for (StandardPluralCategories spc : set) {
                     String keyword = spc.toString();
                     DecimalQuantitySamples samples = rule.getDecimalSamples(keyword, SampleType.INTEGER);
@@ -1557,7 +1577,7 @@ public class PluralRulesTest extends CoreTestFmwk {
             // [one, other]
             "am,as,bn,doi,fa,gu,hi,kn,pcm,zu; one: @integer 0, 1; other: @integer 2~17, 100, 1000, 10000, 100000, 1000000, …",
             "ff,hy,kab; one: @integer 0, 1; other: @integer 2~17, 100, 1000, 10000, 100000, 1000000, …",
-            "ast,de,en,et,fi,fy,gl,ia,io,lij,nl,sc,scn,sv,sw,ur,yi; one: @integer 1; other: @integer 0, 2~16, 100, 1000, 10000, 100000, 1000000, …",
+            "ast,de,en,et,fi,fy,gl,ia,io,lij,nl,sc,sv,sw,ur,yi; one: @integer 1; other: @integer 0, 2~16, 100, 1000, 10000, 100000, 1000000, …",
             "si; one: @integer 0, 1; other: @integer 2~17, 100, 1000, 10000, 100000, 1000000, …",
             "ak,bho,guw,ln,mg,nso,pa,ti,wa; one: @integer 0, 1; other: @integer 2~17, 100, 1000, 10000, 100000, 1000000, …",
             "tzm; one: @integer 0, 1, 11~24; other: @integer 2~10, 100~106, 1000, 10000, 100000, 1000000, …",
@@ -1584,7 +1604,7 @@ public class PluralRulesTest extends CoreTestFmwk {
             // [one, many, other]
             "fr; one: @integer 0, 1; many: @integer 1000000, 1c6, 2c6, 3c6, 4c6, 5c6, 6c6, …; other: @integer 2~17, 100, 1000, 10000, 100000, 1c3, 2c3, 3c3, 4c3, 5c3, 6c3, …",
             "pt; one: @integer 0, 1; many: @integer 1000000, 1c6, 2c6, 3c6, 4c6, 5c6, 6c6, …; other: @integer 2~17, 100, 1000, 10000, 100000, 1c3, 2c3, 3c3, 4c3, 5c3, 6c3, …",
-            "ca,it,pt_PT,vec; one: @integer 1; many: @integer 1000000, 1c6, 2c6, 3c6, 4c6, 5c6, 6c6, …; other: @integer 0, 2~16, 100, 1000, 10000, 100000, 1c3, 2c3, 3c3, 4c3, 5c3, 6c3, …",
+            "ca,it,pt_PT,scn,vec; one: @integer 1; many: @integer 1000000, 1c6, 2c6, 3c6, 4c6, 5c6, 6c6, …; other: @integer 0, 2~16, 100, 1000, 10000, 100000, 1c3, 2c3, 3c3, 4c3, 5c3, 6c3, …",
             "es; one: @integer 1; many: @integer 1000000, 1c6, 2c6, 3c6, 4c6, 5c6, 6c6, …; other: @integer 0, 2~16, 100, 1000, 10000, 100000, 1c3, 2c3, 3c3, 4c3, 5c3, 6c3, …",
 
             // [one, two, few, other]
