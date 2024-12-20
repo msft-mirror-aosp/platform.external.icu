@@ -1100,6 +1100,12 @@ public class MeasureUnit implements Serializable {
     public static final MeasureUnit NANOSECOND = MeasureUnit.internalGetInstance("duration", "nanosecond");
 
     /**
+     * Constant for unit of duration: night
+     * @hide draft / provisional / internal are hidden on Android
+     */
+    public static final MeasureUnit NIGHT = MeasureUnit.internalGetInstance("duration", "night");
+
+    /**
      * Constant for unit of duration: quarter
      */
     public static final MeasureUnit QUARTER = MeasureUnit.internalGetInstance("duration", "quarter");
@@ -1600,6 +1606,12 @@ public class MeasureUnit implements Serializable {
      * Constant for unit of speed: knot
      */
     public static final MeasureUnit KNOT = MeasureUnit.internalGetInstance("speed", "knot");
+
+    /**
+     * Constant for unit of speed: light-speed
+     * @hide draft / provisional / internal are hidden on Android
+     */
+    public static final MeasureUnit LIGHT_SPEED = MeasureUnit.internalGetInstance("speed", "light-speed");
 
     /**
      * Constant for unit of speed: meter-per-second

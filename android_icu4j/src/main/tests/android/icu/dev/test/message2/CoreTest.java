@@ -15,16 +15,51 @@ import android.icu.testsharding.MainTestShard;
 
 @MainTestShard
 @SuppressWarnings({"static-method", "javadoc"})
-@RunWith(JUnit4.class)
+// Android-removed: Disable MF2 tests until it's enabled on Android.
+// The test fails due to missing json file bundled in CtsIcuTestCases.
+// @RunWith(JUnit4.class)
 public class CoreTest extends CoreTestFmwk {
-    private static final String JSON_FILE = "test-core.json";
+    private static final String[] JSON_FILES = {"alias-selector-annotations.json",
+                                                "duplicate-declarations.json",
+                                                "icu-parser-tests.json",
+                                                "icu-test-functions.json",
+                                                "icu-test-previous-release.json",
+                                                "icu-test-selectors.json",
+                                                "invalid-number-literals-diagnostics.json",
+                                                "invalid-options.json",
+                                                "markup.json",
+                                                "matches-whitespace.json",
+                                                "more-data-model-errors.json",
+                                                "more-functions.json",
+                                                "resolution-errors.json",
+                                                "runtime-errors.json",
+                                                "spec/data-model-errors.json",
+                                                "spec/syntax-errors.json",
+                                                "spec/syntax.json",
+                                                "spec/functions/date.json",
+                                                "spec/functions/datetime.json",
+                                                "spec/functions/integer.json",
+                                                "spec/functions/number.json",
+                                                "spec/functions/string.json",
+                                                "spec/functions/time.json",
+                                                "syntax-errors-diagnostics.json",
+                                                "syntax-errors-diagnostics-multiline.json",
+                                                "syntax-errors-end-of-input.json",
+                                                "syntax-errors-reserved.json",
+                                                "tricky-declarations.json",
+                                                "unsupported-expressions.json",
+                                                "unsupported-statements.json",
+                                                "valid-tests.json"};
 
-    @Test
+    // Android-removed: Disable MF2 tests until it's enabled on Android.
+    // @Test
     public void test() throws Exception {
-        try (Reader reader = TestUtils.jsonReader(JSON_FILE)) {
-            Unit[] unitList = TestUtils.GSON.fromJson(reader, Unit[].class);
-            for (Unit unit : unitList) {
-                TestUtils.runTestCase(unit);
+        for (String jsonFile : JSON_FILES) {
+            try (Reader reader = TestUtils.jsonReader(jsonFile)) {
+                MF2Test tests = TestUtils.GSON.fromJson(reader, MF2Test.class);
+                for (Unit unit : tests.tests) {
+                    TestUtils.runTestCase(tests.defaultTestProperties, unit);
+                }
             }
         }
     }

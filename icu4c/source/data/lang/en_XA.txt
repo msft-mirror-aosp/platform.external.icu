@@ -253,7 +253,6 @@ en_XA{
         gmh{"[Ṁîððļé Ĥîĝĥ Ĝéŕɱåñ one two three]"}
         gn{"[Ĝûåŕåñî one two]"}
         goh{"[Öļð Ĥîĝĥ Ĝéŕɱåñ one two three]"}
-        gom{"[Ĝöåñ Ķöñķåñî one two]"}
         gon{"[Ĝöñðî one]"}
         gor{"[Ĝöŕöñţåļö one two]"}
         got{"[Ĝöţĥîç one]"}
@@ -723,6 +722,9 @@ en_XA{
         yue{"[Çĥîñéšé، Çåñţöñéšé one two three]"}
         zh{"[Çĥîñéšé، Ṁåñðåŕîñ one two three]"}
     }
+    Languages%official{
+        mus{"[Ṁṽšķöķé one two]"}
+    }
     Languages%short{
         az{"[Åžéŕî one]"}
         en_GB{"[ÛĶ Éñĝļîšĥ one two]"}
@@ -781,6 +783,7 @@ en_XA{
         Elba{"[Éļƀåšåñ one two]"}
         Elym{"[Éļýɱåîç one two]"}
         Ethi{"[Éţĥîöþîç one two]"}
+        Gara{"[Ĝåŕåý one]"}
         Geok{"[Ĝéöŕĝîåñ Ķĥûţšûŕî one two three]"}
         Geor{"[Ĝéöŕĝîåñ one two]"}
         Glag{"[Ĝļåĝöļîţîç one two]"}
@@ -790,6 +793,7 @@ en_XA{
         Gran{"[Ĝŕåñţĥå one two]"}
         Grek{"[Ĝŕééķ one]"}
         Gujr{"[Ĝûĵåŕåţî one two]"}
+        Gukh{"[Ĝûŕûñĝ Ķĥéɱå one two]"}
         Guru{"[Ĝûŕɱûķĥî one two]"}
         Hanb{"[Ĥåñ ŵîţĥ Ɓöþöɱöƒö one two three]"}
         Hang{"[Ĥåñĝûļ one]"}
@@ -821,6 +825,7 @@ en_XA{
         Knda{"[Ķåññåðå one two]"}
         Kore{"[Ķöŕéåñ one]"}
         Kpel{"[Ķþéļļé one]"}
+        Krai{"[Ķîŕåţ Ŕåî one two]"}
         Kthi{"[Ķåîţĥî one]"}
         Lana{"[Ļåññå one]"}
         Laoo{"[Ļåö one]"}
@@ -863,6 +868,7 @@ en_XA{
         Nshu{"[Ñüšĥû one]"}
         Ogam{"[Öĝĥåɱ one]"}
         Olck{"[Öļ Çĥîķî one two]"}
+        Onao{"[Öļ Öñåļ one two]"}
         Orkh{"[Öŕķĥöñ one]"}
         Orya{"[Öðîå one]"}
         Osge{"[Öšåĝé one]"}
@@ -898,6 +904,7 @@ en_XA{
         Sora{"[Šöŕå Šöɱþéñĝ one two]"}
         Soyo{"[Šöýöɱƀö one two]"}
         Sund{"[Šûñðåñéšé one two]"}
+        Sunu{"[Šûñûŵåŕ one two]"}
         Sylo{"[Šýļöţî Ñåĝŕî one two]"}
         Syrc{"[Šýŕîåç one]"}
         Syre{"[Éšţŕåñĝéļö Šýŕîåç one two three]"}
@@ -919,7 +926,9 @@ en_XA{
         Tibt{"[Ţîƀéţåñ one two]"}
         Tirh{"[Ţîŕĥûţå one two]"}
         Tnsa{"[Ţåñĝšå one]"}
+        Todr{"[Ţöðĥŕî one]"}
         Toto{"[Ţöţö one]"}
+        Tutg{"[Ţûļû‐Ţîĝåļåŕî one two]"}
         Ugar{"[Ûĝåŕîţîç one two]"}
         Vaii{"[Ṽåî one]"}
         Visp{"[Ṽîšîƀļé Šþééçĥ one two]"}
@@ -1242,12 +1251,14 @@ en_XA{
             ethi{"[Éţĥîöþîç Ñûɱéŕåļš one two three]"}
             finance{"[Ƒîñåñçîåļ Ñûɱéŕåļš one two three]"}
             fullwide{"[Ƒûļļ‐Ŵîðţĥ Ðîĝîţš one two three]"}
+            gara{"[Ĝåŕåý Ðîĝîţš one two]"}
             geor{"[Ĝéöŕĝîåñ Ñûɱéŕåļš one two three]"}
             gong{"[Ĝûñĵåļå Ĝöñðî ðîĝîţš one two three]"}
             gonm{"[Ṁåšåŕåɱ Ĝöñðî ðîĝîţš one two three]"}
             grek{"[Ĝŕééķ Ñûɱéŕåļš one two]"}
             greklow{"[Ĝŕééķ Ļöŵéŕçåšé Ñûɱéŕåļš one two three]"}
             gujr{"[Ĝûĵåŕåţî Ðîĝîţš one two three]"}
+            gukh{"[Ĝûŕûñĝ Ķĥéɱå Ðîĝîţš one two three]"}
             guru{"[Ĝûŕɱûķĥî Ðîĝîţš one two three]"}
             hanidays{"[Çĥîñéšé Çåļéñðåŕ Ðåý‐öƒ‐Ṁöñţĥ Ñûɱéŕåļš one two three four five]"}
             hanidec{"[Çĥîñéšé Ðéçîɱåļ Ñûɱéŕåļš one two three]"}
@@ -1266,6 +1277,7 @@ en_XA{
             kawi{"[Ķåŵî Ðîĝîţš one two]"}
             khmr{"[Ķĥɱéŕ Ðîĝîţš one two]"}
             knda{"[Ķåññåðå Ðîĝîţš one two]"}
+            krai{"[Ķîŕåţ Ŕåî Ðîĝîţš one two three]"}
             lana{"[Ţåî Ţĥåɱ Ĥöŕå Ðîĝîţš one two three]"}
             lanatham{"[Ţåî Ţĥåɱ Ţĥåɱ Ðîĝîţš one two three]"}
             laoo{"[Ļåö Ðîĝîţš one two]"}
@@ -1283,6 +1295,8 @@ en_XA{
             mroo{"[Ṁŕö Ðîĝîţš one two]"}
             mtei{"[Ṁééţéî Ṁåýéķ Ðîĝîţš one two three]"}
             mymr{"[Ṁýåñɱåŕ Ðîĝîţš one two]"}
+            mymrepka{"[Ṁýåñɱåŕ Éåšţéŕñ Þŵö Ķåŕéñ Ðîĝîţš one two three four]"}
+            mymrpao{"[Ṁýåñɱåŕ Þåö Ðîĝîţš one two three]"}
             mymrshan{"[Ṁýåñɱåŕ Šĥåñ Ðîĝîţš one two three]"}
             mymrtlng{"[Ṁýåñɱåŕ Ţåî Ļåîñĝ Ðîĝîţš one two three]"}
             nagm{"[Ñåĝ Ṁûñðåŕî Ðîĝîţš one two three]"}
@@ -1290,8 +1304,10 @@ en_XA{
             newa{"[Ñéŵå Ðîĝîţš one two]"}
             nkoo{"[Ñ’Ķö Ðîĝîţš one two]"}
             olck{"[Öļ Çĥîķî Ðîĝîţš one two three]"}
+            onao{"[Öļ Öñåļ Ðîĝîţš one two]"}
             orya{"[Öðîå Ðîĝîţš one two]"}
             osma{"[Öšɱåñýå Ðîĝîţš one two]"}
+            outlined{"[Öûţļîñéð Ðîĝîţš one two three]"}
             rohg{"[Ĥåñîƒî Ŕöĥîñĝýå ðîĝîţš one two three]"}
             roman{"[Ŕöɱåñ Ñûɱéŕåļš one two]"}
             romanlow{"[Ŕöɱåñ Ļöŵéŕçåšé Ñûɱéŕåļš one two three]"}
@@ -1302,6 +1318,7 @@ en_XA{
             sinh{"[Šîñĥåļå Ļîţĥ Ðîĝîţš one two three]"}
             sora{"[Šöŕå Šöɱþéñĝ Ðîĝîţš one two three]"}
             sund{"[Šûñðåñéšé Ðîĝîţš one two three]"}
+            sunu{"[Šûñûŵåŕ Ðîĝîţš one two]"}
             takr{"[Ţåķŕî Ðîĝîţš one two]"}
             talu{"[Ñéŵ Ţåî Ļûé Ðîĝîţš one two three]"}
             taml{"[Ţŕåðîţîöñåļ Ţåɱîļ Ñûɱéŕåļš one two three]"}
