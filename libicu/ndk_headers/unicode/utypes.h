@@ -56,21 +56,30 @@
  * integer and other types.
  */
 
-
-/**
- * \def U_SHOW_CPLUSPLUS_API
- * \xrefitem internal "Internal"  "Internal List"  Do not use. This API is for internal use only.
- */
 #ifdef __cplusplus
 #   ifndef U_SHOW_CPLUSPLUS_API
 #       define U_SHOW_CPLUSPLUS_API 1
 #   endif
+#   ifndef U_SHOW_CPLUSPLUS_HEADER_API
+#       define U_SHOW_CPLUSPLUS_HEADER_API 1
+#   endif
 #else
 #   undef U_SHOW_CPLUSPLUS_API
 #   define U_SHOW_CPLUSPLUS_API 0
+#   undef U_SHOW_CPLUSPLUS_HEADER_API
+#   define U_SHOW_CPLUSPLUS_HEADER_API 0
 #endif
 
-
+/**
+ * \def U_HIDE_DRAFT_API
+ * Define this to 1 to request that draft API be "hidden"
+ * \xrefitem internal "Internal"  "Internal List"  Do not use. This API is for internal use only.
+ */
+/**
+ * \def U_HIDE_INTERNAL_API
+ * Define this to 1 to request that internal API be "hidden"
+ * \xrefitem internal "Internal"  "Internal List"  Do not use. This API is for internal use only.
+ */
 #if !U_DEFAULT_SHOW_DRAFT && !defined(U_SHOW_DRAFT_API)
 #define U_HIDE_DRAFT_API 1
 #endif
@@ -572,14 +581,13 @@ typedef enum UErrorCode {
     U_MF_MISSING_SELECTOR_ANNOTATION_ERROR,  /**< A selector expression evaluates to an unannotated operand. \xrefitem internal "Internal"  "Internal List"  Do not use. This API is for internal use only. ICU 75 technology preview \xrefitem deprecated "Deprecated" "Deprecated List" This API is for technology preview only. */
     U_MF_DUPLICATE_DECLARATION_ERROR, /**< The same variable is declared in more than one .local or .input declaration. \xrefitem internal "Internal"  "Internal List"  Do not use. This API is for internal use only. ICU 75 technology preview \xrefitem deprecated "Deprecated" "Deprecated List" This API is for technology preview only. */
     U_MF_OPERAND_MISMATCH_ERROR,     /**< An operand provided to a function does not have the required form for that function \xrefitem internal "Internal"  "Internal List"  Do not use. This API is for internal use only. ICU 75 technology preview \xrefitem deprecated "Deprecated" "Deprecated List" This API is for technology preview only. */
-    U_MF_UNSUPPORTED_STATEMENT_ERROR, /**< A message includes a reserved statement. \xrefitem internal "Internal"  "Internal List"  Do not use. This API is for internal use only. ICU 75 technology preview \xrefitem deprecated "Deprecated" "Deprecated List" This API is for technology preview only. */
-    U_MF_UNSUPPORTED_EXPRESSION_ERROR, /**< A message includes syntax reserved for future standardization or private implementation use. \xrefitem internal "Internal"  "Internal List"  Do not use. This API is for internal use only. ICU 75 technology preview \xrefitem deprecated "Deprecated" "Deprecated List" This API is for technology preview only. */
+    U_MF_DUPLICATE_VARIANT_ERROR, /**< A message includes a variant with the same key list as another variant. \xrefitem internal "Internal"  "Internal List"  Do not use. This API is for internal use only. ICU 76 technology preview \xrefitem deprecated "Deprecated" "Deprecated List" This API is for technology preview only. */
 #ifndef U_HIDE_DEPRECATED_API
     /**
      * One more than the highest normal formatting API error code.
      * \xrefitem deprecated "Deprecated" "Deprecated List" ICU 58 The numeric value may change over time, see ICU ticket #12420.
      */
-    U_FMT_PARSE_ERROR_LIMIT = 0x10121,
+    U_FMT_PARSE_ERROR_LIMIT = 0x10120,
 #endif  // U_HIDE_DEPRECATED_API
 
     /*
@@ -703,13 +711,13 @@ typedef enum UErrorCode {
      * \xrefitem stable "Stable" "Stable List" ICU 2.0
      */
     static
-    inline UBool U_SUCCESS(UErrorCode code) { return (UBool)(code<=U_ZERO_ERROR); }
+    inline UBool U_SUCCESS(UErrorCode code) { return code <= U_ZERO_ERROR; }
     /**
      * Does the error code indicate a failure?
      * \xrefitem stable "Stable" "Stable List" ICU 2.0
      */
     static
-    inline UBool U_FAILURE(UErrorCode code) { return (UBool)(code>U_ZERO_ERROR); }
+    inline UBool U_FAILURE(UErrorCode code) { return code > U_ZERO_ERROR; }
 #else
     /**
      * Does the error code indicate success?
