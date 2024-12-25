@@ -8,7 +8,7 @@
   <parent>
     <groupId>com.ibm.icu</groupId>
     <artifactId>icu4j-root</artifactId>
-    <version>75.1</version>
+    <version>76.1</version>
     <relativePath>../../pom.xml</relativePath>
   </parent>
 
@@ -50,6 +50,29 @@
   <build>
     <plugins>
       <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>build-helper-maven-plugin</artifactId>
+        <executions>
+          <execution>
+            <!-- Test files shared between ICU4C and ICU4J -->
+            <id>add-test-resource</id>
+            <goals>
+              <goal>add-test-resource</goal>
+            </goals>
+            <configuration>
+              <resources>
+                <resource>
+                  <directory>${rootlocation}/../testdata/</directory>
+                  <includes>
+                    <include>message2/**</include>
+                  </includes>
+                </resource>
+              </resources>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-jar-plugin</artifactId>
         <executions>
@@ -65,13 +88,6 @@
               <Main-Class>com.ibm.icu.util.VersionInfo</Main-Class>
             </manifestEntries>
           </archive>
-        </configuration>
-      </plugin>
-      <plugin>
-        <artifactId>maven-deploy-plugin</artifactId>
-        <!-- We don't want to deploy this to Maven -->
-        <configuration>
-          <skip>true</skip>
         </configuration>
       </plugin>
     </plugins>

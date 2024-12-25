@@ -36,6 +36,7 @@ cc_library_static {
     ],
     cflags: [
         "-DU_SHOW_CPLUSPLUS_API=0",
+        "-DU_SHOW_CPLUSPLUS_HEADER_API=0",
     ],
     apex_available: [
         "com.android.i18n",

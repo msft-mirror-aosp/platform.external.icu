@@ -23,6 +23,7 @@
 #define U_HIDE_DRAFT_API 1
 #define U_HIDE_DEPRECATED_API 1
 #define U_SHOW_CPLUSPLUS_API 0
+#define U_SHOW_CPLUSPLUS_HEADER_API 0
 #define U_HIDE_INTERNAL_API 1
 
 // Set this flag to allow header-only C++ usages
