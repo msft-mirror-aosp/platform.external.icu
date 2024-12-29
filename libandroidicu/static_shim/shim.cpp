@@ -39,6 +39,8 @@
 #include <unicode/uldnames.h>
 #include <unicode/ulistformatter.h>
 #include <unicode/uloc.h>
+#include <unicode/ulocale.h>
+#include <unicode/ulocbuilder.h>
 #include <unicode/ulocdata.h>
 #include <unicode/umsg.h>
 #include <unicode/umutablecptrie.h>

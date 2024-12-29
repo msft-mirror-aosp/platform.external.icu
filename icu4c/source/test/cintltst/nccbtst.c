@@ -2717,8 +2717,8 @@ UBool testConvertFromUnicode(const UChar *source, int sourceLen,  const uint8_t 
         status = U_ZERO_ERROR;
 
         ucnv_fromUnicode (conv,
-                  (char **)&targ,
-                  (const char *)end,
+                  &targ,
+                  end,
                   &src,
                   sourceLimit,
                   checkOffsets ? offs : NULL,
@@ -2915,8 +2915,8 @@ UBool testConvertToUnicode( const uint8_t *source, int sourcelen, const UChar *e
         ucnv_toUnicode (conv,
                 &targ,
                 end,
-                (const char **)&src,
-                (const char *)srcLimit,
+                &src,
+                srcLimit,
                 checkOffsets ? offs : NULL,
                 (UBool)(srcLimit == realSourceEnd), /* flush if we're at the end of the source data */
                 &status);
@@ -3108,8 +3108,8 @@ UBool testConvertFromUnicodeWithContext(const UChar *source, int sourceLen,  con
         status = U_ZERO_ERROR;
 
         ucnv_fromUnicode (conv,
-                  (char **)&targ,
-                  (const char *)end,
+                  &targ,
+                  end,
                   &src,
                   sourceLimit,
                   checkOffsets ? offs : NULL,
@@ -3288,8 +3288,8 @@ UBool testConvertToUnicodeWithContext( const uint8_t *source, int sourcelen, con
         ucnv_toUnicode (conv,
                 &targ,
                 end,
-                (const char **)&src,
-                (const char *)srcLimit,
+                &src,
+                srcLimit,
                 checkOffsets ? offs : NULL,
                 (UBool)(srcLimit == realSourceEnd), /* flush if we're at the end of the source data */
                 &status);

@@ -1083,7 +1083,6 @@ public final class UScript {
     /** @stable ICU 76 */
     public static final int TULU_TIGALARI = 207; /* Tutg */
 
-
     /**
      * One more than the highest normal UScript code.
      * The highest value is available via UCharacter.getIntPropertyMaxValue(UProperty.SCRIPT).
@@ -1091,7 +1090,7 @@ public final class UScript {
      * @deprecated ICU 58 The numeric value may change over time, see ICU ticket #12420.
      */
     @Deprecated
-    public static final int CODE_LIMIT   = 201;
+    public static final int CODE_LIMIT   = 208;
 
     private static int[] getCodesFromLocale(ULocale locale) {
         // Multi-script languages, equivalent to the LocaleScript data
@@ -1228,7 +1227,7 @@ public final class UScript {
     public static final int getScript(int codepoint){
         if (codepoint >= UCharacter.MIN_VALUE & codepoint <= UCharacter.MAX_VALUE) {
             int scriptX=UCharacterProperty.INSTANCE.getAdditional(codepoint, 0)&UCharacterProperty.SCRIPT_X_MASK;
-            int codeOrIndex=UCharacterProperty.mergeScriptCodeOrIndex(scriptX);
+            int codeOrIndex=scriptX&UCharacterProperty.MAX_SCRIPT;
             if(scriptX<UCharacterProperty.SCRIPT_X_WITH_COMMON) {
                 return codeOrIndex;
             } else if(scriptX<UCharacterProperty.SCRIPT_X_WITH_INHERITED) {
@@ -1258,7 +1257,7 @@ public final class UScript {
      */
     public static final boolean hasScript(int c, int sc) {
         int scriptX=UCharacterProperty.INSTANCE.getAdditional(c, 0)&UCharacterProperty.SCRIPT_X_MASK;
-        int codeOrIndex=UCharacterProperty.mergeScriptCodeOrIndex(scriptX);
+        int codeOrIndex=scriptX&UCharacterProperty.MAX_SCRIPT;
         if(scriptX<UCharacterProperty.SCRIPT_X_WITH_COMMON) {
             return sc==codeOrIndex;
         }
@@ -1308,7 +1307,7 @@ public final class UScript {
     public static final int getScriptExtensions(int c, BitSet set) {
         set.clear();
         int scriptX=UCharacterProperty.INSTANCE.getAdditional(c, 0)&UCharacterProperty.SCRIPT_X_MASK;
-        int codeOrIndex=UCharacterProperty.mergeScriptCodeOrIndex(scriptX);
+        int codeOrIndex=scriptX&UCharacterProperty.MAX_SCRIPT;
         if(scriptX<UCharacterProperty.SCRIPT_X_WITH_COMMON) {
             set.set(codeOrIndex);
             return codeOrIndex;
@@ -1586,6 +1585,14 @@ public final class UScript {
             0x10582 | EXCLUSION | CASED,  // Vith
             0x11F1B | EXCLUSION | LB_LETTERS,  // Kawi
             0x1E4E6 | EXCLUSION,  // Nagm
+            0,
+            0x10D5D | EXCLUSION | RTL | CASED,  // Gara
+            0x1611C | EXCLUSION,  // Gukh
+            0x16D45 | EXCLUSION,  // Krai
+            0x1E5D0 | EXCLUSION,  // Onao
+            0x11BC4 | EXCLUSION,  // Sunu
+            0x105C2 | EXCLUSION,  // Todr
+            0x11392 | EXCLUSION,  // Tutg
             // End copy-paste from parsescriptmetadata.py
         };
 

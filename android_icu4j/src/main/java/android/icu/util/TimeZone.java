@@ -1101,7 +1101,7 @@ abstract public class TimeZone implements Serializable, Cloneable, Freezable<Tim
     @android.annotation.FlaggedApi(com.android.icu.Flags.FLAG_ICU_25Q2_API)
     public static String getIanaID(String id) {
         String ianaId = TimeZone.UNKNOWN_ZONE_ID;
-        if (id == null || id.length() == 0 || id.equals(TimeZone.UNKNOWN_ZONE)) {
+        if (id == null || id.length() == 0 || id.equals(TimeZone.UNKNOWN_ZONE_ID)) {
             return ianaId;
         }
         String tmpIanaId = ZoneMeta.getIanaID(id);

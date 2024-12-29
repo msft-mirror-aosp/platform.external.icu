@@ -1345,7 +1345,7 @@ public final class UCharacter implements ECharacterCategory, ECharacterDirection
          * @deprecated ICU 58 The numeric value may change over time, see ICU ticket #12420.
          */
         @Deprecated
-        public static final int COUNT = 329;
+        public static final int COUNT = 339;
 
         // blocks objects ---------------------------------------------------
 
@@ -2940,11 +2940,7 @@ public final class UCharacter implements ECharacterCategory, ECharacterDirection
         {
             super(name);
             m_id_ = id;
-            // Android-changed: Avoid leaking flagged UnicodeBlock until ICU 76 data is integrated.
-            // Without the Unicode 16.0 database, UCharacter.UnicodeBlock.forName(name) is broken if
-            // the new faked UnicodeBlock is stored in this global BLOCKS_ array, See b/320357773.
-            // if (id >= 0) {
-            if (id >= 0 && id < BLOCKS_.length) {
+            if (id >= 0) {
                 BLOCKS_[id] = this;
             }
         }
@@ -3454,6 +3450,7 @@ public final class UCharacter implements ECharacterCategory, ECharacterDirection
         public static final int THIN_YEH = 102;
         /** @stable ICU 70 */
         public static final int VERTICAL_TAIL = 103;
+
         /** @stable ICU 76 */
         public static final int KASHMIRI_YEH = 104;
 
@@ -3464,7 +3461,7 @@ public final class UCharacter implements ECharacterCategory, ECharacterDirection
          * @deprecated ICU 58 The numeric value may change over time, see ICU ticket #12420.
          */
         @Deprecated
-        public static final int COUNT = 104;
+        public static final int COUNT = 105;
     }
 
     /**
@@ -4128,6 +4125,24 @@ public final class UCharacter implements ECharacterCategory, ECharacterDirection
         public static final int VOWEL_INDEPENDENT = 35;
         /** @stable ICU 76 */
         public static final int REORDERING_KILLER = 36;
+    }
+
+    /**
+     * Indic Conjunct Break constants.
+     * See https://unicode.org/reports/tr44/#Indic_Conjunct_Break
+     *
+     * @see UProperty#INDIC_CONJUNCT_BREAK
+     * @draft ICU 76
+     */
+    public enum IndicConjunctBreak {
+        /** @draft ICU 76 */
+        NONE,
+        /** @draft ICU 76 */
+        CONSONANT,
+        /** @draft ICU 76 */
+        EXTEND,
+        /** @draft ICU 76 */
+        LINKER,
     }
 
     /**
