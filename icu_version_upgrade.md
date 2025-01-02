@@ -9,46 +9,61 @@ The below contains the steps and commands in order to upgrade the ICU version in
 1. Install the prerequisite tools
    * See http://site.icu-project.org/repository
    * [git-lts](https://git-lfs.github.com/) has to be installed to pull binaries correctly from the github.
+   * [git-filter-repo](https://github.com/newren/git-filter-repo) for rewriting the `Change-Id` later.
 2. Generate a github read-access token and setup a local ~/.m2/setting.xml
    * See http://cldr.unicode.org/development/maven. This is required to download
      the prebuilt ICU to break the circular dependency between CLDR and icu.
 3. Check out aosp/main
    * http://go/repo-init/aosp-main-with-phones
 
-# Steps
-1. Create a new branch in AOSP
-   * The branch is a staging branch to **rebase** Android-specific patches onto the new upstream versions.
-   * See detailed instruction at http://g3doc/company/teams/android-build-team/playbook/create_branch#creating-new-git-branches.
-   * **Choose a branch name**
-     * Create aosp/icu{version} branch, e.g. `aosp/icu67` in the `external/icu` project
-       forked from `aosp/main`
-     * For the external/cldr project, we don't need a new branch.
-       We use the **`aosp/upstream-release-cldr** as the mirror of the upstream release branch.
-       We don’t modify this branch with Android patches, but merge this branch
-       into aosp/main where the Android patches are located.
-2. Configure the versions and temp directory
+# Branch Structure
+1. `external/icu` project in the AOSP,
+   * We **rebase** Android-specific patches on the `icu-staging` branch. Then we merge into
+     `aosp/main` later.
+2. `external/cldr` project
+   * We use the **`aosp/upstream-release-cldr** as the mirror of the upstream release branch.
+     We don’t modify this branch with Android patches, but merge this branch
+     into aosp/main where the Android patches are located.
 
-   2a. Customize the following environment variables.
-       The following example targets the ICU 71.1 and CLDR 41.0 version.
+# Verifying the cleanliness
+1. Build the clean source of AOSP
    ```shell
-   export ICU_VERSION=71
+   source build/envsetup.sh
+   lunch aosp_cf_x86_64_phone-trunk_staging-userdebug
+   m
+   ```
+   The build should succeed. Otherwise, your local repo may be broken. Please consider to re-sync.
+2. Verify that the generated artifacts are clean
+   * If you re-run the generation scripts and it causes new changes, some patches are missing
+     in the sources, e.g. `icu4j/` and `icu4c` or `external/cldr`.
+   * The scripts include
+   ```shell
+   external/icu/tools/updatecldrdata.py
+   external/icu/tools/updateicudata.py
+   system/timezone/update-tzdata.py
+   external/icu/tools/srcgen/generate_android_icu4j.sh
+   external/icu/tools/icu4c_srcgen/generate_libandroidicu.py
+   external/icu/tools/icu4c_srcgen/generate_ndk.py
+   ```
+
+# Steps
+1. Configure the versions and temp directory
+
+   * Customize the following environment variables.
+     The following example targets the ICU 76.1 and CLDR 46.0 version.
+   ```shell
+   export ICU_VERSION=76
    export ICU_MINOR_VERSION=1
-   export CLDR_VERSION=41
+   export CLDR_VERSION=46
    export ICU_UPGRADE_BUG=1234567890 # buganizer bug
    # Initially empty directory to store upstream source
    export UPSTREAM_CLDR_GIT=/media/user/disk/icu-git/cldr
    export UPSTREAM_ICU_GIT=/media/user/disk/icu-git/icu
    ```
 
-   2b. Build the clean source of AOSP
-   ```shell
-   source build/envsetup.sh
-   lunch sdk_phone_x86_64-userdebug
-   m
-   ```
-3. Copy the CLDR sources into the `upstream-release-cldr` branch
+2. Copy the CLDR sources into the `upstream-release-cldr` branch
 
-   3a. Copy sources
+   2a. Copy sources
     ```shell
     export CLDR_UPSTREAM_BRANCH=release-${CLDR_VERSION}
 
@@ -75,7 +90,7 @@ The below contains the steps and commands in order to upgrade the ICU version in
     repo upload --cbr .
     ```
 
-   3b. Merge the upstream sources with patches in `aosp/main`
+   2b. Merge the upstream sources with patches in `aosp/main`
     ```shell
     export CLDR_BRANCH=cldr${CLDR_VERSION}-main
     git branch ${CLDR_BRANCH} --track aosp/main
@@ -88,69 +103,85 @@ The below contains the steps and commands in order to upgrade the ICU version in
     "
     ```
 
-   3c. Resolve any merge conflicts with the Android-specific patches.
+   2c. Resolve any merge conflicts with the Android-specific patches.
       Continue creating the merge commit
     ```shell
     git merge --continue
     ```
 
-   3d. Upload the CL to main branch
+   2d. Upload the CL to main branch
     ```shell
     repo upload --cbr .
     ```
 
-4. Copy ICU upstream sources into external/icu
-```shell
-cd ${ANDROID_BUILD_TOP}/external/icu
-export ICU_BRANCH=icu${ICU_VERSION}
-export UPSTREAM_RELEASE_TAG=release-${ICU_VERSION}-${ICU_MINOR_VERSION}
-git fetch aosp ${ICU_BRANCH}
-git branch ${ICU_BRANCH} --track aosp/${ICU_BRANCH}
-git checkout ${ICU_BRANCH}
+3. Copy ICU upstream sources into external/icu
+    ```shell
+    cd ${ANDROID_BUILD_TOP}/external/icu
+    export ICU_BRANCH=icu-staging
+    export UPSTREAM_RELEASE_TAG=release-${ICU_VERSION}-${ICU_MINOR_VERSION}
+    git fetch aosp main ${ICU_BRANCH}
+    git branch ${ICU_BRANCH} --track aosp/${ICU_BRANCH}
+    git checkout ${ICU_BRANCH}
+    # Merge main into the staging branch.
+    git merge --no-ff aosp/main -m
+    "
+    Merge branch aosp/main into ${ICU_BRANCH}
 
-# Clone the upstream CLDR repo locally to ${UPSTREAM_ICU_GIT}
-test -d ${UPSTREAM_ICU_GIT} || git clone https://github.com/unicode-org/icu.git ${UPSTREAM_ICU_GIT}
+    Bug: ${ICU_UPGRADE_BUG}
+    Test: n/a
+    "
+    # Clone the upstream CLDR repo locally to ${UPSTREAM_ICU_GIT}
+    test -d ${UPSTREAM_ICU_GIT} || git clone https://github.com/unicode-org/icu.git ${UPSTREAM_ICU_GIT}
 
-git --git-dir=${UPSTREAM_ICU_GIT}/.git --work-tree=${UPSTREAM_ICU_GIT} fetch
-git --git-dir=${UPSTREAM_ICU_GIT}/.git --work-tree=${UPSTREAM_ICU_GIT} checkout ${UPSTREAM_RELEASE_TAG}
-find icu4j/ -type f,d ! -regex ".*/\(Android.mk\|Android.bp\|adjust_icudt_path.mk\|liblayout-jarjar-rules.txt\|.gitignore\|AndroidTest.xml\)" -delete
-find icu4c/ -type f,d ! -regex ".*/\(Android.mk\|Android.bp\|.gitignore\|AndroidTest.xml\)" -delete
-cp -r ${UPSTREAM_ICU_GIT}/icu4j .
-cp -r ${UPSTREAM_ICU_GIT}/icu4c .
-git checkout HEAD -- icu4c/.gitignore icu4j/.gitignore # Android has extra .gitignores. Use our version.
-rm -r tools/cldr
-cp -r ${UPSTREAM_ICU_GIT}/tools/cldr tools/cldr
+    git --git-dir=${UPSTREAM_ICU_GIT}/.git --work-tree=${UPSTREAM_ICU_GIT} fetch
+    git --git-dir=${UPSTREAM_ICU_GIT}/.git --work-tree=${UPSTREAM_ICU_GIT} checkout ${UPSTREAM_RELEASE_TAG}
+    find icu4j/ -type f,d ! -regex ".*/\(Android.mk\|Android.bp\|adjust_icudt_path.mk\|liblayout-jarjar-rules.txt\|.gitignore\|AndroidTest.xml\)" -delete
+    find icu4c/ -type f,d ! -regex ".*/\(Android.mk\|Android.bp\|.gitignore\|AndroidTest.xml\)" -delete
+    cp -r ${UPSTREAM_ICU_GIT}/icu4j .
+    cp -r ${UPSTREAM_ICU_GIT}/icu4c .
+    git checkout HEAD -- icu4c/.gitignore icu4j/.gitignore # Android has extra .gitignores. Use our version.
+    rm -r tools/cldr
+    cp -r ${UPSTREAM_ICU_GIT}/tools/cldr tools/cldr
 
-git add -A
-git commit -F- <<EOF
-Copy ICU ${UPSTREAM_RELEASE_TAG} into aosp/${ICU_BRANCH}
+    git add -A
+    git commit -F- <<EOF
+    Copy ICU ${UPSTREAM_RELEASE_TAG} into aosp/${ICU_BRANCH}
 
-Copy the files with the following commands:
-find icu4j/ -type f,d ! -regex ".*/\(Android.mk\|Android.bp\|adjust_icudt_path.mk\|liblayout-jarjar-rules.txt\|.gitignore\|AndroidTest.xml\)" -delete
-find icu4c/ -type f,d ! -regex ".*/\(Android.mk\|Android.bp\|.gitignore\|AndroidTest.xml\)" -delete
-cp -r \${UPSTREAM_ICU_GIT}/icu4j .
-cp -r \${UPSTREAM_ICU_GIT}/icu4c .
-git checkout HEAD -- icu4c/.gitignore icu4j/.gitignore
-rm -r tools/cldr
-cp -r \${UPSTREAM_ICU_GIT}/tools/cldr tools/cldr
-EOF
-```
+    Copy the files with the following commands:
+    find icu4j/ -type f,d ! -regex ".*/\(Android.mk\|Android.bp\|adjust_icudt_path.mk\|liblayout-jarjar-rules.txt\|.gitignore\|AndroidTest.xml\)" -delete
+    find icu4c/ -type f,d ! -regex ".*/\(Android.mk\|Android.bp\|.gitignore\|AndroidTest.xml\)" -delete
+    cp -r \${UPSTREAM_ICU_GIT}/icu4j .
+    cp -r \${UPSTREAM_ICU_GIT}/icu4c .
+    git checkout HEAD -- icu4c/.gitignore icu4j/.gitignore
+    rm -r tools/cldr
+    cp -r \${UPSTREAM_ICU_GIT}/tools/cldr tools/cldr
+    EOF
+    ```
 
-5. Apply Android-specific patches into `external/icu`
+4. Apply Android-specific patches into `external/icu`
 
-   5a. Cherry-pick the patches from the last staging branch. For example using the following query for ICU 71 patches
-      * https://r.android.com/q/%2522Android+patch%2522+branch:icu71+status:merged
+   4a. Cherry-pick the patches from the last staging branch. For example using the following query for ICU 71 patches
+      * https://android-review.git.corp.google.com/q/%22Android+patch%22+branch:icu-staging+status:merged
       * The cherry-pick command is
         ```shell
         git cherry-pick <first_patch_in_the_chain>~1..<last_patch_in_the_chain>
         ```
-   5b. Cherry-pick the patches since the ICU upgrade
+   4b. Cherry-pick the patches since the ICU upgrade
       * Find the patches with this query.
            https://r.android.com/q/%2522Android+patch%2522+project:platform/external/icu+status:merged+-owner:automerger+-owner:android-build-coastguard-worker%2540google.com+branch:main
+   4c. Reset `Change-Id` in the cherry-picked CLs
+      * ```shell
+        THE_COPY_COMMIT=$(git log --pretty=format:'%h' -n 1 --grep "Copy ICU ${UPSTREAM_RELEASE_TAG} into aosp/${ICU_BRANCH}")
+        git filter-branch -f --msg-filter 'sed "s/Change-Id: .*//g"' ${THE_COPY_COMMIT}..HEAD
+        git rebase -i ${THE_COPY_COMMIT} # It should open vim
+        # Replace pick with reword in vim `%s/pick /reword /g`
+        # Close all commit message edits with :wq in vim
+        # It triggers the git-hook to generate a Change-Id.
+        # TODO: Find a better way to generate Change-Id
+        ```
+5. Regenerate and commit the artifacts
 
-6. Regenerate and commit the artifacts
-
-   6a. Update icu source data files
+   5a. Update icu source data files
    ```shell
    croot external/icu
    tools/updatecldrdata.py
@@ -166,7 +197,7 @@ EOF
    EOF
    ```
 
-   6b. Update icu binary data files
+   5b. Update icu binary data files
    ```shell
    tools/updateicudata.py
    git add -A
@@ -180,7 +211,7 @@ EOF
    EOF
    ```
 
-   6c. Pin the public API surface temporarily
+   5c. Pin the public API surface temporarily
       * We will later expose the new APIs after submitting the version upgrade CLs.
    ```shell
    ./tools/srcgen/generate_allowlisted_public_api.sh
@@ -192,7 +223,7 @@ EOF
    EOF
    ```
 
-   6d. Regenerate android_icu4j/
+   5d. Regenerate android_icu4j/
       * Commands
       ```shell
       tools/srcgen/generate_android_icu4j.sh
@@ -222,7 +253,7 @@ EOF
       EOF
       ```
 
-   6e. Re-genereate libandroidicu/ sources
+   5e. Re-genereate libandroidicu/ sources
    ```shell
    ./tools/icu4c_srcgen/generate_libandroidicu.py
    git add -A && git commit  -F- <<EOF
@@ -235,7 +266,7 @@ EOF
    EOF
    ```
 
-   6f. Regenerate libicu/ sources
+   5f. Regenerate libicu/ sources
       * Commands
       ```shell
       ./tools/icu4c_srcgen/generate_ndk.py
@@ -263,12 +294,12 @@ EOF
       EOF
       ```
 
-   6g. [Not required for every ICU release] Increment Distro major version
+   5g. [Not required for every ICU release] Increment Distro major version
       * See https://android.googlesource.com/platform/system/timezone/+/main/README.android
         for details. Usually, it’s needed only when it’s the first ICU upgrade
         in the Android dessert release.
 
-   6h. Generate time zone files
+   5h. Generate time zone files
    ```shell
    cd $ANDROID_BUILD_TOP/system/timezone
    repo start ${ICU_BRANCH} .
@@ -301,12 +332,18 @@ EOF
    EOF
    ```
 
-   6i. Update the version numbers in the METADATA
+   * Ideally, it should not generate new time zone data files if tzdata has been updated for a new
+     tzdb release
+   * If it updates time zone data, there could be extra changes from CLDR. Talk to
+     android-libcore-team@ how to deal with the updates, because they may need to cherry-pick
+     them into tzdata module updates.
+
+   5i. Update the version numbers in the METADATA
       1. Update the external/icu/README.version
       2. Update version and upgrade date in external/cldr/METADATA
       3. `git commit` the file change
 
-   6j. Regenerate frameworks/base/libs/androidfw/LocaleDataTables.cpp
+   5j. Regenerate frameworks/base/libs/androidfw/LocaleDataTables.cpp
    ```shell
    croot frameworks/base
    ./tools/localedata/extract_icu_data.py $ANDROID_BUILD_TOP > libs/androidfw/LocaleDataTables.cpp
@@ -320,36 +357,37 @@ EOF
    Test: atest FrameworksCoreTests:android.text.format
    EOF
    ```
-7. Build and run test
+6. Build and run test
 
-   7a. Build by `m droid cts`
+   6a. Build by `m droid cts`
 
-   7b. Run the device tests by `atest CtsIcu4cTestCases CtsIcuTestCases CtsLibcoreTestCases CtsLibcoreOjTestCases CtsBionicTestCases CtsTextTestCases minikin_tests -- --abi x86_64 # the primary ABI`
+   6b. Run the device tests by `atest CtsIcu4cTestCases CtsIcuTestCases CtsLibcoreTestCases CtsLibcoreOjTestCases CtsBionicTestCases CtsTextTestCases minikin_tests -- --abi x86_64 # the primary ABI`
 
-   7c. Run the host-side test by
+   6c. [No longer needed] Run the host-side test by
       * ICU4J host-side test `ant check`
       * ICU4C host-side test `make CINTLTST_OPTS=-w INTLTEST_OPTS=-w check`
          (Currently, it has some failing tests. No of failures?)
 
-   7d. If libcore/ tests are changed, verify the change
+   6d. If libcore/ tests are changed, verify the change
       * To verify the test change in ART MTS, run `m mts && mts-tradefed run mts-art` on Android S.
       * To verify the test change on LUCI bot, run `art/tools/run-libcore-tests.sh --mode=host`, because LUCI uses older ICU versions.
-8. Upload the CLs to gerrit for code reviews from `aosp/icu${ICU_VERSION}` in `external/icu` and `aosp/upstream-release-cldr` in `external/cldr`
-```shell
-repo upload --cbr -o uploadvalidator~skip --no-verify .
-```
-9. Merge `aosp/icu*` branch to aosp/main
-```shell
-cd $ANDROID_BUILD_TOP/external/icu
-repo start icu${ICU_VERSION}-main .
-git merge --no-ff icu${ICU_VERSION} -m "
-Merge branch aosp/icu${ICU_VERSION} into aosp/main
 
-Bug: ${ICU_UPGRADE_BUG}
-Test: atest CtsIcu4cTestCases CtsIcuTestCases CtsLibcoreTestCases CtsLibcoreOjTestCases CtsBionicTestCases CtsTextTestCases minikin_tests
-"
-```
-10. Upload and submit changes from external/icu, external/cldr, libcore, frameworks/base, system/timezone
+7. Upload the CLs to gerrit for code reviews from `aosp/icu${ICU_VERSION}` in `external/icu` and `aosp/upstream-release-cldr` in `external/cldr`
+    ```shell
+    repo upload --cbr -o nokeycheck -o uploadvalidator~skip --no-verify .
+    ```
+8. Merge `aosp/icu*` branch to aosp/main
+    ```shell
+    cd $ANDROID_BUILD_TOP/external/icu
+    repo start icu${ICU_VERSION}-main .
+    git merge --no-ff icu${ICU_VERSION} -m "
+    Merge branch aosp/icu${ICU_VERSION} into aosp/main
+
+    Bug: ${ICU_UPGRADE_BUG}
+    Test: atest CtsIcu4cTestCases CtsIcuTestCases CtsLibcoreTestCases CtsLibcoreOjTestCases CtsBionicTestCases CtsTextTestCases minikin_tests
+    "
+    ```
+9. Upload and submit changes from external/icu, external/cldr, libcore, frameworks/base, system/timezone
 
     10a. `repo upload --cbr -o uploadvalidator~skip --no-verify .`
 
@@ -358,24 +396,24 @@ Test: atest CtsIcu4cTestCases CtsIcuTestCases CtsLibcoreTestCases CtsLibcoreOjTe
           app compatibility issues if the app depends on them. However, app
          has been warned to check the availability before invoking them.
           https://developer.android.com/reference/android/icu/text/Transliterator#getAvailableIDs()
-11. After submitting all the CLs to aosp/main, expose the new stable ICU4J APIs to Android SDK
-```shell
-rm tools/srcgen/allowlisted-public-api.txt
-./tools/generate_android_icu4j.sh
-# Modify Icu4jTransform.java to allowlist more classes if needed. Check the error message for the details
-m update-api droid
+10. After submitting all the CLs to aosp/main, expose the new stable ICU4J APIs to Android SDK
+    ```shell
+    rm tools/srcgen/allowlisted-public-api.txt
+    ./tools/generate_android_icu4j.sh
+    # Modify Icu4jTransform.java to allowlist more classes if needed. Check the error message for the details
+    m update-api droid
 
-git commit -a -F- <<EOF
-Expose the new stable APIs from ICU4J ${ICU_VERSION}
+    git commit -a -F- <<EOF
+    Expose the new stable APIs from ICU4J ${ICU_VERSION}
 
-According to the upstream API coverage report external/icu/icu4j/coverage-exclusion.txt,
-the methods should have API coverage running in the existing CtsIcuTestCases.
+    According to the upstream API coverage report external/icu/icu4j/coverage-exclusion.txt,
+    the methods should have API coverage running in the existing CtsIcuTestCases.
 
-Bug: ${ICU_UPGRADE_BUG}
-Test: atest CtsIcuTestCases
-EOF
-```
-12. Send email android-libcore@ and icu-team@ to announce this.
+    Bug: ${ICU_UPGRADE_BUG}
+    Test: atest CtsIcuTestCases
+    EOF
+    ```
+11. Send email android-libcore@ and icu-team@ to announce this.
     1. Some Android teams may have dependency on the new ICU version for other features.
     2. Email template
    ```text
