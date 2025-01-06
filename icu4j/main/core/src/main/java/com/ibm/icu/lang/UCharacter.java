@@ -1315,6 +1315,29 @@ public final class UCharacter implements ECharacterCategory, ECharacterDirection
         /** @stable ICU 74 */
         public static final int CJK_UNIFIED_IDEOGRAPHS_EXTENSION_I_ID = 328; /*[2EBF0]*/
 
+        // New blocks in Unicode 16.0
+
+        /** @stable ICU 76 */
+        public static final int EGYPTIAN_HIEROGLYPHS_EXTENDED_A_ID = 329; /*[13460]*/
+        /** @stable ICU 76 */
+        public static final int GARAY_ID = 330; /*[10D40]*/
+        /** @stable ICU 76 */
+        public static final int GURUNG_KHEMA_ID = 331; /*[16100]*/
+        /** @stable ICU 76 */
+        public static final int KIRAT_RAI_ID = 332; /*[16D40]*/
+        /** @stable ICU 76 */
+        public static final int MYANMAR_EXTENDED_C_ID = 333; /*[116D0]*/
+        /** @stable ICU 76 */
+        public static final int OL_ONAL_ID = 334; /*[1E5D0]*/
+        /** @stable ICU 76 */
+        public static final int SUNUWAR_ID = 335; /*[11BC0]*/
+        /** @stable ICU 76 */
+        public static final int SYMBOLS_FOR_LEGACY_COMPUTING_SUPPLEMENT_ID = 336; /*[1CC00]*/
+        /** @stable ICU 76 */
+        public static final int TODHRI_ID = 337; /*[105C0]*/
+        /** @stable ICU 76 */
+        public static final int TULU_TIGALARI_ID = 338; /*[11380]*/
+
         /**
          * One more than the highest normal UnicodeBlock value.
          * The highest value is available via UCharacter.getIntPropertyMaxValue(UProperty.BLOCK).
@@ -1322,7 +1345,7 @@ public final class UCharacter implements ECharacterCategory, ECharacterDirection
          * @deprecated ICU 58 The numeric value may change over time, see ICU ticket #12420.
          */
         @Deprecated
-        public static final int COUNT = 329;
+        public static final int COUNT = 339;
 
         // blocks objects ---------------------------------------------------
 
@@ -2760,6 +2783,36 @@ public final class UCharacter implements ECharacterCategory, ECharacterDirection
                 new UnicodeBlock("CJK_UNIFIED_IDEOGRAPHS_EXTENSION_I",
                         CJK_UNIFIED_IDEOGRAPHS_EXTENSION_I_ID); /*[2EBF0]*/
 
+        // New blocks in Unicode 16.0
+
+        /** @stable ICU 76 */
+        public static final UnicodeBlock EGYPTIAN_HIEROGLYPHS_EXTENDED_A =
+                new UnicodeBlock("EGYPTIAN_HIEROGLYPHS_EXTENDED_A",
+                        EGYPTIAN_HIEROGLYPHS_EXTENDED_A_ID);
+        /** @stable ICU 76 */
+        public static final UnicodeBlock GARAY = new UnicodeBlock("GARAY", GARAY_ID);
+        /** @stable ICU 76 */
+        public static final UnicodeBlock GURUNG_KHEMA =
+                new UnicodeBlock("GURUNG_KHEMA", GURUNG_KHEMA_ID);
+        /** @stable ICU 76 */
+        public static final UnicodeBlock KIRAT_RAI = new UnicodeBlock("KIRAT_RAI", KIRAT_RAI_ID);
+        /** @stable ICU 76 */
+        public static final UnicodeBlock MYANMAR_EXTENDED_C =
+                new UnicodeBlock("MYANMAR_EXTENDED_C", MYANMAR_EXTENDED_C_ID);
+        /** @stable ICU 76 */
+        public static final UnicodeBlock OL_ONAL = new UnicodeBlock("OL_ONAL", OL_ONAL_ID);
+        /** @stable ICU 76 */
+        public static final UnicodeBlock SUNUWAR = new UnicodeBlock("SUNUWAR", SUNUWAR_ID);
+        /** @stable ICU 76 */
+        public static final UnicodeBlock SYMBOLS_FOR_LEGACY_COMPUTING_SUPPLEMENT =
+                new UnicodeBlock("SYMBOLS_FOR_LEGACY_COMPUTING_SUPPLEMENT",
+                        SYMBOLS_FOR_LEGACY_COMPUTING_SUPPLEMENT_ID);
+        /** @stable ICU 76 */
+        public static final UnicodeBlock TODHRI = new UnicodeBlock("TODHRI", TODHRI_ID);
+        /** @stable ICU 76 */
+        public static final UnicodeBlock TULU_TIGALARI =
+                new UnicodeBlock("TULU_TIGALARI", TULU_TIGALARI_ID);
+
         /**
          * @stable ICU 2.4
          */
@@ -3398,6 +3451,9 @@ public final class UCharacter implements ECharacterCategory, ECharacterDirection
         /** @stable ICU 70 */
         public static final int VERTICAL_TAIL = 103;
 
+        /** @stable ICU 76 */
+        public static final int KASHMIRI_YEH = 104;
+
         /**
          * One more than the highest normal JoiningGroup value.
          * The highest value is available via UCharacter.getIntPropertyMaxValue(UProperty.JoiningGroup).
@@ -3405,7 +3461,7 @@ public final class UCharacter implements ECharacterCategory, ECharacterDirection
          * @deprecated ICU 58 The numeric value may change over time, see ICU ticket #12420.
          */
         @Deprecated
-        public static final int COUNT = 104;
+        public static final int COUNT = 105;
     }
 
     /**
@@ -4067,6 +4123,26 @@ public final class UCharacter implements ECharacterCategory, ECharacterDirection
         public static final int VOWEL_DEPENDENT = 34;
         /** @stable ICU 63 */
         public static final int VOWEL_INDEPENDENT = 35;
+        /** @stable ICU 76 */
+        public static final int REORDERING_KILLER = 36;
+    }
+
+    /**
+     * Indic Conjunct Break constants.
+     * See https://unicode.org/reports/tr44/#Indic_Conjunct_Break
+     *
+     * @see UProperty#INDIC_CONJUNCT_BREAK
+     * @draft ICU 76
+     */
+    public enum IndicConjunctBreak {
+        /** @draft ICU 76 */
+        NONE,
+        /** @draft ICU 76 */
+        CONSONANT,
+        /** @draft ICU 76 */
+        EXTEND,
+        /** @draft ICU 76 */
+        LINKER,
     }
 
     /**

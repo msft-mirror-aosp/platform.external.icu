@@ -2110,10 +2110,4 @@ ru{
             other{"замбийской квачи"}
         }
     }
-    CurrencyUnitPatterns{
-        few{"{0} {1}"}
-        many{"{0} {1}"}
-        one{"{0} {1}"}
-        other{"{0} {1}"}
-    }
 }

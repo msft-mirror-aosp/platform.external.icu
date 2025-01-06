@@ -1238,6 +1238,12 @@ public class MeasureUnit implements Serializable {
     public static final MeasureUnit NANOSECOND = MeasureUnit.internalGetInstance("duration", "nanosecond");
 
     /**
+     * Constant for unit of duration: night
+     * @draft ICU 76
+     */
+    public static final MeasureUnit NIGHT = MeasureUnit.internalGetInstance("duration", "night");
+
+    /**
      * Constant for unit of duration: quarter
      * @stable ICU 72
      */
@@ -1745,7 +1751,7 @@ public class MeasureUnit implements Serializable {
 
     /**
      * Constant for unit of pressure: gasoline-energy-density
-     * @draft ICU 74
+     * @stable ICU 74
      */
     public static final MeasureUnit GASOLINE_ENERGY_DENSITY = MeasureUnit.internalGetInstance("pressure", "gasoline-energy-density");
 
@@ -1814,6 +1820,12 @@ public class MeasureUnit implements Serializable {
      * @stable ICU 56
      */
     public static final MeasureUnit KNOT = MeasureUnit.internalGetInstance("speed", "knot");
+
+    /**
+     * Constant for unit of speed: light-speed
+     * @draft ICU 76
+     */
+    public static final MeasureUnit LIGHT_SPEED = MeasureUnit.internalGetInstance("speed", "light-speed");
 
     /**
      * Constant for unit of speed: meter-per-second

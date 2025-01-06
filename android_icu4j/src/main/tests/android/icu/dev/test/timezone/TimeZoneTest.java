@@ -1929,7 +1929,7 @@ public class TimeZoneTest extends CoreTestFmwk
             {"America/Indiana/Indianapolis",    "US"},  // CLDR alias
             {"Mexico/General",                  "MX"},  // Link America/Mexico_City, Olson backward
             {"Etc/UTC",                         "001"},
-            {"EST5EDT",                         "001"},
+            {"EST5EDT",                         "US"},
             {"PST",                             "US"},  // Link America/Los_Angeles
             {"Europe/Helsinki",                 "FI"},
             {"Europe/Mariehamn",                "AX"},  // Link Europe/Helsinki, but in zone.tab
@@ -2428,7 +2428,7 @@ public class TimeZoneTest extends CoreTestFmwk
                 {"Europe/Zaporozhye",   "Europe/Kyiv"},
                 {"Etc/GMT-1",           "Etc/GMT-1"},
                 {"Etc/GMT+20",          UNKNOWN},
-                {"PST8PDT",             "PST8PDT"},
+                {"PST8PDT",             "America/Los_Angeles"},
                 {"GMT-08:00",           UNKNOWN},
         };
 

@@ -793,11 +793,6 @@ public class Icu4jTransform {
       "type:android.icu.text.Collator$CollatorFactory",
       "type:android.icu.text.NumberFormat$NumberFormatFactory",
       "type:android.icu.text.NumberFormat$SimpleNumberFormatFactory",
-
-      // TODO: Remove the below list when the next window for new Android API opens
-      "field:android.icu.lang.UScript#ARABIC_NASTALIQ",
-      "field:android.icu.text.UnicodeSet#SIMPLE_CASE_INSENSITIVE",
-      "field:android.icu.util.MeasureUnit#BEAUFORT",
   };
 
   /**
