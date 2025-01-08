@@ -29,6 +29,7 @@ import com.android.tradefed.testtype.IAbiReceiver;
 import com.android.tradefed.testtype.IDeviceTest;
 import com.android.tradefed.testtype.IRemoteTest;
 import com.android.tradefed.testtype.IRuntimeHintProvider;
+import com.android.tradefed.testtype.ITestCollector;
 import com.android.tradefed.testtype.ITestFilterReceiver;
 import com.android.tradefed.util.CommandResult;
 import com.android.tradefed.util.CommandStatus;
@@ -37,7 +38,10 @@ import com.android.tradefed.util.FileUtil;
 import com.google.common.annotations.VisibleForTesting;
 
 import java.io.File;
+import java.io.FileWriter;
+import java.io.BufferedWriter;
 import java.io.IOException;
+import java.io.UncheckedIOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedHashSet;
@@ -46,6 +50,9 @@ import java.util.LinkedList;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
 import java.util.regex.Pattern;
+import java.util.Iterator;
+import java.util.stream.Stream;
+
 
 /** A Test that runs a native test package on given device. */
 @OptionClass(alias = "icu4c")
@@ -54,9 +61,15 @@ public class ICU4CTest
     ITestFilterReceiver,
     IRemoteTest,
     IAbiReceiver,
+    ITestCollector,
     IRuntimeHintProvider {
 
     static final String DEFAULT_NATIVETEST_PATH = "/data/local/tmp";
+
+    static final String TEMPLATE_TEST_CASE_FORMAT_STRING =
+            "\t<testcase classname=\"%s\" name=\"%s\" time=\"%s\"/>";
+    static final String TEST_NAMES_STARTING_STRING = "Test names:";
+    static final String DIVIDING_LINE = "-----------";
 
     private ITestDevice mDevice = null;
     private IAbi mAbi = null;
@@ -74,7 +87,7 @@ public class ICU4CTest
                 "The max time in ms for the test to run. "
                         + "Test run will be aborted if any test takes longer."
     )
-    private int mMaxTestTimeMs = 1 * 60 * 1000;
+    private int mMaxTestTimeMs = 60 * 1000;
 
     @Option(name = "run-test-as", description = "User to execute test binary as.")
     private String mRunTestAs = null;
@@ -98,6 +111,11 @@ public class ICU4CTest
     )
     private Set<String> mIncludeFilters = new LinkedHashSet<>();
 
+    @Option(name = "collect-tests-only",
+            description = "Only invoke the instrumentation to collect list of applicable test "
+                    + "cases. All test run callbacks will be triggered, but test execution will "
+                    + "not be actually carried out.")
+    private boolean mCollectTestsOnly = false;
 
     @Option(
         name = "exclude-filter",
@@ -202,6 +220,18 @@ public class ICU4CTest
         mExcludeFilters.clear();
     }
 
+    public boolean getCollectTestsOnly() {
+        return mCollectTestsOnly;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void setCollectTestsOnly(boolean collectTests) {
+        mCollectTestsOnly = collectTests;
+    }
+
     @Override
     public void clearIncludeFilters() {
         mIncludeFilters.clear();
@@ -244,7 +274,7 @@ public class ICU4CTest
      * @param testDevice the {@link ITestDevice}
      * @param fullPath absolute file system path to test binary on device
      * @param xmlOutputPath absolute file system path to the XML result file
-     * @throws DeviceNotAvailableException
+     * @throws DeviceNotAvailableException if the device isn't available.
      */
     private CommandResult doRunTest(
             final ITestDevice testDevice, final String fullPath, final String xmlOutputPath)
@@ -280,6 +310,291 @@ public class ICU4CTest
         return commandResult;
     }
 
+    private boolean isMatched(final String pattern, final String content) {
+        return Pattern.matches(pattern, content);
+    }
+
+    private boolean isTestNameValid(final String name) {
+        return !(name.contains("(") || name.contains(")"));
+    }
+
+    /**
+     * Check the line can be skipped or not
+     *
+     * @param line the text of one line in stdout
+     * @return if the line can be skipped
+     */
+    private boolean canSkip(final String line) {
+        if (line.isBlank()) {
+            return true;
+        }
+        if (line.contains(TEST_NAMES_STARTING_STRING) || line.contains(DIVIDING_LINE)) {
+            return true;
+        }
+
+        // Some testcase printed in format "description : name", the ":" is printed at the end
+        // of first line, the name is printed in the second line, ignore the first line.
+        return line.endsWith(":");
+    }
+
+    /**
+     * Check the line is the end line of a test suite or not
+     *
+     * @param testSuite the current test suite name
+     * @param line      the text of one line in stdout
+     * @return the status of the check.
+     */
+    private boolean isIntltestEndLine(final String testSuite, final String line,
+            List<String> testSuites) {
+
+        String endOKPattern = ".*" + "\\}" + "\\s+" + "OK:" + "\\s+" + testSuite + ".*";
+        if (isMatched(endOKPattern, line)) {
+            return true;
+        }
+
+        // Most of intltest test cases print "OK:" at the end of the std output, but some cases
+        // print "ERRORS" at the end of std output. For the test cases are not really executed,
+        // so ignore the "ERRORS", just clear test cases those were incorrectly collected from
+        // the test case's std output.
+        String endErrorPattern = ".*" + "\\}" + "\\s+" + "ERRORS" + ".*" + testSuite + ".*";
+        if (isMatched(endErrorPattern, line)) {
+            testSuites.clear();
+            return true;
+        }
+        return false;
+    }
+
+    boolean isIntltestStartLine(final String testSuite, final String line) {
+        String startPattern = "\\s+" + testSuite + "\\s+" + "\\{";
+        return isMatched(startPattern, line);
+    }
+
+    /**
+     * Parse the given test binary's stdout to collect test cases.
+     *
+     * @param stdout    test binary's stdout
+     * @param testSuite the current testSuite name
+     * @return a list of testsuites or testcases.
+     */
+    private List<String> parseIntltestStdout(final String stdout, final String testSuite) {
+        List<String> testSuites = new ArrayList<>();
+        Stream<String> lines = stdout.lines();
+        Iterator<String> lineIterator = lines.iterator();
+        boolean start = false;
+        while (lineIterator.hasNext()) {
+            String line = lineIterator.next();
+            if (!start) {
+                start = isIntltestStartLine(testSuite, line);
+                continue;
+            }
+
+            if (canSkip(line)) {
+                continue;
+            }
+
+            if (isIntltestEndLine(testSuite, line, testSuites)) {
+                break;
+            }
+
+            String caseName = line.trim();
+
+            // Many test suites' output format are "test description : test name",
+            // but a special case is the "DataDrivenFormatTest/TestMoreDateParse",
+            // which has not ":" between test description and test name.
+            // e.g.
+            // "round/trip to format.)         TestMoreDateParse"
+            if (caseName.contains(":")) {
+                caseName = caseName.substring(caseName.lastIndexOf(":") + 1);
+            } else if (caseName.contains("TestMoreDateParse")) {
+                caseName = "TestMoreDateParse";
+            }
+
+            if (isTestNameValid(caseName.trim())) {
+                testSuites.add(caseName.trim());
+            }
+        }
+
+        CLog.d("parseIntltestStdout  return testSuites: " + testSuites.size());
+        return testSuites;
+    }
+
+    /**
+     * Collect all sub testsuites and testcases .
+     *
+     * @param testDevice     the {@link ITestDevice}
+     * @param fullPath       absolute file system path to test binary on device
+     * @param parentSuite    parent testsuite
+     * @param testSuite      current testsuite
+     * @param collectResults a list of collected testsuites and testcases.
+     */
+    private void collectIntltestSubtest(final ITestDevice testDevice, final String fullPath,
+            final String parentSuite, final String testSuite, List<String> collectResults) {
+
+        String stdout;
+        String suite = testSuite;
+        if (!parentSuite.isEmpty()) {
+            suite = parentSuite + "/" + testSuite;
+        }
+        String cmd = fullPath + " " + suite + "/LIST";
+
+        // Some special cases have only description in std output, the description
+        // can easily be mistaken for a sub test case.
+        // e.g.
+        //     testPermutations {
+        //           Quick mode: stopped after 1095 lines
+        //     } OK:   testPermutations  (19ms)
+        if (suite.equals("utility/LocaleMatcherTest/testDataDriven")
+                || suite.equals("format/NumberTest/NumberPermutationTest/testPermutations")) {
+            String result = String.format(TEMPLATE_TEST_CASE_FORMAT_STRING, suite,
+                    suite.substring(suite.lastIndexOf("/") + 1),
+                    "0.000000");
+            collectResults.add(result);
+            return;
+        }
+
+        try {
+            CommandResult commandResult = executeCollectTestShellCommand(testDevice, cmd);
+            stdout = commandResult.getStdout();
+        } catch (Exception e) {
+            throw new IllegalStateException(e);
+        }
+
+        if (stdout.isBlank()) {
+            throw new IllegalStateException("command failed: " + cmd);
+        }
+
+        List<String> testItems = parseIntltestStdout(stdout, testSuite);
+        for (String item : testItems) {
+            collectIntltestSubtest(testDevice, fullPath, suite, item, collectResults);
+        }
+
+        String name = suite.substring(suite.lastIndexOf("/") + 1);
+        String classname = suite;
+        if (name.equals(suite)) {
+            classname = "/" + name;
+        }
+        String result = String.format(TEMPLATE_TEST_CASE_FORMAT_STRING, classname, name, "0.000000");
+        collectResults.add(result);
+    }
+
+    private CommandResult executeCollectTestShellCommand(final ITestDevice testDevice,
+            final String cmd)
+            throws DeviceNotAvailableException {
+        CLog.d("executeCollectTestShellCommand: " + cmd);
+        CommandResult commandResult =
+                testDevice.executeShellV2Command(
+                        cmd,
+                        mMaxTestTimeMs /* maxTimeToShellOutputResponse */,
+                        TimeUnit.MILLISECONDS,
+                        0 /* retryAttempts */);
+
+        if (commandResult.getExitCode() != 0) {
+            throw new IllegalStateException(
+                    String.format(
+                            "non-zero exit code %d", commandResult.getExitCode()));
+        }
+        if (commandResult.getStatus() != CommandStatus.SUCCESS) {
+            throw new IllegalStateException(
+                    String.format(
+                            "exits with status %s", commandResult.getStatus().name()));
+        }
+        return commandResult;
+    }
+
+    /**
+     * Run the test binary Cintltst to collect test cases.
+     *
+     * @param testDevice    the {@link ITestDevice}
+     * @param fullPath      absolute file system path to test binary on device
+     * @param file          temp output file object.
+     */
+    private CommandResult doCollectCintltst(
+            final ITestDevice testDevice, final String fullPath, final File file)
+            throws DeviceNotAvailableException {
+        String cmd = fullPath + " -l";
+        CommandResult commandResult = executeCollectTestShellCommand(testDevice, cmd);
+        String stdout = commandResult.getStdout();
+        List<String> collectResults = new ArrayList<>();
+        List<String> lines = stdout.lines().toList();
+        for (String line : lines) {
+            if (line.lastIndexOf("---") > 0) {
+                // Follow "run test", only collect testcase, ignore testsuite
+                if (!line.endsWith("/")) {
+                    String content = line.substring(line.lastIndexOf("---") + 3).trim();
+                    String result = String.format(TEMPLATE_TEST_CASE_FORMAT_STRING, content,
+                            content, "0.000000");
+                    collectResults.add(result);
+                }
+            }
+        }
+        outputCollectResults(collectResults, fullPath, file);
+        return commandResult;
+    }
+
+    /**
+     * Output the collected results to temp file.
+     *
+     * @param testcases the collected testcases
+     * @param fullPath  absolute file system path to test binary on device
+     * @param file      temp output file object.
+     */
+    private void outputCollectResults(final List<String> testcases, final String fullPath,
+            final File file) {
+        try (BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(file))) {
+            bufferedWriter.write(String.format("<testsuite name=\"%s\">", fullPath));
+            for (String testcase : testcases) {
+                bufferedWriter.newLine();
+                bufferedWriter.write(testcase);
+            }
+            bufferedWriter.newLine();
+            bufferedWriter.write("</testsuite>");
+        } catch (IOException e) {
+            // Handling any I/O exceptions
+            throw new UncheckedIOException(e);
+        }
+    }
+
+    /**
+     * Run the test binary Intltest to collect test cases.
+     *
+     * @param testDevice the {@link ITestDevice}
+     * @param fullPath   absolute file system path to test binary on device
+     * @param file       temp output file object.
+     */
+    private CommandResult doCollectIntltest(
+            final ITestDevice testDevice, final String fullPath, final File file)
+            throws DeviceNotAvailableException {
+        String cmd = fullPath + " LIST";
+        CLog.i("Running doCollectIntltest test %s on %s", cmd, testDevice.getSerialNumber());
+        CommandResult commandResult = executeCollectTestShellCommand(testDevice, cmd);
+
+        Stream<String> lines = commandResult.getStdout().lines();
+        Iterator<String> lineIterator = lines.iterator();
+        List<String> testSuites = new ArrayList<>();
+        List<String> collectResults = new ArrayList<>();
+        boolean start = false;
+        while (lineIterator.hasNext()) {
+            String line = lineIterator.next();
+            if (!start) {
+                start = line.contains(TEST_NAMES_STARTING_STRING);
+                continue;
+            }
+            if (line.isBlank()) {
+                break;
+            }
+            if (line.contains(DIVIDING_LINE)) {
+                continue;
+            }
+            testSuites.add(line.trim());
+        }
+
+        for (String suite : testSuites) {
+            collectIntltestSubtest(testDevice, fullPath, "", suite, collectResults);
+        }
+        outputCollectResults(collectResults, fullPath, file);
+        return commandResult;
+    }
+
     /**
      * Run the given test binary and parse XML results
      *
@@ -289,7 +604,7 @@ public class ICU4CTest
      * @param testDevice the {@link ITestDevice}
      * @param fullPath absolute file system path to test binary on device
      * @param listener the {@link ITestRunListener}
-     * @throws DeviceNotAvailableException
+     * @throws DeviceNotAvailableException if the device isn't available.
      */
     private void runTest(
             final ITestDevice testDevice, final String fullPath, ITestInvocationListener listener)
@@ -298,12 +613,23 @@ public class ICU4CTest
         String xmlFullPath = fullPath + "_res.xml";
 
         try {
-            CommandResult commandResult = doRunTest(testDevice, fullPath, xmlFullPath);
-
-            // Pull the result file, may not exist if issue with the test.
+            CommandResult commandResult;
             String testRunName = fullPath.substring(fullPath.lastIndexOf("/") + 1);
             File tmpOutput = FileUtil.createTempFile(testRunName, ".xml");
-            testDevice.pullFile(xmlFullPath, tmpOutput);
+
+            // cintltst is a test binary for C++ tests, intltest is a test binary for Java tests.
+            if (mCollectTestsOnly && fullPath.endsWith("/cintltst")) {
+                commandResult = doCollectCintltst(testDevice, fullPath, tmpOutput);
+            } else if (mCollectTestsOnly && fullPath.endsWith("/intltest")) {
+                commandResult = doCollectIntltest(testDevice, fullPath, tmpOutput);
+            } else {
+                commandResult = doRunTest(testDevice, fullPath, xmlFullPath);
+            }
+
+            if (!mCollectTestsOnly) {
+                // Pull the result file, may not exist if issue with the test.
+                testDevice.pullFile(xmlFullPath, tmpOutput);
+            }
 
             ICU4CXmlResultParser parser = new ICU4CXmlResultParser(mTestModule,
                 testRunName, listener);
@@ -325,7 +651,7 @@ public class ICU4CTest
      * @return the shell command line to run for the test
      */
     protected String getTestCmdLine(String fullPath, String xmlPath) {
-        List<String> args = new LinkedList<String>();
+        List<String> args = new LinkedList<>();
 
         // su to requested user
         if (mRunTestAs != null) {
@@ -361,7 +687,7 @@ public class ICU4CTest
                 continue;
             }
             String modifiedFilter = filter.substring(mTestModule.length());
-            if (filter.length() == 0) {
+            if (filter.isEmpty()) {
                 // Ignore because it intends to run all tests when the filter is the module name.
                 continue;
             }
