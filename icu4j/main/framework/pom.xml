@@ -8,7 +8,7 @@
   <parent>
     <groupId>com.ibm.icu</groupId>
     <artifactId>icu4j-root</artifactId>
-    <version>75.1</version>
+    <version>76.1</version>
     <relativePath>../../pom.xml</relativePath>
   </parent>
 
@@ -45,13 +45,6 @@
               <Main-Class>com.ibm.icu.dev.test.TestAll</Main-Class>
             </manifestEntries>
           </archive>
-        </configuration>
-      </plugin>
-      <plugin>
-        <artifactId>maven-deploy-plugin</artifactId>
-        <!-- We don't want to deploy this to Maven -->
-        <configuration>
-          <skip>true</skip>
         </configuration>
       </plugin>
     </plugins>

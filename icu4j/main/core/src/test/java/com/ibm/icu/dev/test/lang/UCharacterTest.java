@@ -60,7 +60,7 @@ public final class UCharacterTest extends CoreTestFmwk
     /**
      * Expected Unicode version.
      */
-    private final VersionInfo VERSION_ = VersionInfo.getInstance(15, 1);
+    private final VersionInfo VERSION_ = VersionInfo.getInstance(16, 0);
 
     // constructor ===================================================
 
@@ -2109,6 +2109,10 @@ public final class UCharacterTest extends CoreTestFmwk
 
             { 0xd7a4, UProperty.HANGUL_SYLLABLE_TYPE, 0 },
 
+            // GCB=V but hst=NA (exception to GCB=hst for relevant values)
+            { 0x16D67, UProperty.HANGUL_SYLLABLE_TYPE, UCharacter.HangulSyllableType.NOT_APPLICABLE },
+            { 0x16D6A, UProperty.HANGUL_SYLLABLE_TYPE, UCharacter.HangulSyllableType.NOT_APPLICABLE },
+
             { -1, 0x410, 0 }, /* version break for Unicode 4.1 */
 
             { 0x00d7, UProperty.PATTERN_SYNTAX, 1 },
@@ -2207,6 +2211,21 @@ public final class UCharacterTest extends CoreTestFmwk
             { 0x0600, UProperty.PREPENDED_CONCATENATION_MARK, TRUE },
             { 0x0606, UProperty.PREPENDED_CONCATENATION_MARK, FALSE },
             { 0x110BD, UProperty.PREPENDED_CONCATENATION_MARK, TRUE },
+
+            /* Indic_Conjunct_Break values */
+            { 0x094D, UProperty.INDIC_CONJUNCT_BREAK, UCharacter.IndicConjunctBreak.LINKER.ordinal() },
+            { 0x09B9, UProperty.INDIC_CONJUNCT_BREAK, UCharacter.IndicConjunctBreak.CONSONANT.ordinal() },
+            { 0x05BE, UProperty.INDIC_CONJUNCT_BREAK, UCharacter.IndicConjunctBreak.NONE.ordinal() },
+            { 0x05BF, UProperty.INDIC_CONJUNCT_BREAK, UCharacter.IndicConjunctBreak.EXTEND.ordinal() },
+            { 0x05C0, UProperty.INDIC_CONJUNCT_BREAK, UCharacter.IndicConjunctBreak.NONE.ordinal() },
+            { 0xD800, UProperty.INDIC_CONJUNCT_BREAK, UCharacter.IndicConjunctBreak.NONE.ordinal() },
+
+            /* Modifier_Combining_Mark values */
+            { 0xD800, UProperty.MODIFIER_COMBINING_MARK, FALSE },
+            { 0x0653, UProperty.MODIFIER_COMBINING_MARK, FALSE },
+            { 0x0654, UProperty.MODIFIER_COMBINING_MARK, TRUE },
+            { 0x0655, UProperty.MODIFIER_COMBINING_MARK, TRUE },
+            { 0x0656, UProperty.MODIFIER_COMBINING_MARK, FALSE },
 
             /* undefined UProperty values */
             { 0x61, 0x4a7, 0 },
@@ -2754,9 +2773,9 @@ public final class UCharacterTest extends CoreTestFmwk
     @Test
     public void TestVerticalOrientation() {
         UnicodeSet r = new UnicodeSet("[:vo=R:]");
-        assertTrue("mostly R", 0xc0000 <= r.size() && r.size() <= 0xd0000);
+        assertTrue("mostly R", 0xb0000 <= r.size() && r.size() <= 0xd0000);
         UnicodeSet u = new UnicodeSet("[:vo=U:]");
-        assertTrue("much U", 0x40000 <= u.size() && u.size() <= 0x50000);
+        assertTrue("much U", 0x40000 <= u.size() && u.size() <= 0x60000);
         UnicodeSet tu = new UnicodeSet("[:vo=Tu:]");
         assertTrue("some Tu", 147 <= tu.size() && tu.size() <= 300);
         assertEquals("U+0E01: Rotated", UCharacter.VerticalOrientation.ROTATED,

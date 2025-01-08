@@ -245,11 +245,6 @@ en_XA{
             lg{"[Çĥîñå Ţîɱé one two]"}
             ls{"[Çĥîñå Šţåñðåŕð Ţîɱé one two three]"}
         }
-        "meta:Choibalsan"{
-            ld{"[Çĥöîƀåļšåñ Šûɱɱéŕ Ţîɱé one two three]"}
-            lg{"[Çĥöîƀåļšåñ Ţîɱé one two three]"}
-            ls{"[Çĥöîƀåļšåñ Šţåñðåŕð Ţîɱé one two three]"}
-        }
         "meta:Christmas"{
             ls{"[Çĥŕîšţɱåš Îšļåñð Ţîɱé one two three]"}
         }
@@ -424,6 +419,9 @@ en_XA{
             ld{"[Þéţŕöþåṽļöṽšķ‐Ķåɱçĥåţšķî Šûɱɱéŕ Ţîɱé one two three four]"}
             lg{"[Þéţŕöþåṽļöṽšķ‐Ķåɱçĥåţšķî Ţîɱé one two three four]"}
             ls{"[Þéţŕöþåṽļöṽšķ‐Ķåɱçĥåţšķî Šţåñðåŕð Ţîɱé one two three four five]"}
+        }
+        "meta:Kazakhstan"{
+            ls{"[Ķåžåķĥšţåñ Ţîɱé one two three]"}
         }
         "meta:Kazakhstan_Eastern"{
             ls{"[Éåšţ Ķåžåķĥšţåñ Ţîɱé one two three]"}

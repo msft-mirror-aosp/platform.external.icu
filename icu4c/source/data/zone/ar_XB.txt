@@ -245,11 +245,6 @@ ar_XB{
             lg{"؜‮China‬؜ ؜‮Time‬؜"}
             ls{"؜‮China‬؜ ؜‮Standard‬؜ ؜‮Time‬؜"}
         }
-        "meta:Choibalsan"{
-            ld{"؜‮Choibalsan‬؜ ؜‮Summer‬؜ ؜‮Time‬؜"}
-            lg{"؜‮Choibalsan‬؜ ؜‮Time‬؜"}
-            ls{"؜‮Choibalsan‬؜ ؜‮Standard‬؜ ؜‮Time‬؜"}
-        }
         "meta:Christmas"{
             ls{"؜‮Christmas‬؜ ؜‮Island‬؜ ؜‮Time‬؜"}
         }
@@ -424,6 +419,9 @@ ar_XB{
             ld{"؜‮Petropavlovsk‬؜-؜‮Kamchatski‬؜ ؜‮Summer‬؜ ؜‮Time‬؜"}
             lg{"؜‮Petropavlovsk‬؜-؜‮Kamchatski‬؜ ؜‮Time‬؜"}
             ls{"؜‮Petropavlovsk‬؜-؜‮Kamchatski‬؜ ؜‮Standard‬؜ ؜‮Time‬؜"}
+        }
+        "meta:Kazakhstan"{
+            ls{"؜‮Kazakhstan‬؜ ؜‮Time‬؜"}
         }
         "meta:Kazakhstan_Eastern"{
             ls{"؜‮East‬؜ ؜‮Kazakhstan‬؜ ؜‮Time‬؜"}

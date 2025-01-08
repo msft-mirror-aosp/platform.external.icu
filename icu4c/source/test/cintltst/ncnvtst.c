@@ -1039,8 +1039,8 @@ static UBool convertFromU( const UChar *source, int sourceLen,  const uint8_t *e
     targetLimit=targ+MAX_LENGTH;
     offs=offsetBuffer;
     ucnv_fromUnicode (conv,
-                  (char **)&targ,
-                  (const char *)targetLimit,
+                  &targ,
+                  targetLimit,
                   &src,
                   sourceLimit,
                   expectOffsets ? offs : NULL,
@@ -1137,7 +1137,7 @@ static UBool convertToU( const uint8_t *source, int sourceLen, const UChar *expe
     ucnv_toUnicode (conv,
                 &targ,
                 targetLimit,
-                (const char **)&src,
+                &src,
                 (const char *)sourceLimit,
                 expectOffsets ? offs : NULL,
                 doFlush,
@@ -1271,8 +1271,8 @@ static UBool testConvertFromU( const UChar *source, int sourceLen,  const uint8_
         if(gInBufferSize ==999 && gOutBufferSize==999)
             doFlush = false;
         ucnv_fromUnicode (conv,
-                  (char **)&targ,
-                  (const char *)end,
+                  &targ,
+                  end,
                   &src,
                   sourceLimit,
                   offs,
@@ -1446,8 +1446,8 @@ static UBool testConvertToU( const uint8_t *source, int sourcelen, const UChar *
         ucnv_toUnicode (conv,
                 &targ,
                 end,
-                (const char **)&src,
-                (const char *)srcLimit,
+                &src,
+                srcLimit,
                 offs,
                 doFlush, /* flush if we're at the end of the source data */
                 &status);

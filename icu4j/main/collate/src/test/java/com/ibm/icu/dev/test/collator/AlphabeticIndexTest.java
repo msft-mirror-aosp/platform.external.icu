@@ -22,7 +22,6 @@ import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 
 import com.ibm.icu.dev.test.TestFmwk;
-import com.ibm.icu.dev.util.CollectionUtilities;
 import com.ibm.icu.impl.ICUDebug;
 import com.ibm.icu.impl.Row;
 import com.ibm.icu.impl.Row.R4;
@@ -384,7 +383,8 @@ public class AlphabeticIndexTest extends TestFmwk {
                         indexCharacters2.addLabels((UnicodeSet)test[i]);
                     }
                 }
-                List<Bucket<Double>> buckets = CollectionUtilities.addAll(alphabeticIndex.iterator(), new ArrayList<Bucket<Double>>());
+                List<Bucket<Double>> buckets = new ArrayList<>(alphabeticIndex.getBucketCount());
+                alphabeticIndex.iterator().forEachRemaining(buckets::add);
                 logln(buckets.toString());
             }
             assertEquals(LabelType.OVERFLOW + "\t" + printList, 1, counter.get(LabelType.OVERFLOW));
@@ -1085,11 +1085,12 @@ public class AlphabeticIndexTest extends TestFmwk {
             logln("Chinese/unihan has " + bucketCount + " buckets/labels");
         }
         // bucketIndex = radical number, adjusted for simplified radicals in lower buckets.
+        // CLDR 46+/ICU 76+ use a radical-stroke order matching UAX #38
+        // which has buckets only for traditional radicals.
         int bucketIndex = index.getBucketIndex("\u4e5d");
         assertEquals("getBucketIndex(U+4E5D)", 5, bucketIndex);
-        // radical 100, and there is a 90' since Unicode 8
         bucketIndex = index.getBucketIndex("\u7527");
-        assertEquals("getBucketIndex(U+7527)", 101, bucketIndex);
+        assertEquals("getBucketIndex(U+7527)", 100, bucketIndex);
     }
 
     @Test
