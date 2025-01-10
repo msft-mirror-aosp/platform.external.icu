@@ -12,7 +12,6 @@ import java.util.Objects;
 
 import android.icu.dev.test.AbstractTestLog;
 import android.icu.dev.test.TestFmwk;
-import android.icu.dev.util.CollectionUtilities;
 import android.icu.impl.locale.XCldrStub.FileUtilities;
 import android.icu.impl.locale.XCldrStub.Splitter;
 import android.icu.util.ICUUncheckedIOException;
@@ -47,7 +46,7 @@ abstract public class DataDrivenTestHelper {
                 } else {
                     String first = components.iterator().next();
                     String sep = first.startsWith("@") ? "=" : SEPARATOR;
-                    out.append(CollectionUtilities.join(components, sep));
+                    out.append(String.join(sep, components));
                     if (!comment.isEmpty()) {
                         out.append("\t# ").append(comment);
                     }

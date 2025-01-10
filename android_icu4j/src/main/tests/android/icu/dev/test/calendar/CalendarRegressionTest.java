@@ -2184,7 +2184,7 @@ public class CalendarRegressionTest extends CoreTestFmwk {
             {"en@calendar=islamic",     "gregorian"},
             {"zh_TW",       "gregorian", "roc", "chinese"},
             {"ar_IR",       "gregorian", "persian", "islamic", "islamic-civil", "islamic-tbla"},  // android-changed
-            {"th@rg=SAZZZZ", "gregorian", "islamic-umalqura", "islamic", "islamic-rgsa"},  // android-changed
+            {"th@rg=SAZZZZ", "gregorian", "islamic-umalqura", "islamic", "islamic-rgsa"},
 
             // tests for ICU-22364
             { "zh_CN@rg=TW",           "gregorian", "chinese" }, // invalid subdivision code
@@ -2196,7 +2196,6 @@ public class CalendarRegressionTest extends CoreTestFmwk {
             { "zh_TW@rg=IT53",         "gregorian" }, // two-digit subdivision code
             { "zh_TW@rg=AUnsw",        "gregorian" }, // three-letter subdivision code
             { "zh_TW@rg=EE130",        "gregorian" }, // three-digit subdivision code
-            { "zh_TW@rg=417zzzz",      "gregorian" }, // three-digit region code
         };
         // Android patch end.
 

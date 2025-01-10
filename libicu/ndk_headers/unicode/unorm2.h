@@ -208,9 +208,7 @@ unorm2_getNFKCCasefoldInstance(UErrorCode *pErrorCode) __INTRODUCED_IN(31);
 
 
 
-#ifndef U_HIDE_DRAFT_API
 
-#endif  // U_HIDE_DRAFT_API
 
 
 
