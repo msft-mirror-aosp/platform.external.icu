@@ -96,7 +96,7 @@ public final class MobileCountries {
         }
         if (o instanceof MobileCountries that) {
             return mcc.equals(that.mcc) && countryIsoCodes.equals(that.countryIsoCodes)
-                    && Objects.equals(defaultCountryIsoCode, that.defaultCountryIsoCode);
+                    && defaultCountryIsoCode.equals(that.defaultCountryIsoCode);
         }
         return false;
     }
