@@ -46,7 +46,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedHashSet;
 import java.util.List;
-import java.util.LinkedList;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
 import java.util.regex.Pattern;
@@ -310,19 +309,15 @@ public class ICU4CTest
         return commandResult;
     }
 
-    private boolean isMatched(final String pattern, final String content) {
-        return Pattern.matches(pattern, content);
-    }
-
     private boolean isTestNameValid(final String name) {
         return !(name.contains("(") || name.contains(")"));
     }
 
     /**
-     * Check the line can be skipped or not
+     * Checks the line can be skipped or not.
      *
      * @param line the text of one line in stdout
-     * @return if the line can be skipped
+     * @return true if the line can be skipped
      */
     private boolean canSkip(final String line) {
         if (line.isBlank()) {
@@ -338,7 +333,7 @@ public class ICU4CTest
     }
 
     /**
-     * Check the line is the end line of a test suite or not
+     * Checks the line is the end line of a test suite or not.
      *
      * @param testSuite the current test suite name
      * @param line      the text of one line in stdout
@@ -348,7 +343,7 @@ public class ICU4CTest
             List<String> testSuites) {
 
         String endOKPattern = ".*" + "\\}" + "\\s+" + "OK:" + "\\s+" + testSuite + ".*";
-        if (isMatched(endOKPattern, line)) {
+        if (Pattern.matches(endOKPattern, line)) {
             return true;
         }
 
@@ -357,7 +352,7 @@ public class ICU4CTest
         // so ignore the "ERRORS", just clear test cases those were incorrectly collected from
         // the test case's std output.
         String endErrorPattern = ".*" + "\\}" + "\\s+" + "ERRORS" + ".*" + testSuite + ".*";
-        if (isMatched(endErrorPattern, line)) {
+        if (Pattern.matches(endErrorPattern, line)) {
             testSuites.clear();
             return true;
         }
@@ -366,11 +361,11 @@ public class ICU4CTest
 
     boolean isIntltestStartLine(final String testSuite, final String line) {
         String startPattern = "\\s+" + testSuite + "\\s+" + "\\{";
-        return isMatched(startPattern, line);
+        return Pattern.matches(startPattern, line);
     }
 
     /**
-     * Parse the given test binary's stdout to collect test cases.
+     * Parses the given test binary's stdout to collect test cases.
      *
      * @param stdout    test binary's stdout
      * @param testSuite the current testSuite name
@@ -400,7 +395,7 @@ public class ICU4CTest
 
             // Many test suites' output format are "test description : test name",
             // but a special case is the "DataDrivenFormatTest/TestMoreDateParse",
-            // which has not ":" between test description and test name.
+            // which has no ":" between test description and test name.
             // e.g.
             // "round/trip to format.)         TestMoreDateParse"
             if (caseName.contains(":")) {
@@ -419,7 +414,7 @@ public class ICU4CTest
     }
 
     /**
-     * Collect all sub testsuites and testcases .
+     * Collects all sub testsuites and testcases.
      *
      * @param testDevice     the {@link ITestDevice}
      * @param fullPath       absolute file system path to test binary on device
@@ -502,7 +497,7 @@ public class ICU4CTest
     }
 
     /**
-     * Run the test binary Cintltst to collect test cases.
+     * Runs the test binary Cintltst to collect test cases.
      *
      * @param testDevice    the {@link ITestDevice}
      * @param fullPath      absolute file system path to test binary on device
@@ -532,7 +527,7 @@ public class ICU4CTest
     }
 
     /**
-     * Output the collected results to temp file.
+     * Outputs the collected results to temp file.
      *
      * @param testcases the collected testcases
      * @param fullPath  absolute file system path to test binary on device
@@ -555,7 +550,7 @@ public class ICU4CTest
     }
 
     /**
-     * Run the test binary Intltest to collect test cases.
+     * Runs the test binary Intltest to collect test cases.
      *
      * @param testDevice the {@link ITestDevice}
      * @param fullPath   absolute file system path to test binary on device
@@ -596,7 +591,7 @@ public class ICU4CTest
     }
 
     /**
-     * Run the given test binary and parse XML results
+     * Runs the given test binary and parse XML results.
      *
      * <p>This methods typically requires the filter for .tff and .xml files, otherwise it will post
      * some unwanted results.
@@ -651,7 +646,7 @@ public class ICU4CTest
      * @return the shell command line to run for the test
      */
     protected String getTestCmdLine(String fullPath, String xmlPath) {
-        List<String> args = new LinkedList<>();
+        List<String> args = new ArrayList<>();
 
         // su to requested user
         if (mRunTestAs != null) {
