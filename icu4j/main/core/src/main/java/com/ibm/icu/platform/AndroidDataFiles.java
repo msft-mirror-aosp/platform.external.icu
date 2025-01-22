@@ -44,8 +44,8 @@ public class AndroidDataFiles {
      */
     // VisibleForTesting
     // LINT.IfChange
-    public static final int CURRENT_MAJOR_VERSION = 8;
-    // LINT.ThenChange(external/icu/android_icu4j/libcore_bridge/src/java/com/android/i18n/timezone/TzDataSetVersion.java)
+    public static final int CURRENT_MAJOR_VERSION = 9;
+    // LINT.ThenChange(/android_icu4j/libcore_bridge/src/java/com/android/i18n/timezone/TzDataSetVersion.java)
 
     private static String getTimeZoneModuleFile(String fileName) {
         return System.getenv(ANDROID_TZDATA_ROOT_ENV) + "/etc/" + fileName;
