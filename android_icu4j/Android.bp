@@ -288,6 +288,11 @@ java_sdk_library {
         "--show-single-annotation libcore.api.IntraCoreApi ",
     ],
 
+    public: {
+        // Select api-surface defined in build/soong/java/metalava/main-config.xml
+        api_surface: "intra-core",
+    },
+
     // Don't copy any output files to the dist.
     no_dist: true,
 
@@ -414,6 +419,11 @@ java_sdk_library {
     sdk_version: "none",
     system_modules: "art-module-lib-api-stubs-system-modules",
 
+    public: {
+        // Select api-surface defined in build/soong/java/metalava/main-config.xml
+        api_surface: "core-platform",
+    },
+
     droiddoc_options: [
         "--hide-annotation libcore.api.Hide ",
         "--show-single-annotation libcore.api.CorePlatformApi ",
@@ -452,6 +462,11 @@ java_sdk_library {
         "--hide-annotation libcore.api.Hide ",
         "--show-single-annotation libcore.api.CorePlatformApi\\(status=libcore.api.CorePlatformApi.Status.STABLE\\)",
     ],
+
+    public: {
+        // Select api-surface defined in build/soong/java/metalava/main-config.xml
+        api_surface: "core-platform",
+    },
 
     // Don't copy any output files to the dist.
     no_dist: true,
