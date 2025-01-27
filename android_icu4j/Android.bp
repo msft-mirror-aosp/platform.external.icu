@@ -421,7 +421,7 @@ java_sdk_library {
 
     public: {
         // Select api-surface defined in build/soong/java/metalava/main-config.xml
-        api_surface: "core-platform",
+        api_surface: "core-platform-legacy",
     },
 
     droiddoc_options: [
