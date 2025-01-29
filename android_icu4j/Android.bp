@@ -412,6 +412,8 @@ java_sdk_library {
         // TODO(b/155921753): Restrict this when prebuilts are in their proper
         // locations.
         "//prebuilts:__subpackages__",
+        // We need to know what major version of tzdata a device needs.
+        "//system/timezone/apex/tests",
     ],
     hostdex: true,
     api_dir: "api/legacy_platform",
