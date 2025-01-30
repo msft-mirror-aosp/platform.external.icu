@@ -541,6 +541,8 @@ java_test {
     ],
     libs: [
         "icu_aconfig_flags_lib",
+        "telephony-common",
+        "telephony_flags_core_java_lib",
     ],
     static_libs: [
         "flag-junit",

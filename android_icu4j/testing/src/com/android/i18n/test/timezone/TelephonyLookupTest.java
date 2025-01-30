@@ -20,10 +20,10 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertThrows;
 import static org.junit.Assert.assertTrue;
-import static org.junit.Assume.assumeFalse;
 import static org.junit.Assume.assumeTrue;
 
 import android.icu.testsharding.MainTestShard;
+import android.platform.test.annotations.EnableFlags;
 import android.platform.test.annotations.UsesFlags;
 import android.platform.test.flag.junit.FlagsParameterization;
 import android.platform.test.flag.junit.SetFlagsRule;
@@ -33,6 +33,7 @@ import com.android.i18n.timezone.TelephonyLookup;
 import com.android.i18n.timezone.TelephonyNetwork;
 import com.android.i18n.timezone.TelephonyNetworkFinder;
 import com.android.icu.Flags;
+import com.android.internal.telephony.MccTable;
 
 import org.junit.After;
 import org.junit.Before;
@@ -706,6 +707,20 @@ public class TelephonyLookupTest {
                 </telephony_lookup>
                 """);
         assertNull(telephonyLookup.getTelephonyNetworkFinder());
+    }
+
+    @EnableFlags(Flags.FLAG_TELEPHONY_LOOKUP_MCC_EXTENSION)
+    @Test
+    public void telephonyFinder_shouldBeIdenticalToTelephonyMccTable() {
+        TelephonyNetworkFinder telephonyNetworkFinder =
+                TelephonyLookup.getInstance().getTelephonyNetworkFinder();
+
+        telephonyNetworkFinder.getAllMobileCountries().forEach(countries -> {
+            String telephonyCountry = MccTable.geoCountryCodeForMccMnc(
+                    new MccTable.MccMnc(countries.getMcc(), null));
+
+            assertEquals(telephonyCountry, countries.getDefaultCountryIsoCode());
+        });
     }
 
     private static void checkValidateThrowsParserException(String xml) {
