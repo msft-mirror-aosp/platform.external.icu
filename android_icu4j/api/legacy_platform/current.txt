@@ -70,6 +70,12 @@ package com.android.i18n.timezone {
     method public static com.android.i18n.timezone.DebugInfo getDebugInfo();
   }
 
+  @FlaggedApi("com.android.icu.telephony_lookup_mcc_extension") public final class MobileCountries {
+    method @NonNull public java.util.Set<java.lang.String> getCountryIsoCodes();
+    method @NonNull public String getDefaultCountryIsoCode();
+    method @NonNull public String getMcc();
+  }
+
   public final class TelephonyLookup {
     method public static com.android.i18n.timezone.TelephonyLookup createInstance(String) throws java.io.IOException;
     method public static com.android.i18n.timezone.TelephonyLookup getInstance();
@@ -84,6 +90,7 @@ package com.android.i18n.timezone {
   }
 
   public final class TelephonyNetworkFinder {
+    method @FlaggedApi("com.android.icu.telephony_lookup_mcc_extension") @Nullable public com.android.i18n.timezone.MobileCountries findCountriesByMcc(@NonNull String);
     method public com.android.i18n.timezone.TelephonyNetwork findNetworkByMccMnc(String, String);
   }
 

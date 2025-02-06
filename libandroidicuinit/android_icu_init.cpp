@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-#include <stdbool.h>
+#include <stdlib.h>
 
 #include "androidicuinit/android_icu_init.h"
 #include "IcuRegistration.h"

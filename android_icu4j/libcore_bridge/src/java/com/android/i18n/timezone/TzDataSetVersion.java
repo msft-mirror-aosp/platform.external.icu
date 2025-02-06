@@ -62,8 +62,8 @@ public final class TzDataSetVersion {
      */
     // @VisibleForTesting : Keep this inline-able: it is used from CTS tests.
     // LINT.IfChange
-    public static final int CURRENT_FORMAT_MAJOR_VERSION = 8; // Android V
-    // LINT.ThenChange(external/icu/android_icu4j/src/main/java/android/icu/platform/AndroidDataFiles.java)
+    public static final int CURRENT_FORMAT_MAJOR_VERSION = 9; // Android B
+    // LINT.ThenChange(/android_icu4j/src/main/java/android/icu/platform/AndroidDataFiles.java)
 
     /**
      * Returns the major tz data format version supported by this device.

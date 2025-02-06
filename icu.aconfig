@@ -13,7 +13,7 @@
 # limitations under the License.
 
 package: "com.android.icu"
-container: "system"
+container: "com.android.i18n"
 
 flag {
     namespace: "core_libraries"
@@ -31,6 +31,16 @@ flag {
     is_exported: true
     description: "This flag controls whether exposing new APIs in 25Q2"
     bug: "374966838"
+    # ICU is used before SettingsProvider starts
+    is_fixed_read_only: true
+}
+
+flag {
+    namespace: "core_libraries"
+    name: "telephony_lookup_mcc_extension"
+    is_exported: true
+    description: "This flag controls whether to parse the new MCC to countries mapping from telephony lookup"
+    bug: "376493245"
     # ICU is used before SettingsProvider starts
     is_fixed_read_only: true
 }
