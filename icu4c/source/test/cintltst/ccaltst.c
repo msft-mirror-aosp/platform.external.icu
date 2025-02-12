@@ -71,7 +71,8 @@ void addCalTest(TestNode** root)
     addTest(root, &TestUcalOpenBufferRead, "tsformat/ccaltst/TestUcalOpenBufferRead");
     addTest(root, &TestGetTimeZoneOffsetFromLocal, "tsformat/ccaltst/TestGetTimeZoneOffsetFromLocal");
     addTest(root, &TestFWWithISO8601, "tsformat/ccaltst/TestFWWithISO8601");
-    addTest(root, &TestGetIanaTimeZoneID, "tstformat/ccaltst/TestGetIanaTimeZoneID");
+    // Android-changed: skip as tzdata dependent.
+    // addTest(root, &TestGetIanaTimeZoneID, "tstformat/ccaltst/TestGetIanaTimeZoneID");
 }
 
 /* "GMT" */

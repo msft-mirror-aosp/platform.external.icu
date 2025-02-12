@@ -2415,6 +2415,8 @@ public class TimeZoneTest extends CoreTestFmwk
     }
 
     @Test
+    // Android-changed: skip this test.
+    @org.junit.Ignore("tzdata module dependent")
     public void TestGetIanaID() {
         final String UNKNOWN = TimeZone.UNKNOWN_ZONE_ID;
 
