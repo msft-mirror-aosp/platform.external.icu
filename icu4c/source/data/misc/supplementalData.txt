@@ -20495,12 +20495,22 @@ supplementalData:table(nofallback){
             "en_AT",
             "en_BE",
             "en_CH",
+            "en_CZ",
             "en_DE",
             "en_DK",
+            "en_ES",
             "en_FI",
+            "en_FR",
+            "en_HU",
+            "en_IT",
             "en_NL",
+            "en_NO",
+            "en_PL",
+            "en_PT",
+            "en_RO",
             "en_SE",
             "en_SI",
+            "en_SK",
         }
         en_IN{"hi_Latn"}
         es_419{
