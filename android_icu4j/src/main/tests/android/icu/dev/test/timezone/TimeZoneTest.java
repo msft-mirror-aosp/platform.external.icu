@@ -1895,6 +1895,8 @@ public class TimeZoneTest extends TestFmwk
      * Test case for getRegion
      */
     @Test
+    // Android-changed: tzdata module version dependent.
+    @org.junit.Ignore("tzdata module version dependent")
     public void TestGetRegion() {
         final String[][] TEST_DATA = {
             {"America/Los_Angeles",             "US"},
