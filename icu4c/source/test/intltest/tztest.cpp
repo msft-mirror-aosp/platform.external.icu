@@ -64,13 +64,15 @@ void TimeZoneTest::runIndexedTest( int32_t index, UBool exec, const char* &name,
     TESTCASE_AUTO(TestCountries); 
     TESTCASE_AUTO(TestHistorical);
     TESTCASE_AUTO(TestEquivalentIDs);
-    TESTCASE_AUTO(TestAliasedNames);
+    // Android-changed: skip as tzdata version dependent.
+    // TESTCASE_AUTO(TestAliasedNames);
     TESTCASE_AUTO(TestFractionalDST);
     TESTCASE_AUTO(TestFebruary);
     TESTCASE_AUTO(TestCanonicalIDAPI);
     TESTCASE_AUTO(TestCanonicalID);
     TESTCASE_AUTO(TestDisplayNamesMeta);
-    TESTCASE_AUTO(TestGetRegion);
+    // Android-changed: skip as tzdata version dependent.
+    // TESTCASE_AUTO(TestGetRegion);
     TESTCASE_AUTO(TestGetAvailableIDsNew);
     TESTCASE_AUTO(TestGetUnknown);
     TESTCASE_AUTO(TestGetGMT);
