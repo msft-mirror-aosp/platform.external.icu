@@ -72,7 +72,8 @@ void TimeZoneTest::runIndexedTest( int32_t index, UBool exec, const char* &name,
     TESTCASE_AUTO(TestCanonicalIDAPI);
     TESTCASE_AUTO(TestCanonicalID);
     TESTCASE_AUTO(TestDisplayNamesMeta);
-    TESTCASE_AUTO(TestGetRegion);
+    // Android-changed: skip as tzdata version dependent.
+    // TESTCASE_AUTO(TestGetRegion);
     TESTCASE_AUTO(TestGetAvailableIDsNew);
     TESTCASE_AUTO(TestGetUnknown);
     TESTCASE_AUTO(TestGetGMT);
@@ -80,7 +81,8 @@ void TimeZoneTest::runIndexedTest( int32_t index, UBool exec, const char* &name,
     TESTCASE_AUTO(TestGetIDForWindowsID);
     TESTCASE_AUTO(TestCasablancaNameAndOffset22041);
     TESTCASE_AUTO(TestRawOffsetAndOffsetConsistency22041);
-    TESTCASE_AUTO(TestGetIanaID);
+    // Android-changed: skip as tzdata version dependent.
+    // TESTCASE_AUTO(TestGetIanaID);
     TESTCASE_AUTO(TestGMTMinus24ICU22526);
     TESTCASE_AUTO_END;
 }
