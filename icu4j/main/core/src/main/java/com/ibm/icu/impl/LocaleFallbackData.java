@@ -555,7 +555,6 @@ class LocaleFallbackData {
         t.put("lzh", "Hans");
         t.put("mag", "Deva");
         t.put("mai", "Deva");
-        t.put("man_GN", "Nkoo");
         t.put("mby", "Arab");
         t.put("mde", "Arab");
         t.put("mdf", "Cyrl");

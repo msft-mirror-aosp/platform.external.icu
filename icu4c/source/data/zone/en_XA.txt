@@ -21,6 +21,9 @@ en_XA{
         "America:St_Vincent"{
             ec{"[Šţ· Ṽîñçéñţ one two]"}
         }
+        "Antarctica:Macquarie"{
+            ec{"[Ṁåçǫûåŕîé Îšļåñð one two three]"}
+        }
         "Asia:Aqtau"{
             ec{"[Åǫţåû one]"}
         }
@@ -32,6 +35,9 @@ en_XA{
         }
         "Atlantic:St_Helena"{
             ec{"[Šţ· Ĥéļéñå one two]"}
+        }
+        "Australia:Lord_Howe"{
+            ec{"[Ļöŕð Ĥöŵé Îšļåñð one two three]"}
         }
         "Etc:UTC"{
             ls{"[Çööŕðîñåţéð Ûñîṽéŕšåļ Ţîɱé one two three]"}
@@ -45,10 +51,22 @@ en_XA{
         "Europe:London"{
             ld{"[Ɓŕîţîšĥ Šûɱɱéŕ Ţîɱé one two three]"}
         }
+        "Indian:Christmas"{
+            ec{"[Çĥŕîšţɱåš Îšļåñð one two three]"}
+        }
+        "Indian:Cocos"{
+            ec{"[Çöçöš Îšļåñðš one two]"}
+        }
+        "Pacific:Easter"{
+            ec{"[Éåšţéŕ Îšļåñð one two]"}
+        }
         "Pacific:Honolulu"{
             sd{"[ĤÐŢ one]"}
             sg{"[ĤŠŢ one]"}
             ss{"[ĤŠŢ one]"}
+        }
+        "Pacific:Norfolk"{
+            ec{"[Ñöŕƒöļķ Îšļåñð one two]"}
         }
         "meta:Acre"{
             ld{"[Åçŕé Šûɱɱéŕ Ţîɱé one two three]"}
@@ -128,9 +146,9 @@ en_XA{
             ls{"[Åñåðýŕ Šţåñðåŕð Ţîɱé one two three]"}
         }
         "meta:Apia"{
-            ld{"[Åþîå Ðåýļîĝĥţ Ţîɱé one two three]"}
-            lg{"[Åþîå Ţîɱé one two]"}
-            ls{"[Åþîå Šţåñðåŕð Ţîɱé one two three]"}
+            ld{"[Šåɱöå Ðåýļîĝĥţ Ţîɱé one two three]"}
+            lg{"[Šåɱöå Ţîɱé one two]"}
+            ls{"[Šåɱöå Šţåñðåŕð Ţîɱé one two three]"}
         }
         "meta:Aqtau"{
             ld{"[Åǫţåû Šûɱɱéŕ Ţîɱé one two three]"}
@@ -172,7 +190,7 @@ en_XA{
         }
         "meta:Australia_Central"{
             ld{"[Åûšţŕåļîåñ Çéñţŕåļ Ðåýļîĝĥţ Ţîɱé one two three four]"}
-            lg{"[Çéñţŕåļ Åûšţŕåļîå Ţîɱé one two three]"}
+            lg{"[Åûšţŕåļîåñ Çéñţŕåļ Ţîɱé one two three]"}
             ls{"[Åûšţŕåļîåñ Çéñţŕåļ Šţåñðåŕð Ţîɱé one two three four]"}
         }
         "meta:Australia_CentralWestern"{
@@ -182,12 +200,12 @@ en_XA{
         }
         "meta:Australia_Eastern"{
             ld{"[Åûšţŕåļîåñ Éåšţéŕñ Ðåýļîĝĥţ Ţîɱé one two three four]"}
-            lg{"[Éåšţéŕñ Åûšţŕåļîå Ţîɱé one two three]"}
+            lg{"[Åûšţŕåļîåñ Éåšţéŕñ Ţîɱé one two three]"}
             ls{"[Åûšţŕåļîåñ Éåšţéŕñ Šţåñðåŕð Ţîɱé one two three four]"}
         }
         "meta:Australia_Western"{
             ld{"[Åûšţŕåļîåñ Ŵéšţéŕñ Ðåýļîĝĥţ Ţîɱé one two three four]"}
-            lg{"[Ŵéšţéŕñ Åûšţŕåļîå Ţîɱé one two three]"}
+            lg{"[Åûšţŕåļîåñ Ŵéšţéŕñ Ţîɱé one two three]"}
             ls{"[Åûšţŕåļîåñ Ŵéšţéŕñ Šţåñðåŕð Ţîɱé one two three four]"}
         }
         "meta:Azerbaijan"{
@@ -257,7 +275,7 @@ en_XA{
             ls{"[Çöļöɱƀîå Šţåñðåŕð Ţîɱé one two three]"}
         }
         "meta:Cook"{
-            ld{"[Çööķ Îšļåñðš Ĥåļƒ Šûɱɱéŕ Ţîɱé one two three four]"}
+            ld{"[Çööķ Îšļåñðš Šûɱɱéŕ Ţîɱé one two three]"}
             lg{"[Çööķ Îšļåñðš Ţîɱé one two three]"}
             ls{"[Çööķ Îšļåñðš Šţåñðåŕð Ţîɱé one two three]"}
         }
@@ -616,9 +634,9 @@ en_XA{
             ls{"[Šåɱåŕå Šţåñðåŕð Ţîɱé one two three]"}
         }
         "meta:Samoa"{
-            ld{"[Šåɱöå Ðåýļîĝĥţ Ţîɱé one two three]"}
-            lg{"[Šåɱöå Ţîɱé one two]"}
-            ls{"[Šåɱöå Šţåñðåŕð Ţîɱé one two three]"}
+            ld{"[Åɱéŕîçåñ Šåɱöå Ðåýļîĝĥţ Ţîɱé one two three four]"}
+            lg{"[Åɱéŕîçåñ Šåɱöå Ţîɱé one two three]"}
+            ls{"[Åɱéŕîçåñ Šåɱöå Šţåñðåŕð Ţîɱé one two three four]"}
         }
         "meta:Seychelles"{
             ls{"[Šéýçĥéļļéš Ţîɱé one two three]"}
