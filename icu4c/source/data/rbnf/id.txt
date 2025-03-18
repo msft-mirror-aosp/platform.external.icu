@@ -45,7 +45,7 @@ id{
             "-x: negatif >>;",
             "x.x: =#,##0.#=;",
             "0: ke=%spellout-cardinal=;",
-            "1: pertama",
+            "1: pertama;",
             "2: ke=%spellout-cardinal=;",
         }
     }

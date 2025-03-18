@@ -160,7 +160,9 @@ Hang-Latn
 Hangul-Latin
 Hani-Latn
 Hans-Hant
+Hans-Latn
 Hant-Hans
+Hant-Latn
 Hebr-Latn
 Hebrew-Latin
 Hebrew-Latin/BGN
