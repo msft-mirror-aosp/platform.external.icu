@@ -21,6 +21,9 @@ ar_XB{
         "America:St_Vincent"{
             ec{"؜‮St‬؜. ؜‮Vincent‬؜"}
         }
+        "Antarctica:Macquarie"{
+            ec{"؜‮Macquarie‬؜ ؜‮Island‬؜"}
+        }
         "Asia:Aqtau"{
             ec{"؜‮Aqtau‬؜"}
         }
@@ -32,6 +35,9 @@ ar_XB{
         }
         "Atlantic:St_Helena"{
             ec{"؜‮St‬؜. ؜‮Helena‬؜"}
+        }
+        "Australia:Lord_Howe"{
+            ec{"؜‮Lord‬؜ ؜‮Howe‬؜ ؜‮Island‬؜"}
         }
         "Etc:UTC"{
             ls{"؜‮Coordinated‬؜ ؜‮Universal‬؜ ؜‮Time‬؜"}
@@ -45,10 +51,22 @@ ar_XB{
         "Europe:London"{
             ld{"؜‮British‬؜ ؜‮Summer‬؜ ؜‮Time‬؜"}
         }
+        "Indian:Christmas"{
+            ec{"؜‮Christmas‬؜ ؜‮Island‬؜"}
+        }
+        "Indian:Cocos"{
+            ec{"؜‮Cocos‬؜ ؜‮Islands‬؜"}
+        }
+        "Pacific:Easter"{
+            ec{"؜‮Easter‬؜ ؜‮Island‬؜"}
+        }
         "Pacific:Honolulu"{
             sd{"؜‮HDT‬؜"}
             sg{"؜‮HST‬؜"}
             ss{"؜‮HST‬؜"}
+        }
+        "Pacific:Norfolk"{
+            ec{"؜‮Norfolk‬؜ ؜‮Island‬؜"}
         }
         "meta:Acre"{
             ld{"؜‮Acre‬؜ ؜‮Summer‬؜ ؜‮Time‬؜"}
@@ -128,9 +146,9 @@ ar_XB{
             ls{"؜‮Anadyr‬؜ ؜‮Standard‬؜ ؜‮Time‬؜"}
         }
         "meta:Apia"{
-            ld{"؜‮Apia‬؜ ؜‮Daylight‬؜ ؜‮Time‬؜"}
-            lg{"؜‮Apia‬؜ ؜‮Time‬؜"}
-            ls{"؜‮Apia‬؜ ؜‮Standard‬؜ ؜‮Time‬؜"}
+            ld{"؜‮Samoa‬؜ ؜‮Daylight‬؜ ؜‮Time‬؜"}
+            lg{"؜‮Samoa‬؜ ؜‮Time‬؜"}
+            ls{"؜‮Samoa‬؜ ؜‮Standard‬؜ ؜‮Time‬؜"}
         }
         "meta:Aqtau"{
             ld{"؜‮Aqtau‬؜ ؜‮Summer‬؜ ؜‮Time‬؜"}
@@ -172,7 +190,7 @@ ar_XB{
         }
         "meta:Australia_Central"{
             ld{"؜‮Australian‬؜ ؜‮Central‬؜ ؜‮Daylight‬؜ ؜‮Time‬؜"}
-            lg{"؜‮Central‬؜ ؜‮Australia‬؜ ؜‮Time‬؜"}
+            lg{"؜‮Australian‬؜ ؜‮Central‬؜ ؜‮Time‬؜"}
             ls{"؜‮Australian‬؜ ؜‮Central‬؜ ؜‮Standard‬؜ ؜‮Time‬؜"}
         }
         "meta:Australia_CentralWestern"{
@@ -182,12 +200,12 @@ ar_XB{
         }
         "meta:Australia_Eastern"{
             ld{"؜‮Australian‬؜ ؜‮Eastern‬؜ ؜‮Daylight‬؜ ؜‮Time‬؜"}
-            lg{"؜‮Eastern‬؜ ؜‮Australia‬؜ ؜‮Time‬؜"}
+            lg{"؜‮Australian‬؜ ؜‮Eastern‬؜ ؜‮Time‬؜"}
             ls{"؜‮Australian‬؜ ؜‮Eastern‬؜ ؜‮Standard‬؜ ؜‮Time‬؜"}
         }
         "meta:Australia_Western"{
             ld{"؜‮Australian‬؜ ؜‮Western‬؜ ؜‮Daylight‬؜ ؜‮Time‬؜"}
-            lg{"؜‮Western‬؜ ؜‮Australia‬؜ ؜‮Time‬؜"}
+            lg{"؜‮Australian‬؜ ؜‮Western‬؜ ؜‮Time‬؜"}
             ls{"؜‮Australian‬؜ ؜‮Western‬؜ ؜‮Standard‬؜ ؜‮Time‬؜"}
         }
         "meta:Azerbaijan"{
@@ -257,7 +275,7 @@ ar_XB{
             ls{"؜‮Colombia‬؜ ؜‮Standard‬؜ ؜‮Time‬؜"}
         }
         "meta:Cook"{
-            ld{"؜‮Cook‬؜ ؜‮Islands‬؜ ؜‮Half‬؜ ؜‮Summer‬؜ ؜‮Time‬؜"}
+            ld{"؜‮Cook‬؜ ؜‮Islands‬؜ ؜‮Summer‬؜ ؜‮Time‬؜"}
             lg{"؜‮Cook‬؜ ؜‮Islands‬؜ ؜‮Time‬؜"}
             ls{"؜‮Cook‬؜ ؜‮Islands‬؜ ؜‮Standard‬؜ ؜‮Time‬؜"}
         }
@@ -616,9 +634,9 @@ ar_XB{
             ls{"؜‮Samara‬؜ ؜‮Standard‬؜ ؜‮Time‬؜"}
         }
         "meta:Samoa"{
-            ld{"؜‮Samoa‬؜ ؜‮Daylight‬؜ ؜‮Time‬؜"}
-            lg{"؜‮Samoa‬؜ ؜‮Time‬؜"}
-            ls{"؜‮Samoa‬؜ ؜‮Standard‬؜ ؜‮Time‬؜"}
+            ld{"؜‮American‬؜ ؜‮Samoa‬؜ ؜‮Daylight‬؜ ؜‮Time‬؜"}
+            lg{"؜‮American‬؜ ؜‮Samoa‬؜ ؜‮Time‬؜"}
+            ls{"؜‮American‬؜ ؜‮Samoa‬؜ ؜‮Standard‬؜ ؜‮Time‬؜"}
         }
         "meta:Seychelles"{
             ls{"؜‮Seychelles‬؜ ؜‮Time‬؜"}
