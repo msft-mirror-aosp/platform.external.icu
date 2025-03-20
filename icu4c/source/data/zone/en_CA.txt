@@ -176,8 +176,8 @@ en_CA{
         }
         "meta:Samoa"{
             ld{"Samoan Time"}
-            lg{"Samoa Time"}
-            ls{"Samoa Standard Time"}
+            lg{"American Samoa Time"}
+            ls{"American Samoa Standard Time"}
         }
         "meta:Uruguay"{
             sd{"UYST"}
