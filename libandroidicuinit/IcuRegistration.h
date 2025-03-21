@@ -21,7 +21,14 @@
 #include <string>
 #include <cstdio>
 
-#ifdef __ANDROID__
+
+/**
+ * def NO_ANDROID_LOGGING
+ *   This flag turns off the usage of liblog, and logs into stderr instead.
+ *   This is not expected to be used in Android platform build, but is useful
+ *   when building this ICU4C for unbundled library or app.
+ */
+#if defined(__ANDROID__) && !defined(NO_ANDROID_LIBLOG)
   #include <android-base/logging.h>
   #include <android-base/unique_fd.h>
   #include <log/log.h>
@@ -33,10 +40,35 @@
   // http://b/171371690 Avoid dependency on liblog and libbase on host for
   // downstream unbundled branches. In this case, liblog and libbase are not
   // very useful on host and we just try to avoid it here in our best effort.
-  #define AICU_LOGE(...) fprintf(stderr, __VA_ARGS__)
-  #define AICU_LOGW(...) fprintf(stderr, __VA_ARGS__)
-  #define AICU_LOGD(...) fprintf(stderr, __VA_ARGS__)
-  #define AICU_LOGV(...) fprintf(stderr, __VA_ARGS__)
+
+  // Check if a host should log a message.
+  //
+  // This method checks the priority argument against the wildcard level set
+  // in the ANDROID_LOG_TAGS environment variable. The priority specified
+  // corresponds to the standard Android set:
+  //
+  //   V - verbose    D - debug
+  //   I - info       W - warn
+  //   E - error      F - fatal
+  //
+  // If the ANDROID_LOG_TAGS variable is not set then this method returns true.
+  // Otherwise, the priority is compared to the level in ANDROID_LOG_TAGS.
+  //
+  // Example: if ANDROID_LOG_TAGS has the value "*:W" then this method will
+  // return true if the priority is warn or above.
+  bool AIcuHostShouldLog(char priority);
+
+  #define AICU_LOG_PRINTLN(priority, ...)       \
+    do {                                        \
+      if (AIcuHostShouldLog(priority)) {        \
+        fprintf(stderr, __VA_ARGS__);           \
+        fputc('\n', stderr);                    \
+      }                                         \
+    } while (0)
+  #define AICU_LOGE(...) AICU_LOG_PRINTLN('E', __VA_ARGS__)
+  #define AICU_LOGW(...) AICU_LOG_PRINTLN('W', __VA_ARGS__)
+  #define AICU_LOGD(...) AICU_LOG_PRINTLN('D', __VA_ARGS__)
+  #define AICU_LOGV(...) AICU_LOG_PRINTLN('V', __VA_ARGS__)
   #ifndef CHECK
     #define CHECK(cond)       \
       if (!(cond)) {             \

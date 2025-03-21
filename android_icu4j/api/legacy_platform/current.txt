@@ -14,7 +14,7 @@ package android.icu.text {
   }
 
   public class DateTimePatternGenerator implements java.lang.Cloneable android.icu.util.Freezable<android.icu.text.DateTimePatternGenerator> {
-    method public String getBestPattern(String, boolean);
+    method public String getBestPattern(String, int, boolean);
   }
 
   public final class StringPrep {
@@ -75,13 +75,13 @@ package com.android.i18n.timezone {
   public static final class CountryTimeZones.TimeZoneMapping {
     method public static com.android.i18n.timezone.CountryTimeZones.TimeZoneMapping createForTests(String, boolean, Long, java.util.List<java.lang.String>);
     method public java.util.List<java.lang.String> getAlternativeIds();
-    method public Long getNotUsedAfter();
     method public android.icu.util.TimeZone getTimeZone();
     method public String getTimeZoneId();
-    method public boolean isShownInPicker();
+    method public boolean isShownInPickerAt(java.time.Instant);
   }
 
   public final class CountryZonesFinder {
+    method @Nullable public String findCanonicalTimeZoneId(String);
     method public java.util.List<java.lang.String> lookupAllCountryIsoCodes();
     method public com.android.i18n.timezone.CountryTimeZones lookupCountryTimeZones(String);
     method public java.util.List<com.android.i18n.timezone.CountryTimeZones> lookupCountryTimeZonesForZoneId(String);
@@ -125,6 +125,7 @@ package com.android.i18n.timezone {
     method public static String getDataTimeZoneFile(String);
     method public static String getDataTimeZoneRootDir();
     method public static String getTimeZoneModuleTzVersionFile();
+    method public static com.android.i18n.timezone.TzDataSetVersion readTimeZoneModuleVersion() throws java.io.IOException, com.android.i18n.timezone.TzDataSetVersion.TzDataSetException;
   }
 
   public final class TimeZoneFinder {
@@ -146,7 +147,6 @@ package com.android.i18n.timezone {
     method public String getRulesVersion();
     method public static boolean isCompatibleWithThisDevice(com.android.i18n.timezone.TzDataSetVersion);
     method public static com.android.i18n.timezone.TzDataSetVersion readFromFile(java.io.File) throws java.io.IOException, com.android.i18n.timezone.TzDataSetVersion.TzDataSetException;
-    method public static com.android.i18n.timezone.TzDataSetVersion readTimeZoneModuleVersion() throws java.io.IOException, com.android.i18n.timezone.TzDataSetVersion.TzDataSetException;
     method public byte[] toBytes();
     field public static final String DEFAULT_FILE_NAME = "tz_version";
   }
@@ -156,12 +156,8 @@ package com.android.i18n.timezone {
     ctor public TzDataSetVersion.TzDataSetException(String, Throwable);
   }
 
-  public final class ZoneInfoData implements java.lang.Cloneable {
-    method public String getID();
-  }
-
-  public static class ZoneInfoData.WallTime {
-    ctor public ZoneInfoData.WallTime();
+  public class WallTime {
+    ctor public WallTime();
     method public int getGmtOffset();
     method public int getHour();
     method public int getIsDst();
@@ -186,13 +182,16 @@ package com.android.i18n.timezone {
     method public void setYearDay(int);
   }
 
-  public final class ZoneInfoDb implements java.lang.AutoCloseable {
-    method public static com.android.i18n.timezone.ZoneInfoDb getInstance();
-    method public String getVersion();
-    method public boolean hasTimeZone(String);
-    method public static com.android.i18n.timezone.ZoneInfoDb loadTzData(String);
-    method public com.android.i18n.timezone.ZoneInfoData makeZoneInfoData(String);
-    method public void validate() throws java.io.IOException;
+  public final class ZoneInfoData {
+    method @NonNull public String getID();
+  }
+
+  public final class ZoneInfoDb {
+    method @NonNull public static com.android.i18n.timezone.ZoneInfoDb getInstance();
+    method @NonNull public String getVersion();
+    method public boolean hasTimeZone(@NonNull String);
+    method @Nullable public com.android.i18n.timezone.ZoneInfoData makeZoneInfoData(@NonNull String);
+    method public static void validateTzData(@NonNull String) throws java.io.IOException;
   }
 
 }

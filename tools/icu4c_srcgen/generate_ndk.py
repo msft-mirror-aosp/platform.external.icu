@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 #
 # Copyright (C) 2018 The Android Open Source Project
 #
@@ -33,6 +33,7 @@ import os
 import re
 import shutil
 import subprocess
+from pathlib import Path
 
 from genutil import (
     android_path,
@@ -64,14 +65,12 @@ def get_allowlisted_regex_string(decl_names):
     """Return a regex in string to capture the C function declarations in the decl_names list"""
     tag = "|".join(decl_names)
     return r"(" + DOC_BLOCK_COMMENT + STABLE_MACRO + r"[^(]*(?=" + tag + r")(" + tag + ")" \
-           + TILL_CLOSE_PARENTHESIS +");$"
+           + r"\("+ TILL_CLOSE_PARENTHESIS +");$"
 
 def get_replacement_adding_api_level_macro(api_level):
     """Return the replacement string adding the NDK C macro
     guarding C function declaration by the api_level"""
-    return r"#if !defined(__ANDROID__) || __ANDROID_API__ >= {0}\n\n" \
-           r"\1 __INTRODUCED_IN({0});\n\n" \
-           r"#endif // !defined(__ANDROID__) || __ANDROID_API__ >= {0}".format(api_level)
+    return r"\1 __INTRODUCED_IN({0});\n\n".format(api_level)
 
 def modify_func_declarations(src_path, dst_path, decl_names):
     """Process the source file,
@@ -80,8 +79,8 @@ def modify_func_declarations(src_path, dst_path, decl_names):
     and output to the dst_path """
     allowlist_regex_string = get_allowlisted_regex_string(decl_names)
     allowlist_decl_regex = re.compile('^' + allowlist_regex_string, re.MULTILINE)
-    secrete_allowlist_decl_regex = re.compile('^' + SECRET_PROCESSING_TOKEN
-                                              + allowlist_regex_string, re.MULTILINE)
+    secret_allowlist_decl_regex = re.compile('^' + SECRET_PROCESSING_TOKEN
+                                             + allowlist_regex_string, re.MULTILINE)
     with open(src_path, "r") as file:
         src = file.read()
 
@@ -94,11 +93,31 @@ def modify_func_declarations(src_path, dst_path, decl_names):
     # Remove all other stable declarations not in the allowlist
     modified = REGEX_STABLE_FUNCTION_DECLARATION.sub('', modified)
     # Insert C macro and annotation to indicate the API level to each functions in the allowlist
-    modified = secrete_allowlist_decl_regex.sub(
+    modified = secret_allowlist_decl_regex.sub(
         get_replacement_adding_api_level_macro(31), modified)
 
     with open(dst_path, "w") as out:
         out.write(modified)
+def remove_ignored_includes(file_path, include_list):
+    """
+    Remove the included header, i.e. #include lines, listed in include_list from the file_path
+    header.
+    """
+
+    # Do nothing if the list is empty
+    if not include_list:
+        return
+
+    tag = "|".join(include_list)
+
+    with open(file_path, "r") as file:
+        content = file.read()
+
+    regex = re.compile(r"^#include \"unicode\/(" + tag + ")\"\n", re.MULTILINE)
+    content = regex.sub('', content)
+
+    with open(file_path, "w") as out:
+        out.write(content)
 
 def copy_header_only_files():
     """Copy required header only files"""
@@ -170,6 +189,74 @@ def generate_cts_headers(decl_names):
     with open(urename_path, "w") as out:
         out.write(modified)
 
+IGNORED_INCLUDE_DEPENDENCY = {
+    "ubrk.h": ["parseerr.h", ],
+    "ulocdata.h": ["ures.h", "uset.h", ],
+    "unorm2.h": ["uset.h", ],
+    "ustring.h": ["uiter.h", ],
+}
+
+IGNORED_HEADER_FOR_DOXYGEN_GROUPING = set([
+    "uconfig.h", # pre-defined config that NDK users shouldn't change
+    "platform.h", # pre-defined variable not to be changed by the NDK users
+    "utf_old.h", # deprecated UTF macros
+    "uvernum.h", # ICU version information not useful for version-independent usage in NDK
+    "urename.h" # Renaming symbols, but not used in NDK
+])
+
+"""
+This map should mirror the mapping in external/icu/icu4c/source/Doxyfile.in.
+This is needed because NDK doesn't allow per-module Doxyfile,
+apart from the shared frameworks/native/docs/Doxyfile.
+"""
+DOXYGEN_ALIASES = {
+    "@memo": '\\par Note:\n',
+    "@draft": '\\xrefitem draft "Draft" "Draft List" This API may be changed in the future versions and was introduced in',
+    "@stable": '\\xrefitem stable "Stable" "Stable List"',
+    "@deprecated": '\\xrefitem deprecated "Deprecated" "Deprecated List"',
+    "@obsolete": '\\xrefitem obsolete "Obsolete" "Obsolete List"',
+    "@system": '\\xrefitem system "System" "System List" Do not use unless you know what you are doing.',
+    "@internal": '\\xrefitem internal "Internal"  "Internal List"  Do not use. This API is for internal use only.',
+}
+
+def add_ndk_required_doxygen_grouping():
+    """Add @addtogroup annotation to the header files for NDK API docs"""
+    path = android_path('external/icu/libicu/ndk_headers/unicode')
+    files = Path(path).glob("*.h")
+
+    for src_path in files:
+        header_content = src_path.read_text()
+
+        for old, new in DOXYGEN_ALIASES.items():
+            header_content = header_content.replace(old, new)
+
+        src_path.write_text(header_content)
+
+        if os.path.basename(src_path) in IGNORED_HEADER_FOR_DOXYGEN_GROUPING:
+            continue
+
+        cmd_add_addtogroup_annotation = ['sed',
+               '-i',
+               '0,/^\( *\)\(\* *\\\\file\)/s//\\1* @addtogroup ICU4C\\n\\1* @{\\n\\1\\2/',
+               src_path
+               ]
+
+        subprocess.check_call(cmd_add_addtogroup_annotation)
+
+        # Next iteration if the above sed regex doesn't add the text
+        if not has_string_in_file(src_path, 'addtogroup'):
+            basename = os.path.basename(src_path)
+            print(f'Warning: unicode/{basename} has no "\\file" annotation')
+            continue
+
+        # Add the closing bracket for @addtogroup
+        with open(src_path, 'a') as header_file:
+            header_file.write('\n/** @} */ // addtogroup\n')
+
+def has_string_in_file(path, s):
+    """Return True if the a string exists in the file"""
+    with open(path, 'r') as file:
+        return s in file.read()
 
 def main():
     """Parse the ICU4C headers and generate the shim libicu."""
@@ -179,6 +266,7 @@ def main():
     decl_filters = [StableDeclarationFilter()]
     decl_filters.append(AllowlistedDeclarationFilter(allowlisted_apis))
     parser = DeclaredFunctionsParser(decl_filters, [])
+    parser.set_ignored_include_dependency(IGNORED_INCLUDE_DEPENDENCY)
 
     parser.parse()
 
@@ -196,26 +284,31 @@ def main():
 
     with open(android_path('external/icu/libicu/src/shim.cpp'),
               'w') as out_file:
-        out_file.write(generate_shim(functions, includes, SYMBOL_SUFFIX, 'libicu_shim.cpp.j2')
-                       .encode('utf8'))
+        out_file.write(generate_shim(functions, includes, SYMBOL_SUFFIX, 'libicu_shim.cpp.j2'))
 
     with open(android_path('external/icu/libicu/libicu.map.txt'), 'w') as out_file:
-        out_file.write(generate_symbol_txt(functions, [], 'libicu.map.txt.j2')
-                       .encode('utf8'))
+        out_file.write(generate_symbol_txt(functions, [], 'libicu.map.txt.j2'))
 
     # Process the C headers and put them into the ndk folder.
     for src_path in parser.header_paths_to_copy:
         basename = os.path.basename(src_path)
         dst_path = os.path.join(headers_folder, basename)
         modify_func_declarations(src_path, dst_path, header_to_function_names[basename])
+        # Remove #include lines from the header files.
+        if basename in IGNORED_INCLUDE_DEPENDENCY:
+            remove_ignored_includes(dst_path, IGNORED_INCLUDE_DEPENDENCY[basename])
 
     copy_header_only_files()
 
     generate_cts_headers(allowlisted_apis)
 
+    add_ndk_required_doxygen_grouping()
+
     # Apply documentation patches by the following shell script
     subprocess.check_call(
         [android_path('external/icu/tools/icu4c_srcgen/doc_patches/apply_patches.sh')])
+
+    print("Done. See the generated headers at libicu/ndk_headers/.")
 
 if __name__ == '__main__':
     main()

@@ -21,15 +21,48 @@
 #include <sys/types.h>
 #include <errno.h>
 #include <fcntl.h>
+#include <string.h>
 #include <unistd.h>
 
 #include <unicode/udata.h>
 #include <unicode/utypes.h>
 
+#if !defined(__ANDROID__) || defined(NO_ANDROID_LIBLOG)
+static int PriorityToLevel(char priority) {
+  // Priority is just the array index of priority in kPriorities.
+  static const char* kPriorities = "VDIWEF";
+  static const int kLogSuppress = sizeof(kPriorities);
+  const char* matching_priority = strchr(kPriorities, toupper(priority));
+  return (matching_priority != nullptr) ? matching_priority - kPriorities : kLogSuppress;
+}
+
+static int GetHostLogLevel() {
+  const char* log_tags = getenv("ANDROID_LOG_TAGS");
+  if (log_tags == nullptr) {
+    return 0;
+  }
+  // Find the wildcard prefix if present in ANDROID_LOG_TAGS.
+  static constexpr const char kLogWildcardPrefix[] = "*:";
+  static constexpr size_t kLogWildcardPrefixLength = sizeof(kLogWildcardPrefix) - 1;
+  const char* wildcard_start = strstr(log_tags, kLogWildcardPrefix);
+  if (wildcard_start == nullptr) {
+    return 0;
+  }
+  // Priority is based on the character after the wildcard prefix.
+  char priority = *(wildcard_start + kLogWildcardPrefixLength);
+  return PriorityToLevel(priority);
+}
+
+bool AIcuHostShouldLog(char priority) {
+  static int g_LogLevel = GetHostLogLevel();
+  return PriorityToLevel(priority) >= g_LogLevel;
+}
+#endif  // !defined(__ANDROID__) || defined(NO_ANDROID_LIBLOG)
+
 namespace androidicuinit {
 namespace impl {
 
-#ifndef __ANDROID__
+#if !defined(__ANDROID__) || defined(NO_ANDROID_LIBLOG)
 // http://b/171371690 Avoid dependency on liblog and libbase on host
 // Simplified version of android::base::unique_fd for host.
 class simple_unique_fd final {
@@ -70,8 +103,14 @@ class simple_unique_fd final {
         _rc;                                   \
       })
   #endif
-#endif // #ifndef __ANDROID__
+#endif // !defined(__ANDROID__) || defined(NO_ANDROID_LIBLOG)
 
+// http://b/171371690 Avoid dependency on liblog and libbase on host
+#if defined(__ANDROID__) && !defined(NO_ANDROID_LIBLOG)
+  typedef android::base::unique_fd aicu_unique_fd;
+#else
+  typedef simple_unique_fd aicu_unique_fd;
+#endif
 
 // Map in ICU data at the path, returning null to print error if it failed.
 std::unique_ptr<IcuDataMap> IcuDataMap::Create(const std::string& path) {
@@ -91,14 +130,7 @@ IcuDataMap::~IcuDataMap() { TryUnmap(); }
 
 bool IcuDataMap::TryMap() {
   // Open the file and get its length.
-  #ifdef __ANDROID__
-    #define UNIQUE_FD android::base::unique_fd
-  #else
-    // http://b/171371690 Avoid dependency on liblog and libbase on host
-    #define UNIQUE_FD simple_unique_fd
-  #endif
-  UNIQUE_FD fd(TEMP_FAILURE_RETRY(open(path_.c_str(), O_RDONLY)));
-  #undef UNIQUE_FD
+  aicu_unique_fd fd(TEMP_FAILURE_RETRY(open(path_.c_str(), O_RDONLY)));
 
   if (fd.get() == -1) {
     AICU_LOGE("Couldn't open '%s': %s", path_.c_str(), strerror(errno));

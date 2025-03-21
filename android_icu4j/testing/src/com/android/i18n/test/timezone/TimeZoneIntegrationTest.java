@@ -24,10 +24,12 @@ import com.android.i18n.timezone.TzDataSetVersion;
 import com.android.i18n.timezone.ZoneInfoDb;
 import org.junit.Test;
 
+import android.icu.platform.AndroidDataFiles;
 import android.icu.text.TimeZoneNames;
 import android.icu.util.VersionInfo;
 import android.system.Os;
 
+import com.android.icu.util.ExtendedTimeZone;
 import com.android.icu.util.Icu4cMetadata;
 
 import java.io.File;
@@ -51,6 +53,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
+
 
 /**
  * Tests that compare ICU and libcore time zone behavior and similar cross-cutting concerns.
@@ -141,7 +144,7 @@ public class TimeZoneIntegrationTest {
                 // This is not public API but can effectively be invoked via
                 // java.util.TimeZone.setDefault. Call it directly to reduce the amount of code
                 // involved in this test.
-                android.icu.util.TimeZone.setICUDefault(null);
+                ExtendedTimeZone.clearDefaultTimeZone();
             }
         });
         clearer.setName("testSetDefaultRace clearer");
@@ -272,7 +275,7 @@ public class TimeZoneIntegrationTest {
         String apexRootDir = TimeZoneDataFiles.getTimeZoneModuleFile("");
         List<String> dataModuleFiles =
                 createModuleTzFiles(TimeZoneDataFiles::getTimeZoneModuleTzFile);
-        String icuOverlayFile = TimeZoneDataFiles.getTimeZoneModuleIcuFile("icu_tzdata.dat");
+        String icuOverlayFile = AndroidDataFiles.getTimeZoneModuleIcuFile("icu_tzdata.dat");
         if (fileExists(apexRootDir)) {
             assertEquals("OK", tzModuleStatus);
             dataModuleFiles.forEach(TimeZoneIntegrationTest::assertFileExists);
@@ -284,7 +287,7 @@ public class TimeZoneIntegrationTest {
         }
 
         String icuDatFileName = "icudt" + VersionInfo.ICU_VERSION.getMajor() + "l.dat";
-        String i18nModuleIcuData = TimeZoneDataFiles.getI18nModuleIcuFile(icuDatFileName);
+        String i18nModuleIcuData = AndroidDataFiles.getI18nModuleIcuFile(icuDatFileName);
         assertFileExists(i18nModuleIcuData);
 
         // Devices currently have a subset of the time zone files in /system. These are going away
