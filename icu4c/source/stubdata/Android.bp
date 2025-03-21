@@ -48,3 +48,18 @@ prebuilt_root_host {
         dir: "layoutlib_native/icu",
     },
 }
+
+java_library {
+    name: "icu-data_host_robolectric",
+    host_supported: true,
+    device_supported: false,
+    java_resources: [
+        dat_file,
+    ],
+    // Robolectric expects the .dat file to be in a specific location.
+    // This jarjar rule renames the .dat file to the expected name.
+    jarjar_rules: "robo-jarjar-rules.txt",
+    visibility: [
+        "//external/robolectric",
+    ],
+}
