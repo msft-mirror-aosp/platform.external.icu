@@ -26,7 +26,6 @@ import static com.android.i18n.timezone.XmlUtils.normalizeCountryIso;
 import com.android.i18n.timezone.TelephonyNetwork.MccMnc;
 import com.android.i18n.timezone.XmlUtils.ReaderSupplier;
 import com.android.i18n.util.Log;
-import com.android.icu.Flags;
 
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
@@ -219,16 +218,14 @@ public final class TelephonyLookup {
             // Advance to the next event.
             parser.next();
 
-            if (Flags.telephonyLookupMccExtension()) {
-                /* Start parsing <mobile_countries> */
-                findNextStartTagOrThrowNoRecurse(parser, MOBILE_COUNTRIES_ELEMENT);
-                processMobileCountries(parser, processor);
-                checkOnEndTag(parser, MOBILE_COUNTRIES_ELEMENT);
-                /* End parsing </mobile_countries> */
+            /* Start parsing <mobile_countries> */
+            findNextStartTagOrThrowNoRecurse(parser, MOBILE_COUNTRIES_ELEMENT);
+            processMobileCountries(parser, processor);
+            checkOnEndTag(parser, MOBILE_COUNTRIES_ELEMENT);
+            /* End parsing </mobile_countries> */
 
-                // Advance to the next event.
-                parser.next();
-            }
+            // Advance to the next event.
+            parser.next();
 
             // Skip anything until </telephony_lookup>, and make sure the file is not truncated and
             // we can find the end.
