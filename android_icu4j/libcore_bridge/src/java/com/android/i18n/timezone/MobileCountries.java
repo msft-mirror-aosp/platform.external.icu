@@ -20,8 +20,6 @@ import static java.util.stream.Collectors.toUnmodifiableSet;
 
 import android.annotation.NonNull;
 
-import com.android.icu.Flags;
-
 import java.util.Objects;
 import java.util.Set;
 
@@ -31,7 +29,6 @@ import java.util.Set;
  * @hide
  */
 @libcore.api.CorePlatformApi
-@android.annotation.FlaggedApi(Flags.FLAG_TELEPHONY_LOOKUP_MCC_EXTENSION)
 public final class MobileCountries {
 
     private final String mcc;
