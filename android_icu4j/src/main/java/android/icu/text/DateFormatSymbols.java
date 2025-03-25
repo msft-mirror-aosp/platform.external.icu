@@ -2319,7 +2319,7 @@ public class DateFormatSymbols implements Serializable, Cloneable {
             }
         }
         if (calType == null) {
-            calType = className.replaceAll("Calendar", "").toLowerCase(Locale.ENGLISH);
+            calType = className.replace("Calendar", "").toLowerCase(Locale.ENGLISH);
         }
 
         initializeData(locale, calType);
