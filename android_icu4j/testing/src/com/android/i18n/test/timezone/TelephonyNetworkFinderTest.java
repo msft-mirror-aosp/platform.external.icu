@@ -22,10 +22,14 @@ import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertThrows;
 
 import android.icu.testsharding.MainTestShard;
+import android.platform.test.annotations.UsesFlags;
+import android.platform.test.flag.junit.FlagsParameterization;
+import android.platform.test.flag.junit.SetFlagsRule;
 
 import com.android.i18n.timezone.MobileCountries;
 import com.android.i18n.timezone.TelephonyNetwork;
 import com.android.i18n.timezone.TelephonyNetworkFinder;
+import com.android.icu.Flags;
 
 import org.junit.Before;
 import org.junit.ClassRule;
@@ -39,10 +43,27 @@ import java.util.Set;
 import platform.test.runner.parameterized.ParameterizedAndroidJunit4;
 import platform.test.runner.parameterized.Parameters;
 
+@RunWith(ParameterizedAndroidJunit4.class)
 @MainTestShard
+@UsesFlags(com.android.icu.Flags.class)
 public class TelephonyNetworkFinderTest {
+    @ClassRule
+    public static final SetFlagsRule.ClassRule mSetFlagsClassRule = new SetFlagsRule.ClassRule();
+
+    @Parameters(name = "{0}")
+    public static List<FlagsParameterization> getParams() {
+        return FlagsParameterization.allCombinationsOf(
+                Flags.FLAG_TELEPHONY_LOOKUP_MCC_EXTENSION);
+    }
+
+    @Rule
+    public final SetFlagsRule mSetFlagsRule;
 
     private TelephonyNetworkFinder finder;
+
+    public TelephonyNetworkFinderTest(FlagsParameterization flags) {
+        mSetFlagsRule = mSetFlagsClassRule.createSetFlagsRule(flags);
+    }
 
     @Before
     public void setup() {
