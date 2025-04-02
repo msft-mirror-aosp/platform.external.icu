@@ -23,6 +23,7 @@ import android.annotation.Nullable;
 
 import com.android.i18n.timezone.TelephonyNetwork.MccMnc;
 import com.android.i18n.util.Log;
+import com.android.icu.Flags;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -124,6 +125,7 @@ public final class TelephonyNetworkFinder {
      * {@code null} if the MCC is not found.
      */
     @libcore.api.CorePlatformApi
+    @android.annotation.FlaggedApi(Flags.FLAG_TELEPHONY_LOOKUP_MCC_EXTENSION)
     @Nullable
     public MobileCountries findCountriesByMcc(@NonNull String mcc) {
         return countriesByMcc.get(mcc);
