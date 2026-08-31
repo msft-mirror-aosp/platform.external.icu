@@ -106,10 +106,10 @@ static UDataMemory *udata_findCachedData(const char *path, UErrorCode &err);
  */
 static UDataMemory *gCommonICUDataArray[10] = { NULL };   // Access protected by icu global mutex.
 
-static u_atomic_int32_t gHaveTriedToLoadCommonData = ATOMIC_INT32_T_INITIALIZER(0);  //  See extendICUData().
+static u_atomic_int32_t gHaveTriedToLoadCommonData {0};  //  See extendICUData().
 
 static UHashtable  *gCommonDataCache = NULL;  /* Global hash table of opened ICU data files.  */
-static icu::UInitOnce gCommonDataCacheInitOnce = U_INITONCE_INITIALIZER;
+static icu::UInitOnce gCommonDataCacheInitOnce {};
 
 // Android-changed: On Android, use our patched version of openCommonData() to load the data,
 //   and do not try to load ICU data from other files.
@@ -132,7 +132,7 @@ static UDataFileAccess  gDataFileAccess = UDATA_NO_FILES;
 
 #ifdef AOSP_ICU_INIT
   #include "androidicuinit/android_icu_init.h"
-  static icu::UInitOnce gAospInitOnce = U_INITONCE_INITIALIZER;
+  static icu::UInitOnce gAospInitOnce {};
 #endif
 // END Android-added: Include android/host-linux-specific headers and variables.
 

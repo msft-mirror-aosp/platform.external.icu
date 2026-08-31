@@ -447,21 +447,21 @@ public:
      * represented time, use equals() instead.
      *
      * @param that  The Calendar object to be compared with.
-     * @return      True if the given Calendar is the same as this Calendar; false
+     * @return      true if the given Calendar is the same as this Calendar; false
      *              otherwise.
      * @stable ICU 2.0
      */
-    virtual UBool operator==(const Calendar& that) const;
+    virtual bool operator==(const Calendar& that) const;
 
     /**
      * Compares the inequality of two Calendar objects.
      *
      * @param that  The Calendar object to be compared with.
-     * @return      True if the given Calendar is not the same as this Calendar; false
+     * @return      true if the given Calendar is not the same as this Calendar; false
      *              otherwise.
      * @stable ICU 2.0
      */
-    UBool operator!=(const Calendar& that) const {return !operator==(that);}
+    bool operator!=(const Calendar& that) const {return !operator==(that);}
 
     /**
      * Returns true if the given Calendar object is equivalent to this
@@ -1764,16 +1764,22 @@ protected:
     int32_t newestStamp(UCalendarDateFields start, UCalendarDateFields end, int32_t bestSoFar) const;
 
     /**
-     * Values for field resolution tables
+     * Marker for end of resolve set (row or group). Value for field resolution tables.
+     *
      * @see #resolveFields
      * @internal
      */
-    enum {
-      /** Marker for end of resolve set (row or group). */
-      kResolveSTOP = -1,
-      /** Value to be bitwised "ORed" against resolve table field values for remapping.  Example: (UCAL_DATE | kResolveRemap) in 1st column will cause 'UCAL_DATE' to be returned, but will not examine the value of UCAL_DATE.  */
-      kResolveRemap = 32
-    };
+    static constexpr int32_t kResolveSTOP = -1;
+    /**
+     * Value to be bitwised "ORed" against resolve table field values for remapping.
+     * Example: (UCAL_DATE | kResolveRemap) in 1st column will cause 'UCAL_DATE' to be returned,
+     * but will not examine the value of UCAL_DATE.
+     * Value for field resolution tables.
+     *
+     * @see #resolveFields
+     * @internal
+     */
+    static constexpr int32_t kResolveRemap = 32;
 
     /**
      * Precedence table for Dates
