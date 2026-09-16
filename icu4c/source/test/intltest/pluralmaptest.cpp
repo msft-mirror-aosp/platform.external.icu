@@ -17,7 +17,7 @@
 
 class PluralMapForPluralMapTest : public PluralMap<UnicodeString> {
 public:
-    UBool operator==(const PluralMapForPluralMapTest &other) {
+    bool operator==(const PluralMapForPluralMapTest &other) const {
         return equals(other, strEqual);
     }
 private:
