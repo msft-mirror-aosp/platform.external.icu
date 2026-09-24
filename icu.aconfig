@@ -54,15 +54,3 @@ flag {
     # ICU is used before SettingsProvider starts
     is_fixed_read_only: true
 }
-
-flag {
-    namespace: "location"
-    # namespace: "location" is used by the Android System Time team for feature flags.
-    name: "enable_multi_country_override_parsing"
-    description: "Enable parsing of multi-country overrides to fix b/414758970."
-    bug: "414758970"
-    is_fixed_read_only: true
-    metadata {
-        purpose: PURPOSE_BUGFIX
-    }
-}

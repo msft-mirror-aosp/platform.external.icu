@@ -26,15 +26,12 @@ import static org.junit.Assume.assumeTrue;
 
 import android.icu.testsharding.MainTestShard;
 import android.platform.test.annotations.DisabledOnRavenwood;
-import android.platform.test.annotations.RequiresFlagsDisabled;
-import android.platform.test.annotations.RequiresFlagsEnabled;
 import android.platform.test.flag.junit.CheckFlagsRule;
 import android.platform.test.flag.junit.DeviceFlagsValueProvider;
 
 import com.android.i18n.timezone.MobileCountries;
 import com.android.i18n.timezone.TelephonyLookup;
 import com.android.i18n.timezone.TelephonyNetworkFinder;
-import com.android.icu.Flags;
 import com.android.internal.telephony.MccTable;
 
 import org.junit.After;
@@ -785,7 +782,6 @@ public class TelephonyLookupTest {
     }
 
     @Test
-    @RequiresFlagsEnabled(Flags.FLAG_ENABLE_MULTI_COUNTRY_OVERRIDE_PARSING)
     public void xmlParsing_overrides_success() throws Exception {
         String xml =
                 """
@@ -843,7 +839,6 @@ public class TelephonyLookupTest {
     }
 
     @Test
-    @RequiresFlagsEnabled(Flags.FLAG_ENABLE_MULTI_COUNTRY_OVERRIDE_PARSING)
     public void xmlParsing_overrides_validationFailures() {
         // No country in override
         checkValidateThrowsParserException(
@@ -923,7 +918,6 @@ public class TelephonyLookupTest {
     }
 
     @Test
-    @RequiresFlagsEnabled(Flags.FLAG_ENABLE_MULTI_COUNTRY_OVERRIDE_PARSING)
     public void xmlParsing_ignoresNetworks_whenFlagEnabled() throws Exception {
         String xml =
                 """
@@ -947,39 +941,6 @@ public class TelephonyLookupTest {
         assertNull(finder.findCountriesByMccMnc("999", "999"));
         // check that the override is still found
         assertNotNull(finder.findCountriesByMccMnc("310", "110"));
-    }
-
-    @Test
-    @RequiresFlagsDisabled(Flags.FLAG_ENABLE_MULTI_COUNTRY_OVERRIDE_PARSING)
-    public void xmlParsing_parsesNetworks_and_ignoresOverrides_whenFlagDisabled() throws Exception {
-        String xml =
-                """
-                <telephony_lookup>
-                  <networks>
-                    <network mcc="999" mnc="999" country="gb"/>
-                  </networks>
-                  <mobile_countries>
-                    <mobile_country mcc="310" default="us">
-                      <country>us</country>
-                      <override mnc="110">
-                        <country>gu</country>
-                      </override>
-                    </mobile_country>
-                  </mobile_countries>
-                </telephony_lookup>
-                """;
-        TelephonyLookup telephonyLookup = validate(xml);
-        TelephonyNetworkFinder finder = telephonyLookup.getTelephonyNetworkFinder();
-
-        // The network should be found
-        assertNotNull(finder.findCountriesByMccMnc("999", "999"));
-        // The override should be ignored
-        assertNull(finder.findCountriesByMccMnc("310", "110"));
-        // The mobile country should be found
-        MobileCountries mobileCountry = finder.findCountriesByMcc("310");
-        assertNotNull(mobileCountry);
-        // The override country (gu) should not be in the country list
-        assertEquals(Set.of("us"), mobileCountry.getCountryIsoCodes());
     }
 
     private static void checkValidateThrowsParserException(String xml) {
