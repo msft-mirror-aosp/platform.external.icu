@@ -28,7 +28,6 @@ import android.annotation.Hide;
 
 import com.android.i18n.timezone.XmlUtils.ReaderSupplier;
 import com.android.i18n.util.Log;
-import com.android.icu.Flags;
 
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
@@ -50,9 +49,6 @@ import java.util.Set;
 @Hide
 @libcore.api.CorePlatformApi
 public final class TelephonyLookup {
-
-    private static final boolean ENABLE_MULTI_COUNTRY_OVERRIDE_PARSING =
-            Flags.enableMultiCountryOverrideParsing();
 
     // VisibleForTesting
     public static final String TELEPHONYLOOKUP_FILE_NAME = "telephonylookup.xml";
@@ -561,11 +557,7 @@ public final class TelephonyLookup {
         }
 
         TelephonyNetworkFinder getTelephonyNetworkFinder() {
-            if (ENABLE_MULTI_COUNTRY_OVERRIDE_PARSING) {
-                return TelephonyNetworkFinder.create(mobileCountriesOverrides, mobileCountries);
-            } else {
-                return TelephonyNetworkFinder.create(networkOverrides, mobileCountries);
-            }
+            return TelephonyNetworkFinder.create(mobileCountriesOverrides, mobileCountries);
         }
     }
 
