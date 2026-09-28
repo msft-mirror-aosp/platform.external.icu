@@ -424,7 +424,7 @@ DateTimePatternGenerator::operator=(const DateTimePatternGenerator& other) {
 }
 
 
-UBool
+bool
 DateTimePatternGenerator::operator==(const DateTimePatternGenerator& other) const {
     if (this == &other) {
         return TRUE;
@@ -448,7 +448,7 @@ DateTimePatternGenerator::operator==(const DateTimePatternGenerator& other) cons
     }
 }
 
-UBool
+bool
 DateTimePatternGenerator::operator!=(const DateTimePatternGenerator& other) const {
     return  !operator==(other);
 }
@@ -467,7 +467,7 @@ DateTimePatternGenerator::~DateTimePatternGenerator() {
 
 namespace {
 
-UInitOnce initOnce = U_INITONCE_INITIALIZER;
+UInitOnce initOnce {};
 UHashtable *localeToAllowedHourFormatsMap = nullptr;
 
 // Value deleter for hashmap.
