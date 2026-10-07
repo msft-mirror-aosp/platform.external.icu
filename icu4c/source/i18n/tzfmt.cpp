@@ -145,10 +145,10 @@ static const int32_t ALL_GENERIC_NAME_TYPES = UTZGNM_LOCATION | UTZGNM_LONG | UT
 
 // Time Zone ID/Short ID trie
 static TextTrieMap *gZoneIdTrie = NULL;
-static icu::UInitOnce gZoneIdTrieInitOnce = U_INITONCE_INITIALIZER;
+static icu::UInitOnce gZoneIdTrieInitOnce {};
 
 static TextTrieMap *gShortZoneIdTrie = NULL;
-static icu::UInitOnce gShortZoneIdTrieInitOnce = U_INITONCE_INITIALIZER;
+static icu::UInitOnce gShortZoneIdTrieInitOnce {};
 
 static UMutex gLock;
 
@@ -482,7 +482,7 @@ TimeZoneFormat::operator=(const TimeZoneFormat& other) {
 }
 
 
-UBool
+bool
 TimeZoneFormat::operator==(const Format& other) const {
     TimeZoneFormat* tzfmt = (TimeZoneFormat*)&other;
 

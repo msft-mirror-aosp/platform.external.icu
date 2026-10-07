@@ -146,7 +146,7 @@ class U_I18N_API OlsonTimeZone: public BasicTimeZone {
     /**
      * Returns true if the two TimeZone objects are equal.
      */
-    virtual UBool operator==(const TimeZone& other) const;
+    virtual bool operator==(const TimeZone& other) const;
 
     /**
      * TimeZone API.
@@ -398,7 +398,7 @@ private:
     TimeArrayTimeZoneRule   **historicRules;
     int16_t             historicRuleCount;
     SimpleTimeZone      *finalZoneWithStartYear; // hack
-    UInitOnce           transitionRulesInitOnce = U_INITONCE_INITIALIZER;
+    UInitOnce           transitionRulesInitOnce {};
 };
 
 inline int16_t

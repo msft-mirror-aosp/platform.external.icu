@@ -58,7 +58,7 @@ U_CDECL_END
 
 U_NAMESPACE_BEGIN
 
-static UInitOnce gRegionDataInitOnce = U_INITONCE_INITIALIZER;
+static UInitOnce gRegionDataInitOnce {};
 static UVector* availableRegions[URGN_LIMIT];
 
 static UHashtable *regionAliases = NULL;
@@ -439,7 +439,7 @@ Region::~Region () {
  * Returns true if the two regions are equal.
  * Per PMC, just use pointer compare, since we have at most one instance of each Region.
  */
-UBool
+bool
 Region::operator==(const Region &that) const {
     return (idStr == that.idStr);
 }
@@ -448,7 +448,7 @@ Region::operator==(const Region &that) const {
  * Returns true if the two regions are NOT equal; that is, if operator ==() returns false.
  * Per PMC, just use pointer compare, since we have at most one instance of each Region.
  */
-UBool
+bool
 Region::operator!=(const Region &that) const {
         return (idStr != that.idStr);
 }

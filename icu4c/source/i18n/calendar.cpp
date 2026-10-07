@@ -65,7 +65,7 @@
 
 #if !UCONFIG_NO_SERVICE
 static icu::ICULocaleService* gService = NULL;
-static icu::UInitOnce gServiceInitOnce = U_INITONCE_INITIALIZER;
+static icu::UInitOnce gServiceInitOnce {};
 
 // INTERNAL - for cleanup
 U_CDECL_BEGIN
@@ -1031,7 +1031,7 @@ Calendar::getCalendarTypeFromLocale(
     }
 }
 
-UBool
+bool
 Calendar::operator==(const Calendar& that) const
 {
     UErrorCode status = U_ZERO_ERROR;
