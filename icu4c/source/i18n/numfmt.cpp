@@ -156,11 +156,11 @@ static const icu::number::impl::CldrPatternStyle gFormatCldrStyles[UNUM_FORMAT_S
 
 // Static hashtable cache of NumberingSystem objects used by NumberFormat
 static UHashtable * NumberingSystem_cache = NULL;
-static icu::UInitOnce gNSCacheInitOnce = U_INITONCE_INITIALIZER;
+static icu::UInitOnce gNSCacheInitOnce {};
 
 #if !UCONFIG_NO_SERVICE
 static icu::ICULocaleService* gService = NULL;
-static icu::UInitOnce gServiceInitOnce = U_INITONCE_INITIALIZER;
+static icu::UInitOnce gServiceInitOnce {};
 #endif
 
 /**
@@ -285,7 +285,7 @@ NumberFormat::operator=(const NumberFormat& rhs)
 
 // -------------------------------------
 
-UBool
+bool
 NumberFormat::operator==(const Format& that) const
 {
     // Format::operator== guarantees this cast is safe
