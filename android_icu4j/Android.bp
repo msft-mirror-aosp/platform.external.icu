@@ -556,15 +556,15 @@ java_test {
         "testing/src/**/*.java",
     ],
     libs: [
-        "icu_aconfig_flags_lib",
         "telephony-common",
-        "telephony_flags_core_java_lib",
     ],
     static_libs: [
         "flag-junit",
+        "icu_aconfig_flags_lib",
         "junit",
         "platform-parametric-runner-lib",
         "platform-test-annotations",
+        "telephony_flags_core_java_lib",
     ],
 }
 
