@@ -31,6 +31,9 @@ cc_defaults {
         "-Wno-string-plus-int",
         "-DZERO_EXIT_CODE_FOR_FAILURES",
     ],
+    header_libs: [
+        "icu_cintltst_headers",
+    ],
     srcs: [
         "**/*.c",
         "**/*.cpp",
