@@ -219,7 +219,13 @@ java_sdk_library {
         "//prebuilts:__subpackages__",
     ],
     // Added to make sure that no private classes leak out in stubs.
-    defaults: ["libcore_icu_bridge_defaults"],
+    defaults: [
+        // The I18N module compiles against only the ART module stubs without
+        // android.* framework classes on its classpath, so it cannot resolve
+        // Javadoc links to framework APIs in isolation.
+        "incomplete-api-surface-java-defaults",
+        "libcore_icu_bridge_defaults",
+    ],
     srcs: [
         // Added to make sure that no private classes leak out in stubs.
         ":android_icu4j_api_stubs_files",
@@ -281,7 +287,13 @@ java_sdk_library {
 // API.
 java_sdk_library {
     name: "i18n.module.intra.core.api",
-    defaults: ["libcore_icu_bridge_defaults"],
+    defaults: [
+        // The I18N intra-core module compiles against only the ART intra-core
+        // stubs without android.* framework classes on its classpath, so it
+        // cannot resolve Javadoc links to framework APIs in isolation.
+        "incomplete-api-surface-java-defaults",
+        "libcore_icu_bridge_defaults",
+    ],
     srcs: [
         ":android_icu4j_api_stubs_files",
         ":framework-api-annotations",
