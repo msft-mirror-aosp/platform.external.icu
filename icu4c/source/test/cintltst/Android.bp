@@ -22,6 +22,11 @@ package {
     default_applicable_licenses: ["external_icu_icu4c_license"],
 }
 
+cc_library_headers {
+    name: "icu_cintltst_headers",
+    export_include_dirs: ["."],
+}
+
 cc_defaults {
     name: "cintltst_defaults",
     defaults: ["icu_test_defaults"],
