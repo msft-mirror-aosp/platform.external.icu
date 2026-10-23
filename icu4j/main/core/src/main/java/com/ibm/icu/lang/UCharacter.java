@@ -206,6 +206,11 @@ public final class UCharacter implements ECharacterCategory, ECharacterDirection
         // block id corresponding to icu4c -----------------------------------
 
         /**
+         * @stable ICU 79
+         */
+        public static final int NO_BLOCK_ID = 0;
+
+        /**
          * @stable ICU 2.4
          */
         public static final int INVALID_CODE_ID = -1;
