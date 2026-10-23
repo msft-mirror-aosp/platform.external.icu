@@ -190,6 +190,11 @@ public final class UCharacter implements ECharacterCategory, ECharacterDirection
 
         /**
          */
+        @android.annotation.FlaggedApi(com.android.icu.Flags.FLAG_ICU_27Q2_API)
+        public static final int NO_BLOCK_ID = 0;
+
+        /**
+         */
         public static final int INVALID_CODE_ID = -1;
         /**
          */

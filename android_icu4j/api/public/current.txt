@@ -938,6 +938,7 @@ package android.icu.lang {
     field public static final android.icu.lang.UCharacter.UnicodeBlock NKO;
     field public static final int NKO_ID = 146; // 0x92
     field public static final android.icu.lang.UCharacter.UnicodeBlock NO_BLOCK;
+    field @FlaggedApi("com.android.icu.icu_27q2_api") public static final int NO_BLOCK_ID = 0; // 0x0
     field public static final android.icu.lang.UCharacter.UnicodeBlock NUMBER_FORMS;
     field public static final int NUMBER_FORMS_ID = 45; // 0x2d
     field public static final android.icu.lang.UCharacter.UnicodeBlock NUSHU;

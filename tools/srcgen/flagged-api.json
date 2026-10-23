@@ -1,1 +1,6 @@
-[]
+[
+  {
+    "@location": "field:android.icu.lang.UCharacter$UnicodeBlock#NO_BLOCK_ID",
+    "value": "com.android.icu.Flags.FLAG_ICU_27Q2_API"
+  }
+]
